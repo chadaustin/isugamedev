@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-10-08 19:39:46 $
-//    $Revision: 1.8 $
+//    $Date: 2001-10-12 04:40:27 $
+//    $Revision: 1.9 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -69,7 +69,6 @@
 
 #include "GState.h"
 
-typedef boost::shared_ptr<kev::GState> GStatePtr;
 
 class GeoSet
 {
@@ -599,4 +598,8 @@ private:
     */
 };
 
+
+typedef boost::shared_ptr<GeoSet> GeoSetPtr;
+
+    
 #endif
