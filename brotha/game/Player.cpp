@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-03-27 05:18:31 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-29 14:13:42 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,79 +40,59 @@
  ************************************************************ brotha-cpr-end */
 #include "Player.h"
 
-namespace game
-{
+namespace game {
    Player::Player()
       : mName("Player"), mAccelerate(false), mBrake(false), mTurnLeft(false),
         mTurnRight(false)
    {
-      mUID = UIDManager<Player>::getInstance().reserveID();
    }
 
    Player::Player( const std::string& name )
       : mName(name), mAccelerate(false), mBrake(false), mTurnLeft(false),
         mTurnRight(false)
    {
-      mUID = UIDManager<Player>::getInstance().reserveID();
    }
 
-   Player::~Player()
-   {
-      UIDManager<Player>::getInstance().releaseID( mUID );
+   Player::~Player() {
    }
 
-   void Player::setAccelerate( bool flag )
-   {
+   void Player::setAccelerate( bool flag ) {
       mAccelerate = flag;
    }
 
-   bool Player::isAccelerating() const
-   {
+   bool Player::isAccelerating() const {
       return mAccelerate;
    }
 
-   void Player::setBrake( bool flag )
-   {
+   void Player::setBrake( bool flag ) {
       mBrake = flag;
    }
 
-   bool Player::isBraking() const
-   {
+   bool Player::isBraking() const {
       return mBrake;
    }
 
-   void Player::setTurnLeft( bool flag )
-   {
+   void Player::setTurnLeft( bool flag ) {
       mTurnLeft = flag;
    }
 
-   bool Player::isTurningLeft() const
-   {
+   bool Player::isTurningLeft() const {
       return mTurnLeft;
    }
 
-   void Player::setTurnRight( bool flag )
-   {
+   void Player::setTurnRight( bool flag ) {
       mTurnRight = flag;
    }
 
-   bool Player::isTurningRight() const
-   {
+   bool Player::isTurningRight() const {
       return mTurnRight;
    }
 
-   const Player::UID& Player::getUID() const
-   {
-      return mUID;
-   }
-
-   const std::string& Player::getName() const
-   {
+   const std::string& Player::getName() const {
       return mName;
    }
 
-   void Player::setName( const std::string& name )
-   {
+   void Player::setName( const std::string& name ) {
       mName = name;
    }
 }

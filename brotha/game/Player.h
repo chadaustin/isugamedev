@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-03-27 05:18:31 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-29 14:13:42 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,17 +42,12 @@
 #define PLAYER_H
 
 #include <string>
-#include "UIDManager.h"
+#include "Object.h"
 
 namespace game
 {
-   class Player
-   {
+   class Player : public Object {
    public:
-      /**
-       * The UID type for players.
-       */
-      typedef UIDManager<Player>::UID UID;
 
    public:
       /**
@@ -128,11 +123,6 @@ namespace game
 
    public:
       /**
-       * Gets the unique ID associated with this player.
-       */
-      const UID& getUID() const;
-
-      /**
        * Gets the name of this player.
        *
        * @return  the name of the player
@@ -147,9 +137,6 @@ namespace game
       void setName( const std::string& name );
 
    private:
-      /// This player's UID
-      UID mUID;
-
       /// This player's name
       std::string mName;
 
