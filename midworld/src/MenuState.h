@@ -10,8 +10,33 @@
 #include "Texture.h"
 
 
+
+
 namespace mw
 {
+   //array references of menu items in mItemList
+   
+   enum
+   {
+      MENU_NEW=0,
+      MENU_LOAD,
+      MENU_OPTIONS,
+      MENU_CREDITS,
+      MENU_QUIT
+   };
+   
+   //this keeps track of all the selectable menu items on the screen
+   //the data is used to draw a selection picture over the current 
+   //menu-item
+   
+   struct MenuItem
+   {
+      int x;
+      int y;
+      unsigned int width;
+      unsigned int height;
+   };	
+   
    class MenuState : public State
    {
    public:
@@ -26,6 +51,7 @@ namespace mw
 
    private:
       std::vector<Texture*> mImages;
+      std::vector<MenuItem> mItemList; //list of all selectable menu items
       int mCurrentItem;
       int mMouseX;
       int mMouseY;

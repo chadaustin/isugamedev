@@ -5,18 +5,41 @@
 #include "GameState.h"
 
 
+
+
 namespace mw
 {
 
+
    MenuState::MenuState()
    {
-      mImages.resize(5);
+      mImages.resize(2);
+      /*
       mImages[0] = new Texture("menu_new_game.png");
       mImages[1] = new Texture("menu_load_game.png");
       mImages[2] = new Texture("menu_options.png");
       mImages[3] = new Texture("menu_credits.png");
       mImages[4] = new Texture("menu_exit.png");
+      */
 
+      mImages[0] = new Texture("menu_bg.jpeg");
+      mImages[1] = new Texture("menu_selection.png");      
+      
+      mItemList.resize(5);
+      
+      for(int i=0;i<5;i++)
+      {
+      	 mItemList[i].x=70;
+         mItemList[i].y=260+28*i;
+      	 mItemList[i].height=25;
+      }
+
+      mItemList[MENU_NEW].width=115;
+      mItemList[MENU_LOAD].width=120;
+      mItemList[MENU_OPTIONS].width=90;
+      mItemList[MENU_CREDITS].width=83;
+      mItemList[MENU_QUIT].width=55;
+      
       mCurrentItem = 0;
    }
 
@@ -29,6 +52,7 @@ namespace mw
       mImages.clear();
    }
 
+      
    void
    MenuState::update(u64 elapsedTime)
    {
@@ -55,14 +79,23 @@ namespace mw
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
 
-      for (int i = 0; i < 5; ++i) {
+      glColor4f(1, 1, 1, 1);
+      mImages[0]->drawRectangle(0,0,640,480);	//draw background
+      
+      glColor4f(.8f,.9f,1,0.5f);
+      mImages[1]->drawRectangle( mItemList[mCurrentItem].x,
+	             	      	 mItemList[mCurrentItem].y,
+	             	      	 mItemList[mCurrentItem].x + mItemList[mCurrentItem].width,
+	             	      	 mItemList[mCurrentItem].y + mItemList[mCurrentItem].height);
+      
+      /*for (int i = 0; i < 5; ++i) {
          if (i == mCurrentItem) {
-            glColor3f(1, 1, 1);
+            glColor4f(1, 1, 1, 1);
          } else {
-            glColor3f(1, 0, 1);
+            glColor4f(1,1,1,0.5f);
          }
          mImages[i]->drawRectangle(0, i * 100, 640, (i + 1) * 100);
-      }
+      }*/
    }
 
    void
