@@ -1,7 +1,8 @@
 phui competitors:
 
-glui    - http://www.cs.unc.edu/~rademach/glui/
-paragui - http://www.bms-austria.com/projects/paragui/
-ufo     - http://libufo.sourceforge.net/
-mesgui  - http://sourceforge.net/projects/mesgui
 glgooey - http://snwaldren.bei.t-online.de/glgooey.htm
+glui    - http://www.cs.unc.edu/~rademach/glui/
+mesgui  - http://sourceforge.net/projects/mesgui
+paragui - http://paragui.org
+picogui - http://picogui.org
+ufo     - http://libufo.sourceforge.net/
