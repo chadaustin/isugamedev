@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2002-04-26 06:44:13 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-26 11:14:50 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -88,13 +88,19 @@ namespace phui {
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;
 
-      std::string cursor = "|";
-      renderer->draw(cursor, fontX+mCursorScreenPosition, fontY);
+      if(hasFocus()) {
+         std::string cursor = "|";
+         renderer->draw(cursor, fontX+mCursorScreenPosition, fontY);
+      }
       renderer->draw(mText, fontX, fontY);
    }
 
    void TextField::setText(const std::string& text)
    {
+      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+      mCursorScreenPosition=renderer->getWidth(text);
+      mCursorCharacterPosition=text.length();
+
       mText = text;
    }
 

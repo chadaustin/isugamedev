@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-26 10:52:15 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-26 11:14:50 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -136,5 +136,9 @@ namespace phui
          parent = parent->getParent();
       }
       return p;
+   }
+
+   bool Widget::hasFocus() {
+      return (this == mParent->getFocus());
    }
 }
