@@ -477,17 +477,28 @@ Black box testing will be used to test functionality for    colliding objects.
 
        3.5 Sound subsystem.
 
-          
-
           (for each test)
 
-          1 requirements
+          1 Requirements
 
-          2 methods
+            4.3.1, 4.3.2
+
+          2 Methods
+
+            Black box testing will be used to test to see if the
+            application plays sound or not.  The internals of the
+            sound module are generally too complex to have every
+            branch and instruction tested.
 
           3 Test Procedures
 
-
+            We will start the application and log in once.  If we do
+            not hear the login sound effect, the sound module is not
+            working correctly.  The application also plays two songs
+            as background music.  We will wait for the completion of
+            the first song.  If the second song does not start up
+            after the first is done, the jukebox is not functioning
+            correctly.
 
        3.6 Login
 
