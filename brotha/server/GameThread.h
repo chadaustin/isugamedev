@@ -23,6 +23,7 @@ namespace server {
       game::BrothaGame* m_brothaGame;
 
       typedef std::map<net::MessageType, MessageHandler*> MessageHandlers;
+      typedef MessageHandlers::iterator MessageHandlerIter;
       MessageHandlers m_messageHandlers;
    };
 } // namespace server
