@@ -2,35 +2,59 @@
 #define TANK_DEFINED
 
 #include "Matrix4f.h"
+#include "glRenderTexture.h"
+#include "TgaImporter.h"
 class Tank
 {
 public:
    Tank() : mRot(), mRotVel(), mSpeed( 0.0f ), mMaterial()
    {
       mXForm.makeIdentity();
+      TgaImporter tga;
+      bool result = tga.import( "atomic.tga", image );
+      assert( result && "cannot load image" );
+      tex.setImage( &image );
+      result = tex.imageValid();
+      assert( result && "image is not valid" );
    }
    
    void drawPyramidThing() const
    {
+      glEnable( GL_TEXTURE_2D );
+   
+      kev::glRenderAndBind( tex );
+      
+      kev::ResourceID<unsigned int> texObjectID = ContextManager::instance().lookup( tex.resourceId );
+      assert( texObjectID.valid == true );
+      
       glPushMatrix();
          glTranslatef( 0.0f, 0.0f, 0.25f );
          glBegin( GL_TRIANGLES );
             // left face
             glNormal3f( -1.0f, 1.0f, -1.0f );
+            glTexCoord2f( 0.0f, 0.0f );
             glVertex3f( -1.0f, 0.0f, 0.0f );
+            glTexCoord2f( 0.0f, 1.0f );
             glVertex3f(  0.0f, 1.0f, 0.1f );
+            glTexCoord2f( 1.0f, 1.0f );
             glVertex3f(  0.0f, 0.0f, -1.0f );
 
             // right face
             glNormal3f( 1.0f, 1.0f, -1.0f );
+            glTexCoord2f( 0.0f, 0.0f );
             glVertex3f( 0.0f, 1.0f, 0.1f );
+            glTexCoord2f( 0.0f, 1.0f );
             glVertex3f( 1.0f, 0.0f, 0.0f );
+            glTexCoord2f( 1.0f, 1.0f );
             glVertex3f( 0.0f, 0.0f, -1.0f );
 
             // back face
             glNormal3f(  0.0f, 0.0f, 1.0f );
+            glTexCoord2f( 0.0f, 0.0f );
             glVertex3f(  0.0f, 1.0f, 0.1f );
+            glTexCoord2f( 0.0f, 1.0f );
             glVertex3f( -1.0f, 0.0f, 0.0f );
+            glTexCoord2f( 1.0f, 1.0f );
             glVertex3f(  1.0f, 0.0f, 0.0f );
          glEnd();
       glPopMatrix();
@@ -169,6 +193,8 @@ private:
    Quat<float> mRot, mRotVel;
    Material mMaterial;
    float mSpeed;
+   Texture tex;
+   Image image;
 };
 
 #endif

@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ContextManager.h,v $
-//    $Date: 2001-09-10 15:27:29 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-10 16:56:15 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -39,7 +39,7 @@
 class ContextManager : public kev::Singleton<ContextManager>
 {
 public:
-   ContextManager() : mCurrentBindLookup( NULL ), mContext( 9934999 )
+   ContextManager() : mCurrentBindLookup( NULL ), mContext( 9934999 ), mInvalid()
    {
    }
 
@@ -59,13 +59,18 @@ public:
    
    inline void associate( const kev::ResourceID<unsigned short>& resource, const kev::ResourceID<unsigned int>& value )
    {
-      assert( mCurrentBindLookup != NULL );
+      assert( mCurrentBindLookup != NULL && "you need to setContext" );
       assert( resource.id < (*mCurrentBindLookup).size() );
       (*mCurrentBindLookup)[resource.id] = value;
    }   
 
    inline const kev::ResourceID<unsigned int>& lookup( const kev::ResourceID<unsigned short>& resource )
    {
+      if (resource.valid == false)
+      {
+         return mInvalid;
+      }  
+          
       assert( mCurrentBindLookup != NULL );
       assert( resource.id < (*mCurrentBindLookup).size() );
       return (*mCurrentBindLookup)[resource.id];
@@ -77,6 +82,8 @@ public:
    // vector = mBindIDs[context]
    // openglbindID = vector[imageHandle]
    std::map<int, std::vector<kev::ResourceID<unsigned int> > > mBindLookupByContext;
+   
+   const kev::ResourceID<unsigned int> mInvalid;
 };
 
 #endif

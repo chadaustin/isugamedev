@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: glRenderTexture.h,v $
-//    $Date: 2001-09-10 15:49:57 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-10 16:56:15 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -155,7 +155,7 @@ namespace kev
    {
       kev::ResourceID<unsigned int> texObjectID = ContextManager::instance().lookup( texture.resourceId );
       
-      //cout<<"bind "<<texture.image()->name()<<" id=="<<texObjectID<<"\n"<<flush;
+      //std::cout<<"binding "<<texture.image()->name()<<" id=="<<texObjectID.id<<","<<texture.resourceId.id<<"\n"<<std::flush;
       if (texObjectID.valid == true)
          return;
       
@@ -180,7 +180,7 @@ namespace kev
       
       ContextManager::instance().associate( texture.resourceId, texObjectID );
       
-      //cout<<"bind "<<texture.image()->name()<<" id=="<<texObjectID<<"\n"<<flush;
+      //std::cout<<"bound "<<texture.image()->name()<<" id=="<<texObjectID.id<<","<<texture.resourceId.id<<"\n"<<std::flush;
       // load the texture into hardware that will be referenced by the texObjectID
       kev::glTextureLoad( texture, mipmapLevelOfDetail, bordersize );
    }
@@ -256,8 +256,10 @@ namespace kev
       static int last_context_rendered = 9934999;
       int currentTexId;
       ::glGetIntegerv( texBindDimension, &currentTexId );
-      if (currentTexId == texObjectID.id && texObjectID.valid == true && contextID == last_context_rendered)
+      if ((currentTexId == texObjectID.id && texObjectID.valid == true && contextID == last_context_rendered) || last_context_rendered != 9934999)
+      {
          return;
+      } 
       last_context_rendered = contextID;
       
       // Disable auto texture coord generation
@@ -323,6 +325,7 @@ namespace kev
          #else
             ::glBindTextureEXT( texDimension, texObjectID.id );
          #endif
+         //std::cout<<"bind\n"<<std::flush;
       }               
       // if the texture object is invalid, 
       // just load the pixels from memory to the graphics hardware
@@ -332,6 +335,7 @@ namespace kev
       else 
       {
          kev::glTextureLoad( texture );
+         //std::cout<<"glTextureLoad\n"<<std::flush;
       }
    }
    

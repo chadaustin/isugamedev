@@ -103,6 +103,10 @@ void drawGrid()
 //////////////////////////////////////////////////
 static void OnRedisplay()
 { 
+   // when using multidisplays we'll need to actually 
+   // set this to a different number for each windows opened.
+   ContextManager::instance().setContext( 1 );
+   
    glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
    glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
    glEnable( GL_DEPTH_TEST );
@@ -110,6 +114,7 @@ static void OnRedisplay()
    glEnable( GL_BLEND );
    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
    glEnable( GL_COLOR_MATERIAL ); // enable materials
+   glEnable( GL_TEXTURE_2D );
    
    // set up the projection matrix
    glMatrixMode( GL_PROJECTION );
