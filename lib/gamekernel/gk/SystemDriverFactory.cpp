@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.cpp,v $
-// Date modified: $Date: 2002-02-18 03:16:06 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-03-19 01:37:27 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -48,7 +48,7 @@ SystemDriverFactory::~SystemDriverFactory()
 
 //------------------------------------------------------------------------------
 
-SystemDriver*
+ISystemDriver*
 SystemDriverFactory::getDriver( const std::string& name )
 {
    // Make sure a driver exists in the registry under the given name
@@ -64,7 +64,7 @@ SystemDriverFactory::getDriver( const std::string& name )
 
 void
 SystemDriverFactory::registerDriver( const std::string& name,
-                                     SystemDriver* driver,
+                                     ISystemDriver* driver,
                                      xdl::Library* library )
 {
    // Check to make sure we don't write over an existing registration
@@ -73,7 +73,7 @@ SystemDriverFactory::registerDriver( const std::string& name,
       std::cerr<<"A system driver is already registered under "<<name.c_str()<<std::endl;
       return;
    }
-   mRegistry[name] = std::pair<SystemDriver*, xdl::Library*>( driver, library );
+   mRegistry[name] = std::pair<ISystemDriver*, xdl::Library*>( driver, library );
 }
 
 //------------------------------------------------------------------------------
@@ -88,9 +88,9 @@ SystemDriverFactory::unregisterDriver( const std::string& name )
       return;
    }
    // erase the item from the map only after we've save the value stored
-   std::map<std::string, std::pair<SystemDriver*, xdl::Library*> >::iterator it;
+   std::map<std::string, std::pair<ISystemDriver*, xdl::Library*> >::iterator it;
    it = mRegistry.find( name );
-   SystemDriver* driver = it->second.first;
+   ISystemDriver* driver = it->second.first;
    xdl::Library* lib = it->second.second;
    mRegistry.erase( it );
 
@@ -104,7 +104,7 @@ SystemDriverFactory::unregisterDriver( const std::string& name )
    // on that side of the boundary. ick ick ick ick ick ick!
    else
    {
-      typedef void (*destroyfunc_t)( SystemDriver* );
+      typedef void (*destroyfunc_t)( ISystemDriver* );
       destroyfunc_t destroy = (destroyfunc_t)lib->lookup("destroySystemDriver");
       if ( destroy == NULL )
       {
@@ -161,7 +161,7 @@ SystemDriverFactory::probe( const std::string& library,
    }
 
    // grab a pointer to the query function
-   typedef SystemDriver* (*createfunc_t)();
+   typedef ISystemDriver* (*createfunc_t)();
    createfunc_t createFunc = (createfunc_t)lib->lookup("createSystemDriver");
    if ( createFunc == NULL )
    {
@@ -174,7 +174,7 @@ SystemDriverFactory::probe( const std::string& library,
    }
 
    // get a pointer to the driver
-   SystemDriver* driver = (*createFunc)();
+   ISystemDriver* driver = (*createFunc)();
    if ( driver == NULL )
    {
       // some error in the library perhaps?

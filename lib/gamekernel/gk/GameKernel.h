@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-19 01:19:56 $
-// Version:       $Revision: 1.24 $
+// Date modified: $Date: 2002-03-19 01:37:27 $
+// Version:       $Revision: 1.25 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -67,7 +67,7 @@ public:
     *
     * @return  true if successful, false otherwise
     */
-   bool startup( SystemDriver* driver );
+   bool startup( ISystemDriver* driver );
 
    /**
     * Configures this kernel based on the given configuration file.
@@ -146,7 +146,7 @@ private:
    /**
     * This is the system driver implementation that runs our apps.
     */
-   SystemDriver* mDriver;
+   ISystemDriver* mDriver;
 
    /**
     * The input manager associated with this kernel.

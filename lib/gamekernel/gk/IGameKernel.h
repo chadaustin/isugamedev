@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameKernel.h,v $
-// Date modified: $Date: 2002-03-19 01:19:56 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-03-19 01:37:27 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,7 +36,7 @@
 #include <gk/DLLInterface.h>
 #include <gk/IGameApp.h>
 #include <gk/GameInput.h>
-#include <gk/SystemDriver.h>
+#include <gk/ISystemDriver.h>
 
 namespace gk {
 
@@ -45,8 +45,8 @@ namespace gk {
  * application. After defining your application object, the GameKernel will
  * drive your application. In the GameKernel system, the IGameKernel instance is
  * the facade for all system driver interactions. An application should deal
- * directly with an instance of this object and never talk directly to a
- * SystemDriver implementation.
+ * directly with an instance of this object and never talk directly to an
+ * ISystemDriver implementation.
  *
  * <h3>Example: Starting your application</h3>
  * \code
@@ -73,7 +73,7 @@ public:
     *
     * @return  true if successful, false otherwise.
     */
-   virtual bool startup( SystemDriver* driver = NULL ) = 0;
+   virtual bool startup( ISystemDriver* driver = NULL ) = 0;
 
    /**
     * Shuts down the application and the system driver. The kernel will stop and

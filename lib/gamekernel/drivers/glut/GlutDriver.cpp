@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-03-18 06:34:55 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-03-19 01:37:26 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -39,14 +39,14 @@
 extern "C" {
 #endif
 
-XDL_FUNC gk::SystemDriver*
+XDL_FUNC gk::ISystemDriver*
 createSystemDriver()
 {
    return new gk::GlutDriver();
 }
 
 XDL_FUNC void
-destroySystemDriver( gk::SystemDriver* driver )
+destroySystemDriver( gk::ISystemDriver* driver )
 {
    delete driver;
 }

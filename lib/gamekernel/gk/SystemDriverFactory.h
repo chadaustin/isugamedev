@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.h,v $
-// Date modified: $Date: 2002-02-13 08:40:43 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-19 01:37:27 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,7 +38,7 @@
 #include <vector>
 #include <xdl.h>
 #include "gk/Singleton.h"
-#include "gk/SystemDriver.h"
+#include "gk/ISystemDriver.h"
 
 namespace gk {
 
@@ -64,7 +64,7 @@ public:
     *
     * @param name    the name of the system driver to retrieve
     */
-   SystemDriver* getDriver( const std::string& name );
+   ISystemDriver* getDriver( const std::string& name );
 
    /**
     * Registers a system driver under the given name so that it can be retrieved
@@ -78,7 +78,7 @@ public:
     *                found, or NULL if the library was allocated locally.
     *                defaults to NULL.
     */
-   void registerDriver( const std::string& name, SystemDriver* driver,
+   void registerDriver( const std::string& name, ISystemDriver* driver,
                         xdl::Library* library = NULL );
 
    /**
@@ -107,9 +107,9 @@ public:
    unsigned int getNumRegistered() const;
 
    /**
-    * Probes the given library for a SystemDriver. If a driver does indeed exist
-    * in the library, it is instantiated and registered with this factory under
-    * the given name.
+    * Probes the given library for an ISystemDriver implementation. If a driver
+    * does indeed exist in the library, it is instantiated and registered with
+    * this factory under the given name.
     *
     * @param library    the system-independent name of the library
     * @param name       the name under which to register the driver
@@ -121,11 +121,11 @@ public:
 private:
    /**
     * A map of all registered system drivers keyed by their name. Each value is
-    * a pair consisting of the SystemDriver implementation and the library
+    * a pair consisting of the ISystemDriver implementation and the library
     * through which it was loaded. The library may be NULL if the driver was
     * allocated locally.
     */
-   std::map< std::string, std::pair<SystemDriver*, xdl::Library*> > mRegistry;
+   std::map< std::string, std::pair<ISystemDriver*, xdl::Library*> > mRegistry;
 };
 
 } // namespace gk

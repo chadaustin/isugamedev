@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-19 01:37:27 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,7 +33,7 @@
 #define GK_GLUTDRIVER_H
 
 #include "gk/gkCommon.h"
-#include "gk/SystemDriver.h"
+#include "gk/ISystemDriver.h"
 #include "gk/IGameKernel.h"
 #include "gk/GameInput.h"
 #include "gk/Mouse.h"
@@ -44,11 +44,11 @@
 namespace gk {
 
 /**
- * GLUT implementation of the system driver interface.
+ * GLUT implementation of the ISystemDriver interface.
  *
- * @see SystemDriver
+ * @see ISystemDriver
  */
-class GlutDriver : public SystemDriver
+class GlutDriver : public DLLImpl< ISystemDriver >
 {
 public:
    GlutDriver();

@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-03-18 23:42:24 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-03-19 01:37:27 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -32,7 +32,7 @@
 #define GK_SDLDRIVER_H
 
 #include "gk/gkCommon.h"
-#include "gk/SystemDriver.h"
+#include "gk/ISystemDriver.h"
 #include "gk/IGameKernel.h"
 #include "gk/Keyboard.h"
 #include "gk/Mouse.h"
@@ -44,11 +44,11 @@
 namespace gk {
 
 /**
-* SDL implementation of the system driver interface
+* SDL implementation of the ISystemDriver interface.
 *
-* @see SystemDriver
+* @see ISystemDriver
 */
-class SdlDriver : public SystemDriver
+class SdlDriver : public DLLImpl< ISystemDriver >
 {
 public:
 	SdlDriver();
@@ -153,7 +153,7 @@ private:
 	void onMouseUp();
 	std::string getKeyID(SDL_keysym &key);
 	/* TODO:
-	   1.	Implement Event Handling per the SystemDriver interface.
+	   1.	Implement Event Handling per the ISystemDriver interface.
 	   2.	Implement Joystick Control.
 	   3.	Network Support?
 	*/

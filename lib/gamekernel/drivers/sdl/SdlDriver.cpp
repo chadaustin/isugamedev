@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-03-18 23:42:24 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-19 01:37:27 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -39,14 +39,14 @@
 extern "C" {
 #endif
 
-XDL_FUNC gk::SystemDriver*
+XDL_FUNC gk::ISystemDriver*
 createSystemDriver()
 {
    return new gk::SdlDriver();
 }
 
 XDL_FUNC void
-destroySystemDriver( gk::SystemDriver* driver )
+destroySystemDriver( gk::ISystemDriver* driver )
 {
    delete driver;
 }
