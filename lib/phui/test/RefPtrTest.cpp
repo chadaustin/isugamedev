@@ -124,84 +124,84 @@ RefPtrTest::testCastBool()
    CPPUNIT_ASSERT((bool)p1 == true);
 }
 
-//void
-//RefPtrTest::testEquality()
-//{
-//   RefPtr<RefCounted> nullptr;
-//   RefCounted *obj1 = new RefCounted();
-//   RefCounted *obj2 = new RefCounted();
-//   RefPtr<RefCounted> p1(obj1);
-//   RefPtr<RefCounted> p2(obj2);
-//
-//   // null to null
-//   CPPUNIT_ASSERT(nullptr == 0);
-//   CPPUNIT_ASSERT(! (nullptr != 0));
-//   CPPUNIT_ASSERT(0 == nullptr);
-//   CPPUNIT_ASSERT(! (0 != nullptr));
-//
-//   // value to null
-//   CPPUNIT_ASSERT(! (p1 == 0));
-//   CPPUNIT_ASSERT(p1 != 0);
-//   CPPUNIT_ASSERT(! (obj1 == nullptr));
-//   CPPUNIT_ASSERT(obj1 != nullptr);
-//
-//   // null to value
-//   CPPUNIT_ASSERT(! (nullptr == obj1));
-//   CPPUNIT_ASSERT(nullptr != obj1);
-//   CPPUNIT_ASSERT(! (0 == p1));
-//   CPPUNIT_ASSERT(0 != p1);
-//
-//   // value to value
-//   CPPUNIT_ASSERT(p1 == obj1);
-//   CPPUNIT_ASSERT(! (p1 != obj1));
-//   CPPUNIT_ASSERT(obj1 == obj1);
-//   CPPUNIT_ASSERT(! (obj1 != obj1));
-//
-//   CPPUNIT_ASSERT(p2 == obj2);
-//   CPPUNIT_ASSERT(!(p2 == obj2));
-//   CPPUNIT_ASSERT(obj2 == p2);
-//   CPPUNIT_ASSERT(!(obj2 == p2));
-//
-//   CPPUNIT_ASSERT(p1 != obj2);
-//   CPPUNIT_ASSERT(! (p1 == obj2));
-//   CPPUNIT_ASSERT(obj1 != p2);
-//   CPPUNIT_ASSERT(! (obj1 == p2));
-//
-//   CPPUNIT_ASSERT(p2 != obj1);
-//   CPPUNIT_ASSERT(! (p2 == obj1));
-//   CPPUNIT_ASSERT(obj2 != p1);
-//   CPPUNIT_ASSERT(! (obj2 == p1));
-//}
-//
-//void
-//RefPtrTest::testEqualityPtr()
-//{
-//   RefPtr<RefCounted> nullptr;
-//   RefPtr<RefCounted> p1(new RefCounted());
-//   RefPtr<RefCounted> p2(new RefCounted());
-//
-//   // null to null
-//   CPPUNIT_ASSERT(nullptr == nullptr);
-//   CPPUNIT_ASSERT(! (nullptr != nullptr));
-//
-//   // value to null
-//   CPPUNIT_ASSERT(! (p1 == nullptr));
-//   CPPUNIT_ASSERT(p1 != nullptr);
-//
-//   // null to value
-//   CPPUNIT_ASSERT(! (nullptr == p1));
-//   CPPUNIT_ASSERT(nullptr != p1);
-//
-//   // value to value
-//   CPPUNIT_ASSERT(p1 == p1);
-//   CPPUNIT_ASSERT(! (p1 != p1));
-//
-//   CPPUNIT_ASSERT(p2 == p2);
-//   CPPUNIT_ASSERT(!(p2 == p2));
-//
-//   CPPUNIT_ASSERT(p1 != p2);
-//   CPPUNIT_ASSERT(! (p1 == p2));
-//
-//   CPPUNIT_ASSERT(p2 != p1);
-//   CPPUNIT_ASSERT(! (p2 == p1));
-//}
+void
+RefPtrTest::testEquality()
+{
+   RefPtr<RefCounted> nullptr;
+   RefCounted *obj1 = new RefCounted();
+   RefCounted *obj2 = new RefCounted();
+   RefPtr<RefCounted> p1(obj1);
+   RefPtr<RefCounted> p2(obj2);
+
+   // null to null
+   CPPUNIT_ASSERT(nullptr == 0);
+   CPPUNIT_ASSERT(! (nullptr != 0));
+   CPPUNIT_ASSERT(0 == nullptr);
+   CPPUNIT_ASSERT(! (0 != nullptr));
+
+   // value to null
+   CPPUNIT_ASSERT(! (p1 == 0));
+   CPPUNIT_ASSERT(p1 != 0);
+   CPPUNIT_ASSERT(! (obj1 == nullptr));
+   CPPUNIT_ASSERT(obj1 != nullptr);
+
+   // null to value
+   CPPUNIT_ASSERT(! (nullptr == obj1));
+   CPPUNIT_ASSERT(nullptr != obj1);
+   CPPUNIT_ASSERT(! (0 == p1));
+   CPPUNIT_ASSERT(0 != p1);
+
+   // value to value
+   CPPUNIT_ASSERT(p1 == obj1);
+   CPPUNIT_ASSERT(! (p1 != obj1));
+   CPPUNIT_ASSERT(obj1 == obj1);
+   CPPUNIT_ASSERT(! (obj1 != obj1));
+
+   CPPUNIT_ASSERT(p2 == obj2);
+   CPPUNIT_ASSERT(!(p2 != obj2));
+   CPPUNIT_ASSERT(obj2 == p2);
+   CPPUNIT_ASSERT(!(obj2 != p2));
+
+   CPPUNIT_ASSERT(p1 != obj2);
+   CPPUNIT_ASSERT(! (p1 == obj2));
+   CPPUNIT_ASSERT(obj1 != p2);
+   CPPUNIT_ASSERT(! (obj1 == p2));
+
+   CPPUNIT_ASSERT(p2 != obj1);
+   CPPUNIT_ASSERT(! (p2 == obj1));
+   CPPUNIT_ASSERT(obj2 != p1);
+   CPPUNIT_ASSERT(! (obj2 == p1));
+}
+
+void
+RefPtrTest::testEqualityPtr()
+{
+   RefPtr<RefCounted> nullptr;
+   RefPtr<RefCounted> p1(new RefCounted());
+   RefPtr<RefCounted> p2(new RefCounted());
+
+   // null to null
+   CPPUNIT_ASSERT(nullptr == nullptr);
+   CPPUNIT_ASSERT(! (nullptr != nullptr));
+
+   // value to null
+   CPPUNIT_ASSERT(! (p1 == nullptr));
+   CPPUNIT_ASSERT(p1 != nullptr);
+
+   // null to value
+   CPPUNIT_ASSERT(! (nullptr == p1));
+   CPPUNIT_ASSERT(nullptr != p1);
+
+   // value to value
+   CPPUNIT_ASSERT(p1 == p1);
+   CPPUNIT_ASSERT(! (p1 != p1));
+
+   CPPUNIT_ASSERT(p2 == p2);
+   CPPUNIT_ASSERT(!(p2 != p2));
+
+   CPPUNIT_ASSERT(p1 != p2);
+   CPPUNIT_ASSERT(! (p1 == p2));
+
+   CPPUNIT_ASSERT(p2 != p1);
+   CPPUNIT_ASSERT(! (p2 == p1));
+}

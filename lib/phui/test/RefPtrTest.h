@@ -19,8 +19,8 @@ class RefPtrTest : public CppUnit::TestCase
    CPPUNIT_TEST( testDereference );
    CPPUNIT_TEST( testMemberAccess );
    CPPUNIT_TEST( testCastBool );
-//   CPPUNIT_TEST( testEquality );
-//   CPPUNIT_TEST( testEqualityPtr );
+   CPPUNIT_TEST( testEquality );
+   CPPUNIT_TEST( testEqualityPtr );
    CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -33,8 +33,8 @@ public:
    void testDereference();
    void testMemberAccess();
    void testCastBool();
-//   void testEquality();
-//   void testEqualityPtr();
+   void testEquality();
+   void testEqualityPtr();
 };
 
 #endif

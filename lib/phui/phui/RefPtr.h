@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RefPtr.h,v $
- * Date modified: $Date: 2002-06-03 04:28:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-06-03 05:23:36 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -179,59 +179,60 @@ namespace phui
       ValueType *mPtr;
    };
 
-//   ///@{
-//   /**
-//    * Allow this ref pointer to be compared to other ref pointers. A comparison
-//    * on the contained (actual) pointers is made. This is templated to support
-//    * comparisons between ref pointers to derived types.
-//    *
-//    * @return  true if a and b point to the same object
-//    */
-//   template< class T, class U >
-//   bool operator==(const RefPtr<T>& a, const RefPtr<U>& b)
-//   {
-//      return (a.get() == b.get());
-//   }
-//
-//   template< class T, class U >
-//   bool operator==(const RefPtr<T>& a, const U* b)
-//   {
-//      return (a.get() == b);
-//   }
-//
-//   template< class T, class U >
-//   bool operator==(const T* a, const RefPtr<U>& b)
-//   {
-//      return (a == b.get());
-//   }
-//   ///@}
-//
-//   ///@{
-//   /**
-//    * Allow this ref pointer to be compared to other ref pointers. A comparison
-//    * on the contained (actual) pointers is made. This is templated to support
-//    * comparisons between ref pointers to derived types.
-//    *
-//    * @return  true if a and b point do not point to the same object
-//    */
-//   template< class T, class U >
-//   bool operator!=(const RefPtr<T>& a, const RefPtr<U>& b)
-//   {
-//      return (a.get() != b.get());
-//   }
-//
-//   template< class T, class U >
-//   bool operator!=(const RefPtr<T>& a, const U* b)
-//   {
-//      return (a.get() != b);
-//   }
-//
-//   template< class T, class U >
-//   bool operator!=(const T* a, const RefPtr<U>& b)
-//   {
-//      return (a != b.get());
-//   }
-//   ///@}
+
+   ///@{
+   /**
+    * Allow this ref pointer to be compared to other ref pointers. A comparison
+    * on the contained (actual) pointers is made. This is templated to support
+    * comparisons between ref pointers to derived types.
+    *
+    * @return  true if a and b point to the same object
+    */
+   template< class T >
+   bool operator==(const RefPtr<T>& a, const RefPtr<T>& b)
+   {
+      return (a.get() == b.get());
+   }
+
+   template< class T >
+   bool operator==(const RefPtr<T>& a, const T* b)
+   {
+      return (a.get() == b);
+   }
+
+   template< class T >
+   bool operator==(const T* a, const RefPtr<T>& b)
+   {
+      return (a == b.get());
+   }
+   ///@}
+
+   ///@{
+   /**
+    * Allow this ref pointer to be compared to other ref pointers. A comparison
+    * on the contained (actual) pointers is made. This is templated to support
+    * comparisons between ref pointers to derived types.
+    *
+    * @return  true if a and b point do not point to the same object
+    */
+   template< class T >
+   bool operator!=(const RefPtr<T>& a, const RefPtr<T>& b)
+   {
+      return (a.get() != b.get());
+   }
+
+   template< class T >
+   bool operator!=(const RefPtr<T>& a, const T* b)
+   {
+      return (a.get() != b);
+   }
+
+   template< class T >
+   bool operator!=(const T* a, const RefPtr<T>& b)
+   {
+      return (a != b.get());
+   }
+   ///@}
 }
 
 #endif
