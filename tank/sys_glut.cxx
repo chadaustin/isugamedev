@@ -15,7 +15,7 @@
 #include "Bullet.h"
 
 #define SOUND_FIRE "fire.wav"
-#define BACKGROUND_MUSIC "music.mp3"
+#define BACKGROUND_MUSIC "music.ogg"
 
 
 //: App width/height

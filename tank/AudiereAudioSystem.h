@@ -20,10 +20,10 @@ private:
    // we just need a comment
    enum { MAX_SOUND_EFFECTS = 16 };
 
-   ADR_CONTEXT m_context;
-   ADR_STREAM m_streams[MAX_SOUND_EFFECTS];
+   audiere::Context* m_context;
+   audiere::Stream* m_streams[MAX_SOUND_EFFECTS];
    int m_current_stream;
-   ADR_STREAM m_background_music;
+   audiere::Stream* m_background_music;
 };
 
 

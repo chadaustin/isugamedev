@@ -84,6 +84,16 @@ ifeq ($(AUDIOSYSTEM), sonix)
       LIBS += -L$(SNX_BASE_DIR)/lib$(LIBBITSUF) -lsonix -lopenal
    endif
 endif
+# AUDIOSYSTEM == audiere
+ifeq ($(AUDIOSYSTEM), audiere)
+	SRCS += AudiereAudioSystem.cxx
+	CXX_FLAGS += -DUSE_AUDIERE
+	ifeq ($(HOSTTYPE), Win32)
+		LIBS += audiere.lib
+	else
+		LIBS += -laudiere
+	endif
+endif
 
 # default libs
 ifeq ($(HOSTTYPE), Win32)
