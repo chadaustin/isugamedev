@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-10 05:14:27 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2003-02-10 05:37:12 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -362,23 +362,34 @@ void SdlDriver::handleEvent()
 			break;
       case SDL_JOYAXISMOTION:
       {
-         std::cout << "axis"<<(int)mEvent.jaxis.axis<<": " << mEvent.jaxis.value / 32767.0f << std::endl;
+         //std::cout << "axis"<<(int)mEvent.jaxis.axis<<": " << mEvent.jaxis.value / 32767.0f << std::endl;
          Joystick *joystick = mJoystick[mEvent.jaxis.which]->getDevice();
          joystick->axis( mEvent.jaxis.axis ).setData( mEvent.jaxis.value / 32767.0f );
          break;
       }
       case SDL_JOYHATMOTION:
-         if (mEvent.jhat.value & SDL_HAT_CENTERED)
-            std::cout << "hat: center" << std::endl;
-         if (mEvent.jhat.value & SDL_HAT_UP)
-            std::cout << "hat: up" << std::endl;
-         if (mEvent.jhat.value & SDL_HAT_RIGHT)
-            std::cout << "hat: right" << std::endl;
-         if (mEvent.jhat.value & SDL_HAT_DOWN)
-            std::cout << "hat: down" << std::endl;
-         if (mEvent.jhat.value & SDL_HAT_LEFT)
-            std::cout << "hat: left" << std::endl;
-         break;
+      {
+         // collect the data from the bit flags.        
+         float x = 0.0f, y = 0.0f;  
+         DigitalInput::BinaryState up( DigitalInput::OFF ), down( DigitalInput::OFF ),
+                                   left( DigitalInput::OFF ), right( DigitalInput::OFF ); 
+         if (mEvent.jhat.value & SDL_HAT_UP)    { y = -1.0f; up = DigitalInput::ON; }
+         if (mEvent.jhat.value & SDL_HAT_RIGHT) { x = 1.0f; right = DigitalInput::ON; }
+         if (mEvent.jhat.value & SDL_HAT_DOWN)  { y = 1.0f; down = DigitalInput::ON; }
+         if (mEvent.jhat.value & SDL_HAT_LEFT)  { x = -1.0f; left = DigitalInput::ON; }
+         
+         // set the axes and buttons from this data.
+         Joystick *joystick = mJoystick[mEvent.jhat.which]->getDevice();
+         int begin_axis = SDL_JoystickNumAxes( mSDLJoy[mEvent.jhat.which] ) + (2*mEvent.jhat.hat);
+         int begin_button = SDL_JoystickNumButtons( mSDLJoy[mEvent.jhat.which] ) + (4*mEvent.jhat.hat);
+         joystick->axis( begin_axis + 0 ).setData( x );
+         joystick->axis( begin_axis + 1 ).setData( y );
+         joystick->button( begin_button + 0 ).setBinaryState( left );
+         joystick->button( begin_button + 1 ).setBinaryState( up );
+         joystick->button( begin_button + 2 ).setBinaryState( right );
+         joystick->button( begin_button + 3 ).setBinaryState( down );
+      }
+      break;
       case SDL_JOYBUTTONDOWN:
          {
             Joystick *joystick = mJoystick[mEvent.jbutton.which]->getDevice();
@@ -390,7 +401,7 @@ void SdlDriver::handleEvent()
       case SDL_JOYBUTTONUP:
          {
             Joystick *joystick = mJoystick[mEvent.jbutton.which]->getDevice();
-            joystick->button( mEvent.jbutton.button ).setBinaryState( DigitalInput::OFF);
+            joystick->button( mEvent.jbutton.button ).setBinaryState( DigitalInput::OFF );
             // current state of the button (whos event should be coming next...)
             // (mEvent.jbutton.state == SDL_PRESSED)
          }
