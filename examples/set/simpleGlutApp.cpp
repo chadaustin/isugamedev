@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include <stack>
 #include "card.h"
-
+#include "deck.h"
 
 int mouseX, mouseY;
 
@@ -73,17 +73,13 @@ public:
    }
    int width, height;
    int mainWin_contextID;
-   card Cards[12];
 };
 App app;
 double timechange = 0.0;
 double lasttime = getTime(), currenttime = getTime();
 int count=0;
 int i,j;
-
-
-// Build our display lists
-
+deck dek;
 
 
 //////////////////////////////////////////////////
@@ -108,24 +104,19 @@ static void OnRedisplay()
 
 	// !!!TODO!!!: replace the following with your own opengl commands!
 
-   
+
 
 	count=0;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear The Screen And The Depth Buffer
 	glLoadIdentity();									// Reset The View
-	glTranslatef(50, 300, 0);
-	for(i=0;i<4;i++){
-	   for(j=0;j<3;j++){
-	      glPushMatrix();
-	      glTranslatef(i*100+95, ((3-j)*130)-390,0);	
-	      app.Cards[count++].draw();
-	     glPopMatrix();
-	   }
-	}
-	count=0;
-	      
-	glutSwapBuffers();
-         
+	dek.draw();
+   
+   count=0;
+   glutSwapBuffers();
+   
+
+
+   
    // update the last time
    lasttime = currenttime;
    currenttime = getTime();
@@ -233,12 +224,20 @@ static void OnMousePos( int x, int y )
 ////////////////////////////////
 static void OnMouseClick( int button, int state, int x, int y )
 {
+   int tempx, tempy; // temp for tests with each card
    // !!!TODO!!!: Need mouse interaction?
    //             read the glut docs/manpage to find out how to query 
    //             which button was pressed...
    //             you may have to get this from the glut website 
    //             (use www.google.com to search for it)
-             
+   if (button==GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+      for(i=0;i<12;i++){
+         dek.getCardPos(i,tempx,tempy);
+         if(mouseX>tempx && mouseX<tempx+50 && mouseY>tempy && mouseY<tempy+120){
+            std::cout << "Card: " << i << std::endl;
+         }
+      }
+   }
 }
 
 
@@ -355,10 +354,8 @@ void main( int argc, char* argv[] )
    ::glutMotionFunc( OnMousePos );
    ::glutPassiveMotionFunc( OnMousePos );
 
-    // Initialize our textures
-    for(i=0;i<12;i++)
-       app.Cards[i].init();
-
+   dek.init();
+   
     // start the application loop, your callbacks will now be called
     // time for glut to sit and spin.
     ::glutMainLoop();
