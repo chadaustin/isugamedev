@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-02-13 nonchocoboy  Added avatar support based on the vjAvatar library.
 2003-02-12 nonchocoboy  Fixed bug where ResourceManager caches were not being
                         deleted correctly.
 2003-02-10 nonchocoboy  States now can get information about the size of the
