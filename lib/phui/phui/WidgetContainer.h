@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-02-24 08:48:18 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-02-24 12:20:21 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -62,6 +62,14 @@ namespace phui {
        * @param widget     the widget to add
        */
       void add(Widget* widget);
+
+      /**
+       * Removes the given widget from this container widget.
+       * Doesn't destroy widget, just removes from container.
+       *
+       * @param widget     the widget to remove
+       */
+      void remove(Widget* widget);
 
       /**
        * Draws this widget and all of its children.
