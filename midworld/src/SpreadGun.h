@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.h,v $
- * Date modified: $Date: 2002-09-08 22:28:25 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-09-08 22:46:02 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -56,6 +56,9 @@ namespace mw
    private:
       /// How much the gun has rotated
       float mSpinning;
+
+      /// Which barrel we should shoot out of next.
+      int mBarrel;
    };
 }
 

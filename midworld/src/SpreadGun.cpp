@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-09-08 22:28:25 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-09-08 22:46:02 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,8 +43,14 @@ namespace mw
    SpreadGun::SpreadGun()
       : BaseProjectileWeapon(Weapon::AUTOMATIC, "SpreadGun")
       , mSpinning(0.0f)
+      , mBarrel(3)
    {
-      mCockRate = 0.1f;
+      mMaxAmmoInBag = 600;
+      mAmmoInBag = 300;
+      mClipSize = 36;
+      mAmmoInClip = mClipSize;
+
+      mCockRate = 0.05f;
       mReloadRate = 0.5f;
    }
 
@@ -69,33 +75,27 @@ namespace mw
 
    void SpreadGun::discharge(GameState& g)
    {
+      // Pick the next barrel to fire out of
+      mBarrel = (++mBarrel) % 3;
+
       // define the spread
       float angle = gmtl::Math::deg2Rad(15.0f);
-      gmtl::Quatf r0(gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(angle, 0.0f, 1.0f, 0.0f))),
-                  r1,
-                  r2(gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(-angle, 0.0f, 1.0f, 0.0f)));
+      gmtl::Quatf barrel_rot;
 
-      // define the 3 bullets in the spread weapon.
-      BaseBullet* bullet0 = this->createBullet();
-      bullet0->setRot(this->getRot() * r0);
-      bullet0->setPos(this->getPos());
-      bullet0->setVel(this->getRot() * r0 * bullet0->getVel());
+      if (mBarrel == 0)
+      {
+         barrel_rot = gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(angle, 0.0f, 1.0f, 0.0f));
+      }
+      else if (mBarrel == 2)
+      {
+         barrel_rot = gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(-angle, 0.0f, 1.0f, 0.0f));
+      }
 
-      BaseBullet* bullet1 = this->createBullet();
-      bullet1->setRot(this->getRot() * r1);
-      bullet1->setPos(this->getPos());
-      bullet1->setVel(this->getRot() * r1 * bullet1->getVel());
-
-      BaseBullet* bullet2 = this->createBullet();
-      bullet2->setRot(this->getRot() * r2);
-      bullet2->setPos(this->getPos());
-      bullet2->setVel(this->getRot() * r2 * bullet2->getVel());
-
-      // add the three bullets to the game
-      // bullet is not mine anymore, belongs to GameState
-      g.add(bullet0);
-      g.add(bullet1);
-      g.add(bullet2);
+      BaseBullet* bullet = createBullet();
+      bullet->setRot(getRot() * barrel_rot);
+      bullet->setPos(getPos());
+      bullet->setVel(getRot() * barrel_rot * bullet->getVel());
+      g.add(bullet);
 
       // Do the sound effect
       SoundEffectManager* sfxmgr = GameManager::instance().getSoundManager()->
@@ -106,34 +106,31 @@ namespace mw
    void SpreadGun::ejectCasing(GameState& g)
    {
       /// @todo eject some _real_ casings into the game
+      
+      // Define the angle at which the shell is ejected
+      gmtl::Quatf case_rot;
 
-      // Define the angles at which the shells are ejected
-      gmtl::Quatf case1_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
-               0, gmtl::Math::deg2Rad(90.0f), gmtl::Math::deg2Rad(85.0f)));
-      gmtl::Quatf case2_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
-               0, gmtl::Math::deg2Rad(90.0f), gmtl::Math::deg2Rad(90.0f)));
-      gmtl::Quatf case3_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
-               0, gmtl::Math::deg2Rad(-90.0f), gmtl::Math::deg2Rad(85.0f)));
+      if (mBarrel == 0)
+      {
+         case_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
+                  0, gmtl::Math::deg2Rad(90.0f), gmtl::Math::deg2Rad(85.0f)));
+      }
+      else if (mBarrel == 1)
+      {
+         case_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
+                  0, gmtl::Math::deg2Rad(90.0f), gmtl::Math::deg2Rad(90.0f)));
+      }
+      else if (mBarrel == 2)
+      {
+         case_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
+                  0, gmtl::Math::deg2Rad(-90.0f), gmtl::Math::deg2Rad(85.0f)));
+      }
 
-      // Create three shell casings
-      BaseBullet* casing1 = createBullet();
-      casing1->setRot(getRot() * case1_rot);
-      casing1->setPos(getPos() + casing1->getForward() * 1.0f);
-      casing1->setVel(casing1->getRot() * casing1->getVel() * 0.50f );
-
-      BaseBullet* casing2 = createBullet();
-      casing2->setRot(getRot() * case2_rot);
-      casing2->setPos(getPos() + casing2->getForward() * 1.0f);
-      casing2->setVel(casing2->getRot() * casing2->getVel() * 0.50f );
-
-      BaseBullet* casing3 = createBullet();
-      casing3->setRot(getRot() * case3_rot);
-      casing3->setPos(getPos() + casing3->getForward() * 1.0f);
-      casing3->setVel(casing3->getRot() * casing3->getVel() * 0.50f );
-
-      // Add the casings into the game
-      g.add(casing1);
-      g.add(casing2);
-      g.add(casing3);
+      // Create the shell casing
+      BaseBullet* casing = createBullet();
+      casing->setRot(getRot() * case_rot);
+      casing->setPos(getPos() + casing->getForward() * 1.0f);
+      casing->setVel(casing->getRot() * casing->getVel() * 0.50f );
+      g.add(casing);
    }
 }
