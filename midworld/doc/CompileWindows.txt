@@ -1,0 +1,20 @@
+First:   Get a SourceForge account and tell me the username so I can
+         add you to the isugamedev project.
+Second:  Get Cygwin if you don't have it.
+Third:   From a Cygwin prompt, run the following commands.
+
+export CVS_RSH=ssh
+export CVSROOT=your-sf-username@cvs.isugamedev.sf.net:/cvsroot/isugamedev
+cvs co midworld
+
+You will have to enter your password.
+
+Now that Midworld is hopefully checked out from CVS properly, you will
+need to get the game resources.
+
+cd midworld
+./get-resources.sh
+
+Open the solution in the midworld/vc7 directory and compile Midworld.
+Copy the resource directories from build/ to vc7/midworld/Release/ and
+vc7/midworld/Debug/
