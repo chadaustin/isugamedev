@@ -39,7 +39,7 @@ public:
          // instead of instantly setting the camera rotation 
          // equal to the target angle, apply some dampening so 
          // that the camera takes longer to catch up.
-         float dampening_factor = 0.01f;
+         float dampening_factor = 2.0f * timeDelta;
          Quat<float> dampened_rot;
          dampened_rot.slerp( dampening_factor, mTargetRotOld, mTargetRot );
          mTargetRotOld = dampened_rot;
