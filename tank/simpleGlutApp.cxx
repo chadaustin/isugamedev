@@ -36,6 +36,7 @@
 #include "Bullet.h"
 
 
+
 // Provide functionality to automatically use different lights.
 // Leave the first light (0) alone.
 static int nextLightNum = 0;

@@ -3,15 +3,17 @@
 
 #include "Matrix4f.h"
 #include "glRenderTexture.h"
-#include "TgaImporter.h"
+#include "ImageManager.h"
+
+//#include "ObjImporter.h"
+
 class Tank
 {
 public:
    Tank() : mRot(), mRotVel(), mSpeed( 0.0f ), mMaterial()
    {
       mXForm.makeIdent();
-      TgaImporter tga;
-      bool result = tga.import( "atomic.tga", image );
+      bool result = ImageManager::instance().load( "atomic.tga", image );
       assert( result && "cannot load image" );
       tex.setImage( &image );
       result = tex.imageValid();
