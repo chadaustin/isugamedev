@@ -54,6 +54,11 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"../../dist/opt/gk.dll"
+# Begin Special Build Tool
+TargetDir=\HOME\isugamedev\lib\gamekernel\dist\opt
+SOURCE="$(InputPath)"
+PostBuild_Cmds=copy Release\gk.lib $(TargetDir)\gk.lib
+# End Special Build Tool
 
 !ELSEIF  "$(CFG)" == "gk - Win32 Debug"
 
@@ -80,6 +85,11 @@ BSC32=bscmake.exe
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /out:"../../dist/dbg/gk.dll" /pdbtype:sept
+# Begin Special Build Tool
+TargetDir=\HOME\isugamedev\lib\gamekernel\dist\dbg
+SOURCE="$(InputPath)"
+PostBuild_Cmds=copy Debug\gk.lib $(TargetDir)\gk.lib
+# End Special Build Tool
 
 !ENDIF 
 
