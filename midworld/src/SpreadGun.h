@@ -13,6 +13,8 @@ namespace mw
    public:
       SpreadGun() : BaseProjectileWeapon(), mSpinning( 0.0f )
       {
+         mFireRate = 0.1f;
+         mReloadRate = 0.5f;
       }
 
       /** return the Player slot number that the weapon goes in. */
