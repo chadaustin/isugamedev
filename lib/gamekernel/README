@@ -6,7 +6,7 @@ Authors
 
 features:
  - game system abstraction
-   - mouse/keyboard
+   - mouse/keyboard/joystick
    - app/draw callbacks
    - access to the game system mouse and window state (seters/geters)
  - Application object doesn't know what toolkit it is running in
@@ -15,11 +15,10 @@ features:
    - Mouse/Keyboard have edge triggering (4state) for every button
    - Mouse/Keyboard state is read by the application through polling, but
      set by GameKernel system events
-   - no joystick at this time... :(
+   - Joystick support available
 
 
 TODO:
- - add joystick support
  - add other native backends
    - win32
    - x
