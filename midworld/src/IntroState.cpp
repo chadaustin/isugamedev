@@ -10,6 +10,7 @@ namespace mw
    IntroState::IntroState()
    {
       mIntroImage = new Texture("intro.jpeg");
+      mShouldTransition = false;
    }
 
    IntroState::~IntroState()
@@ -44,6 +45,10 @@ namespace mw
    void
    IntroState::onKeyPress(SDLKey sym, bool down)
    {
+      if (down)
+      {
+         quit();
+      }
    }
 
    void

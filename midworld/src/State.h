@@ -15,13 +15,29 @@ namespace mw
    class State
    {
    public:
-      virtual ~State() { }
-      
+      State();
+      virtual ~State();
+
       virtual void update(u64 elapsedTime) = 0;
       virtual void draw() = 0;
       virtual void onKeyPress(SDLKey sym, bool down) = 0;
       virtual void onMousePress(Uint8 button, bool down, int x, int y) = 0;
       virtual void onMouseMove(int x, int y) = 0;
+
+      void invokeTransition(State* state);
+
+      /**
+       * Returns the next State object, and makes the state forget about what
+       * the next state is.
+       */
+      State* getNext();
+
+      void quit();
+      bool isQuitting();
+
+   private:
+      State* mNextState;
+      bool mIsQuitting;
    };
 
 }

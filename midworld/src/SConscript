@@ -9,6 +9,7 @@ classes = Split("""
    IntroState
    Jukebox
    RigidBody
+   State
    SoundEffectManager
    SoundManager
    Texture
@@ -22,7 +23,6 @@ headers = Split("""
    CollisionDetector.h
    NullCollisionDetector.h
    SpatialIndex.h
-   State.h
 """)
 
 sources.extend(map(lambda n: n + '.cpp', classes))

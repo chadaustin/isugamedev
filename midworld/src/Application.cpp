@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-06-06 10:09:04 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-06-10 03:39:04 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -84,6 +84,12 @@ namespace mw {
    Application::onMouseMove(int x, int y)
    {
       mState->onMouseMove(x, y);
+   }
+
+   bool
+   Application::shouldQuit()
+   {
+      return mState->isQuitting();
    }
 
 }

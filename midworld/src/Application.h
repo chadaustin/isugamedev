@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.h,v $
- * Date modified: $Date: 2002-06-06 08:46:52 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-06-10 03:39:04 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,6 +51,8 @@ namespace mw
       void onKeyPress(SDLKey sym, bool down);
       void onMousePress(Uint8 button, bool down, int x, int y);
       void onMouseMove(int x, int y);
+
+      bool shouldQuit();
 
    private:
       int mWidth;

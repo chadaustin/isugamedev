@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-06-06 08:46:52 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-06-10 03:39:04 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -94,7 +94,7 @@ void run()
       
    Uint32 last_time = SDL_GetTicks();
 
-   for (;;)
+   while (!app->shouldQuit())
    {      
       SDL_Event event;
       int result = SDL_PollEvent(&event);

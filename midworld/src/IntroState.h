@@ -26,6 +26,8 @@ namespace mw
 
    private:
       Texture* mIntroImage;
+
+      bool mShouldTransition;
    };
 
 }
