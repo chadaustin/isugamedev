@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-08 06:03:49 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-02-09 20:11:30 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -123,9 +123,19 @@ GlutDriver::shutdown()
 {
    mIsStarted = false;
 
-   // remove our devices from the input manager
-   GameInput::instance().removeDevice( "Keyboard" );
-   GameInput::instance().removeDevice( "Mouse" );
+   // remove our mouse driver
+   if ( mMouse != NULL )
+   {
+      delete mMouse;
+      mMouse = NULL;
+   }
+
+   // remove our keyboard driver
+   if ( mKeyboard != NULL )
+   {
+      delete mKeyboard;
+      mKeyboard = NULL;
+   }
 
    // glut can be so stupid sometimes ...
    exit( 0 );
