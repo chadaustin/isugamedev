@@ -34,7 +34,7 @@ namespace mw
    Texture::Texture(const std::string& filename)
    {
       std::auto_ptr<Image> image(
-         OpenImage(filename.c_str(), FF_AUTODETECT, PF_R8G8B8A8));
+         OpenImage(filename.c_str(), PF_R8G8B8A8, FF_AUTODETECT ));
       if (!image.get())
       {
          ThrowTextureError("Could not load image '" + filename + "'");
