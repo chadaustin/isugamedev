@@ -1,0 +1,6 @@
+Default('.')
+
+env = Environment(LIBS = ['opengl32', 'glut32'])
+env.Program(
+    target = 'sixk',
+    source = 'Main.cpp')
