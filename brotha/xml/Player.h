@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-01 18:41:34 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-01 23:36:51 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,6 +47,7 @@
 #include <string>
 #include <vector>
 #include <assert.h>
+#include "Car.h"
 #include "Stat.h"
 
 namespace data {
