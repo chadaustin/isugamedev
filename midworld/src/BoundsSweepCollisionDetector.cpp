@@ -24,11 +24,12 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsSweepCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-11-01 12:27:21 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-11-02 02:59:20 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <vector>
 #include "BoundsSweepCollisionDetector.h"
 #include <gmtl/VecOps.h>
 #include <gmtl/Generate.h>
