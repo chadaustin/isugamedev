@@ -24,19 +24,21 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.h,v $
- * Date modified: $Date: 2002-11-03 00:53:27 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-03 03:49:59 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_PHYSICS_ENGINE_H
 #define MW_PHYSICS_ENGINE_H
 
+#include "CollisionDetector.h"
+#include "CollisionResponse.h"
 #include "RigidBody.h"
+#include "Scene.h"
 
 namespace mw
 {
-
    /**
     * @ingroup Physics
     *
@@ -56,7 +58,14 @@ namespace mw
       const static gmtl::Vec3f GRAVITY;
 
    public:
-      PhysicsEngine();
+      /**
+       * Creates a new physics simulator that will use the given collision
+       * detection algorithm for the objects in the given scene.
+       */
+      PhysicsEngine(CollisionDetector* collisionDetector,
+                    CollisionResponse* collisionResponse,
+                    Scene* scene);
+
       ~PhysicsEngine();
 
       /**
@@ -82,6 +91,29 @@ namespace mw
        */
       static void update(const RigidBody* body, float dt,
                          BodyState& state, bool rotation = true);
+
+      /**
+       * Updates the dynamics of all the bodies in this physics simulator.
+       *
+       * @param dt         the time delta in seconds
+       */
+      void update(float dt);
+
+      /// Get the collision detection algorithm used with this physics simulator
+      CollisionDetector* getCollisionDetector() const;
+
+      /// Get the scene used with this physics simulator
+      Scene* getScene() const;
+
+   private:
+      /// The collision detection algorithm used
+      CollisionDetector* mCollisionDetector;
+
+      /// The collision response mapping
+      CollisionResponse* mCollisionResponse;
+
+      /// The scene that contains the rigid bodies
+      Scene* mScene;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-03 00:53:27 $
- * Version:       $Revision: 1.62 $
+ * Date modified: $Date: 2002-11-03 03:49:59 $
+ * Version:       $Revision: 1.63 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,7 +49,6 @@
 #include "Camera.h"
 #include "Droid.h"
 #include "CollisionDetector.h"
-#include "CollisionResponse.h"
 #include "Entity.h"
 #include "GameScene.h"
 #include "HUD.h"
@@ -60,6 +59,7 @@
 #include "State.h"
 #include "Turret.h"
 #include "ParticleEngine.h"
+#include "PhysicsEngine.h"
 
 namespace gmtl
 {
@@ -217,7 +217,7 @@ namespace mw
    class GameState : public State
    {
    public:
-      GameState( Application* a );
+      GameState(Application* app);
 
       void update(float dt);
       void draw();
@@ -275,15 +275,6 @@ namespace mw
       void updateEdgeState(InputAction& action);
 
       /**
-       * Updates the dynamics of the given rigid body over the given time
-       * differential.
-       *
-       * @param body       the body whose dynamics will be updated
-       * @param dt         the time differential in seconds
-       */
-      void updateDynamics(Entity* body, float dt);
-
-      /**
        * Deletes and removes from the game all entities that have marked
        * themselves as being expired and thus want to be removed from the game.
        */
@@ -329,7 +320,9 @@ namespace mw
 
       /// The collision detection algorithm
       CollisionDetector* mCollDet;
-      CollisionResponse mCollisionResponse;
+
+      /// The physics simulation engine
+      PhysicsEngine* mPhysics;
 
       /**
        * Input data for the Player object.

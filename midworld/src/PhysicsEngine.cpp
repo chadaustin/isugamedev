@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-03 00:53:27 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-03 03:49:59 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,7 +39,12 @@ namespace mw
 
    const gmtl::Vec3f PhysicsEngine::GRAVITY(0, -9.81f, 0);
 
-   PhysicsEngine::PhysicsEngine()
+   PhysicsEngine::PhysicsEngine(CollisionDetector* collisionDetector,
+                                CollisionResponse* collisionResponse,
+                                Scene* scene)
+      : mCollisionDetector(collisionDetector)
+      , mCollisionResponse(collisionResponse)
+      , mScene(scene)
    {}
 
    PhysicsEngine::~PhysicsEngine()
@@ -102,5 +107,64 @@ namespace mw
          gmtl::normalize(state.getRot()); // rot quats always normalized
          state.setRotVel(rotVel + ang_momentum_delta); // @todo this is wrong (needs inertia tensor)
       }
+   }
+
+   void
+   PhysicsEngine::update(float dt)
+   {
+      for (Scene::EntityMapItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      {
+         RigidBody* body = itr->second;
+
+         // Apply gravity to every body
+         body->addForce(GRAVITY * body->getMass());
+
+         // Update the body for the remaining time differential
+         update(body, dt);
+
+         // Check if the body collided aith anything
+         gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
+         std::auto_ptr<CollisionDesc> desc(mCollisionDetector->checkCollision(body, path));
+
+         // No collisions, let the body update for the remaining distance
+         if (!desc.get())
+         {
+            body->moveToNextState();
+         }
+         // There was a collision!
+         else
+         {
+            // Figure out how much time passed to get to the collision. We do this
+            // by scaling back the remaining dt by the % of the distance that was
+            // travelled.
+            float time_to_collision = dt * desc->getDistance();
+
+            // Update the body to the point of the collision
+            PhysicsEngine::update(body, time_to_collision);
+            body->moveToNextState();
+
+            // body                == collider
+            // desc->getCollidee() == collidee
+            mCollisionResponse->collide(body, desc->getCollidee());
+         }
+         
+         // Make sure entities never go below the ground.
+         // XXX: This is such a hack. We need to get ground collision
+         // detection to be done in the collision detector.
+         float& y = body->getPos()[1];
+         y = std::max(y, 0.0f);
+      }
+   }
+
+   CollisionDetector*
+   PhysicsEngine::getCollisionDetector() const
+   {
+      return mCollisionDetector;
+   }
+
+   Scene*
+   PhysicsEngine::getScene() const
+   {
+      return mScene;
    }
 }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-03 00:53:27 $
- * Version:       $Revision: 1.103 $
+ * Date modified: $Date: 2002-11-03 03:49:59 $
+ * Version:       $Revision: 1.104 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -40,6 +40,7 @@
 #include "Application.h"
 #include "AssaultRifle.h"
 #include "BoundsSweepCollisionDetector.h"
+#include "CollisionResponse.h"
 #include "Enemy.h"
 #include "EntityFactory.h"
 #include "GameManager.h"
@@ -51,7 +52,6 @@
 #include "MissileLauncher.h"
 #include "OpenSGSceneViewer.h"
 #include "Pistol.h"
-#include "PhysicsEngine.h"
 #include "Shotgun.h"
 #include "SpreadGun.h"
 #include "StateFactory.h"
@@ -123,8 +123,8 @@ namespace mw
 
 
    
-   GameState::GameState( Application* a )
-      : State( a )
+   GameState::GameState(Application* app)
+      : State(app)
       , mSpeed(10)
       , mPlayer(this)
       , mFPS(0)
@@ -166,6 +166,9 @@ namespace mw
       // Init the collision detection system
       mCollDet = new BoundsSweepCollisionDetector();
       mCollDet->setSpatialIndex(viewer);
+
+      // Init the physics engine
+      mPhysics = new PhysicsEngine(mCollDet, new CollisionResponse(), mScene);
 
       add(&mPlayer);
 
@@ -331,6 +334,9 @@ namespace mw
       // Reap dead entities
       reapDeadEntities();
 
+      // Run the bodies through the physics simulator
+      mPhysics->update(dt);
+
       // Iterate over all the entities and update them
       for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
@@ -339,9 +345,6 @@ namespace mw
 
          // Allow the entity to update itself
          entity->update(dt);
-
-         // Update the physical properties of the entity
-         updateDynamics(entity, dt);
       }
 
       // Update the player and the camera
@@ -517,47 +520,6 @@ namespace mw
       // Warp the mouse back to the center of the screen
       SDL_WarpMouse((int)wnd_center[0], (int)wnd_center[1]);
       mIgnoreMouseMove = true;
-   }
-
-   void GameState::updateDynamics(Entity* body, float dt)
-   {
-      // Apply gravity to every body
-      body->addForce(PhysicsEngine::GRAVITY * body->getMass());
-
-      // Update the body for the remaining time differential
-      PhysicsEngine::update(body, dt);
-
-      // Check if the body collided with anything
-      gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
-      std::auto_ptr<CollisionDesc> desc(mCollDet->checkCollision(body, path));
-
-      // No collisions, let the body update for the remaining distance
-      if (!desc.get())
-      {
-         body->moveToNextState();
-      }
-      // There was a collision!
-      else
-      {
-         // Figure out how much time passed to get to the collision. We do this
-         // by scaling back the remaining dt by the % of the distance that was
-         // travelled.
-         float time_to_collision = dt * desc->getDistance();
-
-         // Update the body to the point of the collision
-         PhysicsEngine::update(body, time_to_collision);
-         body->moveToNextState();
-
-         // body                == collider
-         // desc->getCollidee() == collidee
-         mCollisionResponse.collide(body, desc->getCollidee());
-      }
-      
-      // Make sure entities never go below the ground.
-      // XXX: This is such a hack. We need to get ground collision
-      // detection to be done in the collision detector.
-      float& y = body->getPos()[1];
-      y = std::max(y, 0.0f);
    }
 
    void GameState::reapDeadEntities()
