@@ -1,3 +1,6 @@
+/* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 3 -*- */
+// vim:cindent:ts=3:et:sw=3:
+
 #include <algorithm>
 #include "MessageQueue.h"
 #include "../thread/Lock.h"

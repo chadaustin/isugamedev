@@ -1,3 +1,5 @@
+/* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 3 -*- */
+// vim:cindent:ts=3:et:sw=3:
 #ifndef NET_SOCKET_H
 #define NET_SOCKET_H
 
@@ -7,35 +9,54 @@
 #include <string.h>
 #include "SocketInputStream.h"
 #include "SocketOutputStream.h"
+#include "SocketException.h"
 
 
 namespace net {
 
-  class Socket {
-  public:
-    Socket(const char* hostname, int port) {
-      mSocket = PR_NewTCPSocket();
+   class Socket {
+   public:
+      // XXXaegis this should probably be private
+      Socket(PRFileDesc* fd) {
+         mSocket = fd;
+      }
 
-      PRNetAddr addr;
-      memset(&addr, 0, sizeof(addr));
+      Socket(const char* hostname, int port) {
+         mSocket = PR_NewTCPSocket();
+         if (!mSocket) {
+            throw SocketException("Socket creation failed");
+         }
 
-      // assert?
-      PR_SUCCESS == PR_StringToNetAddr(hostname, &addr);
+         PRNetAddr addr;
+         memset(&addr, 0, sizeof(addr));
 
-      addr.inet.family = PR_FamilyInet();
-      addr.inet.port   = port;
+         PRStatus status = PR_StringToNetAddr(hostname, &addr);
+         if (status != PR_SUCCESS) {
+            throw SocketException("Hostname lookup failed");
+         }
 
-      // assert?
-      PR_SUCCESS == PRConnect(mSocket, &addr, PR_INTERVAL_NO_TIMEOUT);
-    }
+         addr.inet.family = PR_FamilyInet();
+         addr.inet.port   = PR_htons(port);
 
-    InputStream* getInputStream() {
-    }
+         status = PRConnect(mSocket, &addr, PR_INTERVAL_NO_TIMEOUT);
+         if (status != PR_SUCCESS) {
+            throw SocketException("Connection failed");
+         }
+      }
 
-    OutputStream* getOutputStream() {
-    }
-    
-  }
+      InputStream* getInputStream() {
+         /// @todo implement getInputStream
+         return 0;
+      }
+
+      OutputStream* getOutputStream() {
+         /// @todo implement getOutputStream
+         return 0;
+      }
+
+   private:
+      PRFileDesc* mSocket;
+   };
 
 }
 
