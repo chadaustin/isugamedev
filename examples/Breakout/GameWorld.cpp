@@ -34,6 +34,15 @@ GameWorld::GameWorld()
 ////////////////////////////////////////////
 GameWorld::~GameWorld()
 {
+   Destroy();
+}
+
+///////////////////////////////////////////
+// Lets clean up all of the memory that we
+// used
+////////////////////////////////////////////
+void GameWorld::Destroy()
+{
 	int i;
 
 	for(i = 0; i < GameObjects.size(); i++)
@@ -162,7 +171,7 @@ void GameWorld::Update()
 		if(NumberOfBalls == 0)
 			Score = 0;
 
-		GameWorld::~GameWorld();
+      Destroy();
 		ResetGame();
 	}
 
@@ -271,7 +280,8 @@ void GameWorld::GameRemoveObject(MyObject*& TheObject)
 {
 		TheGame.RemoveObject(TheObject);
 
-		for(int i = 0; (GameObjects[i] != TheObject) && (i < GameObjects.size()); i++);
+      int i;
+		for(i = 0; (GameObjects[i] != TheObject) && (i < GameObjects.size()); i++);
 
 		if(i < GameObjects.size())
 		{
