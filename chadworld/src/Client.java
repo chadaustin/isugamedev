@@ -9,48 +9,76 @@ public class Client {
 
   private JFrame m_frame;
   private JTextField m_server;
+  private JTextField m_port;
 
   public static void main(String[] args) {
     new Client().run(args);
   }
 
   void run(String[] args) {
-    if (args.length == 0) {
-      m_frame = new JFrame("Connect to ChadWorld Server");
-      m_frame.getContentPane().add(createComponents());
+    switch (args.length) {
+      // open Swing dialog and ask user for server and port
+      case 0:
+        startUI();
+        break;
 
-      m_frame.addWindowListener(new WindowAdapter() {
-          public void windowClosing(WindowEvent e) {
-            System.exit(0);
-          }
-        });
+      // use specified server but default port
+      case 1:
+        start(args[0], Configuration.port);
+        break;
 
-      m_frame.pack();
-      centerWindow();
-      m_frame.setVisible(true);
-    } else {
-      start(args[0]);
+      // use specified server and port
+      case 2:
+        start(args[0], Integer.parseInt(args[1]));
+        break;
+
+      // print usage information
+      default:
+        System.out.println(
+          "Usage: java chadworld.Client <server> <port>" +
+          "  <server> and <port> are optional");
+        break;
+
     }
   }
 
-  Component createComponents() {
+  private void startUI() {
+    m_frame = new JFrame("Connect to ChadWorld Server");
+    m_frame.getContentPane().add(createComponents());
+
+    m_frame.addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent e) {
+        System.exit(0);
+      }
+    });
+
+    m_frame.pack();
+    centerWindow();
+    m_frame.setVisible(true);
+  }
+
+  private Component createComponents() {
     JPanel pane = new JPanel();
     pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
     pane.setLayout(new FlowLayout());
 
     m_server = new JTextField(30);
+    m_port   = new JTextField("" + Configuration.port, 30);
+
     JButton button = new JButton("Connect");
     button.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        String server = new String(m_server.getText());
-        String[] args = { server };
+        // close the window
         m_frame.dispose();
-        start(server);
+
+        // start the chadworld client frame
+        start(m_server.getText(), Integer.parseInt(m_port.getText()));
       }
     });
 
     pane.add(new JLabel("Enter server"));
     pane.add(m_server);
+    pane.add(m_port);
     pane.add(button);
     return pane;
   }
@@ -64,7 +92,7 @@ public class Client {
                         
   }
 
-  static void start(String server) {
-    ClientFrame.createFrame(server, 640, 480);
+  static void start(String server, int port) {
+    ClientFrame.createFrame(server, port, 640, 480);
   }
 }

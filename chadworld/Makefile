@@ -1,16 +1,8 @@
-SOURCES =					\
-	src/Client.java				\
-	src/ClientFrame.java			\
-	src/ConnectionThread.java		\
-	src/NavigationBehavior.java		\
-	src/NavigationListener.java		\
-	src/Server.java				\
-	src/ServerConnection.java		\
-	src/SynchronizationBehavior.java	\
-	src/Packet.java				\
-	src/WorldPacket.java
+SOURCES = \
+	src/Client.java	\
+	src/Server.java \
 
-JAVAC = javac -deprecation -d .
+JAVAC = javac -sourcepath src -deprecation -d .
 
 all: dbg
 

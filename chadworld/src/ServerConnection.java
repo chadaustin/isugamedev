@@ -11,8 +11,8 @@ class ServerConnection {
   private ObjectOutputStream m_object_output_stream;
   private ObjectInputStream m_object_input_stream;
 
-  ServerConnection(String server) throws IOException {
-    m_socket = new Socket(server, 10000);
+  ServerConnection(String server, int port) throws IOException {
+    m_socket = new Socket(server, port);
     m_output_stream = m_socket.getOutputStream();
     m_input_stream = m_socket.getInputStream();
     m_object_output_stream = new ObjectOutputStream(m_output_stream);

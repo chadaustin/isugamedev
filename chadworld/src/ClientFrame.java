@@ -22,26 +22,46 @@ public class ClientFrame extends Applet {
   private ServerConnection m_connection;
   private Vector3f m_orientation = new Vector3f();
   private SimpleUniverse m_universe;
+  private int m_self;  // entity ID
 
 
-  public static MainFrame createFrame(String server, int width, int height) {
-    return new MainFrame(new ClientFrame(server), width, height);
+  public static MainFrame createFrame(
+    String server, int port,
+    int width, int height)
+  {
+    ServerConnection connection = connect(server, port);
+    return new MainFrame(new ClientFrame(connection), width, height);
   }
 
-
-  public ClientFrame(String server) {
-
-    // connect to the server
+  public static ServerConnection connect(String server, int port) {
     try {
-
-      m_connection = new ServerConnection(server);
-
-    } catch (Exception e) {
+      return new ServerConnection(server, port);
+    }
+    catch (Exception e) {
       System.out.println("Could not connect to server");
+      System.out.println(e);
+      System.exit(0);
+      return null;
+    }
+  }
+
+  public ClientFrame(ServerConnection connection) {
+
+    m_connection = connection;
+
+    try {
+      // send login
+      m_connection.writePacket(new LoginPacket("username", "password"));
+      ResponsePacket response = (ResponsePacket)m_connection.readPacket();
+      m_self = response.entity_id;
+    }
+    catch (Exception e) {
+      System.out.println("Could not log in");
       System.out.println(e);
       System.exit(0);
     }
 
+    // create view
     setLayout(new BorderLayout());
     Canvas3D canvas3D = new Canvas3D(
       SimpleUniverse.getPreferredConfiguration());
@@ -58,20 +78,40 @@ public class ClientFrame extends Applet {
 
     BranchGroup root = new BranchGroup();
 
+    // create world synchronization behavior
     Group world = new Group();
     SynchronizationBehavior sync = new SynchronizationBehavior(
       m_connection, world);
     sync.setSchedulingBounds(bigSphere);
     root.addChild(sync);
 
+    // create custom navigation behavior and insert it into the scene graph
     NavigationBehavior nav = new NavigationBehavior(
       new NavigationListener() {
         public void press(int key) {
           System.out.println("pressed " + key);
+          try {
+            m_connection.writePacket(
+              new InputPacket(InputPacket.KEY_DOWN, key));
+          }
+          catch (Exception e) {
+            System.out.println("Networking error sending input packet");
+            System.out.println(e);
+            System.exit(0);
+          }
         }
 
         public void release(int key) {
           System.out.println("unpressed " + key);
+          try {
+            m_connection.writePacket(
+              new InputPacket(InputPacket.KEY_UP, key));
+          }
+          catch (Exception e) {
+            System.out.println("Networking error sending input packet");
+            System.out.println(e);
+            System.exit(0);
+          }
         }
       }
     );
@@ -83,8 +123,11 @@ public class ClientFrame extends Applet {
     ViewingPlatform vp = su.getViewingPlatform();
     TransformGroup vpTrans = vp.getViewPlatformTransform();
 
+    // make it so we can move away from the world quite a ways and
+    // still see it
     su.getViewer().getView().setBackClipDistance(100);
 
+    // optimize the scene graph and finish
     root.compile();
     return root;
   }

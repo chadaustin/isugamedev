@@ -1,8 +1,15 @@
 package chadworld;
 
-import javax.vecmath.*;
 
-
+/**
+ * World packets contain a copy of the entire static world.
+ */
 public class WorldPacket extends Packet {
-  public Matrix4f[] cubes;
+
+  public World world;
+
+  public WorldPacket(World w) {
+    world = w;
+    description = "World Description";
+  }
 }

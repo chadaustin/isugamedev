@@ -60,9 +60,11 @@ class SynchronizationBehavior extends Behavior {
 
     BranchGroup cubeworld = new BranchGroup();
 
-    Matrix4f[] cubes = wp.cubes;
+    WorldElement[] cubes = wp.world.elements;
+    System.out.println(cubes.length);
     for (int i = 0; i < cubes.length; ++i) {
-      Transform3D transform = new Transform3D(cubes[i]);
+      System.out.println(cubes[i].transform);
+      Transform3D transform = new Transform3D(cubes[i].transform);
       TransformGroup tgt = new TransformGroup(transform);
       tgt.addChild(new ColorCube());
       cubeworld.addChild(tgt);
