@@ -41,6 +41,16 @@ namespace mw
       void addAmmo( int ammount )  //for ammo pickup
       {
       }
+
+      int getAmmoInClip() const
+      {
+         return 0;
+      }
+
+      int getAmmoInBag() const
+      {
+         return 0;
+      }
    };
 }
 

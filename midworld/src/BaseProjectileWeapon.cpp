@@ -74,6 +74,16 @@ namespace mw
             mAmmoInBag = mMaxAmmoInBag;
          }
       }
+
+      int BaseProjectileWeapon::getAmmoInClip() const
+      {
+         return mAmmoInClip;
+      }
+
+      int BaseProjectileWeapon::getAmmoInBag() const
+      {
+         return mAmmoInBag;
+      }
       
       /**
        * Triggers a reload sequence.

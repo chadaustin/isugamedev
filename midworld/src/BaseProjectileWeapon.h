@@ -21,6 +21,9 @@ namespace mw
       virtual void trigger( bool firing );
 
       virtual void update( GameState& g, float dt );
+
+      virtual int getAmmoInClip() const;
+      virtual int getAmmoInBag() const;
       
    protected:
       virtual void emitBullet( GameState& g ) = 0;

@@ -52,6 +52,16 @@ namespace mw
 
       /// for ammo pickup
       virtual void addAmmo( int ammount ) = 0;
+
+      /**
+       * Gets the amount of ammo remaining in the current clip.
+       */
+      virtual int getAmmoInClip() const = 0;
+
+      /**
+       * Gets the amount of ammo for this gun that is not in the current clip.
+       */
+      virtual int getAmmoInBag() const = 0;
    };
 }
 
