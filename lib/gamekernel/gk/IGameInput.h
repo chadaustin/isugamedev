@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameInput.h,v $
-// Date modified: $Date: 2002-03-19 01:19:56 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-21 05:57:16 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,7 +37,7 @@
 #include <string>
 
 #include <gk/EventInput.h>
-#include <gk/Device.h>
+#include <gk/IDevice.h>
 
 namespace gk {
 class IGameKernel;
@@ -107,7 +107,7 @@ public:
     *
     * @return  true if successful, false otherwise
     */
-   virtual bool addDevice( Device* device, const std::string& name ) = 0;
+   virtual bool addDevice( IDevice* device, const std::string& name ) = 0;
 
    /**
     * Gets the device with the given name.
@@ -116,7 +116,7 @@ public:
     *
     * @return  a pointer to the device if it exists, NULL otherwise
     */
-   virtual Device* getDevice( const std::string& name ) = 0;
+   virtual IDevice* getDevice( const std::string& name ) = 0;
 
    /**
     * Removes the device with the given name. If no device with the given name

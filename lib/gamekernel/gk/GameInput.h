@@ -24,15 +24,16 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-03-19 01:19:56 $
-// Version:       $Revision: 1.35 $
+// Date modified: $Date: 2002-03-21 05:57:16 $
+// Version:       $Revision: 1.36 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_GAMEINPUT_H
 #define GK_GAMEINPUT_H
 
-#include "gk/gkCommon.h"
+#include <gk/gkCommon.h>
+#include <map>
 #include <utility> // for pair
 #include <gk/IGameInput.h>
 #include <gk/IGameKernel.h>
@@ -107,7 +108,7 @@ public:
     *
     * @return  true if successful, false otherwise
     */
-   bool addDevice( Device* device, const std::string& name );
+   bool addDevice( IDevice* device, const std::string& name );
 
    /**
     * Gets the device with the given name.
@@ -116,7 +117,7 @@ public:
     *
     * @return  a pointer to the device if it exists, NULL otherwise
     */
-   Device* getDevice( const std::string& name );
+   IDevice* getDevice( const std::string& name );
 
    /**
     * Removes the device with the given name. If no device with the given name
@@ -164,7 +165,7 @@ private:
    std::map<std::string, EventInput> mBindTable;
 
    // currently registred devices.
-   std::map<std::string, Device*> mDevices;
+   std::map<std::string, IDevice*> mDevices;
 };
 
 } // namespace gk

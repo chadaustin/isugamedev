@@ -24,12 +24,12 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.cpp,v $
-// Date modified: $Date: 2002-03-18 08:03:41 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-21 05:57:16 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#include "gk/GameInput.h"
+#include "GameInput.h"
 
 namespace gk {
 
@@ -55,11 +55,11 @@ Input* GameInput::getInput( const std::string& device, const std::string& input 
    if (mDevices.count( device ) == 0)
       return NULL;
 
-   Device* dev = mDevices[device];
+   IDevice* dev = mDevices[device];
    return dev->getInput( input );
 }
 
-bool GameInput::addDevice( Device* device, const std::string& name )
+bool GameInput::addDevice( IDevice* device, const std::string& name )
 {
    if (mDevices.count( name ) == 0)
    {
@@ -72,9 +72,9 @@ bool GameInput::addDevice( Device* device, const std::string& name )
    return false;
 }
 
-Device* GameInput::getDevice( const std::string& name )
+IDevice* GameInput::getDevice( const std::string& name )
 {
-   std::map< std::string, Device* >::iterator itr;
+   std::map< std::string, IDevice* >::iterator itr;
    itr = mDevices.find( name );
    if ( itr != mDevices.end() )
    {
@@ -86,7 +86,7 @@ Device* GameInput::getDevice( const std::string& name )
 
 void GameInput::removeDevice( const std::string& name )
 {
-   std::map< std::string, Device* >::iterator itr;
+   std::map< std::string, IDevice* >::iterator itr;
    itr = mDevices.find( name );
    if ( itr != mDevices.end() )
    {
@@ -107,7 +107,7 @@ void GameInput::bind( const std::string& alias, const std::string& device,
 
 void GameInput::update()
 {
-   std::map<std::string, Device*>::iterator itr;
+   std::map<std::string, IDevice*>::iterator itr;
    for( itr = mDevices.begin(); itr != mDevices.end(); ++itr )
    {
       itr->second->update();

@@ -23,38 +23,33 @@
 // Boston, MA 02111-1307, USA.
 //
 // -----------------------------------------------------------------
-// File:          $RCSfile: Device.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.14 $
+// File:          $RCSfile: TypedDevice.h,v $
+// Date modified: $Date: 2002-03-21 05:57:16 $
+// Version:       $Revision: 1.1 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_DEVICE_H
 #define GK_DEVICE_H
 
-#include "gk/gkCommon.h"
+#include <gk/gkCommon.h>
 #include <string>
 #include <vector>
 #include <map>
-#include "gk/Input.h"
+#include <gk/IDevice.h>
 
 namespace gk {
 
-class Device
+template< typename INPUT_TYPE >
+class TypedDevice : virtual public DLLImpl< IDevice >
 {
 public:
-   Device() {}
-   virtual ~Device() {}
-   virtual Input* getInput( const std::string& s ) = 0;
-   virtual Input* getInput( const int& id ) = 0;
-   virtual void update() = 0;
-};
+   typedef INPUT_TYPE InputType;
 
-template< typename bok >
-class TypedDevice : virtual public Device
-{
-public:
+protected:
    TypedDevice() {}
+
+public:
    virtual ~TypedDevice() {}
 
    void setNumInputs( int n )
@@ -98,7 +93,7 @@ public:
       }
    }
 
-   std::vector< bok > mInput;
+   std::vector< INPUT_TYPE > mInput;
    std::map< std::string, unsigned int > mMap;
 };
 
