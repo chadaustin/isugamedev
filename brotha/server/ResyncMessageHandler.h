@@ -1,8 +1,8 @@
 /* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 3 -*- */
 // vim:cindent:ts=3:et:sw=3:
 
-#ifndef RESYNC_MESSAGE_H
-#define RESYNC_MESSAGE_H
+#ifndef RESYNC_MESSAGE_HANDLER_H
+#define RESYNC_MESSAGE_HANDLER_H
 
 #include "MessageHandler.h"
 
@@ -21,4 +21,4 @@ namespace server {
    };
 }
 
-#endif // RESYNC_MESSAGE_H
+#endif // RESYNC_MESSAGE_HANDLER_H

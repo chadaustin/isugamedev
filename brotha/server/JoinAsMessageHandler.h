@@ -1,8 +1,8 @@
 /* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 3 -*- */
 // vim:cindent:ts=3:et:sw=3:
 
-#ifndef JOIN_AS_MESSAGE_H
-#define JOIN_AS_MESSAGE_H
+#ifndef JOIN_AS_MESSAGE_HANDLER_H
+#define JOIN_AS_MESSAGE_HANDLER_H
 
 #include "MessageHandler.h"
 
@@ -39,4 +39,4 @@ namespace server {
    };
 }
 
-#endif // JOIN_AS_MESSAGE_H
+#endif // JOIN_AS_MESSAGE_HANDLER_H
