@@ -4,6 +4,7 @@ import java.awt.event.*;
 import java.util.*;
 import java.rmi.*;
 import java.rmi.server.*;
+import javax.vecmath.*;
 
 
 /**
@@ -92,6 +93,11 @@ public class Server
             m_world.add(
               new SphereEntity(m_generator.getNext(), pe.getTransform()));
             return;
+
+          case KeyEvent.VK_X:
+            System.out.println("X pressed");
+            m_world.add(createComposite(pe.getTransform()));
+            return;
         }
       }
 
@@ -99,6 +105,26 @@ public class Server
         pe.processKey(key);
       }
     }
+  }
+
+  private Entity createComposite(Matrix4f xform) {
+    CompositeEntity ce = new CompositeEntity(m_generator.getNext(), xform);
+    ce.add(translatedCube(-1, -1, -1));
+    ce.add(translatedCube(-1, -1,  1));
+    ce.add(translatedCube(-1,  1, -1));
+    ce.add(translatedCube(-1,  1,  1));
+    ce.add(translatedCube( 1, -1, -1));
+    ce.add(translatedCube( 1, -1,  1));
+    ce.add(translatedCube( 1,  1, -1));
+    ce.add(translatedCube( 1,  1,  1));
+    return ce;
+  }
+
+  private Entity translatedCube(int x, int y, int z) {
+    Matrix4f xform = new Matrix4f();
+    xform.setIdentity();
+    xform.setTranslation(new Vector3f(x * 2, y * 2, z * 2));
+    return new CubeEntity(m_generator.getNext(), xform);
   }
 
   public void setText(int id, String text) {
