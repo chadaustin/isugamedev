@@ -1,2 +1,2 @@
 all:
-	doxygen aki.doxy
+	doxygen gk.doxy
