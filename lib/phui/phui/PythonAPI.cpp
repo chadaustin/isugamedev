@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-05 14:09:15 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-06 01:01:41 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -74,6 +74,11 @@ namespace phui
    using namespace python;
    BOOST_PYTHON_MODULE(phui)
    {
+      // Tell Boost.Python that it can convert between appropriate shared_ptr types
+      implicitly_convertible<ButtonPtr, WidgetPtr>();
+      implicitly_convertible<WidgetContainerPtr, WidgetPtr>();
+      implicitly_convertible<WindowPtr, WidgetContainerPtr>();
+
       // Point
       class_<Point>("Point")
          .def(init<int, int>())
