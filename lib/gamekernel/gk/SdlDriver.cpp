@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-02-10 10:20:48 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,7 +36,7 @@
 
 namespace gk {
 
-SdlDriver::SdlDriver() : mWidth(640), mHeight(480), mBpp(16), mvideoFlags(0) //mMouse(NULL), mKeyboard(NULL), mJoystick(NULL)
+SdlDriver::SdlDriver() : mWidth(640), mHeight(480), mBpp(16), mvideoFlags(0), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
 {
 	misRunning = false;
 	mName = "SDL with OpenGL";	
@@ -91,12 +91,37 @@ bool SdlDriver::init()
 	mWidth = screen->w;
 	mHeight = screen->h;
 	screen = NULL;
+	mMouse = new DeviceHandle<Mouse>("Mouse");
+	mKeyboard = new DeviceHandle<Keyboard>("Keyboard");
+	//odds of this happening are pretty slim, but might as well check...
+	if (!mMouse)
+	{
+		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the mouse Device Handle." << endl;
+		return false;
+	}
+	if (!mKeyboard)
+	{
+		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the keyboard Device Handle." << endl;
+		return false;
+	}
+	//This enables repeating keybaord events.  These values should be read from somewhere, not hardcoded in.
+	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 	return true;
 }
 
 bool SdlDriver::run()
 {
 	misRunning = true;
+	//SDL does event polling, so we're just going to have to fake an idle loop.
+	int error = 0;
+
+	error = SDL_WaitEvent(&mEvent);
+	if (error == 0)
+	{
+		std::cerr << "SDL Driver Error:  Error while waiting for events\nSDL Error:  " << SDL_GetError()
+				<< endl;
+	}
+	handleEvent();
 	return true;
 }	
 
@@ -168,4 +193,508 @@ const std::string& SdlDriver::name() const
 	return mName;
 }
 
+void SdlDriver::handleEvent()
+{
+	switch (mEvent.type)
+	{
+		case SDL_QUIT:
+			shutdown();
+			break;
+		case SDL_KEYUP:
+			onKeyUp();
+			break;
+		case SDL_KEYDOWN:
+			onKeyDown();
+			break;
+		case SDL_VIDEORESIZE:
+			setWindowSize(mEvent.resize.w, mEvent.resize.h);
+			break;
+		case SDL_MOUSEMOTION:
+			onMouseMove();
+			break;
+		case SDL_MOUSEBUTTONDOWN:
+			onMouseDown();
+			break;
+		case SDL_MOUSEBUTTONUP:
+			onMouseUp();
+			break;
+		default:
+			break;
+			//unhandled event; we pretty much ignore it.
+	}
+}
+
+void SdlDriver::onKeyUp()
+{
+	SDL_keysym key = mEvent.key.keysym;
+	string keyID = getKeyID(key);
+	const DigitalInput::BinaryState state = DigitalInput::OFF;
+	Keyboard *kb = mKeyboard->getDevice();
+	kb->button(keyID)->setBinaryState(state);
+}
+
+void SdlDriver::onKeyDown()
+{
+	SDL_keysym key = mEvent.key.keysym;
+	string keyID = getKeyID(key);
+	const DigitalInput::BinaryState state = DigitalInput::ON;
+	Keyboard *kb = mKeyboard->getDevice();
+	kb->button(keyID)->setBinaryState(state);
+}
+
+void SdlDriver::onMouseMove()
+{
+	Mouse *mouse = mMouse->getDevice();
+	mouse->axis(0).setData(mEvent.motion.x);
+	mouse->axis(1).setData(mEvent.motion.y);
+	mouse = NULL;
+}
+void SdlDriver::onMouseDown()
+{
+	Mouse *mouse = mMouse->getDevice();
+	Mouse::Button button;
+	switch (mEvent.button.button)
+	{
+		case SDL_BUTTON_LEFT:
+			button = Mouse::LEFT;
+			break;
+		case SDL_BUTTON_MIDDLE:
+			button = Mouse::MIDDLE;
+			break;
+		case SDL_BUTTON_RIGHT:
+			button = Mouse::RIGHT;
+			break;
+		default:
+			break;
+	}
+	if (mEvent.button.state == SDL_PRESSED)
+	{
+		mouse->button(button).setBinaryState(DigitalInput::ON);
+	}
+	
+	mouse->axis(0).setData(mEvent.button.x);
+	mouse->axis(1).setData(mEvent.button.y);
+}
+
+void SdlDriver::onMouseUp()
+{
+	Mouse *mouse = mMouse->getDevice();
+	Mouse::Button button;
+	switch (mEvent.button.button)
+	{
+		case SDL_BUTTON_LEFT:
+			button = Mouse::LEFT;
+			break;
+		case SDL_BUTTON_MIDDLE:
+			button = Mouse::MIDDLE;
+			break;
+		case SDL_BUTTON_RIGHT:
+			button = Mouse::RIGHT;
+			break;
+		default:
+			break;
+	}
+	if (mEvent.button.state == SDL_RELEASED)
+	{
+		mouse->button(button).setBinaryState(DigitalInput::OFF);
+	}
+
+	mouse->axis(0).setData(mEvent.button.x);
+	mouse->axis(1).setData(mEvent.button.y);
+}
+
+//FIXME:  Yuck!  There has to be a better way...
+std::string getKeyID(SDL_keysym& key)
+{
+	if (key.sym == SDLK_BACKSPACE)
+	{
+		return "KEY_BS";
+	}
+	else if (key.sym == SDLK_TAB)
+	{
+		return "KEY_TAB";
+	}
+	else if (key.sym == SDLK_RETURN)
+	{
+		return "KEY_NEWLINE";
+	}
+	else if (key.sym == SDLK_ESCAPE)
+	{
+		return "KEY_ESC";
+	}
+	else if (key.sym == SDLK_SPACE)
+	{
+		return "KEY_SPACE";
+	}
+	else if (key.sym == SDLK_QUOTEDBL)
+	{
+		return "KEY_DOUBLEQUOTES";
+	}
+	else if (key.sym == SDLK_HASH)
+	{
+		return "KEY_HASH";
+	}
+	else if (key.sym == SDLK_DOLLAR)
+	{
+		return "KEY_DOLLAR";
+	}
+	else if (key.sym == SDLK_5 && key.mod == KMOD_SHIFT)
+	{
+		return "KEY_PERCENT";
+	}
+	else if (key.sym == SDLK_AMPERSAND)
+	{
+		return "KEY_AMPERSAND";
+	}
+	else if (key.sym == SDLK_QUOTE)
+	{
+		return "KEY_RIGHTQUOTE";
+	}
+	else if (key.sym == SDLK_LEFTPAREN)
+	{
+		return "KEY_LEFTPAREN";
+	}
+	else if (key.sym == SDLK_RIGHTPAREN)
+	{
+		return "KEY_RIGHTPAREN";
+	}
+	else if (key.sym == SDLK_ASTERISK)
+	{
+		return "KEY_ASTERISK";
+	}
+	else if (key.sym == SDLK_PLUS)
+	{
+		return "KEY_POS";
+	}
+	else if (key.sym == SDLK_COMMA)
+	{
+		return "KEY_COMMA";
+	}
+	else if (key.sym == SDLK_MINUS)
+	{
+		return "KEY_NEG";
+	}
+	else if (key.sym == SDLK_PERIOD)
+	{
+		return "KEY_PERIOD";
+	}
+	else if (key.sym == SDLK_SLASH)
+	{
+		return "KEY_SLASH";
+	}
+	else if (key.sym == SDLK_0)
+	{
+		return "KEY_ZERO";
+	}
+	else if (key.sym == SDLK_1)
+	{
+		return "KEY_ONE";
+	}
+	else if (key.sym == SDLK_2)
+	{
+		return "KEY_TWO";
+	}
+	else if (key.sym == SDLK_3)
+	{
+		return "KEY_THREE";
+	}
+	else if (key.sym == SDLK_4)
+	{
+		return "KEY_FOUR";
+	}
+	else if (key.sym == SDLK_5)
+	{
+		return "KEY_FIVE";
+	}
+	else if (key.sym == SDLK_6)
+	{
+		return "KEY_SIX";
+	}
+	else if (key.sym == SDLK_7)
+	{
+		return "KEY_SEVEN";
+	}
+	else if (key.sym == SDLK_8)
+	{
+		return "KEY_EIGHT";
+	}
+	else if (key.sym == SDLK_9)
+	{
+		return "KEY_NINE";
+	}
+	else if (key.sym == SDLK_COLON)
+	{
+		return "KEY_COLON";
+	}
+	else if (key.sym == SDLK_SEMICOLON)
+	{
+		return "KEY_SEMICOLON";
+	}
+	else if (key.sym == SDLK_LESS)
+	{
+		return "KEY_LESSTHAN";
+	}
+	else if (key.sym == SDLK_GREATER)
+	{
+		return "KEY_GREATERTHAN";
+	}
+	else if (key.sym == SDLK_QUESTION)
+	{
+		return "KEY_QUESTION";
+	}
+	else if (key.sym == SDLK_AT)
+	{
+		return "KEY_AT";
+	}
+	else if (key.sym == SDLK_a)
+	{
+		return "KEY_A";
+	}
+	else if (key.sym == SDLK_b)
+	{
+		return "KEY_B";
+	}
+	else if (key.sym == SDLK_c)
+	{
+		return "KEY_C";
+	}
+	else if (key.sym == SDLK_d)
+	{
+		return "KEY_D";
+	}
+	else if (key.sym == SDLK_e)
+	{
+		return "KEY_E";
+	}
+	else if (key.sym == SDLK_f)
+	{
+		return "KEY_F";
+	}
+	else if (key.sym == SDLK_g)
+	{
+		return "KEY_G";
+	}
+	else if (key.sym == SDLK_h)
+	{
+		return "KEY_H";
+	}
+	else if (key.sym == SDLK_i)
+	{
+		return "KEY_I";
+	}
+	else if (key.sym == SDLK_j)
+	{
+		return "KEY_J";
+	}
+	else if (key.sym == SDLK_l)
+	{
+		return "KEY_L";
+	}
+	else if (key.sym == SDLK_m)
+	{
+		return "KEY_M";
+	}
+	else if (key.sym == SDLK_n)
+	{
+		return "KEY_N";
+	}
+	else if (key.sym == SDLK_o)
+	{
+		return "KEY_O";
+	}
+	else if (key.sym == SDLK_p)
+	{
+		return "KEY_P";
+	}
+	else if (key.sym == SDLK_q)
+	{
+		return "KEY_Q";
+	}
+	else if (key.sym == SDLK_r)
+	{
+		return "KEY_R";
+	}
+	else if (key.sym == SDLK_s)
+	{
+		return "KEY_S";
+	}
+	else if (key.sym == SDLK_t)
+	{
+		return "KEY_T";
+	}
+	else if (key.sym == SDLK_u)
+	{
+		return "KEY_U";
+	}
+	else if (key.sym == SDLK_v)
+	{
+		return "KEY_V";
+	}
+	else if (key.sym == SDLK_w)
+	{
+		return "KEY_W";
+	}
+	else if (key.sym == SDLK_x)
+	{
+		return "KEY_X";
+	}
+	else if (key.sym == SDLK_y)
+	{
+		return "KEY_Y";
+	}
+	else if (key.sym == SDLK_z)
+	{
+		return "KEY_Z";
+	}
+	else if (key.sym == SDLK_LEFTBRACKET)
+	{
+		if (key.mod == KMOD_SHIFT)
+		{
+			return "KEY_CURLYLEFT";
+		}	
+		return "KEY_LEFTBRACKET";
+	}
+	else if (key.sym == SDLK_BACKSLASH)
+	{
+		if (key.mod == KMOD_SHIFT)
+		{
+			return "KEY_PIPE";
+		}
+		return "KEY_BACKSLASH";
+	}
+	else if (key.sym == SDLK_RIGHTBRACKET)
+	{
+		if (key.mod == KMOD_SHIFT)
+		{
+			return "KEY_CURLYRIGHT";
+		}
+		return "KEY_RIGHTBRACKET";
+	}
+	else if (key.sym == SDLK_CARET)
+	{
+		return "KEY_CARET";
+	}
+	else if (key.sym == SDLK_UNDERSCORE)
+	{
+		return "KEY_UNDERSCORE";
+	}
+	else if (key.sym == SDLK_BACKQUOTE)
+	{
+		if (key.mod == KMOD_SHIFT)
+		{
+			return "KEY_TILDE";
+		}
+		return "KEY_LEFTQUOTE";
+	}
+	else if (key.sym == SDLK_DELETE)
+	{
+		return "KEY_DELETE";
+	}
+	else if (key.sym == SDLK_PAGEUP)
+	{
+		return "KEY_PAGEUP";
+	}
+	else if (key.sym == SDLK_PAGEDOWN)
+	{
+		return "KEY_PAGEDOWN";
+	}
+	else if (key.sym == SDLK_HOME)
+	{
+		return "KEY_HOME";
+	}
+	else if (key.sym == SDLK_END)
+	{
+		return "KEY_END";
+	}
+	else if (key.sym == SDLK_INSERT)
+	{
+		return "KEY_INSERT";
+	}
+	else if (key.sym == SDLK_UP)
+	{
+		return "KEY_UPARROW";
+	}
+	else if (key.sym == SDLK_DOWN)
+	{
+		return "KEY_DOWNARROW";
+	}
+	else if (key.sym == SDLK_LEFT)
+	{
+		return "KEY_LEFTARROW";
+	}
+	else if (key.sym == SDLK_RIGHT)
+	{
+		return "KEY_RIGHTARROW";
+	}
+	else if (key.sym == SDLK_CAPSLOCK)
+	{
+		return "KEY_CAPS";
+	}
+	else if (key.sym == SDLK_LSHIFT)
+	{
+		return "KEY_LSHIFT";
+	}
+	else if (key.sym == SDLK_LCTRL)
+	{
+		return "KEY_LCTRL";
+	}
+	else if (key.sym == SDLK_RSHIFT)
+	{
+		return "KEY_RSHIFT";
+	}
+	else if (key.sym == SDLK_RCTRL)
+	{
+		return "KEY_RCTRL";
+	}
+	else if (key.sym == SDLK_F1)
+	{
+		return "KEY_F1";
+	}
+	else if (key.sym == SDLK_F2)
+	{
+		return "KEY_F2";
+	}
+	else if (key.sym == SDLK_F3)
+	{
+		return "KEY_F3";
+	}
+	else if (key.sym == SDLK_F4)
+	{
+		return "KEY_F4";
+	}
+	else if (key.sym == SDLK_F5)
+	{
+		return "KEY_F5";
+	}
+	else if (key.sym == SDLK_F6)
+	{
+		return "KEY_F6";
+	}
+	else if (key.sym == SDLK_F7)
+	{
+		return "KEY_F7";
+	}
+	else if (key.sym == SDLK_F8)
+	{
+		return "KEY_F8";
+	}
+	else if (key.sym == SDLK_F9)
+	{
+		return "KEY_F9";
+	}
+	else if (key.sym == SDLK_F10)
+	{
+		return "KEY_F10";
+	}
+	else if (key.sym == SDLK_F11)
+	{
+		return "KEY_F11";
+	}
+	else if (key.sym == SDLK_F12)
+	{
+		return "KEY_F12";
+	}
+}
+		
+	
 } // namespace gk

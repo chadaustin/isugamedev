@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-02-10 10:20:48 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,7 +33,9 @@
 
 #include "gk/gkCommon.h"
 #include "gk/SystemDriver.h"
+#include "gk/GameInput.h"
 #include "gk/Keyboard.h"
+#include "gk/Mouse.h"
 #include "gk/ContextData.h"
 #include <SDL.h>
 #include <string>
@@ -135,12 +137,19 @@ private:
 	int mBpp;							//BitsPerPixel of the window
 	Uint32 mvideoFlags;					//Video Flags of the screen.
 	bool misRunning;					//Is the SdlDriver running?
-	/*
 	DeviceHandle<Mouse>* mMouse;			//Mouse Device
 	DeviceHandle<Keyboard>* mKeyboard;		//Keyboard Device
-	DeviceHandle<Joystick>* mJoystick;		//Joystick Device
-	*/
+	//DeviceHandle<Joystick>* mJoystick;		//Joystick Device
+	SDL_Event mEvent;					//Event Structure
+
 	//Private Methods
+	void handleEvent();
+	void onKeyUp();
+	void onKeyDown();
+	void onMouseMove();
+	void onMouseDown();
+	void onMouseUp();
+	std::string getKeyID(SDL_keysym &key);
 	/* TODO:
 	   1.	Implement Event Handling per the SystemDriver interface.
 	   2.	Implement Joystick Control.
