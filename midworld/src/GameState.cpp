@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2003-05-01 08:38:02 $
- * Version:       $Revision: 1.137 $
+ * Date modified: $Date: 2003-06-19 04:46:08 $
+ * Version:       $Revision: 1.138 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -422,8 +422,8 @@ namespace mw
       glScalef(85.0,85.0, 85.0);
       glPushAttrib(GL_ALL_ATTRIB_BITS);
       
-      glEnable(GL_CULL_FACE);
-      glBlendFunc(GL_ZERO, GL_ONE_MINUS_SRC_ALPHA);
+      glDisable(GL_CULL_FACE);
+      glDisable(GL_BLEND);
       glClear(GL_ALL_ATTRIB_BITS);
 
       gmtl::Quatf playerRot;
