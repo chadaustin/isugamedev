@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-03-30 23:36:16 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-03-31 01:47:13 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -173,13 +173,13 @@ void SdlDriver::shutdown()
 	misRunning = false;
 	if (mKeyboard != NULL)
 	{
-		mKeyboard = NULL;
 		delete mKeyboard;
+		mKeyboard = NULL;
 	}
-	if (mKeyboard != NULL)
+	if (mMouse != NULL)
 	{
-		mKeyboard = NULL;
-		delete mKeyboard;
+		delete mMouse;
+		mMouse = NULL;
 	}
 	SDL_Quit();
 }
@@ -297,6 +297,8 @@ void SdlDriver::onKeyDown()
 	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::ON;
 	Keyboard *kb = mKeyboard->getDevice();
+	Keyboard::Key id = static_cast<Keyboard::Key>(kb->mMap[keyID]);
+	kb->queue().push_back(id);
 	kb->button(keyID)->setBinaryState(state);
 }
 
@@ -332,8 +334,10 @@ void SdlDriver::onMouseDown()
 		mouse->button(button).setBinaryState(DigitalInput::ON);
 	}
 	
-	mouse->axis(0).setData(mEvent.button.x);
-	mouse->axis(1).setData(mEvent.button.y);
+	float x = static_cast<float>(mEvent.button.x) / static_cast<float>(mWidth) * 2.0f - 1.0f;
+	mouse->axis(0).setData(x);
+	float y = static_cast<float>(mEvent.button.y) / static_cast<float>(mHeight) * 2.0f - 1.0f;
+	mouse->axis(1).setData(y);
 }
 
 void SdlDriver::onMouseUp()
@@ -358,9 +362,10 @@ void SdlDriver::onMouseUp()
 	{
 		mouse->button(button).setBinaryState(DigitalInput::OFF);
 	}
-
-	mouse->axis(0).setData(mEvent.button.x);
-	mouse->axis(1).setData(mEvent.button.y);
+	float x = static_cast<float>(mEvent.button.x) / static_cast<float>(mWidth) * 2.0f - 1.0f;
+	mouse->axis(0).setData(x);
+	float y = static_cast<float>(mEvent.button.y) / static_cast<float>(mHeight) * 2.0f - 1.0f;
+	mouse->axis(1).setData(y);
 }
 
 //FIXME:  Yuck!  There has to be a better way...
@@ -755,9 +760,13 @@ std::string SdlDriver::getKeyID(SDL_keysym& key)
 		return "KEY_F12";
 	}
 
-   assert( false && "SDL Driver Error: Unknown key pressed." );
-   return "";
+	else
+	{
+		std::cerr << "SDL Driver Error:  Unknown/Unhandled Key Pressed." << std::endl;
+		return "";
+	}
 }
+   
 		
 	
 } // namespace gk
