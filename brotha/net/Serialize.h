@@ -6,9 +6,10 @@
 
 
 #include <prtypes.h>
-#include <string>
 #include "InputStream.h"
 #include "OutputStream.h"
+#include <algorithm>
+#include <string>
 
 
 namespace net {

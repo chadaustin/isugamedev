@@ -42,8 +42,7 @@ namespace net {
             throw SocketException("Hostname lookup failed");
          }
 
-         // HACK: TODO: uhh ... yea, AF_INET = 2 in windows atleast
-         addr.inet.family = 2; // PR_FamilyInet() typically AF_INET;
+         addr.inet.family = PR_AF_INET;
          addr.inet.port   = PR_htons(port);
 
          status = PR_Connect(mSocket, &addr, PR_INTERVAL_NO_TIMEOUT);
