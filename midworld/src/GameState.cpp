@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-14 11:53:47 $
- * Version:       $Revision: 1.125 $
+ * Date modified: $Date: 2002-11-14 12:12:28 $
+ * Version:       $Revision: 1.126 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -114,7 +114,7 @@ namespace mw
 
       //THis is the generation of the skydome
       GenerateDome(400.0f, 5.0f, 5.0f, 1.0f, 1.0f);
-      mSkydomeTex = new Texture("images/nebula.bmp");
+      mSkydomeTex = new Texture("images/DomeTexture.jpg");
    }
 
    void
