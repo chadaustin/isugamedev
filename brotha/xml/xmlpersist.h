@@ -79,7 +79,7 @@ namespace dataxml {
       return b;
    }
 
-   fillWithFakeData(Bdata* b) {
+   void fillWithFakeData(Bdata* b) {
       Gang* g = new Gang("emigia");
       Player* p = new Player("ama","kuriyama");
       Car* c = new Car("tercel");
