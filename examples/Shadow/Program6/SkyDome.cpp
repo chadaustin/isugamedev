@@ -10,8 +10,9 @@
 // Have fun!
 ////////////////////////////////////////////////////
 
+#include <GL/glut.h>
+#include <string.h>
 #include <math.h>
-#include <windows.h>
 
 #include "globals.h"
 #include "SkyDome.h"
@@ -35,7 +36,7 @@ void GenerateDome(float radius, float dtheta, float dphi, float hTile, float vTi
 	// Initialize our Vertex array
 	NumVertices = (int)((360/dtheta)*(90/dphi)*4);
 	Vertices = new VERTEX[NumVertices];
-	ZeroMemory(Vertices, sizeof(VERTEX)*NumVertices);
+        memset(Vertices, 0, sizeof(VERTEX)*NumVertices);
 
 	// Used to calculate the UV coordinates
 	float vx, vy, vz, mag;
@@ -174,7 +175,7 @@ int RenderSkyDome()
 {
 	glPushMatrix();
 	glTranslatef(0.0f, -100.0f, 0.0f);
-	glRotatef(timeGetTime()/2000.0f,0.0f, 1.0f, 0.0f);
+	glRotatef(glutGet(GLUT_ELAPSED_TIME)/2000.0f,0.0f, 1.0f, 0.0f);
 	glRotatef(270, 1.0f, 0.0f, 0.0f);
 
 	glBegin(GL_TRIANGLE_STRIP);

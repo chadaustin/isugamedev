@@ -16,7 +16,7 @@ static FILE* file;
 
 // The offset from the BITMAPFILEHEADER structure
 // to the actual bitmap data in the file.
-static byteOffset;
+static int byteOffset;
 
 // Image width in pixels
 static int width;

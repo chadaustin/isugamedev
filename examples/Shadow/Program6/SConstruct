@@ -1,0 +1,25 @@
+import os
+import os.path
+execfile('glut_libs.py')
+
+Default('.')
+
+sources = """
+    BMPLoader.cpp
+    CarPhysics.cpp
+    MainProgram.cpp
+    Shadow.cpp
+    SkyDome.cpp
+"""
+
+CXXFLAGS = ['-Wall']
+if ARGUMENTS.get('debug'):
+    CXXFLAGS.append('-g')
+else:
+    CXXFLAGS.append('-O2')
+
+env = Environment(ENV = os.environ,
+                  LIBS = GLUT_LIBS,
+                  CXXFLAGS = CXXFLAGS,
+                  LINKFLAGS = '-s')
+env.Program(target = 'Program6', source = sources)
