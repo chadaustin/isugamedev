@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 13:41:56 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2003-01-08 08:21:06 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -56,11 +56,46 @@ namespace phui
             : mSelf(self)
          {}
 
-         void onAction(const ActionEvent& evt) { return call_method<void>(mSelf, "onAction"); }
+         void onAction(const ActionEvent& evt) { return call_method<void>(mSelf, "onAction", evt); }
 
          PyObject* mSelf;
       };
       typedef boost::shared_ptr<ActionListenerWrap> ActionListenerWrapPtr;
+
+      struct WindowListenerWrap : public WindowListener
+      {
+         WindowListenerWrap(PyObject* self)
+            : mSelf(self)
+         {}
+
+         void onWindowOpened(const WindowEvent& evt) { return call_method<void>(mSelf, "onWindowOpened", evt); }
+         void onWindowClosed(const WindowEvent& evt) { return call_method<void>(mSelf, "onWindowClosed", evt); }
+         void onWindowFocused(const WindowEvent& evt) { return call_method<void>(mSelf, "onWindowFocused", evt); }
+         void onWindowUnfocused(const WindowEvent& evt) { return call_method<void>(mSelf, "onWindowUnfocused", evt); }
+
+         PyObject* mSelf;
+      };
+      typedef boost::shared_ptr<WindowListenerWrap> WindowListenerWrapPtr;
+
+      struct WindowAdapterWrap : public WindowAdapter
+      {
+         WindowAdapterWrap(PyObject* self)
+            : mSelf(self)
+         {}
+
+         WindowAdapterWrap(PyObject* self, const WindowAdapter& base)
+            : WindowAdapter(base), mSelf(self)
+         {}
+
+         void onWindowOpened(const WindowEvent& evt) { return call_method<void>(mSelf, "onWindowOpened", evt); }
+         void onWindowClosed(const WindowEvent& evt) { return call_method<void>(mSelf, "onWindowClosed", evt); }
+         void onWindowFocused(const WindowEvent& evt) { return call_method<void>(mSelf, "onWindowFocused", evt); }
+         void onWindowUnfocused(const WindowEvent& evt) { return call_method<void>(mSelf, "onWindowUnfocused", evt); }
+
+         PyObject* mSelf;
+      };
+      typedef boost::shared_ptr<WindowAdapterWrap> WindowAdapterWrapPtr;
+
 
 #define PHUI_CREATE(Type)           \
    Type ## Ptr create ## Type()     \
@@ -88,6 +123,7 @@ namespace phui
       implicitly_convertible<WidgetContainerPtr, WidgetPtr>();
       implicitly_convertible<RootWidgetPtr, WidgetContainerPtr>();
       implicitly_convertible<WindowPtr, WidgetContainerPtr>();
+//      implicitly_convertible<WindowAdapterPtr, WindowListenerPtr>();
 
       // Point
       class_<Point>("Point")
@@ -155,6 +191,26 @@ namespace phui
          .def("onAction", &ActionListenerWrap::onAction)
       ;
 
+      // WindowEvent
+      class_<WindowEvent>("WindowEvent", init<WindowPtr>())
+         .add_property("window", &WindowEvent::getWindow)
+      ;
+
+      // WindowListener
+      class_<WindowListener, WindowListenerWrap, boost::noncopyable>("WindowListener")
+         .def("onWindowOpened", &WindowListenerWrap::onWindowOpened)
+         .def("onWindowClosed", &WindowListenerWrap::onWindowClosed)
+         .def("onWindowFocused", &WindowListenerWrap::onWindowFocused)
+         .def("onWindowUnfocused", &WindowListenerWrap::onWindowUnfocused)
+      ;
+
+      // WindowAdapter
+      class_<WindowAdapter, bases<WindowListener>, WindowAdapterWrap>("WindowAdapter")
+         .def("onWindowOpened", &WindowAdapterWrap::onWindowOpened)
+         .def("onWindowClosed", &WindowAdapterWrap::onWindowClosed)
+         .def("onWindowFocused", &WindowAdapterWrap::onWindowFocused)
+         .def("onWindowUnfocused", &WindowAdapterWrap::onWindowUnfocused)
+      ;
 
       // LayoutContraint
 //      class_<LayoutConstraint, LayoutConstraintWrap, boost::noncopyable>("LayoutConstraint", no_init)

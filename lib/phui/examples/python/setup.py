@@ -4,9 +4,31 @@ from phui import *
 print 'You rock!'
 
 class MyActionListener(ActionListener):
-   def onAction(evt):
+   def onAction(self, evt):
       global wnd
       wnd.visible = not wnd.visible
+
+class MyWindowListener(WindowListener):
+   def onWindowOpened(self, evt):
+      print 'window opened'
+   def onWindowClosed(self, evt):
+      print 'window closed'
+   def onWindowFocused(self, evt):
+      print 'window focused'
+   def onWindowUnfocused(self, evt):
+      print 'window unfocused'
+
+class MyWndAdapter(WindowAdapter):
+   def __init__(self):
+      WindowAdapter.__init__(self)
+   def onWindowOpened(self, evt):
+      print 'windowAdapter opened'
+   def onWindowClosed(self, evt):
+      print 'window closed'
+   def onWindowFocused(self, evt):
+      print 'window focused'
+   def onWindowUnfocused(self, evt):
+      print 'window unfocused'
 
 # Get the root widget of the UI
 ui = appconnect.getUI()
@@ -17,6 +39,8 @@ wnd.position.set(10, 10)
 wnd.size.set(300, 45)
 wnd.backgroundColor.set(0,1,0,1)
 wnd.backgroundColor.set(0,1,0,1)
+#wnd.addWindowListener(MyWindowListener())
+wnd.addWindowListener(MyWndAdapter())
 wnd.show()
 
 # Create a new button
