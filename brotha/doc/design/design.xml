@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.43 2002-04-09 05:43:34 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 05:43:34 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.44 2002-04-09 05:47:49 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 05:47:49 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -471,7 +471,7 @@
                     <varlistentry>
                       <term>Cons</term>
                       <listitem>
-                        <itemizedlist>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Not as mature as some other libraries.</para>
                           </listitem>
@@ -496,7 +496,7 @@
                     <varlistentry>
                       <term>Cons</term>
                       <listitem>
-                        <itemizedlist>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Needlessly complex API</para>
                           </listitem>
