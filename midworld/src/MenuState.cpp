@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-10-03 03:59:56 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-10-23 07:15:32 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,6 +33,7 @@
 #include "StateFactory.h"
 #include "MenuState.h"
 #include "Application.h"
+#include "GameManager.h"
 
 namespace mw
 {
@@ -45,6 +46,16 @@ namespace mw
    {
       mCursor.init( this->application().getWidth(), 
                     this->application().getHeight() );
+      //setup sound and play
+      Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
+      if(jukebox->getTrack(0)== "music/theme.ogg"){
+         std::cout << std::endl << std::endl << std::endl << "theme.ogg" << std::endl << std::endl << std::endl;
+      }else{
+         jukebox->clear();
+         jukebox->addTrack("music/theme.ogg");
+         jukebox->play();
+      }
+
       
       //setup images
       mImages.resize(3);
