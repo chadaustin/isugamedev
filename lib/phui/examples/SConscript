@@ -1,1 +1,1 @@
-SConscript(dirs = Split('event window'))
+SConscript(dirs = Split('event window xmllayout'))

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phui>
+  <window text="XMLLayout Test" visible="1">
+    <position x="20" y="20" />
+    <size width="500" height="300" />
+    <button text="I'm a button">
+      <position x="20" y="20" />
+      <size width="100" height="30" />
+    </button>
+  </window>
+</phui>

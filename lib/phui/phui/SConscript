@@ -2,52 +2,57 @@ from os import path
 
 Import('env PREFIX')
 
-classes = [
-    'Button',
-    'CheckBox',
-    'Font',
-    'FontRenderer',
-    'FontRendererCache',
-    'Insets',
-    'Label',
-    'ListBox',
-    'Rect',
-    'RootFactory',
-    'RootWidget',
-    'Size',
-    'TextField',
-    'Widget',
-    'WidgetContainer',
-    'Window',
-]
+classes = Split("""
+   Button
+   CheckBox
+   Font
+   FontRenderer
+   FontRendererCache
+   Insets
+   Label
+   ListBox
+   Rect
+   RootFactory
+   RootWidget
+   Size
+   TextField
+   Widget
+   WidgetContainer
+   Window
+   layout/LayoutCodec
+""")
 
 sources = []
 
-headers = [
-    'ActionListener.h',
-    'Color.h',
-    'Input.h',
-    'ListSelectionListener.h',
-    'Point.h',
-    'WindowAdapter.h',
-    'WindowListener.h',
-    'phui.h',
-    'phuiCommon.h',
+headers = Split("""
+   ActionListener.h
+   Color.h
+   Input.h
+   ListSelectionListener.h
+   Point.h
+   WindowAdapter.h
+   WindowListener.h
+   phui.h
+   phuiCommon.h
+""")
 
-    # extra bridge headers
-    'SDLBridge.h',
-    'GLUTBridge.h',
-]
+# extra bridge headers
+headers.extend(Split("""
+   SDLBridge.h
+   GLUTBridge.h
+"""))
 
 sources.extend(map(lambda n: n + '.cpp', classes))
 headers.extend(map(lambda n: n + '.h',   classes))
 
+e = env.Copy(LIBS = ['cppdom'])
+
 libraries = []
-libraries.append(env.Library(target = 'phui', source = sources))
-libraries.append(env.Library(target = 'phuiSDL',  source = 'SDLBridge.cpp'))
-libraries.append(env.Library(target = 'phuiGLUT', source = 'GLUTBridge.cpp'))
+libraries.append(e.SharedLibrary(target = 'phui', source = sources))
+libraries.append(e.SharedLibrary(target = 'phuiSDL',  source = 'SDLBridge.cpp'))
+libraries.append(e.SharedLibrary(target = 'phuiGLUT', source = 'GLUTBridge.cpp'))
 
 for h in headers:
-    env.Install(path.join(PREFIX, 'include', 'phui'), h)
+    e.Install(path.join(PREFIX, 'include', 'phui'), h)
     
-env.Install(path.join(PREFIX, 'lib'), libraries)
+e.Install(path.join(PREFIX, 'lib'), libraries)

@@ -31,11 +31,15 @@ if ARGUMENTS.get('prefix'):
    PREFIX = ARGUMENTS['prefix']
 Export('PREFIX')
 
+CXX = WhereIs('g++3') or 'g++'
+LINK = CXX
 
 # create the base environment
 env = Environment(LIBPATH = '#phui',
                   CPPPATH = ['#', '#phui'],
                   ENV = os.environ,
+                  CXX = CXX,
+                  LINK = LINK,
                   LINKFLAGS = LINKFLAGS,
                   CXXFLAGS = CXXFLAGS)
 
