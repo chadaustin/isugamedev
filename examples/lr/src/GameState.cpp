@@ -95,9 +95,10 @@ namespace lr
    void GameState::update(float dt)
    {
       mPlayer->update(dt);
+      mScoreBoard->update(mPlayer->getLives(), mPlayer->getScore());
    }
 
-   void GameState::switchStates()
+   bool GameState::switchStates()
    {
    }
 

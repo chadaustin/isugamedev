@@ -32,9 +32,19 @@ namespace lr
       /** 
        * implmentation of switchState from State class
        */
-      void switchStates();
+      bool switchStates();
    private:
       Texture* mIntroImage;
+      Texture* select;
+      Texture* guy1;
+      Texture* guy2;
+      // pointer to the current texture
+      Texture* currentTexture;
+      // up and down keys for looking through the menu choices
+      bool keyup, keydown, transition;
+
+      float initTime;
+      int offset;
       
    };
 } // end namespace

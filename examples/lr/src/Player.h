@@ -16,7 +16,7 @@ namespace lr
 
    class Player{
    public:
-      
+   
       /**
        * default constructor
        * sets the position of the player to 0,1
@@ -84,7 +84,17 @@ namespace lr
       bool ladderUnder();
       bool brickUnder();
       
-   protected:
+      /** 
+       * method to return the integer number of lives this player currently has
+       */
+      int getLives();
+
+      /**
+       * mehtod to return the score the player has accumulated
+       */
+      int getScore();
+      
+   private:
       float realPos;    // players real position on the screen from 0 to 1024
       float realHeight; // players real height on the screen from 0 to 768
       
@@ -121,6 +131,12 @@ namespace lr
        * is in it
        */
       Level* mLevel;
+
+      /** players score */
+      int score;
+
+      /** number of lives this player has left */
+      int numLives;
 
       /** variables for update that get set in handleKeyPress - blah */
       bool keyup, keydown, keyleft, keyright;

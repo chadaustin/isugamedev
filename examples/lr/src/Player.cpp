@@ -31,8 +31,23 @@ namespace lr
 
       currentTexture = run1Image;
       initTime = 0.0;
+
+      // set lives to 3
+      numLives = 3;
+
+      // set the score to 0
+      score = 0;
    }
 
+   int Player::getLives()
+   {
+      return numLives;
+   }
+
+   int Player::getScore()
+   {
+      return score;
+   }
    
 
    void Player::update(float dt)

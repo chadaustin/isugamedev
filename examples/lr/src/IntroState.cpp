@@ -8,19 +8,59 @@ namespace lr
    IntroState::IntroState( Application* a) : State (a)
    {
       mIntroImage = Texture::create(std::string("intro.png"));
+      guy1 = Texture::create(std::string("lr-climb1.png"));
+      guy2 = Texture::create(std::string("lr-climb2.png"));
+      select = Texture::create(std::string("menu_selection.png"));
+
+      currentTexture = guy1;
+      initTime = offset = 0;
+      keyup = keydown = transition =  false;
    }
 
    IntroState::~IntroState()
    {
       delete mIntroImage;
+      delete guy1;
+      delete guy2;
+      delete select;
    }
 
    void IntroState::onKeyPress(SDLKey sym, bool down)
    {
+      if(sym == SDLK_DOWN && down)
+      {
+         keydown = true;
+         
+      }else if(sym == SDLK_UP && down)
+      {
+         keyup = true;
+      }else if(sym == SDLK_DOWN && !down)
+      {
+         keydown = false;
+      }else if(sym == SDLK_UP && !down)
+      {
+         keyup = false;
+      }else if(sym == SDLK_RETURN && down)
+      {
+         transition = true;
+      }
    }
    
    void IntroState::update(float dt)
    {
+      if((initTime+=dt)>.08 && (keyup || keydown))
+      {
+         if(currentTexture == guy1){
+            currentTexture = guy2;
+         }else{
+            currentTexture = guy1;
+         }
+         initTime=0;
+      }
+      if(keydown && offset<50)
+         offset++;
+      if(keyup && offset>0)
+         offset--;
    }
 
    void IntroState::draw()
@@ -45,12 +85,26 @@ namespace lr
       // draw background
       glColor4f(1, 1, 1, 1);
       mIntroImage->drawRectangle(0,0,this->getApp().getWidth(), this->getApp().getHeight());
-
-
+      
+      glTranslatef(295,400+offset,0);
+      currentTexture->drawRectangle(0,0,16,32);
+      glTranslatef(-295,-(400+offset),0);
+      if(offset==0)
+      {
+         select->drawRectangle(325,380,550,440);
+      }
+      if(offset==50)
+      {
+         select->drawRectangle(325,440,550,490);
+      }
    }
 
-   void IntroState::switchStates()
+   bool IntroState::switchStates()
    {
+      if (transition)
+         return true;
+      else
+         return false;
    }
       
 } // end namespace

@@ -12,7 +12,7 @@ namespace lr
    {
       intro = new IntroState(this);
       game = new GameState(this);
-      currentState = game;
+      currentState = intro;
    }
 
    Application::~Application()
@@ -27,7 +27,14 @@ namespace lr
 
       currentState->update(dt);
       
-
+      if(currentState->switchStates())
+      {
+         if(currentState == intro)
+         {
+            currentState = game;
+         }
+      }
+      
    }
       
    void Application::draw()

@@ -43,7 +43,7 @@ namespace lr
       void onKeyPress(SDLKey sym, bool down);
 
 
-      void switchStates();
+      bool switchStates();
       
    private:
       Level* mLevel;

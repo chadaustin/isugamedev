@@ -26,17 +26,34 @@ namespace lr
             std::cerr<<"Couldn't create font renderer!"<<std::endl;
          }
          renderer->setFont(font.get());
+
+         numLives = 0;
+         playerScore = 0;
       }
 
       ~ScoreBoard()
       {
       }
 
+      /** 
+       * update the scoreboard with the current score and the number of lives
+       */
+      void update(int score, int lives)
+      {
+         numLives = lives;
+         playerScore = score;
+      }
+
+      /**
+       * draw the scoreboard to the screen
+       */
       void draw()
       {
-         renderer->getStream() << "lives: " << gltext::flush;
+         renderer->getStream() << "Score: " << playerScore << "              lives: " << numLives << gltext::flush;
       }
    public:
+      int numLives, playerScore;
+      
       gltext::FontPtr font;
       gltext::FontRendererPtr renderer;
 
