@@ -4,37 +4,7 @@
 // kevin meinert - kevin@vrsource.org
 // Public domain
 //
-// Features:
-// - mouselook (no pointer with warp) rotate camera
-// - straef
-// - air hockey physics
-// - alternate keyboard controls (works without mouse)
-// - 2 gun turrets on either side...
-//
-// Usage/Keys:
-//
-//    -------------------------------------------
-//        W                    accel
-//      A S D          straef  decel  straef
-//    -------------------------------------------
-//        up                   accel
-//    left  right      rotate         rotate
-//       down                  decel
-//    -------------------------------------------
-//    mouse(x,y) axes          rotate
-//    left mouse button        fire
-//    -------------------------------------------
-//    <SPACEBAR>               fire
-//    -------------------------------------------
-//
-// TODO:
-//   - pretty models and textures... (use a model loader)
-//   - keep score
-//   - keep track of lives (ships)
-//   - die when collide with asteroid (no collision performed yet)
-//   - add a top-down 2D map or radar screen
-//   - let the top down 2D map be one additional way to play the game
-//
+// Ported to VRJuggler by Chad Austin - aegisk@vrac.iastate.edu
 
 #include <iostream>
 #include <vector>
@@ -46,39 +16,44 @@
 #include <vrj/Draw/OGL/GlApp.h>
 #include <gadget/Type/PositionInterface.h>
 #include <gadget/Type/DigitalInterface.h>
-#include <gmtl/Math.h>
-#include <gmtl/Vec.h>
-#include <gmtl/VecOps.h>
+#include <gmtl/Generate.h>
+//#include <gmtl/Vec.h>
+//#include <gmtl/VecOps.h>
+//#include <gmtl/Xforms.h>
 
 #include "cubeGeometry.h"
 #include "Utility.h"
 
 
-inline float distance(const gmtl::Vec3f& v1, const gmtl::Vec3f& v2)
+using namespace gmtl;
+using gmtl::Math::unitRandom;
+using gmtl::Math::rangeRandom;
+
+
+inline float distance(const Vec3f& v1, const Vec3f& v2)
 {
-    return gmtl::length(v1 - v2);
+    return length(v1 - v2);
 }
 
 // compute perfectly elastic reflection using available vectors...
-inline void reflect(
-    gmtl::Vec3f& reflection,
-    const gmtl::Vec3f& incoming,
-    const gmtl::Vec3f& surfacenormal)
+inline Vec3f reflect(
+    const Vec3f& incoming,
+    const Vec3f& surfacenormal)
 {
-    reflection = incoming * -1.0f;
-    float d = gmtl::dot(reflection, surfacenormal);
-    reflection = surfacenormal * d * 2.0f + incoming;
+    float d = dot(-incoming, surfacenormal);
+    return surfacenormal * d * 2.0f + incoming;
 }
 
+template<typename T>
+void negate(T& t) {
+    t = -t;
+}
 
-class BaseObject {
+class Entity {
 public:
-    BaseObject()
-        : _size( 1.0f )
-        , _timeToLive( -1 )
-    {
-        setPos( 0.0f, 0.0f, 0.0f );
-        setVel( 0.0f, 0.0f, 0.0f );
+    Entity() {
+        _size = 1.0f;
+        _timeToLive = -1;
     }
 
     void draw() {
@@ -100,11 +75,19 @@ public:
         _size = size;
     }
 
+    void setTimeToLive(float timeToLive) {
+        _timeToLive = timeToLive;
+    }
+
+    bool isAlive() {
+        return (_timeToLive == -1 || _timeToLive > 0);
+    }
+
     float getSize() {
         return _size;
     }
 
-    void setPos(const gmtl::Vec3f& pos) {
+    void setPos(const Vec3f& pos) {
         _position = pos;
     }
     void setPos( float x, float y, float z ) {
@@ -113,89 +96,76 @@ public:
         _position[2] = z;
     }
 
-    gmtl::Vec3f& getPos() {
+    Vec3f& getPos() {
         return _position;
     }
 
-    void setVel(const gmtl::Vec3f& vel) {
+    void setVel(const Vec3f& vel) {
         _velocity = vel;
     }
     void setVel(float x, float y, float z) {
-        setVel(gmtl::Vec3f(x, y, z));
+        setVel(Vec3f(x, y, z));
     }
 
-    gmtl::Vec3f& getVel() {
+    Vec3f& getVel() {
         return _velocity;
     }
 
 private:
     float _size;
     float _timeToLive; // -1 is infinite == don't ever die;
-    gmtl::Vec3f _velocity;
-    gmtl::Vec3f _position;
+    Vec3f _velocity;
+    Vec3f _position;
     cubeGeometry _cube;
 };
 
-class Projectile : public BaseObject {};
-class Roid : public BaseObject {};
-class Ship : public BaseObject {};
+class Projectile : public Entity {};
+class Roid       : public Entity {};
+class Ship       : public Entity {};
 
 
-const float BOARD_SIZE = 15;
+const int BOARD_SIZE = 15;
 
 
 void drawGrid() {
-    glColor3f( 0.3f, 0.2f, 0.6f );
+    glColor3f(0.3f, 0.2f,0.6f);
     glPushMatrix();
-    glBegin( GL_LINES );
-    for ( float x = -BOARD_SIZE; x < BOARD_SIZE; ++x) {
-        glVertex3f( -BOARD_SIZE, 0, x );
-        glVertex3f(  BOARD_SIZE, 0, x );
-        glVertex3f( x, 0, -BOARD_SIZE );
-        glVertex3f( x, 0,  BOARD_SIZE );
+    glBegin(GL_LINES);
+    for (float x = -BOARD_SIZE; x <= BOARD_SIZE; ++x) {
+        glVertex3f(-BOARD_SIZE, 0, x);
+        glVertex3f( BOARD_SIZE, 0, x);
+        glVertex3f(x, 0, -BOARD_SIZE);
+        glVertex3f(x, 0,  BOARD_SIZE);
     }
     glEnd();
     glPopMatrix();
 }
 
 
-template<typename T>
-void negate(T& t) {
-    t = -t;
-}
-
-
 // game setup (configuration options)
-//const float projVelocity   = 20.0f;
-//const float projSize       = 0.1f;
-//const float projTimeToLive = 0.75f;
-//const float rotVelocity    = 60.0f;
-//const float shipAccel      = 10.0f;
+const float SCALE          = 5.0f;
+const float projVelocity   = 20.0f;
+const float projSize       = 0.1f;
+const float projTimeToLive = 2.0f;
+const float shipAccel      = 0.5f;
 const float roidSize       = 3.0f;
 const float roidMaxSpeed   = 3.0f;
-
 
 
 class JuggleroidsApp : public vrj::GlApp {
 public:
     JuggleroidsApp() {
-        Roid r;
-        r.setSize(roidSize);
-        r.setPos( -5.0f, 0.0f, -5.0f );
-        r.setVel( gmtl::Math::unitRandom() * roidMaxSpeed, 0, gmtl::Math::unitRandom() * roidMaxSpeed );
-        roids.push_back( r );
-
-        r.setPos( -5.0f, 0.0f, 5.0f );
-        r.setVel( gmtl::Math::unitRandom() * roidMaxSpeed, 0, gmtl::Math::unitRandom() * roidMaxSpeed );
-        roids.push_back( r );
-
-        r.setPos(  5.0f, 0.0f, -5.0f );
-        r.setVel( gmtl::Math::unitRandom() * roidMaxSpeed, 0, gmtl::Math::unitRandom() * roidMaxSpeed );
-        roids.push_back( r );
-
-        r.setPos(  5.0f, 0.0f, 5.0f );
-        r.setVel( gmtl::Math::unitRandom() * roidMaxSpeed, 0, gmtl::Math::unitRandom() * roidMaxSpeed );
-        roids.push_back( r );
+        for (int x = -5; x <= 5; x += 10) {
+            for (int z = -5; z <= 5; z += 10) {
+                Roid r;
+                r.setSize(roidSize);
+                r.setPos(x, 0, z);
+                float dx = unitRandom() * roidMaxSpeed;
+                float dz = unitRandom() * roidMaxSpeed;
+                r.setVel(dx, 0, dz);
+                roids.push_back(r);
+            }
+        }
     }
 
 
@@ -203,15 +173,17 @@ public:
         _head.init("VJHead");
         _wand.init("VJWand");
         _buttonFire.init("VJButton0");
+        _buttonAccel.init("VJButton3");
+        _buttonDecel.init("VJButton5");
 
         _lastUpdate = vpr::Interval::now();
     }
 
 
     void contextInit() {
-        glEnable( GL_DEPTH_TEST );
-        glEnable( GL_BLEND );
-        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+        glEnable(GL_DEPTH_TEST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
 
@@ -224,12 +196,12 @@ public:
     void draw() {
         glClear(GL_DEPTH_BUFFER_BIT);
 
-        glMatrixMode( GL_MODELVIEW );
+        glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
         glPushMatrix();
-        glScalef(5, 5, 5);
-        glTranslate( -ship.getPos() );
+        glScalef(SCALE, SCALE, SCALE);
+        glTranslate(-ship.getPos());
 
         for (unsigned x = 0; x < roids.size(); ++x) {
             roids[x].draw();
@@ -251,90 +223,48 @@ public:
     }
 
     void update(float dt) {
-        ship.update( dt );
+        ship.update(dt);
         for (unsigned x = 0; x < roids.size(); ++x) {
-            roids[x].update( dt );
+            roids[x].update(dt);
         }
         for (unsigned x = 0; x < projs.size(); ++x) {
-            projs[x].update( dt );
+            projs[x].update(dt);
         }
+
+        // Get wand location and orientation in game world coordinates.
+        Matrix44f m = *(_wand->getData());;
+        Vec3f wandTranslation = makeTrans<Vec3f>(m) / SCALE + ship.getPos();
+        Vec3f wandOrientation;
+        xform(wandOrientation, m, Vec3f(0, 0, -1));
+        normalize(wandOrientation);
 
         if (_buttonFire->getData() == gadget::Digital::TOGGLE_ON) {
-/*
             // fire in the direction the wand faces
             Projectile proj;
-            
-
-            // local position on the ship
-            float local_pos[3] = { 0, -0.2f, 0.4f };
-
-            // convert the local position to world coord
-            float world_offset[3];
-            world_offset[0] = shipRight[0] * local_pos[0] + shipUp[0] * local_pos[1] + shipForward[0] * local_pos[2];
-            world_offset[1] = shipRight[1] * local_pos[0] + shipUp[1] * local_pos[1] + shipForward[1] * local_pos[2];
-            world_offset[2] = shipRight[2] * local_pos[0] + shipUp[2] * local_pos[1] + shipForward[2] * local_pos[2];
-
-            // set the projectile start position (relative to the ships world position)
-            proj.setPos( ship.getPos()[0] + world_offset[0],
-                         ship.getPos()[1] + world_offset[1],
-                         ship.getPos()[2] + world_offset[2] );
-            proj.setVel( shipForward[0] * projVelocity,
-                         shipForward[1] * projVelocity,
-                         shipForward[2] * projVelocity );
-            proj.size = projSize;
-            proj.timeToLive = projTimeToLive;
+            proj.setPos(wandTranslation);
+            proj.setVel(wandOrientation * projVelocity);
+            proj.setSize(projSize);
+            proj.setTimeToLive(projTimeToLive);
             projs.push_back(proj);
-*/
         }
 
+        Vec3f shipAcceleration = wandOrientation;
+        shipAcceleration[1] = 0;  // zero out the y component
+        normalize(shipAcceleration);
 
-        ///////////
-        // INPUT:
-        ///////////
-
-        // find out what dir, the ship is pointing.
-        // - flip the x axis to support right-hand rule
-        // - add 90deg so that the identity rotation faces out of the screen
-        // - then negate it all because we actually face forward (in 0,0,-1)
-/*
-        float shipForward[3];
-        shipForward[0] = cosf( Math::deg2rad( ship.getRotation() + 90 ) );
-        shipForward[1] = 0;
-        shipForward[2] = -sinf( Math::deg2rad( ship.getRotation() + 90 ) );
-
-        float shipRight[3];
-        shipRight[0] = cosf( Math::deg2rad( ship.getRotation() ) );
-        shipRight[1] = 0;
-        shipRight[2] = -sinf( Math::deg2rad( ship.getRotation() ) );
-
-        float shipUp[3] = { 0.0f, 1.0f, 0.0f };
-
-        if (fireButton)
+        // acceleration
+        if (_buttonAccel->getData() == gadget::Digital::TOGGLE_ON ||
+            _buttonAccel->getData() == gadget::Digital::ON)
         {
-            // fire in the direction ship faces
-            Projectile proj;
-
-            // local position on the ship
-            float local_pos[3] = { 0, -0.2f, 0.4f };
-
-            // convert the local position to world coord
-            float world_offset[3];
-            world_offset[0] = shipRight[0] * local_pos[0] + shipUp[0] * local_pos[1] + shipForward[0] * local_pos[2];
-            world_offset[1] = shipRight[1] * local_pos[0] + shipUp[1] * local_pos[1] + shipForward[1] * local_pos[2];
-            world_offset[2] = shipRight[2] * local_pos[0] + shipUp[2] * local_pos[1] + shipForward[2] * local_pos[2];
-
-            // set the projectile start position (relative to the ships world position)
-            proj.setPos( ship.getPos()[0] + world_offset[0],
-                         ship.getPos()[1] + world_offset[1],
-                         ship.getPos()[2] + world_offset[2] );
-            proj.setVel( shipForward[0] * projVelocity,
-                         shipForward[1] * projVelocity,
-                         shipForward[2] * projVelocity );
-            proj.size = projSize;
-            proj.timeToLive = projTimeToLive;
-            projs.push_back( proj );
+            ship.setVel(ship.getVel() + shipAcceleration * shipAccel);
         }
-*/
+
+        // deceleration
+        if (_buttonDecel->getData() == gadget::Digital::TOGGLE_ON ||
+            _buttonDecel->getData() == gadget::Digital::ON)
+        {
+            ship.setVel(ship.getVel() - shipAcceleration * shipAccel);
+        }
 
 
         //////////////
@@ -354,32 +284,23 @@ public:
             }
         }
 
-//        const float dampen = 0.8f;// dampen the elastic collision with wall
-
-/*
         // do bounce on the ship with the edges of the arena.
-        float outside = 10.0f;// ship can go this much outside the arena before bouncing
-        if (ship.getPos()[0] > (BOARD_SIZE+outside) || ship.getPos()[0] < -(BOARD_SIZE+outside))
-            ship.getVel()[0] = -ship.getVel()[0] * dampen;
-        if (ship.getPos()[1] > (BOARD_SIZE+outside) || ship.getPos()[1] < -(BOARD_SIZE+outside))
-            ship.getVel()[1] = -ship.getVel()[1] * dampen;
-        if (ship.getPos()[2] > (BOARD_SIZE+outside) || ship.getPos()[2] < -(BOARD_SIZE+outside))
-            ship.getVel()[2] = -ship.getVel()[2] * dampen;
-*/
+        float dampen = 0.8f;
+        float shipX = ship.getPos()[0];
+        float shipZ = ship.getPos()[2];
+        if (shipX > BOARD_SIZE || shipX < -BOARD_SIZE)
+            ship.getVel()[0] *= -dampen;
+        if (shipZ > BOARD_SIZE || shipZ < -BOARD_SIZE)
+            ship.getVel()[2] *= -dampen;
 
-/*
         // remove projectiles that are too old
-        std::vector<Projectile>::iterator pitr;
-        std::vector< std::vector<Projectile>::iterator > proj_remove_queue;
-        for (pitr = projs.begin(); pitr != projs.end(); ++pitr)
-        {
-            if ((*pitr).timeToLive != -1 && (*pitr).timeToLive <= 0)
-                proj_remove_queue.push_back( pitr );
+        std::vector<Projectile> keep;
+        for (unsigned i = 0; i < projs.size(); ++i) {
+            if (projs[i].isAlive()) {
+                keep.push_back(projs[i]);
+            }
         }
-        x = proj_remove_queue.size();
-        while (x--)
-            projs.erase( proj_remove_queue[x] );
-*/
+        projs = keep;
 
 /*
         // do collision between ship and asteroids...
@@ -394,14 +315,14 @@ public:
             if (dist < min_dist_between_ship_and_roid)
             {
                 // get vector from roid to ship (normal to collision angles)
-                gmtl::Vec3f normal = ship.getPos() - r.getPos();
+                Vec3f normal = ship.getPos() - r.getPos();
                 Math::norm( normal );
 
                 // reflect velocity only if moving toward each other
                 if (Math::dot( ship.getVel(), normal ) < 0)
                 {
                     // compute perfectly elastic reflection
-                    gmtl::Vec3f reflectionVector;
+                    Vec3f reflectionVector;
                     Math::reflect( reflectionVector, ship.getVel(), normal );
 
                     // dampen resulting reflection
@@ -409,14 +330,14 @@ public:
                 }
 
                 // asteroids can push the ship around... (affects position)
-                gmtl::Vec3f vec, newposition;
+                Vec3f vec, newposition;
                 vec = ship.getPos() - r.getPos();
                 Math::norm( vec );
                 vec *= min_dist_between_ship_and_roid;
                 newposition = r.getPos() + vec;
 
                 // set the new ship position and velocity
-                gmtl::Vec3f additional_velocity_from_impact;
+                Vec3f additional_velocity_from_impact;
                 additional_velocity_from_impact = newposition - ship.getPos();
                 ship.setVel(ship.getVel() + additional_velocity_from_impact);
                 ship.setPos( newposition );
@@ -448,11 +369,11 @@ public:
                         Roid r;
                         r.setSize(aster.getSize() / 2.0f);
                         r.setPos( aster.getPos()[0], aster.getPos()[1], aster.getPos()[2] );
-                        r.setVel( gmtl::Math::unitRandom() * roidMaxSpeed, 0, gmtl::Math::unitRandom() * roidMaxSpeed );
+                        r.setVel( unitRandom() * roidMaxSpeed, 0, unitRandom() * roidMaxSpeed );
                         roids.push_back( r );
 
                         r.setPos( aster.getPos()[0], aster.getPos()[1], aster.getPos()[2] );
-                        r.setVel( gmtl::Math::unitRandom() * roidMaxSpeed, 0, gmtl::Math::unitRandom() * roidMaxSpeed );
+                        r.setVel( unitRandom() * roidMaxSpeed, 0, unitRandom() * roidMaxSpeed );
                         roids.push_back( r );
                     }
 
@@ -465,6 +386,8 @@ public:
     gadget::PositionInterface _head;
     gadget::PositionInterface _wand;
     gadget::DigitalInterface  _buttonFire;
+    gadget::DigitalInterface  _buttonAccel;
+    gadget::DigitalInterface  _buttonDecel;
 
     vpr::Interval _lastUpdate;
 
