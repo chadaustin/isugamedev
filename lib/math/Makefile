@@ -48,7 +48,7 @@ endif
 include ${MK_DIR}/mk.objs
 
 # Compile then Link
-build: $(OBJS) $(LIB_FILENAME) $(STATIC_LIB_FILENAME)
+build: $(OBJS)
 	-@echo ""
 	-@echo "-------------------------------------------"
 	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .so)"
