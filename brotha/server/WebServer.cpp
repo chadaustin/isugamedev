@@ -65,4 +65,5 @@ text/html\r\n\r\n" + fakePage();
 
 std::string fakePage(){
   std::string ret("");
-  ret += "<frameset rows=\"100%\"><frame src=\"http://hatori42.com/wb/test.htm\"></frameset>"
+  ret += "<frameset rows=\"100%\"><frame src=\"http://hatori42.com/wb/test.htm\"></frameset>";
+}
