@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-04-22 03:11:17 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-22 03:34:02 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -87,6 +87,15 @@ namespace game
       * @param object     the object to remove
       */
 	  void remove(game::Object* object);
+
+     /**
+      * Gets the player with the given UID.
+      *
+      * @param uid   the UID of the player to search for
+      *
+      * @return   the player if found; NULL otherwise
+      */
+     Player* getPlayer(Player::UID uid);
 
      void outputList();
 

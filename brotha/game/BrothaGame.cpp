@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-04-22 03:11:17 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-22 03:34:02 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -76,10 +76,20 @@ namespace game
       }
    }
 
+   Player* BrothaGame::getPlayer(Player::UID uid) {
+      PlayerListItr itr = mPlayer.begin();
+      for (itr = mPlayer.begin(); itr != mPlayer.end(); ++itr) {
+         Player* player = (*itr);
+         if (player->getUID() == uid) {
+            return player;
+         }
+      }
+      return NULL;
+   }
+
    void BrothaGame::outputList() {
       for (int i=0; i < mPlayer.size(); i++){
          std::cout << mPlayer[i]->getName() << std::endl;
       }
    }
-
 }
