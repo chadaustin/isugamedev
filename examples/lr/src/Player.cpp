@@ -89,7 +89,7 @@ namespace lr
    {
       float beforeHeight=realHeight;
       float remainingHeight;
-      realHeight-=(512*dt);
+      realHeight-=(128*dt);
       // if we have fallen through bricks then we need to bring us back up.
       if(((int)realHeight%32)>((int)beforeHeight%32) && (int)beforeHeight%32!=0)
       {
@@ -198,7 +198,7 @@ namespace lr
       
       else if(keyup && onLadder() && !brickAbove()) // we want to go up and we're on a ladder
       {
-         realHeight+=((512*dt));
+         realHeight+=((128*dt));
          tempState=climb;
          updateTex=true;
       }
@@ -206,7 +206,7 @@ namespace lr
       // we want to go down and we're on a ladder and there is no brick under
       // us, or if there is we're not at the bottom of this block
       {
-         realHeight-=((512*dt));
+         realHeight-=((128*dt));
          tempState=climb;
          updateTex=true;
       }
@@ -220,7 +220,7 @@ namespace lr
       // we want to go left and there is something under us there are no bricks
       // to our left and we aren't running off the screen
       {
-         realPos-=((512*dt));
+         realPos-=((128*dt));
          tempState=runleft;
          updateTex=true;
       }
@@ -228,7 +228,7 @@ namespace lr
       // we want to go right and there is something under us there are no bricks
       // to our right and we aren't running off the screen
       { 
-         realPos+=((512*dt));
+         realPos+=((128*dt));
          tempState=runright;
          updateTex=true;
       }
@@ -236,7 +236,7 @@ namespace lr
       // we want to go left and there is a wire there and there are no bricks to
       // our left and we are not running off the screen
       {
-         realPos-=((512*dt));
+         realPos-=((128*dt));
          tempState=hangleft;
          updateTex=true;
       }
@@ -244,7 +244,7 @@ namespace lr
       // we want to go right and there is a wire there and there are no bricks
       // to our right and we are not running off the screen
       {
-         realPos+=((512*dt));
+         realPos+=((128*dt));
          tempState=hangright;
          updateTex=true;
       }
