@@ -114,7 +114,7 @@ string IntToString(int n)
 void renderBitmapString (float x, float y, void *font, string s)
 {
 	glRasterPos2f(x,y);
-	for (int i = 0; i < s.length(); ++i)
+	for (unsigned int i = 0; i < s.length(); ++i)
 	{
 		glutBitmapCharacter(font, s[i]);
 	}
@@ -126,8 +126,8 @@ void MyDisplay()
 	ball.vel.x_component = ball.vel.magnitude * coss(ball.vel.angle);
 	ball.vel.y_component = ball.vel.magnitude * sinn(ball.vel.angle);
 
-	ball.x += ball.vel.x_component;
-	ball.y += ball.vel.y_component;
+	ball.x += (int)ball.vel.x_component;
+	ball.y += (int)ball.vel.y_component;
 	//-----------------------------------------------------------------
 
 
@@ -135,10 +135,10 @@ void MyDisplay()
 
 	/* find out where the ball is going to hit the screen edge*/
 
-	if (ball.vel.x_component > 0)
+	if (ball.vel.x_component > 0.0f)
 	{
-		slope = ball.vel.y_component / ball.vel.x_component;
-		hitSpot = slope * (WindowWidth - ball.x) + ball.y;
+		slope = (int)(ball.vel.y_component / ball.vel.x_component);
+		hitSpot = slope * ((int)WindowWidth - ball.x) + ball.y;
 	
 
 	/* if the ball is within the range of the screen, try to hit it */
@@ -161,7 +161,7 @@ void MyDisplay()
 
 			if (cypos > WindowHeight + PaddleHeight)
 			{
-				cypos = WindowHeight + PaddleHeight;
+				cypos = (int)WindowHeight + PaddleHeight;
 			}
 		// ----------------------------------------------------------
 		
@@ -193,7 +193,7 @@ void MyDisplay()
 
 	if (ypos > WindowHeight + PaddleHeight)
 	{
-		ypos = WindowHeight + PaddleHeight;
+		ypos = (int)WindowHeight + PaddleHeight;
 	}
 
 	//-----------------------------------------------------------------
@@ -202,7 +202,7 @@ void MyDisplay()
 	if (ball.x + ball.radius >= WindowWidth)
 	{
 		ball.vel.angle = (180 - ball.vel.angle) % 360;
-		ball.x = WindowWidth - ball.radius - 1;
+		ball.x = (int)WindowWidth - ball.radius - 1;
 		++yourScore;
 		//ball.vel.x_component = -ball.vel.x_component;	
 	}
@@ -218,7 +218,7 @@ void MyDisplay()
 	if (ball.y + ball.radius >= WindowHeight)
 	{
 		ball.vel.angle = (-ball.vel.angle) % 360;
-		ball.y = WindowHeight - ball.radius - 1;
+		ball.y = (int)WindowHeight - ball.radius - 1;
 		//ball.vel.y_component = -ball.vel.y_component;
 	}
 
@@ -235,7 +235,7 @@ void MyDisplay()
 	{
 		if (ball.vel.x_component < 0)
 		{
-			slope = ball.vel.y_component / ball.vel.x_component;
+			slope = (int)(ball.vel.y_component / ball.vel.x_component);
 			hitSpot = slope * ((xpos + PaddleWidth) - ball.x) + ball.y;
 
 			if ((hitSpot - ball.radius >= ypos - PaddleHeight) && (hitSpot + ball.radius <= ypos + PaddleHeight))
@@ -252,7 +252,7 @@ void MyDisplay()
 	{
 		if (ball.vel.x_component > 0)
 		{
-			slope = ball.vel.y_component / ball.vel.x_component;
+			slope = (int)(ball.vel.y_component / ball.vel.x_component);
 			hitSpot = slope * ((cxpos - PaddleWidth) - ball.x) + ball.y;
 
 			if ((hitSpot - ball.radius >= cypos - PaddleHeight) && (hitSpot + ball.radius <= cypos + PaddleHeight))
@@ -386,7 +386,7 @@ void MyDisplay()
 	}
 	//----------------------------------------------------------------------
 	renderBitmapString(300,400,GLUT_BITMAP_HELVETICA_18, "FPS: ");
-	renderBitmapString(330,400,GLUT_BITMAP_HELVETICA_18, IntToString(fps));
+	renderBitmapString(330,400,GLUT_BITMAP_HELVETICA_18, IntToString((int)fps));
 
 
 
@@ -423,7 +423,7 @@ void MyKeyPress( unsigned char key, int mouseX, int mouseY )
 	   }
 	   else if (inFullScreen == 1)
 	   {
-		   glutReshapeWindow(WindowWidth, WindowHeight);
+		   glutReshapeWindow((int)WindowWidth, (int)WindowHeight);
 		   glutPositionWindow(100,100);
 		   inFullScreen = 0;
 	   }	   
@@ -444,7 +444,7 @@ void MyMouseFunc(int button, int state, int x, int y)
 		if(state == GLUT_DOWN)
 		{
 			xpos = x;
-			ypos = WindowHeight - y;
+			ypos = (int)WindowHeight - y;
 			glutSetCursor(GLUT_CURSOR_NONE);
 		}
 		else if (state == GLUT_UP)
@@ -458,7 +458,7 @@ void PongMouseHandler(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
 	{
-		ypos = WindowHeight - y;
+		ypos = (int)WindowHeight - y;
 	}
 	
 	glutSetCursor(GLUT_CURSOR_NONE);
@@ -467,7 +467,7 @@ void PongMouseHandler(int button, int state, int x, int y)
 void PongMotionFunc(int x, int y)
 {
 	glutSetCursor(GLUT_CURSOR_NONE);
-	ypos = WindowHeight - y;
+	ypos = (int)WindowHeight - y;
 }
 /*
 void MyMouseFunc(int button, int state, int x, int y)
@@ -488,16 +488,16 @@ void MyMouseFunc(int button, int state, int x, int y)
 void MyMotionFunc(int x, int y)
 {
 	xpos = x;
-	ypos = WindowHeight - y;
+	ypos = (int)WindowHeight - y;
 }
 
-void main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	// Initialize Glut
 	glutInit (&argc, argv);
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100,100);
-	glutInitWindowSize(WindowWidth,WindowHeight);
+	glutInitWindowSize((int)WindowWidth, (int)WindowHeight);
 	glutCreateWindow("Lou Herard:  OpenGL Demo using GLUT");
 	glutFullScreen();
 
@@ -511,8 +511,8 @@ void main(int argc, char **argv)
 
 	//Create Ball	
 	ball.radius = 5;
-	ball.x = WindowWidth / 2;
-	ball.y = WindowHeight / 2;
+	ball.x = (int)WindowWidth / 2;
+	ball.y = (int)WindowHeight / 2;
 
 	ball.vel.angle = 0;
 	ball.vel.magnitude = 15;
