@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-15 05:04:56 $
- * Version:       $Revision: 1.55 $
+ * Date modified: $Date: 2002-10-16 04:57:38 $
+ * Version:       $Revision: 1.56 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -553,7 +553,7 @@ namespace mw
       float remaining_dt = dt;
 
       // Keep moving the object until
-      while (remaining_dt > PhysicsEngine::TIME_EPSILON)
+      while (remaining_dt >= PhysicsEngine::TIME_EPSILON)
       {
          // Update the body for the remaining time differential
          mPhysics.update(body, remaining_dt);
