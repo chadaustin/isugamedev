@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-07 00:25:18 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2002-02-08 03:50:01 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -134,8 +134,10 @@ public:
       if ( itr == mDevices.end() )
       {
          mDevices[ name ] = devPtr;
+         std::cout<<"Added device: "<<name<<std::endl;
          return true;
       }
+      std::cout<<"Failed to add device: "<<name<<std::endl;
       return false;
    }
 
@@ -155,6 +157,23 @@ public:
          return itr->second;
       }
       return NULL;
+   }
+
+   /**
+    * Removes the device with the given name. If no device with the given name
+    * is registered, no work is done.
+    *
+    * @name    the name of the device to remove
+    */
+   void removeDevice( const std::string& name )
+   {
+      std::map< std::string, Device* >::iterator itr;
+      itr = mDevices.find( name );
+      if ( itr != mDevices.end() )
+      {
+         mDevices.erase( itr );
+         std::cout<<"Removed device: "<<name<<std::endl;
+      }
    }
 
    /**
