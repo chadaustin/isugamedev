@@ -195,12 +195,12 @@ public:
       velocity[1] = y;
       velocity[2] = z;
    }   
-   float velocity[3];
-   float position[3];
+   float size;
    float rotation;
    float angularVel;
-   float size;
    float timeToLive; // -1 is infinite == don't ever die;
+   float velocity[3];
+   float position[3];
    cubeGeometry cube;
 };
 
@@ -262,14 +262,18 @@ public:
 ///////////////////////////////////////////////////////////
 // the asteroids application
 ///////////////////////////////////////////////////////////
-
 class App
 {
 public:
-   App() : width( 0 ), height( 0 ), mainWin_contextID( -1 ), boardSize( 15 ), projTimeToLive( 0.75f ),
-      rotLeftButton( false ), rotRightButton( false ), accelButton( false ), decelButton( false ), 
-      projVelocity( 20.0f ), projSize( 0.1f ), rotVelocity( 60.0f ), shipAccel( 10.0f ), roidMaxSpeed( 3.0f ), roidSize( 3.0f ),
-      mousesens( 0.15f ), straefRightButton( false ), straefLeftButton( false )
+   App() : width( 0 ), height( 0 ), mainWin_contextID( -1 ), 
+      boardSize( 15 ), 
+      projVelocity( 20.0f ), projSize( 0.1f ), projTimeToLive( 0.75f ), 
+      rotVelocity( 60.0f ), shipAccel( 10.0f ), 
+      roidSize( 3.0f ), roidMaxSpeed( 3.0f ), 
+      mousesens( 0.15f ), 
+      rotLeftButton( false ), rotRightButton( false ), 
+      straefLeftButton( false ), straefRightButton( false ), 
+      fireButton( false ), accelButton( false ), decelButton( false )
    {
       stopwatch.pulse();
       Roid r; 
@@ -297,11 +301,12 @@ public:
       glRotatef( -ship.rotation, 0.0f, 1.0f, 0.0f );
       glTranslatef( -ship.position[0], -ship.position[1], -ship.position[2] );
       
-      for (int x = 0; x < roids.size(); ++x)
+      unsigned int x;
+      for (x = 0; x < roids.size(); ++x)
       {
          roids[x].draw();
       }  
-      for (int x = 0; x < projs.size(); ++x)
+      for (x = 0; x < projs.size(); ++x)
       {
          projs[x].draw();
       }  
@@ -318,11 +323,12 @@ public:
       ///////////
       ship.update( dt );
 
-      for (int x = 0; x < roids.size(); ++x)
+      unsigned int x;
+      for (x = 0; x < roids.size(); ++x)
       {
          roids[x].update( dt );
       }  
-      for (int x = 0; x < projs.size(); ++x)
+      for (x = 0; x < projs.size(); ++x)
       {
          projs[x].update( dt );
       }
@@ -423,7 +429,7 @@ public:
 
       // do asteroid bounce with the walls of the arena.
       std::vector<Roid>::iterator itr;
-      const float eps = 0.01f;
+      //const float eps = 0.01f;
       for (itr = roids.begin(); itr != roids.end(); ++itr)
       {
          if ((*itr).position[0] > boardSize || (*itr).position[0] < -boardSize)
@@ -452,7 +458,7 @@ public:
          if ((*pitr).timeToLive != -1 && (*pitr).timeToLive <= 0)
             proj_remove_queue.push_back( pitr );
       }
-      int x = proj_remove_queue.size();
+      x = proj_remove_queue.size();
       while (x--)
          projs.erase( proj_remove_queue[x] );
       
@@ -807,7 +813,7 @@ static void OnMousePos( int x, int y )
    float center[2];
    center[0] = (float)app.width * 0.5f;
    center[1] = (float)app.height * 0.5f;
-   float dx = center[0] - (float)x, dy = center[1] - (float)y;
+   float dx = center[0] - (float)x;//, dy = center[1] - (float)y;
    app.ship.rotation += dx * app.mousesens;
 }
 
@@ -840,7 +846,7 @@ static void OnApplicationInit()
 }
 
 
-void main( int argc, char* argv[] )
+int main( int argc, char* argv[] )
 {
     // Initialize the application
     // initialize the state of your app here if needed...
@@ -904,5 +910,6 @@ void main( int argc, char* argv[] )
     // start the application loop, your callbacks will now be called
     // time for glut to sit and spin.
     ::glutMainLoop();
+    return 1;
 }
 
