@@ -49,8 +49,8 @@ Section Uninstall
 Delete "$INSTDIR\uninst.exe"
 DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\ISU Game Developers Club\Midworld"
 DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Midworld"
-RMDir "$INSTDIR"
-RMDir "$SMPROGRAMS\Midworld"
+RMDir /r "$INSTDIR"
+RMDir /r "$SMPROGRAMS\Midworld"
 SectionEnd ; end of uninstall section
 
 ; eof
