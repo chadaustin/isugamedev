@@ -1,6 +1,7 @@
 // Levi VanOort -- lvanoort@aol.com 2/4/2002
 
 #include <GL/glut.h>
+#include <stdio.h>
 #include "GameWorld.h"
 #include "BMPLoader.h"
 
@@ -216,7 +217,7 @@ void mydisplay()
 	glDisable(GL_TEXTURE_2D);
 	glColor3f(1.0,1.0,1.0);
 
-	itoa(Score,temp,10);
+   sprintf(temp, "%d", Score);
 	renderBitmapString(10,620, GLUT_BITMAP_HELVETICA_18, "Score");
 	renderBitmapString(90,620, GLUT_BITMAP_HELVETICA_18, temp);
 
