@@ -45,7 +45,7 @@ namespace data {
          out << "</wbdata>";
       }
 
-      Gang* getGangByName(std::string name) {
+      Gang* getGang(std::string name) {
          for (unsigned int i = 0; i < gangs.size(); ++i) {
             if (gangs[i]->getName() == name) {
                return gangs[i];
@@ -53,6 +53,16 @@ namespace data {
          }
          throw "not found";
          return gangs[0];  //should never be reached.
+      }
+
+      Player* getPlayer(const std::string& name) {
+         ganglist::iterator itr;
+         for (itr = gangs.begin(); itr != gangs.end(); ++itr) {
+            if (Player* p = (*itr)->getPlayer(name)) {
+               return p;
+            }
+         }
+         return NULL;
       }
    };
 }

@@ -12,9 +12,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: Gang.h,v $
+ * File:          $RCSfile: DataManager.h,v $
  * Date modified: $Date: 2002-05-01 05:40:16 $
- * Version:       $Revision: 1.10 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,67 +40,46 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef DATA_GANG_H
-#define DATA_GANG_H
+#ifndef DATA_DATA_MANAGER_H
+#define DATA_DATA_MANAGER_H
 
-#include <iostream>
-#include <string>
-#include <vector>
-#include "Player.h"
+#include "game/Player.h"
+#include "BrothaData.h"
 
 namespace data {
-
-   class Gang {
-   private:
-      std::string name;
-      std::string info;
-      playerlist players;
+   /**
+    * Facade to the data subsystem. The data manager keeps an in-memory cache of
+    * the database on the disk.
+    */
+   class DataManager {
    public:
-      Gang(const std::string& iname) {
-         name = iname;
-      }
-      void addPlayer(Player* i) {
-         players.push_back(i);
-      }
+      /**
+       * Creates a new data manager using the given database.
+       */
+      DataManager(const std::string& dataFile);
 
-      playerlist getPlayerList() {
-         return players;
-      }
+      /**
+       * Flushes data out and destroys the data manager.
+       */
+      ~DataManager();
 
-      void setInfo(const std::string& in) {
-         info = in;
-      }
+      /**
+       * Flushes out the data in memory to the disk.
+       */
+      void flush() const;
 
-      std::string getInfo() {
-         return info;
-      }
+      /**
+       * Gets the data in memory.
+       */
+      BrothaData& getData();
 
-      std::string getName() {
-         return name;
-      }
+   private:
+      /// The file in which the data is stored.
+      std::string mFile;
 
-      Player* getPlayer(const std::string& name) {
-         for(unsigned int i = 0; i < players.size(); i++) {
-            Player* p = players[i];
-            if(p->getName() == name) {
-               return p;
-            }
-         }
-         return NULL;
-      }
-
-      void xMLify(std::ostream& out) {
-         out << "  <gang name=\"" << name << "\">" << std::endl;
-         out << "    <info>" << info << "</info>" <<std::endl;
-         for(unsigned int i = 0; i < players.size(); i++) {
-            players[i]->xMLify(out);
-         }
-         out << "  </gang>" <<std::endl;
-      }
+      /// The in memory cache of the data.
+      BrothaData* mData;
    };
-
-
-   typedef std::vector<Gang*> ganglist;
-
 }
+
 #endif

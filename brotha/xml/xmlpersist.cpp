@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-04-30 09:33:16 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-05-01 05:40:16 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,16 +45,19 @@
 #include <xmlpp/xmlpp.h>
 
 namespace data {
-   BrothaData b;
-
-   BrothaData load(const std::string& filename) {
-      //fillWithFakeData(&b);
+   BrothaData* load(const std::string& filename) {
       xmlpp::XMLContextPtr ctx( new xmlpp::XMLContext );
       xmlpp::XMLDocument doc( ctx );
-      doc.load_file( filename );
+      try {
+         doc.load_file( filename );
+      } catch (xmlpp::xmlerror& e) {
+         std::cerr<<"Error loading "<<filename<<std::endl;
+         return NULL;
+      }
+      BrothaData* data = new BrothaData();
       xmlpp::xmlnodeptr rootp = doc.getChild ("wbdata");
       if (!rootp.get()) {
-         return BrothaData();
+         return data;
       }
       xmlpp::xmlnodelist cursor = rootp->getChildren("gang");
       xmlpp::XMLNodeListIterator it = cursor.begin();
@@ -64,7 +67,7 @@ namespace data {
          Gang* g = new Gang(attr.get("name"));
          xmlpp::xmlnodeptr info = (*it)->getChild("info");
          g->setInfo( info->get_cdata());
-         b.addGang(g);
+         data->addGang(g);
          xmlpp::xmlnodelist cursor2 = (*it)->getChildren("player");
          xmlpp::XMLNodeListIterator it2 = cursor2.begin();
 
@@ -112,11 +115,11 @@ namespace data {
          while (itTypes != types.end()) {
             xmlpp::XMLAttributes& attr = (*itTypes)->get_attrmap();
             Cartype* c = new Cartype(attr.get("name"),attr.get("model"));
-            b.addCarType(c);
+            data->addCarType(c);
             itTypes++;
          }
       }
-      return b;
+      return data;
    }
 
    void fillWithFakeData(BrothaData* b) {

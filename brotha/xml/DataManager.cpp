@@ -12,9 +12,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: Gang.h,v $
+ * File:          $RCSfile: DataManager.cpp,v $
  * Date modified: $Date: 2002-05-01 05:40:16 $
- * Version:       $Revision: 1.10 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,67 +40,30 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef DATA_GANG_H
-#define DATA_GANG_H
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include "Player.h"
+#include "DataManager.h"
+#include "xmlpersist.h"
 
 namespace data {
-
-   class Gang {
-   private:
-      std::string name;
-      std::string info;
-      playerlist players;
-   public:
-      Gang(const std::string& iname) {
-         name = iname;
+   DataManager::DataManager(const std::string& dataFile)
+      : mFile(dataFile)
+   {
+      mData = data::load(dataFile);
+      if (! mData) {
+         std::cerr<<"Failed to load data file!"<<std::endl;
       }
-      void addPlayer(Player* i) {
-         players.push_back(i);
+   }
+
+   DataManager::~DataManager() {
+      delete mData;
+   }
+
+   void DataManager::flush() const {
+      if (mData) {
+//         data::save(dataFile);
       }
+   }
 
-      playerlist getPlayerList() {
-         return players;
-      }
-
-      void setInfo(const std::string& in) {
-         info = in;
-      }
-
-      std::string getInfo() {
-         return info;
-      }
-
-      std::string getName() {
-         return name;
-      }
-
-      Player* getPlayer(const std::string& name) {
-         for(unsigned int i = 0; i < players.size(); i++) {
-            Player* p = players[i];
-            if(p->getName() == name) {
-               return p;
-            }
-         }
-         return NULL;
-      }
-
-      void xMLify(std::ostream& out) {
-         out << "  <gang name=\"" << name << "\">" << std::endl;
-         out << "    <info>" << info << "</info>" <<std::endl;
-         for(unsigned int i = 0; i < players.size(); i++) {
-            players[i]->xMLify(out);
-         }
-         out << "  </gang>" <<std::endl;
-      }
-   };
-
-
-   typedef std::vector<Gang*> ganglist;
-
+   BrothaData& DataManager::getData() {
+      return *mData;
+   }
 }
-#endif

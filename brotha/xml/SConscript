@@ -2,6 +2,7 @@ Import('env')
 
 sources = [
    'xmlpersist.cpp',
+   'DataManager.cpp',
 ]
 
 env.Library(target = 'data',
