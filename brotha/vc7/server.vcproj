@@ -167,6 +167,12 @@
 					RelativePath="..\server\BrothaServer.h">
 				</File>
 				<File
+					RelativePath="..\server\BuyCarMessageHandler.h">
+				</File>
+				<File
+					RelativePath="..\server\BuyModMessageHandler.h">
+				</File>
+				<File
 					RelativePath="..\server\GameThread.h">
 				</File>
 				<File
@@ -186,6 +192,12 @@
 				</File>
 				<File
 					RelativePath="..\server\ResyncMessageHandler.h">
+				</File>
+				<File
+					RelativePath="..\server\SellCarMessageHandler.h">
+				</File>
+				<File
+					RelativePath="..\server\SellModMessageHandler.h">
 				</File>
 				<File
 					RelativePath="..\server\UpdatePlayerInfoMessageHandler.h">

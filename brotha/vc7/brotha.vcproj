@@ -149,6 +149,12 @@
 					RelativePath="..\net\AddPlayerMessage.h">
 				</File>
 				<File
+					RelativePath="..\net\BuyCarMessage.h">
+				</File>
+				<File
+					RelativePath="..\net\BuyModMessage.h">
+				</File>
+				<File
 					RelativePath="..\net\ByteBuffer.h">
 				</File>
 				<File
@@ -210,6 +216,12 @@
 				</File>
 				<File
 					RelativePath="..\net\ResyncMessage.h">
+				</File>
+				<File
+					RelativePath="..\net\SellCarMessage.h">
+				</File>
+				<File
+					RelativePath="..\net\SellModMessage.h">
 				</File>
 				<File
 					RelativePath="..\net\Serialize.h">
