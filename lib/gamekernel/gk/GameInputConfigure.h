@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInputConfigure.h,v $
-// Date modified: $Date: 2002-02-18 03:11:15 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-19 21:36:35 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -35,7 +35,7 @@
 #include "gk/gkCommon.h"
 #include <iostream>
 #include <string>
-#include "xml/xmlpp.h"
+#include "xmlpp/xmlpp.h"
 
 #include "gk/GameInput.h"
 #include "gk/GameKernel.h"

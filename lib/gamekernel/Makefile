@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-16 03:02:44 $
-# Version:       $Revision: 1.14 $
+# Date modified: $Date: 2002-02-19 21:36:35 $
+# Version:       $Revision: 1.15 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -44,7 +44,7 @@ sdl_SRCS = \
 OBJDIR = .
 DEPDIR = 
 
-PATH_TO_SRCS = ./gk:./xml
+PATH_TO_SRCS = ./gk:./xmlpp
 MK_DIR = mk
 INCLUDE_PATHS = -I. -I./external/xdl
 DEFS ?=
