@@ -30,7 +30,6 @@ void Weapon::initialize(GLfloat x, GLfloat z, GLfloat theta)
 	xPos = x;
 	zPos = z;
 
-
 	return;
 }
 
