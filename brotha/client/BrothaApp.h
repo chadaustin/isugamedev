@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-05-01 19:59:06 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-05-03 02:41:48 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -50,6 +50,7 @@
 #include "game/Player.h"
 #include "ServerConnection.h"
 #include "State.h"
+#include "GameWorld.h"
 
 namespace client
 {
@@ -98,6 +99,11 @@ namespace client
          return mLocalPlayer;
       }
 
+      /// Gets the game world.
+      GameWorld& getGameWorld() {
+         return mWorld;
+      }
+
       bool getFirstMsg(net::Message*& msg) {
          if(!mMsgList.empty()) {
             msg = mMsgList[0].first;
@@ -115,6 +121,9 @@ namespace client
 
       /// The local player.
       game::Player* mLocalPlayer;
+
+      /// Collection of all players and objects.
+      GameWorld mWorld;
 
       /// Facade for connection with server.
       ServerConnection mServerConnection;
