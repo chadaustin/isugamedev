@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Socket.cpp,v $
- * Date modified: $Date: 2002-03-02 13:08:31 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-02 20:30:53 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -270,7 +270,7 @@ bool Socket::ioControl(long cmd, unsigned long *argp) {
    }
 }
 
-long Socket::select(unsigned int timeout) {
+long Socket::select(unsigned int timeout, int eventMask) {
    fd_set read, write, except;
    FD_ZERO(&read);
    FD_ZERO(&write);
@@ -279,25 +279,28 @@ long Socket::select(unsigned int timeout) {
    long error = 0;
 
    struct timeval timeVal;
-   timeVal.tv_sec  = (long)((m_polltime*1000) / 1000000); // seconds to wait
-   timeVal.tv_usec = (long)((m_polltime*1000) % 1000000); // micro seconds to wait
+   timeVal.tv_sec  = (long)((timeout*1000) / 1000000); // seconds to wait
+   timeVal.tv_usec = (long)((timeout*1000) % 1000000); // micro seconds to wait
 
    FD_SET(m_socket,&read);
    FD_SET(m_socket,&write);
    FD_SET(m_socket,&except);
 
-   int i = ::select(0,&read,&write,&except,&timeVal);
+//   int i = ::select(0,&read,&write,&except,&timeVal);
+   int i;
+   i= ::select(0,(eventMask & select_READ || eventMask & select_CLOSE ? &read : 0),
+                 (eventMask & select_SEND ? &write : 0),
+                 0, // don't need this for any of the events I'm handling
+                 &timeVal);
    if(i==SOCKET_ERROR) {
       // getLastError Error Code
       return select_ERROR;
    }
 
-   if(FD_ISSET(m_socket,&read)) {
-      return select_READ;
-   } else if(FD_ISSET(m_socket,&write)) {
+   if(FD_ISSET(m_socket,&read) && (eventMask & select_READ || eventMask & select_CLOSE)) {
+      return (getRecieveSize() > 0 ? select_READ : select_CLOSE);
+   } else if(FD_ISSET(m_socket,&write) && (eventMask & select_SEND)) {
       return select_SEND;
-   } else if(FD_ISSET(m_socket,&except)) {
-      return select_CLOSE;
    }
    return select_NONE;
 }

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Socket.h,v $
- * Date modified: $Date: 2002-03-02 13:08:31 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-02 20:30:53 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -63,7 +63,11 @@ protected:
    long m_numQueued;
 
 public:
-   enum selectResponses{ select_ERROR, select_NONE, select_READ, select_SEND, select_CLOSE };
+   enum selectResponses{select_ERROR = -1,
+                        select_NONE = 0,
+                        select_READ = 1,
+                        select_SEND = 2,
+                        select_CLOSE = 4};
    Socket();
 	virtual ~Socket();
 
@@ -80,7 +84,7 @@ public:
    long recieve(void* buffer, unsigned long bytes2read, unsigned int timeout);
    bool ioControl(long cmd, unsigned long *argp);
 
-   virtual long select(unsigned int timeout);
+   virtual long select(unsigned int timeout, int eventMask);
 
    bool isOpen();
 };
