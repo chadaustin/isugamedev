@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundManager.cpp,v $
- * Date modified: $Date: 2002-09-08 03:04:51 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-10 02:01:46 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,7 +39,11 @@ namespace mw
       adr::RefPtr<adr::AudioDevice> device(adr::OpenDevice());
       if (!device)
       {
-         throw std::runtime_error("Error opening Audiere device");
+         device = adr::OpenDevice("null");
+         if (!device)
+         {
+            throw std::runtime_error("Error opening Audiere device");
+         }
       }
 
       mJukebox            = new Jukebox(device.get());
