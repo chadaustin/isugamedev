@@ -1,6 +1,4 @@
-// simple glut application: look for the !!!TODO!!!s, and fill in your code 
-//                          there as needed
-// kevin meinert - kevn@vrac.iastate.edu
+// Tank - isu game dev club
 // Public domain
 //
 
