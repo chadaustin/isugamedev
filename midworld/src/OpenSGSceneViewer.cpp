@@ -24,15 +24,20 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-25 10:08:03 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-11-25 12:39:13 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <list>
 #include <SDL_opengl.h>
+
+// GMTL
 #include <gmtl/External/OpenSGConvert.h>
 #include <gmtl/Containment.h>
 #include <gmtl/Output.h>
+
+// OpenSG
 #ifdef WIN32  // OpenSG needs Winsock  :(:(:(
 #include <winsock.h>
 #endif
@@ -40,12 +45,59 @@
 #include <OpenSG/OSGMatrixUtility.h>
 #include <OpenSG/OSGDirectionalLight.h>
 #include <OpenSG/OSGAction.h>
+#include <OpenSG/OSGSceneFileHandler.h>
+
 #include "OpenSGSceneViewer.h"
-#include "GameManager.h"
 #include "ResourceManager.h"
 
 namespace mw
 {
+   /// This class initializes OpenSG before main() is entered
+   class InitOpenSG
+   {
+   public:
+      InitOpenSG()
+      {
+         osg::osgInit(0, 0);
+
+         typedef std::list<const char*> SuffixList;
+         SuffixList suffixes;
+         osg::SceneFileHandler::the().getSuffixList(suffixes);
+
+         std::cout<<"Scenegraph file formats supported:"<<std::endl;
+         for(SuffixList::iterator itr = suffixes.begin(); itr != suffixes.end(); ++itr)
+         {
+            std::cout<<"\t"<<(*itr)<<std::endl;
+         }
+      }
+   };
+
+   static InitOpenSG initOpenSG;
+   
+   /**
+    * The ResourceManager CachePolicy for osg::NodePtr objects.
+    * XXX: HACK - This code is duplicated in LoadState.cpp
+    */
+   template<>
+   struct CachePolicy<osg::NodePtr>
+   {
+      static osg::NodePtr copy(osg::NodePtr cacheVal)
+      {
+         return osg::cloneTree(cacheVal);
+      }
+
+      static osg::NodePtr create(const std::string& name)
+      {
+         return osg::SceneFileHandler::the().read(name.c_str());
+      }
+
+      static void destroy(osg::NodePtr& val)
+      {
+         // do nothing ... osg::NodePtrs are ref counted
+      }
+   };
+
+
    OpenSGSceneViewer::OpenSGSceneViewer(Scene* scene)
       : mScene(scene)
    {
@@ -193,9 +245,8 @@ namespace mw
       Entity* entity = evt.getEntity();
       std::cout << "[OpenSGSceneViewer] Adding entity: " << entity->getUID() << std::endl;
 
-      ResourceManager& res_mgr = ResourceManagerSingleton::instance();
-      const std::string& model = res_mgr.lookup(entity->getModel());
-      osg::NodePtr model_node = GameManager::instance().getModelManager()->get(model);
+      ResourceManager& resmgr = ResourceManagerSingleton::instance();
+      osg::NodePtr model_node = resmgr.get<osg::NodePtr>(entity->getModel());
 
       // Create a parent transform node for the model
       osg::NodePtr trans_node = osg::Node::create();

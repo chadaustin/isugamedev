@@ -24,16 +24,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.cpp,v $
- * Date modified: $Date: 2002-11-25 10:08:03 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-25 12:39:13 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <stdexcept>
 #include <SDL_opengl.h>
+#include <OpenSG/OSGNodePtr.h>
+#include <OpenSG/OSGSceneFileHandler.h>
 #include "LoadState.h"
 #include "StateFactory.h"
-#include "GameManager.h"
 #include "ResourceManager.h"
 
 namespace mw
@@ -42,6 +43,29 @@ namespace mw
    {
       StateCreatorImpl<LoadState> creator("Load");
    }
+
+   /**
+    * The ResourceManager CachePolicy for osg::NodePtr objects.
+    * XXX: HACK - This code is duplicated in OpenSGSceneViewer.cpp
+    */
+   template<>
+   struct CachePolicy<osg::NodePtr>
+   {
+      static osg::NodePtr copy(osg::NodePtr cacheVal)
+      {
+         return osg::cloneTree(cacheVal);
+      }
+
+      static osg::NodePtr create(const std::string& name)
+      {
+         return osg::SceneFileHandler::the().read(name.c_str());
+      }
+
+      static void destroy(osg::NodePtr& val)
+      {
+         // do nothing ... osg::NodePtrs are ref counted
+      }
+   };
 
    LoadState::LoadState(Application* a)
       : State(a)
@@ -75,9 +99,7 @@ namespace mw
       if (mModelsComplete < mModels.size())
       {
          ResourceManager& resmgr = ResourceManagerSingleton::instance();
-         ModelManager* mdlmgr = GameManager::instance().getModelManager();
-
-         mdlmgr->preload(resmgr.lookup(mModels[mModelsComplete]));
+         resmgr.preload<osg::NodePtr>(mModels[mModelsComplete]);
          ++mModelsComplete;
       }
       else if (mTexturesComplete < mTextures.size())

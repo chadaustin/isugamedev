@@ -24,11 +24,12 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-11-25 12:39:13 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <iostream>
 #include <math.h>
 #include "StateFactory.h"
 #include "MenuState.h"
