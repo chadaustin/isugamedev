@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.h,v $
- * Date modified: $Date: 2002-10-09 02:20:57 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-30 06:52:07 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -73,7 +73,7 @@ namespace mw
       void entityRemoved(const SceneEvent& evt);
 
    private:
-      void debugDrawBounds();
+      void drawBounds();
 
    private:
       Scene* mScene;

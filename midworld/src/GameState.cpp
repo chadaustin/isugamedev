@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-30 06:32:57 $
- * Version:       $Revision: 1.90 $
+ * Date modified: $Date: 2002-10-30 06:52:06 $
+ * Version:       $Revision: 1.91 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -365,6 +365,7 @@ namespace mw
       glLoadIdentity();
 
       glPushMatrix();
+      {
          mCamera.draw();
          mGameScene.draw();
 
@@ -379,47 +380,8 @@ namespace mw
 
          drawEntities();
 
-         // Draw the bounds
-         glColor4f(1,0,0,1);
-         for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
-         {
-            const Entity* entity = itr->second;
-            const gmtl::AABoxf& bounds = entity->getBounds();
-            const gmtl::Point3f& min = bounds.getMin();
-            const gmtl::Point3f& max = bounds.getMax();
-
-            // Front face
-            glBegin(GL_LINE_LOOP);
-               glVertex3f(min[0], min[1], min[2]);
-               glVertex3f(max[0], min[1], min[2]);
-               glVertex3f(max[0], max[1], min[2]);
-               glVertex3f(min[0], max[1], min[2]);
-            glEnd();
-
-            // Back face
-            glBegin(GL_LINE_LOOP);
-               glVertex3f(min[0], min[1], max[2]);
-               glVertex3f(max[0], min[1], max[2]);
-               glVertex3f(max[0], max[1], max[2]);
-               glVertex3f(min[0], max[1], max[2]);
-            glEnd();
-
-            // Bottom face
-            glBegin(GL_LINE_LOOP);
-               glVertex3f(min[0], min[1], min[2]);
-               glVertex3f(max[0], min[1], min[2]);
-               glVertex3f(max[0], min[1], max[2]);
-               glVertex3f(min[0], min[1], max[2]);
-            glEnd();
-
-            // Top face
-            glBegin(GL_LINE_LOOP);
-               glVertex3f(min[0], max[1], min[2]);
-               glVertex3f(max[0], max[1], min[2]);
-               glVertex3f(max[0], max[1], max[2]);
-               glVertex3f(min[0], max[1], max[2]);
-            glEnd();
-         }
+//         drawBounds();
+      }
       glPopMatrix();
 
       mHUD.draw(application().getWidth(), application().getHeight(),
@@ -436,6 +398,52 @@ namespace mw
          glTranslate(entity->getPos());
          entity->draw();
          glTranslate(-entity->getPos());
+      }
+   }
+
+   void
+   GameState::drawBounds()
+   {
+      // Draw the bounds
+      glColor4f(1,0,0,1);
+      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      {
+         const Entity* entity = itr->second;
+         const gmtl::AABoxf& bounds = entity->getBounds();
+         const gmtl::Point3f& min = bounds.getMin();
+         const gmtl::Point3f& max = bounds.getMax();
+
+         // Front face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], min[2]);
+            glVertex3f(max[0], max[1], min[2]);
+            glVertex3f(min[0], max[1], min[2]);
+         glEnd();
+
+         // Back face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], max[2]);
+            glVertex3f(max[0], min[1], max[2]);
+            glVertex3f(max[0], max[1], max[2]);
+            glVertex3f(min[0], max[1], max[2]);
+         glEnd();
+
+         // Bottom face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], max[2]);
+            glVertex3f(min[0], min[1], max[2]);
+         glEnd();
+
+         // Top face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], max[1], min[2]);
+            glVertex3f(max[0], max[1], min[2]);
+            glVertex3f(max[0], max[1], max[2]);
+            glVertex3f(min[0], max[1], max[2]);
+         glEnd();
       }
    }
 

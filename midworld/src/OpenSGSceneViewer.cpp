@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-10-29 08:21:57 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-10-30 06:52:07 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -191,51 +191,7 @@ namespace mw
          mWin->frameExit();
       glPopAttrib();
 
-      // Draw the goddamn bounding boxes
-      for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
-           itr != mEntityNodeMap.end(); ++itr)
-      {
-         osg::NodePtr entity_node = itr->second;
-
-         // Get the bounds of this node
-         osg::Pnt3f osg_min, osg_max;
-         entity_node->getVolume().getBounds(osg_min, osg_max);
-         gmtl::Point3f min(osg_min[0], osg_min[1], osg_min[2]);
-         gmtl::Point3f max(osg_max[0], osg_max[1], osg_max[2]);
-
-         glColor4f(0,0,1,1);
-         // Front face
-         glBegin(GL_LINE_LOOP);
-            glVertex3f(min[0], min[1], min[2]);
-            glVertex3f(max[0], min[1], min[2]);
-            glVertex3f(max[0], max[1], min[2]);
-            glVertex3f(min[0], max[1], min[2]);
-         glEnd();
-
-         // Back face
-         glBegin(GL_LINE_LOOP);
-            glVertex3f(min[0], min[1], max[2]);
-            glVertex3f(max[0], min[1], max[2]);
-            glVertex3f(max[0], max[1], max[2]);
-            glVertex3f(min[0], max[1], max[2]);
-         glEnd();
-
-         // Bottom face
-         glBegin(GL_LINE_LOOP);
-            glVertex3f(min[0], min[1], min[2]);
-            glVertex3f(max[0], min[1], min[2]);
-            glVertex3f(max[0], min[1], max[2]);
-            glVertex3f(min[0], min[1], max[2]);
-         glEnd();
-
-         // Top face
-         glBegin(GL_LINE_LOOP);
-            glVertex3f(min[0], max[1], min[2]);
-            glVertex3f(max[0], max[1], min[2]);
-            glVertex3f(max[0], max[1], max[2]);
-            glVertex3f(min[0], max[1], max[2]);
-         glEnd();
-      }
+//      drawBounds();
    }
 
    std::list<RigidBody*>
@@ -325,6 +281,56 @@ namespace mw
       else
       {
          std::cerr<<"Couldn't remove unknown entity: uid="<<uid<<std::endl;
+      }
+   }
+
+   void
+   OpenSGSceneViewer::drawBounds()
+   {
+      // Draw the goddamn bounding boxes
+      for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
+           itr != mEntityNodeMap.end(); ++itr)
+      {
+         osg::NodePtr entity_node = itr->second;
+
+         // Get the bounds of this node
+         osg::Pnt3f osg_min, osg_max;
+         entity_node->getVolume().getBounds(osg_min, osg_max);
+         gmtl::Point3f min(osg_min[0], osg_min[1], osg_min[2]);
+         gmtl::Point3f max(osg_max[0], osg_max[1], osg_max[2]);
+
+         glColor4f(0,0,1,1);
+         // Front face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], min[2]);
+            glVertex3f(max[0], max[1], min[2]);
+            glVertex3f(min[0], max[1], min[2]);
+         glEnd();
+
+         // Back face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], max[2]);
+            glVertex3f(max[0], min[1], max[2]);
+            glVertex3f(max[0], max[1], max[2]);
+            glVertex3f(min[0], max[1], max[2]);
+         glEnd();
+
+         // Bottom face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], max[2]);
+            glVertex3f(min[0], min[1], max[2]);
+         glEnd();
+
+         // Top face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], max[1], min[2]);
+            glVertex3f(max[0], max[1], min[2]);
+            glVertex3f(max[0], max[1], max[2]);
+            glVertex3f(min[0], max[1], max[2]);
+         glEnd();
       }
    }
 }

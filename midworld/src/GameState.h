@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-30 06:32:58 $
- * Version:       $Revision: 1.53 $
+ * Date modified: $Date: 2002-10-30 06:52:07 $
+ * Version:       $Revision: 1.54 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -189,6 +189,9 @@ namespace mw
       Turret* setupTurret(std::string name, std::string parent, int maxChild, int level);
       
       void drawEntities();
+
+      /// Draws the bounds around all the entities. For debugging purposes.
+      void drawBounds();
 
       /// Called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);
