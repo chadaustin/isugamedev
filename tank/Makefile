@@ -31,10 +31,11 @@ SRCS = \
    TankGame.cxx \
    Texture.cxx \
    TgaImporter.cxx \
+   cubeGeometry.cxx \
    World.cxx
 
 MK_DIR = ./mk
-PATH_TO_SRCS = .
+PATH_TO_SRCS = .:Fizix/example
 INCLUDE_PATHS += -I. -I./boost -I./regexx
 
 include ${MK_DIR}/mk.hosttype
