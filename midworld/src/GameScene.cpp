@@ -23,6 +23,7 @@ namespace mw
       const int spacing_2 = spacing / 2;
       glPushMatrix();
          glRotatef(90, 1, 0, 0);
+         glColor4f(1,1,1,1);
          mTexture->bind();
          glBegin(GL_QUADS);
          glTexCoord2f(0,  0);  glVertex2f(-500, -500);
