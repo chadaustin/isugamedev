@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec4.h,v $
-//    $Date: 2001-09-21 17:59:44 $
-//    $Revision: 1.5 $
+//    $Date: 2001-10-01 05:46:22 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -47,7 +47,7 @@ protected:
 
 public:
 
-   Vec4(){}
+   Vec4(){ _v[0] = 0.0f; _v[1] = 0.0f; _v[2] = 0.0f; _v[3] = 1.0f; }
    Vec4 ( const Vec4<Type>& vec );
    Vec4 ( const Vec3<Type>& vec );
    Vec4 ( const Type vec[4] );

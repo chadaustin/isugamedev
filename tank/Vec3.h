@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec3.h,v $
-//    $Date: 2001-09-21 17:52:48 $
-//    $Revision: 1.4 $
+//    $Date: 2001-10-01 05:46:22 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -41,7 +41,7 @@ protected:
 
 public:
 
-   Vec3(){}
+   Vec3() { _v[0] = 0.0f; _v[1] = 0.0f; _v[2] = 0.0f; }
    Vec3( const Vec3<DataType>& vec );
    Vec3( const DataType vec[3] );
    Vec3( const DataType& v0, const DataType& v1, const DataType& v2 );
