@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.cpp,v $
- * Date modified: $Date: 2002-10-29 08:49:32 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-29 09:29:18 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,7 +44,7 @@ namespace audieredr
     AudioDevice* device,
     SampleBuffer* buffer)
   {
-    return OpenSound(device, buffer->openStream(), false);
+    return audiere::OpenSound(device, buffer->openStream(), false);
   }
 
   inline SampleBuffer* CreateSampleBuffer(SampleSource* source)
@@ -65,7 +65,7 @@ namespace audieredr
     source->setPosition(0);  // in case the source has been read from already
     source->read(stream_length, buffer);
 
-    SampleBuffer* sb =  CreateSampleBuffer(
+    SampleBuffer* sb =  audiere::CreateSampleBuffer(
        buffer, stream_length, channel_count,
        sample_rate, sample_format);
     delete[] buffer;

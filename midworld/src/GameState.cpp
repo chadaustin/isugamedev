@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 08:21:56 $
- * Version:       $Revision: 1.81 $
+ * Date modified: $Date: 2002-10-29 09:29:18 $
+ * Version:       $Revision: 1.82 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -619,7 +619,7 @@ namespace mw
          {
             // read the rest of the line
             std::string dummy;
-            getline(in, dummy);
+            std::getline(in, dummy);
          }
          else
          {
