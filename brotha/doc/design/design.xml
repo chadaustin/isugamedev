@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="file://localhost/home9/users/aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
+<?xml-stylesheet href="../../../../../../aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.5 2002-04-08 04:57:51 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 04:57:51 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.6 2002-04-08 05:12:48 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 05:12:48 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -232,16 +232,58 @@
       </section>
       <section>
         <title>Module Interfaces</title>
-        <methodsynopsis>
-          <modifier>public</modifier>
-          <void/>
-          <methodname>addTrack</methodname>
-          <methodparam>
-            <type>string</type>
-            <parameter>filename</parameter>
-          </methodparam>
-        </methodsynopsis>
-        <para>Jukebox:</para>
+        <para>The interface for the Sound module consists of the <classname>Jukebox</classname> and <classname>SoundEffectManager</classname> classes.</para>
+        <section>
+          <title><classname>Jukebox</classname></title>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>addTrack</methodname>
+            <methodparam>
+              <type>string</type>
+              <parameter>filename</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>removeTrack</methodname>
+            <methodparam>
+              <type>string</type>
+              <parameter>filename</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>unsigned int</type>
+            <methodname>getNumTracks</methodname>
+            <void/>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>start</methodname>
+            <void/>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>stop</methodname>
+            <void/>
+          </methodsynopsis>
+        </section>
+        <section>
+          <title><classname>SoundEffectManager</classname></title>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>trigger</methodname>
+            <methodparam>
+              <type>string</type>
+              <parameter>filename</parameter>
+            </methodparam>
+          </methodsynopsis>
+        </section>
       </section>
       <section>
         <title>Design Issues</title>
