@@ -11,8 +11,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //   $RCSfile: Mouse.h,v $
-//   $Date: 2002-01-29 15:36:55 $
-//   $Revision: 1.3 $
+//   $Date: 2002-01-29 20:43:44 $
+//   $Revision: 1.4 $
 //   Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //   This library is free software; you can redistribute it and/or
@@ -35,15 +35,16 @@
 #ifndef MOUSE_INCLUDED
 #define MOUSE_INCLUDED
 
+#include <map>
 #include <assert.h>
 
-#include "DigitalInput.h"
+#include "DigitalDevice.h"
 
 //: Mouse class
 // keeps track of mouse position and button state in a simulation
 // you must call update() each frame of your simulation
 // before you read any data from Mouse (like position and button states)
-class Mouse
+class Mouse : public DigitalDevice
 {
 // Types
 public:
@@ -73,9 +74,6 @@ public:
    
 // Preferred methods - total flexibility
 public:
-   const DigitalInput& button( const Mouse::Button& b ) const  { return mButton[b]; }
-   DigitalInput& button( const Mouse::Button& b ) { return mButton[b]; }
-   
    // return the x position of the mouse.
    const int&        x() const;
    
@@ -110,18 +108,24 @@ public:
 private:
    int          _xCurrent, _xFuture, _xDelta;
    int          _yCurrent, _yFuture, _yDelta;
-   std::vector< DigitalInput > mButton;
    bool mNeedToCallUpdate;
+   
+   void initialize_map()
+   {
+      mMap["MOUSEBUTTON_LEFT"] = Mouse::LEFT;
+      mMap["MOUSEBUTTON_MIDDLE"] = Mouse::MIDDLE;
+      mMap["MOUSEBUTTON_RIGHT"] = Mouse::RIGHT;
+   }
 };
 
 
 
 //Constructor.
-inline Mouse::Mouse() : 
+inline Mouse::Mouse() : DigitalDevice(), 
       _xCurrent( 0 ), _yCurrent( 0 ), _xFuture( 0 ), _yFuture( 0 ), 
       mNeedToCallUpdate( false )
 {
-   mButton.resize( 3 ); // 3 button mouse.
+   this->setNumInputs( 3 ); // 3 button mouse. 
 }
 
 // return the x position of the mouse.
