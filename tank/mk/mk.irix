@@ -16,6 +16,7 @@ EXE_FLAGS = -LANG:std -n32 -mips3 $(DEBUG_FLAGS) $(WARNINGS_FLAGS)
 SO_LINKER = $(CXX_COMPILE)
 SO_FLAGS = -LANG:std -n32 -mips3 $(DEBUG_FLAGS) -shared -KPIC
 DEFS =
+LIBBITSUF=32
 
 # cannot be specified with the -c option
 LINKALL_ON = -all

@@ -46,9 +46,11 @@ WHOAMI:=$(shell whoami)
 ifeq ($(WHOAMI), kevn)
 ifneq ($(HOSTTYPE), Win32)
    INCLUDE_PATHS += -I/home/users/kevn/software/${HOSTTYPE}/include
-   LIB_PATHS += -L/home/users/kevn/software/${HOSTTYPE}/lib32
+   LIB_PATHS += -L/home/users/kevn/software/${HOSTTYPE}/lib$(LIBBITSUF)
 endif
 endif
+
+
 
 ifeq ($(WHOAMI), bscott)
    INCLUDE_PATHS += -I/home/users/kevn/software/${HOSTTYPE}/include
@@ -58,6 +60,7 @@ ifeq ($(HOSTTYPE), linux)
    LIBPATHS += -L/usr/X11R6/lib
 endif
 endif
+
 
 ifeq ($(VRJUGGLER),Y)
    INCLUDE_PATHS += -I$(VJ_BASE_DIR)/include
@@ -69,28 +72,41 @@ else
    SRCS += sys_glut.cxx
 endif
 
+# AUDIOSYSTEM == audio juggler
+ifeq ($(AUDIOSYSTEM), AJ)
+   SRCS += AJaudioSystem.cxx
+   INCLUDE_PATHS += -I$(AJ_BASE_DIR)/include
+   CXX_FLAGS +=-DUSE_AJ
+   ifeq ($(HOSTTYPE), Win32)
+      LIBS += $(AJ_BASE_DIR)\\lib$(LIBBITSUF)\\AudioJuggler.lib
+   else
+      LIBS += -L$(AJ_BASE_DIR)/lib$(LIBBITSUF) -lAudioJuggler -lopenal
+   endif
+endif
 
-include ${MK_DIR}/mk.objs
-
+# default libs
 ifeq ($(HOSTTYPE), Win32)
    LIBS += .\\regexx\\regexx.lib Glut32.lib Glu32.lib OpenGL32.lib 
 else
    LIBS += -L./regexx -lregexx -lglut -lGLU -lGL -L/usr/X11R6/lib -lXmu -lXext -lX11 -lXi -lm
 endif
 
+
+include ${MK_DIR}/mk.objs
+
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
 default:
-	$(MAKE) tank$(EXE_FILE_SUFFIX)
+	$(MAKE) AUDIOSYSTEM=$(AUDIOSYSTEM) tank$(EXE_FILE_SUFFIX)
 
 vjtank:
-	$(MAKE) VRJUGGLER='Y' default
+	$(MAKE) AUDIOSYSTEM=$(AUDIOSYSTEM) VRJUGGLER='Y' default
 
 debug:
-	$(MAKE) USE_DEBUG='Y' default
+	$(MAKE) AUDIOSYSTEM=$(AUDIOSYSTEM) USE_DEBUG='Y' default
 
 release:
-	$(MAKE) USE_DEBUG='N' default
+	$(MAKE) AUDIOSYSTEM=$(AUDIOSYSTEM) USE_DEBUG='N' default
 
 # rule to build the regexx library.
 regexx/$(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX):
@@ -114,7 +130,7 @@ do_tank:
 	@echo "Building spacetank     "
 	@echo "======================="
 	@echo " "
-	$(MAKE) VRJUGGLER=$(VRJUGGLER) USE_DEPEND='Y' USE_DEBUG=$(USE_DEBUG) build_tank
+	$(MAKE) AUDIOSYSTEM=$(AUDIOSYSTEM) VRJUGGLER=$(VRJUGGLER) USE_DEPEND='Y' USE_DEBUG=$(USE_DEBUG) build_tank
 	@echo " "
 	@echo "======================="
 	@echo "Done building spacetank"

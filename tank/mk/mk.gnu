@@ -17,6 +17,7 @@ EXE_FLAGS = $(CXX_FLAGS) $(WARNINGS_FLAGS)
 SO_LINKER = $(CXX_COMPILE)
 SO_FLAGS = -shared -fPIC $(DEBUG_FLAGS) $(WARNINGS_FLAGS)
 DEFS =
+LIBBITSUF=
 
 LINKALL_ON = -Wl,--whole-archive
 LINKALL_OFF = -Wl,--no-whole-archive
