@@ -7,7 +7,6 @@ Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenSG SetupOpenGL')
 interfaces = Split("""
    BodyChangeListener
    CollisionDetector
-   CollisionListener
    Entity
    SceneListener
    SceneViewer
@@ -54,6 +53,7 @@ classes = Split("""
    OptionsState
    Particle
    ParticleEngine
+   PerformanceMonitor
    PhysicsEngine
    Pistol
    Player
@@ -83,7 +83,6 @@ buildInfo = BuildInfo()
 buildInfo.addHeaders(map(File, Split("""
    AssaultRifle.h
    BodyState.h
-   CollisionEvent.h
    LokiTypeInfo.h
    UIDManager.h
    VectorSpatialIndex.h
