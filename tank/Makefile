@@ -15,17 +15,24 @@ PATH_TO_SRCS = .
 include ${MK_DIR}/mk.hosttype
 include ${MK_DIR}/mk.platform
 
-# search paths for glut (modify this!)
-LIBS = -lglut -lGLU -lGL -L/usr/X11R6/lib -lXmu -lXext -lX11 -lXi -lm
-#INCLUDE_PATHS = -I/home/users/kevn/software/${HOSTTYPE}/include
-#LIBPATHS = -L/home/users/kevn/software/${HOSTTYPE}/lib32
- 
+
+WHOAMI:=$(shell whoami)
+ifeq ($(WHOAMI), kevn)
+   INCLUDE_PATHS += -I/home/users/kevn/software/${HOSTTYPE}/include
+   LIBPATHS += -L/home/users/kevn/software/${HOSTTYPE}/lib32
+endif
+
+
+
+
 include ${MK_DIR}/mk.objs
+
+LIBS = -lglut -lGLU -lGL -L/usr/X11R6/lib -lXmu -lXext -lX11 -lXi -lm
 
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
 default: ${OBJS}
-	$(CC) $(CXX_FLAGS) $(INCLUDE_PATHS) ${OBJS} $(OUTPUT_EXE_FLAG) $(FILENAME) $(LIBPATHS) $(LIBS)
+	$(CC) $(CXX_FLAGS) ${OBJS} $(OUTPUT_EXE_FLAG) $(FILENAME) $(LIBPATHS) $(LIBS)
 
 
 

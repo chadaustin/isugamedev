@@ -1,10 +1,10 @@
 #IRIX
-ifeq ($(HOSTTYPE), IRIX)
+ifeq ($(HOSTTYPE), irix)
    include ${MK_DIR}/mk.irix
 endif
 
 #LiNUX
-ifeq ($(HOSTTYPE), Linux)
+ifeq ($(HOSTTYPE), linux)
    include ${MK_DIR}/mk.gnu
 endif
 

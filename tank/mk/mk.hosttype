@@ -1,8 +1,21 @@
 #HOSTTYPE := $(shell uname | sed "s/CYGWIN.*//Win32/")
 HOSTTYPE:=$(shell uname)
 
+# standardize on the names: linux, Win32, irix
+
+
+# linux
+ifeq ($(HOSTTYPE), Linux)
+HOSTTYPE=linux
+endif
+
+# irix
 ifeq ($(HOSTTYPE), IRIX64)
-HOSTTYPE=IRIX
+HOSTTYPE=irix
+endif
+
+ifeq ($(HOSTTYPE), IRIX)
+HOSTTYPE=irix
 endif
 
 # win98 second edition (4.10)
