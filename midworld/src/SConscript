@@ -34,6 +34,7 @@ headers = Split("""
    CollisionDetector.h
    NullCollisionDetector.h
    SpatialIndex.h
+   VectorSpatialIndex.h
    Weapon.h
 """)
 
