@@ -27,7 +27,7 @@ DEPDIR =
 
 PATH_TO_SRCS = .:example:pixmi:zlib
 MK_DIR = mk
-INCLUDE_PATHS = -I. -Iexample -Ipixmi -Izlib
+INCLUDE_PATHS = -I. -Iexample -Imanager -Ipixmi -Izlib
 
 ########################################################################
 # system dependent stuff, that users will want to change...
@@ -43,7 +43,6 @@ endif
 
 #LiNUX
 ifeq ($(HOSTTYPE), linux)
-   INCLUDE_PATHS =  -I. -Iexample -Imanager -IUtils -Izlib
    LIBS = -lm
    include ${MK_DIR}/mk.gnu
 endif
