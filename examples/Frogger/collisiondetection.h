@@ -1,13 +1,25 @@
+// Levi VanOort -- lvanoort@aol.com 2/4/2002
+
 #ifndef __COLLISION_DETECTION_H__
 #define __COLLISION_DETECTION_H__
 
 #include "MyObject.h"
-#include "myobjectstore.h"
-#include <iostream.h> //temporary
+#include <vector>
+#include <iostream> //temporary
+
+using namespace std;
+
+////////////////////////////////////////////////////////
+//CollisionDetection
+////////////////////////////////////////////////////////
+// This class is a general Collision Detector for 2D
+// games.  It will detect Collision between any objects
+// as long as they are inhereted from MyObject Class.
+// 
 
 struct EdgeStore
 {
-	int Edge;
+	float Edge;
 	bool start;
 	MyObject* TheObject;
 };
@@ -33,7 +45,7 @@ public:
 	// Notes: This function adds the input object to
 	//	Collision Dection List
 	///////////////////////////////////////////////////
-	bool AddObject(MyObject*& InObject);
+	void AddObject(MyObject*& InObject);
 
 	///////////////////////////////////////////////////
     // RemoveObject()
@@ -41,7 +53,7 @@ public:
 	// Notes: This function removes the input object from
 	//	Collision Dection List
 	///////////////////////////////////////////////////
-	bool RemoveObject(MyObject*& InObject);
+	void RemoveObject(MyObject*& InObject);
 	
 	///////////////////////////////////////////////////////
 	//Move()
@@ -50,10 +62,10 @@ public:
 	//	Moves given object to new x, y position and Updates
 	//	ObjectToMove Position to X,Y;
 	////////////////////////////////////////////////////////
-	bool Move(MyObject*& ObjectToMove, int x, int y);
+	void Move(MyObject*& ObjectToMove, float x, float y);
 
 	///////////////////////////////////////////////////////
-	//CheckForCollisions(MyObjectStore&)
+	//CheckForCollisions(Collisions)
 	////////////////////////////////////////////////////////
 	// Notes: 
 	//	Call this after Move to find collisions.  If 
@@ -61,16 +73,14 @@ public:
 	//	a list of all collisions and Size hold the number of
 	//  indexes in collisions array.
 	////////////////////////////////////////////////////////	
-	bool CheckForCollisions(MyObjectStore*& Collisions, int& Size);
+	bool CheckForCollisions(vector<MyObject*> Collisions[30], int& Size);
 
 	friend ostream& operator <<(ostream& outs, const CollisionDetection& source);
-
+	vector<EdgeStore> MyObjectEdges;
 ////////////////////////////////////////////////////////////////////////
 private:
-	EdgeStore* MyObjectEdges;
-	int CurrentInsertPos;
-	int ArraySize;
 
+	bool Moved;
 
 	///////////////////////////////////////////////////////
 	//Intersects()
@@ -80,20 +90,6 @@ private:
 	//  return false
 	////////////////////////////////////////////////////////
 	bool Intersects(MyObject* one,MyObject* two);
-
-	///////////////////////////////////////////////////////
-	//Find()
-	////////////////////////////////////////////////////////
-	// Notes: 
-	//	If TheObject is found returns true and LeftIndex, 
-	//	RightIndex hold the index of both x rect edges.
-	//	If TheObject is not found return false.
-	//	LeftIndex, RightIndex remain unchanged.
-	////////////////////////////////////////////////////////
-	bool FindIndexs(MyObject* TheObject, int& LeftIndex, int& RightIndex);
-
-	void ResizeArray();
-
 
 };
 
