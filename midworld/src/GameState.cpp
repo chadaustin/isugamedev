@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-24 01:52:00 $
- * Version:       $Revision: 1.71 $
+ * Date modified: $Date: 2002-10-26 05:04:34 $
+ * Version:       $Revision: 1.72 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -162,7 +162,7 @@ namespace mw
       //XXX hack for testing aiNodes for the aiSystem
       node1 = new lm::aiNode("Ben", NULL, -1, 1);
       node2 = new lm::aiNode("Chad", node1, -1, 1);
-  
+
       Turret* enemy1 = new Turret();
 
 
@@ -198,12 +198,12 @@ namespace mw
       //TODO: FOR LOOM: change instincts to take nodes as param1 not
       //instinctMans.
       myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
-   
+
       aimTestCommand = new turretTesting(enemy1, &mPlayer);
       aimCommand = new turretCommand(enemy1, &mPlayer);
-      
+
       first->addCommand(aimCommand);
-      
+
       node1Instinct = new lm::reflex(node1, first, aimTestCommand);
       node2Instinct = new lm::reflex(node2, second, myTestCommand);
 
@@ -235,8 +235,8 @@ namespace mw
       mCursor.update(application().getWidth(),
                      application().getHeight());
 
-      mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
-//      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
+//      mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
+      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
       const gmtl::Vec3f accel  (0, 0, -mSpeed);
       const gmtl::Vec3f reverse(0, 0, mSpeed * 0.7f);
@@ -368,12 +368,12 @@ namespace mw
          mCamera.setYawVel(0);
       }
 
-      // update player transform
+      // update player transform (using mouse-look)
       {
          float screen_size_x = float(application().getWidth());
          float screen_size_y = float(application().getHeight());
-         float x = mCursor.getX();
-         float y = mCursor.getY();
+         float x = mCursor.getPos()[0];
+         float y = mCursor.getPos()[1];
 
          gmtl::Vec3f mid(screen_size_x / 2, screen_size_y / 2, 0);
          gmtl::Vec3f pos( x, y, 0 );
@@ -434,9 +434,11 @@ namespace mw
          updateDynamics(entity, dt);
       }
 
+      // Update the player and the camera
       mCamera.update(dt);
       mPlayer.update(*this, dt);
 
+      // Update the FPS stat
       ++mFrameCount;
       mFrameTime += dt;
       if (mFrameTime > 0.5f)
@@ -755,7 +757,7 @@ namespace mw
    {
       mScene->add(entity);
    }
-   
+
    void GameState::addSmart(Entity* entity, lm::aiNode *node)
    {
       add(entity);

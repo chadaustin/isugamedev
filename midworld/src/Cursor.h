@@ -24,47 +24,65 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Cursor.h,v $
- * Date modified: $Date: 2002-09-06 03:14:20 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-26 05:04:34 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_CURSOR_H
 #define MW_CURSOR_H
 
+#include <gmtl/Point.h>
+#include <gmtl/VecOps.h>
 #include "cubeGeometry.h" // for default draw method
+
+namespace gmtl
+{
+   typedef Point<float, 2> Point2f;
+}
 
 namespace mw
 {
-   /// virtual cursor, hides system sursor, shows opengl cursor
+   /**
+    * Describes a virtual cursor that hides the system cursor. It mimics the
+    * system cursor, but is not allowed to leave the confines of the active
+    * window. OpenGL is used to draw the virtual cursor on top of the
+    * application.
+    */
    class Cursor
    {
    public:
       Cursor()
       {
-         this->init( 640, 480 );
+         init(640, 480);
       }
-      
+
       virtual ~Cursor()
+      {}
+
+      /**
+       * Gets the position of the cursor for this frame.
+       */
+      const gmtl::Point2f& getPos() const { return mMousePos; }
+
+      /**
+       * Gets the position of the cursor during the last frame.
+       */
+      const gmtl::Point2f& getLastPos() const { return mLastMousePos; }
+
+      virtual void init(int w, int h)
       {
-      }
-      
-      float getX() const { return mMousePosX; }
-      float getY() const { return mMousePosY; }
-      
-      virtual void init( int w, int h )
-      {
-         mMousePosX = w / 2.0f;
-         mMousePosY = h / 2.0f;
+         mLastMousePos[0] = mMousePos[0] = w / 2.0f;
+         mLastMousePos[0] = mMousePos[1] = h / 2.0f;
          mNeedWarp = true;
-         
+
          // init the system mouse state...
-         ::SDL_WarpMouse( w / 2, h / 2 );
-         ::SDL_ShowCursor( SDL_DISABLE );
-      }      
-      
+         SDL_WarpMouse(w / 2, h / 2);
+         SDL_ShowCursor(SDL_DISABLE);
+      }
+
       /// overload this to draw your custom image.
-      virtual void draw( int w, int h )
+      virtual void draw(int w, int h)
       {
          // draw cursor (dumb)
          glPushMatrix();
@@ -75,47 +93,59 @@ namespace mw
          glMatrixMode(GL_MODELVIEW);
             glPushMatrix();
             glLoadIdentity();
-            glTranslatef( mMousePosX, mMousePosY, 0 );
-            glScalef( 3.0f, 3.0f, 3.0f );
+            glTranslatef(mMousePos[0], mMousePos[1], 0 );
+            glScalef(3.0f, 3.0f, 3.0f);
             cubeGeometry().render();
             glPopMatrix();
 
             glMatrixMode(GL_PROJECTION);
             glPopMatrix();
          glPopMatrix();
-      }    
-      
-      virtual void update( int w, int h )
+      }
+
+      virtual void update(int w, int h)
       {
          // keep track of the mouse cursor...
          if (mNeedWarp)
          {
-            ::SDL_WarpMouse( w / 2, h / 2 );
+            ::SDL_WarpMouse(w / 2, h / 2);
             mNeedWarp = false;
          }
-      }  
-      
-      virtual void onMouseMove( int w, int h, int x, int y )
+
+         mLastMousePos = mMousePos;
+      }
+
+      virtual void onMouseMove(int w, int h, int x, int y)
       {
          // keep track of the game-draw virtual cursor
          mNeedWarp = true;
          x -= w / 2;
          y -= h / 2;
-         mMousePosX += x;
-         mMousePosY += y;
+         mMousePos[0] += x;
+         mMousePos[1] += y;
 
          // constrain virtual cursor
-         if (mMousePosX < 0) mMousePosX = 0;
-         if (w < mMousePosX) mMousePosX = float(w);
-         if (mMousePosY < 0) mMousePosY = 0;
-         if (h < mMousePosY) mMousePosY = float(h);
-      }    
-      
+         if (mMousePos[0] < 0)   mMousePos[0] = 0;
+         if (w < mMousePos[1])   mMousePos[0] = float(w);
+         if (mMousePos[1] < 0)     mMousePos[1] = 0;
+         if (h < mMousePos[1])   mMousePos[1] = float(h);
+      }
+
    private:
-      // cursor
-      float mMousePosX, mMousePosY;
+      /**
+       * Location of the cursor on the screen relative to the upper-left corner
+       * of the window.
+       */
+      gmtl::Point2f mMousePos;
+
+      /**
+       * Location of the cursor on the screen during the last update.
+       */
+      gmtl::Point2f mLastMousePos;
+
+      /// Flag for whether we need to warp the cursor on the next update.
       bool mNeedWarp;
-   }; 
+   };
 }
 
 #endif

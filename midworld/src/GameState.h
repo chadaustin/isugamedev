@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-20 15:22:24 $
- * Version:       $Revision: 1.42 $
+ * Date modified: $Date: 2002-10-26 05:04:34 $
+ * Version:       $Revision: 1.43 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -70,11 +70,11 @@ namespace mw
    public:
       turretTesting(Turret* t, Player* p)
       {
-         mTurret = t; 
+         mTurret = t;
          mPlayer = p;
       }
-      
-      
+
+
       virtual bool test()
       {
          gmtl::Point3f pos1, pos2;
@@ -89,20 +89,20 @@ namespace mw
    private:
       Turret* mTurret;
       Player* mPlayer;
-      
+
    };
-         
+
 
    class turretCommand : public lm::command
    {
       public:
-         
-      turretCommand(Turret* t, Player* p) 
+
+      turretCommand(Turret* t, Player* p)
       {
          mTurret = t;
          mPlayer = p;
       }
-      
+
       virtual void execute()
       {
          gmtl::Vec3f upVec(0.0, 0.0, -1.0);
@@ -111,16 +111,16 @@ namespace mw
          gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer);
          mTurret->setRot(mQuat);
       }
-         
-         
-         
+
+
+
       private:
          Turret* mTurret;
          Player* mPlayer;
    };
-      
 
-   
+
+
    class testing
    {
    public:
@@ -137,7 +137,7 @@ namespace mw
       bool aimTrue()
       {
       }
-   private:        
+   private:
    };
 
    /**
@@ -165,10 +165,10 @@ namespace mw
        * @param entity     the entity to add into the world
        */
       void add(Entity* entity);
-      
+
       /**
        * Adds a "smart" entity into the world.
-       * A smart entity is an entity that is also 
+       * A smart entity is an entity that is also
        * a loom node.
        *
        * @param entity     the entity to add into the world
@@ -176,8 +176,8 @@ namespace mw
        */
       virtual void addSmart(Entity* entity, lm::aiNode *node);
 
-      /** 
-       * Get the player 
+      /**
+       * Get the player
        */
       Player getPlayer(){return mPlayer;}
 
@@ -206,23 +206,23 @@ namespace mw
       void loadLevel(const std::string& filename);
 
    private:
-      State* mNextState; 
+      State* mNextState;
       bool mIsQuitting;
       GameScene mGameScene;
       Camera mCamera;
       float mSpeed;
       Player mPlayer;
 
-      
-      
+
+
       //XXX hack for testing AIsystem
-      
+
       typedef std::map<Entity::UID, lm::aiNode*> NodeMap;
       NodeMap mMap;
-      
+
       lm::aiSystem AI;
       // the following was test related stuff
-      
+
       testing* appTest;
       lm::aiNode* node1;
       lm::aiNode* node2;
@@ -237,7 +237,7 @@ namespace mw
       lm::reflex* node1Instinct;
       lm::reflex* node2Instinct;
 
-         
+
       /// The scene in which the game is played out
       Scene* mScene;
 
@@ -271,17 +271,18 @@ namespace mw
       float mFrameCount;
       float mFrameTime;
 
+      /// The virtual cursor.
       Cursor mCursor;
+
+      /// The heads up display used to give the user feedback about the world.
       HUD mHUD;
 
       /// AI stuff
-      
-
- 
-
-      
-
       PhysicsEngine mPhysics;
+      ParticleEngine* mExplosion;
+
+
+      // Keybindings
       InputAction *mActionUp;
       InputAction *mActionDown;
       InputAction *mActionRight;
@@ -293,7 +294,6 @@ namespace mw
       InputAction *mActionPitchDown;
       InputAction *mActionYawLeft;
       InputAction *mActionYawRight;
-      ParticleEngine* mExplosion;
 
    };
 }
