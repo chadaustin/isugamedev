@@ -24,15 +24,16 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-20 00:23:31 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-20 03:33:31 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#include "gk/GlutDriver.h"
+#include "GlutDriver.h"
 #include "gk/GameKernel.h"
 #include "gk/GameInput.h"
 #include <xdl.h>
+#include <GL/glut.h>
 
 // Only compile in the create/destroy code if we're building a library
 #ifdef XDL_BUILD_DLL
@@ -479,14 +480,14 @@ GlutDriver::OnMouseClick( int button, int state, int x, int y )
    case GLUT_LEFT_BUTTON: b = Mouse::LEFT; break;
    case GLUT_MIDDLE_BUTTON: b = Mouse::MIDDLE; break;
    case GLUT_RIGHT_BUTTON: b = Mouse::RIGHT; break;
-   default: assert(false);
+   default: b = Mouse::ROLL; break;
    }
 
    switch(state)
    {
    case GLUT_DOWN: binaryState = DigitalInput::ON; break;
    case GLUT_UP: binaryState = DigitalInput::OFF;  break;
-   default: assert(false);
+   default: break;
    }
 
    // Set the mousebutton state and the mouse position
