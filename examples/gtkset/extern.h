@@ -1,3 +1,4 @@
+/* Author: Daniel E. Shipton <dshipton@iastate.edu> */
 #ifndef EXTERN_H
 #define EXTERN_H
 

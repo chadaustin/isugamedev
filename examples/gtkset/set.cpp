@@ -1,3 +1,4 @@
+/* Author: Daniel E. Shipton <dshipton@iastate.edu> */
 #include <gtk/gtk.h>
 #include <gnome.h>
 #include "card.h"

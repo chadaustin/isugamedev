@@ -1,3 +1,4 @@
+/* Author: Daniel E. Shipton <dshipton@iastate.edu> */
 #include "table.h"
 
 /***	Table()

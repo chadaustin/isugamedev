@@ -1,3 +1,4 @@
+/* Author: Daniel E. Shipton <dshipton@iastate.edu> */
 #include "card.h"
 
 #include "bean_e.xbm"
