@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-22 05:28:52 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-22 09:27:01 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,7 +41,7 @@ namespace phui
 {
 
    Widget::Widget()
- : mWidth(0)
+      : mWidth(0)
       , mHeight(0)
       , mEnabled(true)
       , mVisible(true)
@@ -63,30 +63,25 @@ namespace phui
       mPosition = p;
    }
 
-   void Widget::getSize(int& width, int& height) const
-   {
+   void Widget::getSize(int& width, int& height) const {
       width = mWidth;
       height = mHeight;
    }
 
-   void Widget::setSize(int width, int height)
-   {
+   void Widget::setSize(int width, int height) {
       mWidth = width;
       mHeight = height;
    }
 
-   const Insets& Widget::getInsets() const
-   {
+   const Insets& Widget::getInsets() const {
       return mInsets;
    }
 
-   void Widget::setInsets(const Insets& insets)
-   {
+   void Widget::setInsets(const Insets& insets) {
       mInsets = insets;
    }
 
-   bool Widget::isEnabled() const
-   {
+   bool Widget::isEnabled() const {
       return mEnabled;
    }
 
@@ -95,66 +90,49 @@ namespace phui
       mEnabled = enabled;
    }
 
-   bool Widget::isVisible() const
-   {
+   bool Widget::isVisible() const {
       return mVisible;
    }
 
-   void Widget::setVisible( bool visible )
-   {
+   void Widget::setVisible(bool visible) {
       mVisible = visible;
    }
 
-   void Widget::setBackgroundColor( const Colorf& clr )
-   {
+   void Widget::setBackgroundColor(const Colorf& clr) {
       mBackgroundColor = clr;
    }
 
-   Colorf Widget::getBackgroundColor() const
-   {
+   Colorf Widget::getBackgroundColor() const {
       return mBackgroundColor;
    }
 
-   void Widget::setForegroundColor( const Colorf& clr )
-   {
+   void Widget::setForegroundColor(const Colorf& clr) {
       mForegroundColor = clr;
    }
 
-   Colorf Widget::getForegroundColor() const
-   {
+   Colorf Widget::getForegroundColor() const {
       return mForegroundColor;
    }
 
-   void Widget::setFont( const Font& font )
-   {
+   void Widget::setFont(const Font& font) {
       mFont = font;
    }
 
-   const Font& Widget::getFont() const
-   {
+   const Font& Widget::getFont() const {
       return mFont;
    }
 
-   const WidgetContainer* Widget::getParent() const
-   {
+   WidgetContainer* Widget::getParent() const {
       return mParent;
    }
 
-   WidgetContainer* Widget::getParent()
-   {
-      return mParent;
-   }
-
-   bool Widget::contains(const Point& p) const
-   {
-      std::cout << "contains: " << p << std::endl;
+   bool Widget::contains(const Point& p) const {
       Point s = p - getPosition();
       return (s.x >= 0 && s.x < mWidth &&
               s.y >= 0 && s.y < mHeight);
    }
 
-   Point Widget::getScreenPosition() const
-   {
+   Point Widget::getScreenPosition() const {
       Point p = getPosition();
       const WidgetContainer* parent = getParent();
       while (parent) {

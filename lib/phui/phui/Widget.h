@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-22 04:34:36 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-04-22 09:27:01 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -182,11 +182,10 @@ namespace phui
       virtual const Font& getFont() const;
 
       /**
-       * Gets the parent container for this widget or NULL if this widget has no
-       * container.
+       * Gets the parent container for this widget or NULL if this
+       * widget has no container.
        */
-      const WidgetContainer* getParent() const;
-      WidgetContainer* getParent();
+      WidgetContainer* getParent() const;
 
       /**
        * Tests if the given point is contained within this widget where the
