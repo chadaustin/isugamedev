@@ -14,6 +14,8 @@
 #include "GameObject.h"
 #include "PhysicsEngine.h"
 #include "Shadow.h"
+#include "AIEngine.h"
+
 using namespace std;
 
 class GameWorld
@@ -38,6 +40,8 @@ private:
    PhysicsEngine GamePhysics;
    Camera* GameCamera;
    GameObject* Player1;
+
+   AIEngine NPCAI;
 
    Shadow MyShadows;
 

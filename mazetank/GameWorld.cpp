@@ -79,7 +79,6 @@ void GameWorld::Init()
 	// Initilize the floor
 	////////////////////////////////////////
 	GameObject* Floor = new FloorObject;
-//	TheGameObjects.push_back(Floor);
 	////////////////////////////////////////
 
 	//////////////////////////////////////////
@@ -129,6 +128,13 @@ void GameWorld::Init()
    int LightHandle = MyShadows.AddLight(light_position);
 
    MyShadows.SetTheGroundPlane(floorPlane);
+
+   ////////////////////////////////////////////
+   // Initialize AI
+   ////////////////////////////////////////////
+   NPCAI.Init();
+   NPCAI.SetNPCTank(NonPlayer);
+   NPCAI.SetPlayer(Player1);
 }
 
 void GameWorld::Update(int dt)
@@ -141,6 +147,8 @@ void GameWorld::Update(int dt)
    // Update the sound engine and physics engine
    //////////////////////////////////////////////
    GameSound->getJukebox()->update();
+
+   NPCAI.Update(TheGameObjects,dt);
    GamePhysics.Update(TheGameObjects, dt);
 
 

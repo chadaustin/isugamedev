@@ -46,7 +46,7 @@ private:
 
    CollisionResponse ObjectsResponse;
 
-	void CameraTruckUpdate(GameObject* &TruckObject, int dt);
+	void TankUpdate(GameObject* &TruckObject, int dt);
 	void BulletUpdate(GameObject* &BulletObject, int dt);
 	void CollisionDetection(vector<GameObject*> &TheObjects);
 	bool CheckForCollision(GameObject* ObjectOne, GameObject* ObjectTwo);

@@ -27,7 +27,7 @@ private:
 
    void BulletResponse(GameObject* &TheGameObject);
    void PlayerResponse(GameObject* MainObject, GameObject* &TheGameObject);
-   void NPCResponse(GameObject* &TheGameObject);
+   void NPCResponse(GameObject* MainObject, GameObject* &TheGameObject);
    void AddToRemoveQueue(GameObject* &TheGameObject);
    void WallResponse(GameObject* &TheGameObject);
 };

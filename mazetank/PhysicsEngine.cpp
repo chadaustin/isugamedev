@@ -59,11 +59,15 @@ void PhysicsEngine::Update(vector<GameObject*> &TheObjects, int deltatime)
 		switch(ObjectName)
 		{
 		case CAMTANK:
-			CameraTruckUpdate(TheObjects[i], deltatime);
+			TankUpdate(TheObjects[i], deltatime);
 			break;
 
 		case BULLET:
 			BulletUpdate(TheObjects[i], deltatime);
+			break;
+
+		case NPCTANK:
+			TankUpdate(TheObjects[i], deltatime);
 			break;
 		}
 
@@ -72,7 +76,7 @@ void PhysicsEngine::Update(vector<GameObject*> &TheObjects, int deltatime)
 	CollisionDetection(TheObjects);
 }
 
-void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject, int dt)
+void PhysicsEngine::TankUpdate(GameObject* &TruckObject, int dt)
 {
 	float ObjectPosition[3];
 	float ObjectVelocity = 0.0;
@@ -110,16 +114,6 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject, int dt)
 
 	TruckObject->SetPosition(NewPosition);
 	TruckObject->SetObjectAngle(ObjectAngle);
-
-	//////////////////
-	// Update Camera
-	//////////////////
-/*	if(CurrentCamera != NULL)
-	{
-		CurrentCamera->Move(-MoveX, -MoveY);
-		CurrentCamera->SetObjectYaw(-ObjectAngle);
-	}*/
-
 }
 
 void PhysicsEngine::BulletUpdate(GameObject* &BulletObject, int dt)
