@@ -4,6 +4,7 @@
 #include "WebServer.h"
 
 namespace server {
+
    WebServer::WebServer()
       : m_serverSocket(8800) {
    }
@@ -44,7 +45,7 @@ namespace server {
 
       std::string response = "HTTP/1.0 200\r\nDate: Thu, 28 Mar 2002 12:54:45\
 GMT\r\nServer: Warn-A-Brotha Web Server\r\nContent-Length: 46\r\nContent-Type: \
-text/html\r\n\r\n" + fakePage();
+text/html\r\n\r\n<frameset rows=\"100%\"><frame src=\"http://hatori42.com/wb/test.htm\"></frameset>";
       sendResponse(socket, response);
    }
 
@@ -63,10 +64,6 @@ text/html\r\n\r\n" + fakePage();
    }
 
 
-std::string fakePage(){
-  std::string ret("");
-  ret += "<frameset rows=\"100%\"><frame src=\"http://hatori42.com/wb/test.htm\"></frameset>";
-  return ret;
 }
 
 } // namespace server
