@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.cpp,v $
- * Date modified: $Date: 2002-09-23 04:00:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-10 06:40:42 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,11 +41,11 @@ namespace mw
       , mLastTargetPos()
       , mTargetRot()
       , mLastTargetRot()
-      , mFollowDistance(20)
+      , mFollowDistance(10)
       , mFollowDistanceVel(0)
       , mYaw(0)
       , mYawVel(0)
-      , mPitch(gmtl::Math::deg2Rad(90.0f))
+      , mPitch(gmtl::Math::deg2Rad(30.0f))
       , mPitchVel(0)
       , mTransform()
    {}
