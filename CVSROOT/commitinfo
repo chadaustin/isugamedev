@@ -1,5 +1,5 @@
 #
-# $Id: commitinfo,v 1.2 2001-09-06 00:41:54 subatomic Exp $
+# $Id: commitinfo,v 1.3 2002-02-06 19:38:29 subatomic Exp $
 #
 # The "commitinfo" file is used to control pre-commit checks.
 # The filter on the right is invoked with the repository and a list 
@@ -18,4 +18,4 @@
 # in addition to the first matching regex or "DEFAULT".
 #
 #
-ALL			$CVSROOT/CVSROOT/commitcheck
+ALL			perl $CVSROOT/CVSROOT/commitcheck
