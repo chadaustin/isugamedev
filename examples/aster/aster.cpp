@@ -712,7 +712,8 @@ static void OnKeyboardUp( unsigned char k, int x, int y )
    switch (k)
    {
    case ' ':
-      app.fireButton = false;
+      //app.fireButton = false; // deselect this in the disp loop 
+                                // so were sure to get the message
       break;
    case 'A':
    case 'a':
@@ -820,8 +821,9 @@ static void OnMouseClick( int button, int state, int xpos, int ypos)
    
    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
       app.fireButton = true;
-   else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
-      app.fireButton = false;
+   //else if (button == GLUT_LEFT_BUTTON && state == GLUT_UP)
+   //   app.fireButton = false; // deselect this in the disp loop 
+                                // so were sure to get the message
 }
 
 
