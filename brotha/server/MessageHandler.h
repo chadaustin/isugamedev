@@ -4,19 +4,23 @@
 #ifndef MESSAGE_HANDLER_H
 #define MESSAGE_HANDLER_H
 
-class MessageHandler {
-public:
-   MessageHandler(game::BrothaGame* game, net::NetMgr* netMgr) {
-      m_brothaGame = game;
-      m_netMgr = netMgr;
-   }
+#include "BrothaGame.h"
 
-   ~MessageHandler() {}
+namespace server {
+   class MessageHandler {
+   public:
+      MessageHandler(BrothaGame* game, net::NetMgr* netMgr) {
+         m_brothaGame = game;
+         m_netMgr = netMgr;
+      }
 
-   virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) = 0;
-protected:
-   game::BrothaGame* m_brothaGame;
-   net::NetMgr* m_netMgr;
-};
+      ~MessageHandler() {}
+
+      virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) = 0;
+   protected:
+      BrothaGame* m_brothaGame;
+      net::NetMgr* m_netMgr;
+   };
+}
 
 #endif // MESSAGE_HANDLER_H

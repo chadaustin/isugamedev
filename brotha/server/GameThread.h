@@ -9,6 +9,7 @@
 #include "game/BrothaGame.h"
 #include "net/MessageTypes.h"
 #include "LoginMessageHandler.h"
+#include "JoinAsMessageHandler.h"
 #include "MessageHandler.h"
 
 namespace server {
@@ -20,7 +21,7 @@ namespace server {
       virtual void run();
    private:
       net::NetMgr* m_netMgr;
-      game::BrothaGame* m_brothaGame;
+      BrothaGame* m_brothaGame;
 
       typedef std::map<net::MessageType, MessageHandler*> MessageHandlers;
       typedef MessageHandlers::iterator MessageHandlerIter;

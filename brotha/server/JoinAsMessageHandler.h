@@ -1,23 +1,24 @@
 /* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 3 -*- */
 // vim:cindent:ts=3:et:sw=3:
 
-#ifndef LOGIN_MESSAGE_HANDLER_H
-#define LOGIN_MESSAGE_HANDLER_H
+#ifndef JOIN_AS_MESSAGE_H
+#define JOIN_AS_MESSAGE_H
 
 #include "MessageHandler.h"
 
 namespace server {
-   class LoginMessageHandler : public MessageHandler {
+   class JoinAsMessageHandler : public MessageHandler {
    public:
-      LoginMessageHandler(BrothaGame* game, net::NetMgr* netMgr)
+      JoinAsMessageHandler(BrothaGame* game, net::NetMgr* netMgr)
          : MessageHandler(game, netMgr) {
       }
 
-      ~LoginMessageHandler() {}
+      ~JoinAsMessageHandler() {}
 
       virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
-         /// @actual authentication
-         if(1) {
+         /// for the prototype we only want players
+         net::JoinAsMessage* jMsg = (net::JoinAsMessage*)msg;
+         if(jMsg->getCode() == net::JoinAsMessage::PLAYER) {
             m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
          } else {
             m_netMgr->send(new net::OKMessage(net::OKMessage::GENERIC_ERROR), cID);
@@ -26,4 +27,4 @@ namespace server {
    };
 }
 
-#endif // LOGIN_MESSAGE_HANDLER_H
+#endif // JOIN_AS_MESSAGE_H
