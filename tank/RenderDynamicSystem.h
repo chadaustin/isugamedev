@@ -6,9 +6,13 @@
 #include <list>
 #include <algorithm>
 #include <functional>
+#include <boost/smart_ptr.hpp>
 template <class __Entity>
 class RenderDynamicSystem
 {
+public:
+   typedef boost::shared_ptr<__Entity> EntityPtr;
+
 public:
    RenderDynamicSystem() : pr( NULL ) {}
 
@@ -26,7 +30,7 @@ public:
    public:
       ComparePointProjectionsAlongDirection() : sortDir() {}
    
-      bool operator()(const __Entity* x, const __Entity* y)
+      bool operator()(const EntityPtr& x, const EntityPtr& y)
       {
          float xVal = sortDir.dot(x->position());
          float yVal = sortDir.dot(y->position());
@@ -39,7 +43,7 @@ public:
 
    inline void render( const ani::DynamicSystem<__Entity>& dyns, const Matrix4f& cameraMat, bool sort, bool uselocalXform, int context = 0 ) const
    {
-      std::vector<__Entity*> ds = dyns.entities();
+      std::vector<EntityPtr> ds = dyns.entities();
       if (sort)
       {
          // get camera's direction
@@ -54,7 +58,7 @@ public:
       }
 
       // render the sprites (which are now in back-to-front order)
-      std::vector< __Entity* >::const_iterator particleIt;
+      std::vector<EntityPtr>::const_iterator particleIt;
       Matrix4f localXform;
       localXform.makeIdent();
       for (particleIt = ds.begin(); particleIt != ds.end(); ++particleIt)

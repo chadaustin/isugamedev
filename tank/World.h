@@ -1,12 +1,10 @@
 #ifndef WORLD_H_INCLUDED
 #define WORLD_H_INCLUDED
 
-#include <vector>
 #include <map>
 #include "Entity.h"
 #include "Light.h"
-
-typedef boost::shared_ptr<Entity> EntityPtr;
+#include "Fizix/DynamicSystem.h"
 
 //: Container class for entities. Eventually the world will control all aspects
 //  of the rendered environment including lights, particle engines, etc.
@@ -44,7 +42,7 @@ public:
    Light& getLight( int lightID );
 
 private:
-   std::vector<EntityPtr> mEntities;
+   ani::DynamicSystem<Entity> mSystem;
    std::map< int, Light > mLights;
 };
 

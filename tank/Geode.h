@@ -5,8 +5,6 @@
 #include <boost/smart_ptr.hpp>
 #include "GeoSet.h"
 
-typedef boost::shared_ptr<GeoSet> GeoSetPtr;
-
 //: Defines a collection of GeoSets.
 class Geode
 {
@@ -46,5 +44,7 @@ private:
    std::string mName;
    std::vector<GeoSetPtr> mGeoSets;
 };
+
+typedef boost::shared_ptr<Geode> GeodePtr;
 
 #endif // ! GEODE_H_INCLUDED

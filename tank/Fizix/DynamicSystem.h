@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: DynamicSystem.h,v $
-//    $Date: 2001-10-10 16:17:12 $
-//    $Revision: 1.5 $
+//    $Date: 2001-10-17 03:42:50 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -35,6 +35,7 @@
 #include <iostream>
 
 #include <assert.h>
+#include <boost/smart_ptr.hpp>
 #include "Fizix/Operator.h"
 #include "Fizix/Memory.h"  // TODO:: replace with shared_ptr
 #include "Fizix/SolverFactory.h"
@@ -46,38 +47,45 @@ namespace ani
    class DynamicSystem : public __EntityType
    {
    public:
+      // Need a shared pointer for the entity and operator types
+      typedef boost::shared_ptr<__EntityType> EntityTypePtr;
+      typedef boost::shared_ptr< ani::Operator<__EntityType> > OperatorPtr;
+
+   public:
 
       //: constructor
-      // create it with new, then ref()
-      // i.e. 
-      //      ani::DynamicSystem* sys = new ani::DynamicSystem;
-      //      sys->ref();
       DynamicSystem<__EntityType>()
       {
       }
 
+      // if you're seeing an error about the destructor, then maybe you're 
+      // not creating the DynamicSystem with new ??
+      virtual ~DynamicSystem<__EntityType>()
+      {
+      }
+ 
       // get access to the list of entities so you can render them etc...
-      std::vector<__EntityType*>&         entities();
-      const std::vector<__EntityType*>&   entities() const;
+      std::vector<EntityTypePtr>&         entities();
+      const std::vector<EntityTypePtr>&   entities() const;
 
-      std::list<ani::Operator<__EntityType>*>&       operators();
-      const std::list<ani::Operator<__EntityType>*>& operators() const;
+      std::list<OperatorPtr>&       operators();
+      const std::list<OperatorPtr>& operators() const;
 
       //: add a function to the system to be executed last
-      void                          add( ani::Operator<__EntityType>* op );
+      void                          add( OperatorPtr op );
 
       //: add an entity to the system O(1)
-      void                          add( __EntityType* ent );
+      void                          add( EntityTypePtr ent );
 
       //: remove an entity from the system O(1)
       // specify its iterator...
       // this function is useful only to operators (generally).
       //void                          remove( std::vector< __EntityType* >::iterator& it );
 
-      std::vector< __EntityType* >& system() { return mEntities; }
+      std::vector< EntityTypePtr >& system() { return mEntities; }
       
       //: remove an operator from the system O(n)
-      void                          remove( ani::Operator<__EntityType>* op );
+      void                          remove( OperatorPtr op );
 
 
       // clear out all entities, operations, and solver
@@ -108,47 +116,20 @@ namespace ani
       void execOperations();
 
    protected:
-      std::list<ani::Operator<__EntityType>*>   mOps;
-      std::vector<__EntityType*> mEntities;
-      ODEsolver<__EntityType>*             mSolver;
+      std::list<OperatorPtr>        mOps;
+      std::vector<EntityTypePtr>    mEntities;
+      ODEsolver<__EntityType>*      mSolver;
       
-      // use unrefDelete to delete the memory
-      // if you're seeing an error about the destructor, then maybe you're 
-      // not creating the DynamicSystem with new ??
-      virtual ~DynamicSystem<__EntityType>();
-      
+     
    protected:
       float                mTotalTime;
       float                mTimeDelta;
    };  
 
    template<class __EntityType>
-   inline DynamicSystem<__EntityType>::~DynamicSystem<__EntityType>()
-   {
-      std::vector<__EntityType*>::iterator pit;
-      for (pit = mEntities.begin(); pit != mEntities.end(); ++pit)
-      {
-         (*pit)->unrefDelete();
-         (*pit) = NULL;
-      }
-      mEntities.clear();
-
-      std::list<ani::Operator<__EntityType>*>::iterator oit;
-      for (oit = mOps.begin(); oit != mOps.end(); ++oit)
-      {
-         (*oit)->unrefDelete();
-         (*oit) = NULL;
-      }
-      mOps.clear();
-
-      std::cout<<"Deleted all memory in PS.\n"<<std::flush;
-   }
-
-
-   template<class __EntityType>
    inline void ani::DynamicSystem<__EntityType>::zeroForces()
    {
-      std::vector<__EntityType*>::iterator it;
+      std::vector< EntityTypePtr >::iterator it;
       for (it = mEntities.begin(); it != mEntities.end(); ++it)
       {
          (*it)->zeroForce();
@@ -158,79 +139,75 @@ namespace ani
    template<class __EntityType>
    inline void ani::DynamicSystem<__EntityType>::execOperations()
    {
-      std::list< ani::Operator<__EntityType>* >::iterator it;
+      std::list< OperatorPtr >::iterator it;
       for (it = mOps.begin(); it != mOps.end(); ++it)
       {
          ani::Operator<__EntityType>& op = *(*it);
          op.exec( *this, mTimeDelta );
       }
    }
-   
+
    // get access to the list of entities so you can render them etc...
    template<class __EntityType>
-   inline std::vector<__EntityType*>& ani::DynamicSystem<__EntityType>::entities() { return mEntities; }
-   template<class __EntityType>
-   inline const std::vector<__EntityType*>& ani::DynamicSystem<__EntityType>::entities() const { return mEntities; }
+   inline std::vector< boost::shared_ptr<__EntityType> >& ani::DynamicSystem<__EntityType>::entities()
+   {
+      return mEntities;
+   }
 
    template<class __EntityType>
-   inline std::list<ani::Operator<__EntityType>*>& ani::DynamicSystem<__EntityType>::operators() { return mOps; }
+   inline const std::vector< boost::shared_ptr<__EntityType> >& ani::DynamicSystem<__EntityType>::entities() const
+   {
+      return mEntities;
+   }
+
    template<class __EntityType>
-   inline const std::list<ani::Operator<__EntityType>*>& ani::DynamicSystem<__EntityType>::operators() const { return mOps; }
+   inline std::list< boost::shared_ptr< ani::Operator<__EntityType> > >& ani::DynamicSystem<__EntityType>::operators()
+   {
+      return mOps;
+   }
+
+   template<class __EntityType>
+   inline const std::list< boost::shared_ptr< ani::Operator<__EntityType> > >& ani::DynamicSystem<__EntityType>::operators() const
+   {
+      return mOps;
+   }
 
    //: add a function to the system to be executed last
    template<class __EntityType>
-   inline void DynamicSystem<__EntityType>::add( ani::Operator<__EntityType>* op )
+   inline void DynamicSystem<__EntityType>::add( boost::shared_ptr< ani::Operator<__EntityType> > op )
    {
       assert( op->isInSystem() != true && "ERROR: operator has already been added" );
       op->isInSystem( true );
-      op->ref();
       mOps.push_back( op );
    }
 
    //: add an entity to the system O(1)
    template<class __EntityType>
-   inline void DynamicSystem<__EntityType>::add( __EntityType* ent )
+   inline void DynamicSystem<__EntityType>::add( boost::shared_ptr<__EntityType> ent )
    {
       assert( ent->isInSystem() != true && "ERROR: entity has already been added" );
       ent->isInSystem( true ); 
-      ent->ref();
       mEntities.push_back( ent );
    }
 
    //: remove an operator from the system O(n)
    template<class __EntityType>
-   inline void ani::DynamicSystem<__EntityType>::remove( ani::Operator<__EntityType>* op )
+   inline void ani::DynamicSystem<__EntityType>::remove( boost::shared_ptr< ani::Operator<__EntityType> > op )
    {
-      assert( op->getRef() == 1 && "ERROR: operator refcount is not 1" );
       assert( op->isInSystem() != false && "ERROR: operator is not part of the system" );
       op->isInSystem( false );
       mOps.remove( op );
-      op->unrefDelete();  
    }
-
-   
 
    template<class __EntityType>
    inline void ani::DynamicSystem<__EntityType>::clearEntities()
    {
-      std::vector<__EntityType*>::iterator pit;
-      for (pit = mEntities.begin(); pit != mEntities.end(); ++pit)
-      {
-         (*pit)->unrefDelete();
-         (*pit) = NULL;
-      }
       mEntities.clear();
    }
 
    template<class __EntityType>
    inline void ani::DynamicSystem<__EntityType>::clearOperators()
    {
-      std::list<ani::Operator<__EntityType>*>::iterator oit;
-      for (oit = mOps.begin(); oit != mOps.end(); ++oit)
-      {
-         (*oit)->unrefDelete();
-         (*oit) = NULL;
-      }
       mOps.clear();
    }
 
@@ -247,20 +224,21 @@ namespace ani
    // this function is useful only to operators (generally).
    /*
    template<class __EntityType>
-   inline void ani::DynamicSystem<__EntityType>::remove( std::vector<__EntityType*>::iterator& it )
+   inline void ani::DynamicSystem<__EntityType>::remove( std::vector<EntityTypePtr>::iterator& it )
    {
-      __EntityType* p = (*it);
-      assert( p->getRef() == 1 && "ERROR: entity refcount is not 1" );
+      EntityTypePtr p = (*it);
       assert( p->isInSystem() != false && "ERROR: entity is not part of the system" );
       p->isInSystem( false );
       mEntities.erase( it );
-      p->unrefDelete();
    }
    */
       
    // return the last time delta used (or current time delta)
    template<class __EntityType>
-   inline const float& ani::DynamicSystem<__EntityType>::timeDelta() const { return mTimeDelta; }
+   inline const float& ani::DynamicSystem<__EntityType>::timeDelta() const
+   {
+      return mTimeDelta;
+   }
 
    template<class __EntityType>
    inline void ani::DynamicSystem<__EntityType>::step( float timeDelta )
@@ -283,10 +261,10 @@ namespace ani
          this->execOperations();
 
          // solve for the next state the entities are at
-         std::vector<__EntityType*>::iterator it;
+         std::vector<DynamicSystem::EntityTypePtr>::iterator it;
          for (it = mEntities.begin(); it != mEntities.end(); ++it)
          {
-            __EntityType* entity = (*it);
+            EntityTypePtr entity = (*it);
             mSolver->exec( *entity, mTimeDelta );
          }
       }

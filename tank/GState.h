@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GState.h,v $
-//    $Date: 2001-10-12 04:40:27 $
-//    $Revision: 1.5 $
+//    $Date: 2001-10-17 03:42:50 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -59,7 +59,7 @@ namespace kev
    private:
       std::string mName;
    };
-};
+}
 
 typedef boost::shared_ptr<kev::GState> GStatePtr;
 

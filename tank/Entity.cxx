@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 Entity::Entity()
-   : mPos( 0,0,0 ), mRot(), mGeometry( NULL )
+   : mGeometry( NULL )
 {
 }
 
@@ -29,23 +29,7 @@ Entity::draw() const
 void
 Entity::update( float timeDelta )
 {
-   kev::quat2mat( mPos, mRot, mXForm );
-}
-
-/*----------------------------------------------------------------------------*/
-
-void
-Entity::setPos(const Vec3f& pos)
-{
-   mPos = pos;
-}
-
-/*----------------------------------------------------------------------------*/
-
-void
-Entity::setRot(const Quat<float>& rot)
-{
-   mRot = rot;
+   kev::quat2mat( mPosition, mRotation, mXForm );
 }
 
 /*----------------------------------------------------------------------------*/
@@ -53,7 +37,7 @@ Entity::setRot(const Quat<float>& rot)
 void
 Entity::translate( const Vec3f& offset )
 {
-   mPos += offset;
+   mPosition += offset;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -61,7 +45,7 @@ Entity::translate( const Vec3f& offset )
 void
 Entity::rotate( float deg, float x, float y, float z)
 {
-   mRot.makeRot( kev::deg2rad( deg ), x, y, z );
+   mRotation.makeRot( kev::deg2rad( deg ), x, y, z );
 }
 
 /*----------------------------------------------------------------------------*/
@@ -94,7 +78,7 @@ Vec3f
 Entity::getForward() const
 {
    Vec3f forward( 0,0,-1 );
-   return mRot * forward;
+   return mRotation * forward;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -103,22 +87,6 @@ const Matrix4f&
 Entity::matrix() const
 {
    return mXForm;
-}
-
-/*----------------------------------------------------------------------------*/
-
-const Vec3f&
-Entity::position() const
-{
-   return mPos;
-}
-
-/*----------------------------------------------------------------------------*/
-
-const Quat<float>&
-Entity::rotation() const
-{
-   return mRot;
 }
 
 /*----------------------------------------------------------------------------*/

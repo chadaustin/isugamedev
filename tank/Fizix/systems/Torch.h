@@ -1,6 +1,8 @@
 
 
 #include <ColorRGBA.h>
+#include <boost/smart_ptr.hpp>
+#include <boost/smart_ptr_dyncast.hpp>
 
 #include "Fizix/Particle.h"
 #include "Fizix/Body.h"
@@ -88,34 +90,34 @@ public:
          this->setSolver( "euler" );
 
          // operations
-         ViscousDrag<__EntityType>* drag = new ViscousDrag<__EntityType>;
+         boost::shared_ptr< ViscousDrag<__EntityType> > drag( new ViscousDrag<__EntityType> );
          drag->setDrag( 0.40f ); // ??
-         this->add( drag );
+         this->add( sp_dynamic_cast< ani::Operator<__EntityType> >( drag ) );
          
-         fe = new FlameEmitter<__EntityType>;
+         fe.reset( new FlameEmitter<__EntityType> );
          fe->setSize( 2.5f );
          fe->setAgeOfDeath( .3f );
          fe->setEmissionRate( 0.014 );
-         this->add( fe );
+         this->add( sp_dynamic_cast< ani::Operator<__EntityType> >( fe ) );
          
-         GrimReaper<__EntityType>* reaper = new GrimReaper<__EntityType>;
-         this->add( reaper );
+         boost::shared_ptr< GrimReaper<__EntityType> > reaper( new GrimReaper<__EntityType> );
+         this->add( sp_dynamic_cast< ani::Operator<__EntityType> >( reaper ) );
          
-         Current<__EntityType>* cur = new Current<__EntityType>;
+         boost::shared_ptr< Current<__EntityType> > cur( new Current<__EntityType> );
          cur->setSpeed( Vec3<float>( -1,0,0 ) );
-         this->add( cur );
+         this->add( sp_dynamic_cast< ani::Operator<__EntityType> >( cur ) );
 
-         ColorWithAge<__EntityType>* cwa = new ColorWithAge<__EntityType>;
+         boost::shared_ptr< ColorWithAge<__EntityType> > cwa( new ColorWithAge<__EntityType> );
          cwa->setColors( colorTransitions );
-         this->add( cwa );
+         this->add( sp_dynamic_cast< ani::Operator<__EntityType> >( cwa ) );
 
-         GrowWithAge<__EntityType>* gwa = new GrowWithAge<__EntityType>;
+         boost::shared_ptr< GrowWithAge<__EntityType> > gwa( new GrowWithAge<__EntityType> );
          std::vector<float> sizes;
          sizes.push_back( 2.5f );
          sizes.push_back( 5.0f );
          sizes.push_back( 10.0f );
          gwa->setVolumes( sizes );
-         this->add( gwa );
+         this->add( sp_dynamic_cast< ani::Operator<__EntityType> >( gwa ) );
       }
       
       void setPos( const Vec3<float>& pos )
@@ -123,7 +125,7 @@ public:
          fe->setPos( pos );
       }      
       
-      FlameEmitter<__EntityType>* fe;
+      boost::shared_ptr< FlameEmitter<__EntityType> > fe;
 };
 
 

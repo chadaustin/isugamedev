@@ -49,4 +49,6 @@ private:
    UID mUID;
 };
 
+typedef boost::shared_ptr<Player> PlayerPtr;
+
 #endif // ! PLAYER_H_INCLUDED

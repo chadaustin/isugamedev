@@ -24,21 +24,20 @@ public:
          // solver
          ODEsolver* solver = new EulerODEsolver;         // 1st order
          this->setSolver( solver );
-         solver->deref();
 
          // operations
-         SpiralEmitter* se = new SpiralEmitter;
+         SpiralEmitterPtr se( new SpiralEmitter );
          se->setEmissionRate( 0.08 );
          this->add( se );
-         Gravity* gravity = new Gravity;
+         GravityPtr gravity( new Gravity );
          this->add( gravity );
-         GrimReaper* reaper = new GrimReaper;
+         GrimReaperPtr reaper( new GrimReaper );
          this->add( reaper );
-         ColorWithAge* cwa = new ColorWithAge;
+         ColorWithAgePtr cwa( new ColorWithAge );
          cwa->setColors( colorTransitions );
          this->add( cwa );
 
-         GrowWithAge* gwa = new GrowWithAge;
+         GrowWithAgePtr gwa( new GrowWithAge );
          std::vector<float> v;
          v.push_back( 1.0f );
          v.push_back( 5.0f );
@@ -50,12 +49,6 @@ public:
          v.push_back( 100.0f );
          gwa->setVolumes( v );
          this->add( gwa );
-
-         gwa->deref();
-         gravity->deref();
-         reaper->deref();
-         cwa->deref();
-         se->deref();
       }
    
 };

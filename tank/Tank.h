@@ -29,8 +29,8 @@ class Tank
 {
 public:
    Tank() : mPos(), mVel(), mRot(), mRotVel(), mMaterial(), mSpeed( 0.0f ),
-            mBodyGeometry( NULL ), mWeapon0Geometry( NULL ), mUseSprite( false ), mHitPoints( 20 ),
-      mArmor( 0.2 )
+            mBodyGeometry( NULL ), mWeapon0Geometry( NULL ), mUseSprite( false ),
+            mHitPoints( 20 ), mArmor( 0.2 )
    {
       mXForm.makeIdent();
       this->init();
@@ -216,7 +216,7 @@ private:
    {
       for (int x = 0; x < torch.entities().size(); ++x)
       {
-         const ani::FireParticle* ent = torch.entities()[x];
+         const boost::shared_ptr<ani::FireParticle> ent = torch.entities()[x];
          const Vec3<float>& pos = ent->position();
          const ColorRGBA& col = ent->color(); 
          glColor4f( col[0], col[1], col[2], col[3] );

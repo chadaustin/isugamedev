@@ -14,7 +14,10 @@ SRCS = simpleGlutApp.cxx cubeGeometry.cpp QuakeNav.cxx Matrix4f.cxx
 
 MK_DIR = ../../mk
 PATH_TO_SRCS = .:../../Fizix:../../
-INCLUDE_PATHS += -I./boost -I. -I../../ -I../../Fizix -I../../Fizix/operators -I../../Fizix/system
+INCLUDE_PATHS += -I. -I../../ -I../../Fizix -I../../Fizix/operators
+INCLUDE_PATHS += -I../../Fizix/system -I../../boost
+INCLUDE_PATHS += -I../../boost/boost/compatibility/cpp_c_headers
+
 
 include ${MK_DIR}/mk.hosttype
 include ${MK_DIR}/mk.platform

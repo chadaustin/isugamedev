@@ -12,6 +12,9 @@ template<class __EntityType>
 class Acceleration : public ani::Operator<__EntityType>
 {
 public:
+   typedef boost::shared_ptr<__EntityType> EntityTypePtr;
+
+public:
    Acceleration<__EntityType>() : ani::Operator<__EntityType>()
    {
    }
@@ -32,8 +35,8 @@ public:
    //: apply this force function to the particle
    virtual void exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
    {
-      std::vector<__EntityType*>& entities = ps.entities();
-      std::vector<__EntityType*>::iterator it;
+      std::vector<EntityTypePtr>& entities = ps.entities();
+      std::vector<EntityTypePtr>::iterator it;
       for ( it = entities.begin(); it != entities.end(); ++it)
       {
          __EntityType& p = *(*it);
@@ -69,6 +72,9 @@ public:
 template<class __EntityType>
 class CollisionOperator : public ani::Operator<__EntityType>
 {
+public:
+   typedef boost::shared_ptr<__EntityType> EntityTypePtr;
+
 public:
    //: default constructor
    CollisionOperator<__EntityType>() : ani::Operator<__EntityType>(), mFrictionCoef( 0.0f ), mElasticCoef( 1.0f )
@@ -135,8 +141,8 @@ public:
    }   
    virtual void exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
    {
-      std::vector<__EntityType*>& entities = ps.entities();
-      std::vector<__EntityType*>::iterator it;
+      std::vector<EntityTypePtr>& entities = ps.entities();
+      std::vector<EntityTypePtr>::iterator it;
       
       for (it = entities.begin(); it != entities.end(); ++it)
       {
@@ -188,6 +194,9 @@ template<class __EntityType>
 class DriveNavigationOperator : public ani::Operator<__EntityType>
 {
 public:
+   typedef boost::shared_ptr<__EntityType> EntityTypePtr;
+
+public:
    //: default constructor
    DriveNavigationOperator<__EntityType>() : ani::Operator<__EntityType>()
    {
@@ -219,8 +228,8 @@ public:
    
    virtual void exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
    {
-      std::vector<__EntityType*>& entities = ps.entities();
-      std::vector<__EntityType*>::iterator it;
+      std::vector<EntityTypePtr>& entities = ps.entities();
+      std::vector<EntityTypePtr>::iterator it;
       for (it = entities.begin(); it != entities.end(); ++it)
       {
          __EntityType& p = *(*it);

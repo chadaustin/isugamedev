@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Body.h,v $
-//    $Date: 2001-10-12 04:44:56 $
-//    $Revision: 1.7 $
+//    $Date: 2001-10-17 03:42:50 $
+//    $Revision: 1.8 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -30,6 +30,7 @@
 #ifndef BODY
 #define BODY
 
+#include <boost/smart_ptr.hpp>
 #include "Matrix4f.h"
 #include "Vec3.h"
 #include "Quat.h"
@@ -528,6 +529,8 @@ namespace ani
       }
    };
 
-}; // ani namespace
+   typedef boost::shared_ptr<Body> BodyPtr;
+
+} // ani namespace
 
 #endif

@@ -8,12 +8,11 @@
 #include "Matrix4f.h"
 #include "Geode.h"
 #include "UIDManager.h"
-
-typedef boost::shared_ptr<Geode> GeodePtr;
+#include "Fizix/Body.h"
 
 //: Describes a generic spatial object with a visual appearance charactarized by
 //  geometry sets and a behavior.
-class Entity
+class Entity : public ani::Body
 {
 public:
    typedef UIDManager<Entity>::UID UID;
@@ -26,12 +25,6 @@ public:
 
    //: Updates this entity based on the amount of time that has passed.
    void update( float timeDelta = 1.0f );
-
-   //: Sets the position of this entity.
-   void setPos( const Vec3f& pos );
-
-   //: Sets the rotation for the entity.
-   void setRot( const Quat<float>& rot );
 
    //: Translates this entity using the given offset
    void translate( const Vec3f& offset );
@@ -54,21 +47,15 @@ public:
    //: Gets the matrix given to OpenGL when this entity is drawn.
    const Matrix4f& matrix() const;
 
-   //: Gets the position of this entity is world coordinates.
-   const Vec3f& position() const;
-
-   //: Gets the rotation of this entity.
-   const Quat<float>& rotation() const;
-   
    //: Get the unique ID associated with this player
    const UID& getUID() const;
 
 private:
    UID mUID;
-   Vec3f mPos;
-   Quat<float> mRot;
    Matrix4f mXForm;
    GeodePtr mGeometry;
 };
+
+typedef boost::shared_ptr<Entity> EntityPtr;
 
 #endif //ENTITY_H_INCLUDED

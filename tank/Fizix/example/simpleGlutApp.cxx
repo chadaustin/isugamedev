@@ -13,6 +13,10 @@
 #include <iostream>
 #include <stdlib.h>
 
+//boost smart pointers
+#include <boost/smart_ptr.hpp>
+#include <boost/smart_ptr_dyncast.hpp>
+
 #include "cubeGeometry.h"
 #include "StopWatch.h"
 
@@ -31,6 +35,12 @@
 #include "Collider.h"
 
 #include "QuakeNav.h"
+
+
+typedef ani::BodyPtr BodyPtr;
+typedef boost::shared_ptr< ani::Operator<ani::Body> > BodyOperatorPtr;
+typedef boost::shared_ptr< CollisionOperator<ani::Body> > CollisionBodyOperatorPtr;
+typedef boost::shared_ptr< DriveNavigationOperator<ani::Body> > DriveNavigationBodyOperatorPtr;
 
 // a place to store application data...
 class App
@@ -53,10 +63,8 @@ public:
       {
          //mDynamicSystem = new ani::DynamicSystem<ani::Body, ani::RungeKuttaODEsolver<ani::Body> >;
          mDynamicSystem = new ani::DynamicSystem<ani::Body>;
-         mDynamicSystem->ref();
          
-         mAvatar = new ani::Body;
-         mAvatar->ref();
+         mAvatar.reset( new ani::Body );
          
          // Pounds to Kilograms, multiply Pounds by 0.45
          // Kilograms to Pounds, multiply Kilograms by 2.2 
@@ -65,19 +73,17 @@ public:
          mAvatar->setVolume( Vec3<float>( 1,1,1 ) );
          mAvatar->setPosition( Vec3<float>( 0,20,-20 ));
          
-         CollisionOperator<ani::Body>* collider = new CollisionOperator<ani::Body>;
-         collider->setElastic( 0.5f );
-         mCollider = collider;
-         mCollider->ref();
+         mCollider.reset( new CollisionOperator<ani::Body> );
+         mCollider->setElastic( 0.5f );
          
-         mNavigator = new DriveNavigationOperator<ani::Body>;
-         mNavigator->ref();
+         mNavigator.reset( new DriveNavigationOperator<ani::Body> );
          
-         ani::Operator<ani::Body>* gravity = new Gravity<ani::Body>;
+         BodyOperatorPtr gravity( new Gravity<ani::Body> );
          
-         mDynamicSystem->add( gravity );
-         mDynamicSystem->add( mNavigator );
-         mDynamicSystem->add( mCollider ); // goes last.
+         mDynamicSystem->add( sp_dynamic_cast< ani::Operator<ani::Body> >( gravity ) );
+         mDynamicSystem->add( sp_dynamic_cast< ani::Operator<ani::Body> >( mNavigator ) );
+         // goes last
+         mDynamicSystem->add( sp_dynamic_cast< ani::Operator<ani::Body> >( mCollider ) );
          
          mDynamicSystem->add( mAvatar );
          
@@ -85,30 +91,26 @@ public:
       }
       ~Nav()
       {
-         mAvatar->unrefDelete();
-         mCollider->unrefDelete();
-         mNavigator->unrefDelete();
-         mDynamicSystem->unrefDelete();
-      }  
+      }
       
       void step( float time )
       {
          mDynamicSystem->step( time );
       }
-          
+
       // physics system
-      DriveNavigationOperator<ani::Body>*        mNavigator;
-      ani::Operator<ani::Body>*        mCollider;
-      ani::Body*        mAvatar;
-      ani::DynamicSystem<ani::Body>*  mDynamicSystem;
+      DriveNavigationBodyOperatorPtr   mNavigator;
+      CollisionBodyOperatorPtr         mCollider;
+      BodyPtr                          mAvatar;
+      ani::DynamicSystem<ani::Body>*   mDynamicSystem;
    };
-   
+
    Nav mNav;
    QuakeNav mQuakeNav;
    bool mStop;
    bool mAccelerate;
    bool mTurnLeft, mTurnRight;
-   
+
 };
 App app;
 
@@ -143,7 +145,7 @@ static void OnRedisplay()
         gluPerspective( 80.0f, app.width / app.height, 0.01f, 1000.0f );
                            
    // initialize your matrix stack used for transforming your models
-    glMatrixMode( GL_MODELVIEW );
+   glMatrixMode( GL_MODELVIEW );
    glLoadIdentity();      
 
       

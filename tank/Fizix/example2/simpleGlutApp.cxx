@@ -13,6 +13,9 @@
 #include <iostream>
 #include <stdlib.h>
 
+#include <boost/smart_ptr.hpp>
+#include <boost/smart_ptr_dyncast.hpp>
+
 #include "cubeGeometry.h"
 #include "StopWatch.h"
 
@@ -49,9 +52,9 @@ public:
    void drawSystem()
    {
       
-         for (int x = 0; x < torch.entities().size(); ++x)
+         for (int x = 0; x < torch->entities().size(); ++x)
          {
-            ani::FireParticle* ent = torch.entities()[x];
+            boost::shared_ptr<ani::FireParticle> ent( torch->entities()[x] );
             const Vec3<float>& pos = ent->position();
             const ColorRGBA& col = ent->color(); 
             glColor4f( col[0], col[1], col[2], col[3] );
@@ -71,7 +74,7 @@ public:
          }
    }   
    
-   ani::Torch<ani::FireParticle> torch;
+   boost::shared_ptr< ani::Torch<ani::FireParticle> > torch;
 };
 App app;
 
@@ -147,13 +150,13 @@ static void OnIdle()
 {
    app.stopWatch.pulse();
    
-   app.torch.step( app.stopWatch.timeInstant() );
+   app.torch->step( app.stopWatch.timeInstant() );
 
    static int output_cnt = 0;
    output_cnt++;
    if (output_cnt % 30 == 4)
    {
-      std::cout<<"fps: "<<app.stopWatch.fpsAverage()<<" ... "<<app.torch.entities().size()<<" ents in system\n"<<std::flush;;
+      std::cout<<"fps: "<<app.stopWatch.fpsAverage()<<" ... "<<app.torch->entities().size()<<" ents in system\n"<<std::flush;;
    }   
    
    ////////////////////////////

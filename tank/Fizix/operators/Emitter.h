@@ -28,6 +28,9 @@ template<class __EntityType>
 class FlameEmitter : public Emitter<__EntityType>
 {
 public:
+   typedef boost::shared_ptr<__EntityType> EntityTypePtr;
+
+public:
    FlameEmitter() : kRandMax( RAND_MAX ), x(0), velocitizer(0), Emitter<__EntityType>(), mSize( 8 ) { srand( 2); }
    virtual ~FlameEmitter() {}
    void setPos( const Vec3<float>& pos )
@@ -39,8 +42,7 @@ public:
    {
       for (x += sys.timeDelta(); x > mRate; x -= mRate )
       {
-         __EntityType* p = new __EntityType;
-         p->ref();
+         EntityTypePtr p( new __EntityType );
          p->setMass( 1.0f ); // 1 kilogram
          float r1 = rand(), r2 = rand(), r3, r4 = rand(), r5 = rand();
          r1 /= kRandMax;
@@ -68,7 +70,6 @@ public:
          p->setColor( color );
          p->setAgeOfDeath( mAgeOfDeath );
          sys.add( p );
-         p->unrefDelete(); // give up responsibility of this object.
       }
 
       if (x < 0) x = 0;
@@ -85,6 +86,9 @@ template<class __EntityType>
 class SpiralEmitter : public Emitter<__EntityType>
 {
 public:
+   typedef boost::shared_ptr<__EntityType> EntityTypePtr;
+
+public:
    SpiralEmitter() : velocitizer(0), Emitter<__EntityType>(), x(0), pos( 0,0,0 ) {}
    virtual ~SpiralEmitter() {}
    void setPosition( float x, float y, float z )
@@ -96,20 +100,18 @@ public:
    {
       for (x += sys.timeDelta(); x > mRate; x -= mRate )
       {
-   velocitizer += 0.75f * ps.timeDelta();
-   if (velocitizer > 1.0f || velocitizer <= 0)
-      velocitizer = 0.0f;
-   __EntityType* p = new __EntityType;
-   p->ref();
-   p->setMass( 1.0f ); // 1 kilogram
-   Vec3<float> velocity( kev::SIN( velocitizer * TWO_PI_F ) * 5.0f, 19.6f, kev::COS( velocitizer * TWO_PI_F ) * 5.0f );
-         ColorRGBA color( 0.3f, 0.2f, 1.0f, 1.0f );
-         p->setVelocity( velocity );
-         p->setPosition( pos );
-         p->setColor( color );
-   p->setAgeOfDeath( 10 );
-         sys.add( p );
-   p->unrefDelete(); // give up responsibility of this object.
+         velocitizer += 0.75f * ps.timeDelta();
+         if (velocitizer > 1.0f || velocitizer <= 0)
+            velocitizer = 0.0f;
+         EntityTypePtr p( new __EntityType );
+	      p->setMass( 1.0f ); // 1 kilogram
+	      Vec3<float> velocity( kev::SIN( velocitizer * TWO_PI_F ) * 5.0f, 19.6f, kev::COS( velocitizer * TWO_PI_F ) * 5.0f );
+	      ColorRGBA color( 0.3f, 0.2f, 1.0f, 1.0f );
+	      p->setVelocity( velocity );
+	      p->setPosition( pos );
+	      p->setColor( color );
+         p->setAgeOfDeath( 10 );
+	      sys.add( p );
       }
 
       if (x < 0) x = 0;

@@ -24,8 +24,6 @@
 class Bullet;
 #include "Singleton.h"
 
-typedef boost::shared_ptr<Player> PlayerPtr;
-
 class TankGame : public kev::Singleton<TankGame>
 {
 public:

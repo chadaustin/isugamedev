@@ -1,7 +1,10 @@
 
 #include <GL/glut.h>
+#include <vector>
 #include "World.h"
 #include "glRenderLight.h"
+
+typedef std::vector<EntityPtr> EntityList;
 
 //------------------------------------------------------------------------------
 
@@ -29,8 +32,9 @@ World::draw() const
 
    // Draw every entity in the world. In other words, do really bad object
    // culling (none) and then draw.
-   std::vector<EntityPtr>::const_iterator eitr;
-   for (eitr = mEntities.begin(); eitr != mEntities.end(); eitr++) {
+   const EntityList &entities = mSystem.entities();
+   EntityList::const_iterator eitr;
+   for (eitr = entities.begin(); eitr != entities.end(); eitr++) {
       (*eitr)->draw();
    }
 }
@@ -42,8 +46,9 @@ World::update( float timeDelta )
 {
    // Update every entity in the world. This will be extremely slow when there
    // is a large number of entities in the world.
-   std::vector<EntityPtr>::iterator itr;
-   for (itr = mEntities.begin(); itr != mEntities.end(); itr++) {
+   EntityList &entities = mSystem.entities();
+   EntityList::iterator itr;
+   for (itr = entities.begin(); itr != entities.end(); itr++) {
       (*itr)->update( timeDelta );
    }
 }
@@ -53,7 +58,7 @@ World::update( float timeDelta )
 void
 World::add( EntityPtr entity )
 {
-   mEntities.push_back( entity );
+   mSystem.add( entity );
 }
 
 //------------------------------------------------------------------------------
@@ -61,10 +66,11 @@ World::add( EntityPtr entity )
 void
 World::remove( EntityPtr entity )
 {
-   std::vector<EntityPtr>::iterator itr;
-   for (itr = mEntities.begin(); itr != mEntities.end(); itr++) {
+   EntityList &entities = mSystem.entities();
+   EntityList::iterator itr;
+   for (itr = entities.begin(); itr != entities.end(); itr++) {
       if ( (*itr) == entity ) {
-         mEntities.erase(itr);
+         entities.erase(itr);
          break;
       }
    }

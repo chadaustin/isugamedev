@@ -1,6 +1,7 @@
 #ifndef FORCES
 #define FORCES
 
+#include <boost/smart_ptr.hpp>
 #include <Vec3.h>
 #include "Fizix/Operator.h"
 #include "Fizix/DynamicSystem.h"
@@ -13,20 +14,22 @@ namespace ani
    class GlobalOperator : public ani::Operator<__EntityType>
    {
    public:
+      typedef boost::shared_ptr<__EntityType> EntityTypePtr;
+
+   public:
       GlobalOperator() : mIgnoreList() {}
       virtual ~GlobalOperator() {}
-      void ignore( __EntityType* p )
+      void ignore( EntityTypePtr p )
       {
          assert( p->isInSystem() == true && "can't ignore particles not in the system" );
-         p->ref();
          mIgnoreList.push_back( p );
          assert( this->isIgnored( p ) == true && "sanity check, it is really in the list now?");
       }
-      bool isIgnored( __EntityType* p )
+      bool isIgnored( EntityTypePtr p )
       {
    //      bool found = false;
-         std::vector<__EntityType*>::iterator it;
-         std::list< std::vector<__EntityType*>::iterator > toKill;
+         std::vector<EntityTypePtr>::iterator it;
+         std::list< std::vector<EntityTypePtr>::iterator > toKill;
          for (it = mIgnoreList.begin(); it != mIgnoreList.end(); ++it)
          {
             if ((*it)->isInSystem() == false)
@@ -34,7 +37,7 @@ namespace ani
                toKill.push_back( it );
             }
 
-            __EntityType* crap = (*it);
+            EntityTypePtr crap = (*it);
             if (crap == p )
             {
                return true;
@@ -43,17 +46,16 @@ namespace ani
 
          if (toKill.size() > 0)
          {
-            std::list< std::vector<__EntityType*>::iterator >::iterator kit;
+            std::list< std::vector<EntityTypePtr>::iterator >::iterator kit;
             for (kit = toKill.begin(); kit != toKill.end(); ++kit)
             {
-               (*(*kit))->unrefDelete();
                mIgnoreList.erase( (*kit) );
             }
          }
          return false;
       }
    protected:
-      std::vector<__EntityType*> mIgnoreList;
+      std::vector<EntityTypePtr> mIgnoreList;
    };
 
 
@@ -178,28 +180,20 @@ namespace ani
    class Spring : public BinaryForce<__EntityType>
    {
    public:
+      typedef boost::shared_ptr<__EntityType> EntityTypePtr;
+
+   public:
       Spring() : mA(NULL), mB(NULL) {}
       virtual ~Spring()
       {
-         // give up responsibility for mA and mB if previously set
-         if (mA != NULL)
-            mA->unrefDelete();
-         if (mB != NULL)
-            mB->unrefDelete();
       }
 
       //TODO: refactor this, move it to its superclass.
-      void set__EntityTypes( __EntityType* a, __EntityType* b ) 
+      void set__EntityTypes( EntityTypePtr a, EntityTypePtr b ) 
       {
-         // give up responsibility for mA and mB if previously set
-         if (mA != NULL)
-            mA->unrefDelete();
-         if (mB != NULL)
-            mB->unrefDelete();
-
          // take responsibility for a and b
-         a->ref(); mA = a;
-         b->ref(); mB = b;
+         mA = a;
+         mB = b;
       }
       void setSpringConstant( float ks ) { mSpringConstant = ks; }
       void setDampeningConstant( float kd ) { mDampeningConstant = kd; }
@@ -208,7 +202,7 @@ namespace ani
    private:
       float mSpringConstant;
       float mDampeningConstant;
-      __EntityType *mA, *mB;
+      EntityTypePtr mA, mB;
       float mRestLength;
    };
 
@@ -260,17 +254,17 @@ namespace ani
 
 
 
-   //: apply this force function to the particle
+//: apply this force function to the particle
 template< class __EntityType >
 void GlobalForce<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
 {
-   std::vector<__EntityType*>::iterator it;
+   std::vector<EntityTypePtr>::iterator it;
    for ( it = ps.entities().begin(); it != ps.entities().end(); ++it)
    {
-      __EntityType& p = *(*it);
-      if (this->isIgnored(&p) == false)
+      EntityTypePtr p = *it;
+      if (this->isIgnored(p) == false)
       {
-         p.applyForce( mForce );
+         p->applyForce( mForce );
       }
    }
 }
@@ -279,23 +273,23 @@ void GlobalForce<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, floa
 template< class __EntityType >
 void ViscousDrag<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
 {
-   std::vector<__EntityType*>::iterator it;
+   std::vector<EntityTypePtr>::iterator it;
    for ( it = ps.entities().begin(); it != ps.entities().end(); ++it)
    {
-      __EntityType& p = *(*it);
-      if (this->isIgnored( &p ) == false)
+      EntityTypePtr p = *it;
+      if (this->isIgnored( p ) == false)
       {
          // Calculate the force nesesary to knock of kV velocity
 
          // get the velocity we need to reduce entities speed
          // eqn: V(new) = V - kV, where k is a coeficient between 0..1
-         Vec3<float> antiVelocity = p.linearVelocity() * (-_dragCoef);
+         Vec3<float> antiVelocity = p->linearVelocity() * (-_dragCoef);
 
          // how much do we have to decelerate it to achieve 'newDesiredVelocity'
          // decelerateAmount = antiVelocity / timeChange;
          // NOTE: timeChange is 1.0, so deceleration is just antiVelocity
-         Vec3<float> force = antiVelocity * p.mass();
-         p.applyForce( force );
+         Vec3<float> force = antiVelocity * p->mass();
+         p->applyForce( force );
       }
    }
 }
@@ -304,19 +298,19 @@ void ViscousDrag<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, floa
 template< class __EntityType >
 void Acceleration<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
 {
-   std::vector<__EntityType*>::iterator it;
+   std::vector<EntityTypePtr>::iterator it;
    for ( it = ps.entities().begin(); it != ps.entities().end(); ++it)
    {
-      __EntityType& p = *(*it);
-      if (this->isIgnored( &p ) == false)
+      EntityTypePtr p = *it;
+      if (this->isIgnored( p ) == false)
       {
          //                     meters
          // Force = kilograms * ------ = kilograms * acceleration
          //                     sec^2
 
          // calculate how much force it will take to accelerate the particle
-         Vec3<float> force = mAcceleration * p.mass();
-         p.applyForce( force );
+         Vec3<float> force = mAcceleration * p->mass();
+         p->applyForce( force );
          //cout<<"Applied force "<<force[0]<<" "<<force[1]<<" "<<force[2]<<"\n"<<flush;
       }
    }
@@ -326,11 +320,11 @@ void Acceleration<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, flo
 template< class __EntityType >
 void Current<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
 {
-   std::vector<__EntityType*>::iterator it;
+   std::vector<EntityTypePtr>::iterator it;
    for ( it = ps.entities().begin(); it != ps.entities().end(); ++it)
    {
-      __EntityType& p = *(*it);
-      if (this->isIgnored( &p ) == false)
+      EntityTypePtr p = *it;
+      if (this->isIgnored( p ) == false)
       {
          //                meters   velocity 
          // acceleration = ------ = --------
@@ -342,8 +336,8 @@ void Current<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float ti
          //                     sec^2
 
          // calculate how much force it will take to accelerate the particle
-         Vec3<float> force = acc * p.mass();
-         p.applyForce( force );
+         Vec3<float> force = acc * p->mass();
+         p->applyForce( force );
       }
    }
 }
@@ -364,12 +358,9 @@ void Spring<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float tim
       return;
    }
 
-   __EntityType& a = *mA;
-   __EntityType& b = *mB;
-
    // ignoring the particle system...
-   Vec3<float> spring_offset = a.position() - b.position();
-   Vec3<float> speed_of_approach = a.velocity() - b.velocity();
+   Vec3<float> spring_offset = mA->position() - mB->position();
+   Vec3<float> speed_of_approach = mA->velocity() - mB->velocity();
 
    // calculate the spring force magnitude.
    float spring_force_mag = mSpringConstant * (spring_offset.length() - mRestLength);
@@ -383,8 +374,8 @@ void Spring<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float tim
    // calculate the force from the spring and damping forces.
    Vec3<float> force = -( direction * (spring_force_mag + damping_force_mag ));
 
-   a.applyForce( force );
-   b.applyForce( -force );
+   mA->applyForce( force );
+   mB->applyForce( -force );
 }
 } // end of namespace
 
