@@ -15,6 +15,7 @@ void BuildEdgeWalls(vector<GameObject*> &TheObjects)
 
 	int i;
 
+	// Build the containing walls
 	for(i = 0; i < 100; i++)
 	{
 		Position[2] = 0.5;
@@ -79,12 +80,29 @@ void BuildEdgeWalls(vector<GameObject*> &TheObjects)
 		Wall->SetPosition(Position);
 		TheObjects.push_back(Wall);
 
+		Position[1] = -99.5;
+		Wall = new WallObject;
+		Wall->SetPosition(Position);
+		TheObjects.push_back(Wall);
+		
+		Position[1] = 99.5;
 		Position[2] = 1.5;
 		Wall = new WallObject;
 		Wall->SetPosition(Position);
 		TheObjects.push_back(Wall);
 
+		Position[1] = -99.5;
+		Wall = new WallObject;
+		Wall->SetPosition(Position);
+		TheObjects.push_back(Wall);
+
+		Position[1] = 99.5;
 		Position[0] *= -1;
+		Wall = new WallObject;
+		Wall->SetPosition(Position);
+		TheObjects.push_back(Wall);
+
+		Position[1] = -99.5;
 		Wall = new WallObject;
 		Wall->SetPosition(Position);
 		TheObjects.push_back(Wall);
@@ -94,6 +112,10 @@ void BuildEdgeWalls(vector<GameObject*> &TheObjects)
 		Wall->SetPosition(Position);
 		TheObjects.push_back(Wall);
 	
+		Position[1] = 99.5;
+		Wall = new WallObject;
+		Wall->SetPosition(Position);
+		TheObjects.push_back(Wall);
 	}
 }
 
