@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec2.h,v $
-//    $Date: 2001-09-13 22:26:35 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-13 23:09:17 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -429,5 +429,11 @@ inline void Vec2<_dataType>::Lerp(const Vec2<_dataType>& from,
     Vec2<_dataType> offset = to - from;
     lerpedValue = from + offset*lerp;
 }
+
+//Typedef some commonly used vector types
+typedef Vec2<float>  Vec2f;
+typedef Vec2<double> Vec2d;
+typedef Vec2<int>    Vec2i;
+typedef Vec2<long>   Vec2l;
 
 #endif

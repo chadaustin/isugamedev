@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec4.h,v $
-//    $Date: 2001-09-06 04:17:32 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-13 23:09:17 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -658,8 +658,10 @@ inline void Vec4<Type>::setLength( Type newLength )
    _v[3] *= factor;
 }
 
-
-
-
+//Typedef some commonly used vector types
+typedef Vec4<float>  Vec4f;
+typedef Vec4<double> Vec4d;
+typedef Vec4<int>    Vec4i;
+typedef Vec4<long>   Vec4l;
 
 #endif

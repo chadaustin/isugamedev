@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec3.h,v $
-//    $Date: 2001-09-06 04:17:32 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-13 23:09:17 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -490,5 +490,11 @@ inline void Vec3<DataType>::Lerp(const Vec3<DataType>& from,
     Vec3<DataType> offset = to - from;
     lerpedValue = from + offset*lerp;
 }
+
+//Typedef some commonly used vector types
+typedef Vec3<float>  Vec3f;
+typedef Vec3<double> Vec3d;
+typedef Vec3<int>    Vec3i;
+typedef Vec3<long>   Vec3l;
 
 #endif
