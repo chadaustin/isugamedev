@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.47 2002-04-09 08:04:53 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 08:04:53 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.48 2002-04-10 02:13:05 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-10 02:13:05 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -323,19 +323,74 @@
       </section>
       <section>
         <title>Module Interfaces</title>
-        <para>GameLogic{</para>
-        <para> AddPlayer(player)</para>
-        <para> RemovePlayer(player)</para>
-        <para> AddObject(object)</para>
-        <para> Update()</para>
-        <para>}</para>
-        <para></para>
-        <para>Object{</para>
-        <para> Prop position</para>
-        <para> Prop velocity</para>
-        <para> Prop health</para>
-        <para> Prop maxhealth</para>
-        <para>}</para>
+        <classsynopsis>
+          <ooclass>
+            <classname>GameLogic</classname>
+          </ooclass>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>addPlayer</methodname>
+            <methodparam>
+              <type>Player*</type>
+              <parameter>player</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>removePlayer</methodname>
+            <methodparam>
+              <type>Player*</type>
+              <parameter>player</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>addObject</methodname>
+            <methodparam>
+              <type>Object*</type>
+              <parameter>object</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>removeObject</methodname>
+            <methodparam>
+              <type>Object*</type>
+              <parameter>object</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>update</methodname>
+            <void/>
+          </methodsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>Object</classname>
+          </ooclass>
+          <fieldsynopsis>
+            <type>Vec3f</type>
+            <varname>position</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>Vec3f</type>
+            <varname>velocity</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>float</type>
+            <varname>health</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>float</type>
+            <varname>maxHealth</varname>
+          </fieldsynopsis>
+        </classsynopsis>
       </section>
       <section>
         <title>Design Issues</title>
