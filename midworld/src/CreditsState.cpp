@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CreditsState.cpp,v $
- * Date modified: $Date: 2002-09-09 07:06:03 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-17 02:47:36 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,7 +42,7 @@ namespace mw
 
    CreditsState::CreditsState( Application* a ) : State( a )
    {
-      mImages.push_back( new Texture("credits.jpeg") );
+      mImages.push_back( new Texture("images/credits.jpeg") );
    }
 
    void CreditsState::draw()
