@@ -40,6 +40,10 @@ namespace mw
 
          mAmmoInClip = mClipSize;
          mAmmoInBag = 100;
+
+         // init to no waiting time
+         mBusyCounter = 0.0f;
+         mReloadCounter = 0.0f;
       }
 
       void addAmmo(int ammount)  //for ammo pickup
