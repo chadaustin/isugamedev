@@ -63,11 +63,17 @@ namespace mw
 
    void StoryState::onKeyPress(SDLKey sym, bool down)
    {
-      invokeTransition("Game");
+      if (down)
+      {
+         invokeTransition("Game");
+      }
    }
 
    void StoryState::onMousePress(Uint8 button, bool down, int x, int y)
    {
-      invokeTransition("Game");
+      if (down)
+      {
+         invokeTransition("Game");
+      }
    }
 }
