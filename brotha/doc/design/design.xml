@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.8 2002-04-08 05:45:17 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 05:45:17 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.9 2002-04-08 06:14:05 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 06:14:05 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -163,18 +163,19 @@
     </section>
     <section>
       <title>Network Module</title>
-      <para>Description of what this module does here ...</para>
+      <para>The network module is responsible for creating sockets and server sockets. It also provides stream classes which simplify access to stream-like objects such as network connections and files. It is built on top of NSPR, a portable system abstraction library provided by mozilla.org.</para>
       <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
+        <title>Socket Subsystem</title>
+        <para>The socket subsystem consists of two classes: Socket and ServerSocket. ServerSocket listens on a network port and returns new Socket objects when connections are made. Socket objects provide methods for reading from, writing to, and closing the socket.</para>
+        <para>Sockets also have associated SocketInputStream and SocketOutputStream objects. See the Stream Subsystem documentation for more details.</para>
       </section>
       <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
+        <title>Stream Subsystem</title>
+        <para>The stream subsystem provides objects that represent streams of bytes. Specifically, streams are split into two concepts: InputStreams and OutputStreams. InputStreams have a single <emphasis>read</emphasis> method and OutputStreams have a single <emphasis>write</emphasis> method. For example, Sockets have associated InputStream and OutputStream objects which facilitate reading from and writing to the network connection. The ByteBuffer class implements both InputStream and OutputStream and represents a growable array fo bytes.</para>
       </section>
       <section>
-        <title>Module Interfaces</title>
-        <para>blah blah</para>
+        <title>Serialization Subsystem</title>
+        <para>The serialization aspect of the network module is responsible for converting objects into streams of bytes and reconstructing the original objects from the stored bytes. It provides a set of operator overloads (mimicking standard C++ iostreams) which simplify writing objects to and reading objects from OutputStreams and InputStreams, respectively.</para>
       </section>
       <section>
         <title>Design Issues</title>
