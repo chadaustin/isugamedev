@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameManager.cpp,v $
- * Date modified: $Date: 2002-10-31 07:03:37 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -40,7 +40,6 @@ namespace mw
       mSoundMgr = new SoundManager();
       mModelMgr = new ModelManager();
       mResourceMgr = new ResourceManager();
-      mTextureMgr = new TextureManager();
    }
 
    GameManager::~GameManager()
@@ -48,7 +47,6 @@ namespace mw
       delete mSoundMgr;
       delete mModelMgr;
       delete mResourceMgr;
-      delete mTextureMgr;
    }
 
    GameManager& GameManager::instance()
@@ -74,11 +72,6 @@ namespace mw
    ResourceManager* GameManager::getResourceManager() const
    {
       return mResourceMgr;
-   }
-
-   TextureManager* GameManager::getTextureManager() const
-   {
-      return mTextureMgr;
    }
 
    void GameManager::destroyGameManager()

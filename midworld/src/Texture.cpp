@@ -24,12 +24,11 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2002-11-11 05:24:47 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
 #include <iostream>
 #include <memory>
 #include <stdexcept>
@@ -37,6 +36,7 @@
 #include "Texture.h"
 #include "Types.h"
 #include "Utility.h"
+#include "GameManager.h"
 using namespace corona;
 
 
@@ -122,6 +122,11 @@ namespace mw
       glDeleteTextures(1, &mTexture);
    }
 
+   Texture*
+   Texture::create(const std::string& resid)
+   {
+      return GameManager::instance().getResourceManager()->get<Texture*>(resid);
+   }
 
    void
    Texture::bind()
@@ -149,5 +154,4 @@ namespace mw
       glEnd();
       unbind();
    }
-
 }

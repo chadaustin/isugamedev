@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-11-11 08:05:52 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -54,7 +54,7 @@ namespace mw
       EntityFactory& factory = EntityFactory::instance();
       ParticleEngine* engine = new ParticleEngine(
          factory.getGameState(),
-         "images/explosive_particle.png",
+         "explosive_particle",
          500);
       factory.add(engine);
      

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.cpp,v $
- * Date modified: $Date: 2002-11-13 15:42:56 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,8 +47,8 @@ namespace mw
       , mModelsComplete(0)
       , mTexturesComplete(0)
    {
-      mLoadImage = new Texture("images/loading.jpeg");
-      mLoadingBar = new Texture("images/loadingbar.png");
+      mLoadImage = Texture::create("loading");
+      mLoadingBar = Texture::create("loadingbar");
 
       mModels.push_back("ammo_crate");
       mModels.push_back("barrel");
@@ -62,14 +62,11 @@ namespace mw
       mModels.push_back("wall_straight");
       mModels.push_back("wall_corner");
 
-      mTextures.push_back("images/explosive_particle.png");
+      mTextures.push_back("explosive_particle");
    }
 
    LoadState::~LoadState()
-   {
-      delete mLoadImage;
-      delete mLoadingBar;
-   }
+   {}
 
    void
    LoadState::update(float dt)
@@ -79,13 +76,13 @@ namespace mw
          ResourceManager* resmgr = GameManager::instance().getResourceManager();
          ModelManager* mdlmgr = GameManager::instance().getModelManager();
 
-         mdlmgr->preload(resmgr->get(mModels[mModelsComplete]));
+         mdlmgr->preload(resmgr->lookup(mModels[mModelsComplete]));
          ++mModelsComplete;
       }
       else if (mTexturesComplete < mTextures.size())
       {
-         TextureManager* texmgr = GameManager::instance().getTextureManager();
-         texmgr->preload(mTextures[mTexturesComplete]);
+         ResourceManager* resmgr = GameManager::instance().getResourceManager();
+         resmgr->preload<Texture*>(mTextures[mTexturesComplete]);
          ++mTexturesComplete;
       }
       else

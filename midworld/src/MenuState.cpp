@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-11-14 12:33:42 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,9 +58,9 @@ namespace mw
       //setup images
       mImages.resize(3);
 
-      mImages[0] = new Texture("images/menu_bg.jpeg");
-      mImages[1] = new Texture("images/menu_selection.png");
-      mImages[2] = new Texture("images/menu_square.png");
+      mImages[0] = Texture::create("menu_bg");
+      mImages[1] = Texture::create("menu_selection");
+      mImages[2] = Texture::create("menu_square");
 
       //setup menu items
       mItemList.resize(5);
@@ -106,13 +106,7 @@ namespace mw
    }
 
    MenuState::~MenuState()
-   {
-      for (int i = 0; i < int(mImages.size()); ++i)
-      {
-         delete mImages[i];
-      }
-      mImages.clear();
-   }
+   {}
 
    void
    MenuState::update(float dt)

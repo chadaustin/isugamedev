@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameOverState.cpp,v $
- * Date modified: $Date: 2002-11-13 15:42:56 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,7 +49,7 @@ namespace mw
       , mElapsedTime(0)
       , mLeavingState(false)
    {
-      mImage = new Texture("images/gameover.jpeg");
+      mImage = Texture::create("gameover");
       // Start playing the theme song.
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       jukebox->clear();
@@ -58,9 +58,7 @@ namespace mw
    }
 
    GameOverState::~GameOverState()
-   {
-      delete mImage;
-   }
+   {}
 
    void
    GameOverState::update(float dt)

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.cpp,v $
- * Date modified: $Date: 2002-10-29 18:50:36 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,33 +33,36 @@
 #include <iostream>
 #include <fstream>
 #include "ResourceManager.h"
+#include "Texture.h"
 
 namespace mw
 {
    ResourceManager::ResourceManager()
    {
       // load the model mappings
-      std::ifstream in("models/mappings.txt");
+      std::ifstream in("resources.txt");
       if (in.is_open())
       {
          std::string name, model;
          while (in >> name >> model)
          {
-            add(name, model);
+            defineResourceID(name, model);
          }
       }
+
+      defineFactory<Texture*>(&createTexture);
    }
 
    const std::string&
-   ResourceManager::get(const std::string& resid) const
+   ResourceManager::lookup(const std::string& resid) const
    {
       if (resid.empty()) {
          static const std::string empty;
          return empty;
       }
    
-      ResourceMap::const_iterator itr = mResources.find(resid);
-      if (itr != mResources.end())
+      ResourceIDMap::const_iterator itr = mResourceIDs.find(resid);
+      if (itr != mResourceIDs.end())
       {
          return itr->second;
       }
@@ -68,12 +71,12 @@ namespace mw
    }
 
    void
-   ResourceManager::add(const std::string& resid, const std::string& value)
+   ResourceManager::defineResourceID(const std::string& resid, const std::string& value)
    {
-      ResourceMap::iterator itr = mResources.find(resid);
-      if (itr == mResources.end())
+      ResourceIDMap::iterator itr = mResourceIDs.find(resid);
+      if (itr == mResourceIDs.end())
       {
-         mResources[resid] = value;
+         mResourceIDs[resid] = value;
       }
       else
       {
@@ -82,17 +85,47 @@ namespace mw
    }
 
    void
-   ResourceManager::remove(const std::string& resid)
+   ResourceManager::removeResourceID(const std::string& resid)
    {
-      ResourceMap::iterator itr = mResources.find(resid);
-      if (itr != mResources.end())
+      ResourceIDMap::iterator itr = mResourceIDs.find(resid);
+      if (itr != mResourceIDs.end())
       {
          std::cout<<"Removed Resource: "<<resid<<" -> "<<(itr->second)<<std::endl;
-         mResources.erase(itr);
+         mResourceIDs.erase(itr);
       }
       else
       {
          throw std::runtime_error("Invalid ResourceID");
+      }
+   }
+
+   ResourceManager::Cache&
+   ResourceManager::getCache(const Loki::TypeInfo& type)
+   {
+      CacheMap::iterator itr = mCaches.find(type);
+      if (itr != mCaches.end())
+      {
+         return itr->second;
+      }
+      else
+      {
+         // Cache doesn't exist, create it now
+         mCaches[type] = Cache();
+         return mCaches[type];
+      }
+   }
+
+   ResourceManager::Factory
+   ResourceManager::getFactory(const Loki::TypeInfo& type)
+   {
+      FactoryMap::iterator itr = mFactories.find(type);
+      if (itr != mFactories.end())
+      {
+         return itr->second;
+      }
+      else
+      {
+         return 0;
       }
    }
 }

@@ -12,13 +12,11 @@ namespace mw
 
    GameScene::GameScene()
    {
-      mGroundTexture = new Texture("images/ground.png");
+      mGroundTexture = Texture::create("ground");
    }
 
    GameScene::~GameScene()
-   {
-      delete mGroundTexture;
-   }
+   {}
 
    void
    GameScene::loadLevel(const std::string& filename)

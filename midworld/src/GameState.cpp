@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-24 23:30:22 $
- * Version:       $Revision: 1.127 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.128 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -114,7 +114,7 @@ namespace mw
 
       //THis is the generation of the skydome
       GenerateDome(400.0f, 5.0f, 5.0f, 1.0f, 1.0f);
-      mSkydomeTex = new Texture("images/sky.jpg");
+      mSkydomeTex = Texture::create("sky");
    }
 
    void

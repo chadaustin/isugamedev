@@ -18,22 +18,16 @@ namespace mw
    {
       mElapsedTime = 0;
 
-      mCells.push_back(Cell(0,  87,  40,  373, 233,  0.0f, new Texture("images/story1_frame1_cell1.jpg")));
-      mCells.push_back(Cell(0, 460,   0,  376, 343,  5.0f, new Texture("images/story1_frame1_cell2.jpg")));
-      mCells.push_back(Cell(0,  87, 322,  442, 379, 10.0f, new Texture("images/story1_frame1_cell3.jpg")));
-      mCells.push_back(Cell(0, 529, 322,  369, 445, 15.0f, new Texture("images/story1_frame1_cell4.jpg")));
-      mCells.push_back(Cell(1,   0,   0, 1024, 768, 20.0f, new Texture("images/story1_frame2_cell1.jpg")));
+      mCells.push_back(Cell(0,  87,  40,  373, 233,  0.0f, Texture::create("story1_frame1_cell1")));
+      mCells.push_back(Cell(0, 460,   0,  376, 343,  5.0f, Texture::create("story1_frame1_cell2")));
+      mCells.push_back(Cell(0,  87, 322,  442, 379, 10.0f, Texture::create("story1_frame1_cell3")));
+      mCells.push_back(Cell(0, 529, 322,  369, 445, 15.0f, Texture::create("story1_frame1_cell4")));
+      mCells.push_back(Cell(1,   0,   0, 1024, 768, 20.0f, Texture::create("story1_frame2_cell1")));
       mCells.push_back(Cell(25.0f));
    }
 
    StoryState::~StoryState()
-   {
-      // Delete all textures allocated
-      for (std::vector<Cell>::iterator itr = mCells.begin(); itr != mCells.end(); ++itr)
-      {
-         delete (*itr).image;
-      }
-   }
+   {}
 
    void StoryState::update(float dt)
    {

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CreditsState.h,v $
- * Date modified: $Date: 2002-09-09 07:06:02 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-25 09:09:55 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,14 +45,7 @@ namespace mw
       CreditsState( Application* );
 
       ~CreditsState()
-      {
-         std::vector<Texture*>::iterator itr;
-         for (itr = mImages.begin(); itr != mImages.end(); ++itr)
-         {
-            delete *itr;
-         }
-         mImages.clear();
-      }
+      {}
 
       void update(float dt) {}
 

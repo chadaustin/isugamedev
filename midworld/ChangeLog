@@ -1,5 +1,8 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-11-25 nonchocoboy  Refactored ResourceManager to do the caching work that
+                        used to be relegated to the TextureManager.
+                        TextureManager has been removed.
 2002-11-14 aegis        Bump version to 1.0.0.
 2002-11-15 aegis        Upgrade to Audiere 1.9.1.
 2002-11-13 all          A whole ton of changes for the 1.0 (IGF) release.

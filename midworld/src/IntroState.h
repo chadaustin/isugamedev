@@ -24,19 +24,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.h,v $
- * Date modified: $Date: 2002-10-11 05:01:55 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
 #ifndef MW_INTRO_STATE_H
 #define MW_INTRO_STATE_H
 
-
 #include "State.h"
 #include "Texture.h"
-
 
 namespace mw
 {
@@ -64,6 +61,5 @@ namespace mw
       bool mLeavingState;
    };
 }
-
 
 #endif

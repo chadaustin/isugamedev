@@ -15,7 +15,7 @@ namespace mw
    {
    public:
       ParticleEngine(GameState* gameState,
-                     const std::string& filename,
+                     const std::string& textureResid,
                      const int numParticles);
       ~ParticleEngine();
       void update(float dt);

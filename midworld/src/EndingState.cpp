@@ -18,7 +18,7 @@ namespace mw
       , mElapsedTime(0)
       , mLeavingState(false)
    {
-      mImage = new Texture("images/ending.jpeg");
+      mImage = Texture::create("ending");
       // Start playing the theme song.
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       jukebox->clear();
@@ -27,9 +27,7 @@ namespace mw
    }
 
    EndingState::~EndingState()
-   {
-      delete mImage;
-   }
+   {}
 
    void
    EndingState::update(float dt)

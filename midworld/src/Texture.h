@@ -24,40 +24,43 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.h,v $
- * Date modified: $Date: 2002-10-02 07:49:04 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
 #ifndef MW_TEXTURE_H
 #define MW_TEXTURE_H
-
 
 #include <string>
 #include <SDL_opengl.h>
 
-
 namespace mw
 {
-
    class Texture
    {
-   public:
+   protected:
       Texture(const std::string& filename);
+
+   public:
       ~Texture();
+
+      static Texture* create(const std::string& resid);
 
       void bind();
       static void unbind();
       void drawRectangle(float x1, float y1, float x2, float y2);
+
+      friend void* createTexture(const std::string& name)
+      {
+         return new Texture(name);
+      }
 
    private:
       GLuint mTexture;
       float mRealWidth;
       float mRealHeight;
    };
-
 }
-
 
 #endif

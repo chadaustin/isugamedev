@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: UnsupportedState.h,v $
- * Date modified: $Date: 2002-11-14 12:33:42 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,14 +45,7 @@ namespace mw
       UnsupportedState( Application* );
 
       ~UnsupportedState()
-      {
-         std::vector<Texture*>::iterator itr;
-         for (itr = mImages.begin(); itr != mImages.end(); ++itr)
-         {
-            delete *itr;
-         }
-         mImages.clear();
-      }
+      {}
 
       void update(float dt) {}
 

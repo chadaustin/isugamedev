@@ -4,20 +4,19 @@
 #include "GameState.h"
 #include "ParticleEngine.h"
 #include "Utility.h"
-#include "GameManager.h"
 #include "PhysicsEngine.h"
 
 namespace mw
 {
    ParticleEngine::ParticleEngine(GameState* gameState,
-                                  const std::string& filename,
+                                  const std::string& textureResid,
                                   const int numParticles)
       : AbstractEntity(gameState)
       , mParticleCamera(gameState->getCamera())
    {
       setCollidable(false);
    
-      mParticleTexture = GameManager::instance().getTextureManager()->get(filename);
+      mParticleTexture = Texture::create(textureResid);
 
       for(int i = 0; i < numParticles; i++)
       {

@@ -30,7 +30,7 @@ namespace mw
       EntityFactory& factory = EntityFactory::instance();
       ParticleEngine* engine = new ParticleEngine(
             factory.getGameState(),
-            "images/explosive_particle.png",
+            "explosive_particle",
             100);
       factory.add(engine);
 

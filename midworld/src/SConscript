@@ -71,7 +71,6 @@ classes = Split("""
    StoryState
    Testing
    Texture
-   TextureManager
    Turret
    UnsupportedState
    cubeGeometry

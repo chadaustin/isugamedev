@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-11-13 15:42:56 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-11-25 09:09:56 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -50,7 +50,7 @@ namespace mw
       , mElapsedTime(0)
       , mLeavingState(false)
    {
-      mIntroImage = new Texture("images/intro.jpeg");
+      mIntroImage = Texture::create("intro");
       // Start playing the theme song.
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       jukebox->clear();
@@ -59,9 +59,7 @@ namespace mw
    }
 
    IntroState::~IntroState()
-   {
-      delete mIntroImage;
-   }
+   {}
 
    void
    IntroState::update(float dt)
