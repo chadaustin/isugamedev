@@ -24,43 +24,44 @@ public class PlayerEntity implements Entity {
     return m_id;
   }
 
-  public Node getSceneGraphNode() {
-
+  public Matrix4f getTransform() {
     // set up the transformation
-    Transform3D t1 = new Transform3D();
-    Transform3D t2 = new Transform3D();
-    t1.rotY(m_axis_angle);
-    t2.rotX(-Math.PI / 2);
-    t1.mul(t2);
+    Matrix4f t1 = new Matrix4f();
+    Matrix4f t2 = new Matrix4f();
+    t1.rotY(-m_axis_angle);
+    //    t2.rotX((float)(-Math.PI / 2));
+    //    t1.mul(t2);
     t1.setTranslation(m_position);
+    return t1;
+  }
 
-    // stick it in the scene graph
-    TransformGroup tgt = new TransformGroup(t1);
-    tgt.addChild(createWhiteCone());
-    tgt.addChild(createRaisedText(m_text));
-    return tgt;
+  public Node getSceneGraphNode() {
+    Group g = new Group();
+    g.addChild(createWhiteCone());
+    g.addChild(createRaisedText(m_text));
+    return g;
   }
 
   public void update(int timeElapsed) {
     m_position.x += timeElapsed * m_velocity * Math.sin(m_axis_angle);
-    m_position.y += timeElapsed * m_velocity * Math.cos(m_axis_angle);
+    m_position.z -= timeElapsed * m_velocity * Math.cos(m_axis_angle);
     m_axis_angle += timeElapsed * m_axis_velocity;
   }
 
   public void processKey(KeyEvent key) {
     if (key.getID() == KeyEvent.KEY_PRESSED) {
       switch (key.getKeyCode()) {
-        case KeyEvent.VK_UP:    m_velocity += 0.01;   break;
-        case KeyEvent.VK_DOWN:  m_velocity -= 0.01;   break;
-        case KeyEvent.VK_LEFT:  m_axis_angle -= 0.01; break;
-        case KeyEvent.VK_RIGHT: m_axis_angle += 0.01; break;
+        case KeyEvent.VK_UP:    m_velocity      =  0.005f; break;
+        case KeyEvent.VK_DOWN:  m_velocity      = -0.005f; break;
+        case KeyEvent.VK_LEFT:  m_axis_velocity = -0.001f; break;
+        case KeyEvent.VK_RIGHT: m_axis_velocity =  0.001f; break;
       }
     } else {
       switch (key.getKeyCode()) {
-        case KeyEvent.VK_UP:    m_velocity -= 0.01;   break;
-        case KeyEvent.VK_DOWN:  m_velocity += 0.01;   break;
-        case KeyEvent.VK_LEFT:  m_axis_angle += 0.01; break;
-        case KeyEvent.VK_RIGHT: m_axis_angle -= 0.01; break;
+        case KeyEvent.VK_UP:    m_velocity      = 0; break;
+        case KeyEvent.VK_DOWN:  m_velocity      = 0; break;
+        case KeyEvent.VK_LEFT:  m_axis_velocity = 0; break;
+        case KeyEvent.VK_RIGHT: m_axis_velocity = 0; break;
       }
     }
   }

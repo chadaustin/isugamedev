@@ -7,11 +7,11 @@ import java.rmi.*;
 interface RemoteServer extends Remote {
   int register(RemoteClient This, String username, String password)
     throws RemoteException;
-  void unregister(RemoteClient This)
+  void unregister(int id)
     throws RemoteException;
-  void processKey(RemoteClient This, KeyEvent key)
+  void processKey(int id, KeyEvent key)
     throws RemoteException;
-  void setText(RemoteClient This, String text)
+  void setText(int id, String text)
     throws RemoteException;
   void stop()
     throws RemoteException;

@@ -5,5 +5,5 @@ import java.util.*;
 
 
 interface RemoteClient extends Remote {
-  void updateEntities(Iterator i) throws RemoteException;
+  void updateEntities(ArrayList ents) throws RemoteException;
 }

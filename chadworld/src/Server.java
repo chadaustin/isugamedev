@@ -19,7 +19,7 @@ public class Server
 
   private IDGenerator m_generator = new IDGenerator(100);
   private World m_world = new World(m_generator);
-  private Map m_clients = new HashMap();  // clients -> entity ids
+  private Map m_clients = new HashMap();  // entity ids -> clients
 
   private Server() throws RemoteException {
 
@@ -48,10 +48,13 @@ public class Server
     String username,
     String password)
   {
+    System.out.println("Player '" + username + "' is registering...");
+
     if (isAuthorized(username, password)) {
       int id = m_generator.getNext();
-      m_world.add(new PlayerEntity(m_generator.getNext()));
-      m_clients.put(This, new Integer(id));
+      m_world.add(new PlayerEntity(id));
+      m_clients.put(new Integer(id), This);
+      System.out.println("  successfully registered with entity id = " + id);
       return id;
     } else {
       return -1;
@@ -62,27 +65,32 @@ public class Server
     return true;
   }
 
-  public synchronized void unregister(RemoteClient This) {
-    Integer id = (Integer)m_clients.get(This);
-    if (id != null) {
-      m_world.remove(id.intValue());
+  public synchronized void unregister(int id) {
+    RemoteClient This = (RemoteClient)m_clients.get(new Integer(id));
+    if (This != null) {
+      m_world.remove(id);
     }
-    m_clients.remove(This);
+    m_clients.remove(new Integer(id));
+    System.out.println("Player with entity id " + id + " unregistered");
   }
 
-  public synchronized void processKey(RemoteClient This, KeyEvent key) {
-    Integer id = (Integer)m_clients.get(This);
-    if (id != null) {
-      PlayerEntity pe = (PlayerEntity)m_world.get(id.intValue());
-      pe.processKey(key);
+  public synchronized void processKey(int id, KeyEvent key) {
+    RemoteClient This = (RemoteClient)m_clients.get(new Integer(id));
+    if (This != null) {
+      PlayerEntity pe = (PlayerEntity)m_world.get(id);
+      if (pe != null) {
+        pe.processKey(key);
+      }
     }
   }
 
-  public void setText(RemoteClient This, String text) {
-    Integer id = (Integer)m_clients.get(This);
-    if (id != null) {
-      PlayerEntity pe = (PlayerEntity)m_world.get(id.intValue());
-      pe.setText(text);
+  public void setText(int id, String text) {
+    RemoteClient This = (RemoteClient)m_clients.get(new Integer(id));
+    if (This != null) {
+      PlayerEntity pe = (PlayerEntity)m_world.get(id);
+      if (pe != null) {
+        pe.setText(text);
+      }
     }
   }
 
@@ -90,7 +98,7 @@ public class Server
     // update the objects in the world
     m_world.update(timeElapsed);
 
-    Iterator clients = m_clients.keySet().iterator();
+    Iterator clients = m_clients.values().iterator();
     while (clients.hasNext()) {
       RemoteClient rc = (RemoteClient)clients.next();
       try {
@@ -148,8 +156,7 @@ public class Server
       System.out.println("Server started");
     }
     catch (Exception e) {
-      System.err.println("Error starting server\n---" + e);
-      e.printStackTrace();
+      System.err.println("Error starting server\n---\n" + e);
     }
   }
 
@@ -160,8 +167,7 @@ public class Server
       System.out.println("server stopped successfully");
     }
     catch (Exception e) {
-      System.err.println("error stopping server\n---" + e);
-      e.printStackTrace();
+      System.err.println("error stopping server\n---\n" + e);
     }
   }
 }

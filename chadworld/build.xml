@@ -2,6 +2,6 @@
   <target name="compile">
     <javac srcdir="src" destdir="." debug="on"/>
     <rmic classname="chadworld.Server" base="."/>
-    <rmic classname="chadworld.ClientFrame" base="."/>
+    <rmic classname="chadworld.EntityClient" base="."/>
   </target>
 </project>

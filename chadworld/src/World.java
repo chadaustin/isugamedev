@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 import javax.vecmath.*;
 import javax.media.j3d.*;
-import com.sun.j3d.utils.geometry.*;
 
 
 /**
@@ -12,7 +11,7 @@ import com.sun.j3d.utils.geometry.*;
  */
 public class World implements Serializable {
 
-  private List m_entities = new ArrayList();
+  private ArrayList m_entities = new ArrayList();
   private long m_current_id = 0;
   private IDGenerator m_generator;
 
@@ -20,11 +19,11 @@ public class World implements Serializable {
     m_generator = gen;
 
     // add some cubes to the world
-    final int CUBE_COUNT = 20;
+    final int CUBE_COUNT = 50;
     for (int i = 0; i < CUBE_COUNT; ++i) {
-      float px = (float)(Math.random() * 20 - 10);
-      float py = (float)(Math.random() * 20 - 10);
-      float pz = (float)(Math.random() * 20 - 10);
+      float px = (float)(Math.random() * 40 - 20);
+      float py = (float)(Math.random() * 40 - 20);
+      float pz = (float)(Math.random() * 40 - 20);
       float ax = (float)(Math.random() * Math.PI * 2);
       float ay = (float)(Math.random() * Math.PI * 2);
       float az = (float)(Math.random() * Math.PI * 2);
@@ -36,12 +35,9 @@ public class World implements Serializable {
       result.mul(getRotY(ay));
       result.mul(getRotZ(az));
 
-      Transform3D t3d = new Transform3D(result);
-      TransformGroup tgt = new TransformGroup(t3d);
-      tgt.addChild(new ColorCube());
-      add(new SimpleEntity(m_generator.getNext(), tgt));
+      add(new CubeEntity(m_generator.getNext(), result));
     }
-
+    /*
     // add some spheres too
     final int SPHERE_COUNT = 20;
     for (int i = 0; i < SPHERE_COUNT; ++i) {
@@ -59,15 +55,16 @@ public class World implements Serializable {
       result.mul(getRotY(ay));
       result.mul(getRotZ(az));
 
-      Transform3D t3d = new Transform3D(result);
-      TransformGroup tgt = new TransformGroup(t3d);
-      tgt.addChild(new Sphere());
-      add(new SimpleEntity(m_generator.getNext(), tgt));
+      add(new SimpleEntity(
+            m_generator.getNext(),
+            result,
+            new Sphere()));
     }
+    */
   }
 
-  public Iterator getEntities() {
-    return m_entities.iterator();
+  public ArrayList getEntities() {
+    return m_entities;
   }
 
   public void add(Entity entity) {
