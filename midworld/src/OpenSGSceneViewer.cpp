@@ -24,19 +24,21 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-09-18 00:30:39 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-09 02:20:57 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <SDL_opengl.h>
 #include <gmtl/External/OpenSGConvert.h>
+#include <gmtl/Containment.h>
 #ifdef WIN32  // OpenSG needs Winsock  :(:(:(
 #include <winsock.h>
 #endif
 #include <OpenSG/OSGSimpleGeometry.h>
 #include <OpenSG/OSGMatrixUtility.h>
 #include <OpenSG/OSGDirectionalLight.h>
+#include <OpenSG/OSGAction.h>
 #include "OpenSGSceneViewer.h"
 #include "GameManager.h"
 
@@ -107,7 +109,8 @@ namespace mw
    {
    }
 
-   void OpenSGSceneViewer::draw()
+   void
+   OpenSGSceneViewer::draw()
    {
       // XXX: Refactor this update into an event-based system
       for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
@@ -179,13 +182,45 @@ namespace mw
       glPopAttrib();
    }
 
-   void OpenSGSceneViewer::entityAdded(const SceneEvent& evt)
+   std::list<RigidBody*>
+   OpenSGSceneViewer::intersect(const gmtl::AABoxf& region)
+   {
+      //XXX: Actually traverse the graph so we get O(log n) performance rather
+      //     than this crappy O(n) algorithm.
+      std::list<RigidBody*> matches;
+
+      for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
+           itr != mEntityNodeMap.end(); ++itr)
+      {
+         osg::NodePtr entity_node = itr->second;
+
+         // Get the bounds of this node
+         osg::Pnt3f min, max;
+         entity_node->getVolume().getBounds(min, max);
+         gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
+         gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
+         gmtl::AABoxf entity_bounds(gmtl_min, gmtl_max);
+//         gmtl::AABoxf entity_bounds(gmtl::Point3f(min[0], min[1], min[2]),
+//                                    gmtl::Point3f(max[0], max[1], max[2]));
+
+         // Compare this node's bounds to the search bounds
+         if (isInVolume(region, entity_bounds))
+         {
+            matches.push_back(mScene->get(itr->first));
+         }
+      }
+
+      return matches;
+   }
+
+   void
+   OpenSGSceneViewer::entityAdded(const SceneEvent& evt)
    {
       Entity* entity = evt.getEntity();
 
       ResourceManager* res_mgr = GameManager::instance().getResourceManager();
       const std::string& model = res_mgr->get(entity->getModel());
-      osg::NodePtr model_node = GameManager::instance().getModelManager()->get(model);     
+      osg::NodePtr model_node = GameManager::instance().getModelManager()->get(model);
 
       // Create a parent transform node for the model
       osg::NodePtr trans_node = osg::Node::create();
@@ -208,7 +243,8 @@ namespace mw
 //      std::cout<<"Added entity: uid="<<entity->getUID()<<std::endl;
    }
 
-   void OpenSGSceneViewer::entityRemoved(const SceneEvent& evt)
+   void
+   OpenSGSceneViewer::entityRemoved(const SceneEvent& evt)
    {
       const Entity::UID& uid = evt.getEntity()->getUID();
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-08 03:20:17 $
- * Version:       $Revision: 1.34 $
+ * Date modified: $Date: 2002-10-09 02:20:57 $
+ * Version:       $Revision: 1.35 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,7 +46,6 @@
 #include "Scene.h"
 #include "SceneViewer.h"
 #include "State.h"
-#include "VectorSpatialIndex.h"
 
 namespace mw
 {
@@ -120,9 +119,6 @@ namespace mw
 
       /// The collision detection algorithm
       CollisionDetector* mCollDet;
-
-      /// XXX: Our spatial index to our vector of entities
-      VectorSpatialIndex* mSpatialIndex;
 
       // actions :*)
       EdgeState mAccelerate;

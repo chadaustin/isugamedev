@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.h,v $
- * Date modified: $Date: 2002-09-18 00:30:39 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-09 02:20:57 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,13 +42,14 @@
 #include <OpenSG/OSGPassiveBackground.h>
 #include <OpenSG/OSGTransform.h>
 #include "SceneViewer.h"
+#include "SpatialIndex.h"
 
 namespace mw
 {
    /**
     * OpenSG implementation of the SceneViewer interface.
     */
-   class OpenSGSceneViewer : public SceneViewer
+   class OpenSGSceneViewer : public SceneViewer, public SpatialIndex
    {
    public:
       OpenSGSceneViewer(Scene* scene);
@@ -59,8 +60,20 @@ namespace mw
        */
       void draw();
 
+      /**
+       * Finds the rigid bodies whose bounds intersect the given region.
+       *
+       * @param region     the search region that bodies will be tested against
+       *
+       * @return  a list of intersecting bodies
+       */
+      std::list<RigidBody*> intersect(const gmtl::AABoxf& region);
+
       void entityAdded(const SceneEvent& evt);
       void entityRemoved(const SceneEvent& evt);
+
+   private:
+      void debugDrawBounds();
 
    private:
       Scene* mScene;

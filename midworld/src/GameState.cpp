@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-08 03:20:17 $
- * Version:       $Revision: 1.48 $
+ * Date modified: $Date: 2002-10-09 02:20:57 $
+ * Version:       $Revision: 1.49 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -84,14 +84,15 @@ namespace mw
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
 
-      // Init the collision detection system
-      mSpatialIndex = new VectorSpatialIndex();
-      mCollDet = new BoundsCollisionDetector();
-      mCollDet->setSpatialIndex(mSpatialIndex);
-
       mScene = new Scene();
-      mSceneViewer = new OpenSGSceneViewer(mScene);
+      OpenSGSceneViewer* viewer = new OpenSGSceneViewer(mScene);
+//      mSceneViewer = new OpenSGSceneViewer(mScene);
+      mSceneViewer = viewer;
       mScene->addSceneListener(mSceneViewer);
+
+      // Init the collision detection system
+      mCollDet = new BoundsCollisionDetector();
+      mCollDet->setSpatialIndex(viewer);
 
       // Add the player into the game
       /// XXX: If the player gets reaped it will segfault since mPlayer is a member
@@ -506,7 +507,6 @@ namespace mw
       for (UIDList::iterator itr = dead.begin(); itr != dead.end(); ++itr)
       {
          Entity* entity = mScene->get(*itr);
-         mSpatialIndex->remove(entity);
          mScene->remove(entity);
          delete entity;
       }
@@ -542,7 +542,6 @@ namespace mw
    void GameState::add(Entity* entity)
    {
       mScene->add(entity);
-      mSpatialIndex->add(entity);
    }
 
    void

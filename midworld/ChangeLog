@@ -1,6 +1,10 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
-2002-10-07 aegis        Level loading
+2002-10-08 nonchocoboy  Collision detection is now done using the bounds of the
+                        models in the scene graph. OpenSGSceneViewer now
+                        implements SpatialIndex.
+                        NEW VERSION: 0.2.3
+2002-10-07 aegis        Level loading.
 2002-10-01 nonchocoboy  The player is now an entity in full.
 2002-10-01 nonchocoboy  RigidBody now aggregates its state so that it keeps
                         track of its state for the current frame as well as the
