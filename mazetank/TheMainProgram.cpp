@@ -2,7 +2,9 @@
 #include "GameWorld.h"
 #include "Input.h"
 
+
 // Globals ///////////////////////////////////////////////////
+
 
 Input GameInput;
 GameWorld MazeTank;
@@ -11,7 +13,6 @@ bool CamMode = false;
 
 int OldX = -1;
 int OldY = -1;
-
 
 /////////////////////////////////////////////////////////////
 
@@ -33,6 +34,7 @@ void Initialize()
 
 void MouseMotion(int x, int y)
 {
+
 	int CenterX = glutGet(GLUT_WINDOW_WIDTH)/2;
 	int CenterY = glutGet(GLUT_WINDOW_HEIGHT)/2;
 
@@ -42,13 +44,17 @@ void MouseMotion(int x, int y)
 		OldY = y;
 	}
 
+
 	if(CamMode)
 		GameInput.LookAround(x - OldX, y - OldY);
+
 	else
 		GameInput.TurretRotate(x - OldX, y - OldY);
 
+
 	if(x > CenterX + 50 || x < CenterX - 50 ||
 		y > CenterY + 50 || y < CenterY - 50)
+
 	{
 		int tempx = glutGet(GLUT_WINDOW_WIDTH);
 		int tempy = glutGet(GLUT_WINDOW_HEIGHT);
@@ -57,6 +63,7 @@ void MouseMotion(int x, int y)
 		OldX = -1;
 		OldY = -1;
 	}
+
 	else
 	{
 		OldX = x;
@@ -69,11 +76,11 @@ void KeyboardInput(int key, int x, int y)
    switch(key)
    {
    case GLUT_KEY_RIGHT:
-      GameInput.Turn(-0.02);
+      GameInput.Turn(-0.03);
       break;
 
    case GLUT_KEY_LEFT:
-      GameInput.Turn(0.02);
+      GameInput.Turn(0.03);
       break;
 
    case GLUT_KEY_UP:
@@ -108,8 +115,10 @@ void KeyboardInputUp(int key, int x, int y)
    }
 }
 
+
 void MyKeyboard(unsigned char key, int x, int y)
 {
+
 	switch(key)
 	{
 	case ' ':
@@ -120,7 +129,10 @@ void MyKeyboard(unsigned char key, int x, int y)
 		exit(0);
 		break;
 	}
+
 }
+
+
 
 void MyKeyboardUp(unsigned char key, int x, int y)
 {
@@ -131,6 +143,7 @@ void MyKeyboardUp(unsigned char key, int x, int y)
 		GameInput.SnapCamera();
 		break;
 	}
+
 }
 
 void update()
@@ -156,7 +169,7 @@ int main (int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(1024, 768);
+	glutInitWindowSize(640, 480);
 	glutInitWindowPosition(100,50);
 	glutCreateWindow("Final Project");
 	Initialize();
@@ -164,13 +177,16 @@ int main (int argc, char** argv)
 	glutReshapeFunc(reshape);
 	glutSpecialFunc(KeyboardInput);
 	glutSpecialUpFunc(KeyboardInputUp);
+
 	glutKeyboardFunc(MyKeyboard);
+
 	glutKeyboardUpFunc(MyKeyboardUp);
 	glutPassiveMotionFunc(MouseMotion);
+
 	glutSetCursor(GLUT_CURSOR_NONE);
 	glutIdleFunc(update);
 	
-   glutIgnoreKeyRepeat(1);
+	glutIgnoreKeyRepeat(1);
 
 	glutMainLoop();
 	return 0;

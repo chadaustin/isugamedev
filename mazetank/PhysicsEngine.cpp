@@ -50,6 +50,10 @@ void PhysicsEngine::Update(vector<GameObject*> &TheObjects)
 		case CAMTANK:
 			CameraTruckUpdate(TheObjects[i]);
 			break;
+
+		case BULLET:
+			BulletUpdate(TheObjects[i]);
+			break;
 		}
 
 	}
@@ -60,18 +64,18 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject)
 	float ObjectPosition[3];
 	float ObjectVelocity = 0.0;
 	float ObjectAngle;
-   float ObjectAngularVelocity;
+	float ObjectAngularVelocity;
 
 	TruckObject->GetVelocity(ObjectVelocity);	
 	ObjectVelocity *= dt;
 	TruckObject->GetPosition(ObjectPosition);
-   TruckObject->GetAngularVelocity(ObjectAngularVelocity);
+	TruckObject->GetAngularVelocity(ObjectAngularVelocity);
 	TruckObject->GetObjectAngle(ObjectAngle);
 
 	float AngleInRadians = (ObjectAngle * PI)/180;
-   float AngularVelocity = (ObjectAngularVelocity*PI)/180;
+	float AngularVelocity = (ObjectAngularVelocity*PI)/180;
 
-   AngleInRadians = AngleInRadians + AngularVelocity*dt;
+	AngleInRadians = AngleInRadians + AngularVelocity*dt;
 
 	float NewPosition[3];
 
@@ -82,10 +86,10 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject)
 	NewPosition[1] = ObjectPosition[1] + MoveY;
 	NewPosition[2] = ObjectPosition[2];
 
-   ObjectAngle = (AngleInRadians * 180.0) / PI;
+	ObjectAngle = (AngleInRadians * 180.0) / PI;
 
 	TruckObject->SetPosition(NewPosition);
-   TruckObject->SetObjectAngle(ObjectAngle);
+	TruckObject->SetObjectAngle(ObjectAngle);
 
 	//////////////////
 	// Update Camera
@@ -93,8 +97,12 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject)
 	if(CurrentCamera != NULL)
 	{
 		CurrentCamera->Move(-MoveX, -MoveY);
-
 		CurrentCamera->SetObjectYaw(-ObjectAngle);
 	}
 
+}
+
+void PhysicsEngine::BulletUpdate(GameObject* &BulletObject)
+{
+	
 }

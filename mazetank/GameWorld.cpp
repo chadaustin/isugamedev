@@ -13,7 +13,10 @@ GameWorld::GameWorld()
 
 GameWorld::~GameWorld()
 {
+	for(int i = 0; i < TheGameObjects.size(); i++)
+		delete TheGameObjects[i];
 
+	TheGameObjects.erase(TheGameObjects.begin(), TheGameObjects.end());
 }
 
 void GameWorld::Init()
@@ -64,7 +67,7 @@ void GameWorld::Draw()
    glutSwapBuffers();
 }
 
-void GameWorld::Destroy()
+void GameWorld::AddObjectToGame(GameObject* TheGameObject)
 {
-
+	TheGameObjects.push_back(TheGameObject);
 }

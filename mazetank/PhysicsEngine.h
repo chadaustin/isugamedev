@@ -48,6 +48,7 @@ private:
 	int dt, Starttime, Stoptime;
 
 	void CameraTruckUpdate(GameObject* &TruckObject);
+	void BulletUpdate(GameObject* &BulletObject);
 
 };
 #endif

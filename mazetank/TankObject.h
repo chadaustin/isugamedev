@@ -21,16 +21,15 @@ public:
 	~TankObject();
 
 	void Init();
-	void Update();
 	void Draw();
-   void GetGraphicsPointer(GraphicsObject*& TheGraphics);
+	void GetGraphicsPointer(GraphicsObject*& TheGraphics);
 
 private:
 	
 	GraphicsObject* Body;
-   GraphicsObject* Turret;
+	GraphicsObject* Turret;
 
-   float OldAngle;
+	float OldAngle;
 
 };
 #endif

@@ -29,9 +29,9 @@ public:
 
    void Update();
 
-   void Destroy();
-
    void Draw();
+
+   void AddObjectToGame(GameObject* TheGameObject);
 
 private:
 

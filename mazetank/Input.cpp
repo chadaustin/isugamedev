@@ -1,5 +1,7 @@
 #include "Input.h"
 #include "GraphicsObject.h"
+#include "GameObject.h"
+#include "BulletObject.h"
 
 Input::Input()
 {
@@ -41,10 +43,12 @@ void Input::LookAround(int ChangeX, int ChangeY)
       ChaseCamera->LookAround(ChangeX, ChangeY);
 }
 
+
 void Input::SnapCamera()
 {
 	ChaseCamera->SnapBack();
 }
+
 
 void Input::TurretRotate(int ChangeX, int ChangeY)
 {
@@ -63,9 +67,24 @@ void Input::TurretRotate(int ChangeX, int ChangeY)
 	////////////////////////////////////////////////////
 	if(Rotate[0] < -70)
 		Rotate[0] = -70;
+
 	if(Rotate[0] > 15)
 		Rotate[0] = 15;
 
-	TurretPointer->SetRotate(Rotate);
- 
+	TurretPointer->SetRotate(Rotate); 
+}
+
+void Input::ShootBullet()
+{
+	float TankRotation;
+	float TurretRotations[3];
+	GameObject* Bullet;
+
+	GraphicsObject* TheTurret;
+
+	Player1->GetObjectAngle(TankRotation);
+	Player1->GetGraphicsPointer(TheTurret);
+
+	TheTurret->GetRotate(TurretRotations);
+
 }

@@ -18,24 +18,23 @@ class Input
 {
 public:
 
-   Input();
+	Input();
 
-   void SetCamera(Camera* TheCamera);
+	void SetCamera(Camera* TheCamera);
 
-   void SetGameObjects(vector<GameObject*> TheGameObjects);
+	void SetGameObjects(vector<GameObject*> TheGameObjects);
 
-   void Turn(float Angles);
+	void Turn(float Angles);
 
-   void Accel(float Velocity);
+	void Accel(float Velocity);
 
-   void LookAround(int ChangeX, int ChangeY);
+	void LookAround(int ChangeX, int ChangeY);
 
-   void TurretRotate(int ChangeX, int ChangeY);
+	void TurretRotate(int ChangeX, int ChangeY);
 
 	void SnapCamera();
 
-   int OldX, OldY;
-   int TurretOldX, TurretOldY;
+	void ShootBullet();
 
 private:
 
