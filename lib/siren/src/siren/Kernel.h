@@ -23,14 +23,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.h,v $
- * Date modified: $Date: 2003-02-22 23:53:34 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-02-24 00:42:52 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
 #ifndef SIREN_KERNEL_H
 #define SIREN_KERNEL_H
 
+#include <string>
 #include <boost/shared_ptr.hpp>
 #include <SDL.h>
 #include <siren/Export.h>
