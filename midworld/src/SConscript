@@ -3,6 +3,7 @@ from os import path
 Import('baseEnv PREFIX BuildInfo')
 Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenSG SetupOpenGL')
 
+# Listed here are interfaces that only have a .h associated with them
 interfaces = Split("""
    CollisionDetector
    CollisionListener
@@ -13,8 +14,11 @@ interfaces = Split("""
    Weapon
 """)
 
+# Listed here are classes that have a .h and a .cpp file associated with them
 classes = Split("""
    AbstractEntity
+   AmmoBag
+   AmmoCrate
    Application
    BaseProjectileWeapon
    BoundsCollisionDetector
@@ -48,6 +52,8 @@ classes = Split("""
 """)
 
 buildInfo = BuildInfo()
+
+# Listed here are headers that have no associated .cpp file
 buildInfo.addHeaders(map(File, Split("""
    AssaultRifle.h
    BaseBullet.h
@@ -59,6 +65,7 @@ buildInfo.addHeaders(map(File, Split("""
    Version.h
 """)))
 
+# Listed here are sources that have no associated .h file
 buildInfo.addSources(map(File, Split("""
    Main.cpp
 """)))

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-03 05:54:49 $
- * Version:       $Revision: 1.45 $
+ * Date modified: $Date: 2002-10-03 10:47:48 $
+ * Version:       $Revision: 1.46 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,6 +43,7 @@
 #include "GameManager.h"
 
 #include "Enemy.h"
+#include "AmmoCrate.h"
 
 
 namespace mw
@@ -91,6 +92,7 @@ namespace mw
       mScene->addSceneListener(mSceneViewer);
 
       // Add the player into the game
+      /// XXX: If the player gets reaped it will segfault since mPlayer is a member
       add(&mPlayer);
 
       // XXX: Hardcoded to add some initial enemies into the game
@@ -101,6 +103,11 @@ namespace mw
          enemy->setModel("security_droid");
          add(enemy);
       }
+
+      AmmoCrate* crate = new AmmoCrate();
+      crate->setPos(gmtl::Point3f(10, 0, -10));
+      crate->setModel("ammo_crate");
+      add(crate);
 
       mFont = 0;
       mFontRenderer = 0;

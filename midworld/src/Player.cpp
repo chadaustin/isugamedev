@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-10-01 08:38:12 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-10-03 10:47:48 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -187,9 +187,19 @@ namespace mw
       }
    }
 
-   /**
-    * Gets the position at the end of the barrel.
-    */
+
+   AmmoBag&
+   Player::getAmmoBag()
+   {
+      return mAmmoBag;
+   }
+
+   const AmmoBag&
+   Player::getAmmoBag() const
+   {
+      return mAmmoBag;
+   }
+
    gmtl::Vec3f Player::getBarrelEndPos() const
    {
       gmtl::Vec3f barrelEndPos = gmtl::Vec3f( 0, 2, -3 );

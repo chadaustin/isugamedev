@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-10-01 08:38:12 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-10-03 10:47:48 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,7 @@
 #include <map>
 #include <gmtl/Vec.h>
 
+#include "AmmoBag.h"
 #include "AbstractEntity.h"
 #include "Weapon.h"
 #include "cubeGeometry.h"
@@ -81,6 +82,12 @@ public:
     */
    void nextWeapon();
 
+   ///@{
+   /// Gets this player's ammo bag.
+   AmmoBag&       getAmmoBag();
+   const AmmoBag& getAmmoBag() const;
+   ///@}
+
    /**
     * Gets the position at the end of the barrel.
     */
@@ -110,6 +117,9 @@ private:
    std::map<int, int> mLastWeapon;
    std::multimap<int, Weapon*>::iterator mCurrentWeapon;
    int mLastSlot;
+
+   /// This player's ammo bag.
+   AmmoBag mAmmoBag;
 };
 }
 
