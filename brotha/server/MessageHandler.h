@@ -14,7 +14,7 @@ namespace server {
          m_netMgr = netMgr;
       }
 
-      ~MessageHandler() {}
+      virtual ~MessageHandler() {}
 
       virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) = 0;
    protected:
