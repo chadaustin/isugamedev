@@ -6,15 +6,13 @@ import java.net.*;
 
 class ConnectionThread extends Thread {
   private Socket m_socket;
-  private World m_world;
-  private EntityDatabase m_db;
+  private Server m_server;
 
   private static int s_connection = 1;
 
-  ConnectionThread(Socket s, World world, EntityDatabase db) {
-    m_socket = s;
-    m_world  = world;
-    m_db     = db;
+  ConnectionThread(Socket socket, Server server) {
+    m_socket = socket;
+    m_server = server;
   }
 
   private static int getConnection() {
@@ -23,8 +21,12 @@ class ConnectionThread extends Thread {
 
   public void run() {
 
+    m_server.m_connection_list.add(this);
+
     int connection = getConnection();
     System.out.println("Client " + connection + " connected...");
+
+    Entity ent = null;
 
     try {
       ObjectOutputStream os =
@@ -32,19 +34,46 @@ class ConnectionThread extends Thread {
       ObjectInputStream  is =
         new ObjectInputStream (m_socket.getInputStream());
 
+      // get the user's login
       LoginPacket lp = (LoginPacket)is.readObject();
 
-      Entity e = m_db.createEntity(lp.username);
-      m_db.add(e);
-      os.writeObject(new ResponsePacket(e.id));
+      // acknowledge
+      ent = m_server.m_entities.getEntity(lp.username);
+      os.writeObject(new ResponsePacket(ent.id));
 
-      os.writeObject(new WorldPacket(m_world));
-      
-      m_socket.close();
+      // send the world to the user
+      os.writeObject(new WorldPacket(m_server.m_world));
+
+      while (true) {
+        // read a packet
+        Packet p = (Packet)is.readObject();
+
+        if (p instanceof InputPacket) {
+          InputPacket ip = (InputPacket)p;
+          System.out.println("Key event!");
+          if (ip.type == InputPacket.KEY_DOWN) {
+            System.out.println("key press " + ip.key);
+          } else {
+            System.out.println("key release " + ip.key);
+          }
+        } else {
+          // what do we do?  :)
+        }
+      }
     }
     catch (Exception e) {
       System.out.println(e);
     }
+
+    try {
+      m_socket.close();
+    }
+    catch (Exception e) {
+    }
+
+    m_server.m_connection_list.remove(this);
+
+    m_server.m_entities.remove(ent);
 
     System.out.println("Closed connection with client " + connection);
   }

@@ -12,16 +12,16 @@ public class EntityDatabase {
   private List m_database = new ArrayList();
   private int m_id = 0;
 
-  synchronized Entity createEntity(String usename) {
+  synchronized Entity getEntity(String usename) {
     Entity e = new Entity();
     e.id = m_id++;
-    e.transformation = new Matrix4f();
-    e.transformation.setIdentity();
+    m_database.add(e);
     return e;
   }
 
-  synchronized void add(Entity e) {
-    m_database.add(e);
+  synchronized void remove(Entity e) {
+    m_database.remove(e);
+    System.out.println("Removing entity from database");
   }
 
   synchronized void update(int id, Entity e) {
@@ -39,6 +39,11 @@ public class EntityDatabase {
     if (removed) {
       m_database.add(e);
     }
+  }
+
+  synchronized Packet getUpdatePacket() {
+    // XXXaegis fill this packet
+    return new EntityUpdatePacket();
   }
   
 }

@@ -15,6 +15,8 @@ public class Server {
 
   World m_world = new World();
   EntityDatabase m_entities = new EntityDatabase();
+  ConnectionList m_connection_list = new ConnectionList();
+  WorldThread m_world_thread;
 
   /**
    * Cycle in an infinite loop, collecting connections and spawning
@@ -22,12 +24,15 @@ public class Server {
    */
   void run(int port) {
 
-    System.out.println("Starting server...");
+    System.out.println("Starting server on port " + port + "...");
+
+    m_world_thread = new WorldThread(m_connection_list, m_entities);
+    m_world_thread.start();
 
     try {
       ServerSocket s = new ServerSocket(port);
       while (true) {
-        new ConnectionThread(s.accept(), m_world, m_entities).start();
+        new ConnectionThread(s.accept(), this).start();
       }
     }
     catch (Exception e) {

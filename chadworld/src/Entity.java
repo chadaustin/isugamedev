@@ -9,5 +9,6 @@ import javax.vecmath.*;
  */
 public class Entity implements Serializable {
   int id;
-  Matrix4f transformation;
+  Point3f position = new Point3f();
+  Vector3f orientation = new Vector3f();  // should be unit vector
 }
