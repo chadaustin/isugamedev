@@ -1,5 +1,12 @@
 PROJECT = brotha
-dirs = ../../phui ../../examples
+dirs = \
+	../../client \
+	../../game \
+	../../net \
+	../../server \
+	../../sound \
+	../../thread \
+	../../xml
 
 CPP_EXTS = java,h.in,h,cxx,cpp
 HASH_EXTS = in,pl,sh
