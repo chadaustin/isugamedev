@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.h,v $
- * Date modified: $Date: 2002-04-22 07:22:39 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-27 20:39:16 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -68,6 +68,26 @@ namespace phui {
        * @param text       the text item to add to the list box
        */
       void add(const std::string& text);
+
+      /**
+       * Removes the item at the given index.
+       */
+      void remove(unsigned int idx);
+
+      /**
+       * Gets the item at the selected index.
+       *
+       * @param idx     the index of the item to retrieve
+       * @pre idx < numItems
+       */
+      const std::string& get(unsigned int idx) const;
+
+      /**
+       * Gets the index of the selected item.
+       *
+       * @return  the index to the selected item; -1 if nothing is selected
+       */
+      int getSelectedIndex() const;
 
       /**
        * Called whenever a mouse button has been pressed inside this listbox. In

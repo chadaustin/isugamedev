@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-04-26 06:44:13 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-27 20:39:16 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,6 +38,7 @@
 #include <GL/gl.h>
 #include "FontRendererCache.h"
 #include "WidgetContainer.h"
+#include <algorithm>
 
 namespace phui {
 
@@ -104,6 +105,21 @@ namespace phui {
 
    void ListBox::add(const std::string& text) {
       mItems.push_back(text);
+   }
+
+   void ListBox::remove(unsigned int idx) {
+      if (idx <= mItems.size()) {
+         mItems.erase(mItems.begin() + idx - 1);
+      }
+   }
+
+   const std::string& ListBox::get(unsigned int idx) const {
+      assert(idx < mItems.size() && "Out of bounds!");
+      return mItems[idx];
+   }
+
+   int ListBox::getSelectedIndex() const {
+      return mSelectedItem;
    }
 
    void ListBox::onMouseDown(InputButton button, const Point& p) {
