@@ -96,10 +96,12 @@ namespace lr
    {
       mPlayer->update(dt);
       mScoreBoard->update(mPlayer->getScore(), mPlayer->getLives());
+      mLevel->update(dt);
    }
 
    bool GameState::switchStates()
    {
+	   return false;
    }
 
    void GameState::onKeyPress(SDLKey sym, bool down)

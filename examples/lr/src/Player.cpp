@@ -19,7 +19,8 @@ namespace lr
       realPos = 32;
       mTextureState = run1;
 
-      keyup = keydown = keyleft = keyright = false;
+      // init all the keys to not down
+      keyup = keydown = keyleft = keyright = burnright = burnleft = false;
 
       // create the textures
       run1Image = Texture::create(std::string("lr1.png"));
@@ -37,6 +38,7 @@ namespace lr
 
       // set the score to 0
       score = 0;
+
    }
 
    int Player::getLives()
@@ -161,12 +163,12 @@ namespace lr
 
       if(burnright)
       {
-//         mLevel->setEmpty(getGridPos()+1, getGridHeight()-1);
+         mLevel->burn(getGridPos()+1, getGridHeight()-1);
 
       }
       if(burnleft)
       {
-  //       mLevel->setEmpty(getGridPos()-1, getGridHeight()-1);
+         mLevel->burn(getGridPos()-1, getGridHeight()-1);
       }
    }
 

@@ -2,12 +2,31 @@
 #define LR_LEVEL_H
 
 #include <SDL_opengl.h>
+#include <list>
 
 #include "Texture.h"
 #include "Types.h"
 
 namespace lr
 {
+   /**
+    * helper class to deal with when the player burns a block out 
+    */
+   class Block
+   {
+   public:
+      Block(int p, int h)
+      {
+         time = 0;
+         pos = p;
+         height = h;
+      }
+      ~Block(){}
+      int pos;
+      int height;
+      float time; // the time past since the block was last done anything with
+   };
+
    class Level{
    public:
 
@@ -36,7 +55,27 @@ namespace lr
        */
       void setEmpty(const int& x, const int& y);
 
+      /** 
+       * this method sets the given location in the levelgrid to be a brick
+       */
+      void setBrick(const int& x, const int& y);
+
+      /** 
+       * mark a position to be burned - that is removed temporarily by being placed 
+       * in the removedBlocks list
+       */
+      void burn(const int& x, const int& y);
+
       
+      /**
+       * the update method is used to update the level when bricks are being 
+       * removed or added.
+       */
+      void update(float dt);
+
+      /** 
+       * draw simply draws the level to the screen
+       */
       void draw();
 
 
@@ -60,6 +99,11 @@ namespace lr
        * the number of money bags in the level
        */
       int numBags;
+
+      /**
+       * we maintain a list of blocks that have been removed
+       */
+      std::list<Block*> removedBlocks;
 
    };
 

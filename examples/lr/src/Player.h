@@ -10,7 +10,7 @@
 
 namespace lr
 {
-
+   // forward declarations
    class Level;
    class Texture;
 
@@ -64,7 +64,7 @@ namespace lr
       int getGridPos(){ return (int)realPos/32; }
       int getGridHeight(){ return (int)realHeight/32; }
 
-      
+           
       /**
        * this is the keypress handler, it stores which keys were pressed since
        * the last update that we went through
@@ -76,14 +76,14 @@ namespace lr
        * here are all the methods for collision detection and figureing out what
        * state to put the player in
        */
-      bool solidUnder();
-      bool onWire();
-      bool onLadder();
-      bool brickRight();
-      bool brickLeft();
-      bool ladderUnder();
-      bool brickUnder();
-      bool isMoney();
+      bool solidUnder();   // returns true if there is something that we can walk on under us
+      bool onWire();       // returns true if there is a wire where we are at
+      bool onLadder();     // returns true if we are on a ladder 
+      bool brickRight();   // returns true if there are bricks directly to our right
+      bool brickLeft();    // returns true if there are bricks directly to our left
+      bool ladderUnder();  // returns true if there is a ladder under us
+      bool brickUnder();   // returns true if there is bricks under us
+      bool isMoney();      // returns true if we are touching a money bag.
       
       /** 
        * method to return the integer number of lives this player currently has
@@ -114,10 +114,10 @@ namespace lr
        */
       void fall(float dt)
       {
-         realHeight-=(64*dt);
+         realHeight-=(128*dt);
       }
       
-      
+      // an enumeration to determin what textures we should be drawing
       textureState mTextureState;		
                               //: state to flip textures around
                               //  0 = running
@@ -142,6 +142,7 @@ namespace lr
       /** variables for update that get set in handleKeyPress - blah */
       bool keyup, keydown, keyleft, keyright, burnright, burnleft;
 
+      /** float to help us with timing issues with textures */
       float initTime;
    };
 

@@ -132,7 +132,37 @@ int main()
    return 0;
 }
 
+#ifdef WIN32
+
+#include <windows.h>
+
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+{
+   // set the current path to where the executable resides
+   char filename[MAX_PATH];
+   GetModuleFileName(GetModuleHandle(0), filename, MAX_PATH);
+
+   // remove the basename
+   char* backslash = strrchr(filename, '\\');
+   if (backslash)
+   {
+      *backslash = 0;
+      SetCurrentDirectory(filename);
+   }
+   // call our own main function from in here
+   return main();
+}
+
 void error(const std::string& error)
 {
-   std::cerr << error << std::endl;
+  MessageBox(NULL, error.c_str(), "Racer Error", MB_ICONERROR);
 }
+
+#else
+
+void error(const std::string& error)
+{
+  std::cerr << error << std::endl;
+}
+
+#endif
