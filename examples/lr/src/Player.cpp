@@ -57,6 +57,8 @@ namespace lr
 
    void Player::update(float dt)
    {
+      if(dt>(1.0/128.0))
+         dt=(1.0/32.0);
       textureState tempState;
       bool updateTex=false;
       // if it's not solid under us and we're not on a wire and we're not on a
@@ -204,6 +206,7 @@ namespace lr
    
    bool Player::solidUnder()
    {
+      std::cout << "player: " << (int)realHeight%32 << "  " << (int)realPos%16 << std::endl;
       // if the block below us is a ladder or brick and we are at the bottom of
       // our current block then return true else return false
       if((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==brick) || (mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==ladder) && (int)realHeight%32==0) 
