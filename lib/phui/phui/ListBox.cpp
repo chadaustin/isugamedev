@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-04-29 02:13:03 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-30 04:23:15 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,6 +42,7 @@
 #include "FontRendererCache.h"
 #include "WidgetContainer.h"
 #include <algorithm>
+#include <assert.h>
 
 namespace phui {
 
