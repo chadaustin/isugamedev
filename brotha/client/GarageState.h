@@ -35,6 +35,8 @@ namespace client {
       phui::Window* mDealerWnd;
       phui::ListBox* mCarsList;
       phui::ListBox* mCarsOwnedList;
+      phui::Button* mBuyBtn;
+      phui::Button* mSellBtn;
 
       phui::Window* mChopShopWnd;
    };
