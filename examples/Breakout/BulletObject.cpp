@@ -1,13 +1,13 @@
 // Levi VanOort -- lvanoort@aol.com 2/4/2002
 
-#include <gl/glut.h>
+#include <GL/glut.h>
 #include <stdlib.h>
 #include "MyObject.h"
 #include "BulletObject.h"
 
 extern GLuint bullet[1];
 extern int dt;
-extern WindowSizeY;
+extern int WindowSizeY;
 extern bool drawtextures;
 
 

@@ -1,13 +1,13 @@
 // Levi VanOort -- lvanoort@aol.com 2/4/2002
 
-#include <gl/glut.h>
+#include <GL/glut.h>
 #include <stdlib.h>
 #include "MyObject.h"
 #include "BlockObject.h"
 
 // External Globals/////
 extern GLuint block[1];
-extern NumberOfBlocks;
+extern int NumberOfBlocks;
 extern bool drawtextures;
 
 ////////////////////////
