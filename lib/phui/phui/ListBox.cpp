@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-12-31 04:24:58 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-12-31 06:24:07 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,7 +39,6 @@
  ************************************************************** phui-cpr-end */
 #include "ListBox.h"
 #include <GL/gl.h>
-//#include "FontRendererCache.h"
 #include "WidgetContainer.h"
 #include <algorithm>
 #include <assert.h>
@@ -58,6 +57,7 @@ namespace phui {
       const Size& size = getSize();
       const int width = size.getWidth();
       const int height = size.getHeight();
+      gltext::FontPtr font = getFont();
 
       // draw the box background
       glColor(getBackgroundColor());
@@ -71,40 +71,41 @@ namespace phui {
       // draw text
       glColor(getForegroundColor());
 
- /*     FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP);
+      renderer->setFont(font.get());
 
-      const Insets& i = getInsets();
-//      int w = width  - i.getLeft() - i.getRight();
-//      int h = height - i.getTop()  - i.getBottom();
-      unsigned int fontHeight = renderer->getHeight();
-//      unsigned int fontWidth = renderer.getWidth(mText);
-      unsigned int fontAscent = fontHeight - renderer->getDescent();
+      int fontHeight = font->getAscent() + font->getDescent();
+      int fontLineGap = font->getLineGap();
+      int itemHeight = fontHeight+fontLineGap;
 
-      int textRectX = i.getLeft();
-      int textRectY = i.getTop();
-//      int textRectW = width  - (i.getRight()  + textRectX);
-//      int textRectH = height - (i.getBottom() + textRectY);
-
-      int fontX = textRectX;
-      int fontY = textRectY + fontAscent;
-
-      for (int x = 0; x < int(mItems.size()); ++x) {
-         if (mSelectedItem == x) {
+      glPushMatrix();
+      glTranslatef(3.0,0.0,0.0);
+      for(int x = 0; x < int(mItems.size()); ++x)
+      {
+         glTranslatef(0.0, float(fontLineGap + fontHeight), 0.0);
+         if(mSelectedItem == x)
+         {
             // draw the selected box
             glColor(getForegroundColor());
+            glPushMatrix();
+            glTranslatef(-3.0, float(-(fontHeight+2)), 0.0);
             glBegin(GL_TRIANGLE_FAN);
-               glVertex2i(0,     fontHeight*x);
-               glVertex2i(width, fontHeight*x);
-               glVertex2i(width, fontHeight*(x+1));
-               glVertex2i(0,     fontHeight*(x+1));
+               glVertex2i(0,     0);//fontHeight*x);
+               glVertex2i(width, 0);//fontHeight);//*x);
+               glVertex2i(width, fontHeight+3);//*(x+1));
+               glVertex2i(0,     fontHeight+3);//*(x+1));
             glEnd();
             glColor(getBackgroundColor());
+            glPopMatrix();
          }
-         renderer->draw(mItems[x], fontX, fontY+(x*fontHeight));
-         if(mSelectedItem == x) {
+
+         renderer->render(mItems[x].c_str());
+         if(mSelectedItem == x) 
+         {
             glColor(getForegroundColor());
          }
-      }*/
+      }
+      glPopMatrix();
    }
 
    void ListBox::add(const std::string& text) {
@@ -135,17 +136,25 @@ namespace phui {
       return mSelectedItem;
    }
 
-   void ListBox::onMouseDown(InputButton button, const Point& p) {
-    /*  if (button == BUTTON_LEFT) {
-         FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
-         unsigned int selectedIdx = (p.y-(p.y%renderer->getHeight()))/renderer->getHeight();
+   void ListBox::onMouseDown(InputButton button, const Point& p) 
+   {
+      if (button == BUTTON_LEFT) 
+      {
+         const Size& size = getSize();
+         const int height = size.getHeight();
+         gltext::FontPtr font = getFont();
+
+         unsigned int itemHeight = font->getAscent() + font->getDescent() + font->getLineGap();
+        
+         unsigned int selectedIdx = unsigned int((p.y-(p.y%itemHeight))/double(itemHeight));
          // Check that the computed index isn't outside our list of values
-         if (selectedIdx < mItems.size()) {
+         if (selectedIdx < mItems.size()) 
+         {
             mSelectedItem = selectedIdx;
             std::cout<<"Selected index "<<mSelectedItem<<"/"<<mItems.size()<<std::endl;
             fireListSelectionEvent(mSelectedItem);
          }
-      }*/
+      }
    }
 
    void ListBox::addListSelectionListener(ListSelectionListener* listener) {
