@@ -246,6 +246,26 @@ public:
    {
       ::glutWarpPointer( width / 2, height / 2 );
       
+      
+      ///////////
+      // PHYSICS
+      ///////////
+      ship.update( dt );
+
+      for (int x = 0; x < roids.size(); ++x)
+      {
+         roids[x].update( dt );
+      }  
+      for (int x = 0; x < projs.size(); ++x)
+      {
+         projs[x].update( dt );
+      }
+      
+      
+      ///////////
+      // INPUT: 
+      ///////////
+      
       // find out what dir, the ship is pointing.
       // - flip the x axis to support right-hand rule
       // - add 90deg so that the identity rotation faces out of the screen
@@ -260,10 +280,8 @@ public:
       shipRight[1] = 0;                                           
       shipRight[2] = -sinf( Math::deg2rad( ship.rotation ) ); 
       
+      float shipUp[3] = { 0.0f, 1.0f, 0.0f };
       
-      ///////////
-      // INPUT: 
-      ///////////
       
       // handle button input
       // poll each button state, do appropriate behaviour
@@ -281,7 +299,20 @@ public:
          Projectile proj;
          static float flip_flop = -1;
          flip_flop = -flip_flop;
-         proj.setPos( ship.position[0] + 0.4f * flip_flop, ship.position[1], ship.position[2] );
+         
+         // local position on the ship
+         float local_pos[3] = { 0.2f * flip_flop, -0.2f, 0.4f };
+         
+         // convert the local position to world coord
+         float world_offset[3];
+         world_offset[0] = shipRight[0] * local_pos[0] + shipUp[0] * local_pos[1] + shipForward[0] * local_pos[2];
+         world_offset[1] = shipRight[1] * local_pos[0] + shipUp[1] * local_pos[1] + shipForward[1] * local_pos[2];
+         world_offset[2] = shipRight[2] * local_pos[0] + shipUp[2] * local_pos[1] + shipForward[2] * local_pos[2];
+         
+         // set the projectile start position (relative to the ships world position)
+         proj.setPos( ship.position[0] + world_offset[0], 
+                      ship.position[1] + world_offset[1], 
+                      ship.position[2] + world_offset[2] );
          proj.setVel( shipForward[0] * projVelocity, 
                       shipForward[1] * projVelocity, 
                       shipForward[2] * projVelocity );
@@ -318,19 +349,7 @@ public:
       
       
       
-      ///////////
-      // PHYSICS
-      ///////////
-      ship.update( dt );
-
-      for (int x = 0; x < roids.size(); ++x)
-      {
-         roids[x].update( dt );
-      }  
-      for (int x = 0; x < projs.size(); ++x)
-      {
-         projs[x].update( dt );
-      }
+      
       
       
          
