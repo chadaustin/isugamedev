@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-04-29 02:52:39 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-05-01 05:52:04 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,13 +47,13 @@ namespace game {
    const Player::UID Player::UNKNOWN = 0;
 
    Player::Player()
-      : mName("Player"), mKills(0), mBrake(0), mTurnAngle(0)
+      : mName("Player"), mPass(""), mKills(0), mBrake(0), mTurnAngle(0)
    {
       mUID = UIDMgr::getInstance().reserveID();
    }
 
    Player::Player( const std::string& name )
-      : mName(name), mKills(0), mBrake(0), mTurnAngle(0)
+      : mName(name), mPass(""), mKills(0), mBrake(0), mTurnAngle(0)
    {
       mUID = UIDMgr::getInstance().reserveID();
    }
@@ -104,6 +104,14 @@ namespace game {
 
    void Player::setName( const std::string& name ){
       mName = name;
+   }
+
+   const std::string& Player::getPassword() const {
+      return mPass;
+   }
+
+   void Player::setPassword(const std::string& pass){
+      mPass = pass;
    }
 
    void Player::addCar(Car* car){

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-29 02:13:43 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-05-01 05:52:04 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -182,6 +182,18 @@ namespace game {
        */
       void setName(const std::string& name);
 
+      /**
+       * Gets the password for this player.
+       */
+      const std::string& getPassword() const;
+
+      /**
+       * Sets the password for this player.
+       *
+       * @param pass    the new password for this player
+       */
+      void setPassword(const std::string& pass);
+
       virtual PRUint32 getSize();
       virtual void serialize(net::OutputStream& os);
       virtual void deserialize(net::InputStream& os);
@@ -192,6 +204,9 @@ namespace game {
 
       /// This player's name
       std::string mName;
+
+      /// This player's password
+      std::string mPass;
 
       /// This player's velocity
       gmtl::Vec3f mVelocity;
