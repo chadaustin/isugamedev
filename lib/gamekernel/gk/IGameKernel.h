@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameKernel.h,v $
-// Date modified: $Date: 2002-03-22 02:04:27 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-03-22 02:20:14 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -77,7 +77,7 @@ public:
 
    /**
     * Shuts down the application and the system driver. The kernel will stop and
-    * the startup() call will return. Call this to terminate your application.
+    * the run() call will return. Call this to terminate your application.
     */
    virtual void shutdown() = 0;
 
@@ -93,11 +93,16 @@ public:
    /**
     * Warps the mouse pointer to the given (x,y) position in your app's window.
     * x and y are relative to your game's open window.
+    *
+    * @param x    the x position to warp the mouse to
+    * @param y    the y position to warp the mouse to
     */
    virtual void warpMouse( int x, int y ) = 0;
 
    /**
-    * Show/hide the mose cursor.
+    * Shows or hides the mouse cursor.
+    *
+    * @param show    true to show the mouse cursor, false to hide it
     */
    virtual void showMouse( bool show ) = 0;
 
@@ -107,13 +112,21 @@ public:
    virtual void fullscreen( int ctx = 0 ) = 0;
 
    /**
-    * Gets the size of your app's window.
+    * Gets the size of your application's window.
+    *
+    * @param width   filled with the width of the window
+    * @param height  filled with the height of the window
+    * @param ctx     the context of the window you want to query
     */
    virtual void getWindowSize( int& width, int& height, int ctx = 0 ) = 0;
 
    /**
-    * Sets the size of the window. Use this to restore after a fullscrreen or to
+    * Sets the size of the window. Use this to restore after a fullscreen or to
     * init the window size in your app's onAppInit().
+    *
+    * @param width   the new width of the window
+    * @param height  the new height of the window
+    * @param ctx     the context of the window you want to query
     */
    virtual void setWindowSize( int width, int height, int ctx = 0 ) = 0;
 
@@ -122,18 +135,14 @@ public:
     * onAppInit() with your app's name because some system drivers can't set the
     * window title after onAppInit().
     *
-    * @todo consider moving this function to the App baseclass.
-    *       this way if more than one app is registered, then
-    *       each can be named.
+    * @param name    the name of your app
     */
    virtual void setName( const std::string& name ) = 0;
 
    /**
-    * Get the name of the application.
+    * Get the name of the running application.
     *
-    * @todo consider moving this function to the App baseclass.
-    *       this way if more than one app is registered, then
-    *       each can be named.
+    * @return  the name of the running application
     */
    virtual const std::string& name() const = 0;
 
