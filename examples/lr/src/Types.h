@@ -4,6 +4,11 @@
 namespace lr
 {
  
+   /** an enum for the various different orientations that the player can be in
+    * relative to the badguy.
+    */
+   enum playerRelativePos { upright, rightup, downright, rightdown, upleft, leftup, downleft, leftdown};
+   
    /**
     * an enumeration for the various types of entities that could be in a slot
     * in the level

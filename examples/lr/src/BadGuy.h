@@ -103,7 +103,6 @@ namespace lr
          realHeight = initHeight;
       }
 
-
            
       /**
        * this is the keypress handler, it stores which keys were pressed since
@@ -147,6 +146,15 @@ namespace lr
        * fall just drops the player a certain amount everyframe (divisible by 2)
        */
       void fall(float dt);
+      
+      /**
+       * getRelativeDirection returns one of the enumerated types for
+       * playerRelativePos which can then be used to select an appropriate
+       * action for the badguy.  The return type is one of eight types which
+       * have a two-direction name.  The first direction is the one that we are
+       * closer in.  
+       */
+      playerRelativePos getRelativeDirection();
       
       // an enumeration to determin what textures we should be drawing
       textureState mTextureState;		
@@ -280,7 +288,11 @@ namespace lr
       bool isAtGoal()
       {
          if(getGridPos()==goal->pos && getGridHeight()==goal->height || atGoal==true)
+         {
+            atGoal=true;
             return true;
+         }
+            
          return false;
       }
 

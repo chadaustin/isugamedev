@@ -57,7 +57,6 @@ namespace lr
       for (std::list<Block*>::iterator itr = removedBlocks.begin(); itr != removedBlocks.end(); itr++)
       {
          (*itr)->time+=dt;
-         std::cout << "time: " << (*itr)->time << "\ndead?: " << mPlayer->amDead() << "\nnextLevel: " << nextLevel << std::endl;
          if((*itr)->time>3.0)
          {
             setBrick((*itr)->pos, (*itr)->height);
