@@ -23,14 +23,11 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2003-02-21 08:48:46 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-21 09:11:27 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** barfight-cpr-end */
-#include <memory>
-#include <stdexcept>
-#include <vector>
 #include <gmtl/EulerAngle.h>
 #include <gmtl/Math.h>
 #include <siren/siren.h>
@@ -68,6 +65,9 @@ namespace bar
       mAnims.push_back("WORK1");
       mAnims.push_back("WORK2");
 
+      // Create the texture to hold the motion blur
+      mBlurTexture = new siren::Texture(512, 512, 3, GL_RGB);
+
       // init the GL state
       glEnable(GL_DEPTH_TEST);
       glEnable(GL_TEXTURE_2D);
@@ -78,6 +78,7 @@ namespace bar
    GameState::~GameState()
    {
       std::cout<<"Killing off GameState"<<std::endl;
+      delete mBlurTexture;
    }
 
    void
@@ -92,13 +93,31 @@ namespace bar
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
 
-      glPushMatrix();
-         // Draw the avatar
-         glTranslatef(0, -5.0f, -5.0f);
-         mAvatar->render();
-      glPopMatrix();
+      // Redraw the current blur texture
+      glPushAttrib(GL_VIEWPORT_BIT);
+         // Change the viewport to match the size of the texture
+         glViewport(0, 0, mBlurTexture->getTexWidth(), mBlurTexture->getTexHeight());
+         drawMotionBlur();
+         drawScene();
 
-      // Check if we screwed up our GL code somewhere
+         // Copy the contents of the frame buffer into our blur texture
+         mBlurTexture->bind();
+         glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0,
+                          mBlurTexture->getTexWidth(), mBlurTexture->getTexHeight(),
+                          0);
+         mBlurTexture->unbind();
+
+         // Clear the frame buffer again
+         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      glPopAttrib();
+
+      // Blend in the motion blur with the background color
+      drawMotionBlur();
+
+      // Draw the scene on top of motion blur
+      drawScene();
+
+      // Check to see if we caused problems with our OpenGL code
       if (glGetError() != GL_NO_ERROR)
       {
          std::cerr << "I fucked up my GL State." << std::endl;
@@ -108,8 +127,10 @@ namespace bar
    void
    GameState::update(float dt)
    {
+      // Update the avatar
       mAvatar->update(dt);
 
+      // Calculate the FPS
       ++mNumFrames;
       mFrameTime += dt;
       if (mFrameTime > 0.5f)
@@ -156,5 +177,58 @@ namespace bar
 
       SDL_WarpMouse(center[0], center[1]);
       mIgnoreMouseMove = true;
+   }
+
+   void
+   GameState::drawMotionBlur() const
+   {
+      glPushAttrib(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+         // Turn off depth testing so that we blend over the screen
+         glDisable(GL_DEPTH_TEST);
+
+         // Enable blending
+         glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+         glEnable(GL_BLEND);
+
+         // Decrease alpha value of the blend by 10% so that it will fade
+         glColor4f(1, 1, 1, 0.90f);
+
+         // Switch to an orthograhic view
+         glMatrixMode(GL_PROJECTION);
+         glPushMatrix();
+            glLoadIdentity();
+            gluOrtho2D(0, getWidth(), getHeight(), 0);
+
+            glMatrixMode(GL_MODELVIEW);
+            glPushMatrix();
+            glLoadIdentity();
+
+            // Blend the texture into the screen
+            mBlurTexture->bind();
+            glBegin(GL_QUADS);
+               glTexCoord2f(0, 1); glVertex2f(0, 0);
+               glTexCoord2f(0, 0); glVertex2f(0, getHeight());
+               glTexCoord2f(1, 0); glVertex2f(getWidth(), getHeight());
+               glTexCoord2f(1, 1); glVertex2f(getWidth(), 0);
+            glEnd();
+            mBlurTexture->unbind();
+
+            glPopMatrix();
+            glMatrixMode(GL_PROJECTION);
+
+         // Switch back to the old projection
+         glPopMatrix();
+         glMatrixMode(GL_MODELVIEW);
+      glPopAttrib();
+   }
+
+   void
+   GameState::drawScene() const
+   {
+      glPushMatrix();
+         // Draw the avatar
+         glTranslatef(0, -5.0f, -5.0f);
+         mAvatar->render();
+      glPopMatrix();
    }
 }

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2003-02-21 08:48:46 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-21 09:11:29 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** barfight-cpr-end */
@@ -34,6 +34,9 @@
 
 namespace bar
 {
+   /**
+    * This great state is where the game is played.
+    */
    class GameState : public siren::State
    {
    public:
@@ -41,14 +44,30 @@ namespace bar
       ~GameState();
 
       void draw() const;
+
       void update(float dt);
       void onKeyPress(SDLKey sym, bool down);
       void onMouseMove(int x, int y);
 
    private:
+      /**
+       * Blends the motion blur texture onto the scene.
+       */
+      void drawMotionBlur() const;
+
+      /**
+       * Draws the scene. This is separate to allow for multi-pass rendering
+       * techniques such as motion blur.
+       */
+      void drawScene() const;
+
+   private:
       siren::Avatar* mAvatar;
       unsigned int mAnim;
       std::vector<std::string> mAnims;
+
+      /// The texture containg the motion blur affect.
+      siren::Texture* mBlurTexture;
 
       /// Do we need to ignore the next mouse move because of the mouse warp?
       bool mIgnoreMouseMove;
