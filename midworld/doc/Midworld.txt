@@ -1,0 +1,57 @@
+Midworld
+Design Document
+
+1.  Overview
+
+	1.1  Game
+	
+	Midworld is a 2D shooter game sort of like Target Quake.  The player 
+	will run around and shoot things using a crosshair that stands out in 
+	front of the player.  The view will be top-down, and the terrain will
+	not be tile based.  The player will run around and shoot things in a
+	post nuclear world that contains a retro fifties/Gattaca style.  
+
+2.  Objective
+
+	2.1  To blow things up with a multitude of weapons and items.
+	2.2  To enjoy 2.1
+
+3.  Graphics
+
+	The graphics in Midworld will not be tile based, but will instead be
+	pieces of loaded images merged into a map, or a randomly generated 
+	terrain map.  The camera will be top down, and a crosshair will stand 
+	out in front of the player.  The player will move the character by 
+	acceleration and deceleration keys and will turn the character by 
+	rotating the crosshair with the mouse.  
+
+4.  Weapons
+
+	4.1  Homing Missiles
+	
+	Missiles that home in on an enemy.  Ideas were to make the missiles
+	shoot up towards the camera first, and then have them streak after the
+	oppenent in a circular fashion, or to have the rotate around the player
+	first, and then swirl around on the screen after the opponent.
+	
+	4.2  Grenades
+	
+	Grenades are lobbed by the player in the air and bounce a few times on
+	the ground before detonating.
+	
+	4.3  Plasma
+	
+	Plasma shoots a plasma ball towards the enemies; nothing special here,
+	just a standard shot.
+
+	4.4  Spread Shot
+	
+	Think Contra :)  The spread shot will shoot several smaller plasma 
+	shots in a spread formation.  
+	
+5.  Controls
+
+	The controls will move both the character and the crosshair.  The
+	player can rotate the crosshair, and move the character forward and 
+	backward.  Additionally, the player will be able to make the character
+	strafe to the left and to the right.  
