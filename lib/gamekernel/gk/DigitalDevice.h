@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalDevice.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-09 21:12:50 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -55,6 +55,16 @@ public:
    {
       Input* in = TypedDevice<DigitalInput>::getInput( x );
       return dynamic_cast<DigitalInput*>( in );
+   }
+
+   /**
+    * Gets the number of buttons supported by this device.
+    *
+    * @return  the number of buttons on the device
+    */
+   int numButtons() const
+   {
+      return numInputs();
    }
 };
 

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-02-09 21:12:50 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -55,6 +55,16 @@ public:
    {
       Input* in = TypedDevice<AnalogInput>::getInput( x );
       return dynamic_cast<AnalogInput*>( in );
+   }
+
+   /**
+    * Gets the number of axes on this analog device.
+    *
+    * @return  the number of axes
+    */
+   int numAxes() const
+   {
+      return numInputs();
    }
 };
 
