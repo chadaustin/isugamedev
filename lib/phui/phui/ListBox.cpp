@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-04-30 04:23:15 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-03 07:35:44 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -113,7 +113,11 @@ namespace phui {
 
    void ListBox::remove(unsigned int idx) {
       if (idx <= mItems.size()) {
-         mItems.erase(mItems.begin() + idx - 1);
+         mItems.erase(mItems.begin() + idx);
+
+         if(idx == mSelectedItem) {
+            mSelectedItem = -1;
+         }
       }
    }
 
