@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SnowSystem.h,v $
- * Date modified: $Date: 2002-11-14 09:39:05 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-14 13:11:28 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  ********************************************************** midworld-cpr-end */
 #ifndef MW_SNOW_SYSTEM_H
@@ -43,7 +43,7 @@ namespace mw
      void update(float dt);
 
    private:
-     enum { SNOWFLAKE_COUNT = 6000 };
+     enum { SNOWFLAKE_COUNT = 1500 };
 
      struct Particle
      {
