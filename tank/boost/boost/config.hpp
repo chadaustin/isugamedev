@@ -379,7 +379,7 @@
 #   elif defined(__SGI_STL_ITERATOR)
 #     define BOOST_NO_STD_ITERATOR // No std::iterator in this case
 #   elif defined(_CPPLIB_VER) && (_CPPLIB_VER >= 306)
-#     // full dinkumware 3.06 and above
+     // full dinkumware 3.06 and above
 #     define BOOST_NO_HASH
 #     define BOOST_NO_STD_ITERATOR_TRAITS
 #     if !_GLOBAL_USING   // can be defined in yvals.h
