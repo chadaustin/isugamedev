@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageDataMessage.h,v $
- * Date modified: $Date: 2002-05-01 23:35:19 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-03 05:01:09 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -89,8 +89,8 @@ namespace net {
 
                retVal += sizes::getVarSize((*cl)[x]->getName());
                for(unsigned int y=0;y<ml->size();++y) {
-                  retVal += sizes::getVarSize((*ml)[x]->getName()) +
-                           sizes::getVarSize((PRUint32)(*ml)[x]->getLevel());
+                  retVal += sizes::getVarSize((*ml)[y]->getName()) +
+                           sizes::getVarSize((PRUint32)(*ml)[y]->getLevel());
                }
                retVal += sizes::getVarSize((PRUint32)0);
             }
