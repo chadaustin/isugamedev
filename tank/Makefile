@@ -1,7 +1,5 @@
 #!gmake
 # How to build?  Use gnu-make (type gmake)
-# NOTE! some systems might not have gmake, only make.. 
-#       IRIX, LiNUX, and Win32 has gmake available for sure.
 
 # You'll need to edit this file .
 # fill in the glut search paths, and uncomment the appropriate compiler.
