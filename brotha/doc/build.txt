@@ -14,3 +14,10 @@ Windows:  Cygwin comes with a Python distribution:  cygwin.com
 
 www.scons.org
 
+4) GET GMTL
+
+www.vrac.iastate.edu/~bscott/gmtl.tar.gz
+
+5) GET OPEN SCENE GRAPH
+
+www.openscenegraph.org
