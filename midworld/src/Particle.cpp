@@ -24,8 +24,6 @@ namespace mw
 
    void Particle::draw()
    {
-      const gmtl::Point3f& pos = getPos();
-
       glBegin(GL_QUADS);
          glTexCoord2d(1,1); glVertex3f(mSize, mSize, 0); // Top right
          glTexCoord2d(0,1); glVertex3f(-mSize, mSize, 0); // Top left
