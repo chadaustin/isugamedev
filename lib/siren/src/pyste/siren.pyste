@@ -21,8 +21,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: siren.pyste,v $
-# Date modified: $Date: 2003-05-20 07:16:14 $
-# Version:       $Revision: 1.3 $
+# Date modified: $Date: 2003-05-20 07:41:58 $
+# Version:       $Revision: 1.4 $
 # -----------------------------------------------------------------
 #
 # *************************************************************** siren-cpr-end
@@ -40,5 +40,15 @@ State = Class('siren::State', 'siren/State.h')
 StateFactory = Class('siren::StateFactory', 'siren/StateFactory.h')
 set_policy(StateFactory.getInstance, return_value_policy(reference_existing_object))
 StateCreator = Class('siren::StateCreator', 'siren/StateFactory.h')
+
+SoundManager = Class('siren::SoundManager', 'siren/sound/SoundManager.h')
+set_policy(SoundManager.getJukebox, return_internal_reference())
+set_policy(SoundManager.getSoundEffectManager, return_internal_reference())
+
+Jukebox = Class('siren::Jukebox', 'siren/sound/Jukebox.h')
+set_policy(Jukebox.getTrack, return_internal_reference())
+
+SoundEffectManager = Class('siren::SoundEffectManager', 'siren/sound/SoundEffectManager.h')
+
 
 #ResourceManager = Class('siren::ResourceManager', 'siren/ResourceManager.h')
