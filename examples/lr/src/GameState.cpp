@@ -172,10 +172,11 @@ namespace lr
          mPlayer->setLives(3);
          return 1;
       }
-      if(mPlayer->getLives()==0)
+      if(mPlayer->getGameOver())
       {
          mPlayer->setScore(0);
          mPlayer->setLives(3);
+         mPlayer->reset();
          return 1;
       }
 	   return 0;

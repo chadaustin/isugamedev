@@ -132,12 +132,37 @@ namespace lr
       void caught()
       {
          die=true;
+         dieTime=0.0;
       }
 
       bool amDead()
       {
          return die;
       }
+
+      bool getGameOver()
+      {
+         return changeState;
+      }
+
+      void reset()
+      {
+         initTime = 0.0;
+
+         // set lives to 1
+         numLives = 3;
+
+         // set the score to 0
+         score = 0;
+
+         die=false;
+         dieTime=3.3;
+
+         changeState=false;
+         gameOver=false;
+         gameOverTime=0.0;
+      }
+         
       
    private:
       float realPos;    // players real position on the screen from 0 to 1024
@@ -146,7 +171,7 @@ namespace lr
       float initHeight;
       
       playerState mState;			// players current state either hang1,2, climb1,2, or run1,2,
-      Texture* run1leftImage, *run2leftImage, *run3leftImage, *run1rightImage, *run2rightImage, *run3rightImage, *climb1Image, *climb2Image, *hang1rightImage, *hang2rightImage, *hang3rightImage, *hang1leftImage, *hang2leftImage, *hang3leftImage, *dieTexture;
+      Texture* run1leftImage, *run2leftImage, *run3leftImage, *run1rightImage, *run2rightImage, *run3rightImage, *climb1Image, *climb2Image, *hang1rightImage, *hang2rightImage, *hang3rightImage, *hang1leftImage, *hang2leftImage, *hang3leftImage, *dieTexture, *gameOverTexture;
       
       /** 
        * now we create a currentTexture pointer that just points at the one we
@@ -182,6 +207,9 @@ namespace lr
 
       bool die;
       float dieTime;
+      bool gameOver;
+      float gameOverTime;
+      bool changeState;
       
       /** players score */
       int score;

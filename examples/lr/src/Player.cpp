@@ -18,6 +18,10 @@ namespace lr
       {
          dieTexture->drawRectangle(256,512,768,256);
       }
+      if(gameOver)
+      {
+         gameOverTexture->drawRectangle(256,512,768,256);
+      }
    }
 
    Player::Player(Level& theLevel){
@@ -45,6 +49,7 @@ namespace lr
       hang2rightImage = Texture::create(std::string("lr-hang2-right.png"));
       hang3rightImage = Texture::create(std::string("lr-hang3-right.png"));
       dieTexture = Texture::create(std::string("die.png"));
+      gameOverTexture = Texture::create(std::string("gameOver.png"));
       
 
       currentTexture = run1rightImage;
@@ -57,7 +62,11 @@ namespace lr
       score = 0;
 
       die=false;
-      dieTime=0.0;
+      dieTime=3.3;
+
+      changeState=false;
+      gameOver=false;
+      gameOverTime=0.0;
 
    }
 
@@ -121,8 +130,21 @@ namespace lr
       {
          die=false;
       }
-      
-
+      std::cout << "mid now" << std::endl;
+      if(numLives==0)
+      {
+         gameOver=true;
+         die=false;
+      }
+      if(gameOverTime>3)
+      {
+         changeState=true;
+      }
+      if(gameOver==true)
+      {
+         gameOverTime+=dt;
+         return;
+      }
       
       
       if(dt>(1.0/128.0))
