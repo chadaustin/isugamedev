@@ -61,16 +61,18 @@ def ParseConfig(env, command, options):
       option = arg[1:2]
       if switch == '-':
          if option == 'I':
-            env['CPPPATH'].append(arg[2:])
+            env.Append(CPPPATH = [arg[2:]])
          elif option == 'L':
-            env['LIBPATH'].append(arg[2:])
+            env.Append(LIBPATH = [arg[2:]])
          elif option == 'l':
-            env['LIBS'].append(arg[2:])
+            env.Append(LIBS = [arg[2:]])
+         elif arg[0:11] == '-Wl,-rpath,':
+            env.Append(LINKFLAGS = [arg])
          else:
-            env['CXXFLAGS'].append(arg)
+            env.Append(CXXFLAGS = [arg])
       else:
          # Must be a static library, add it to the libs
-         env['LIBS'].append(arg)
+         env.Append(LIBS = [arg])
 
 def SetupSDL(env):
    "Sets up the given environment for SDL"
