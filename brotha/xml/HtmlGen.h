@@ -3,6 +3,7 @@
 
 #include <iostream.h>
 #include <string>
+#include <sstream>
 #include <vector>
 #include "brothadata.h"
 
@@ -66,14 +67,15 @@ namespace reports{
 	}
 
 	std::string renderCarList(dataxml::carlist cl){
-		std::string html = "";
-		html += "<table><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
+      ostringstream out;
+      out << "<table><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
 		for(unsigned int i = 0; i < cl.size(); i++){
 			dataxml::Car* c = cl[i];
-			html += "<tr><td><img src=car.jpg></td><td>" + c->getName() + "</td><td>" + std::string(itoa(c->getMods().size(),new char[30],30)) + "</td></tr>";
+			out << "<tr><td><img src=car.jpg></td><td>" << c->getName() << "</td><td>"
+             << c->getMods().size() << "</td></tr>";
 		}
-		html += "</table>";
-		return html;
+		out << "</table>";
+		return out.str();
 	}
 
 	std::string renderGangList(dataxml::ganglist gl, reports::request schema){
