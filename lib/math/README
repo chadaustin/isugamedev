@@ -1,0 +1,38 @@
+kevin's math library (very original name, yes, i know.)
+
+
+
+Usage:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+everything is in the kev namespace:
+
+kev::Quat         (templated for any datatype)
+kev::Vec2         (templated for any datatype)
+kev::Vec3         (templated for any datatype)
+kev::Vec4         (templated for any datatype)
+kev::Matrix4f     
+kev::ColorRGBA
+
+the template ones have typedefs for what they are (i.e. kev::Vec3f)
+
+Defines.h 
+defines a math portability layer (ie. kev::sin()), and common constants
+
+convert.h 
+supplies conversion funcs between the data types
+
+extend.h
+adds funcs that don't nessesarily belong in the classes...
+
+
+
+history:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+originally started 1996 as f-lib (everything was prefixed by an f, no reason)
+progressed rapidly in Iowa State Univiersity's computer graphics class (ME519)
+progressed from there in various little prototype projects Ive done for amusement
+
+LEGAL:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+LGPL (see file COPYING)
