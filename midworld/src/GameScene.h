@@ -24,16 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameScene.h,v $
- * Date modified: $Date: 2002-09-24 08:27:23 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-10-01 05:54:14 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#ifndef MW_GAME_SCENE_H
+#define MW_GAME_SCENE_H
 
-#ifndef GAMESCENE_H
-#define GAMESCENE_H
-
-#include "cubeGeometry.h"
 #include "Texture.h"
 
 namespace mw
