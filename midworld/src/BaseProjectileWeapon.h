@@ -20,7 +20,7 @@ namespace mw
        * @param name    the name of this weapon
        * @param uid     the unique id of this weapon
        */
-      BaseProjectileWeapon(const WeaponCategory& cat, const std::string& name, int uid );
+      BaseProjectileWeapon(const WeaponCategory& cat, const std::string& name );
 
    public:
       /// Gets the Player slot number that this weapon goes in.

@@ -39,14 +39,11 @@ namespace mw
       };
 
    public:
-      Weapon( int uid ) : mType( uid )
+      Weapon()
       {
       }
       virtual ~Weapon() {}
 
-      /// returns a UID for this weapon's type
-      const int getType() const { return mType; }
-      
       /// Gets the category in which this weapon lies.
       virtual const WeaponCategory& getCategory() const = 0;
 
@@ -99,9 +96,6 @@ namespace mw
        * Gets the amount of ammo for this gun that is not in the current clip.
        */
       virtual int getAmmoInBag() const = 0;
-      
-   private:
-      int mType;
    };
 }
 

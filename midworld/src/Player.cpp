@@ -122,7 +122,7 @@ namespace mw
       for (int x = 0; x < c; ++x, ++f)
       {
          // if we find the same weapon here, then transfer ammo
-         if ((*f).second->getType() == w->getType())
+         if ((*f).second->getName() == w->getName())
          {
             foundit = true;
             (*f).second->addAmmo( w->getAmmoInClip() + w->getAmmoInBag() );
@@ -155,7 +155,6 @@ namespace mw
          {
             mCurrentWeapon = mWeapons.begin();
          }
-         std::cout << (*mCurrentWeapon).second->getName() << std::endl;
       }
    }
 

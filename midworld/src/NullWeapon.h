@@ -12,7 +12,7 @@ namespace mw
    {
    public:
       NullWeapon()
-         : Weapon(-1), mCategory(Weapon::HAND), mName("Null")
+         : mCategory(Weapon::HAND), mName("Null")
       {}
 
       /** return the Player slot number that the weapon goes in. */

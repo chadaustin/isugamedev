@@ -11,7 +11,7 @@ namespace mw
    {
    public:
       Pistol()
-         : BaseProjectileWeapon( Weapon::HANDGUN, "Pistol", 1 )
+         : BaseProjectileWeapon( Weapon::HANDGUN, "Pistol" )
       {}
 
       /** render the weapon using opengl calls. */

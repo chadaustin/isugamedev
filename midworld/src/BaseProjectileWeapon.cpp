@@ -2,10 +2,9 @@
 
 namespace mw
 {
-   BaseProjectileWeapon::BaseProjectileWeapon(const WeaponCategory& cat,
-                                              const std::string& name,
-                                             int uid)
-      : Weapon( uid ), mCategory( cat ), mName( name )
+   BaseProjectileWeapon::BaseProjectileWeapon( const WeaponCategory& cat,
+                                               const std::string& name )
+      : Weapon(), mCategory( cat ), mName( name )
    {
       mMaxAmmoInBag = 200;
       mClipSize = 12;
