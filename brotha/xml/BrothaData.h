@@ -1,7 +1,7 @@
 #ifndef DATA_BROTHA_DATA_H
 #define DATA_BROTHA_DATA_H
 
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
 #include <vector>
 

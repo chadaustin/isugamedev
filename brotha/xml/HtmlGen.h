@@ -1,7 +1,7 @@
 #ifndef DATA_HTMLGEN_H
 #define DATA_HTMLGEN_H
 
-#include <iostream.h>
+#include <iostream>
 #include <string>
 #include <sstream>
 #include <vector>

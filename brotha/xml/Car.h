@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-04-29 08:21:50 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-04-30 04:26:11 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,7 +43,7 @@
 #ifndef DATA_CAR_H
 #define DATA_CAR_H
 
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
 #include <vector>
 

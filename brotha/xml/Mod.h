@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Mod.h,v $
- * Date modified: $Date: 2002-04-29 07:38:49 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-30 04:26:11 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,8 +43,8 @@
 #ifndef DATA_MOD_H
 #define DATA_MOD_H
 
-#include <iostream.h>
-#include <string.h>
+#include <iostream>
+#include <string>
 #include <vector>
 
 namespace data {

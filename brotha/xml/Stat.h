@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Stat.h,v $
- * Date modified: $Date: 2002-04-29 07:26:26 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-30 04:26:11 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,7 +43,7 @@
 #ifndef DATA_STAT_H
 #define DATA_STAT_H
 
-#include <iostream.h>
+#include <iostream>
 #include <string.h>
 #include <vector>
 
