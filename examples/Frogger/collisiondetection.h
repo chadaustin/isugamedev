@@ -32,6 +32,19 @@ struct EdgeStore
 	MyObject* TheObject;
 };
 
+struct EdgeCompare
+{
+    bool operator()(const EdgeStore& Left, const EdgeStore& Right)
+    {
+		if((Left.Edge < Right.Edge) || 
+		((Left.Edge == Right.Edge && Left.start == true) && (Right.start == false)))
+		return true;
+	else
+		return false;
+
+    }
+};
+
 /////////////////////////////////////////////////////
 // Notes:
 //	Once an object is added to the CollsionDetection
@@ -48,7 +61,7 @@ public:
 	~CollisionDetection();
 
 	///////////////////////////////////////////////////
-    // AddObject()
+    	// AddObject()
 	///////////////////////////////////////////////////
 	// Notes: This function adds the input object to
 	//	Collision Dection List
@@ -56,7 +69,7 @@ public:
 	void AddObject(MyObject*& InObject);
 
 	///////////////////////////////////////////////////
-    // RemoveObject()
+    	// RemoveObject()
 	///////////////////////////////////////////////////
 	// Notes: This function removes the input object from
 	//	Collision Dection List
@@ -100,6 +113,7 @@ private:
 	//  return false
 	////////////////////////////////////////////////////////
 	bool Intersects(MyObject* one,MyObject* two);
+	EdgeCompare myCompare;
 
 };
 

@@ -8,9 +8,10 @@
 
 #include "collisiondetection.h"
 #include "MyObject.h"
-#include "stdlib.h"
-#include <vector>
+#include <stdlib.h>
 #include <algorithm>
+#include <vector>
+
 
 // The Collision detector was implemented using a sweeptest and ONLY
 // WORKS FOR RECTANGLES. 
@@ -142,7 +143,7 @@ bool CollisionDetection::CheckForCollisions(vector<MyObject*> Collisions[30], in
 	if(Moved)
 	{
 		Moved = false;
-		sort(MyObjectEdges.begin(), MyObjectEdges.end());
+		sort(MyObjectEdges.begin(), MyObjectEdges.end(),myCompare);
 
 		for (unsigned int i = 0; i < MyObjectEdges.size(); i++)
 		{	
@@ -215,14 +216,14 @@ bool CollisionDetection::Intersects(MyObject* one, MyObject* two)
 	return true;
 }
 
-bool operator <(EdgeStore Left, EdgeStore Right)
+/*bool operator <(EdgeStore Left, EdgeStore Right)
 {
 	if((Left.Edge < Right.Edge) || 
 		((Left.Edge == Right.Edge && Left.start == true) && (Right.start == false)))
 		return true;
 	else
 		return false;
-}
+}*/
 
 
 
