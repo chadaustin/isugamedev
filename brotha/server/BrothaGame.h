@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-05-01 18:42:30 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-01 19:58:26 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -61,6 +61,8 @@ namespace server {
        * Creates a new game with no players.
        */
       BrothaGame(net::NetMgr *netMgr);
+
+      ~BrothaGame();
 
       /**
        * Sends the message to everyone
