@@ -33,10 +33,10 @@ headers = Split("""
    LayoutConstraint.h
    ListSelectionListener.h
    Point.h
+   Utility.h
    WindowAdapter.h
    WindowListener.h
    phui.h
-   phuiCommon.h
 """)
 
 sources.extend(map(lambda n: n + '.cpp', classes))
