@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.62 2002-04-12 03:59:41 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 03:59:41 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.63 2002-04-12 04:06:26 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 04:06:26 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -720,8 +720,8 @@
           </ooclass>
         </classsynopsis>
         <para></para>
-        <para>template&lt;typename T&gt; OutputStream&amp; operator&lt;&lt;(OutputStream&amp; os, T value);</para>
-        <para>template&lt;typename T&gt; InputStream&amp; operator&gt;&gt;(InputStream&amp; os, T&amp; value);</para>
+        <para><classname>template&lt;typename T&gt; OutputStream&amp; operator&lt;&lt;(OutputStream&amp; os, T value);</classname></para>
+        <para><classname>template&lt;typename T&gt; InputStream&amp; operator&gt;&gt;(InputStream&amp; os, T&amp; value);</classname></para>
       </section>
       <section>
         <title>Design Issues</title>
