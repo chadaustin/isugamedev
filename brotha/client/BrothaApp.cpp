@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-27 06:13:43 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-27 06:28:59 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -105,50 +105,54 @@ namespace client
          mKernel->shutdown();
       }
 
-      // accelerate
-      if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-      {
-         player->setAccelerate( true );
-      }
-      else if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_UP)
-      {
-         player->setAccelerate( false );
-      }
-
-      // brake
-      if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-      {
-         player->setBrake( true );
-      }
-      else if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_UP)
-      {
-         player->setBrake( false );
-      }
-
-      // turn left
-      if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-      {
-         player->setTurnLeft( true );
-      }
-      else if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_UP)
-      {
-         player->setTurnLeft( false );
-      }
-
-      // turn right
-      if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-      {
-         player->setTurnRight( true );
-      }
-      else if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_UP)
-      {
-         player->setTurnRight( false );
-      }
-
       // un/pause game
       if (mPause.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
       {
          mGame.setPaused( ! mGame.isPaused() );
+      }
+
+      // only deal with player related input if there is a local player
+      if ( player != NULL )
+      {
+         // accelerate
+         if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+         {
+            player->setAccelerate( true );
+         }
+         else if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_UP)
+         {
+            player->setAccelerate( false );
+         }
+
+         // brake
+         if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+         {
+            player->setBrake( true );
+         }
+         else if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_UP)
+         {
+            player->setBrake( false );
+         }
+
+         // turn left
+         if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+         {
+            player->setTurnLeft( true );
+         }
+         else if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_UP)
+         {
+            player->setTurnLeft( false );
+         }
+
+         // turn right
+         if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+         {
+            player->setTurnRight( true );
+         }
+         else if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_UP)
+         {
+            player->setTurnRight( false );
+         }
       }
 
       // update the state of the game
