@@ -5,7 +5,7 @@ namespace mw{
 
    void Turret::aim()
    {
-      std::cout << "aiming" << std::endl;
+      //std::cout << "aiming" << std::endl;
    }
 
    void Turret::shoot()

@@ -30,6 +30,7 @@ classes = Split("""
    GameScene
    GameState
    HUD
+   HomingMissile
    IntroState
    InputAction
    InputBinder
@@ -39,6 +40,7 @@ classes = Split("""
    Jukebox
    LoadState
    MenuState
+   MissileLauncher
    ModelManager
    OpenSGSceneViewer
    Particle

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-19 15:27:51 $
- * Version:       $Revision: 1.41 $
+ * Date modified: $Date: 2002-10-20 15:22:24 $
+ * Version:       $Revision: 1.42 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -165,6 +165,16 @@ namespace mw
        * @param entity     the entity to add into the world
        */
       void add(Entity* entity);
+      
+      /**
+       * Adds a "smart" entity into the world.
+       * A smart entity is an entity that is also 
+       * a loom node.
+       *
+       * @param entity     the entity to add into the world
+       * @param node       the lm::aiNode representation of the entity
+       */
+      virtual void addSmart(Entity* entity, lm::aiNode *node);
 
       /** 
        * Get the player 

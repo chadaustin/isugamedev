@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-20 11:53:00 $
- * Version:       $Revision: 1.64 $
+ * Date modified: $Date: 2002-10-20 15:22:24 $
+ * Version:       $Revision: 1.65 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,6 +36,7 @@
 #include "GameState.h"
 #include "StateFactory.h"
 #include "Pistol.h"
+#include "MissileLauncher.h"
 #include "SpreadGun.h"
 #include "Shotgun.h"
 #include "AssaultRifle.h"
@@ -87,6 +88,7 @@ namespace mw
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
+      mPlayer.addWeapon( new MissileLauncher );
 
 
       // Change the music as appropriate for gaming. :)
@@ -739,7 +741,13 @@ namespace mw
    {
       mScene->add(entity);
    }
-
+   
+   void GameState::addSmart(Entity* entity, lm::aiNode *node)
+   {
+      add(entity);
+      AI.registerNode(node);
+      mMap[entity->getUID()] = node;
+   }
    void
    GameState::updateEdgeState(EdgeState& state, bool absoluteState)
    {
