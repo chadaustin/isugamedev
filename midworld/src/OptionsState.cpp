@@ -1,8 +1,9 @@
+#include <fstream>
+#include <stdexcept>
 #include "OptionsState.h"
 #include "Application.h"
 #include "StateFactory.h"
 #include "InputSymbol.h"
-#include <fstream>
 
 namespace mw
 {
@@ -87,7 +88,7 @@ namespace mw
       glLoadIdentity();
 
       glColor4f(1, 1, 1, 1);
-      mImages[0]->drawRectangle(0,0,this->application().getWidth(), this->application().getHeight());	// draw background
+      mImages[0]->drawRectangle(0,0,this->application().getWidth(), this->application().getHeight()); // draw background
 
       const int xOffset = 300;
       const int yOffset = 30;
