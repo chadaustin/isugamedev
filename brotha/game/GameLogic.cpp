@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-01 18:42:30 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-01 20:50:41 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -53,16 +53,15 @@ namespace game
    }
 
    void BrothaGame::update(float time){ 
-//      gmtl::Vec3f Position;
-//      
-//      for (unsigned int i=0; i < mPlayer.size(); i++){
-//
-//         // compute new position
-//         Position = mPlayer[i]->getPosition() + (mPlayer[i]->getVelocity() * time);
-//      
-//         // update player's position
-//         mPlayer[i]->setPosition(Position);
-//      }
+      gmtl::Vec3f oPosition;
+
+      for (unsigned int i=0; i < mObject.size(); i++){
+         // compute new position
+         oPosition = mObject[i]->getPosition() + (mObject[i]->getVelocity() * time);
+
+         // update position
+         mObject[i]->setPosition(oPosition);
+      }
 
          /// @todo collision detection
          /// @todo update player attributes (health, kills, etc)  
