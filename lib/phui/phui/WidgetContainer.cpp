@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-02-24 04:26:50 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-24 06:28:39 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -47,7 +47,7 @@ namespace phui {
   }
 
   void
-  WidgetContainer::addWidget(Widget* widget) {
+  WidgetContainer::add(Widget* widget) {
     mWidgets.push_back(widget);
   }
 

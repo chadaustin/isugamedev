@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-02-24 06:21:12 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-24 06:28:39 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -124,7 +124,7 @@ int main( int argc, char** argv )
    wnd->setSize( 300, 250 );
    phui::Colorf c = { 1, 0, 0, 0.5 };
    wnd->setBackgroundColor( c );
-   gUI->addWidget( wnd );
+   gUI->add( wnd );
 
    glutMainLoop();
 }
