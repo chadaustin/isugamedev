@@ -1,0 +1,231 @@
+# build with 'scons'
+import string, sys, os
+pj = os.path.join
+
+#------------------------------------------------------------------------------
+# Define some generally useful functions
+#------------------------------------------------------------------------------
+def RequireSConsVersion(minimum):
+   "Check the version of SCons being run is at least the given minimum."
+   import SCons
+   if float(SCons.__version__) < float(minimum):
+      print "SCons too old: " + SCons.__version__ + " < " + str(minimum)
+      sys.exit(-1)
+
+
+
+def BuildBaseEnvironment():
+   "Builds a base environment for other modules to build on."
+   global optimize, profile
+
+   CXX = WhereIs('g++3') or 'g++'
+   LINK = CXX
+   CXXFLAGS = ['-Wall', '-Wno-non-virtual-dtor', '-g']
+   LINKFLAGS = []
+
+   if optimize:
+      CXXFLAGS.extend(['-DNDEBUG', '-O2', '-funroll-all-loops'])
+   else:
+      CXXFLAGS.extend(['-DDEBUG', '-g'])
+
+   if profile:
+      CXXFLAGS.extend(['-pg'])
+      LINKFLAGS.extend(['-pg'])
+
+   env = Environment(
+      ENV = os.environ,
+      CXX = CXX,
+      LINK = LINK,
+      CPPPATH = [],
+      LIBPATH = [],
+      LIBS = [],
+      CXXFLAGS = CXXFLAGS,
+      LINKFLAGS = LINKFLAGS,
+   )
+
+   return env
+
+
+def ParseConfig(env, command, options):
+   "Parses xxx-config style output for compilation directives"
+
+   # Run the command
+   where = WhereIs(command)
+   if not where:
+      print '%s not found in PATH' % command
+      sys.exit(-1)
+   cmd = where + ' ' + string.join(options)
+   params = string.split(os.popen(cmd).read())
+
+   # Parse its output
+   for arg in params:
+      switch = arg[0:1]
+      option = arg[1:2]
+      if switch == '-':
+         if option == 'I':
+            env['CPPPATH'].append(arg[2:])
+         elif option == 'L':
+            env['LIBPATH'].append(arg[2:])
+         elif option == 'l':
+            env['LIBS'].append(arg[2:])
+         elif arg[0:11] == '-Wl,-rpath,':
+            env['LINKFLAGS'].append(arg)
+         else:
+            env['CXXFLAGS'].append(arg)
+      else:
+         # Must be a static library, add it to the libs
+         env['LIBS'].append(arg)
+
+
+
+def SetupGLText(env):
+   "Sets up the given enviroment for GLText"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['gltext'])
+
+def SetupOpenGL(env):
+   "Sets up the given environment for OpenGL"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['GLU', 'GL'])
+
+Export('ParseConfig')
+Export('SetupGLText SetupOpenGL')
+
+#------------------------------------------------------------------------------
+# The BuildInfo data structure allows subdirectories of a recursive build to
+# pass information to their parents about the build.
+#------------------------------------------------------------------------------
+class BuildInfo:
+   def __init__(self):
+      self.programs = []
+      self.libraries = []
+      self.headers = []
+      self.sources = []
+      self.docs = []
+      self.extraDist = []
+
+   def add(self, bi):
+      "Adds the contents of the given build info object to this one"
+      self.programs.extend(bi.programs)
+      self.libraries.extend(bi.libraries)
+      self.headers.extend(bi.headers)
+      self.sources.extend(bi.sources)
+      self.docs.extend(bi.docs)
+      self.extraDist.extend(bi.extraDist)
+
+   def addPrograms(self, progs):
+      self.programs.extend(progs)
+
+   def addLibraries(self, libs):
+      self.libraries.extend(libs)
+
+   def addHeaders(self, files):
+      self.headers.extend(files)
+
+   def addSources(self, files):
+      self.sources.extend(files)
+
+   def addDocs(self, files):
+      self.docs.extend(files)
+
+   def addExtraDist(self, files):
+      self.extraDist.extend(files)
+
+   def getAll(self):
+      result = []
+      result.extend(self.programs)
+      result.extend(self.libraries)
+      result.extend(self.headers)
+      result.extend(self.sources)
+      result.extend(self.docs)
+      result.extend(self.extraDist)
+      return result
+
+   #---------------------------------------------------------------------------
+   # Accessors
+   #---------------------------------------------------------------------------
+   def getPrograms(self):
+      return self.programs
+
+   def getLibraries(self):
+      return self.libraries
+
+   def getHeaders(self):
+      return self.headers
+
+   def getSources(self):
+      return self.sources
+
+   def getDocs(self):
+      return self.docs
+
+   def getExtraDist(self):
+      return self.extraDist
+
+Export('BuildInfo')
+
+#------------------------------------------------------------------------------
+# Grok the arguments to this build
+#------------------------------------------------------------------------------
+RequireSConsVersion(0.08)
+
+# Check for optimize option
+optimize = 0
+if ARGUMENTS.get('opt', 0):
+   optimize = 1
+
+# Check for profile option
+profile = 0
+if ARGUMENTS.get('profile', 0):
+   profile = 1
+
+# Check for an install prefix
+PREFIX = '/usr/local'
+if ARGUMENTS.get('prefix'):
+   PREFIX = ARGUMENTS['prefix']
+Export('PREFIX')
+
+#------------------------------------------------------------------------------
+# Setup build information for this directory
+#------------------------------------------------------------------------------
+buildInfo = BuildInfo();
+buildInfo.addExtraDist(map(File, Split("""
+   SConstruct
+""")))
+
+#------------------------------------------------------------------------------
+# Create the base environment
+#------------------------------------------------------------------------------
+baseEnv = BuildBaseEnvironment()
+Export('baseEnv')
+
+# recurse (keeping track of build information)
+subdirs = Split('src')
+for dir in subdirs:
+   retval = SConscript(dirs = dir)
+   if retval != None:
+      buildInfo.add(retval)
+
+# install target
+baseEnv.Alias('install', PREFIX)
+
+# Get the list of files that should be included in the distribution
+def FileSorter(a, b):
+   if str(a) < str(b):
+      return -1
+   elif str(a) == str(b):
+      return 0
+   else:
+      return 1
+
+srcDistFiles = []
+srcDistFiles.extend(buildInfo.getHeaders())
+srcDistFiles.extend(buildInfo.getSources())
+srcDistFiles.extend(buildInfo.getExtraDist())
+srcDistFiles.extend(buildInfo.getDocs())
+srcDistFiles.sort(FileSorter)
+
+#SetupDist(baseEnv, buildInfo, 'midworld-%s.%s.%s' % GetMidworldVersion())
+
+# build all sources by default but not the tests
+Default('build')
