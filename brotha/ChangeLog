@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  --------------------------------------------------------
+2002-03-28 aegis        Made the console server neatoer.  :)
 2002-03-28 nonchocoboy  Client can login to the server.
 2002-03-28 tamc         Added tons of subclasses of Message
 2002-03-28 tamc         Connection threads are now stopped on connection close
