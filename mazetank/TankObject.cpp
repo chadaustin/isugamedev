@@ -6,6 +6,8 @@ TankObject::TankObject()
    Turret = new TurretGraphics;
 
 	this->SetCurrentObjectType(CAMTANK);
+   this->SetAngularVelocity(0.0);
+   this->SetObjectAngle(0.0);
 }
 
 TankObject::~TankObject()
@@ -51,3 +53,4 @@ void TankObject::Draw()
 	glPopMatrix();
 
 }
+

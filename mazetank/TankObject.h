@@ -29,5 +29,7 @@ private:
 	GraphicsObject* Body;
    GraphicsObject* Turret;
 
+   float OldAngle;
+
 };
 #endif
