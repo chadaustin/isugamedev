@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-09-23 00:48:05 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-10-01 06:06:13 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,8 +47,6 @@ class Player : public RigidBody
 {
 public:
    Player();
-
-   void init();
 
    void draw() const;
 

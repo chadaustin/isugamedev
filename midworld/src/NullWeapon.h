@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: NullWeapon.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-01 06:06:13 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -91,6 +91,12 @@ namespace mw
       {
          return 0;
       }
+
+      bool isNull() const
+      {
+         return true;
+      }
+
    private:
       WeaponCategory mCategory;
       std::string mName;

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Weapon.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-10-01 06:06:13 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -125,6 +125,15 @@ namespace mw
        * Gets the amount of ammo for this gun that is not in the current clip.
        */
       virtual int getAmmoInBag() const = 0;
+
+      /**
+       * Is the weapon a real weapon or not?  Weapons default to being
+       * real.
+       */
+      virtual bool isNull() const
+      {
+         return false;
+      }
    };
 }
 

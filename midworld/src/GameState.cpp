@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-01 04:49:52 $
- * Version:       $Revision: 1.38 $
+ * Date modified: $Date: 2002-10-01 06:06:13 $
+ * Version:       $Revision: 1.39 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -80,7 +80,6 @@ namespace mw
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
-
 
       // Init some of the model resources
       ResourceManager* res_mgr = GameManager::instance().getResourceManager();
@@ -487,7 +486,9 @@ namespace mw
             mFontRenderer->render("Midworld");
          glPopMatrix();
 
-         glPushMatrix();
+         if (!mPlayer.weapon().isNull())
+         {
+            glPushMatrix();
             glTranslatef(550, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
             glColor4f(1,0,0,1);
             {
@@ -501,7 +502,14 @@ namespace mw
                str << mPlayer.weapon().getAmmoInBag();
                mFontRenderer->render(str.str().c_str());
             }
-         glPopMatrix();
+            glPopMatrix();
+
+            glPushMatrix();
+            glTranslatef(20, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
+            glColor4f(1,0,0,1);
+            mFontRenderer->render(mPlayer.weapon().getName().c_str());
+            glPopMatrix();
+         }
 
          // FPS
          glPushMatrix();
@@ -512,12 +520,6 @@ namespace mw
             str << (int)mFPS;
             mFontRenderer->render(str.str().c_str());
          }
-         glPopMatrix();
-
-         glPushMatrix();
-         glTranslatef(20, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
-         glColor4f(1,0,0,1);
-         mFontRenderer->render(mPlayer.weapon().getName().c_str());
          glPopMatrix();
 
          glPopMatrix();

@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-10-01 aegis        no more NullWeapon!!
 2002-10-01 nonchocoboy  Fixed OpenSG rendering woes. Everythin now has the
                         right color and texture.
                         NEW VERSION: 0.2.2

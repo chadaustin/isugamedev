@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-10-01 01:00:28 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-10-01 06:06:13 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,15 +49,7 @@ namespace mw
 
    Player::Player() : RigidBody(), mCurrentWeapon( mWeapons.end() )
    {
-      // add default weapon...
-      addWeapon( new NullWeapon );
-      assert( !isWeaponSlotEmpty( NullWeapon().getCategory() ) && "NullWeapon not registered, no default weapon!");
-
-      init();
-   }
-
-   void Player::init()
-   {
+      mLastSlot = 0;
    }
 
    void Player::draw() const
@@ -87,10 +79,8 @@ namespace mw
       {
          return *(*mCurrentWeapon).second;
       }
-
-      // return something safe :)
-      assert( mWeapons.count( NullWeapon().getCategory() ) > 0 && "huh?" );
-      return *(*mWeapons.find( NullWeapon().getCategory() )).second;
+      static NullWeapon nw;
+      return nw;
    }
 
    /**
@@ -102,10 +92,8 @@ namespace mw
       {
          return *(*mCurrentWeapon).second;
       }
-
-      // return something safe :)
-      assert( mWeapons.count( NullWeapon().getCategory() ) > 0 && "huh?" );
-      return *(*mWeapons.find( NullWeapon().getCategory() )).second;
+      static NullWeapon nw;
+      return nw;
    }
 
    /**
