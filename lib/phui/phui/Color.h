@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2002-02-24 05:33:08 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-02-24 06:09:12 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -56,7 +56,6 @@ namespace phui {
    typedef Color<float>    Colorf;
    typedef Color<double>   Colord;
    typedef Color<int>      Colori;
-   typedef Color<long>     Colorl;
 
    //@{
    /**
@@ -75,10 +74,6 @@ namespace phui {
    inline void glColor( const Colori& clr )
    {
       glColor4i( clr.r, clr.g, clr.b, clr.a );
-   }
-   inline void glColor( const Colorl& clr )
-   {
-      glColor4l( clr.r, clr.g, clr.b, clr.a );
    }
    //@}
 
