@@ -46,8 +46,7 @@ public:
          
          // dampen the camera position...
          Vec3<float> dampened_pos;
-         Vec3f::Lerp( mTargetPosOld, mTargetPos, dampening_factor,
-               dampened_pos );
+         dampened_pos.lerp( dampening_factor, mTargetPosOld, mTargetPos );
          mTargetPosOld = dampened_pos;
          
          // set the target matrix that the camera would match if mounted to 
