@@ -3,7 +3,6 @@
 
 #include <gmtl/Math.h>
 #include <stdlib.h>
-#include <vector.h>
 #include "BaseProjectileWeapon.h"
 #include "RigidBody.h"
 
