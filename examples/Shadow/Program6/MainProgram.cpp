@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort lvanoort@aol.com Released under MIT.
+// 
+// MainProgram.cpp
+// 4-4-2002
+//////////////////////////////////////////////////////////////////// 
+
 #include <gl/glut.h>
 #include "TruckObject.h"
 #include "FloorObject.h"
@@ -219,8 +226,6 @@ void mydisplay()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-
-
 	MyCamera->Process();
 	glLightfv(GL_LIGHT0, GL_POSITION, MyLights[0].ThePosition);
 	glLightfv(GL_LIGHT1, GL_POSITION, MyLights[1].ThePosition);
@@ -298,7 +303,6 @@ void mydisplay()
 		TheObjects[i]->Draw();
 	}
 	///////////////////////////////
-
 
 	glutSwapBuffers(); 
 }
