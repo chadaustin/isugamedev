@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-24 05:57:32 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-04-26 10:27:35 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -45,6 +45,24 @@ namespace {
    phui::RootWidget* gRoot;
    int gContext; /// GLUT context
 }
+
+class BtnListener : public phui::ActionListener
+{
+public:
+   BtnListener(phui::Window* wnd)
+      : mWnd(wnd)
+   {}
+
+   virtual ~BtnListener() {}
+
+   virtual void onAction(const phui::ActionEvent& evt)
+   {
+      mWnd->setVisible(false);
+   }
+
+private:
+   phui::Window* mWnd;
+};
 
 void idle() {
    if (glutGetWindow() != gContext) {
@@ -144,6 +162,8 @@ int main(int argc, char** argv) {
       button->show();
       button->setBackgroundColor(phui::Colorf(0,0,1,0.5f));
       window->add(button);
+      BtnListener* btnLstr(new BtnListener(window));
+      button->addActionListener(btnLstr);
 
       phui::TextField* txt(new phui::TextField());
       txt->setPosition(20,100);
