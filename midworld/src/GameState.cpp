@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-30 06:52:06 $
- * Version:       $Revision: 1.91 $
+ * Date modified: $Date: 2002-10-30 07:22:51 $
+ * Version:       $Revision: 1.92 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -738,7 +738,8 @@ namespace mw
    Turret* 
    GameState::setupTurret(std::string name, std::string parent, int maxChild, int level)
    {
-      node1 = new lm::aiNode(name, NULL, maxChild, level);
+      lm::aiNode* node1 = new lm::aiNode(name, NULL, maxChild, level);
+      mAInodes.push_back(node1);
       
       Turret* turret = EntityFactory::instance().create<Turret>();
       node1sCommand = new lm::simpleCommand<Turret>(turret, &Turret::aim);

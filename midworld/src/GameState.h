@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-30 06:52:07 $
- * Version:       $Revision: 1.54 $
+ * Date modified: $Date: 2002-10-30 07:22:51 $
+ * Version:       $Revision: 1.55 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -237,9 +237,7 @@ namespace mw
       // the following was test related stuff
 
       testing* appTest;
-      std::vector<lm::aiNode*> nodes;
-      lm::aiNode* node1;
-      lm::aiNode* node2;
+      std::vector<lm::aiNode*> mAInodes;
       lm::command* node1sCommand;
       lm::command* node2sCommand;
       lm::command* aimCommand;
