@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-22 03:43:28 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-22 04:16:20 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,6 +47,7 @@
 #include "net/JoinAsMessage.h"
 #include "sound/SoundManager.h"
 #include "AppState.h"
+#include "Scene.h"
 
 namespace client
 {
@@ -137,6 +138,9 @@ namespace client
 
       /// The local player
       game::Player* mLocalPlayer;
+
+      /// The scene with which the game is represented.
+      Scene mScene;
    };
 }
 

@@ -5,6 +5,12 @@ import string
 
 Default('.')        # build everything by default
 
+# Deterine the external libraries
+execfile('glut_libs.py')
+SDL_LIBS = ['SDL']
+OSG_LIBS = ['osg', 'osgDB', 'osgUtil']
+Export('GLUT_LIBS SDL_LIBS OSG_LIBS')
+
 CPPPATH=['#']
 
 CXXFLAGS=''

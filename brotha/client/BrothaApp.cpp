@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-22 03:43:28 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-04-22 04:16:20 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -143,6 +143,8 @@ namespace client
             glVertex3f( x, 0,  extent );
          }
          glEnd();
+
+         mScene.draw();
       }
    }
    

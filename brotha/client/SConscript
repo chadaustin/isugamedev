@@ -1,10 +1,12 @@
 import sys
 Import('env')
+Import('GLUT_LIBS SDL_LIBS OSG_LIBS')
 
 classes = [
    'AppState',
    'BrothaApp',
    'ModelManager',
+   'Scene',
 ]
 
 headers = [
@@ -23,12 +25,8 @@ sources = map(lambda fn: fn + '.cpp', sources)
 headers.extend( map(lambda fn: fn + '.h', classes) )
 sources.extend( map(lambda fn: fn + '.cpp', classes) )
 
-
-LIBS = ['gk', 'sound', 'net', 'game', 'nspr4', 'audiere', 'SDL', 'osg', 'osgDB']
-if sys.platform == 'cygwin':
-    LIBS.extend(['glut32', 'opengl32', 'glu32'])
-else:
-    LIBS.extend(['glut', 'GLU', 'GL'])
+LIBS = ['sound', 'net', 'game', 'nspr4', 'audiere' ];
+LIBS.extend(GLUT_LIBS + SDL_LIBS + OSG_LIBS)
 
 env2 = env.Copy( LIBPATH=['#net', '#game', '#sound'], LIBS=LIBS );
 env2.Program(target = 'brotha', source = sources)
