@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.37 2002-04-09 04:08:01 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 04:08:01 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.38 2002-04-09 04:31:34 tamc Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 04:31:34 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -54,16 +54,40 @@
       <para>Internally the Connection Manager module is composed of several classes: <classname>Connection</classname>, <classname>WriteThread</classname> and <classname>ReadThread</classname><classname></classname>. Each <classname>Socket</classname> passed into the module through <methodname>handleSocket</methodname> creates a <classname>Connection</classname> object. This <classname>Connection</classname> object creates a <classname>WriteThread</classname> and a <classname>ReadThread</classname> to handle the actual sending and receiving of data.</para>
       <para>The Connection Manager module depends on the Network module for the actual sending and receiving of bytes across the network, and the Threading module to allow multiple connections, while keeping these connections seperate from the other connections.</para>
       <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
-      <section>
         <title>Module Interfaces</title>
-        <para>blah blah</para>
+        <classsynopsis>
+          <ooclass>
+            <classname>ConnectionManager</classname>
+          </ooclass>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>handleSocket</methodname>
+            <methodparam>
+              <type>Socket*</type>
+              <parameter>sock</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>send</methodname>
+            <methodparam>
+              <type>Message*</type>
+              <parameter>message</parameter>
+            </methodparam>
+            <methodparam>
+              <type>ConnectionID</type>
+              <parameter>connID</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>vector&lt;pair&lt;Message*,ConnectionID&gt;&gt; </type>
+            <methodname>readAll</methodname>
+            <void/>
+          </methodsynopsis>
+        </classsynopsis>
       </section>
       <section>
         <title>Design Issues</title>
