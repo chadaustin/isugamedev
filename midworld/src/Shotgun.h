@@ -40,7 +40,7 @@ namespace mw
       }
       
       /** return the Player slot number that the weapon goes in. */
-      virtual int getType() { return 1; }
+      virtual int getType() { return 3; }
       
       /** render the weapon using opengl calls. */
       virtual void draw() const 
