@@ -35,6 +35,13 @@ namespace net {
          }
       }
 
+      ~ServerSocket() {
+         PRStatus status = PR_Close(mSocket);
+         if( status != PR_SUCCESS) {
+            throw SocketException("Close failed");
+         }
+      }
+
       Socket* accept() {
          PRNetAddr address;  // of connecting socket
          PRFileDesc* fd = PR_Accept(mSocket, &address, PR_INTERVAL_NO_TIMEOUT);

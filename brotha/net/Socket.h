@@ -24,6 +24,11 @@ namespace net {
       }
 
       ~Socket() {
+         PRStatus status = PR_Close(mSocket);
+         if( status != PR_SUCCESS) {
+            throw SocketException("Close failed");
+         }
+
          delete mOutputStream;
          delete mInputStream;
       }
