@@ -6,8 +6,8 @@
 
 #include "thread/Thread.h"
 #include "net/NetMgr.h"
-#include "game/BrothaGame.h"
 #include "net/MessageTypes.h"
+#include "BrothaGame.h"
 #include "LoginMessageHandler.h"
 #include "JoinAsMessageHandler.h"
 #include "MessageHandler.h"
