@@ -3,27 +3,30 @@
 
 #include <iostream>
 #include <string>
+#include "brothadata.h"
 
 
 
+namespace dataxml{
+	Bdata b;
 
-class XMLPersistory{
+	fillWithFakeData(Bdata* b){
+		  Gang* g = new Gang("emigia");
+          Player* p = new Player("ama","kuriyama");
+          Car* c = new Car("tercel");
+          Mod* m = new Mod("breaks",4);
+          Cartype* ct = new Cartype("tercel");
+          b->addGang(g);
+          b->addCarType(ct);
+          c->addMod(m);
+          p->addCar(c);
+          g->addPlayer(p);
+	}
 
-  public:
-    //io stuff.  Not currently functional
-    bool open(std::string filename);
-    void close();
-    bool save(std::string filename);
-    
-
-
-};
-     
-
-
-bool XMLPersistory::open(std::string filename){
-   std::cout << filename;
-   return true;
+	Bdata load(std::string filename){
+		fillWithFakeData(&b);
+		return b;
+	}
 }
 
 #endif

@@ -1,0 +1,10 @@
+<wbdata>
+  <gang name="emigia">
+    <player name="ama" password="kuriyama" gang="emigia">
+      <car cartype="tercel">
+        <mod name="breaks" level="4" />
+      </car>
+   </player>
+  </gang>
+  <cartype name="tercel" file="car.model" />
+</wbdata>
