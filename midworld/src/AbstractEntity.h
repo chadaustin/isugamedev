@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AbstractEntity.h,v $
- * Date modified: $Date: 2002-10-29 05:39:09 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-29 18:50:35 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -60,6 +60,10 @@ namespace mw
       virtual ~AbstractEntity();
 
    public:
+      void draw() const
+      {
+      }
+   
       /**
        * Gets the ID of the model this entity requires.
        */

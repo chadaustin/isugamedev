@@ -12,11 +12,8 @@ namespace mw
       ~Particle();
 
       bool isExpired() const;
-
       void update(float dt);
-
       void size(float size);
-
       void draw();
 
    private:

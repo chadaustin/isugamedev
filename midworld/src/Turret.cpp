@@ -24,17 +24,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-10-29 11:02:07 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-10-29 18:50:36 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
-#include "Turret.h"
-#include "SpreadGun.h"
-
 #include <gmtl/Math.h>
-#include <iostream>
+#include "EntityFactory.h"
+#include "SpreadGun.h"
+#include "Turret.h"
 
 namespace mw
 {
@@ -42,6 +41,19 @@ namespace mw
       : Enemy(gameState)
    {
       gun = new SpreadGun();
+   }
+   
+   
+   Turret::~Turret()
+   {
+      EntityFactory& factory = EntityFactory::instance();
+      ParticleEngine* engine = new ParticleEngine(
+         factory.getGameState(),
+         "images/explosive_particle.png",
+         4000);
+      factory.add(engine);
+      
+      engine->setPos(getPos());
    }
 
    

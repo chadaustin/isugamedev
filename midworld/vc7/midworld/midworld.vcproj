@@ -405,6 +405,9 @@
 				RelativePath="..\..\src\StateFactory.h">
 			</File>
 			<File
+				RelativePath="..\..\src\StaticEntity.h">
+			</File>
+			<File
 				RelativePath="..\..\src\StoryState.cpp">
 			</File>
 			<File

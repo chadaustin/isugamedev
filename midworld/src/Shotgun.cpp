@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-10-01 08:35:28 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-29 18:50:36 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,8 +53,6 @@ namespace mw
 
       mAmmoInClip = mClipSize;
       mAmmoInBag = 100;
-
-      srand(SDL_GetTicks());
    }
 
    void Shotgun::draw() const

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-10-29 18:50:35 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,22 +44,8 @@ namespace mw
    {
    public:
 
-      /**
-       * Constructor
-       */
-      Enemy(GameState* gameState)
-         : AbstractEntity(gameState)
-         , mHealth(10)
-      {
-         srand(5);
-      }
-
-      /**
-       * Destructor
-       */
-      ~Enemy()
-      {
-      }
+      Enemy(GameState* gameState);
+      ~Enemy();
 
       /**
        * Gets the current health value of this enemy.

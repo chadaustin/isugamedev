@@ -24,27 +24,45 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-10-09 09:20:41 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-29 18:50:35 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 
-#include "Enemy.h"
 #include <gmtl/Quat.h>
 #include <gmtl/Vec.h>
 #include <gmtl/Generate.h>
-#include "cubeGeometry.h"
-#include <GL/gl.h>
+#include <SDL_opengl.h>
 #include <cstdlib>
+#include "Enemy.h"
+#include "EntityFactory.h"
+#include "ParticleEngine.h"
 
 namespace mw
 {
 
-   //@TODO:  Do something other than randomly change velocity and rotation :P
+   Enemy::Enemy(GameState* gameState)
+      : AbstractEntity(gameState)
+      , mHealth(10)
+   {
+   }
+   
+   Enemy::~Enemy()
+   {
+      EntityFactory& factory = EntityFactory::instance();
+      ParticleEngine* engine = new ParticleEngine(
+         factory.getGameState(),
+         "images/explosive_particle.png",
+         2000);
+      factory.add(engine);
+      
+      engine->setPos(getPos());
+   }
+
    void Enemy::update(float timeDelta)
    {
-  /*    unsigned int randRange = 5;
+      unsigned int randRange = 5;
       gmtl::Vec3f force;
       if (rand() % 100 < 10)
       {
@@ -66,7 +84,7 @@ namespace mw
             gmtl::AxisAnglef(rand() % randRange, 0, 1, 0));
          setRot(nRot);
       }
-    */  RigidBody::update(timeDelta);
+      RigidBody::update(timeDelta);
    }
 
    void Enemy::walkRandom()

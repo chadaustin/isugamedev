@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-10-29 06:25:27 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-10-29 18:50:36 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #include <stdexcept>
 #include <string>
 #include <stdlib.h>
+#include <time.h>
 #include <SDL_opengl.h>
 #include "Types.h"
 #include "Application.h"
@@ -54,6 +55,8 @@ void ThrowSDLError(const std::string& prefix)
 
 void run()
 {
+   srand(time(0));
+
    std::cout << "Running Midworld v" << mw::version << std::endl;
    
    // initialize SDL

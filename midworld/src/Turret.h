@@ -15,15 +15,8 @@ namespace mw
 class Turret : public Enemy 
 {
 public:
-   /// Creates a new Turret
    Turret(GameState* gameState);
-
-   /**
-    * destructor
-    */
-   ~Turret()
-   {
-   }
+   ~Turret();
 
    void update(float dt);
    

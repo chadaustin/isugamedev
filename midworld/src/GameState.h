@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-29 11:02:06 $
- * Version:       $Revision: 1.49 $
+ * Date modified: $Date: 2002-10-29 18:50:36 $
+ * Version:       $Revision: 1.50 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -170,11 +170,21 @@ namespace mw
       /**
        * Get the player
        */
-      Player getPlayer(){return mPlayer;}
+      Player& getPlayer()
+      {
+         return mPlayer;
+      }
+      
+      Camera& getCamera()
+      {
+         return mCamera;
+      }
 
    private:
       void initializeInput();
       void initializeAI();
+      
+      void drawEntities();
 
       /// Called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);
@@ -234,13 +244,8 @@ namespace mw
       lm::reflex* node2Instinct;
 
 
-      /// The scene in which the game is played out
       Scene* mScene;
-
-      /// The view into our scene
       SceneViewer* mSceneViewer;
-
-      typedef std::vector<Entity*> EntityList;
 
       /// The collision detection algorithm
       CollisionDetector* mCollDet;
@@ -264,7 +269,6 @@ namespace mw
 
       /// AI stuff
       PhysicsEngine mPhysics;
-      ParticleEngine* mExplosion;
 
       // Actions
       InputAction* mActionUp;

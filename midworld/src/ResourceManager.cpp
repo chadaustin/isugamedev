@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.cpp,v $
- * Date modified: $Date: 2002-10-09 09:20:41 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-29 18:50:36 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,6 +53,11 @@ namespace mw
    const std::string&
    ResourceManager::get(const std::string& resid) const
    {
+      if (resid.empty()) {
+         static const std::string empty;
+         return empty;
+      }
+   
       ResourceMap::const_iterator itr = mResources.find(resid);
       if (itr != mResources.end())
       {

@@ -24,14 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Utility.h,v $
- * Date modified: $Date: 2002-10-28 07:11:48 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-29 18:50:36 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_UTILITY_H
 #define MW_UTILITY_H
 
+#include <SDL_opengl.h>
 #include <gmtl/Vec.h>
 #include <gmtl/Math.h>
 
@@ -64,6 +65,12 @@ namespace mw
    {
       typedef T OriginalType;
    };
+   
+   
+   inline void glTranslate(const gmtl::VecBase<float, 3>& vec)
+   {
+      glTranslatef(vec[0], vec[1], vec[2]);
+   }
 }
 
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Entity.h,v $
- * Date modified: $Date: 2002-10-29 05:39:09 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-29 18:50:35 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,6 +51,8 @@ namespace mw
       typedef unsigned long UID;
 
       virtual ~Entity() {}
+      
+      virtual void draw() const = 0;
 
       /**
        * Determines if this entity has expired and needs to be removed from the

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ModelManager.cpp,v $
- * Date modified: $Date: 2002-10-09 08:35:14 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-29 18:50:36 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -75,6 +75,11 @@ namespace mw
    osg::NodePtr
    ModelManager::getModel(const std::string& model)
    {
+      if (model.empty())
+      {
+         return osg::Node::create();
+      }
+   
       // Check the cache first
       ModelCache::iterator itr = mCache.find(model);
 

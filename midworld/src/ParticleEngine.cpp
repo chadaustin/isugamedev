@@ -1,31 +1,27 @@
-#include "ParticleEngine.h"
-#include "Utility.h"
 #include <gmtl/VecOps.h>
 #include <gmtl/Math.h>
 #include <SDL_opengl.h>
+#include "GameState.h"
+#include "ParticleEngine.h"
+#include "Utility.h"
 
 namespace mw
 {
-   ParticleEngine::ParticleEngine(const std::string& filename,
-                                  const int numParticles,
-								  const gmtl::Point3f pos,
-                                  const Camera& gameCamera)
-      : mParticleCamera(gameCamera)
+   ParticleEngine::ParticleEngine(GameState* gameState,
+                                  const std::string& filename,
+                                  const int numParticles)
+      : AbstractEntity(gameState)
+      , mParticleCamera(gameState->getCamera())
    {
       mParticleTexture = new Texture(filename);
 
       for(int i = 0; i < numParticles; i++)
       {
-         gmtl::Vec3f velocity = randomUnitVector();
-         velocity *= gmtl::Math::rangeRandom(5.0, 15.0);
-
-         Particle* temp = new Particle(gmtl::Math::rangeRandom(1.0, 2.0));
-         temp->size(0.2);
-         temp->setMass(0.10);
-         temp->setVel(velocity);
-         temp->setPos(pos);
-         mPos = pos;
-         mParticleGroup.push_back(temp);
+         Particle* p = new Particle(gmtl::Math::rangeRandom(1.0, 2.0));
+         p->size(0.2);
+         p->setMass(0.10);
+         p->setVel(randomUnitVector() * gmtl::Math::rangeRandom(5, 15));
+         mParticleGroup.push_back(p);
       }
    }
 
@@ -34,25 +30,12 @@ namespace mw
       delete mParticleTexture;
    }
 
-   void ParticleEngine::setPos(const gmtl::Point3f& pos)
+   bool ParticleEngine::isExpired() const
    {
-      mPos = pos;
+      return (mParticleGroup.size() == 0);
    }
 
-   const gmtl::Point3f& ParticleEngine::getPos() const
-   {
-      return mPos;
-   }
-
-   bool ParticleEngine::isExpired()
-   {
-      if(mParticleGroup.size() == 0)
-         return true;
-      else
-         return false;
-   }
-
-   void ParticleEngine::draw()
+   void ParticleEngine::draw() const
    {
       const gmtl::Vec3f& camera_pos = mParticleCamera.getPos();
       mParticleTexture->bind();
@@ -66,11 +49,13 @@ namespace mw
 
          glColor4f(1,0,0,0.5f);
 
-         for(ParticleList::iterator i=mParticleGroup.begin(); i != mParticleGroup.end(); ++i)
+         for (ParticleList::const_iterator i = mParticleGroup.begin();
+              i != mParticleGroup.end();
+              ++i)
          {
             const gmtl::Point3f& part_pos = (*i)->getPos();
             glPushMatrix();
-            glTranslatef(part_pos[0], part_pos[1], part_pos[2]);
+            glTranslate(part_pos);
             billboardBegin(camera_pos, part_pos);
             (*i)->draw();
             billboardEnd();
@@ -109,7 +94,9 @@ namespace mw
       }
    }
 
-   void ParticleEngine::billboardBegin(const gmtl::Vec3f& cam, const gmtl::Vec3f& objPos)
+   void ParticleEngine::billboardBegin(
+      const gmtl::Vec3f& cam,
+      const gmtl::Vec3f& objPos) const
    {
       gmtl::Vec3f lookAt,objToCamProj,upAux, objToCam;
       float angleCosine;
@@ -182,7 +169,7 @@ namespace mw
       }
    }
 
-   void ParticleEngine::billboardEnd()
+   void ParticleEngine::billboardEnd() const
    {
       // restore the previously
       // stored modelview matrix

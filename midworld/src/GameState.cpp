@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 12:44:50 $
- * Version:       $Revision: 1.85 $
+ * Date modified: $Date: 2002-10-29 18:50:35 $
+ * Version:       $Revision: 1.86 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -121,12 +121,11 @@ namespace mw
       jukebox->addTrack("music/Level001.ogg");
       jukebox->addTrack("music/Level002.ogg");
       jukebox->play();
-
+      
       mScene = new Scene();
       OpenSGSceneViewer* viewer = new OpenSGSceneViewer(mScene);
-//      mSceneViewer = new OpenSGSceneViewer(mScene);
       mSceneViewer = viewer;
-      mScene->addSceneListener(mSceneViewer);
+      mScene->addSceneListener(viewer);
 
       // Init the collision detection system
       mCollDet = new BoundsCollisionDetector();
@@ -141,8 +140,6 @@ namespace mw
       initializeAI();
       loadLevel("levels/level1.txt");
 
-      mExplosion = new ParticleEngine("images/explosive_particle.png",
-                                      5000, gmtl::Point3f(2, 0, -50), mCamera);
       mCamera.setMaxFollowDistance(50.0f);
       mCamera.setMinFollowDistance(2.0f);
    }
@@ -151,7 +148,6 @@ namespace mw
    GameState::update(float dt)
    {
       AI.update();
-      mExplosion->update(dt);
 
       mCursor.update(application().getWidth(),
                      application().getHeight());
@@ -403,7 +399,7 @@ namespace mw
          }
          glPopAttrib();
 
-         mExplosion->draw();
+         drawEntities();
 
          // Draw the bounds
          glColor4f(1,0,0,1);
@@ -451,6 +447,19 @@ namespace mw
       mCursor.draw(application().getWidth(), application().getHeight());
       mHUD.draw(application().getWidth(), application().getHeight(),
                 mPlayer, mFPS);
+   }
+   
+   void
+   GameState::drawEntities()
+   {
+      // Run through the entities in the scene and mark those that are dead
+      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      {
+         const Entity* entity = itr->second;
+         glTranslate(entity->getPos());
+         entity->draw();
+         glTranslate(-entity->getPos());
+      }
    }
 
    void

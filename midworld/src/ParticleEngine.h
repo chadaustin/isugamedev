@@ -4,31 +4,44 @@
 #include <list>
 #include <gmtl/Vec.h>
 #include <gmtl/Point.h>
-#include "PhysicsEngine.h"
-#include "Particle.h"
-#include "Texture.h"
+#include "AbstractEntity.h"
 #include "Camera.h"
+#include "Particle.h"
+#include "PhysicsEngine.h"
+#include "Texture.h"
 
 namespace mw
 {
-   class ParticleEngine
+   class ParticleEngine : public AbstractEntity
    {
    public:
-      ParticleEngine(const std::string& filename, const int numParticles, 
-						const gmtl::Point3f pos,const Camera& gameCamera);
+      ParticleEngine(GameState* gameState,
+                     const std::string& filename,
+                     const int numParticles);
       ~ParticleEngine();
       void update(float dt);
-      void draw();
-      bool isExpired();
-      void setPos(const gmtl::Point3f& pos);
-      const gmtl::Point3f& getPos() const;
+      void draw() const;
+      bool isExpired() const;
+      
+      void onCollisionEntry(const CollisionEvent&)
+      {
+      }
+
+      void onCollisionMovement(const CollisionEvent&)
+      {
+      }
+
+      void onCollisionExit(const CollisionEvent&)
+      {
+      }
 
    private:
-      void billboardBegin(const gmtl::Vec3f& cam, const gmtl::Vec3f& objPos);
-      void billboardEnd();
+      void billboardBegin(
+         const gmtl::Vec3f& cam,
+         const gmtl::Vec3f& objPos) const;
+      void billboardEnd() const;
 
    private:
-      gmtl::Point3f mPos;
       Texture* mParticleTexture;
 
       typedef std::list<Particle*> ParticleList;

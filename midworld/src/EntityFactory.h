@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: EntityFactory.h,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-29 18:50:35 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -55,9 +55,27 @@ namespace mw
          // Create the typeinfo object to search with
          return new T(mGameState);
       }
+      
+      template< typename T >
+      T* createAndAdd(Type2Type<T> t = Type2Type<T>())
+      {
+         T* result = create<T>();
+         mGameState->add(result);
+         return result;
+      }
+      
+      void add(Entity* e)
+      {
+         mGameState->add(e);
+      }
 
       /// Sets the game state this factory uses.
       void setGameState(GameState* gameState);
+      
+      GameState* getGameState()
+      {
+         return mGameState;
+      }
 
       /// Gets the singleton instance of this class.
       static EntityFactory& instance();
