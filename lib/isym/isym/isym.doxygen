@@ -1,0 +1,25 @@
+/** @file isym.doxygen
+ *  this file for documentation purposes only (for doxygen generation)
+ */
+
+/** @mainpage Isym
+ *  @section Intro Introducing Isym
+ * Isym - extendable symbols for keyboard/mouse/joy/etc...
+ * Isym is (C) Copyright 2002 by Kevin Meinert, Chad Austin, Ben Scott
+ *
+ *  @section Using Using This Reference Guide
+ *  Welcome to Isym.  To use this reference guide effectively, we suggest 
+ *  you see the <a href="modules.html">Modules</a> section first.
+ *  The <a href="modules.html">Modules</a> section provides the most 
+ *  intuitive navigation of the reference guide because this
+ *  section is structured very similar to Isym.  Lastly, you should subscribe 
+ *  to the mailing lists so that you can ask questions, or propose extensions 
+ *  to the library.
+ *
+ *  @section Extendability Extendability
+ *  Using the getUID() function you can extend isym with your own unique IDs.
+ */
+ 
+/** @defgroup IsymAPI The Isym API
+ *  Input Symbols Application Programming Interface.
+ */
