@@ -26,7 +26,8 @@
 //    -------------------------------------------
 //    <SPACEBAR>               fire
 //    -------------------------------------------
-//
+//         f             fullscreen toggle
+//    -------------------------------------------
 //
 // TODO:
 //   - pretty models and textures... (use a model loader)
@@ -537,6 +538,25 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
    case ' ':
       app.fireButton = true;
       break;
+   case 'f':
+   case 'F':
+      static bool full = false;
+      static int old_width, old_height;
+      if (full == false)
+      {
+         glutFullScreen();
+         old_width = app.width;
+         old_height = app.height;
+         std::cout<<"full"<<std::endl;
+      }
+      else
+      {
+         glutReshapeWindow( old_width, old_height );
+         std::cout<<"win"<<std::endl;
+      }
+      full = !full;
+      std::cout<<full<<std::endl;
+      break;
    case 'A':
    case 'a':
      app.straefLeftButton = true;
@@ -724,6 +744,8 @@ void main( int argc, char* argv[] )
     std::cout<<"    left mouse button        fire              \n"<<std::flush;
     std::cout<<"    -------------------------------------------\n"<<std::flush;
     std::cout<<"    <SPACEBAR>               fire              \n"<<std::flush;
+    std::cout<<"    -------------------------------------------\n"<<std::flush;
+    std::cout<<"        f             fullscreen toggle        \n"<<std::flush;
     std::cout<<"    -------------------------------------------\n"<<std::flush;
     std::cout<<"\n"<<std::flush;
     
