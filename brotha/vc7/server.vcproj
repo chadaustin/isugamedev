@@ -113,6 +113,9 @@
 				RelativePath="..\server\ListenServer.cpp">
 			</File>
 			<File
+				RelativePath="..\server\WebServer.cpp">
+			</File>
+			<File
 				RelativePath="..\server\main.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -133,6 +136,9 @@
 			</File>
 			<File
 				RelativePath="..\server\ListenServer.h">
+			</File>
+			<File
+				RelativePath="..\server\WebServer.h">
 			</File>
 			<File
 				RelativePath="..\server\resource.h">
