@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-10 05:59:48 $
-// Version:       $Revision: 1.19 $
+// Date modified: $Date: 2003-02-10 06:08:12 $
+// Version:       $Revision: 1.20 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -371,9 +371,6 @@ void SdlDriver::handleEvent()
       }
       case SDL_JOYHATMOTION:
       {
-         // fixme: during one frame if we get more than 1 event, we need to combine both to get the right result.
-         // in one frame: UP, then DOWN.  when 2nd event happens, UP event is put to OFF, this isn't right.
-
          // collect the data from the bit flags.        
          float x = 0.0f, y = 0.0f;  
          DigitalInput::BinaryState up( DigitalInput::OFF ), down( DigitalInput::OFF ),
