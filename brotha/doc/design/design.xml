@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.39 2002-04-09 04:36:35 tamc Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 04:36:35 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.40 2002-04-09 04:48:47 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 04:48:47 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -54,40 +54,16 @@
       <para>Internally the Connection Manager module is composed of several classes: <classname>Connection</classname>, <classname>WriteThread</classname> and <classname>ReadThread</classname><classname></classname>. Each <classname>Socket</classname> passed into the module through <methodname>handleSocket</methodname> creates a <classname>Connection</classname> object. This <classname>Connection</classname> object creates a <classname>WriteThread</classname> and a <classname>ReadThread</classname> to handle the actual sending and receiving of data.</para>
       <para>The Connection Manager module depends on the Network module for the actual sending and receiving of bytes across the network, and the Threading module to allow multiple connections, while keeping these connections seperate from the other connections.</para>
       <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
+      <section>
         <title>Module Interfaces</title>
-        <classsynopsis>
-          <ooclass>
-            <classname>ConnectionManager</classname>
-          </ooclass>
-          <methodsynopsis>
-            <modifier>public</modifier>
-            <void/>
-            <methodname>handleSocket</methodname>
-            <methodparam>
-              <type>Socket*</type>
-              <parameter>sock</parameter>
-            </methodparam>
-          </methodsynopsis>
-          <methodsynopsis>
-            <modifier>public</modifier>
-            <void/>
-            <methodname>send</methodname>
-            <methodparam>
-              <type>Message*</type>
-              <parameter>message</parameter>
-            </methodparam>
-            <methodparam>
-              <type>ConnectionID</type>
-              <parameter>connID</parameter>
-            </methodparam>
-          </methodsynopsis>
-          <methodsynopsis>
-            <modifier>public</modifier>
-            <type>vector&lt;pair&lt;Message*,ConnectionID&gt;&gt; </type>
-            <methodname>readAll</methodname>
-            <void/>
-          </methodsynopsis>
-        </classsynopsis>
+        <para>blah blah</para>
       </section>
       <section>
         <title>Design Issues</title>
@@ -149,7 +125,7 @@
                         <para>Doesn't scale well past a thousand connections.</para>
                       </listitem>
                       <listitem>
-                        <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan connections linearly.</para>
+                        <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan linearly.</para>
                       </listitem>
                     </itemizedlist>
                   </listitem>
@@ -518,18 +494,19 @@
     </section>
     <section>
       <title>Thread Module</title>
-      <para>The thread module provides a suite of utility classes for creating threads and synchronizing them. It is built on top of NSPR (Netscape Portable Runtime) which is a portable system abstraction layer for C provided by mozilla.org. It consists of several classes: a base <classname>Thread</classname> class, a <classname>Lockable</classname> interface, a <classname>Mutex</classname> implementation of the <classname>Lockable</classname> interface, a <classname>ConditionVariable</classname> class, and a <classname>Synchronized</classname> mix-in class which provides functionality similar to Java's synchronized method semantics.</para>
-      <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
+      <para>The thread module provides a suite of utility classes for creating threads and synchronizing them. It is built on top of NSPR (Netscape Portable Runtime) which is a portable system abstraction layer for C provided by mozilla.org. It consists of several classes: a base <classname>Thread</classname> class, a <classname>Lockable</classname> interface, a <classname>Mutex</classname> implementation of the <classname>Lockable</classname> interface, and a <classname>Synchronized</classname> mix-in class which provides functionality similar to Java's synchronized method semantics.</para>
       <section>
         <title>Module Interfaces</title>
-        <para>blah blah</para>
+        <para>class Thread {</para>
+        <para> void start();</para>
+        <para> abstract void run();</para>
+        <para>}</para>
+        <para>interface Lockable {</para>
+        <para> void lock();</para>
+        <para> void unlock();</para>
+        <para>}</para>
+        <para>class Mutex implements Lockable;</para>
+        <para>class Synchronized implements Lockable;</para>
       </section>
       <section>
         <title>Design Issues</title>
