@@ -1,4 +1,2 @@
-Import('env')
-Export('env')
-
+SConscript('event/SConscript')
 SConscript('window/SConscript')

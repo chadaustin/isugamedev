@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-25 04:35:43 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-08 20:06:45 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -34,11 +34,14 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
+
 #ifndef PHUI_WIDGET_H
 #define PHUI_WIDGET_H
 
 #include "phuiCommon.h"
 #include "Color.h"
+#include "Input.h"
+
 
 namespace phui {
 
@@ -53,8 +56,8 @@ namespace phui {
            mBackgroundColor(0,0,0,0), mForegroundColor(1,1,1,1)
       {}
 
-      virtual ~Widget()
-      {}
+      virtual ~Widget() {
+      }
 
    public:
       /**
@@ -191,6 +194,15 @@ namespace phui {
       }
 
       virtual bool hasFocus() { return false; }
+
+
+      // external events
+      virtual void onKeyDown(InputKey key) { }
+      virtual void onKeyUp(InputKey key) { }
+      virtual void onMouseDown(InputButton button) { }
+      virtual void onMouseUp(InputButton button) { }
+      virtual void onMouseMove(int x, int y) { }
+
 
    protected:
       /**

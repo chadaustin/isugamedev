@@ -1,17 +1,21 @@
-import os
+# build with 'scons'
+# see doc/build.txt
+
 import sys
+import os
 import string
 
-# build with 'scons'
+execfile('glut_libs.py')
+
 
 Default('.')        # build everything by default
 
-CPPPATH= ['#', '#external/boost']
-if string.find(sys.platform, 'irix' ) != -1:
-   CPPPATH.extend(['#external/boost/boost/compatibility/cpp_c_headers'])
-
 # setup the environment
-env = Environment(CPPPATH=CPPPATH, ENV=os.environ, CXXFLAGS=['-DDEBUG_MEMORY=1'])
-Export('env')
+env = Environment(LIBPATH = '#phui',
+                  ENV = os.environ,
+                  CXXFLAGS = ['-DDEBUG_MEMORY=1'])
+Export('env GLUT_LIBS')
+
+# process subdirectories
 SConscript('phui/SConscript')
 SConscript('examples/SConscript')
