@@ -1,0 +1,243 @@
+Note: orgional requirements doc at:
+http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
+
+
+-- Title Page
+
+
+     Test Plan
+     Computer Science 309
+ 
+     Spring 2002 Term project
+
+
+
+
+
+
+
+
+
+
+     Document Owner 
+     Team 6
+
+     Ben Scott
+     Chad Austin
+     Chad Okere
+     Jeremy Hanson
+     Josh Carlson
+
+
+-- p2 (table of contents)
+      
+     Table of contents.
+
+-- p3/4 (system description)
+
+  1  System Description
+
+
+     1.1 System Description 
+
+     Warn-a-Brotha uses client-server architecture to allow for multiple people to play a racing game at the same time.  The client is a relatively simple system, which does little more then display the world and move around as the server tells it to.  The client uses the networking components (connection manager, networking, threading) as well as the input, sound, texture, and UI components.  The server is much more sophisticated, responsible for managing the state of the world, calculating the physics, storing all the game world related data, as well as handling requests for reports based on the data.  It uses the Connection Manager, Data, Game Logic, Network, Report server, and of course the Thread subsystems. 
+
+     The client/server networking will be over TCP/IP using our own networking object library, which will include a socket, stream, and serialization subsystem.  The report server will use the same socket libraries, but be based on HTTP, so that you'll just need a web browser to query against it. 
+
+     The client side graphics will be displayed using OpenGL 3D rendering, input will be handled using GameKernel, and will be converted into command requests which will be sent to the server to be processed.
+
+     The Game Logic component will handle user commands sent to the server and apply to the game world's state.
+     
+      
+     1.2  Description of test environment.
+     
+     The system will be tested on both windows and Linux, using a combination of CppUnit and custom made testing programs.  The tests will be conducted by individual group members on their personal computers.
+
+
+     1.3 Test phase overview
+
+
+       1.3.1 test preparation
+
+       The code will be prepared for use with CppUnit, and custom mini-programs will be written to test parts of the system.
+          
+       1.3.2 execution
+
+       The test programs will be run, and the output may be examined manually or automatically.
+
+       1.3.3 in case of anomaly
+
+       If an anomaly is detected, the error will be recorded, and testing will continue, later the bug will be tracked down and corrected, and testing will commence again.
+
+ 
+
+  2  Major Tests.
+
+
+     2.1 Unit tests.
+
+     
+
+     2.2 integration tests
+
+
+     
+     2.3 functional tests
+
+
+
+-- p5 (Test Description Only TWO tests in detail)
+
+
+   3 Test Descriptions  
+
+       
+      3.1 Network
+
+          (for each test)
+          1 Requrements
+          2 Methods
+          3 Test Procedures
+
+
+      3.2 Data XML subsystem
+
+          (for each test)
+          1 Requrements
+          2 Methods
+          3 Test Procedures
+
+
+          Test 32A Storage/save test:
+          Requrements
+
+            Functions: XML API for populating data, data saving
+
+          Methods
+
+            White box testing will be used, in order to assure that all the code works, all the different types of information used by the system will be entered.
+
+          Test procedures.
+
+            A short program will be written to populate the data structure with pre-defined information using the API, and the XML structure will be written out to the console.  That structure will be visually analyzed to make sure all the information is present.  The test data used will fill the structure with all used information.
+          
+
+
+          Test 32B Data loading test
+          Requrements 
+
+            Functions: loading and saving data.
+
+          Methods
+          
+            White box testing will be used as in the test 32B.
+
+          Test procedures
+
+          
+            An XML file will be written that includes all the possible types of information available to the system.  A short program will be written that will load the file into memory, and then re-encode it into XML.  The resulting XML file will then be compared with the orgional.
+           
+          
+        
+
+      3.3 Game Logic
+        
+          (for each test)
+          1 Requrements
+          2 Methods
+          3 Test Procedures
+
+
+      3.4 Report Server
+
+           
+          
+          Test 34A Report generation
+
+          Requrements/ functions tested
+
+           Requrements: 5.3, 5.3.5, 5.3.5.1, 5.3.5.2 (5.3.5.2 is no longer relevent)
+           Functions: report generation.
+
+          Methods
+
+            White box testing will be used to execute each bit of code in the report generation section
+          
+          Test procedures
+
+          The reports server subcomponents generate HTML from a query string.  A test program will be written to submit several queries against an XML file, which will test using several different types of queries created to give complete code coverage.  The reports will be outputted to several HTML files, and visually examined for correctness.  Additionaly, invalid queries will be sent to make sure an error is sent
+
+          The attempted queries will be as follows:
+
+              A query to retrieve a detailed view of all the gangs, and minor view of the players (2*/1*/0*)
+  
+              B query to retrieve a detailed view of all the players in a gang with a list of their cars (0[gangname]/2*/1*)
+
+              C query to retrieve a detailed view of all the cars of a specific player (2[gangname]/1[playername]/2*)
+
+              D query to retrieve a list of gangs in light mode  (2*/0*/0*)
+ 
+              E query to retrieve all the cars in the game (0*/0*/2*) 
+
+         
+          Test 34B Server startup
+
+            Requrements:
+               5.3, 5.3.1,
+
+            Method: 
+               
+                Black box testing will be used.  Either the server has started or it hasn't :)
+
+            Test procedure:
+
+                The command to run the reports server will be called, and then a web browser will be used to test to see if it responds.
+
+
+         
+          Test 34C Server shutdown
+
+            Requrements:
+                5.3, 5.3.2,
+
+            Method: 
+               
+                Black box testing will be used.  Either the server has stopped or it hasn't :)
+
+            Test procedure:
+
+                The command to stop the reports server will be called, and then a web browser will be used to test to see if it responds.
+
+         
+         
+
+       3.5 Sound subsystem.
+          
+          (for each test)
+          1 requirements
+          2 methods
+          3 Test Procedures
+
+
+
+-- p7 Traceablity Matrix (sorted by requrements)
+
+
+Note: this is a nested list because I didn't really feel like trying create a table in 
+ASCII form
+
+
+Requrements:
+
+      5.3
+         34A, 34B, 34C
+          
+      5.3.1
+         34B
+
+      5.3.2
+         34C
+         
+      5.3.5
+         34A
+
