@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.60 2002-04-12 03:48:48 jjhnsn Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 03:48:48 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.61 2002-04-12 03:51:14 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 03:51:14 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -40,7 +40,7 @@
   </bookinfo>
   <preface>
     <title>Introduction</title>
-    <para><emphasis>Warn-a-Brotha</emphasis> is an online 3D racing game in the spirit of <emphasis>Mario Kart</emphasis> and <emphasis>F-Zero</emphasis>. The game will feature cartoon characters in a multi-player battle cart racing game. Players will be able to compete in combat and racing action against several other networked friends.</para>
+    <para><emphasis>Warn-a-Brotha</emphasis> is an on-line 3D racing game in the spirit of <emphasis>Mario Kart</emphasis> and <emphasis>F-Zero</emphasis>. The game will feature cartoon characters in a multi-player battle cart racing game. Players will be able to compete in combat and racing action against several other networked friends.</para>
     <para>The game will include power-ups, damage meters and an interesting interface. We plan on keeping track of player and gang-related statistics and preferences such as the number of kills they've made, number of times they've died and the number of cars they've trashed. The player will be able to choose one of several characters, each with his or her own look and attitude.</para>
     <para>The <emphasis>Warn-a-Brotha</emphasis> client program will be implemented using OpenGL and C++ while the server will be implemented with portable C++. The clients and server will communicate over the TCP/IP layer. Due to time constraints, we will assume that all computers are on a LAN or other suitably fast connection so that we can generally ignore the lag problems associated with dial-up networked play.</para>
     <para>The underlying database will be implemented using XML tables storing gangs, players, cars and car modifications where each gang can have multiple players, each player can have multiple cars and each car can have multiple modifications.</para>
@@ -52,7 +52,7 @@
       <title>Connection Manager Module</title>
       <para>The Connection Manager module is responsible for handling the sending and receiving of messages from a number of peer connections. Objects of type <classname>Socket</classname> are passed into the module through the <methodname>handleSocket</methodname> method. This method returns a unique connection identification number that will be associated with the <classname>Socket</classname> object. The <methodname>send</methodname> method accepts an object of type <classname>Message</classname> and a connection identification number. The message that is passed in will be sent to the peer connection represented by the connection identification number. The <methodname>readAll</methodname> method will return to the caller a collection of objects of type <classname>Message</classname> and the connection identification number that represents the peer connection from which the <classname>Message</classname> object originated from. The <classname>Message</classname> class provides the abstract implementation for all <classname>Message</classname> objects. Data cannot be sent using the Connection Manager unless the data is represented by an object that implements the <classname>Message</classname> class.</para>
       <para>Internally the Connection Manager module is composed of several classes: <classname>Connection</classname>, <classname>WriteThread</classname> and <classname>ReadThread</classname><classname></classname>. Each <classname>Socket</classname> passed into the module through <methodname>handleSocket</methodname> creates a <classname>Connection</classname> object. This <classname>Connection</classname> object creates a <classname>WriteThread</classname> and a <classname>ReadThread</classname> to handle the actual sending and receiving of data.</para>
-      <para>The Connection Manager module depends on the Network module for the actual sending and receiving of bytes across the network, and the Threading module to allow multiple connections, while keeping these connections seperate from the other connections.</para>
+      <para>The Connection Manager module depends on the Network module for the actual sending and receiving of bytes across the network, and the Threading module to allow multiple connections, while keeping these connections separate from the other connections.</para>
       <section>
         <title>Module Interfaces</title>
         <classsynopsis>
@@ -306,7 +306,7 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>The BrothaData object needed to be able to store all the information persistantly. Do do that, we decided to use XML and an off the shelf parser. We also decided to use one that supported Xpath and XSL for the report server.</para>
+        <para>The BrothaData object needed to be able to store all the information persistently. To do that, we decided to use XML and an off-the-shelf parser. We also decided to use one that supported XPath and XSL for the report server.</para>
         <section>
           <title>Loading</title>
           <para>One thing we decided to do was to load all the data into memory and create simple wrapper classes around it, rather then using something like SAX and only loading data on demand (and creating wrapper collections and the like). This was done to save time, especially since it won't really end up holding all that much data.</para>
@@ -316,7 +316,7 @@
     <section>
       <title>Game Logic Module</title>
      <para>The Game Logic module is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic module manages game specific interactions between object in the world such as cars, buildings and projectile. </para>
-      <para>This module supports many different objects that exist in the game. Vehicles are allowed to interact with other vehicles by colliding with them or shooting ammuntion at the enemy. When this happens, a vehicle takes on damage and loses health. Both cars lose health in the event of a collision, but only the vehicle that gets shot loses health in the event of a shooting. When a player loses health, coins are dropped onto the map where the damage occured. These coins can be collected by other players by colliding with them. Coins can be used later in order to purchase modifications to the players vehicle. </para>
+      <para>This module supports many different objects that exist in the game. Vehicles are allowed to interact with other vehicles by colliding with them or shooting ammunition at the enemy. When this happens, a vehicle takes on damage and loses health. Both cars lose health in the event of a collision, but only the vehicle that gets shot loses health in the event of a shooting. When a player loses health, coins are dropped onto the map where the damage occured. These coins can be collected by other players by colliding with them. Coins can be used later in order to purchase modifications to the players vehicle. </para>
       <para>Players also interact with inanimate objects such as buildings and walls. When a collision occurs with a building or wall, health is lost and coins are dropped much in the same way as interactions between players except that buildings and wall do not take on damage.When a players health is equal to zero, that player is dead and must be sent back to the garage. The player is allowed back into the game after purchasing repairs for the vehicle. </para>
       <para>The player is given an option after starting the program to enter the garage or just going straight into the game.  If the player decides to go to the garage, he has the option to buy upgrades, repair damage to the vehicle, or enter the game. </para>
       <para>After entering the game, the player is then entered into a race where destroying his opponents or alternate gangs is highly recommended.  It a player forces another players health down to zero, that player is credited with a frag, and and that will be saved in the player's statistics.</para>
@@ -328,8 +328,8 @@
       </section>
       <section>
         <title>Network Message Handling</title>
-        <para>The Network Message Handler handles messages recieved from the Network Manager and sends them to the appropriate players.  If the message is sent to all players the game will broadcast the message to everyone, if it is a personal message, only the player the message was sent to will recieve it.</para>
-        <para>Messages will also be sent regarding a players statistics, including kills, money and health.</para> 
+        <para>The Network Message Handler handles messages recieved from the Network Manager and sends them to the appropriate players.  If the message is sent to all players the game will broadcast the message to everyone. If it is a personal message, only the player the message was sent to will receive it.</para>
+        <para>Messages will also be sent regarding a players statistics, including kills, money and health.</para>
       </section>
       <section>
         <title>Module Interfaces</title>
@@ -408,7 +408,7 @@
         <section>
           <title>Update</title>
           <question>
-           <para>How can the update procedure be simplified in order that empty messages do not flood the network?</para>  
+           <para>How can the update procedure be simplified in order that empty messages do not flood the network?</para>
           </question>
           <answer>
            <para>The update procedure needs to be quick and painless while not causing too much network traffic.</para>
@@ -467,9 +467,9 @@
               </formalpara>
               <formalpara>
                 <title>Conclusion</title>
-                <para>We decided to send a message whenever a statistic is updated.  It is not to hard to check and see if a stat has been updated, and the network traffic should be much less.</para>
+                <para>We decided to send a message whenever a statistic is updated.  It is not to hard to check and see if a stat has been updated and the network traffic should be much less.</para>
               </formalpara>
-          </answer>        
+          </answer>
         </section>
       </section>
     </section>
@@ -545,7 +545,7 @@
                             <para>Platform-neutral.</para>
                           </listitem>
                           <listitem>
-                            <para>Supports runtime keybinding to application specific commands.</para>
+                            <para>Supports runtime key-binding to application specific commands.</para>
                           </listitem>
                         </itemizedlist>
                       </listitem>
@@ -567,7 +567,7 @@
               </formalpara>
               <formalpara>
                 <title>Conclusion</title>
-                <para>We chose GameKernel for a couple reasons. First, the members of the team are more familiar with it than GLUT. Additionally, it handles keybinding for us as well as having a superior API to GLUT. Also, since GameKernel is open source, we can update it to include any functionality we may need.</para>
+                <para>We chose GameKernel for a couple reasons. First, the members of the team are more familiar with it than GLUT. Additionally, it handles key-binding for us as well as having a superior API to GLUT. Also, since GameKernel is open source, we can update it to include any functionality we may need.</para>
               </formalpara>
             </answer>
           </qandaentry>
@@ -792,7 +792,7 @@
     </section>
     <section>
       <title>Report Server Module</title>
-      <para>The Report Server module is responsible for generating dynamic reports requested by HTTP 1.0 standards complient clients. The reports will be generated based on data gathered from the Data/XML module. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This module depends on the Data/XML module for the gathering of data and the Network module for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
+      <para>The Report Server module is responsible for generating dynamic reports requested by HTTP 1.0 standard compliant clients. The reports will be generated based on data gathered from the Data/XML module. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This module depends on the Data/XML module for the gathering of data and the Network module for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
       <section>
         <title>Module Interfaces</title>
         <classsynopsis>
@@ -821,7 +821,7 @@
               <para>Which method of formatting data should be used?</para>
             </question>
             <answer>
-              <para>The Report Server moduel will need the ability to generate dynamic reports based on subsets of the XML data. Since each report may not include all the information, we'll need a method to specify this.</para>
+              <para>The Report Server module will need the ability to generate dynamic reports based on subsets of the XML data. Since each report may not include all the information, we'll need a method to specify this.</para>
               <formalpara>
                 <title>Alternative 1 - <emphasis>Web based scripting (Perl, ASP, PHP)</emphasis></title>
                 <para><variablelist>
@@ -833,7 +833,7 @@
                             <para>Easy to generate dynamic output.</para>
                           </listitem>
                           <listitem>
-                            <para>Efficient use of bandwidth as the data is limitted on the server.</para>
+                            <para>Efficient use of bandwidth as the data is limited on the server.</para>
                           </listitem>
                           <listitem>
                             <para>Most clients already have applications capable of viewing the output.</para>
@@ -877,7 +877,7 @@
                       <listitem>
                         <itemizedlist spacing="compact">
                           <listitem>
-                            <para>Inefficient use of bandwidth as data is limitted on the client.</para>
+                            <para>Inefficient use of bandwidth as data is limited on the client.</para>
                           </listitem>
                           <listitem>
                             <para>Requires client to have an application capable of using this technology.</para>
@@ -889,7 +889,7 @@
               </formalpara>
               <formalpara>
                 <title>Conclusion</title>
-                <para>We decided to choose the XML, XSL, and XPath method. We chose this method because of the lack of need to write custom routines to generate the HTML. We will also be able to gaurantee that the client has the appropriate software, so that isn't an issue.</para>
+                <para>We decided to choose the XML, XSL, and XPath method. We chose this method because of the lack of need to write custom routines to generate the HTML. We will also be able to guarantee that the client has the appropriate software, so that isn't an issue.</para>
               </formalpara>
             </answer>
           </qandaentry>
@@ -1431,7 +1431,7 @@
               </formalpara>
               <formalpara>
                 <title>Conclusion</title>
-                <para>We're stuck with <emphasis>GameKernel</emphasis> to provide our applications input. Thus the choice clearly points towards using <emphasis>phui</emphasis>. We have to gamble that phui developers can make it stable in the next couple of weeks.</para>
+                <para>We're stuck with <emphasis>GameKernel</emphasis> to provide our application's input. Thus the choice clearly points toward using <emphasis>phui</emphasis>. We have to gamble that phui developers can make it stable in the next couple of weeks.</para>
               </formalpara>
             </answer>
           </qandaentry>
@@ -1441,7 +1441,7 @@
   </chapter>
   <chapter>
     <title>Putting It All Together</title>
-    <para>Since <emphasis>Warn-a-Brotha</emphasis> has an overall client/server design, the project can be split into two distinctly seperate applications that use the modules differently.</para>
+    <para>Since <emphasis>Warn-a-Brotha</emphasis> has an overall client/server design, the project can be split into two distinctly separate applications that use the modules differently.</para>
     <section>
       <title>The Server Application</title>
       <figure>
@@ -1464,7 +1464,7 @@
           </imageobject>
         </mediaobject>
       </figure>
-      <para>The client application is simply the glue that binds the various modules it requires - namely Connection Manager, Input, Sound, Texture and UI. It is really just a dumb display which allows the user to connect to the server. Once connected, it processes input from the attached and configured devices and which device inputs are triggered, forwards the corresponding request to the server. The client also provides a visual view onto the game world based on the update data received from the server.</para>
+      <para>The client application is simply the glue that binds the various modules it requires - namely Connection Manager, Input, Sound, Texture and UI. It is really just a dumb display which allows the user to connect to the server. Once connected, it processes input from the attached and configured devices and which device inputs are triggered, forward the corresponding request to the server. The client also provides a visual view onto the game world based on the update data received from the server.</para>
     </section>
   </chapter>
   <chapter>
@@ -1495,7 +1495,7 @@
       <varlistentry>
         <term><emphasis>phui</emphasis></term>
         <listitem>
-          <para>Phui is a "phlexible user interface" for OpenGL based applications. Developed by members of the Game Developers Club at IowaState University, phui is designed to allow for the large amount of control in the rendering of widgets that game developers demand.</para>
+          <para>Phui is a "phlexible user interface" for OpenGL based applications. Developed by members of the Game Developers Club at Iowa State University, phui is designed to allow for the large amount of control in the rendering of widgets that game developers demand.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
