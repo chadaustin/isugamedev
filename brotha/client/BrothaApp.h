@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-26 12:40:00 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-04-26 13:17:34 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -102,7 +102,7 @@ namespace client
 
       bool getFirstMsg(net::Message*& msg) {
          if(!mMsgList.empty()) {
-            msg = mMsgList.at(0).first;
+            msg = mMsgList[0].first;
             mMsgList.erase(mMsgList.begin());
             return true;
          }
