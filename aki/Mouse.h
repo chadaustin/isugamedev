@@ -3,17 +3,14 @@
 //
 //                   -=    Mouse    =-
 //
-// Description: "Useful mouse class, keeps track of button
-//            states such as edge triggering,
-//            and keeps track of previous position,
-//            and change in position"
+// Description: "Game Input driver for Mouse"
 //
-///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
+///////////////// <auto-copyright END do not edit this line> ///////////////////
 //
 //   $RCSfile: Mouse.h,v $
-//   $Date: 2002-01-30 06:18:27 $
-//   $Revision: 1.7 $
-//   Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
+//   $Date: 2002-01-30 06:22:41 $
+//   $Revision: 1.8 $
+//   Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //   This library is free software; you can redistribute it and/or
 //   modify it under the terms of the GNU Library General Public
@@ -30,8 +27,6 @@
 //   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 ///////////////// <auto-copyright END do not edit this line> ///////////////////
-
-//////////////////////////////////////////////////////////////////////////////
 #ifndef MOUSE_INCLUDED
 #define MOUSE_INCLUDED
 
