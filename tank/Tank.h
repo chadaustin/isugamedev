@@ -44,7 +44,7 @@ public:
 
          // vehicle (tank)
          glPushMatrix();
-            glColor3f( 1,0,1 );
+            glColor3f( 1.0f, 0.5f, 1.0f );
             glScalef( 10,10,25 );
             drawPyramidThing();
          glPopMatrix();
@@ -53,7 +53,7 @@ public:
          glPushMatrix();
             glScalef( 1,1,17 );
             glTranslatef( 0,8,0 );
-            glColor3f( 0,0,1 );
+            glColor3f( 0.7f ,0.7f, 0.8f );
             drawPyramidThing();
          glPopMatrix();
          
