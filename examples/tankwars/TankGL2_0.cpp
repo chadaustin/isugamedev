@@ -846,7 +846,7 @@ void GameLoop()
 	if ( shotCursor != NULL ) // move bullets
 	{
 		// Check first case to see if it's the 1st bullet in the list hitting the tank
-		while ( shotCursor != NULL && !ifNCollide(tank2, shotCursor))
+/*		while ( shotCursor != NULL && !ifNCollide(tank2, shotCursor))
 		{
 			test2.deathDraw();
 			Weapon *foo = shotCursor;
@@ -872,7 +872,42 @@ void GameLoop()
 				//cursor = prev_ptr;
 				test2.deathDraw();
 			}
+		}*/
+
+		Weapon *cursor;
+		Weapon *foo = NULL;
+		Weapon *newList = NULL;
+		Weapon *newListCursor = NULL;
+
+		for ( cursor = shotCursor; cursor != NULL; cursor = cursor->next)
+		{
+			if ( foo != NULL )	// release memory of foo
+				delete foo;		
+			
+			if (!ifNCollide(tank2, cursor))
+			{
+				// bullet hit the tank, remove it
+				foo = cursor;
+			}
+			else
+			{
+				if(newList = NULL)
+				{
+					newList = cursor;
+					newListCursor = NULL;
+				}
+				else
+				{
+					newListCursor->next = cursor;
+					newListCursor = newListCursor->next;
+				}
+			}
 		}
+
+		if(foo != NULL)
+			delete foo;
+
+		newListCursor->next = NULL;
 	}
 
 	if ( shot2Cursor != NULL ) // move bullets
