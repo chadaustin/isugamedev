@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-03 07:18:34 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-05-03 07:27:11 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -82,8 +82,8 @@ namespace game
       for (unsigned int i=0; i < mObject.size(); i++){
          for (unsigned int j=0; j < mObject.size(); j++){
             if (gmtl::isInVolume(mObject[i]->getSphere(), mObject[j]->getSphere()) && i != j){
-               mObject[i]->setHealth(mObject[i]->getHealth() - 15);
-               mObject[j]->setHealth(mObject[j]->getHealth() - 15);
+               mObject[i]->setHealth(mObject[i]->getHealth() - 10);
+               mObject[j]->setHealth(mObject[j]->getHealth() - 10);
             }
          }
          if (mObject[i]->isDestroyed()){
