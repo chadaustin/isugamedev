@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-05-02 07:13:14 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -92,6 +92,12 @@ namespace game
       * @param object     the object to remove
       */
 	  void remove(game::Object* object);
+
+     /// Gets the list of players in the game.
+     std::vector<Player*>& getPlayers();
+
+     /// Gets the list of objects in the game.
+     std::vector<Object*>& getObjects();
 
      /**
       * Gets the player with the given name.

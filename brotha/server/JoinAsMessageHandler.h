@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: JoinAsMessageHandler.h,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -60,7 +60,7 @@ namespace server {
          net::JoinAsMessage* jMsg = (net::JoinAsMessage*)msg;
          if(jMsg->getCode() == net::JoinAsMessage::PLAYER) {
             // join the player to the game and send the OK message
-            m_brothaGame->joinPlayer(cID);
+//            m_brothaGame->joinPlayer(cID);
             m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
 
             // tell the player to enter the garage

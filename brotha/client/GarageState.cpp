@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-05-02 02:34:00 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,6 +44,7 @@
 #include <phui/SDLBridge.h>
 #include "net/GarageDataMessage.h"
 #include "net/RequestGarageDataMessage.h"
+#include "net/ChangeLocationMessage.h"
 #include "BrothaApp.h"
 #include "GarageState.h"
 #include "GameState.h"
@@ -140,9 +141,29 @@ namespace client {
                /// @todo raise an error
             }
          }
-      } else if(mSubState == Join_Game) {
-         app->invokeStateTransition(new GameState(app));
-         mSubState = User_Input;
+      } else if (mSubState == Join_Game) {
+         app->sendMessage(new net::ChangeLocationMessage(net::ChangeLocationMessage::GAME));
+         mSubState = Wait_Join_Game_Ack;
+      } else if (mSubState == Wait_Join_Game_Ack) {
+         net::Message* msg = NULL;
+         if (app->getFirstMsg(msg)) {
+            // make sure we got the right message type
+            if(msg->getType() == net::OK) {
+               net::OKMessage* okMsg = (net::OKMessage*)msg;
+
+               // Success ... move to GameState
+               if (okMsg->getCode() == net::OKMessage::OKAY) {
+                  app->invokeStateTransition(new GameState(app));
+               }
+               else {
+                  std::cout<<"ERROR: failed to change to the game location"<<std::endl;
+                  mSubState = User_Input;
+               }
+            } else {
+               std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               /// @todo raise an error
+            }
+         }
       } else {
          // do nothing
       }

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-02 07:09:33 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -88,6 +88,23 @@ namespace server {
          mLogic.update(dt);
       }
 
+      // Run through all objects in game and broadcast their updated data
+      typedef std::vector<game::Object*> ObjList;
+      ObjList& objs = mLogic.getObjects();
+      for (ObjList::iterator itr = objs.begin(); itr != objs.end(); ++itr) {
+         net::UpdateObjMessage *msg = new net::UpdateObjMessage(*itr);
+         sendToAll(msg, true);
+      }
+
+      // Run through all players in game and broadcast their updated data
+      typedef std::vector<game::Player*> PlayerList;
+      PlayerList& players = mLogic.getPlayers();
+      for (PlayerList::iterator itr = players.begin(); itr != players.end(); ++itr) {
+         net::UpdatePlayerMessage *msg = new net::UpdatePlayerMessage(*itr);
+         sendToAll(msg, true);
+      }
+
+
       /// @todo do a frame in the game
       /// @todo for each object that is modified broadcast to everyone
 
@@ -114,8 +131,8 @@ namespace server {
       mConnectedPlayers[cID] = player;
 
       // notify everyone else of this player being added to the game
-      net::AddPlayerMessage *msg = new net::AddPlayerMessage(player);
-      sendToAll(msg, true);
+//      net::AddPlayerMessage *msg = new net::AddPlayerMessage(player);
+//      sendToAll(msg, true);
    }
 
    void BrothaGame::removePlayer( game::Player* player ) {

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MessageTypes.h,v $
- * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -62,7 +62,8 @@ namespace net {
       DelPlayer, ///< server sends to remove an object
       UpdatePlayerInfo, ///< client sends to update its info
       GarageData, ///< server sends data for the garage
-      RequestGarageData ///< client sends to request garage data
+      RequestGarageData, ///< client sends to request garage data
+      ChangeLocation ///< client sends to request to switch between garage/game
       //...
    }; // MessageType
 

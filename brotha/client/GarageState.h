@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.h,v $
- * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -61,7 +61,8 @@ namespace client {
          Send_Request, ///< need to send data request
          Wait_For_Data, ///< waiting for data
          User_Input, ///< user input
-         Join_Game ///< join game button pressed
+         Join_Game,  ///< join game button pressed
+         Wait_Join_Game_Ack ///< wait for ack from server
       };
    public:
       GarageState();

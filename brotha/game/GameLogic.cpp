@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-02 07:13:14 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -166,6 +166,14 @@ namespace game
       if(Itr != mObject.end()){
          mObject.erase(Itr);
       }
+   }
+
+   std::vector<Player*>& GameLogic::getPlayers() {
+      return mPlayer;
+   }
+
+   std::vector<Object*>& GameLogic::getObjects() {
+      return mObject;
    }
 
    Player* GameLogic::getPlayer(const std::string& name) {

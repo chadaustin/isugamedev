@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameThread.h,v $
- * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -53,6 +53,7 @@
 #include "ResyncMessageHandler.h"
 #include "UpdatePlayerInfoMessageHandler.h"
 #include "RequestGarageDataMessageHandler.h"
+#include "ChangeLocationMessageHandler.h"
 #include "MessageHandler.h"
 
 namespace server {

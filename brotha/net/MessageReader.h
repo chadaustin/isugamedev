@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MessageReader.h,v $
- * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-02 09:12:02 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -66,6 +66,7 @@
 #include "UpdatePlayerInfoMessage.h"
 #include "GarageDataMessage.h"
 #include "RequestGarageDataMessage.h"
+#include "ChangeLocationMessage.h"
 
 namespace net {
 
@@ -146,6 +147,10 @@ namespace net {
 
             case GarageData:
                msg = new GarageDataMessage();
+               break;
+
+            case ChangeLocation:
+               msg = new ChangeLocationMessage();
                break;
 
             default:
