@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-10-09 09:20:41 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-16 08:35:10 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -107,7 +107,7 @@ namespace mw
       void rotate();
       
 
-   private:
+   protected:
       long int mHealth;
    };
 
