@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-02-24 06:28:39 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-02-24 06:47:01 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,13 +42,38 @@
 
 namespace phui {
 
+   /**
+    * Abstract widget specialization. This is the base class for all widgets
+    * implementations that may contain other widgets within them.
+    */
    class WidgetContainer : public Widget {
-   public:
+   protected:
+      /**
+       * This class is abstract. You create a derived instance instead.
+       */
       WidgetContainer();
       ~WidgetContainer();
 
+   public:
+      /**
+       * Adds the given widget to this container widget.
+       *
+       * @param widget     the widget to add
+       */
       void add(Widget* widget);
+
+      /**
+       * Draws this widget and all of its children.
+       */
       void draw();
+
+   protected:
+      /**
+       * Draws each widget in this container widget. WidgetContainer
+       * implementations will want to call this if they reimplement draw() to
+       * draw the child components correctly.
+       */
+      virtual void drawChildren();
 
    private:
       std::list<Widget*> mWidgets;

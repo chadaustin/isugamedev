@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2002-02-24 06:21:12 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-24 06:47:01 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -54,6 +54,9 @@ namespace phui {
          glVertex2i( mX + mWidth, mY + mHeight );
          glVertex2i( mX,          mY + mHeight );
       glEnd();
+
+      // draw the children on top of us
+      drawChildren();
    }
 
 } // namespace phui

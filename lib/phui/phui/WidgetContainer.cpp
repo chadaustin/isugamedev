@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-02-24 06:29:33 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-02-24 06:47:01 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -36,6 +36,7 @@
  ************************************************************** phui-cpr-end */
 #include <algorithm>
 #include <functional>
+#include <GL/gl.h>
 #include "WidgetContainer.h"
 
 namespace phui {
@@ -46,14 +47,28 @@ namespace phui {
    WidgetContainer::~WidgetContainer() {
    }
 
-   void
-   WidgetContainer::add(Widget* widget) {
+   void WidgetContainer::add(Widget* widget) {
       mWidgets.push_back(widget);
    }
 
-   void
-   WidgetContainer::draw() {
-      std::for_each(mWidgets.begin(), mWidgets.end(), mem_fun(&Widget::draw));
+   void WidgetContainer::draw() {
+      // draw all children to this widget
+      drawChildren();
+   }
+
+   void WidgetContainer::drawChildren() {
+      // draw all children to this widget
+      std::list<Widget*>::iterator itr;
+      for (itr = mWidgets.begin(); itr != mWidgets.end(); ++itr) {
+         Widget* wgt = *itr;
+
+         // only draw if the widget is visible
+         if (wgt->isVisible()) {
+            ::glTranslatef( mX, mY, 0 );
+            wgt->draw();
+            ::glTranslatef( -mX, -mY, 0 );
+         }
+      }
    }
 
 } // namespace phui

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 06:13:46 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-02-24 06:47:01 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -125,6 +125,26 @@ namespace phui {
       }
 
       /**
+       * Tests if this widget is visible.
+       *
+       * @return  true if the widget is visible, false otherwise
+       */
+      virtual bool isVisible() const
+      {
+         return mVisible;
+      }
+
+      /**
+       * Shows or hides this component depending on the parameter visible.
+       *
+       * @param visible    true to show this component, false to hide it
+       */
+      virtual void setVisible( bool visible )
+      {
+         mVisible = visible;
+      }
+
+      /**
        * Sets the background color of this widget.
        *
        * @param clr     the new background color
@@ -191,6 +211,11 @@ namespace phui {
        * Whether this widget is enabled or disabled.
        */
       bool mEnabled;
+
+      /**
+       * Whether this widget is visible.
+       */
+      bool mVisible;
 
       /**
        * The background color.

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-02-24 06:28:39 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-02-24 06:47:01 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,6 +42,7 @@ static int gWidth  = 640;
 static int gHeight = 480;
 static int mainWin_contextID;
 static phui::RootWidget* gUI(NULL);
+static phui::Window* gWnd(NULL);
 
 //-----------------------------------------------------------------------------
 
@@ -103,6 +104,11 @@ void OnKeyboardDown( unsigned char key, int x, int y )
    {
       exit(0);
    }
+   // w toggles opening window
+   else if ( key == 'w' )
+   {
+      gWnd->setVisible( ! gWnd->isVisible() );
+   }
 }
 
 int main( int argc, char** argv )
@@ -119,12 +125,12 @@ int main( int argc, char** argv )
    glutKeyboardFunc( OnKeyboardDown );
 
    gUI = phui::CreateRoot( gWidth, gHeight );
-   phui::Window* wnd = new phui::Window();
-   wnd->setPosition( 150, 75 );
-   wnd->setSize( 300, 250 );
+   gWnd = new phui::Window();
+   gWnd->setPosition( 150, 75 );
+   gWnd->setSize( 300, 250 );
    phui::Colorf c = { 1, 0, 0, 0.5 };
-   wnd->setBackgroundColor( c );
-   gUI->add( wnd );
+   gWnd->setBackgroundColor( c );
+   gUI->add( gWnd );
 
    glutMainLoop();
 }
