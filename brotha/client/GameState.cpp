@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-05-03 07:18:33 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-05-03 07:58:49 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -126,12 +126,12 @@ namespace client {
             if (msg->getType() == net::UpdateObj) {
                net::UpdateObjMessage* uoMsg = (net::UpdateObjMessage*)msg;
 
-               game::Object* obj = uoMsg->getObject();
+//               game::Object* obj = uoMsg->getObject();
 /// @todo               mScene.update(obj);
             }
             // we got a player update
             else if (msg->getType() == net::UpdatePlayer) {
-               net::UpdatePlayerMessage* upMsg = (net::UpdatePlayerMessage*)msg;
+//               net::UpdatePlayerMessage* upMsg = (net::UpdatePlayerMessage*)msg;
 
                /// @todo handle player update
             }
