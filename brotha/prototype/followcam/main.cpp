@@ -1,6 +1,6 @@
 #include <GL/glut.h>
 #include "Scene.h"
-#include "Camera.h"
+//#include "Camera.h"
 #include <gmtl/Generate.h>
 #include <gmtl/Convert.h>
 #include <gmtl/MatrixOps.h>

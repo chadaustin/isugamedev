@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.cpp,v $
- * Date modified: $Date: 2002-04-24 10:43:53 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-24 10:59:40 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,8 +43,8 @@
 
 namespace client {
    Scene::Scene()
-      : mFollowDist(-500)
-      , mFollowPitch(0.30)
+      : mFollowDist(1500)
+      , mFollowPitch(0.40)
       , mTargetRot(0,0,0,1)
       , mTargetPos(0,0,0)
       , mCurRot(0,0,0,1)
@@ -62,8 +62,8 @@ namespace client {
 
       // Camera follow node
       mFollowView = new osg::Transform();
-      osg::Matrix mat = osg::Matrix::rotate(-mFollowPitch, 1,0,0) *
-                        osg::Matrix::translate(0,0,mFollowDist);
+      osg::Matrix mat = osg::Matrix::rotate(mFollowPitch, 1,0,0) *
+                        osg::Matrix::translate(0,0,-mFollowDist);
       mFollowView->setMatrix(mat);
       mRoot->addChild(mFollowView);
 
