@@ -1,0 +1,22 @@
+# build with 'scons'
+
+import sys
+import os
+import string
+
+Default('.')
+execfile('glut_libs.py')
+
+sources = [
+   'pong.cpp',
+   'Window.cpp',
+]
+
+env = Environment(
+   CPP_PATH ='#',
+   CXXFLAGS = '-Wall',
+   LIBS     = GLUT_LIBS,
+   ENV      = os.environ,
+)
+
+env.Program(target = 'pong', source = sources)
