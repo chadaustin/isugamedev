@@ -9,8 +9,24 @@
 #include "PhysicsEngine.h"
 #include <math.h>
 #include <GL/glut.h>
+#include <algorithm>
 
 #define PI 3.1415926535
+
+bool SortPredicate(GameObject* Lvalue, GameObject* Rvalue)
+{
+   ObjectType Lname;
+   ObjectType Rname;
+
+   Lvalue->GetCurrentObjectType(Lname);
+   Rvalue->GetCurrentObjectType(Rname);
+
+   if(Lname < Rname)
+      return true;
+   else
+      return false;
+}
+
 
 PhysicsEngine::PhysicsEngine()
 {
@@ -157,6 +173,8 @@ void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
 	ObjectType ObjectName2;
 	vector<GameObject*> ToRemove;
 
+   sort(TheObjects.begin(), TheObjects.end(), ::SortPredicate);
+
    ///////////////////////////////////////////////////////
    // Remove bullets once they get below the ground plane
    //////////////////////////////////////////////////////
@@ -178,7 +196,13 @@ void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
    ////////////////////////////////////////
    // Check here for all the collisions
    ////////////////////////////////////////
-	for(i = 0; i < TheObjects.size(); i++)
+   i = 0;
+   TheObjects[i]->GetCurrentObjectType(ObjectName);
+   
+   if(ObjectName == BULLET)
+      int temp = 1;
+
+   while(i < TheObjects.size() && ObjectName != WALL)
 	{
 		TheObjects[i]->GetCurrentObjectType(ObjectName);
 		for(j = i+1; j < TheObjects.size(); j++)
@@ -194,6 +218,7 @@ void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
 				}
 			}
 		}
+      i++;
 	}
 
    ObjectsResponse.ResponseToCollisions(TheObjects);

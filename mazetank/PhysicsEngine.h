@@ -55,6 +55,8 @@ private:
 	void CollisionDetection(vector<GameObject*> &TheObjects);
 	bool CheckForCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
    bool SphereToSphereCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
+   bool SortPredicate(GameObject* Lvalue, GameObject* Rvalue);
 
 };
+bool SortPredicate(GameObject* Lvalue, GameObject* Rvalue);
 #endif
