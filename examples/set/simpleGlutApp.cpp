@@ -467,7 +467,7 @@ static int OnApplicationInit()
 }
 
 
-void main( int argc, char* argv[] )
+int main( int argc, char* argv[] )
 {
    // Initialize the application
    // initialize the state of your app here if needed...

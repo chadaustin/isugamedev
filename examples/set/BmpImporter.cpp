@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: BmpImporter.cpp,v $
-//    $Date: 2002-04-24 07:20:05 $
-//    $Revision: 1.1 $
+//    $Date: 2002-05-04 11:48:30 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //    This library is free software; you can redistribute it and/or
@@ -30,7 +30,13 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <string>             // for std::string
-#include <fstream.h>
+#include <fstream>
+#include <iostream>
+using std::cout;
+using std::flush;
+using std::ifstream;
+using std::ios;
+using std::filebuf;
 
 #include "BmpImporter.h"
 
@@ -137,11 +143,7 @@ bool BmpImporter::load( const char* const filename, Image& image )
       return false;
    }
 
-	#ifdef WIN32
-	ifstream hBitmapFile( filename, ios::in | ios::nocreate | ios::binary, filebuf::openprot );
-	#else
-	ifstream hBitmapFile( filename, ios::in | ios::nocreate, filebuf::openprot );
-	#endif
+	ifstream hBitmapFile( filename, ios::in | ios::binary );
 	
 	image.setName( filename );
 	bmpheader::BITMAPFILEHEADER fileHeader;
