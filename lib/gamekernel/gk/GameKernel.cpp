@@ -141,12 +141,14 @@
    ////////////////////////////////
    void GameKernel::OnKeyboardDown(unsigned char k, int x, int y) 
    { 
+      GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
+      
+      // ignore case
       if ('a' <= k && k <= 'z')
          k -= ('a' - 'A');
 
       const DigitalInput::BinaryState state = DigitalInput::ON;
       GameInput::instance().keyboard().button( k ).setBinaryState( state );
-      GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
    }
 
    ////////////////////////////////
@@ -154,12 +156,13 @@
    ////////////////////////////////
    void GameKernel::OnKeyboardUp(unsigned char k, int x, int y) 
    { 
+      GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
+      
       if ('a' <= k && k <= 'z')
          k -= ('a' - 'A');
       
       const DigitalInput::BinaryState state = DigitalInput::OFF;
       GameInput::instance().keyboard().button( k ).setBinaryState( state );
-      GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
    }
 
    
