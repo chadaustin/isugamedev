@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort Released under MIT
+//				lvanoort@aol.com 
+//
+// FrogObject.cpp
+// 4-5-2002
+//////////////////////////////////////////////////////
+
 #include <stdlib.h>
 #include <GL/glut.h>
 #include <iostream.h>
@@ -6,8 +14,10 @@
 extern enum Movement{NONE = 0, LEFT, RIGHT, UP, DOWN} FrogMove;
 extern int LaneSize;
 
-int MoveDistanceX = 20;
-int MoveDistanceY = LaneSize;
+
+float MoveDistanceX = 20;
+float MoveDistanceY = LaneSize;
+
 
 FrogObject::FrogObject()
 { 
@@ -20,92 +30,113 @@ FrogObject::FrogObject()
 	ObjectState = ALIVE;
 }
 
+
 FrogObject::~FrogObject()
 { 
 
 }
 
-void FrogObject::SetGameCoordinates(int x, int y)
+
+void FrogObject::SetGameCoordinates(float x, float y)
 {
 	GameX=x;
 	GameY=y;
 }
 
-void FrogObject::SetSize(int x, int y)
+
+
+void FrogObject::SetSize(float x, float y)
 {
 	ObjectSizeX = x;
 	ObjectSizeY = y;
 }
+
 
 void FrogObject::SetState(State TheState)
 {
 	ObjectState = TheState;
 }
 
-void FrogObject::SetVelocityX(int Vel)
+
+void FrogObject::SetVelocityX(float Vel)
 {
 	VelocityX = Vel;
 }
 
-void FrogObject::SetVelocityY(int Vel)
+
+void FrogObject::SetVelocityY(float Vel)
 {
 	VelocityY = Vel;
 }
 
-void FrogObject::GetGameCoordinates(int& x, int& y)
+
+void FrogObject::GetGameCoordinates(float& x, float& y)
 {
 	x = GameX;
 	y = GameY;
 }
 
-void FrogObject::GetSize(int& x, int& y)
+
+void FrogObject::GetSize(float& x, float& y)
 {
 	x = ObjectSizeX;
 	y = ObjectSizeY;
 }
 
+
+
 void FrogObject::GetState(State& TheState)
+
 {
+
 	TheState = ObjectState;
+
 }
 
-void FrogObject::GetVelocityX(int& Vel)
+
+
+void FrogObject::GetVelocityX(float& Vel)
 {
 	Vel = VelocityX;
 }
 
-void FrogObject::GetVelocityY(int& Vel)
+
+void FrogObject::GetVelocityY(float& Vel)
 {
 	Vel = VelocityY;
 }
+
 
 ObjectName FrogObject::GetObjectName()
 {
 	return Name;
 }
 
+
 void FrogObject::CollisionResponse(MyObject* CollisionObject)
 {
 	ObjectName CollisionName;
 	CollisionName = CollisionObject->GetObjectName();
-	
+
 	switch(CollisionName)
 	{
 	case LOG:	
 		CollisionObject->GetVelocityX(VelocityX);
 		ObjectState = LOGRIDING;
 		break;
+
 	default:
 		ObjectState = ALIVE;
 		VelocityX = 0;
 	}
 }
 
-bool FrogObject::Moved(int& x, int& y)
+
+bool FrogObject::Moved(float& x, float& y)
 {
 	bool temp = Move;
-	int tempX = MoveX;
-	int tempY = MoveY;
+	float tempX = MoveX;
+	float tempY = MoveY;
 
 	Move = false;
 	MoveX = 0;
@@ -115,6 +146,7 @@ bool FrogObject::Moved(int& x, int& y)
 	y = tempY;
 	return temp;
 }
+
 
 void FrogObject::Update()
 {	
@@ -141,8 +173,10 @@ void FrogObject::Update()
 				break;
 
 	default :	NULL;
-		break;
+				break;
 	}
+
+
 
 	switch (ObjectState)
 	{
@@ -153,7 +187,8 @@ void FrogObject::Update()
 	}
 
 }
-		 
+
+
 void FrogObject::Draw()
 { 
 
@@ -162,12 +197,15 @@ void FrogObject::Draw()
 	case ALIVE:
 		glColor3f(1.0,0.0,0.0);
 		break;
+
 	case COLLISION:
 		glColor3f(0.0,0.0,1.0);
 		break;
+
 	case LOGRIDING:
 		glColor3f(1.0,0.0,0.0);
 		break;
 	}
 	glRectf(float(GameX),float(GameY), float(GameX+ObjectSizeX), float(GameY+ObjectSizeY)); 
 }
+

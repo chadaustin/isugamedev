@@ -1,28 +1,32 @@
+//////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort Released under MIT
+//				lvanoort@aol.com 
+//
+// AutoObject.h
+// 4-5-2002
+//////////////////////////////////////////////////////
 #ifndef __AUTOOBJECT_H__
 #define __AUTOOBJECT_H__
 
 #include "MyObject.h"
-
-// This was designed when maze was 2D array may need to change
-// with update to RB tree implementation.
-
 
 class AutoObject : public MyObject
 {
 public:
 	AutoObject();
 	~AutoObject();
-	void SetGameCoordinates(int x, int y);
-	void SetSize(int x, int y);
-	void SetState(State TheState);
-	void SetVelocityX(int Vel);
-	void SetVelocityY(int Vel);
 
-	void GetGameCoordinates(int& x, int& y);
-	void GetSize(int& x, int& y);
+	void SetGameCoordinates(float x, float y);
+	void SetSize(float x, float y);
+	void SetState(State TheState);
+	void SetVelocityX(float Vel);
+	void SetVelocityY(float Vel);
+
+	void GetGameCoordinates(float& x, float& y);
+	void GetSize(float& x, float& y);
 	void GetState(State& TheState);
-	void GetVelocityX(int& Vel);
-	void GetVelocityY(int& Vel);
+	void GetVelocityX(float& Vel);
+	void GetVelocityY(float& Vel);
 	ObjectName GetObjectName();
 
 	///////////////////////////////////////////////////
@@ -31,7 +35,9 @@ public:
 	// Notes: If function returns true x and y contain 
 	// distanced moved.
 	///////////////////////////////////////////////////
-	bool Moved(int&x, int&y);
+	bool Moved(float&x, float&y);
+
+
 
 	///////////////////////////////////////////////////
     // CollisionResponse()
@@ -46,16 +52,17 @@ public:
 	void Draw();
 
 private:
-	int GameX, GameY;
-	int ObjectSizeX, ObjectSizeY;
+
+	float GameX, GameY;
+	float ObjectSizeX, ObjectSizeY;
 	State ObjectState;
-	int MoveX, MoveY;
+	float MoveX, MoveY;
 	bool Move;
 	ObjectName Name;
-	int MoveDistanceX;
-	int MoveDistanceY;
-	int VelocityX;
-	int VelocityY;
+	float MoveDistanceX;
+	float MoveDistanceY;
+	float VelocityX;
+	float VelocityY;
 };
 
 #endif

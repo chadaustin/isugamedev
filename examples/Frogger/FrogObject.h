@@ -1,29 +1,37 @@
+//////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort Released under MIT
+//				lvanoort@aol.com 
+//
+// FrogObject.h
+// 4-5-2002
+//////////////////////////////////////////////////////
 #ifndef __FROGOBJECT_H__
 #define __FROGOBJECT_H__
 
-#include "MyObject.h"
 
-// This was designed when maze was 2D array may need to change
-// with update to RB tree implementation.
+#include "MyObject.h"
 
 
 class FrogObject : public MyObject
 {
 public:
+
 	FrogObject();
 	~FrogObject();
-	void SetGameCoordinates(int x, int y);
-	void SetSize(int x, int y);
-	void SetState(State TheState);
-	void SetVelocityX(int Vel);
-	void SetVelocityY(int Vel);
 
-	void GetGameCoordinates(int& x, int& y);
-	void GetSize(int& x, int& y);
+	void SetGameCoordinates(float x, float y);
+	void SetSize(float x, float y);
+	void SetState(State TheState);
+	void SetVelocityX(float Vel);
+	void SetVelocityY(float Vel);
+
+	void GetGameCoordinates(float& x, float& y);
+	void GetSize(float& x, float& y);
 	void GetState(State& TheState);
-	void GetVelocityX(int& Vel);
-	void GetVelocityY(int& Vel);
+	void GetVelocityX(float& Vel);
+	void GetVelocityY(float& Vel);
 	ObjectName GetObjectName();
+
 
 	///////////////////////////////////////////////////
     // Moved()
@@ -31,7 +39,8 @@ public:
 	// Notes: If function returns true x and y contain 
 	// distanced moved.
 	///////////////////////////////////////////////////
-	bool Moved(int&x, int&y);
+	bool Moved(float&x, float&y);
+
 
 	///////////////////////////////////////////////////
     // CollisionResponse()
@@ -46,13 +55,14 @@ public:
 	void Draw();
 
 private:
-	int GameX, GameY;
-	int ObjectSizeX, ObjectSizeY;
+
+	float GameX, GameY;
+	float ObjectSizeX, ObjectSizeY;
 	State ObjectState;
-	int MoveX, MoveY;
+	float MoveX, MoveY;
 	bool Move;
-	int VelocityX;
-	int VelocityY;
+	float VelocityX;
+	float VelocityY;
 	ObjectName Name;
 };
 

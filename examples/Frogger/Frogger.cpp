@@ -1,30 +1,44 @@
+/////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort Released under MIT
+//			-- lvanoort@aol.com -- 
+//				4/4/2002
+//
+// Frogger.cpp
+/////////////////////////////////////////////////////
+
 #include <windows.h>
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "GameWorld.h"
-#include <iostream.h>
+
 
 //Globals
 enum Movement{NONE = 0, LEFT, RIGHT, UP, DOWN};
 
-Movement FrogMove = NONE;
 
+
+// Global externals
 int WindowSizeX = 663;
 int WindowSizeY = 470;
 int LaneSize = 36;
 int FrogZone;
 int CurrentLevel = 1;
+Movement FrogMove = NONE;
+///////////////////////
+
 
 DWORD start_clock_count = GetTickCount();
 int temp = 0;
 
+// Game Object
 GameWorld Frogger;
+
 
 void init()
 {
 	glClearColor(0.0,0.0,0.0, 0.0);
-//	glShadeModel(GL_FLAT);
 }
+
 
 void update()
 {
@@ -39,12 +53,14 @@ void update()
 
 }
 
+
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	Frogger.Draw();
 	glutSwapBuffers();
 }
+
 
 void reshape(int w, int h)
 {
@@ -53,6 +69,7 @@ void reshape(int w, int h)
 	glLoadIdentity();
 	gluOrtho2D(0.0,(GLdouble) WindowSizeX, 0.0, (GLdouble) WindowSizeY);
 }
+
 
 void FrogInput(int key, int x, int y)
 {
@@ -74,6 +91,7 @@ void FrogInput(int key, int x, int y)
 		case GLUT_KEY_DOWN :
 			if (FrogZone == 0)
 				FrogMove = NONE;
+
 			else
 			{
 				FrogMove = DOWN;
@@ -81,10 +99,15 @@ void FrogInput(int key, int x, int y)
 			}
 			break;
 
-		default : NULL;
+		default : 
+			NULL;
 			break;
 	}
+
 }
+
+
+
 
 
 int main (int argc, char** argv)
@@ -95,10 +118,13 @@ int main (int argc, char** argv)
 	glutInitWindowPosition(100,100);
 	glutCreateWindow(argv[0]);
 	init();
+
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutSpecialFunc(FrogInput);
 	glutIdleFunc(update);
 	glutMainLoop();
+
 	return 0;
 }
+

@@ -1,14 +1,23 @@
+//////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort Released under MIT
+//				lvanoort@aol.com 
+//
+// GameWorld.cpp
+// 4-5-2002
+//////////////////////////////////////////////////////
+
 #include "MyObject.h"
 #include "FrogObject.h"
 #include "AutoObject.h"
 #include "LogObject.h"
 #include "LilyPadObject.h"
-#include "myobjectstore.h"
 #include "GameWorld.h"
 #include <gl/glut.h>
 #include <stdlib.h>
-#include <iostream.h>
-#include <fstream.h>
+#include <fstream>
+
+using namespace std;
+
 
 extern int WindowSizeX;
 extern int WindowSizeY;
@@ -16,18 +25,34 @@ extern int LaneSize;
 extern int FrogZone;
 extern int CurrentLevel;
 
-#define drawOneLine(x1,y1,x2,y2) glBegin(GL_LINES); glVertex2f((x1),(y1)); \
-	glVertex2f((x2),(y2)); glEnd();
+
+void drawOneLine(float x1,float y1,float x2,float y2) 
+{
+	glBegin(GL_LINES); 
+	glVertex2f((x1),(y1));
+	glVertex2f((x2),(y2)); 
+	glEnd();
+}
+
 
 int ObjectHeight;
 int ObjectOffset;
 
+
 GameWorld::GameWorld()
 { Create(); }
+
 
 GameWorld::~GameWorld()
 { Destroy(); }
 
+/////////////////////////////////////
+// Create()
+/////////////////////////////////////
+// Notes:
+//	Initializes the game.  Reads data
+//  from file and sets up game.
+/////////////////////////////////////
 void GameWorld::Create()
 { 
 	int i = 0;
@@ -47,7 +72,7 @@ void GameWorld::Create()
 		Item->SetGameCoordinates(Lilypadspacing*i*2+7, LaneSize*12+ObjectOffset);
 		Item->SetSize(40,ObjectHeight);
 
-		MobileObjects.Insert(Item);
+		MobileObjects.push_back(Item);
 		ThePond.AddObject(Item);
 	}
 
@@ -74,68 +99,80 @@ void GameWorld::Create()
 			ObjectOffset = 3;
 			break;
 		}
+
 		Item->SetGameCoordinates(GameData[i+2],LaneSize*GameData[i+1]+ObjectOffset);
 		Item->SetSize(GameData[i+3],ObjectHeight);
 		Item->SetVelocityX(GameData[i+4]);
 
-		MobileObjects.Insert(Item);
+		MobileObjects.push_back(Item);
 		ThePond.AddObject(Item);
 
 		i = i + 5;
 	}
-	
+
 }
 
+/////////////////////////////////////
+// void Update()
+/////////////////////////////////////
+// Notes:
+//	Updates all the game data.
+/////////////////////////////////////
 void GameWorld::Update()
 { 	
 	MyObject* Cursor;
 	MyObject* TheMainCollision;
-	MyObjectStore* TheCollisions = NULL;
-	int MoveX, MoveY, GameX, GameY, FrogX, FrogY;
+	vector <MyObject*> TheCollisions[30];
+	float MoveX, MoveY, GameX, GameY, FrogX, FrogY;
 	int NumCollisions;
+	int i;
 
+	//////////////////////////////////////////////
 	// Update the Movement for all Mobile Objects
-	MobileObjects.ResetCursor();
-	MobileObjects.GetCurrentObject(Cursor);
-	while(Cursor != NULL)
+	//////////////////////////////////////////////
+	for(i = 0; i < MobileObjects.size(); i++)
 	{
-		Cursor->Update();
-		MobileObjects.GetCurrentObject(Cursor);
+		MobileObjects[i]->Update();
 	}
 
-	MobileObjects.ResetCursor();
-	MobileObjects.GetCurrentObject(Cursor);
-	while(Cursor != NULL)
+	//////////////////////////////////////////////
+	// Tell collision detection engine about 
+	// each object that moved
+	//////////////////////////////////////////////
+	for(i = 0; i < MobileObjects.size(); i++)
 	{
-		if (Cursor->Moved(MoveX, MoveY))
+		if (MobileObjects[i]->Moved(MoveX, MoveY))
 		{
-			Cursor->GetGameCoordinates(GameX, GameY);
-			ThePond.Move(Cursor, GameX+MoveX, GameY+MoveY);
+			MobileObjects[i]->GetGameCoordinates(GameX, GameY);
+			MobileObjects[i]->SetGameCoordinates(GameX+MoveX, GameY+MoveY);
 
-			if(Cursor->GetObjectName() == FROG)
+			ThePond.Move(MobileObjects[i], GameX+MoveX, GameY+MoveY);
+
+			if(MobileObjects[i]->GetObjectName() == FROG)
 			{
 				if(FrogZone < 7)
-					Cursor->SetVelocityX(0);
+					MobileObjects[i]->SetVelocityX(0);
 
-			Cursor->GetGameCoordinates(FrogX, FrogY);
+			MobileObjects[i]->GetGameCoordinates(FrogX, FrogY);
 			if((FrogX < 0 || FrogX > WindowSizeX) && FrogZone > 6)
 				ResetGame();
 			}
 
 		}
-		MobileObjects.GetCurrentObject(Cursor);
 	}
 
-
+	///////////////////////////////////////
+	// Check for collisions and respond 
+	//////////////////////////////////////
 	if(ThePond.CheckForCollisions(TheCollisions, NumCollisions))
 	{
-		for(int i = 0; i < NumCollisions; i++)
+		for(i = 0; i < NumCollisions; i++)
 		{
-			TheCollisions[i].ResetCursor();
-			TheCollisions[i].GetCurrentObject(TheMainCollision);
-			TheCollisions[i].GetCurrentObject(Cursor);
-			while(Cursor != NULL)
+			TheMainCollision = TheCollisions[i][0];
+
+			for(int j = 1; j < TheCollisions[i].size();j++)
 			{
+				Cursor = TheCollisions[i][j];
 				TheMainCollision->CollisionResponse(Cursor);
 				Cursor->CollisionResponse(TheMainCollision);
 
@@ -143,21 +180,23 @@ void GameWorld::Update()
 					Cursor->GetObjectName() == FROG) ||
 					(Cursor->GetObjectName() == AUTO && TheMainCollision->GetObjectName() == FROG))
 					ResetGame();
+
 				else if((TheMainCollision->GetObjectName() == LILY &&
 					Cursor->GetObjectName() == FROG) ||
 					(Cursor->GetObjectName() == LILY && TheMainCollision->GetObjectName() == FROG))
+
 				{
 					if(Cursor->GetObjectName() == FROG)
 						ThePond.Move(Cursor, 100, ObjectOffset);
+
 					else
 						ThePond.Move(TheMainCollision, 100, ObjectOffset);
 				}
 
-				TheCollisions[i].GetCurrentObject(Cursor);
 			}
-			
 		}
 	}
+
 	else
 	{
 		if(FrogZone > 6)
@@ -170,35 +209,39 @@ void GameWorld::Destroy()
 { 
 	 MyObject* temp;
 
-	 MobileObjects.ResetCursor();
-
-	 MobileObjects.GetCurrentObject(temp);
-	 while(temp != NULL)
+	 for(int i = 0; i < MobileObjects.size(); i++)
 	 {
+		temp = MobileObjects[i];
 		ThePond.RemoveObject(temp);
-		MobileObjects.Remove(temp);
-
 		delete temp;
-		MobileObjects.GetCurrentObject(temp);
 	 }
+	 MobileObjects.erase(MobileObjects.begin(), MobileObjects.end());
 }
 
+//////////////////////////////////
+// void Draw()
+//////////////////////////////////
+// Notes:
+//	Draw the game objects.
+//////////////////////////////////
 void GameWorld::Draw()
 {  
-	MyObject* drawn;
 
 	DrawGameField();
 
-	MobileObjects.ResetCursor();
-
-	MobileObjects.GetCurrentObject(drawn);
-	while(drawn != NULL)
+	for(int i = 0; i < MobileObjects.size(); i++)
 	{
-		drawn->Draw();
-		MobileObjects.GetCurrentObject(drawn);
+		MobileObjects[i]->Draw();
 	}
+
 }
 
+//////////////////////////////////
+// void DrawGameField()
+//////////////////////////////////
+// Notes:
+//	Draws frogger background
+///////////////////////////////////
 void GameWorld::DrawGameField()
 {
 	glColor3f(0.0,1.0,0.0);
@@ -224,9 +267,15 @@ void GameWorld::DrawGameField()
 
 	glColor3f(0.6,1.0,0.2);
 	glRectf(0.0,12*LaneSize , WindowSizeX, 13*LaneSize-1);
-
 }
 
+///////////////////////////////////
+// ResetGame()
+///////////////////////////////////
+// Notes:
+//	Releases all resources and 
+//	resets game.
+///////////////////////////////////
 void GameWorld::ResetGame()
 {
 	Destroy();
@@ -234,6 +283,14 @@ void GameWorld::ResetGame()
 	glutPostRedisplay();
 }
 
+///////////////////////////////////////
+// int ReadGameData()
+///////////////////////////////////////
+// Notes:
+//	Opens file and reads data in from
+//	file and stores it in GameData
+//	array
+///////////////////////////////////////
 int GameWorld::ReadGameData()
 {
 	ifstream infile;
@@ -241,6 +298,7 @@ int GameWorld::ReadGameData()
 
 	infile.open("Level1.txt");
 	infile >> GameData[i];
+
 	i++;
 	while(infile)
 	{

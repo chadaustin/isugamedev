@@ -1,11 +1,16 @@
-// Levi VanOort -- lvanoort@aol.com 2/4/2002
+/////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort Released under MIT
+//			-- lvanoort@aol.com -- 
+//				2/4/2002
+//
+// collisiondetection.h
+/////////////////////////////////////////////////////
 
 #ifndef __COLLISION_DETECTION_H__
 #define __COLLISION_DETECTION_H__
 
 #include "MyObject.h"
 #include <vector>
-#include <iostream> //temporary
 
 using namespace std;
 
@@ -15,7 +20,10 @@ using namespace std;
 // This class is a general Collision Detector for 2D
 // games.  It will detect Collision between any objects
 // as long as they are inhereted from MyObject Class.
-// 
+// MyObject class needs the following members functions
+//		GetGameCoordinates(float& x, float& y);
+//		GetSize(float& x, float& y);
+///////////////////////////////////////////////////////
 
 struct EdgeStore
 {
@@ -72,10 +80,12 @@ public:
 	//	collisions found returns true and Collisions holds
 	//	a list of all collisions and Size hold the number of
 	//  indexes in collisions array.
+	//	Each vectors 1st item is the collision item and every
+	//	item after that is an item that collided with the
+	//	first item
 	////////////////////////////////////////////////////////	
 	bool CheckForCollisions(vector<MyObject*> Collisions[30], int& Size);
 
-	friend ostream& operator <<(ostream& outs, const CollisionDetection& source);
 	vector<EdgeStore> MyObjectEdges;
 ////////////////////////////////////////////////////////////////////////
 private:

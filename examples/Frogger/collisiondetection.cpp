@@ -1,26 +1,30 @@
-// Levi VanOort -- lvanoort@aol.com -- 2/4/2002
+/////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort Released under MIT
+//			-- lvanoort@aol.com -- 
+//				2/4/2002
+//
+// collisiondetection.cpp
+/////////////////////////////////////////////////////
 
 #include "collisiondetection.h"
 #include "MyObject.h"
 #include "stdlib.h"
 #include <vector>
 #include <algorithm>
-#include <iostream> //temporary
-
 
 // The Collision detector was implemented using a sweeptest and ONLY
-// WORK FOR RECTANGLES. 
+// WORKS FOR RECTANGLES. 
  
 // Implementation Notes:
-// A dynamic array is used to store a data structure
+// A vector is used to store a data structure
 // that contains an X coordinate of one edge a bool to decide where it
 // is a right or left edge and a pointer back to the object it self.
-// The dynamic array is sorted according to X coordinates and any ties
+// The vector is sorted according to X coordinates and any ties
 // then check the boolean all, lefts come before right edges.  If they are
 // both the same here it doesn't matter which one comes first.  
 // 
-// When CheckForCollisions is called the array is then checked for overlapping 
-// X coordinates these are then checked for an intersection.  An array of ObjectStore
+// When CheckForCollisions is called the vector is then checked for overlapping 
+// X coordinates these are then checked for an intersection.  A vectir of ObjectStore
 // objects is then passed back with a list of all collisions.  
 // The ObjectStore object is parsed as follows:
 //		Each index represents a set of collisions
@@ -210,20 +214,6 @@ bool CollisionDetection::Intersects(MyObject* one, MyObject* two)
 	if (OneYMin > TwoYMax) return false;
 	if (TwoYMin > OneYMax) return false;
 	return true;
-}
-
-ostream& operator <<(ostream& outs, const CollisionDetection& source)
-{
-	for (int i = 0; i < source.MyObjectEdges.size(); i++)
-	{
-		outs << "Index: " << i << endl;
-		outs << "Edge: " << source.MyObjectEdges[i].Edge << endl;
-		outs << "Start: " << source.MyObjectEdges[i].start << endl;
-		outs << "TheObject: " << source.MyObjectEdges[i].TheObject << endl;
-	}
-	if (source.MyObjectEdges.size() == 0)
-		outs << "No Edges" << endl;
-	return outs;
 }
 
 bool operator <(EdgeStore Left, EdgeStore Right)

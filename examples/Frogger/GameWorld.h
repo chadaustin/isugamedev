@@ -1,13 +1,21 @@
+//////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort Released under MIT
+//				lvanoort@aol.com 
+//
+// GameWorld.h
+// 4-5-2002
+//////////////////////////////////////////////////////
 #ifndef __GAMEWORLD_H__
 #define __GAMEWORLD_H__
 
 #include "MyObject.h"
-#include "MyObjectStore.h"
 #include "collisiondetection.h"
+
 
 class GameWorld
 {
 public:
+
 	GameWorld();
 
 	~GameWorld();
@@ -31,6 +39,8 @@ public:
 	//////////////////////////////////////
 	void Update();
 
+
+
 	//////////////////////////////////////
 	// Destroy
 	//////////////////////////////////////
@@ -39,8 +49,10 @@ public:
 	//////////////////////////////////////
 	void Destroy();
 
+
 	void Register();
 
+	
 	//////////////////////////////////////
 	// Draw
 	//////////////////////////////////////
@@ -51,7 +63,8 @@ public:
 
 private:
 	CollisionDetection ThePond;
-	MyObjectStore MobileObjects;
+	vector<MyObject*> MobileObjects;
+
 
 	int MazeX, MazeY;
 	int GameData[100];
@@ -59,7 +72,9 @@ private:
 	void DrawGameField();
 	void ResetGame();
 	int ReadGameData();
-	
+
 };
+
+
 
 #endif
