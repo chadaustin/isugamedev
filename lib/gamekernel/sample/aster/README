@@ -1,0 +1,24 @@
+Aster
+asteroids... first person shooter style.
+
+kevin meinert - kevin@vrsource.org
+Public domain
+
+Features:
+- mouselook (no pointer with warp) rotate camera
+- strafe
+- air hockey physics
+- alternate keyboard controls (works without mouse)
+- 2 gun turrets on either side...
+
+Usage/Keys:
+
+   see config.xml for key bindings.
+
+TODO:
+  - pretty models and textures... (use a model loader)
+  - keep score
+  - keep track of lives (ships)
+  - die when collide with asteroid (no collision performed yet)
+  - add a top-down 2D map or radar screen
+  - let the top down 2D map be one additional way to play the game
