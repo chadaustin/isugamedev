@@ -26,8 +26,12 @@ Section "" ; (default section)
 SetOutPath "$INSTDIR"
 
 ; add files / whatever that need to be installed here.
-File COPYING
+File /r bin
 
+CreateDirectory "$SMPROGRAMS\Midworld"
+CreateShortCut \
+	"$SMPROGRAMS\Midworld\Midworld.lnk" \
+	"$INSTDIR\bin\midworld.exe"
 
 WriteRegStr HKEY_LOCAL_MACHINE "SOFTWARE\ISU Game Developers Club\Midworld" "" "$INSTDIR"
 WriteRegStr HKEY_LOCAL_MACHINE "Software\Microsoft\Windows\CurrentVersion\Uninstall\Midworld" "DisplayName" "Midworld (remove only)"
@@ -38,7 +42,7 @@ SectionEnd ; end of default section
 
 
 ; begin uninstall settings/section
-UninstallText "This will uninstall myApp from your system"
+UninstallText "This will uninstall Midworld from your system"
 
 Section Uninstall
 ; add delete commands to delete whatever files/registry keys/etc you installed here.
@@ -46,6 +50,7 @@ Delete "$INSTDIR\uninst.exe"
 DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\ISU Game Developers Club\Midworld"
 DeleteRegKey HKEY_LOCAL_MACHINE "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Midworld"
 RMDir "$INSTDIR"
+RMDir "$SMPROGRAMS\Midworld"
 SectionEnd ; end of uninstall section
 
 ; eof
