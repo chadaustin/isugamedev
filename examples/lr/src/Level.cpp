@@ -30,6 +30,10 @@ namespace lr
       }
    }
             
+   void Level::setEmpty(const int& x, const int& y)
+   {
+      mLevel[x][y] = empty;
+   }
       
 
 

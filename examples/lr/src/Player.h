@@ -83,6 +83,7 @@ namespace lr
       bool brickLeft();
       bool ladderUnder();
       bool brickUnder();
+      bool isMoney();
       
       /** 
        * method to return the integer number of lives this player currently has
@@ -139,7 +140,7 @@ namespace lr
       int numLives;
 
       /** variables for update that get set in handleKeyPress - blah */
-      bool keyup, keydown, keyleft, keyright;
+      bool keyup, keydown, keyleft, keyright, burnright, burnleft;
 
       float initTime;
    };

@@ -32,7 +32,12 @@ namespace lr
        */
       positionType getEntityType(const int& width, const int& height);
          
+      /**
+       * this method sets the given location in the levelgrid to empty
+       */
+      void setEmpty(const int& x, const int& y);
 
+      
       void draw();
 
    private:

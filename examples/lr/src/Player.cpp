@@ -76,7 +76,7 @@ namespace lr
          tempState=climb1;
          updateTex=true;
       }
-      else if(keydown && onWire() && !solidUnder() && !onLadder())
+      else if(keydown && onWire() && !solidUnder() && !onLadder() && realHeight>0)
       // we want to fall if we're on a wire and there is nothing under us and
       // wer're not on a ladder
       {
@@ -115,6 +115,12 @@ namespace lr
          updateTex=true;
       }
 
+      if(isMoney())
+      {
+         mLevel->setEmpty(getGridPos(), getGridHeight());
+         score+=100;
+      }
+
       std::cout << "fps: " << 1/dt << std::endl;
       if((initTime+=dt)>.08 && updateTex==true)
       {
@@ -151,9 +157,16 @@ namespace lr
             }
          }
          initTime=0;
-         
       }
-   
+
+      if(burnright)
+      {
+         mLevel->setEmpty(getGridPos()+1, getGridHeight()-1);
+      }
+      if(burnleft)
+      {
+         mLevel->setEmpty(getGridPos()-1, getGridHeight()-1);
+      }
    }
 
    Player::~Player()
@@ -180,6 +193,10 @@ namespace lr
       // our current block then return true else return false
       if((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==brick) || (mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==ladder) && (int)realHeight%32==0) 
          return true;
+      if((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))!=brick) && (mLevel->getEntityType(getGridPos(), (getGridHeight()-1)!=ladder) && (int)realHeight%32==0) && (int)realPos%16!=0)
+         return true;
+      if(realHeight<=0)
+         return true;
       return false;
    }
 
@@ -203,9 +220,17 @@ namespace lr
       
    }
 
+   bool Player::isMoney()
+   {
+      if(mLevel->getEntityType(getGridPos(), getGridHeight())==money)
+         return true;
+      return false;
+   }
+         
+
    bool Player::brickRight()
    {
-      if((mLevel->getEntityType(getGridPos()+1, getGridHeight())==brick) && (int)realPos%32<16)
+      if((mLevel->getEntityType(getGridPos()+1, getGridHeight())==brick) && (int)realPos%32>=16)
          return true;
       if((int)realHeight%32>8 && (mLevel->getEntityType(getGridPos()+1, getGridHeight()+1)==brick) && (int)realPos%32<16)
          return true;
@@ -245,6 +270,18 @@ namespace lr
       }else if(sym == SDLK_RIGHT && !down)
       {
          keyright = false;
+      }else if(sym == SDLK_f && down)
+      {
+         burnright = true;
+      }else if(sym == SDLK_f && !down)
+      {
+         burnright = false;
+      }else if(sym == SDLK_d && down)
+      {
+         burnleft = true;
+      }else if(sym == SDLK_d && !down)
+      {
+         burnleft = false;
       }
    }
 
