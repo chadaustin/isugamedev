@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2003-01-05 09:18:58 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -118,7 +118,7 @@ namespace phui
       mForegroundColor = clr;
    }
 
-   const Colorf& Widget::getForegroundColor() const 
+   const Colorf& Widget::getForegroundColor() const
    {
       return mForegroundColor;
    }
@@ -133,12 +133,12 @@ namespace phui
       return mFont;
    }
 
-   WidgetContainerPtr Widget::getParent() const 
+   WidgetContainerPtr Widget::getParent() const
    {
       return boost::make_shared(mParent);
    }
 
-   bool Widget::contains(const Point& p) const 
+   bool Widget::contains(const Point& p) const
    {
       return (p.x >= 0 && p.x < mSize.getWidth() &&
               p.y >= 0 && p.y < mSize.getHeight());
@@ -156,7 +156,7 @@ namespace phui
       return p;
    }
 
-   bool Widget::hasFocus() 
+   bool Widget::hasFocus()
    {
       WidgetContainerPtr parent = getParent();
       WidgetPtr child = getSelf();

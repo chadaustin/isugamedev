@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:15 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2003-01-05 09:18:58 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -77,7 +77,7 @@ void OnReshape(int width, int height)
    gHeight = height;
 
    glViewport(0, 0, gWidth, gHeight);
-   gUI->setSize(width, height);
+   gUI->setSize(phui::Size(width, height));
 }
 
 void OnIdle()
@@ -119,28 +119,28 @@ int main(int argc, char** argv)
       phui::glutRegisterRoot(gUI);
 
       gWnd = phui::Window::create("my contacts blow");
-      gWnd->setPosition(150, 75);
-      gWnd->setSize(300, 250);
+      gWnd->setPosition(phui::Point(150, 75));
+      gWnd->setSize(phui::Size(300, 250));
       gWnd->show();
       gWnd->setBackgroundColor(phui::Colorf(1, 0, 0, 0.75f));
 
       phui::WindowPtr window(phui::Window::create("other window"));
-      window->setPosition(250, 175);
-      window->setSize(300, 250);
+      window->setPosition(phui::Point(250, 175));
+      window->setSize(phui::Size(300, 250));
       window->show();
       window->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
 
       phui::ButtonPtr btn(phui::Button::create(
                             "This is a really long string Push me!"));
-      btn->setPosition(10, 10);
-      btn->setSize(75, 30);
+      btn->setPosition(phui::Point(10, 10));
+      btn->setSize(phui::Size(75, 30));
       btn->show();
       btn->setBackgroundColor(phui::Colorf(0,0,1,0.7));
       gWnd->add(btn);
 
       phui::LabelPtr lbl(phui::Label::create("Label me!"));
-      lbl->setPosition(75, 10);
-      lbl->setSize(100, 45);
+      lbl->setPosition(phui::Point(75, 10));
+      lbl->setSize(phui::Size(100, 45));
       lbl->show();
       lbl->setBackgroundColor(phui::Colorf(0,1,1,0.7));
       gWnd->add(lbl);

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.33 $
+ * Date modified: $Date: 2003-01-05 09:18:58 $
+ * Version:       $Revision: 1.34 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -82,7 +82,6 @@ namespace phui
        * @param y    the y position of this widget
        */
       virtual void setPosition(const Point& p);
-      void setPosition(int x, int y) { setPosition(Point(x, y)); }
 
       /**
        * Gets the size of this widget.
@@ -97,17 +96,6 @@ namespace phui
        * @param size    the new size of the widget
        */
       void setSize(const Size& size);
-
-      /**
-       * Sets the size of this widget.
-       *
-       * @param width   the width of this widget
-       * @param height  the height of this widget
-       */
-      virtual void setSize(int width, int height)
-      {
-         setSize(Size(width,height));
-      }
 
       /**
        * Gets the insets for this widget.
@@ -135,7 +123,7 @@ namespace phui
        *
        * @param enabled    true to enabled the widget, false to disable it
        */
-      virtual void setEnabled( bool enabled );
+      virtual void setEnabled(bool enabled);
 
       /**
        * Tests if this widget is visible.
@@ -149,7 +137,7 @@ namespace phui
        *
        * @param visible    true to show this component, false to hide it
        */
-      virtual void setVisible( bool visible );
+      virtual void setVisible(bool visible);
 
       void show() { setVisible(true); }
       void hide() { setVisible(false); }
@@ -159,7 +147,7 @@ namespace phui
        *
        * @param clr     the new background color
        */
-      virtual void setBackgroundColor( const Colorf& clr );
+      virtual void setBackgroundColor(const Colorf& clr);
 
       /**
        * Gets the background color of this widget.
@@ -173,7 +161,7 @@ namespace phui
        *
        * @param clr     the new foreground color
        */
-      virtual void setForegroundColor( const Colorf& clr );
+      virtual void setForegroundColor(const Colorf& clr);
 
       /**
        * Gets the foreground color of this widget.
@@ -187,7 +175,7 @@ namespace phui
        *
        * @param font    the new font
        */
-      virtual void setFont( const gltext::FontPtr& font );
+      virtual void setFont(const gltext::FontPtr& font);
 
       /**
        * Gets the font for this widget.

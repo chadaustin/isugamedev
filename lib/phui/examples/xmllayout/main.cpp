@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:15 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-05 09:18:58 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -63,7 +63,7 @@ void display()
 void reshape(int width, int height)
 {
    glViewport(0, 0, width, height);
-   gRoot->setSize(width, height);
+   gRoot->setSize(phui::Size(width, height));
 }
 
 int main(int argc, char** argv)

@@ -103,6 +103,36 @@ def SetupOpenGL(env):
    # Add in the OpenGL libs to the environment
    env.Append(LIBS = OPENGL_LIBS)
 
+def SetupPython(env, requiredVersion):
+   "Sets up the environment for Python"
+   print 'Looking for python 2.2 ...'
+   python = WhereIs('python')
+   if not python:
+      print 'WARNING: Can\'t find python executable'
+      return
+
+   py_cmd = python + ' -c \'import sys; print sys.prefix; print sys.version[:3]\''
+   (prefix, py_ver) = string.split(os.popen(py_cmd).read())
+
+   # Version must match
+   if py_ver != requiredVersion:
+      print 'WARNING: Python version ' + py_ver + ' != ' + requiredVersion
+      return
+
+   # Build up the env information
+   py_cpppath = pj(prefix, 'include', 'python'+py_ver)
+   py_libpath = pj(prefix, 'lib', 'python'+py_ver, 'config')
+   py_lib = 'python'+py_ver
+
+   # Setup the env
+   env.Append(CPPPATH   = [py_cpppath],
+              LIBPATH   = [py_libpath],
+              LIBS      = [py_lib, 'pthread'])
+
+def SetupBoostPython(env):
+   "Sets up the env for Boost Python"
+   env.Append(LIBS = ['boost_python'])
+
 def SetupSDL(env):
    "Sets up the given environment for SDL"
    ParseConfig(env, 'sdl-config', Split('--cflags --libs'))
@@ -122,6 +152,7 @@ def SetupGLUT(env):
 
 Export('ParseConfig')
 Export('SetupGLText SetupCppDom SetupCppUnit SetupOpenGL SetupSDL SetupGLUT')
+Export('SetupPython SetupBoostPython')
 
 
 def GetPhuiVersion():

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:15 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2003-01-05 09:18:57 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -103,7 +103,7 @@ void display()
 void reshape(int width, int height)
 {
    glViewport(0, 0, width, height);
-   gRoot->setSize(width, height);
+   gRoot->setSize(phui::Size(width, height));
 }
 
 int main(int argc, char** argv)
@@ -131,37 +131,37 @@ int main(int argc, char** argv)
       phui::glutRegisterRoot(gRoot);
 
       phui::WindowPtr window(phui::Window::create());
-      window->setPosition(150, 75);
-      window->setSize(300, 250);
+      window->setPosition(phui::Point(150, 75));
+      window->setSize(phui::Size(300, 250));
       window->show();
       window->setBackgroundColor(phui::Colorf(1, 0, 0, 0.75f));
 
       phui::WindowPtr wnd(phui::Window::create());
-      wnd->setPosition(250, 175);
-      wnd->setSize(300, 250);
+      wnd->setPosition(phui::Point(250, 175));
+      wnd->setSize(phui::Size(300, 250));
       wnd->show();
       wnd->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
       phui::WindowListenerPtr wnd_listener(new WndListener());
       wnd->addWindowListener(wnd_listener);
 
       phui::WindowPtr w(phui::Window::create());
-      w->setPosition(100, 100);
-      w->setSize(50, 50);
+      w->setPosition(phui::Point(100, 100));
+      w->setSize(phui::Size(50, 50));
       w->show();
       w->setBackgroundColor(phui::Colorf(0, 1, 0, 0.75f));
       wnd->add(w);
 
       phui::CheckBoxPtr cb(phui::CheckBox::create());
-      cb->setPosition(220, 40);
-      cb->setSize(20, 20);
+      cb->setPosition(phui::Point(220, 40));
+      cb->setSize(phui::Size(20, 20));
       cb->show();
       cb->setBackgroundColor(phui::Colorf(0, 0, 0, 0.2f));
       cb->setForegroundColor(phui::Colorf(1, 0, 1, 1));
       window->add(cb);
 
       phui::ButtonPtr button(phui::Button::create("Icky very very very icky"));
-      button->setPosition(20, 20);
-      button->setSize(100,50);
+      button->setPosition(phui::Point(20, 20));
+      button->setSize(phui::Size(100,50));
       button->show();
       button->setBackgroundColor(phui::Colorf(0,0,1,0.5f));
       phui::ActionListenerPtr action_listener(new WidgetHider(wnd));
@@ -169,16 +169,16 @@ int main(int argc, char** argv)
       window->add(button);
 
       phui::TextFieldPtr txt(phui::TextField::create());
-      txt->setPosition(20,100);
-      txt->setSize(100,50);
+      txt->setPosition(phui::Point(20,100));
+      txt->setSize(phui::Size(100,50));
       txt->show();
       txt->setBackgroundColor(phui::Colorf(1,1,1,1.0f));
       txt->setForegroundColor(phui::Colorf(0,0,0,1.0f));
       window->add(txt);
 
       phui::ListBoxPtr lst(phui::ListBox::create());
-      lst->setPosition(130,100);
-      lst->setSize(100,100);
+      lst->setPosition(phui::Point(130,100));
+      lst->setSize(phui::Size(100,100));
       lst->show();
       lst->setBackgroundColor(phui::Colorf(1,1,1,1.0f));
       lst->setForegroundColor(phui::Colorf(0,0,0,1.0f));
