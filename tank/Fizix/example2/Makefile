@@ -10,8 +10,7 @@ PROJECT_NAME = e
 
 
 # objects to be included in the project....
-SRCS = Operations.cxx Force.cxx simpleGlutApp.cxx cubeGeometry.cpp \
-       QuakeNav.cxx Matrix4f.cxx ColorRGBA.cxx
+SRCS = simpleGlutApp.cxx cubeGeometry.cpp QuakeNav.cxx Matrix4f.cxx ColorRGBA.cxx
 MK_DIR = ../../mk
 PATH_TO_SRCS = .:../../Fizix:../../:../../Fizix/operators
 INCLUDE_PATHS += -I./boost -I. -I../../ -I../../Fizix -I../../Fizix/operators -I../../Fizix/system
