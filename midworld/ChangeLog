@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-09-07 nonchocoboy  Added UIDManager for automatic unique ID management.
 2002-07-29 nonchocoboy  Added collision notifcation event framework.
 2002-07-28 nonchocoboy  Integrated basic collision detection into the game.
 2002-07-28 nonchocoboy  Added Entity abstraction on top of RigidBody.
