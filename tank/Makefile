@@ -98,7 +98,7 @@ clean:
 	@echo "Cleaning TANK"
 	@echo "================="
 	@echo " "
-	-rm -rf $(OBJS) $(FILENAME) ii_files
+	-rm -rf $(OBJS) $(EXE_FILENAME) ii_files
 
 ifeq (USE_DEPEND,Y)
 include ${MK_DIR}/mk.depend
