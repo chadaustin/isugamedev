@@ -68,6 +68,17 @@ namespace net {
       }
 
       /**
+       * Sends the given message to all connections that we know about (broadcast??)
+       * @param msg     the message to send over the wire
+       */
+      void sendToAll(Message* msg) {
+         for(ConnMapIter cIter=m_connections.begin();cIter!=m_connections.end();++cIter) {
+            // send the message to each connection
+            cIter->second->send(msg);
+         }
+      }
+
+      /**
        * Reads all messages that have been read since the last read and puts
        * them in the given vector.
        *
@@ -84,6 +95,7 @@ namespace net {
                // let's close the connection and remove it from our knowledge
                delete cIter->second;
                m_connections.erase(cIter);
+               // go through all the connections again
                cIter = m_connections.begin();
             } else {
                // and place each in the return

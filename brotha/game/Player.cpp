@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-03-30 19:36:34 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-03-30 21:04:26 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -99,19 +99,22 @@ namespace game {
    }
 
    PRUint32 Player::getSize() {
-      return net::sizes::getVarSize(mName) + net::sizes::getVarSize(mAccelerate)
-           + net::sizes::getVarSize(mBrake) + net::sizes::getVarSize(mTurnAngle)
+      return net::sizes::getVarSize(mUID)
+           + net::sizes::getVarSize(mName) 
+           + net::sizes::getVarSize(mAccelerate)
+           + net::sizes::getVarSize(mBrake)
+           + net::sizes::getVarSize(mTurnAngle)
            + mObject->getSize();
    }
 
    void Player::serialize(net::OutputStream& os) {
       mObject->serialize(os);
-      os << mName << mAccelerate << mBrake << mTurnAngle;
+      os << mUID << mName << mAccelerate << mBrake << mTurnAngle;
    }
 
    void Player::deserialize(net::InputStream& is) {
       mObject->deserialize(is);
-      is >> mName >> mAccelerate >> mBrake >> mTurnAngle;
+      is >> mUID >> mName >> mAccelerate >> mBrake >> mTurnAngle;
    }
 
 }

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-30 20:14:15 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-03-30 21:04:27 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,6 +48,17 @@ namespace server {
    void BrothaGame::update() {
       /// @todo do a frame in the game
       /// for each object that is modified broadcast to everyone
+
+
+      /// fake frame (just move all players y pos up 1) and send to all players
+      for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
+         game::Player* player = iter->second;
+         gmtl::Vec<PRFloat64, 3> pos = player->getObject()->getPosition();
+         pos[1]-=0.1;
+         player->getObject()->setPosition(pos);
+         net::UpdatePlayerMessage *msgP = new net::UpdatePlayerMessage(iter->second);
+         m_netMgr->sendToAll(msgP);
+      }
    }
 
    void BrothaGame::add( game::Player* player, net::NetMgr::ConnID cID ) {

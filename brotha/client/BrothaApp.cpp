@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 23:36:19 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-03-30 21:04:26 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -122,7 +122,7 @@ namespace client
 
          glColor4f( 1.0, 0.0, 0.0, 1.0f );
          // setup camera
-         glTranslatef( 0, -15, 0 );
+         glTranslatef( pos[0], pos[1], pos[2] );
          /// @todo draw the game!
 
 

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-30 20:14:15 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-03-30 21:04:26 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -64,7 +64,7 @@ namespace client
          {
             net::UpdatePlayerMessage* pMsg = (net::UpdatePlayerMessage*)msg;
             game::Player* player = pMsg->getPlayer();
-//            app->getGame().getPlayer(player->getUID())->setPosition( player->getPosition() );
+            app->getGame().getPlayer(player->getUID())->getObject()->setPosition( player->getObject()->getPosition() );
             /// @todo send more stuff
             break;
          }

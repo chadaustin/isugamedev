@@ -46,9 +46,10 @@ namespace net {
       }
 
       void deserialize(InputStream& is) {
-         if(m_player != NULL) {
-            m_player->deserialize(is);
+         if (m_player == NULL) {
+            m_player = new game::Player();
          }
+         m_player->deserialize(is);
       }
    private:
       game::Player* m_player;

@@ -43,6 +43,9 @@ namespace server {
             }
          }
 
+         // now that we've handled all the messages, let's update the game
+         m_brothaGame->update();
+
          PR_AtomicDecrement(&mKillMe);
       }
    }
