@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Mod.h,v $
- * Date modified: $Date: 2002-04-28 16:41:08 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-29 07:38:49 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,54 +40,43 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef BDATA_MOD_H
-#define BDATA_MOD_H
+#ifndef DATA_MOD_H
+#define DATA_MOD_H
 
 #include <iostream.h>
 #include <string.h>
 #include <vector>
 
+namespace data {
 
-namespace dataxml{
+   //modifications to the car.
+   class Mod {
+   private:
 
+      std::string type;
+      int level;
 
+   public:
+      Mod(std::string in_type, int in_level) {
+         type = in_type;
+         level = in_level;
+      }
 
-//modifications to the car.
-class Mod {
-
-private:
-
-  std::string type;
-  int level;
-
-public:
-
-  Mod(std::string in_type, int in_level){
-    type = in_type;
-    level = in_level;
-  }
-
-  std::string getType(){
-    return type;
-  }
+      std::string getType() {
+         return type;
+      }
   
-  int getLevel(){
-    return level;
-  }
+      int getLevel() {
+         return level;
+      }
   
-  void xMLify(std::ostream& out){
-    out <<"        <mod name=\"" << type << "\" level=\"" << level << "\" />" << std::endl;
-  }
-};
+      void xMLify(std::ostream& out) {
+         out <<"        <mod name=\"" << type << "\" level=\"" << level << "\" />" << std::endl;
+      }
+   };
 
-
-
-
-
-typedef std::vector<Mod*> modlist;
+   typedef std::vector<Mod*> modlist;
 
 }
-
-
 
 #endif
