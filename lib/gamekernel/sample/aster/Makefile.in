@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-20 14:47:20 $
-# Version:       $Revision: 1.2 $
+# Date modified: $Date: 2002-02-21 01:00:35 $
+# Version:       $Revision: 1.3 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -35,6 +35,21 @@ top_srcdir=@top_srcdir@
 topdir=@topdir@
 # points to the directory where the sources are for this directory (in case config was ran in separate dir)
 srcdir=@srcdir@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+
+includedir=@includedir@
+libdir=@libdir@
+datadir=@datadir@
+mandir=@mandir@
+
+gkincludedir=$(includedir)/gk
+gklibdir=$(libdir)/gk
+gkdatadir=$(datadir)/gk
+
+INSTALL=@INSTALL@
+INSTALL_DATA=@INSTALL_DATA@
+
 
 # objects to be included in the project....
 SRCS = main.cpp cubeGeometry.cpp
@@ -77,6 +92,15 @@ $(EXE_FILENAME): $(OBJS)
 	-@echo "$(EXE_FILENAME) done"
 	-@echo "-------------------------------------------"
 
+################################################################################
+# Install target
+install:
+
+################################################################################
+# Uninstall target
+uninstall:
+
+################################################################################
 # Remove the compiled stuff from the system
 clean:
 	-@echo ""

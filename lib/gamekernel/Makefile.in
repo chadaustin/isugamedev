@@ -2,10 +2,11 @@ SUBDIRS = gk drivers
 
 default: all
 all: all-recursive
+install: install-recursive
 clean: clean-recursive
 clobber: clobber-recursive
 
-all-recursive clean-recursive clobber-recursive:
+all-recursive install-recursive clean-recursive clobber-recursive:
 	@dot_seen=no; \
 	target=`echo $@ | sed s/-recursive//`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \

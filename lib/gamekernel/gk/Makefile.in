@@ -23,18 +23,54 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-20 04:01:15 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-02-21 01:00:35 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
 
 srcdir=@srcdir@
 top_srcdir=@top_srcdir@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+
+includedir=@includedir@
+libdir=@libdir@
+datadir=@datadir@
+mandir=@mandir@
+
+gkincludedir=$(includedir)/gk
+gklibdir=$(libdir)/gk
+gkdatadir=$(datadir)/gk
+
+INSTALL=@INSTALL@
+INSTALL_DATA=@INSTALL_DATA@
 
 # objects to be included in the project....
 SRCS = \
+	AnalogDevice.h \
+	AnalogInput.h \
+	AnalogInterface.h \
+	ContextData.h \
+	Device.h \
+	DigitalDevice.h \
+	DigitalInput.h \
+	DigitalInterface.h \
+	EventInput.h \
+	GameApp.h \
+	GameInputConfigure.h \
+	GameInput.h \
+	GameKernel.h \
 	GameKernel.cpp \
+	gkCommon.h \
+	Input.h \
+	InputInterface.h \
+	Joystick.h \
+	Keyboard.h \
+	Mouse.h \
+	Singleton.h \
+	SystemDriver.h \
+	SystemDriverFactory.h \
 	SystemDriverFactory.cpp \
 	xmlparser.cpp xmlpp.cpp xmltokenizer.cpp
 
@@ -51,14 +87,14 @@ INCLUDE_PATHS = -I$(top_srcdir) -I$(top_srcdir)/external/xdl @INCLUDES@
 LIBS=@LIBS@
 DEFS=@GK_DEFS@
 
-########################################################################
+################################################################################
 # system dependent stuff, that users will want to change...
 # stuff that cant be abstracted in the build system...
-##########################################################################
+################################################################################
 include ${MK_DIR}/mk.hosttype
 include ${MK_DIR}/mk.platform
 
-########################################################################
+################################################################################
 include ${MK_DIR}/mk.objs
 
 # default targets
@@ -85,6 +121,44 @@ $(STATIC_LIB_FILENAME): $(OBJS)
 	-@echo "-------------------------------------------"
 	$(STATIC_LINKER) $(STATIC_FLAGS) $(OUTPUT_STATIC_LIB_FLAG)$(STATIC_LIB_FILENAME) $(OBJS) 
 
+################################################################################
+# Install target
+install: install-libs install-headers
+
+install-libs:
+	$(INSTALL) $(LIB_FILENAME) $(libdir)/$(LIB_FILENAME)
+	$(INSTALL) $(STATIC_LIB_FILENAME) $(libdir)/$(STATIC_LIB_FILENAME)
+
+
+# Loop over the header suffixes to filter out the header files from the given list
+_header_suffix_list = h hpp hh
+makeheaders = $(foreach _suffix, $(_header_suffix_list), $(filter %.$(_suffix), $1))
+HEADERS=$(call makeheaders, $(SRCS))
+
+install-headers:
+	-mkdir $(gkincludedir)
+	@list='$(HEADERS)'; for h in $$list; do \
+		if test -f "$$h"; then d= ; else d="$(srcdir)/"; fi; \
+		echo " $(INSTALL_DATA) $$d$$h $(gkincludedir)/$$h"; \
+		$(INSTALL_DATA) $$d$$h $(gkincludedir)/$$h; \
+	done
+
+################################################################################
+# Uninstall target
+uninstall: uninstall-libs uninstall-headers
+
+uninstall-libs:
+	rm -f $(libdir)/$(LIB_FILENAME)
+	rm -f $(libdir)/$(STATIC_LIB_FILENAME)
+
+uninstall-headers:
+	@list='$(HEADERS)'; for h in $$list; do \
+		rm -f $(gkincludedir)/$$h; \
+	done
+	-rmdir $(gkincludedir)
+
+
+################################################################################
 # Remove the compiled stuff from the system
 clean:
 	-@echo ""

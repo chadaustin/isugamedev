@@ -23,13 +23,28 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-20 14:00:41 $
-# Version:       $Revision: 1.3 $
+# Date modified: $Date: 2002-02-21 01:00:34 $
+# Version:       $Revision: 1.4 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
 srcdir=@srcdir@
 top_srcdir=@top_srcdir@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+
+includedir=@includedir@
+libdir=@libdir@
+datadir=@datadir@
+mandir=@mandir@
+
+gkincludedir=$(includedir)/gk
+gklibdir=$(libdir)/gk
+gkdatadir=$(datadir)/gk
+
+INSTALL=@INSTALL@
+INSTALL_DATA=@INSTALL_DATA@
+
 
 # objects to be included in the project....
 ifeq (@BUILD_GLUT_DRIVER@, Y)
@@ -81,6 +96,26 @@ $(DRIVER_FILENAME): $(OBJS)
 	-@echo "$(FILENAME) done"
 	-@echo "-------------------------------------------"
 
+################################################################################
+# Install target
+install: install-data
+
+install-data:
+	-@mkdir $(gkdatadir)
+	-@mkdir $(gkdatadir)/drivers
+	$(INSTALL_DATA) $(DRIVER_FILENAME) $(gkdatadir)/drivers/$(DRIVER_FILENAME)
+
+
+################################################################################
+# Uninstall target
+uninstall: uninstall-data
+
+uninstall-data:
+	rm -f $(gkdatadir)/drivers/$(DRIVER_FILENAME)
+	-@rmdir $(gkdatadir)/drivers
+	-@rmdir $(gkdatadir)
+
+################################################################################
 # Remove the compiled stuff from the system
 clean:
 	-@echo ""
