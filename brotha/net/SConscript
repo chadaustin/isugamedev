@@ -1,0 +1,22 @@
+Import('env')
+
+classes = [
+    'Socket',
+    'ServerSocket',
+]
+
+headers = [
+]
+
+sources = [
+]
+
+# add proper extensions to filenames
+headers = map(lambda fn: fn + '.h', headers)
+sources = map(lambda fn: fn + '.cpp', sources)
+
+# add in the files from classes
+headers.extend( map(lambda fn: fn + '.h', classes) )
+headers.extend( map(lambda fn: fn + '.cpp', classes) )
+
+env.Library(target = 'net', source = sources)
