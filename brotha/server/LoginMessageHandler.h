@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginMessageHandler.h,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-01 18:43:09 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -57,8 +57,12 @@ namespace server {
 
       virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
          net::LoginMessage *mMsg = (net::LoginMessage*)msg;
-         /// @todo actual authentication
-         if(1) {
+
+         // get the main data and the player the user entered
+         data::BrothaData data = m_brothaGame->getDataManager().getData();
+         data::Player* player = data.getPlayer(mMsg->getUsername());
+
+         if(player != NULL && player->getPassword().compare(mMsg->getPassword()) == 0) {
             // let game know about this possible player
             m_brothaGame->addPlayer(new game::Player(mMsg->getUsername()), cID);
             // send the connection an OK message saying they are authenticated

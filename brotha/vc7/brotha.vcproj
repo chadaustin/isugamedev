@@ -142,9 +142,6 @@
 			<File
 				RelativePath="..\net\WriteThread.cpp">
 			</File>
-			<File
-				RelativePath="..\xml\xmlpersist.cpp">
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -293,10 +290,6 @@
 			<File
 				RelativePath="..\net\WriteThread.h">
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 	</Files>
 	<Globals>
