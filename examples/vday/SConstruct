@@ -1,0 +1,4 @@
+Default('.')
+
+env = Environment(LIBS = ['opengl32', 'glu32', 'glut32'])
+env.Program(target = 'vday', source = 'vday.cpp')
