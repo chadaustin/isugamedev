@@ -1,5 +1,5 @@
-#ifndef PLAYER_DEFINED
-#define PLAYER_DEFINED
+#ifndef MW_PLAYER_H
+#define MW_PLAYER_H
 
 #include <map>
 #include <gmtl/Matrix.h>
