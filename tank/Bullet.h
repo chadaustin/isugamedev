@@ -40,8 +40,9 @@ public:
 //      glDisable( GL_LIGHTING );
       glPushMatrix();
          glMultMatrixf( mXForm.data() );
-         glScalef(5.0f, 5.0f, 5.0f);
-         glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+         const float scale = 10.0f;
+         glScalef( scale, scale, scale );
+         glColor4f(1.0f, 0.7f, 0.7f, 1.0f);
 
          glBegin( GL_TRIANGLES );
             glNormal3f( -1.0f,  0.0f,  0.0f );
