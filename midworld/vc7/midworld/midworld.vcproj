@@ -186,6 +186,9 @@
 				RelativePath="..\..\src\GameManager.h">
 			</File>
 			<File
+				RelativePath="..\..\src\GameScene.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\GameScene.h">
 			</File>
 			<File

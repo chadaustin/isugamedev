@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameScene.h,v $
- * Date modified: $Date: 2002-09-24 04:43:37 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-09-24 08:27:23 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,53 +42,9 @@ namespace mw
    class GameScene
    {
    public:
-      GameScene()
-      {
-         mTexture = new Texture("images/ground.png");
-      }
-
-      ~GameScene()
-      {
-         delete mTexture;
-      }
-
-      void draw()
-      {
-         /** draw the scene. */
-         static cubeGeometry cube;
-
-         const int size = 500;
-         const int spacing = 10;
-         const int spacing_2 = spacing / 2;
-         for (int x = -size; x < size; x += spacing)
-         {
-            for (int y = -size; y < size; y += spacing)
-            {
-               glPushMatrix();
-               glRotatef(90, 1, 0, 0);
-               mTexture->drawRectangle(
-                  x - spacing_2, y - spacing_2,
-                  x + spacing_2, y + spacing_2);
-               glPopMatrix();
-            }
-         }
-
-         const float pillar_height = 0.5f;
-         const float pillar_width = 0.4f;
-         const int size_2 = 100 / 2;
-         for (int x = -size_2; x < size_2; x += spacing)
-         {
-            for (int y = -size_2; y < size_2; y += spacing)
-            {
-               glPushMatrix();
-               glTranslatef( (GLfloat)x, pillar_height, (GLfloat)y );
-               glScalef( pillar_width, pillar_height, pillar_width );
-               if (!(x == 0 && y == 0))
-                  cube.render();
-               glPopMatrix();
-            }
-         }
-      }
+      GameScene();
+      ~GameScene();
+      void draw();
 
    private:
       Texture* mTexture;
