@@ -102,7 +102,4 @@ public:
          cwa->deref();
          fe->deref();
       }
-
-      std::vector<std::string> texname;
-      std::vector<Texture>     texture;
 };

@@ -1,0 +1,16 @@
+this dir contains the physics engine portion of my animation library that i'll 
+probably be doing my masters thesis on.
+
+
+issues
+- we have body.h, what about particle.h.  would like them to share as much 
+  code as possible but still be very fast.
+  
+- what about data attached to each body/particle.  we dont want to embed
+  every possible data item (color, age, texture, etc...), but yet we need
+  the capability to do this at will... template metaprogramming, data fields?
+  
+- collision.  non existant.  need some way to do this.  
+  1.) need generic hooks for collision in the pengine
+    a.) should consider temporal
+  2.) need collision library, geometry structure for efficient collisions.
