@@ -3,7 +3,6 @@ Import('env')
 Import('OPENGL_LIBS SDL_LIBS OSG_LIBS')
 
 classes = [
-#   'AppState',
    'BrothaApp',
    'Camera',
    'ChopShopWnd',
@@ -17,12 +16,13 @@ classes = [
 ]
 
 headers = [
-    'State.h',
+    'State',
 ]
 
 sources = [
     'main',
     'realmain',
+    'NullPrintingEngine'
 ]
 
 # add proper extensions to filenames
