@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-18 03:17:06 $
-// Version:       $Revision: 1.16 $
+// Date modified: $Date: 2002-02-18 03:30:31 $
+// Version:       $Revision: 1.17 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -55,9 +55,11 @@ namespace gk
  *    class MyApplicationType : public gk::GameApp {};
  *    int main()
  *    {
- *       gk::GameKernelRegister<MyApplicationType> reg;
- *       gk::SystemDriver* driver = new gk::GlutDriver();
- *       gk::GameKernel::instance().startup( driver );
+ *       gk::GameKernel* kernel = new GameKernel();
+ *       kernel->add( new MyApplicationType() );
+ *       gk::SystemDriverFactory::instance().probe( "gkglut", "GLUT" );
+ *       gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
+ *       kernel->startup( driver );
  *       return 1;
  *    }
  * \endcode
@@ -67,9 +69,11 @@ namespace gk
  *    class MyApplicationType : public gk::GameApp {};
  *    int main()
  *    {
- *       gk::GameKernelRegister<MyApplicationType> reg;
- *       gk::SystemDriver* driver = new gk::SdlDriver();
- *       gk::GameKernel::instance().startup( driver );
+ *       gk::GameKernel* kernel = new GameKernel();
+ *       kernel->add( new MyApplicationType() );
+ *       gk::SystemDriverFactory::instance().probe( "gksdl", "SDL" );
+ *       gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "SDL" );
+ *       kernel->startup( driver );
  *       return 1;
  *    }
  * \endcode
@@ -174,53 +178,6 @@ private:
     * The list of applications being managed by this kernel.
     */
    std::vector<GameApp*> mApps;
-};
-
-/** registers a new application of type applicationType with the GameKernel.
- * create an instance of this class to register your application.
- * delete it to unregister it.
- *
- * <h3> "Example (to create and register your application with the kernel):" </h3>
- * \code
- *    class MyApplicationType : public gk::GameApp {};
- *    gk::GameKernelRegister<MyApplicationType> reg;
- * \endcode
- *
- * @see GameKernel
- */
-template< class applicationType >
-class GameKernelRegister
-{
-public:
-   /** registers a new application of type applicationType with the GameKernel.
-    */
-   GameKernelRegister() : mApplication()
-   {
-      GameKernel::instance().applications().push_back( &mApplication );
-   }
-
-   /** unregisters the application from the GameKernel. */
-   virtual ~GameKernelRegister()
-   {
-
-      std::vector<GameApp*>::iterator it;
-      for (it = GameKernel::instance().applications().begin();
-           it != GameKernel::instance().applications().end();
-           ++it)
-      {
-         if (&mApplication == (*it))
-         {
-            GameKernel::instance().applications().erase( it );
-            return;
-         }
-      }
-
-      // if not found, then the list probably was deallocated
-      // (because application exited)
-      // whatever, there wont be any dangling memory anyway.
-   }
-private:
-   applicationType mApplication;
 };
 
 } // namespace gk
