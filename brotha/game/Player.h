@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-02 04:07:44 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-05-02 05:27:08 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -123,7 +123,11 @@ namespace game {
          mCoins = coins;
       }
 
-      Object* getObject();
+      /// Gets the vehicle object that this player drives.
+      Object* getVehicle();
+
+      /// Sets the object that is this player's vehicle.
+      void setVehicle(Object* vehicle);
 
    public:
       /**
@@ -160,6 +164,9 @@ namespace game {
       /// This player's health
       int mHealth;
 
+      /// The object in the world that is this player's vehicle
+      Object* mVehicle;
+
       /// The number of kills this player has
       int mKills;
 
@@ -173,7 +180,6 @@ namespace game {
       bool mIsHandBraking;
       bool mIsTurningLeft;
       bool mIsTurningRight;
-
    };
 }
 

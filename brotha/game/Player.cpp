@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-05-02 04:07:44 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-05-02 05:27:08 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -49,6 +49,7 @@ namespace game {
    Player::Player(const std::string& name)
       : mName(name)
       , mHealth(0)
+      , mVehicle(NULL)
       , mIsAccelerating(false)
       , mIsBraking(false)
       , mIsHandBraking(false)
@@ -64,6 +65,14 @@ namespace game {
 
    const Player::UID& Player::getUID() const {
       return mUID;
+   }
+
+   Object* Player::getVehicle() {
+      return mVehicle;
+   }
+
+   void Player::setVehicle(Object* vehicle) {
+      mVehicle = vehicle;
    }
 
    const std::string& Player::getName() const {
