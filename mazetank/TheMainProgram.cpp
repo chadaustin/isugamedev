@@ -30,7 +30,11 @@ void Initialize()
 
 }
 
-
+void MyMouse(int button, int state,int x, int y)
+{
+	if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+		GameInput.ShootBullet();
+}
 
 void MouseMotion(int x, int y)
 {
@@ -71,23 +75,6 @@ void MouseMotion(int x, int y)
 	}
 }
 
-void KeyboardInput(int key, int x, int y)
-{
-   switch(key)
-   {
- 
-   }
-}
-
-void KeyboardInputUp(int key, int x, int y)
-{
-   switch(key)
-   {
-
-   }
-}
-
-
 void MyKeyboard(unsigned char key, int x, int y)
 {
 
@@ -121,9 +108,6 @@ void MyKeyboard(unsigned char key, int x, int y)
       GameInput.Honk();
       break;
 
-   case 'x':
-      GameInput.ShootBullet();
-      break;
 	}
 
 }
@@ -181,19 +165,18 @@ int main (int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(1024, 768);
+	glutInitWindowSize(640, 480);
 	glutInitWindowPosition(100,50);
 	glutCreateWindow("Final Project");
 	Initialize();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
-	glutSpecialFunc(KeyboardInput);
-	glutSpecialUpFunc(KeyboardInputUp);
 
 	glutKeyboardFunc(MyKeyboard);
-
 	glutKeyboardUpFunc(MyKeyboardUp);
+
 	glutPassiveMotionFunc(MouseMotion);
+	glutMouseFunc(MyMouse);
 
 	glutSetCursor(GLUT_CURSOR_NONE);
 	glutIdleFunc(update);

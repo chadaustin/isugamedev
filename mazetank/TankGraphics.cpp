@@ -20,6 +20,7 @@ TankGraphics::TankGraphics()
 	shininess = 65.0;
 
 	smoothing_angle = 90.0;
+
 }
 
 void TankGraphics::Init()

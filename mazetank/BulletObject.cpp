@@ -15,6 +15,13 @@ BulletObject::BulletObject()
 	this->SetCurrentObjectType(BULLET);
 	this->SetAngularVelocity(0.0);
 	this->SetObjectAngle(0.0);
+	
+	float BottomCorner[3];
+
+	for(int i = 0; i < 3; i++)
+		BottomCorner[i] = 0.4;
+
+	this->SetObjectBoundingBox(BottomCorner);
 }
 
 BulletObject::~BulletObject()
@@ -50,5 +57,29 @@ void BulletObject::Draw()
 
 		glutSolidSphere(1.0, 10, 10);
 
+	glPopMatrix();
+
+
+	float size[3];
+	this->GetObjectBoundingBox(size);
+
+	glPushMatrix();
+		glColor3f(1.0, 0.0, 0.0);
+		glTranslatef(Translate[0]-0.2, Translate[1]-0.2, Translate[2]-0.2);
+		glLineWidth(1.0);
+		glDisable(GL_DEPTH);
+		glDisable(GL_LIGHTING);
+
+		glBegin(GL_LINES);
+			glVertex3f(0.0, 0.0, 0.0);
+			glVertex3f(size[0], 0.0, 0.0);
+			glVertex3f(0.0, 0.0, 0.0);
+			glVertex3f(0.0, size[1], 0.0);
+			glVertex3f(0.0, 0.0, 0.0);
+			glVertex3f(0.0, 0.0, size[2]);
+		glEnd();
+		glLineWidth(1.0);
+		glEnable(GL_DEPTH);
+		glEnable(GL_LIGHTING);
 	glPopMatrix();
 }

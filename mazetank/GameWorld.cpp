@@ -74,10 +74,12 @@ void GameWorld::Draw()
 
 	GameCamera->Apply();
 
+    TheFloor.Draw();
+
 	for(int i = 0; i < TheGameObjects.size(); i++)
 		TheGameObjects[i]->Draw();
 
-   TheFloor.Draw();
+ 
    
    glutSwapBuffers();
 }

@@ -46,10 +46,12 @@ public:
 private:
 	Camera* CurrentCamera;
 	int dt, Starttime, Stoptime;
-   float GRAVITY;
+    float GRAVITY;
 
 	void CameraTruckUpdate(GameObject* &TruckObject);
 	void BulletUpdate(GameObject* &BulletObject);
+	void CollisionDetection(vector<GameObject*> &TheObjects);
+	bool CheckForCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
 
 };
 #endif

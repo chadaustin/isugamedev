@@ -23,11 +23,6 @@ public:
 	//////////////////////////////////
 	// All the Common set functions
 	//////////////////////////////////
-	void SetSize(float Size[3])
-	{
-		for(int i = 0; i < 3; i++)
-			ObjectSize[i] = Size[i];
-	}
 	void SetPosition(float Position[3])
 	{
 		for(int i = 0; i < 3; i++)
@@ -57,17 +52,19 @@ public:
    {
       ObjectVelocityZ = Velocity;
    }
+   void SetObjectBoundingBox(float BottomCorner[3])
+   {
+		for(int i = 0; i < 3; i++)
+		{
+			ObjectBottomBox[i] = BottomCorner[i];
+		}
+   }
 	////////////////////////////////////
 
 
 	//////////////////////////////////////
 	// All the Common get functions
 	//////////////////////////////////////
-	void GetSize(float Size[3])
-	{
-		for(int i = 0;i < 3; i++)
-			Size[i] = ObjectSize[i];
-	}
 	void GetPosition(float Position[3])
 	{
 		for(int i = 0; i < 3; i++)
@@ -97,17 +94,24 @@ public:
    {
       Velocity = ObjectVelocityZ;
    }
+   void GetObjectBoundingBox(float BottomCorner[3])
+   {
+		for(int i = 0; i < 3; i++)
+		{
+			BottomCorner[i] = ObjectBottomBox[i];
+		}
+   }
 	/////////////////////////////////////////
 
 
 protected:
-	float ObjectSize[3];
 	float ObjectPosition[3];
 	float ObjectVelocity;
 	float ObjectAngle;
 	float ObjectAngleVelocity;
-   float ObjectZAngle;
-   float ObjectVelocityZ;
+    float ObjectZAngle;
+    float ObjectVelocityZ;
+	float ObjectBottomBox[3];
 	ObjectType ObjectName;
 
 };
