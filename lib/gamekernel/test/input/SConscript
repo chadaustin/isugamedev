@@ -1,7 +1,7 @@
 import os
 pj = os.path.join
 
-Import('pkg baseEnv PREFIX GetPlatform')
+Import('baseEnv PREFIX GetPlatform')
 
 headers = Split("""
 Grid.h

@@ -2,8 +2,8 @@ import os, string, sys
 pj = os.path.join
 
 # Bring in the AutoDist build helper
-sys.path.append('tools/build')
-from AutoDist import *
+#sys.path.append('tools/build')
+#from AutoDist import *
 
 #------------------------------------------------------------------------------
 # Define some generally useful functions
@@ -123,7 +123,7 @@ print 'Building Gk Version: %i.%i.%i' % GK_VERSION
 optimize = ARGUMENTS.get('optimize', 'no')
 profile = ARGUMENTS.get('profile', 'no')
 PREFIX = ARGUMENTS.get('prefix', '/usr/local')
-Prefix(PREFIX)
+#Prefix(PREFIX)
 Export('PREFIX')
 
 # Create the extra builders
@@ -142,6 +142,7 @@ elif GetPlatform() == 'win32':
 else:
    print 'Unsupported build environment: ' + GetPlatform()
    sys.exit(-1)
+baseEnv.Append(CPPPATH = ['#external'])
 Export('baseEnv')
 
 
@@ -151,22 +152,6 @@ subdirs = Split("""
    drivers
    test
 """)
-
-
-
-# Create the Gk package
-pkg = Package('gk', '%i.%i.%i' % GK_VERSION)
-pkg.addExtraDist(Split("""
-   AUTHORS
-   ChangeLog
-   COPYING
-   README
-   SConstruct
-   gk/SConstruct
-   gk-config.in
-   tools/build/AutoDist.py
-"""))
-Export('pkg')
 
 # Process subdirectories
 subdirs = Split('gk drivers test')
@@ -194,7 +179,7 @@ env.ConfigBuilder('gk-config', 'gk-config.in',
 #env.Depends('gk-config', 'gk/version.h')
 env.Install(pj(PREFIX, 'bin'), 'gk-config')
 
-pkg.build()
+#pkg.build()
 
 # Build everything by default
 Default('.')

@@ -1,7 +1,7 @@
 import os
 pj = os.path.join
 
-Import('pkg baseEnv PREFIX GetPlatform')
+Import('baseEnv PREFIX GetPlatform')
 
 headers = Split("""
 SdlDriver.h
@@ -23,8 +23,7 @@ if GetPlatform() == 'irix':
 env.Replace(SHLIBPREFIX = '',
             SHLIBSUFFIX = '')
 
-lib = pkg.createSharedLibrary('sdl.gkd', env)
-lib.addSources(sources)
-lib.addHeaders(headers, 'sdl.gkd')
-
-
+lib = env.SharedLibrary('sdl.gkd', sources)
+env.Install(pj(PREFIX, 'lib'), lib)
+for h in headers:
+	env.Install(pj(PREFIX, 'include'), h)

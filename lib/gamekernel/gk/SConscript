@@ -1,7 +1,7 @@
 import os
 pj = os.path.join
 
-Import('pkg baseEnv PREFIX GetPlatform')
+Import('baseEnv PREFIX GetPlatform')
 
 headers = Split("""
 AbstractGameApp.h   GameInput.h           Joystick.h
@@ -17,7 +17,8 @@ EventInput.h        InputInterface.h
 """)
 
 sources = Split("""
- GameInput.cpp  GameKernel.cpp  SystemDriverFactory.cpp  gk.cpp
+ GameInput.cpp  GameInputConfigure.cpp  GameKernel.cpp  
+ SystemDriverFactory.cpp  gk.cpp
 """)
 
 env = baseEnv.Copy()
@@ -29,9 +30,7 @@ env.Append(CXXFLAGS = ['-DXDL_EXPORT_DLL'])
 if GetPlatform() == 'irix':
    env['SHCXXFLAGS'] = '${CXXFLAGS}'
 
-#lib = pkg.createSharedLibrary('gk', env)
-lib = pkg.createStaticLibrary('gk', env)
-lib.addSources(sources)
-lib.addHeaders(headers, 'gk')
-
-
+lib = env.SharedLibrary(target = 'gk', source = sources)
+env.Install(pj(PREFIX, 'lib'), lib)
+for h in headers:
+	env.Install(pj(PREFIX, 'include'), h)
