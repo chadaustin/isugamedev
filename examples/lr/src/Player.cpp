@@ -97,17 +97,28 @@ namespace lr
    void Player::burnOutRightBrick(float dt)
    {
       // if the spot to our right is burnable then burn it.
-      if((mLevel->getEntityType(getGridPos()+1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()+1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()+1, getGridHeight())!=ladder))
-            if(mLevel->burn(getGridPos()+1, getGridHeight()-1, dt))
-               burnright=false;
+      if((mLevel->getEntityType(getGridPos()+1,getGridHeight()-1)==brick) && ((mLevel->getEntityType(getGridPos()+1,getGridHeight())!=brick) && (mLevel->getEntityType(getGridPos()+1, getGridHeight())!=ladder)))
+      {
+         std::cout << "burning brick" << std::endl;
+         if(mLevel->burn(getGridPos()+1, getGridHeight()-1, dt))
+            burnright=false;
+      }
+      else
+         burnright=false;
    }
 
    void Player::burnOutLeftBrick(float dt)
    {
       // if the spot to our left is burnable then burn it.
       if((mLevel->getEntityType(getGridPos()-1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()-1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()-1, getGridHeight())!=ladder))
+      {
          if(mLevel->burn(getGridPos()-1, getGridHeight()-1, dt))
             burnleft=false;
+      }
+      else
+         burnleft=false;
+         
+            
    }
    
    void Player::update(float dt)
