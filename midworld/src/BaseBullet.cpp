@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.cpp,v $
- * Date modified: $Date: 2002-11-14 11:34:40 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-14 11:46:56 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,11 +39,8 @@ namespace mw
       , mTimeOut(5)
    {
       setBounds(gmtl::AABoxf(gmtl::Point3f(0,0,0), gmtl::Point3f(0.150f, 0.150f, 0.350f)));
-      setScale(gmtl::Vec3f(20, 20, 20));
+      setScale(gmtl::Vec3f(1.5f, 1.5f, 1.5f));
    }
-
-   BaseBullet::~BaseBullet()
-   {}
 
    void
    BaseBullet::update(float dt)

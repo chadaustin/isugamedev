@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-14 11:46:56 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,8 +48,8 @@ namespace mw
       , mBarrel(3)
    {
       mMaxAmmoInBag = 600;
-      mAmmoInBag = 300;
-      mClipSize = 36;
+      mAmmoInBag = 150;
+      mClipSize = 30;
       mAmmoInClip = mClipSize;
 
       mCockRate = 0.05f;
