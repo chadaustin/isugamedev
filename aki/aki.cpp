@@ -24,14 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: aki.cpp,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-01-31 16:00:06 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "GameApp.h"      // the base application type
 #include "GameKernel.h"
 #include "GameInput.h"
+#include "GameInputConfigure.h"
 #include "AnalogInterface.h"
 #include "DigitalInterface.h"
 #include "GlutDriver.h"
@@ -42,12 +43,6 @@ class AkiGame : public GameApp
 public:
    virtual void OnAppInit()
    {
-      GameInput::instance().bind( "MouseX", "Mouse", "MOUSEAXIS_X" );
-      GameInput::instance().bind( "MouseY", "Mouse", "MOUSEAXIS_Y" );
-      GameInput::instance().bind( "Quit", "Keyboard", "KEY_Q" );
-      GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_SPACE" );
-      GameInput::instance().bind( "Accelerate", "Mouse", "MOUSEBUTTON_LEFT" );
-
       GameKernel::instance().setName( "Aki's Quest" );
       mQuit.init( "Quit" );
       mAccelerate.init( "Accelerate" );
@@ -107,6 +102,7 @@ public:
 
 int main( int argc, char *argv[] )
 {
+   gk::loadInputConfig( "config.xml" );
    GameKernelRegister<AkiGame> reg;
    SystemDriver* driver = new GlutDriver();
    GameKernel::instance().startup( driver );
