@@ -13,10 +13,10 @@ namespace mw
 
       /** return the Player slot number that the weapon goes in. */
       virtual int getType() = 0;
-      
+
       /** render the weapon using opengl calls. */
       virtual void draw() const = 0;
-      
+
       /// for key pressing edge events
       virtual void trigger( bool firing );
 
@@ -24,7 +24,7 @@ namespace mw
 
       virtual int getAmmoInClip() const;
       virtual int getAmmoInBag() const;
-      
+
    protected:
       virtual void emitBullet( GameState& g ) = 0;
 
@@ -32,22 +32,24 @@ namespace mw
        */
       RigidBody* createBullet();
 
+      /**
+       * Removes a bullet from the clip and places it in the chamber. This will
+       * add a pause while the weapon waits for the bullet to enter the chamber. If
+       * the clip is empty, this will invoke a reloading action.
+       */
+      void moveBulletToChamber();
 
       // some of these will change to public...
-      void reload(); //temporarily protected (not private) for shotgun hack
    private:
-         
       void addAmmo( int ammount );
-      
+
       /**
        * Triggers a reload sequence.
        */
-      
-      
+      void reload();
+
       bool canFire() const;
-      
-      
-      
+
    protected:
       /// Time left (secs) to wait for the next bullet to be placed in the chamber
       float mBusyCounter;
@@ -64,7 +66,6 @@ namespace mw
       int mMaxAmmoInBag;
       bool mFiring;
       bool mReloading;
-
    };
 }
 
