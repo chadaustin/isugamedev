@@ -1,0 +1,28 @@
+ChangeLog		history of changes
+INDEX			this file
+FAQ			Frequently Asked Questions about zlib
+README			guess what
+algorithm.txt		description of the (de)compression algorithm
+
+		zlib public header files (must be kept):
+zlib.h
+
+		private source files used to build the zlib library:
+adler32.c
+crc32.c
+deflate.c
+deflate.h
+infblock.c
+infblock.h
+infcodes.c
+infcodes.h
+inffast.c
+inffast.h
+inflate.c
+inftrees.c
+inftrees.h
+infutil.c
+infutil.h
+trees.c
+zutil.c
+zutil.h

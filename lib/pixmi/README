@@ -1,0 +1,86 @@
+                              pixmi 
+                         ===============
+
+=-=-=-=-=-=-=-=
+Author/Credits:
+=-=-=-=-=-=-=-=
+Kevin Meinert (kevin@vrsource.org)
+
+
+
+=-=-=-=-=-=-=-=
+Description:
+=-=-=-=-=-=-=-=
+Like a pigmi, pixmi is small, and should stay that way.  It is designed
+with graphics APIs such as OpenGL in mind, and the data loaded into the 
+pixmi::Image object should be formated for the way OpenGL wants to receive it.
+
+Image formats supported are
+- PNG 
+- PCX
+- BMP
+- TGA
+- SGI
+
+pixmi compiles under every platform (tested under win32, linux, irix, 
+probably others)
+
+pixmi philosophy is to proivide an intuitive C++ interface to load and save
+images, and maintain a small footprint and minimal dependencies.
+
+
+
+=-=-=-=-=-=-=-=
+Requirements:
+=-=-=-=-=-=-=-=
+This project has the following dependencies:
+  Your compiler should support STL. 
+  - http://www.sgi.com/Technology/STL
+  zlib
+  - included here for your convenience...
+
+=-=-=-=-=-=-=-=
+Usage:
+=-=-=-=-=-=-=-=
+everything is in the pixmi namespace.  
+
+   Loading an image is easy:
+     pixmi::TgaImporter i;
+     pixmi::Image image;
+     i.load( "filename.tga", image );
+
+   then to access the data (to pass to OpenGL for example):
+     void *data = image.data()
+     int width = image.width();
+     int height = image.height();
+     int channels = image.channels();
+     int bpp = image.bpp();
+     // then call your opengl funcs with the params 
+     // to load the image into your graphics hardware.
+
+
+=-=-=-=-=-=-=-=
+Building the Source:
+=-=-=-=-=-=-=-=
+This should "make" on any system, but you may have to type gmake on some.
+The examples are created for you, and dumped in the root of this project.
+
+Sorry, no lib is made, and no vc++ project is available at this time.  
+bug the author (please) for this and other feature requests.
+
+
+=-=-=-=-=-=-=-=
+Legal:
+=-=-=-=-=-=-=-=
+Read COPYING for your license, and rights.
+
+
+
+=-=-=-=-=-=-=-=
+TODO:
+=-=-=-=-=-=-=-=
+o generate a library...
+o split this makefile into the proper subdirs
+o use configure.in for compile opts... (why???  make can do most of it)
+  o because we'd like to configure where zlib is (and other libs)
+o make vc++ files...
