@@ -45,7 +45,9 @@ namespace mw
       // set up view matrix
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
-
+      glDisable( GL_DEPTH_TEST );
+      
+      glColor3f( 1,1,1 );
       mIntroImage->drawRectangle(0, 0, 1, 1);
    }
 
