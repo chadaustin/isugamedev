@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-04-28 16:41:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-29 07:29:27 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,8 +40,8 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef BDATA_CAR_H
-#define BDATA_CAR_H
+#ifndef DATA_CAR_H
+#define DATA_CAR_H
 
 #include <iostream.h>
 #include <string.h>
@@ -50,45 +50,39 @@
 #include "Cartype.h"
 #include "brothadata.h"
 
-namespace dataxml{
+namespace data {
+   class Car {
+   private:
+      modlist mods;
 
-class Car{
-private:
+   public:
+      std::string name;
+      Car(std::string iname) {
+         name = iname;
+      }
 
-  modlist mods;
+      std::string getName() {
+         return name;
+      }
 
-public:
-  std::string name;
-  Car(std::string iname){
-    name = iname;
-  }
+      modlist getMods() {
+         return mods;
+      }
 
-  std::string getName(){
-    return name;
-  }
+      void addMod(Mod* m) {
+         mods.push_back(m);
+      }
 
-  modlist getMods(){
-    return mods;
-  }
+      void xMLify(std::ostream& out) {
+         out << "      <car cartype=\"" << name << "\">" << std::endl;
+         for(unsigned int i = 0; i < mods.size(); ++i) {
+            mods[i]->xMLify(out);
+         }
+         out << "      </car>" << std::endl;
+      }
+   };
 
-  void addMod(Mod* m){
-    mods.push_back(m);
-  }
-
-  void xMLify(std::ostream& out){
-	  out << "      <car cartype=\"" << name << "\">" << std::endl;
-    for(unsigned int i = 0; i < mods.size(); i++){
-      mods[i]->xMLify(out);
-    }
-	out << "      </car>" << std::endl;
-  }
-};
-
-
-
-
-
-typedef std::vector<Car*> carlist;
-
+   typedef std::vector<Car*> carlist;
 }
+
 #endif
