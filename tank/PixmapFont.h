@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: PixmapFont.h,v $
-//    $Date: 2001-09-27 02:58:23 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-27 17:41:25 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -77,15 +77,7 @@ namespace kev
       // Pixmap font owns the memory you give here, it will delete it.
       void setGState( kev::GState* gstate )
       {
-         if (mGstate != NULL)
-         {
-            mGstate->unref();
-         }
          mGstate = gstate;
-		 if (mGstate != NULL)
-		 {
-			mGstate->ref();
-		 }
       }
 
       void setGlyphData( int x, GlyphData& mapping ) { mMapping[x] = mapping; }
@@ -97,10 +89,10 @@ namespace kev
       kev::GState* gstate() { assert( mGstate != NULL ); return mGstate; }
       const kev::GState* gstate() const { assert( mGstate != NULL ); return mGstate; }
    private:
-      kev::GState*               mGstate;
-      std::vector<GlyphData> mMapping;
-      float                mHeight;
-      std::string mName;
+      safe_ptr<kev::GState>   mGstate;
+      std::vector<GlyphData>  mMapping;
+      float                   mHeight;
+      std::string             mName;
    };
 
 } // end namespace

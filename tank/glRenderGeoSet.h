@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: glRenderGeoSet.h,v $
-//    $Date: 2001-09-20 20:12:50 $
-//    $Revision: 1.7 $
+//    $Date: 2001-09-27 17:41:25 $
+//    $Revision: 1.8 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -35,14 +35,14 @@
 
 namespace kev
 {
-   inline void glRenderGeoSet( GeoSet& gset )
+   inline void glRenderGeoSet( const GeoSet& gset )
    {
       if (gset.gstate() != NULL)
       {
          kev::glRenderAndBind( gset.gstate()->texture );
       }
       
-       float* data = NULL;
+       const float* data = NULL;
        int numVerts = 0;
    
        switch (gset.getPrimType())
@@ -71,7 +71,7 @@ namespace kev
        }
    }
    
-   inline void glRenderGeoSets( std::vector<GeoSet*>& gsets )
+   inline void glRenderGeoSets( const std::vector< safe_ptr<GeoSet> >& gsets )
    {
       for (int x = 0; x < gsets.size(); ++x)
       {

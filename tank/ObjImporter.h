@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-26 22:57:25 $
-//    $Revision: 1.9 $
+//    $Date: 2001-09-27 17:41:25 $
+//    $Revision: 1.10 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -52,7 +52,7 @@ namespace kev
 class ObjImporter
 {
 public:
-   void loadMaterialLib( std::vector< GState* >& matlist, const std::string& pathToFiles, const std::string& fileNameWithoutPath )
+   void loadMaterialLib( std::vector< safe_ptr<GState> >& matlist, const std::string& pathToFiles, const std::string& fileNameWithoutPath )
    {
       std::string filetext;
       //int num_of_matches = 0;
@@ -183,7 +183,10 @@ public:
       }
    }
    
-   bool lookupGState( const std::string& name, const std::vector< GState* >& gstateList, GState* &gstate )
+   bool lookupGState( const std::string& name,
+                      const std::vector< safe_ptr<GState> >& gstateList,
+                      GState* &gstate )
+         
    {
       //std::cout<<"searching for: \""<<name<<"\"\n"<<std::flush;
       for (int x = 0; x < gstateList.size(); ++x)
@@ -207,8 +210,9 @@ public:
       std::vector<unsigned int> tindex;
       std::vector<unsigned int> nindex;
       GState* mat;
-   };   
-   void load( std::vector< GeoSet* >& gset, const std::string& filename, bool flat = false )
+   };
+
+   void load( std::vector< safe_ptr<GeoSet> >& gset, const std::string& filename, bool flat = false )
    {
       std::vector< Vec3<float> > verts;
       std::vector< Vec2<float> > texcoords;
@@ -217,7 +221,7 @@ public:
 //      std::vector<unsigned int> cindex;
 //      std::vector<unsigned int> tindex;
 //      std::vector<unsigned int> nindex;
-      std::vector< GState* > materials;
+      std::vector< safe_ptr<GState> > materials;
       GState* currentGState = NULL;
       //GState* oldGState = NULL;
       int num_of_matches( 0 );
@@ -372,13 +376,6 @@ public:
          std::cerr << e.message().c_str() << std::endl;
       }
 
-      // unreference the materials, ones that have been referenced by polygons, will still exist.
-      int x;
-      for (x = 0; x < materials.size(); ++x)
-      {
-         //materials[x]->unrefDelete();
-      }      
-      
       // dump the info into geosets...
       std::map< std::string, Indicies >::iterator it;
       for (it = lookup.begin(); it != lookup.end(); ++it)

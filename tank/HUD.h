@@ -19,9 +19,6 @@ public:
       mText->setName( "HUD text" );
       mPlayerPos = new GeoSet;
       mPlayerPos->setName( "HUD PlayerPos" );
-
-      mPlayerPos->ref();
-      mText->ref();
    }
    
    void init()
@@ -35,8 +32,6 @@ public:
    ~HUD()
    {
       //std::cout<<"deleting hud... "<<"\n"<<std::flush;
-      mPlayerPos->unref();
-      mText->unref();
    }
       
    void draw()
@@ -80,7 +75,7 @@ public:
       kev::TextToGeoSet::convert( buf, mFont, text_color, *mPlayerPos );
    }   
    
-   GeoSet* mText, *mPlayerPos;
+   safe_ptr<GeoSet> mText, mPlayerPos;
    kev::PixmapFont mFont;
 };
 

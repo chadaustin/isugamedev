@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-09-26 22:57:25 $
-//    $Revision: 1.5 $
+//    $Date: 2001-09-27 17:41:25 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -79,12 +79,6 @@ public:
    virtual ~GeoSet()
    {
       //std::cout<<"deleting GeoSet "<<mName<<"\n"<<std::flush;
-      
-      if ( mGstate != NULL)
-      {
-         mGstate->unref();
-         mGstate = NULL;
-      }
    }
    
    void setName( const std::string& name ) { mName = name; }
@@ -365,15 +359,7 @@ public:
 
     void setGstate( kev::GState* g )
     {
-       if ( mGstate != NULL)
-       {
-          mGstate->unref();
-       }   
        mGstate = g;
-       if ( mGstate != NULL)
-       {
-          mGstate->ref();
-       }
     }
     
     kev::GState* gstate() { return mGstate; }
@@ -515,7 +501,7 @@ public:
     //: get the vertex array (in T2F_C4F_N3F_V3F format)
     //  set x = primitive number if using strip or POLY primitives
     //  set x = -1 otherwise
-   inline float* data( const int& x = -1 )
+   inline const float* data( const int& x = -1 ) const
    {
         // get a pointer to the float data
         // NOTE: this will need to change if you 
@@ -574,12 +560,7 @@ public:
        mVertexArray.clear();
        mNumVertsInEachPrim.clear();
        mPrimIndex.clear();
-            if (mGstate != NULL)
- 
-          {
-             mGstate->unref();
-             mGstate = NULL;
-         }       
+       mGstate = NULL;
     }    
 protected:
     struct dataT2F_C4F_N3F_V3F
@@ -598,7 +579,7 @@ private:
    int mNumPrimitives, mNumVerts;
    GsPrimType mPrimitiveType;
     
-   kev::GState* mGstate;
+   safe_ptr<kev::GState> mGstate;
 
    std::string mName;
    

@@ -70,21 +70,19 @@ public:
       light.on();
       
       kev::ObjImporter importer;
-      std::vector< GeoSet* > gset;
+      std::vector< safe_ptr<GeoSet> > gset;
       
       //Load our tank model
       importer.load( gset, "models/ship.obj" );
 
-      /*
-	  Entity *entity = new Entity();
-      std::vector< GeoSet* >::iterator itr;
+	   Entity *entity = new Entity();
+      std::vector< safe_ptr<GeoSet> >::iterator itr;
       for (itr = gset.begin(); itr != gset.end(); itr++) {
          entity->addGeoSet( *itr );
       }
-	  */
 
       //Put the tank in the world
-      //world.add( entity );
+      world.add( entity );
       
       hud.init();
       
@@ -103,6 +101,8 @@ public:
    HUD hud;
 };
 App* app = NULL;
+
+/*----------------------------------------------------------------------------*/
 
 void drawGrid()
 {

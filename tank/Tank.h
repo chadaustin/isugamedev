@@ -225,7 +225,7 @@ private:
    Texture tex;
    Image image;
    
-   std::vector<GeoSet*> geosets;
+   std::vector< safe_ptr<GeoSet> > geosets;
 };
 
 #endif
