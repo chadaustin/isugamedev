@@ -29,15 +29,15 @@ namespace mw
             }
          glEnd();
 
-         const float pillar_height = 0.5;
-         const float pillar_width = 0.4;
+         const float pillar_height = 0.5f;
+         const float pillar_width = 0.4f;
          const int size_2 = 500 / 2;
          for (int x = -size_2; x < size_2; x += spacing)
          {
             for (int y = -size_2; y < size_2; y += spacing)
             {
                glPushMatrix();
-               glTranslatef( x, pillar_height, y );
+               glTranslatef( (GLfloat)x, pillar_height, (GLfloat)y );
                glScalef( pillar_width, pillar_height, pillar_width );
                if (!(x == 0 && y == 0))
                   cube.render();
