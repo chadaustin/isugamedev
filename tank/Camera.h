@@ -65,8 +65,8 @@ public:
       }
 
       
-      mPitch += mPitchVel;
-      mYaw += mYawVel;
+      mPitch += mPitchVel * timeDelta;
+      mYaw += mYawVel * timeDelta;
    }
 
    void setPitch( float deg )
@@ -74,6 +74,7 @@ public:
       mPitch = deg;
    }   
    
+   // deg/sec
    void setPitchVel( float deg )
    {
       mPitchVel = deg;
@@ -84,6 +85,7 @@ public:
       mYaw = deg;
    }   
    
+   // deg/sec
    void setYawVel( float deg )
    {
       mYawVel = deg;
