@@ -1,0 +1,20 @@
+import os
+pj = os.path.join
+
+Import('baseEnv pkg')
+Import('SetupAudiere SetupCal3D SetupCorona SetupOpenGL SetupSDL')
+
+sources = ['main.cpp']
+
+# Clone the environment
+env = baseEnv.Copy()
+SetupAudiere(env)
+SetupCal3D(env)
+SetupCorona(env)
+SetupOpenGL(env)
+SetupSDL(env)
+env.Append(CPPPATH = ['#'+pj('external','Loki'), '#src'])
+env.Append(LIBPATH = ['#'+pj('src', 'siren')],
+           LIBS = ['siren'])
+prog = pkg.createProgram('avatar', env)
+prog.addSources(sources)
