@@ -24,12 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.cpp,v $
- * Date modified: $Date: 2002-11-15 14:25:49 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-25 04:51:28 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
+#include <stdexcept>
 #include "SoundEffectManager.h"
 
 
