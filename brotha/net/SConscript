@@ -3,6 +3,7 @@ Import('env')
 classes = [
    'Connection',
    'MessageQueue',
+   'ReadThread',
    'SocketInputStream',
    'SocketOutputStream',
    'WriteThread',
