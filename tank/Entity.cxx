@@ -6,7 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 Entity::Entity()
-   : mPos( 0,0,0 ), mRot(), mBehavior( NULL ), mGeometry( NULL )
+   : mPos( 0,0,0 ), mRot(), mGeometry( NULL )
 {
 }
 
@@ -18,7 +18,7 @@ Entity::draw() const
    glPushMatrix();
       glMultMatrixf( mXForm.data() );
 
-      if ( mGeometry ) {
+      if ( mGeometry.get() != NULL ) {
          kev::glRenderGeode( mGeometry );
       }
    glPopMatrix();
@@ -67,14 +67,14 @@ Entity::rotate( float deg, float x, float y, float z)
 /*----------------------------------------------------------------------------*/
 
 void
-Entity::setGeode( Geode *geode)
+Entity::setGeode( GeodePtr geode)
 {
    mGeometry = geode;
 }
 
 /*----------------------------------------------------------------------------*/
 
-Geode*
+GeodePtr
 Entity::getGeode()
 {
    return mGeometry;
@@ -82,25 +82,10 @@ Entity::getGeode()
 
 /*----------------------------------------------------------------------------*/
 
-const Geode*
+const GeodePtr
 Entity::getGeode() const
 {
    return mGeometry;
-}
-
-/*----------------------------------------------------------------------------*/
-
-void
-Entity::setBehavior(Behavior *behavior)
-{
-   mBehavior = behavior;
-}
-/*----------------------------------------------------------------------------*/
-
-const Behavior*
-Entity::behavior() const
-{
-   return (const Behavior *)mBehavior;
 }
 
 /*----------------------------------------------------------------------------*/

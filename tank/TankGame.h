@@ -8,11 +8,14 @@
 
 #include <map>
 #include <vector> //remove when bullets are made into entities
+#include <boost/smart_ptr.hpp>
 #include "Player.h"
 #include "World.h"
 #include "HUD.h"
 #include "StopWatch.h"
 #include "Bullet.h"
+
+typedef boost::shared_ptr<Player> PlayerPtr;
 
 class TankGame
 {
@@ -25,7 +28,7 @@ public:
    void init();
 
    //: Draws the game for the given player.
-   void draw( const Player *player ) const;
+   void draw( const PlayerPtr player ) const;
 
    //: Updates the state of the game based on the amount of time that has passed
    //  since the last call to update.
@@ -35,7 +38,7 @@ public:
    //  player object passed in, so don't delete it! If a player with the same ID
    //  already exists in the game, that player will be replaced with the given
    //  player.
-   void addPlayer( Player *player );
+   void addPlayer( PlayerPtr player );
 
    //: Removes a player from the game. TankGame will maintain a reference to the
    //  player object passed in, so don't delete it! If no player with the given
@@ -44,7 +47,7 @@ public:
 
    //: Gets a pointer to the player with the given ID. Returns NULL if there is
    //  no such player with the given ID.
-   Player* getPlayer( const Player::UID& id );
+   PlayerPtr getPlayer( const Player::UID& id );
 
    //: Gets the world container for the entities
    World& getWorld();
@@ -59,7 +62,7 @@ private:
 
 private:
    //: Hash of players indexed by their unique ID
-   std::map< Player::UID, safe_ptr<Player> > mPlayers;
+   std::map< Player::UID, PlayerPtr > mPlayers;
 
    //: Hack for storing bullets until they become entities
    std::vector< Bullet* > mBullets;

@@ -22,7 +22,7 @@ public:
    //
    //  Returns true if the operation was successful and geode was modified,
    //  false otherwise.
-   bool load( safe_ptr<Geode>& geode, const std::string &name );
+   bool load( GeodePtr& geode, const std::string &name );
 
    //: Clears the cache. All references to geodes currently in the cache will be
    //  released and possibly deleted if there are no remaining references to
@@ -30,7 +30,7 @@ public:
    void clear();
 
 private:
-   std::map< std::string, safe_ptr<Geode> > mCache;
+   std::map< std::string, GeodePtr > mCache;
    kev::ObjImporter mImporter;
 };
 

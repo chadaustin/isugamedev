@@ -17,10 +17,10 @@ GeodeCache::~GeodeCache()
 //------------------------------------------------------------------------------
 
 bool
-GeodeCache::load( safe_ptr<Geode> &geode, const std::string &name )
+GeodeCache::load( GeodePtr &geode, const std::string &name )
 {
    // first check if the geode is already in the cache
-   std::map< std::string, safe_ptr<Geode> >::const_iterator itr;
+   std::map< std::string, GeodePtr >::const_iterator itr;
    itr = mCache.find( name );
    if ( itr != mCache.end() ) {
 //      std::cout<<"\t"<<name<<" was found in the cache\n"<<std::flush;
@@ -30,13 +30,13 @@ GeodeCache::load( safe_ptr<Geode> &geode, const std::string &name )
    }
 
    // the geode is not in the cache, try to pull it in from the disk
-   safe_ptr<Geode> geom = new Geode();
+   GeodePtr geom( new Geode() );
    mImporter.load( geom, name );
    assert( geom->getNumGeoSets() > 0 && "GeodeCache - ObjImporter load failed" );
 
    // loading was unsuccessful, return an error
    if ( geom->getNumGeoSets() <= 0 ) {
-      geode = NULL;
+      geode.reset();
       return false;
    }
    

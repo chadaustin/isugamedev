@@ -6,6 +6,8 @@
 #include "Entity.h"
 #include "Light.h"
 
+typedef boost::shared_ptr<Entity> EntityPtr;
+
 //: Container class for entities. Eventually the world will control all aspects
 //  of the rendered environment including lights, particle engines, etc.
 //
@@ -28,11 +30,11 @@ public:
    void update( float timeDelta = 1.0f );
 
    //: Adds the given entity to this world.
-   void add( Entity *entity );
+   void add( EntityPtr entity );
 
    //: Removes the given entity from this world. If the entity is not in this
    //  world, this method will fail silently.
-   void remove( Entity *entity );
+   void remove( EntityPtr entity );
 
    //: Sets the lighting properties for the light with ID matching the given
    //  light. This can also be used to disable lights.
@@ -42,7 +44,7 @@ public:
    Light& getLight( int lightID );
 
 private:
-   std::vector< safe_ptr<Entity> > mEntities;
+   std::vector<EntityPtr> mEntities;
    std::map< int, Light > mLights;
 };
 

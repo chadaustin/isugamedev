@@ -22,7 +22,7 @@ TankGame::init()
    //TODO: parse a scene descriptor file and load the scene
 
    //Init the HUD for each player
-   std::map< Player::UID, safe_ptr<Player> >::iterator itr;
+   std::map< Player::UID, PlayerPtr >::iterator itr;
    for (itr = mPlayers.begin(); itr != mPlayers.end(); itr++ ) {
       itr->second->getHUD().init();
    }
@@ -34,7 +34,7 @@ TankGame::init()
 //------------------------------------------------------------------------------
 
 void
-TankGame::draw( const Player *player ) const
+TankGame::draw( const PlayerPtr player ) const
 {
    // Setup the view for the given camera
    player->getCamera().draw();
@@ -78,9 +78,9 @@ TankGame::update()
    mWorld.update( mStopWatch.timeInstant() );
 
    // update the tank and camera for each player
-   std::map< Player::UID, safe_ptr<Player> >::iterator itr;
+   std::map< Player::UID, PlayerPtr >::iterator itr;
    for ( itr = mPlayers.begin(); itr != mPlayers.end(); itr++ ) {
-      Player *player = itr->second;
+      PlayerPtr player = itr->second;
       Tank *tank = player->getTank();
       
       // the next 3 commands are dependent upon each other...
@@ -130,9 +130,9 @@ TankGame::update()
 //------------------------------------------------------------------------------
 
 void
-TankGame::addPlayer( Player *player )
+TankGame::addPlayer( PlayerPtr player )
 {
-   assert( player != NULL );
+   assert( player.get() != NULL );
    mPlayers[player->getUID()] = player;
 }
 
@@ -141,7 +141,7 @@ TankGame::addPlayer( Player *player )
 void
 TankGame::removePlayer( const Player::UID& id )
 {
-   std::map< Player::UID, safe_ptr<Player> >::iterator itr;
+   std::map< Player::UID, PlayerPtr >::iterator itr;
    itr = mPlayers.find( id );
 
    //We should not be removing players that aren't in the game!
@@ -151,15 +151,15 @@ TankGame::removePlayer( const Player::UID& id )
 
 //------------------------------------------------------------------------------
 
-Player*
+PlayerPtr
 TankGame::getPlayer( const Player::UID& id )
 {
-   std::map< Player::UID, safe_ptr<Player> >::iterator itr;
+   std::map< Player::UID, PlayerPtr >::iterator itr;
    itr = mPlayers.find( id );
    if ( itr != mPlayers.end() ) {
       return itr->second;
    }
-   return NULL;
+   return PlayerPtr( NULL );
 }
 
 //------------------------------------------------------------------------------

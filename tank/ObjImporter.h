@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-10-03 18:01:34 $
-//    $Revision: 1.13 $
+//    $Date: 2001-10-08 19:39:46 $
+//    $Revision: 1.14 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -44,15 +44,16 @@
 #include "Vec4.h"
 #include "ImageManager.h"
 #include "GState.h"
-
 #include "Geode.h"
+
+typedef boost::shared_ptr<Geode> GeodePtr;
 
 namespace kev
 {
 class ObjImporter
 {
 public:
-   void loadMaterialLib( std::vector< safe_ptr<GState> >& matlist, const std::string& pathToFiles, const std::string& fileNameWithoutPath )
+   void loadMaterialLib( std::vector<GStatePtr>& matlist, const std::string& pathToFiles, const std::string& fileNameWithoutPath )
    {
       std::string filetext;
       //int num_of_matches = 0;
@@ -117,7 +118,7 @@ public:
             // Ns  0.50000
             // illum 2
             // map_Kd 64.tga
-            GState* gstate = new GState;
+            GStatePtr gstate( new GState );
             
             // get the material name
             regexx::Regexx extractMaterial;
@@ -185,8 +186,8 @@ public:
    }
    
    bool lookupGState( const std::string& name,
-                      const std::vector< safe_ptr<GState> >& gstateList,
-                      GState* &gstate )
+                      const std::vector<GStatePtr>& gstateList,
+                      GStatePtr &gstate )
          
    {
       //std::cout<<"searching for: \""<<name<<"\"\n"<<std::flush;
@@ -210,10 +211,10 @@ public:
       std::vector<unsigned int> cindex;
       std::vector<unsigned int> tindex;
       std::vector<unsigned int> nindex;
-      GState* mat;
+      GStatePtr mat;
    };
 
-   void load( safe_ptr<Geode>& geode, const std::string& filename, bool flat = false )
+   void load( GeodePtr& geode, const std::string& filename, bool flat = false )
    {
       std::vector< Vec3<float> > verts;
       std::vector< Vec2<float> > texcoords;
@@ -222,8 +223,8 @@ public:
 //      std::vector<unsigned int> cindex;
 //      std::vector<unsigned int> tindex;
 //      std::vector<unsigned int> nindex;
-      std::vector< safe_ptr<GState> > materials;
-      GState* currentGState = NULL;
+      std::vector<GStatePtr> materials;
+      GStatePtr currentGState( NULL );
       //GState* oldGState = NULL;
       int num_of_matches( 0 );
       std::string filetext, temptext, currentWorkingDir;
@@ -360,7 +361,7 @@ public:
                   //assert( (vt - 1) < texcoords.size() );
                   //assert( (vn - 1) < normals.size() );
                   
-                  if (currentGState != NULL)
+                  if (currentGState.get() != NULL)
                   {
                      lookup[currentGState->mapName.c_str()].cindex.push_back( v - 1 );
                      lookup[currentGState->mapName.c_str()].tindex.push_back( vt - 1 );
@@ -389,7 +390,7 @@ public:
       {
          std::cout<<"- Building "<<(*it).first<<" geoset\n"<<std::flush;
             
-         GeoSet* geoset = new GeoSet;
+         GeoSetPtr geoset( new GeoSet );
 
          // set the name
          geoset->setName( filename );
@@ -412,7 +413,7 @@ public:
             std::cout<<"  - Not enough normals.  total normals = "<<normals.size()<<", indecies == "<<lookup[(*it).first].nindex.size()<<"\n"<<std::flush;
          geoset->setAttr( GeoSet::TEXCOORD2, GeoSet::PER_VERTEX, (void*)&texcoords[0], (unsigned int*)&lookup[(*it).first].tindex[0] );
 
-         if (lookup[(*it).first].mat != NULL)
+         if (lookup[(*it).first].mat.get() != NULL)
          {
             std::cout<<"  - Setting texture: "<<(*it).first<<" to new geoset\n"<<std::flush;
             geoset->setGstate( lookup[(*it).first].mat );

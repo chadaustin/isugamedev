@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: PixmapFont.h,v $
-//    $Date: 2001-09-28 15:20:17 $
-//    $Revision: 1.5 $
+//    $Date: 2001-10-08 19:39:46 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -32,11 +32,14 @@
 
 #include <string>
 #include <vector>
+#include <boost/smart_ptr.hpp>
 #include "Vec3.h"
 #include "Vec2.h"
 
 #include "Image.h"
 #include "GState.h"
+
+typedef boost::shared_ptr<kev::GState> GStatePtr;
 
 namespace kev
 {
@@ -50,7 +53,7 @@ namespace kev
 
       virtual ~PixmapFont()
       {
-         setGState( NULL );
+         mGstate.reset();
          //std::cout<<"deleting PixmapFont "<<mName<<"\n"<<std::flush;
       }   
 
@@ -75,7 +78,7 @@ namespace kev
       }
 
       // Pixmap font owns the memory you give here, it will delete it.
-      void setGState( kev::GState* gstate )
+      void setGState( GStatePtr gstate )
       {
          mGstate = gstate;
       }
@@ -86,10 +89,10 @@ namespace kev
       const GlyphData& glyphData( int whichGlyph ) const { assert( whichGlyph < 256 && whichGlyph >= 0 ); return mMapping[whichGlyph]; }
 
 
-      kev::GState* gstate() { assert( mGstate != NULL ); return mGstate; }
-      const kev::GState* gstate() const { assert( mGstate != NULL ); return mGstate; }
+      GStatePtr gstate() { assert( mGstate.get() != NULL ); return mGstate; }
+      const GStatePtr gstate() const { assert( mGstate.get() != NULL ); return mGstate; }
    private:
-      safe_ptr<kev::GState>   mGstate;
+      GStatePtr               mGstate;
       std::vector<GlyphData>  mMapping;
       float                   mHeight;
       std::string             mName;

@@ -29,7 +29,7 @@ World::draw() const
 
    // Draw every entity in the world. In other words, do really bad object
    // culling (none) and then draw.
-   std::vector< safe_ptr<Entity> >::const_iterator eitr;
+   std::vector<EntityPtr>::const_iterator eitr;
    for (eitr = mEntities.begin(); eitr != mEntities.end(); eitr++) {
       (*eitr)->draw();
    }
@@ -42,7 +42,7 @@ World::update( float timeDelta )
 {
    // Update every entity in the world. This will be extremely slow when there
    // is a large number of entities in the world.
-   std::vector< safe_ptr<Entity> >::iterator itr;
+   std::vector<EntityPtr>::iterator itr;
    for (itr = mEntities.begin(); itr != mEntities.end(); itr++) {
       (*itr)->update( timeDelta );
    }
@@ -51,7 +51,7 @@ World::update( float timeDelta )
 //------------------------------------------------------------------------------
 
 void
-World::add( Entity *entity )
+World::add( EntityPtr entity )
 {
    mEntities.push_back( entity );
 }
@@ -59,9 +59,9 @@ World::add( Entity *entity )
 //------------------------------------------------------------------------------
 
 void
-World::remove( Entity *entity )
+World::remove( EntityPtr entity )
 {
-   std::vector< safe_ptr<Entity> >::iterator itr;
+   std::vector<EntityPtr>::iterator itr;
    for (itr = mEntities.begin(); itr != mEntities.end(); itr++) {
       if ( (*itr) == entity ) {
          mEntities.erase(itr);

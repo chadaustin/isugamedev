@@ -88,7 +88,7 @@ vjTankApp::init()
    game = new TankGame();
 
    // Create the new player
-   Player *p = new Player();
+   PlayerPtr p( new Player() );
    Vec3<float> initial_tank_pos( 0, 0, -30 );
    p->getTank()->setPos( initial_tank_pos );
    p->getCamera().setTargetPos( p->getTank()->matrix() );
@@ -105,10 +105,10 @@ vjTankApp::init()
    game->getWorld().setLight( light );
 
    //Load our tank model
-   safe_ptr<Geode> geode;
+   GeodePtr geode;
    GeodeCache::instance().load( geode, "models/ship.obj" );
 
-   Entity *entity = new Entity();
+   EntityPtr entity( new Entity() );
    entity->setGeode( geode );
 
    //Put the tank in the world

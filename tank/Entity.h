@@ -2,17 +2,18 @@
 #define ENTITY_H_INCLUDED
 
 #include <vector>
-#include "RefObj.h"
+#include <boost/smart_ptr.hpp>
 #include "Vec3.h"
 #include "Quat.h"
 #include "Matrix4f.h"
 #include "Geode.h"
-#include "Behavior.h"
 #include "UIDManager.h"
+
+typedef boost::shared_ptr<Geode> GeodePtr;
 
 //: Describes a generic spatial object with a visual appearance charactarized by
 //  geometry sets and a behavior.
-class Entity : public RefObj
+class Entity
 {
 public:
    typedef UIDManager<Entity>::UID UID;
@@ -41,17 +42,11 @@ public:
    //: Sets the geometry describing the visual appearance of this entity. This
    //  entity will destroy the geode upon when it is released unless you
    //  maintain a safe_ptr to it.
-   void setGeode( Geode *geode );
+   void setGeode( GeodePtr geode );
 
    //: Gets the geode associated with this entity.
-   Geode* getGeode();
-   const Geode* getGeode() const;
-
-   //: Sets the behavior model for this entity.
-   void setBehavior( Behavior *behavior );
-
-   //: Gets the behavior model for this entity.
-   const Behavior* behavior() const;
+   GeodePtr getGeode();
+   const GeodePtr getGeode() const;
 
    //: Gets a normalized vector pointing in the direction the entity is facing.
    Vec3f getForward() const;
@@ -73,8 +68,7 @@ private:
    Vec3f mPos;
    Quat<float> mRot;
    Matrix4f mXForm;
-   safe_ptr<Behavior> mBehavior;
-   safe_ptr< Geode> mGeometry;
+   GeodePtr mGeometry;
 };
 
 #endif //ENTITY_H_INCLUDED

@@ -34,7 +34,6 @@ public:
       ini.getKey( "tank", "weapon0", weapon0, result );
       assert( result );
 
-      mBodyGeometry = NULL;
       GeodeCache::instance().load( mBodyGeometry, filename );
       assert( mBodyGeometry->getNumGeoSets() > 0 && "load failed" );
       
@@ -179,7 +178,7 @@ private:
    Material mMaterial;
    float mSpeed;
 
-   safe_ptr<Geode> mBodyGeometry, mWeapon0Geometry;
+   GeodePtr mBodyGeometry, mWeapon0Geometry;
 };
 
 #endif

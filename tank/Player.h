@@ -1,7 +1,6 @@
 #ifndef PLAYER_H_INCLUDED
 #define PLAYER_H_INCLUDED
 
-#include "RefObj.h"
 #include "UIDManager.h"
 //#include "Entity.h"
 #include "Tank.h"
@@ -10,7 +9,7 @@
 
 //: Describes a player that interacts with the environment. It is through the
 //  player that you can gain access to that player's tank.
-class Player : public RefObj
+class Player
 {
 public:
    typedef UIDManager<Player>::UID UID;

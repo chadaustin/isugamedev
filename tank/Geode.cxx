@@ -11,7 +11,7 @@ Geode::Geode()
 //------------------------------------------------------------------------------
 
 void
-Geode::add( GeoSet *gset )
+Geode::add( GeoSetPtr gset )
 {
    mGeoSets.push_back( gset );
 }
@@ -19,9 +19,9 @@ Geode::add( GeoSet *gset )
 //------------------------------------------------------------------------------
 
 void
-Geode::remove( const GeoSet *gset )
+Geode::remove( const GeoSetPtr gset )
 {
-   std::vector< safe_ptr<GeoSet> >::iterator itr;
+   std::vector<GeoSetPtr>::iterator itr;
    for ( itr = mGeoSets.begin(); itr != mGeoSets.end(); itr++ ) {
       if ( (*itr) == gset ) {
          mGeoSets.erase( itr );
@@ -47,7 +47,7 @@ Geode::getNumGeoSets() const
 
 //------------------------------------------------------------------------------
 
-GeoSet*
+GeoSetPtr
 Geode::getGeoSet( int idx )
 {
    assert( (idx >= 0) && (idx < mGeoSets.size()) && "Accessing an element "
@@ -57,7 +57,7 @@ Geode::getGeoSet( int idx )
 
 //------------------------------------------------------------------------------
 
-const GeoSet*
+const GeoSetPtr
 Geode::getGeoSet( int idx ) const
 {
    assert( (idx >= 0) && (idx < mGeoSets.size()) && "Accessing an element "
@@ -67,7 +67,7 @@ Geode::getGeoSet( int idx ) const
 
 //------------------------------------------------------------------------------
 
-const std::vector< safe_ptr<GeoSet> >
+const std::vector<GeoSetPtr>
 Geode::getGeoSets() const
 {
    return mGeoSets;

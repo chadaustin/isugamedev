@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-09-27 20:01:28 $
-//    $Revision: 1.7 $
+//    $Date: 2001-10-08 19:39:46 $
+//    $Revision: 1.8 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -62,14 +62,16 @@
 
 #include <vector>
 #include <iostream>
+#include <boost/smart_ptr.hpp>
 #include "Vec2.h"
 #include "Vec3.h"
 #include "Vec4.h"
 
 #include "GState.h"
-#include "RefObj.h"
 
-class GeoSet : public RefObj
+typedef boost::shared_ptr<kev::GState> GStatePtr;
+
+class GeoSet
 {
 public:
    GeoSet() : mName( "geoset_name" ), mGstate( NULL ), mNumVerts( 0 ), mPrimitiveType( GeoSet::TRIS ), mNumPrimitives( 9696 )
@@ -357,13 +359,13 @@ public:
         }
     }
 
-    void setGstate( kev::GState* g )
+    void setGstate( GStatePtr g )
     {
        mGstate = g;
     }
     
-    kev::GState* gstate() { return mGstate; }
-    const kev::GState* gstate() const { return mGstate; }
+    GStatePtr gstate() { return mGstate; }
+    const GStatePtr gstate() const { return mGstate; }
    
     // next pass of renderer makes this a display list
     void compile() { assert( false && "not implemented" ); }
@@ -560,7 +562,7 @@ public:
        mVertexArray.clear();
        mNumVertsInEachPrim.clear();
        mPrimIndex.clear();
-       mGstate = NULL;
+       mGstate.reset();
     }    
 protected:
     struct dataT2F_C4F_N3F_V3F
@@ -579,7 +581,7 @@ private:
    int mNumPrimitives, mNumVerts;
    GsPrimType mPrimitiveType;
     
-   safe_ptr<kev::GState> mGstate;
+   GStatePtr mGstate;
 
    std::string mName;
    

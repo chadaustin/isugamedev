@@ -6,6 +6,8 @@
 #include "PixmapFontImporter.h"
 #include "TextToGeoSet.h"
 
+typedef boost::shared_ptr<GeoSet> GeoSetPtr;
+
 // simple HUD, just text for now...
 // todo, maybe allow the application to create widgets, i.e. register 
 // a text string and recieve a handle to it, then it can set pos and string info
@@ -15,11 +17,11 @@ class HUD // TextHUD
 public:
    HUD()
    {
-      mText = new GeoSet;
+      mText.reset( new GeoSet );
       mText->setName( "HUD text" );
-      mPlayerPos = new GeoSet;
+      mPlayerPos.reset( new GeoSet() );
       mPlayerPos->setName( "HUD PlayerPos" );
-      mFPS = new GeoSet;
+      mFPS.reset( new GeoSet() );
       mFPS->setName( "FPS" );
    }
    
@@ -93,7 +95,7 @@ public:
       kev::TextToGeoSet::convert( buf, mFont, text_color, *mPlayerPos );
    }   
    
-   safe_ptr<GeoSet> mText, mFPS, mPlayerPos;
+   GeoSetPtr mText, mFPS, mPlayerPos;
    kev::PixmapFont mFont;
 };
 

@@ -108,7 +108,7 @@ OnApplicationInit()
    // can cause really bad things to happen...
 
    // Create the new player
-   Player *p = new Player();
+   PlayerPtr p( new Player() );
    Vec3<float> initial_tank_pos( 0, 0, -30 );
    p->getTank()->setPos( initial_tank_pos );
    p->getCamera().setTargetPos( p->getTank()->matrix() );
@@ -125,10 +125,10 @@ OnApplicationInit()
    game->getWorld().setLight( light );
 
    //Load our tank model
-   safe_ptr<Geode> geom = NULL;
+   GeodePtr geom;
    GeodeCache::instance().load( geom, "models/ship.obj" );
 
-   Entity *entity = new Entity();
+   EntityPtr entity( new Entity() );
    entity->setGeode( geom );
 
    //Put the tank in the world

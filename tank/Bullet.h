@@ -20,8 +20,9 @@ class Bullet
 {
 public:
    Bullet()
-      : mRot(), mRotVel(), mGeometry(new Geode)
+      : mRot(), mRotVel()
    {
+      mGeometry.reset( new Geode );
       mXForm.makeIdent();
 
       mLight.setNumber(GetNextLightNum());
@@ -145,7 +146,7 @@ private:
    Quat<float> mRot;
    float mRotVel;
    Light mLight;
-   safe_ptr< Geode > mGeometry;
+   GeodePtr mGeometry;
 };
 
 #endif // ! BULLET_H_INCLUDED

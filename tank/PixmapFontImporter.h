@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: PixmapFontImporter.h,v $
-//    $Date: 2001-09-27 22:51:30 $
-//    $Revision: 1.2 $
+//    $Date: 2001-10-08 19:39:46 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -32,9 +32,12 @@
 
 #include <iostream>
 #include <fstream>
+#include <boost/smart_ptr.hpp>
 #include "TgaImporter.h"
 #include "Texture.h"
 #include "GState.h"
+
+typedef boost::shared_ptr<kev::GState> GStatePtr;
 
 namespace kev
 {
@@ -97,7 +100,7 @@ static void import( const char* const filename, PixmapFont& font )
          Image* image = new Image;
          ti( file_name.c_str(), *image );
          
-         kev::GState* gstate = new kev::GState;
+         GStatePtr gstate( new kev::GState );
          gstate->setName( file_name );
          gstate->texture.setImage( image );
          font.setGState( gstate );
