@@ -5,6 +5,7 @@ Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenSG SetupOpenGL')
 
 # Listed here are interfaces that only have a .h associated with them
 interfaces = Split("""
+   Block
    ScoreBoard
    Types
 """)

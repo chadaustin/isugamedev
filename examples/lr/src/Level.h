@@ -4,8 +4,10 @@
 #include <SDL_opengl.h>
 #include <list>
 
+#include "Block.h"
 #include "Texture.h"
 #include "Types.h"
+
 
 namespace lr
 {
@@ -13,23 +15,7 @@ namespace lr
    class Player;
    class BadGuy;
    
-   /**
-    * helper class to deal with when the player burns a block out 
-    */
-   class Block
-   {
-   public:
-      Block(int p, int h)
-      {
-         time = 0;
-         pos = p;
-         height = h;
-      }
-      ~Block(){}
-      int pos;
-      int height;
-      float time; // the time past since the block was last done anything with
-   };
+  
 
    class Level{
    public:

@@ -5,7 +5,7 @@
 
 
 #include "Player.h"
-
+#include "Block.h"
 
 
 namespace lr
@@ -171,7 +171,7 @@ namespace lr
        * go to
        *----------------------------------*/
       bool atGoal;
-      Block goal(0,0);
+      Block* goal;
       
       
       /*----------------------*\
@@ -212,185 +212,11 @@ namespace lr
          keyup=false;
          keydown=false;
       }
-      void chooseNextGoal()
-      {
-         // if we are closer horizontally then we are vertically
-         if(abs(mPlayer->getHeight()-getHeight()) < abs(mPlayer->getGridPos()-getGridPos()))
-         {
-            // if the player is left of us
-            if(mPlayer->getGridPos()<getGridPos())
-            {
-               // if the player is above us also
-               if(mPlayer->getHeight()>getHeight())
-               {
-                  // then look for a ladder to our left that goes up
-                  // found is so we can find out if there is no ladder
-                  bool found=false;
-                  for(int i=getGridPos()-1;i>0 && !found;i--)
-                  {
-                     // if we find a ladder to our left
-                     if(mLevel->getEntityType(i,getHeight()) == LADDER)
-                     {
-                        found==true;
-                        goal.pos=i;
-                        goal.height=getHeight();
-                     }
-                  }
-                  if(!found) // then we didn't find a ladder
-                  {
-                     for(int i=getGridPos();i<32;i++)
-                     {
-                        if(mLevel->getEntityType(i,getHeight()) == LADDER)
-                        {
-                           found=true;
-                           goal.pos=i;
-                           goal.height=getHeight();
-                        }
-                     }
-                  }
-               }// else the player is below us so we look for a ladder that will let us down
-               else{
-                  // look for a ladder to our left that goes down
-                  // found is so we can find out if there is no ladder
-                  bool found=false;
-                  for(int i=getGridPos()-1;i>0 && !found;i--)
-                  {
-                     // if we find a ladder to our left
-                     if(mLevel->getEntityType(i,getHeight()-1)==LADDER)
-                     {
-                        found=true;
-                        goal.pos=i;
-                        goal.height=getHeight();
-                     }
-                  }
-                  if(!found) // if we didn't find a ladder to our left
-                  {
-                     // search for one to our right
-                     for(int i=getGridPos();i<32;i++)
-                     {
-                        if(mLevel->getEntityType(i,getHeight()-1) == LADDER)
-                        {
-                           found=true;
-                           goal.pos=i;
-                           goal.height=getHeight();
-                        }
-                     }
-                  }
-               }
-            }
-            else // else the player is right of us (but still closer horiz.)
-            {
-               // if the player is above us also
-               if(mPlayer->getHeight()>getHeight())
-               {
-                  // then look for a ladder to our right that goes up
-                  // found is so we can find out if there is no ladder
-                  bool found=false;
-                  for(int i=getGridPos()+1;i<32 && !found;i++)
-                  {
-                     // if we find a ladder to our right
-                     if(mLevel->getEntityType(i,getHeight()) == LADDER)
-                     {
-                        found==true;
-                        goal.pos=i;
-                        goal.height=getHeight();
-                     }
-                  }
-                  if(!found) // then we didn't find a ladder
-                  {
-                     for(int i=getGridPos();i>0;i--)
-                     {
-                        if(mLevel->getEntityType(i,getHeight()) == LADDER)
-                        {
-                           found=true;
-                           goal.pos=i;
-                           goal.height=getHeight();
-                        }
-                     }
-                  }
-               }// else the player is below us so we look for a ladder that will let us down
-               else{
-                  // look for a ladder to our right that goes down
-                  // found is so we can find out if there is no ladder
-                  bool found=false;
-                  for(int i=getGridPos()+1;i<32 && !found;i++)
-                  {
-                     // if we find a ladder to our right
-                     if(mLevel->getEntityType(i,getHeight()-1)==LADDER)
-                     {
-                        found=true;
-                        goal.pos=i;
-                        goal.height=getHeight();
-                     }
-                  }
-                  if(!found) // if we didn't find a ladder to our right
-                  {
-                     // search for one to our left
-                     for(int i=getGridPos();i>0;i--)
-                     {
-                        if(mLevel->getEntityType(i,getHeight()-1) == LADDER)
-                        {
-                           found=true;
-                           goal.pos=i;
-                           goal.height=getHeight();
-                        }
-                     }
-                  }
-               }
-            }
-         }else // we are closer vertically then horizontally 
-         {
-            // if the player is below us
-            if(mPlayer->getHeight()<getHeight())
-            {
-               // then check if we are at a ladder to take us down
-               if(mLevel->getEntityType(getGridPos(),getHeight()-1)==LADDER)
-               {
-                  // then set the goal at the end of the ladder or at the height
-                  // of the player whichever is first
-                  // found is for the case that we find the node
-                  bool found=false;
-                  int i;
-                  for(i=getHeight()-1;mLevel->getEntityType(getGridPos,i)==LADDER;i--)
-                  {
-                     // if i=mplayer->height then that is our goal
-                     if(i==mPlayer->getHeight())
-                     {
-                        found=true;
-                        goal.pos=getGridPos();
-                        goal.height=i;
-                     }
-                  }
-                  // if we didn't find the player
-                  if(!found)
-                  {
-                     found=true;
-                     goal.pos=getGridPos();
-                     goal.height=i+1;
-                  }
-               }
-               else // we are not at a ladder
-               {
-                  goal.pos=mPlayer->getGridPos();
-                  goal.height = getHeight();
-               }
-            }
-            else // the player is above us
-            {
-               // then check if we are at a ladder to take us up
-               if(mLevel->getEntityType(getGridPos(), getHeight())==LADDER)
-               {
-                  // then set the goal at teh end of the ladder or at the height
-                  // of the player whichever is first
-                  // found is for the case that we find the node
-                  bool found=false;
-                  int i=0;
-                  for(i=getHeight();mLevel->getEntityType(getGridPos, i)==LADDER;i++)
-                  {
-                     // if i==mplayer->height then that is our goal
-                     if(i==mPlayer->getHeight())
-                     {
-                        found=true;
+
+
+      
+      void chooseNextGoal();
+                     
                   
             
 
@@ -399,7 +225,7 @@ namespace lr
       \*----------------*/
       bool isPlayerLeft()
       {
-         if(mPlayer->getHeight()==getHeight() && mPlayer->getGridPos()<getGridPos()){ // the player is directly left of us
+         if(mPlayer->getGridHeight()==getGridHeight() && mPlayer->getGridPos()<getGridPos()){ // the player is directly left of us
             atGoal = true;
             return true;
          }else{
@@ -408,7 +234,7 @@ namespace lr
       }
       bool isPlayerRight()
       {
-         if(mPlayer->getHeight()==getHeight() && mPlayer->getGridPos()>getGridPos()){
+         if(mPlayer->getGridHeight()==getGridHeight() && mPlayer->getGridPos()>getGridPos()){
             atGoal=true;
             return true;
          }else{
