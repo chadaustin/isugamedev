@@ -63,20 +63,20 @@ endif
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
 default:
-	@$(MAKE) tank$(EXE_FILE_SUFFIX)
+	$(MAKE) tank$(EXE_FILE_SUFFIX)
 
 debug:
-	@$(MAKE) USE_DEBUG='Y' default
+	$(MAKE) USE_DEBUG='Y' default
 
 release:
-	@$(MAKE) USE_DEBUG='N' default
+	$(MAKE) USE_DEBUG='N' default
 
 # rule to build the regexx library.
 regexx/$(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX):
 	@echo "----------------------------------------"
 	@echo "Regexx lib not found, making it first..."
 	@echo "----------------------------------------"
-	@cd regexx && $(MAKE)
+	cd regexx && $(MAKE)
 
 # make sure we have access to the regexx lib (through a symlink)
 $(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX): regexx/$(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX)
@@ -85,13 +85,15 @@ $(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX): regexx/$(LIB_FILE_PREFIX)regexx$(LIB
 	@echo "-------------------------------------------------------"
 	ln -s regexx/$(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX) .
 
-tank$(EXE_FILE_SUFFIX): $(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX)
+tank$(EXE_FILE_SUFFIX): $(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX) do_tank
+
+do_tank:
 	@echo " "
 	@echo "======================="
 	@echo "Building spacetank     "
 	@echo "======================="
 	@echo " "
-	@$(MAKE) USE_DEPEND='Y' USE_DEBUG=$(USE_DEBUG) build_tank
+	$(MAKE) USE_DEPEND='Y' USE_DEBUG=$(USE_DEBUG) build_tank
 	@echo " "
 	@echo "======================="
 	@echo "Done building spacetank"
