@@ -5,16 +5,16 @@
 class Tank
 {
 public:
-   Tank()
+   Tank() : mRot(), mRotVel()
    {
-      mPos.makeIdentity();
+      mXForm.makeIdentity();
    }
    
    void draw()
    {
       glPushMatrix();
 
-         glMultMatrixf( mPos.data() );
+         glMultMatrixf( mXForm.data() );
          glColor3f( 1,0,1 );
          glScalef( 10,10,10 );
          glBegin( GL_TRIANGLES );
@@ -38,38 +38,39 @@ public:
       glPopMatrix();
    }
   
-   void translate( const Vec3<float>& offset )
-   {
-      Vec3<float> temp;
-      mPos.getTranslation( temp );
-      mPos.setTranslation( temp + offset );
-   }   
+   
    
    Vec3<float> getForward() const
    {
-      Vec3<float> forward;
-      forward[0] = mPos( 2, 0 );
-      forward[1] = mPos( 2, 1 );
-      forward[2] = mPos( 2, 2 );
-      forward = -forward;
-      forward.normalize();
-      
-      return forward;
+      Vec3<float> forward( 0,0,-1 );
+      return mRot * forward;
    }
    
    const Matrix4f& matrix() const 
    {
-      return mPos;
+      return mXForm;
    }
       
-   void setPos( const Matrix4f& pos )
+   void setPos( const Vec3<float>& pos )
    {
       mPos = pos;
-   }   
-   
+   }
+      
    void update()
    {
       this->translate( mVel );
+      
+      // update ang velocity.
+      // q' = 1/2 w * q
+      Quat<float> delta;
+      delta.mult( mRotVel * 0.5f, mRot );
+      //delta.mult( delta, time_delta ); 
+      
+      mRot.add( mRot, delta );
+      mRot.normalize();
+      
+      // store the matrix from the pos/rot data...
+      kev::quat2mat( mPos, mRot, mXForm );
    }   
    
    void setVelocity( const Vec3<float>& velocity )
@@ -82,15 +83,28 @@ public:
       return mVel;
    }   
    
-   Vec3<float> position() const
+   void translate( const Vec3<float>& offset )
    {
-      Vec3<float> trans;
-      mPos.getTranslation( trans );
-      return trans;
+      mPos += offset;
+   }   
+   
+   void setRot( float deg )
+   {
+      mRot.makeRot( kev::deg2rad( deg ), 0,1,0 );
+   }   
+   void setAngVel( float magnitude )
+   {
+      mRotVel.makePure( Vec3<float>( 0,1,0 ) * magnitude );
+   }  
+   
+   const Vec3<float>& position() const
+   {
+      return mPos;
    }  
 private:
-   Matrix4f mPos;
-   Vec3<float> mVel;
+   Matrix4f mXForm;
+   Vec3<float> mPos, mVel;
+   Quat<float> mRot, mRotVel;
 };
 
 #endif

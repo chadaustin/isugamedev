@@ -24,13 +24,12 @@ class App
 public:
    App() : width( 0 ), height( 0 ), mainWin_contextID( -1 )
    {
-      Matrix4f mat;
-      mat.makeIdentity();
-      mat.setTranslation( 0, 0, -30 );
-      tank.setPos( mat );
+      Vec3<float> initial_tank_pos( 0, 0, -30 );
+      tank.setPos( initial_tank_pos );
       
       camera.follow( true );
-      camera.setTargetPos( mat );
+      camera.setTargetPos( tank.matrix() );
+      camera.setPitch( 45.0f );
       
       light.setPos(0.0f, 0.0f, 0.0f, 1.0f);
       light.setColor(Light::diffuse);
@@ -50,16 +49,20 @@ App app;
 
 void drawGrid()
 {
-   glColor3f( 0.7, 0.3, 0.1 );
-   glBegin( GL_LINES );
-      for ( int x = -1000; x < 1000; ++x)
-      {
-         glVertex3f( -1000, 0, x );
-         glVertex3f(  1000, 0, x );
-         glVertex3f( x, 0, -1000 );
-         glVertex3f( x, 0,  1000 );
-      }
-   glEnd();
+   glPushAttrib( GL_ENABLE_BIT );
+      glDisable( GL_LIGHTING );
+      glColor3f( 0.7, 0.3, 0.1 );
+      glBegin( GL_LINES );
+         for ( int x = -1000; x < 1000; x += 5)
+         {
+            glVertex3f( -1000, 0, x );
+            glVertex3f(  1000, 0, x );
+            glVertex3f( x, 0, -1000 );
+            glVertex3f( x, 0,  1000 );
+         }
+      glEnd();
+      //glEnable( GL_LIGHTING );
+   glPopAttrib();
 }
 
 
@@ -75,7 +78,6 @@ static void OnRedisplay()
    glDisable( GL_CULL_FACE );
    glEnable( GL_BLEND );
    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
-   glEnable( GL_LIGHTING );
       
    // set up the projection matrix
    glMatrixMode( GL_PROJECTION );
@@ -86,14 +88,14 @@ static void OnRedisplay()
     glMatrixMode( GL_MODELVIEW );
       glLoadIdentity();      
 
-      glRender( app.light );
-   // !!!TODO!!!: replace the following with your own opengl commands!
-
       app.camera.draw();
+      
+      glEnable( GL_LIGHTING );
+      glRender( app.light );
+  
       app.tank.draw();
    
       
-   glTranslatef( 0, -10, 0 );
    drawGrid();
    // !!!TODO!!!: ////////////////////////////////////////
    
@@ -160,11 +162,11 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
       break;
 
    case 'a':
-      app.camera.setPitchVel( 3 );
+      app.camera.setPitchVel( 1 );
       break;
 
    case 'z':
-      app.camera.setPitchVel( -3 );
+      app.camera.setPitchVel( -1 );
       break;
 
       
@@ -214,6 +216,12 @@ static void OnSpecialKeyboardDown(int k, int x, int y)
       app.tank.setVelocity( -forward * 0.1f );
       break;
    }
+   case GLUT_KEY_RIGHT:
+      app.tank.setAngVel( -0.01f );
+      break;
+   case GLUT_KEY_LEFT:
+      app.tank.setAngVel( 0.01f );
+      break;
    default:
       // do nothing if no special key pressed
       break;
@@ -228,17 +236,16 @@ static void OnSpecialKeyboardUp( int k, int x, int y )
    switch (k)
    {
    case GLUT_KEY_UP:
-   {
-      Vec3<float> zero( 0,0,0 );
-      app.tank.setVelocity( zero );
-      break;
-   }
    case GLUT_KEY_DOWN:
    {
       Vec3<float> zero( 0,0,0 );
       app.tank.setVelocity( zero );
       break;
    }
+   case GLUT_KEY_RIGHT:
+   case GLUT_KEY_LEFT:
+      app.tank.setAngVel( 0.0f );
+      break;
    default:
       // do nothing if no special key pressed
       break;
