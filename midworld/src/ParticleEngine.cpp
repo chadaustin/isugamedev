@@ -36,8 +36,8 @@ namespace mw
 
    void ParticleEngine::draw() const
    {
-       const gmtl::Vec3f& camera_pos = getGameState()->getCamera().getPos();
-     // mParticleTexture->bind();
+      const gmtl::Vec3f& camera_pos = getGameState()->getCamera().getPos();
+      mParticleTexture->bind();
 
       glPushAttrib(GL_LIGHTING_BIT | GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       {
@@ -46,8 +46,6 @@ namespace mw
          glEnable(GL_BLEND);
          glBlendFunc(GL_SRC_ALPHA, GL_ONE);
 
-         glColor4f(1,0,0,0.5f);
-
          for (ParticleList::const_iterator i = mParticleGroup.begin();
               i != mParticleGroup.end();
               ++i)
@@ -55,7 +53,7 @@ namespace mw
             const gmtl::Point3f& part_pos = (*i)->getPos();
             glPushMatrix();
             glTranslate(part_pos);
-            billboardBegin(camera_pos, part_pos);
+            billboardBegin(camera_pos, part_pos+getPos());
             (*i)->draw();
             billboardEnd();
             glPopMatrix();
@@ -63,12 +61,11 @@ namespace mw
       }
       glPopAttrib();
 
-      //mParticleTexture->unbind();
+      mParticleTexture->unbind();
    }
 
    void ParticleEngine::update(float dt)
    {
-      dt = .005;
       for(ParticleList::iterator i=mParticleGroup.begin(); i != mParticleGroup.end();)
       {
          Particle* particle = *i;

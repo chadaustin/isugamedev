@@ -1,5 +1,6 @@
 #include "Particle.h"
 #include <SDL_opengl.h>
+#include <gmtl/Math.h>
 
 namespace mw
 {
@@ -7,7 +8,11 @@ namespace mw
       : mLife(life)
       , mDead(false)
       , mElapsedTime(0.0f)
-   {}
+   {
+       red = gmtl::Math::rangeRandom(0.5,1.0);
+       green = gmtl::Math::rangeRandom(0.0, 0.5);
+       blue = 0.0;
+   }
 
    Particle::~Particle()
    {}
@@ -24,6 +29,7 @@ namespace mw
 
    void Particle::draw()
    {
+      glColor4f(red,green,blue,0.7);
       glBegin(GL_QUADS);
          glTexCoord2d(1,1); glVertex3f(mSize, mSize, 0); // Top right
          glTexCoord2d(0,1); glVertex3f(-mSize, mSize, 0); // Top left

@@ -21,6 +21,9 @@ namespace mw
       bool mDead;
       float mSize;
       float mElapsedTime;
+      float red;
+      float green;
+      float blue;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-10-31 10:02:20 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-31 19:17:32 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -56,7 +56,7 @@ namespace mw
          "images/explosive_particle.png",
          500);
       factory.add(engine);
-      
+     
       engine->setPos(getPos());
    }
 
@@ -86,7 +86,6 @@ namespace mw
          setRot(nRot);
       }
 */
-      
       RigidBody::update(timeDelta);
    }
 
