@@ -7,8 +7,12 @@ Default('.')        # build everything by default
 
 CPPPATH=['#']
 
+CXXFLAGS=''
+if ARGUMENTS.get('debug'):
+    CXXFLAGS='-g'
+
 # setup the environment
-env = Environment(CPPPATH=CPPPATH, ENV=os.environ)
+env = Environment(CXXFLAGS=CXXFLAGS,CPPPATH=CPPPATH, ENV=os.environ)
 Export('env')
 SConscript('client/SConscript')
 SConscript('game/SConscript')
