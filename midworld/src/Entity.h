@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Entity.h,v $
- * Date modified: $Date: 2002-10-28 06:14:22 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-29 04:13:43 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -76,6 +76,10 @@ namespace mw
        * Gets the unique ID of this entity.
        */
       virtual const UID& getUID() const = 0;
+
+      virtual const gmtl::Vec3f getScale() const = 0;
+
+      virtual void setScale(const gmtl::Vec3f& scale) = 0;
    };
 }
 

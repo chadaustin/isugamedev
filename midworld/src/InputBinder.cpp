@@ -23,12 +23,6 @@ namespace mw
 
    InputAction* InputBinder::getAction(const InputKey &key)
    {
-      std::map<InputKey, InputAction*>::iterator itr;
-      itr = mKeyMap.find(key);
-      if (itr != mKeyMap.end())
-      {
-         return itr->second;
-      }
-      return NULL; 
+      return mKeyMap[key];
    }
 }//end of namespace mw

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-26 06:12:22 $
- * Version:       $Revision: 1.45 $
+ * Date modified: $Date: 2002-10-29 04:13:43 $
+ * Version:       $Revision: 1.46 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -140,6 +140,7 @@ namespace mw
    private:
    };
 
+
    /**
     * The state in which the game is played.
     */
@@ -177,6 +178,9 @@ namespace mw
       Player getPlayer(){return mPlayer;}
 
    private:
+      void initializeInput();
+      void initializeAI();
+
       /// Called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);
       void updateEdgeState(InputAction& action, bool absoluteState);

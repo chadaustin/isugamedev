@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AbstractEntity.h,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-29 04:13:43 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -70,6 +70,16 @@ namespace mw
        */
       void setModel(const std::string& model);
 
+      void setScale(const gmtl::Vec3f& scale)
+      {
+         mScale = scale;
+      }
+
+      const gmtl::Vec3f getScale() const
+      {
+         return mScale;
+      }
+
       /**
        * Gets the unique ID of this entity.
        */
@@ -85,6 +95,8 @@ namespace mw
        * The model ID this entity uses.
        */
       std::string mModel;
+
+      gmtl::Vec3f mScale;
 
       /**
        * The game state this entity is associated with.

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AssaultRifle.h,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-10-29 04:13:43 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,8 @@
 
 #include "RigidBody.h"
 #include "BaseBullet.h"
+#include "BaseProjectileWeapon.h"
+#include "GameState.h"
 #include <gmtl/Math.h>
 
 namespace mw

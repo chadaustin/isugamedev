@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AbstractEntity.cpp,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-29 04:13:43 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,7 +34,9 @@
 namespace mw
 {
    AbstractEntity::AbstractEntity(GameState* gameState)
-      : mModel(""), mGameState(gameState)
+      : mModel("")
+      , mScale(1, 1, 1)
+      , mGameState(gameState)
    {
       mUID = UIDManager<AbstractEntity, Entity::UID>::getInstance().reserveID();
    }

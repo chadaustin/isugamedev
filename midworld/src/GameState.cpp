@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.76 $
+ * Date modified: $Date: 2002-10-29 04:13:43 $
+ * Version:       $Revision: 1.77 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,25 +33,26 @@
 #include <stdexcept>
 #include <sstream>
 #include <SDL_opengl.h>
-#include "GameState.h"
-#include "StateFactory.h"
-#include "EntityFactory.h"
-#include "Pistol.h"
-#include "MissileLauncher.h"
-#include "SpreadGun.h"
-#include "Shotgun.h"
+#include "AmmoCrate.h"
+#include "Application.h"
 #include "AssaultRifle.h"
 #include "BoundsCollisionDetector.h"
-#include "Application.h"
-#include "OpenSGSceneViewer.h"
+#include "Enemy.h"
+#include "EntityFactory.h"
 #include "GameManager.h"
-#include "InputBinder.h"
+#include "GameState.h"
 #include "InputAction.h"
+#include "InputBinder.h"
 #include "InputParser.h"
 #include "InputSymbol.h"
-#include "Enemy.h"
+#include "MissileLauncher.h"
+#include "OpenSGSceneViewer.h"
+#include "Pistol.h"
+#include "Shotgun.h"
+#include "SpreadGun.h"
+#include "StateFactory.h"
+#include "StaticEntity.h"
 #include "Turret.h"
-#include "AmmoCrate.h"
 
 namespace mw
 {
@@ -107,114 +108,9 @@ namespace mw
       /// XXX: If the player gets reaped it will segfault since mPlayer is a member
       add(&mPlayer);
 
-      //Setup Key Bindings
-      InputParser *parser = InputParser::instance();
-      parser->parseFile("inputmap.cfg");
-      std::cerr << "Setting up keybindings" << std::endl;
-      //Set Up
-      std::cerr << "Creating actions" << std::endl;
-      mActionUp = new InputAction();
-      parser->bindAction("MOVE UP", mActionUp);
-      //Set Down
-      mActionDown = new InputAction();
-      parser->bindAction("MOVE DOWN", mActionDown);
-      //Set Right
-      mActionRight = new InputAction();
-      parser->bindAction("MOVE RIGHT", mActionRight);
-      //Set Left
-      mActionLeft = new InputAction();
-      parser->bindAction("MOVE LEFT", mActionLeft);
-      //Set Quit
-      mActionQuit = new InputAction();
-      parser->bindAction("QUIT", mActionQuit);
-      //Set Zoom In
-      mActionZoomIn = new InputAction();
-      parser->bindAction("ZOOM IN", mActionZoomIn);
-      //Set Zoom Out
-      mActionZoomOut = new InputAction();
-      parser->bindAction("ZOOM OUT", mActionZoomOut);
-      //Set Pitch Up
-      mActionPitchUp = new InputAction();
-      parser->bindAction("PITCH UP", mActionPitchUp);
-      //Set Pitch Down
-      mActionPitchDown = new InputAction();
-      parser->bindAction("PITCH DOWN", mActionPitchDown);
-      //Set Yaw Left
-      mActionYawLeft = new InputAction();
-      parser->bindAction("YAW LEFT", mActionYawLeft);
-      //Set Yaw Right
-      mActionYawRight = new InputAction();
-      parser->bindAction("YAW RIGHT", mActionYawRight);
-      std::cerr << "Finished creating actions." << std::endl;
 
-
-
-      // XXX hack for testing aisystem
-      appTest = new testing;
-
-
-
-      //XXX hack for testing aiNodes for the aiSystem
-      node1 = new lm::aiNode("Ben", NULL, -1, 1);
-      node2 = new lm::aiNode("Chad", node1, -1, 1);
-
-      Turret* enemy1 = EntityFactory::instance().create<Turret>();
-
-
-
-      Enemy* enemy2 = EntityFactory::instance().create<Enemy>();
-      gmtl::Point3f inPos1(15.0,0.0,-10.0);
-      enemy1->setPos(inPos1);
-      gmtl::Point3f inPos2(0.0,0.0,-5.0);
-      enemy2->setPos(inPos2);
-
-
-
-      enemy1->setModel("turret");
-      enemy2->setModel("security_droid");
-
-      add(enemy1);
-      add(enemy2);
-
-
-      node1sCommand = new lm::simpleCommand<Turret>(enemy1, &Turret::aim);
-      node2sCommand = new lm::simpleCommand<Enemy>(enemy2, &Enemy::walkRandom);
-
-
-
-      first = new lm::behavior;
-      second = new lm::behavior;
-
-
-      first->addCommand(node1sCommand);
-      second->addCommand(node2sCommand);
-
-
-      //TODO: FOR LOOM: change instincts to take nodes as param1 not
-      //instinctMans.
-      myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
-
-      aimTestCommand = new turretTesting(enemy1, &mPlayer);
-      aimCommand = new turretCommand(enemy1, &mPlayer);
-
-      first->addCommand(aimCommand);
-
-      node1Instinct = new lm::reflex(node1, first, aimTestCommand);
-      node2Instinct = new lm::reflex(node2, second, myTestCommand);
-
-      AI.registerNode(node1);
-      AI.registerNode(node2);
-
-      mMap[enemy1->getUID()] = node1;
-      mMap[enemy2->getUID()] = node2;
-
-
-
-      AmmoCrate* crate = EntityFactory::instance().create<AmmoCrate>();
-      crate->setPos(gmtl::Point3f(10, 0, -10));
-      crate->setModel("ammo_crate");
-      add(crate);
-
+      initializeInput();
+      initializeAI();
       loadLevel("levels/level1.txt");
 
       mExplosion = new ParticleEngine("images/explosive_particle.png",
@@ -532,13 +428,15 @@ namespace mw
    {
       // todo replace this with a keymapper.
       // map keys to events... yay.
-      InputBinder *binder = InputBinder::instance();
-      InputKey key = SDLtoISym(sym);
-      InputAction *act = binder->getAction(key);
+      InputBinder* binder = InputBinder::instance();
+      InputAction *act = binder->getAction(SDLtoISym(sym));
       if (act == NULL)
       {
          return;
       }
+
+      std::cout << "Got quit action" << std::endl;
+
       updateEdgeState(*act, down);
 
       // Quit immediately if requested
@@ -686,20 +584,25 @@ namespace mw
             e = EntityFactory::instance().create<Enemy>();
             e->setModel("security_droid");
          }
-         else if (type == "crate")
+         else if (type == "ammo")
          {
             e = EntityFactory::instance().create<AmmoCrate>();
             e->setModel("ammo_crate");
          }
-         else if (type == "wall_straight")
+         else if (type == "static")
          {
-            e = EntityFactory::instance().create<Enemy>();
-            e->setModel("wall_straight");
-         }
-         else if (type == "tent")
-         {
-            e = EntityFactory::instance().create<Enemy>();
-            e->setModel("tent");
+            std::string model;
+            if (in >> model)
+            {
+               e = EntityFactory::instance().create<StaticEntity>();
+               e->setModel(model);
+            }
+
+            float sx, sy, sz;
+            if (in >> sx >> sy >> sz)
+            {
+               e->setScale(gmtl::Vec3f(sx, sy, sz));
+            }
          }
          else
          {
@@ -723,6 +626,111 @@ namespace mw
       AI.registerNode(node);
       mMap[entity->getUID()] = node;
    }
+
+
+   void GameState::initializeInput()
+   {
+      InputParser* parser = InputParser::instance();
+      parser->parseFile("inputmap.cfg");
+
+      mActionUp = new InputAction();
+      parser->bindAction("MOVE UP",    mActionUp);
+
+      mActionDown = new InputAction();
+      parser->bindAction("MOVE DOWN",  mActionDown);
+
+      mActionRight = new InputAction();
+      parser->bindAction("MOVE RIGHT", mActionRight);
+
+      mActionLeft = new InputAction();
+      parser->bindAction("MOVE LEFT",  mActionLeft);
+
+      mActionQuit = new InputAction();
+      parser->bindAction("QUIT",       mActionQuit);
+
+      mActionZoomIn = new InputAction();
+      parser->bindAction("ZOOM IN",    mActionZoomIn);
+
+      mActionZoomOut = new InputAction();
+      parser->bindAction("ZOOM OUT",   mActionZoomOut);
+
+      mActionPitchUp = new InputAction();
+      parser->bindAction("PITCH UP",   mActionPitchUp);
+
+      mActionPitchDown = new InputAction();
+      parser->bindAction("PITCH DOWN", mActionPitchDown);
+
+      mActionYawLeft = new InputAction();
+      parser->bindAction("YAW LEFT",   mActionYawLeft);
+
+      mActionYawRight = new InputAction();
+      parser->bindAction("YAW RIGHT",  mActionYawRight);
+   }
+
+
+   void
+   GameState::initializeAI()
+   {
+      // XXX hack for testing aisystem
+      appTest = new testing;
+
+
+      //XXX hack for testing aiNodes for the aiSystem
+      node1 = new lm::aiNode("Ben", NULL, -1, 1);
+      node2 = new lm::aiNode("Chad", node1, -1, 1);
+
+      Turret* enemy1 = EntityFactory::instance().create<Turret>();
+
+
+
+      Enemy* enemy2 = EntityFactory::instance().create<Enemy>();
+      gmtl::Point3f inPos1(15.0,0.0,-10.0);
+      enemy1->setPos(inPos1);
+      gmtl::Point3f inPos2(0.0,0.0,-5.0);
+      enemy2->setPos(inPos2);
+
+
+
+      enemy1->setModel("turret");
+      enemy2->setModel("security_droid");
+
+      add(enemy1);
+      add(enemy2);
+
+
+      node1sCommand = new lm::simpleCommand<Turret>(enemy1, &Turret::aim);
+      node2sCommand = new lm::simpleCommand<Enemy>(enemy2, &Enemy::walkRandom);
+
+
+
+      first = new lm::behavior;
+      second = new lm::behavior;
+
+
+      first->addCommand(node1sCommand);
+      second->addCommand(node2sCommand);
+
+
+      //TODO: FOR LOOM: change instincts to take nodes as param1 not
+      //instinctMans.
+      myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
+
+      aimTestCommand = new turretTesting(enemy1, &mPlayer);
+      aimCommand = new turretCommand(enemy1, &mPlayer);
+
+      first->addCommand(aimCommand);
+
+      node1Instinct = new lm::reflex(node1, first, aimTestCommand);
+      node2Instinct = new lm::reflex(node2, second, myTestCommand);
+
+      AI.registerNode(node1);
+      AI.registerNode(node2);
+
+      mMap[enemy1->getUID()] = node1;
+      mMap[enemy2->getUID()] = node2;
+   }
+
+
    void
    GameState::updateEdgeState(EdgeState& state, bool absoluteState)
    {
