@@ -32,6 +32,10 @@ BUILDING from SOURCE
    make install to install it.
 
 
+   NOTE: if you don't have perl or cvs, then you can read the Gatherrc file
+         to see where to get cppdom.
+
+
 TODO:
  - add other native backends
    - win32
