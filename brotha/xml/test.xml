@@ -29,7 +29,7 @@
 				<mod name="turbo" level="4" />
 				<mod name="nitro" level="6" />
 			</car>
-			<car name="celica">
+			<car cartype="celica">
 				<mod name="tires" level="3" />
 			</car>
 		</player>
@@ -64,9 +64,9 @@
 			<stat name="coins" value="3" />
 			<stat name="deaths" value="2" />
 			<car cartype="fiesta">
-				<mod type="spoiler" level="4" />
-				<mod type="tint" level="1" />
-				<mod type="rims" level="-1" />
+				<mod name="spoiler" level="4" />
+				<mod name="tint" level="1" />
+				<mod name="rims" level="-1" />
 			</car>
 		</player>
 	</gang>
