@@ -19,8 +19,9 @@ namespace net {
     */
    class AddPlayerMessage : public Message {
    public:
-      AddPlayerMessage(game::Player* player = NULL) {
+      AddPlayerMessage(game::Player* player = NULL, bool isYou = false) {
          m_player = player;
+         m_isYou = isYou;
       }
 
       PRUint32 getType() const {
@@ -39,19 +40,27 @@ namespace net {
          return m_player;
       }
 
+      bool isYou() {
+         return m_isYou;
+      }
+
       void serialize(OutputStream& os) {
          if(m_player != NULL) {
             m_player->serialize(os);
          }
+         os << (PRUint32)m_isYou;
       }
 
       void deserialize(InputStream& is) {
          if(m_player != NULL) {
             m_player->deserialize(is);
          }
+
+         is >> m_isYou;
       }
    private:
       game::Player *m_player;
+      bool m_isYou;
    };
 
 }
