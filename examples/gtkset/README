@@ -1,0 +1,3 @@
+To compile you should be able to simply type make.
+I don't use any weird libraries so that should be it.
+To run simply type ./set
