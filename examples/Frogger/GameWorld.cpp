@@ -130,7 +130,7 @@ void GameWorld::Update()
 	//////////////////////////////////////////////
 	// Update the Movement for all Mobile Objects
 	//////////////////////////////////////////////
-	for(i = 0; i < MobileObjects.size(); i++)
+	for(i = 0; i < int(MobileObjects.size()); i++)
 	{
 		MobileObjects[i]->Update();
 	}
@@ -139,7 +139,7 @@ void GameWorld::Update()
 	// Tell collision detection engine about 
 	// each object that moved
 	//////////////////////////////////////////////
-	for(i = 0; i < MobileObjects.size(); i++)
+	for(i = 0; i < int(MobileObjects.size()); i++)
 	{
 		if (MobileObjects[i]->Moved(MoveX, MoveY))
 		{
@@ -170,7 +170,7 @@ void GameWorld::Update()
 		{
 			TheMainCollision = TheCollisions[i][0];
 
-			for(int j = 1; j < TheCollisions[i].size();j++)
+			for(int j = 1; j < int(TheCollisions[i].size());j++)
 			{
 				Cursor = TheCollisions[i][j];
 				TheMainCollision->CollisionResponse(Cursor);
@@ -209,7 +209,7 @@ void GameWorld::Destroy()
 { 
 	 MyObject* temp;
 
-	 for(int i = 0; i < MobileObjects.size(); i++)
+	 for(int i = 0; i < int(MobileObjects.size()); i++)
 	 {
 		temp = MobileObjects[i];
 		ThePond.RemoveObject(temp);
@@ -229,7 +229,7 @@ void GameWorld::Draw()
 
 	DrawGameField();
 
-	for(int i = 0; i < MobileObjects.size(); i++)
+	for(int i = 0; i < int(MobileObjects.size()); i++)
 	{
 		MobileObjects[i]->Draw();
 	}

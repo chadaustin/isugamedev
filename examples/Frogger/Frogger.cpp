@@ -104,6 +104,16 @@ void FrogInput(int key, int x, int y)
 
 }
 
+void Input(unsigned char key, int x, int y)
+{
+	switch(key)
+	{
+	case 27:
+		exit(0);
+		break;
+	}
+}
+
 int main (int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -116,6 +126,7 @@ int main (int argc, char** argv)
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutSpecialFunc(FrogInput);
+	glutKeyboardFunc(Input);
 	glutIdleFunc(update);
 	glutMainLoop();
 
