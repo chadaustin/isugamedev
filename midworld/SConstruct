@@ -26,8 +26,8 @@ def BuildBaseEnvironment():
    "Builds a base environment for other modules to build on."
    global optimize, profile
 
-   CXX = 'g++3'
-   LINK = 'g++3'
+   CXX = WhereIs('g++3') or 'g++'
+   LINK = CXX
    CXXFLAGS = ['-Wall', '-Wno-non-virtual-dtor']
    LINKFLAGS = []
 
