@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-11 04:39:47 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-11-11 04:53:23 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -221,11 +221,6 @@ namespace mw
          }
       }
 
-//      if (matches.size() > 1)
-//      {
-//         std::cout<<"Found "<<matches.size()<<" intersections"<<std::endl;
-//      }
-
       return matches;
    }
 
@@ -315,7 +310,6 @@ namespace mw
 
       // Compute the xform matrix for the entity
       const gmtl::Point3f& pos = entity->getPos();
-//      std::cout<<"Pos = "<<pos<<std::endl;
       const gmtl::Quatf& rot = entity->getRot();
       gmtl::Matrix44f xform = gmtl::makeTrans<gmtl::Matrix44f>(static_cast<gmtl::Vec3f>(pos));
       xform *= gmtl::make<gmtl::Matrix44f>(rot);
@@ -352,7 +346,6 @@ namespace mw
       mEntityNodeMap[uid]->getVolume().getBounds(min, max);
       gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
       gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
-//      std::cout<<"Getting bounds for "<<uid<<": "<<gmtl_min<<", "<<gmtl_max<<std::endl;
       return gmtl::AABoxf(gmtl_min, gmtl_max);
    }
 
