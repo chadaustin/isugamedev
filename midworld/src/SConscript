@@ -29,6 +29,7 @@ classes = Split("""
    RigidBody
    Shotgun
    State
+   StateFactory
    SoundEffectManager
    SoundManager
    SpreadGun

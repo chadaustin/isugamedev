@@ -24,19 +24,22 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-09-09 07:06:04 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
 #include "IntroState.h"
 #include "GameManager.h"
-#include "MenuState.h"
 #include "Application.h"
+#include "StateFactory.h"
 
 namespace mw
 {
+   namespace
+   {
+      StateCreatorImpl<IntroState> creator("Intro");
+   }
 
    IntroState::IntroState( Application* a )
       : State( a )
@@ -90,7 +93,7 @@ namespace mw
    {
       if (down)
       {
-         invokeTransition(new MenuState( &this->application() ));
+         invokeTransition("Menu");
       }
    }
 

@@ -24,19 +24,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CreditsState.h,v $
- * Date modified: $Date: 2002-07-07 03:40:20 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-09-09 07:06:02 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
 #ifndef MW_CREDITS_STATE_H
 #define MW_CREDITS_STATE_H
 
 #include <vector>
 #include "State.h"
 #include "Texture.h"
-#include "MenuState.h"
 
 namespace mw
 {
@@ -60,13 +58,7 @@ namespace mw
 
       void draw();
 
-      void onKeyPress(SDLKey sym, bool down)
-      {
-         if (down)
-         {
-            invokeTransition(new MenuState( &this->application() ));
-         }
-      }
+      void onKeyPress(SDLKey sym, bool down);
       void onMousePress(Uint8 button, bool down, int x, int y) {}
       void onMouseMove(int x, int y) {}
 

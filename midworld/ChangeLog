@@ -1,5 +1,9 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-09-09 nonchocoboy  Removed dependency between states through the use of
+                        a new StateFactory. States now invoke transitions to
+                        each other by name and the factory creates the
+                        necessary implementation.
 2002-09-09 nonchocoboy  Added caching semantics to the SoundEffectManager so
                         that sound effects are loaded into memory when they are
                         first needed and then reused thereafter.

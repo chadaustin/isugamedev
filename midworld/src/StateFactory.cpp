@@ -23,54 +23,73 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: State.cpp,v $
+ * File:          $RCSfile: StateFactory.cpp,v $
  * Date modified: $Date: 2002-09-09 07:06:04 $
- * Version:       $Revision: 1.4 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
+#include <iostream>
 #include "StateFactory.h"
 #include "State.h"
-#include "Application.h"
 
 namespace mw
 {
-   State::State( Application* a ) : mApp( a )
+   StateFactory* StateFactory::mSingleton = 0;
+   
+   StateFactory::StateFactory()
+   {}
+
+   StateFactory::~StateFactory()
    {
-      mNextState = 0;
-      mIsQuitting = false;
+      for (CreatorMap::iterator itr = mCreators.begin(); itr != mCreators.end(); ++itr)
+      {
+         delete itr->second;
+      }
    }
 
-   State::~State()
+   StateFactory& StateFactory::getInstance()
    {
-      delete mNextState;
-   }
-
-   void
-   State::invokeTransition(const std::string& name)
-   {
-      delete mNextState;
-      mNextState = StateFactory::getInstance().create(name, mApp);
+      if (mSingleton == 0)
+      {
+         mSingleton = new StateFactory();
+      }
+      return *mSingleton;
    }
 
    State*
-   State::getNext()
+   StateFactory::create(const std::string& name, Application* app)
    {
-      State* state = mNextState;
-      mNextState = 0;
-      return state;
+      CreatorMap::iterator itr = mCreators.find(name);
+      if (itr != mCreators.end())
+      {
+         return itr->second->create(app);
+      }
+      return 0;
    }
 
    void
-   State::quit()
+   StateFactory::registerCreator(const std::string& name, StateCreator* creator)
    {
-      mIsQuitting = true;
+      std::cout<<"Registering state: "<<name<<std::endl;
+      CreatorMap::iterator itr = mCreators.find(name);
+      if (itr != mCreators.end())
+      {
+         delete itr->second;
+         mCreators.erase(itr);
+      }
+
+      mCreators[name] = creator;
    }
 
-   bool
-   State::isQuitting()
+   void
+   StateFactory::unregisterCreator(const std::string& name)
    {
-      return mIsQuitting;
+      CreatorMap::iterator itr = mCreators.find(name);
+      if (itr != mCreators.end())
+      {
+         delete itr->second;
+         mCreators.erase(itr);
+      }
    }
 }

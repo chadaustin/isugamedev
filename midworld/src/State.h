@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.h,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-09-09 07:06:04 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #define MW_STATE_H
 
 #include <assert.h>
+#include <string>
 #include <SDL.h>
 
 namespace mw
@@ -58,7 +59,7 @@ namespace mw
       Application& application() { assert( mApp != NULL ); return *mApp; }
       const Application& application() const { assert( mApp != NULL ); return *mApp; }
       
-      void invokeTransition(State* state);
+      void invokeTransition(const std::string& name);
 
       /**
        * Returns the next State object, and makes the state forget about what

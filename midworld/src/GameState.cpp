@@ -24,15 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-09-06 03:14:21 $
- * Version:       $Revision: 1.27 $
+ * Date modified: $Date: 2002-09-09 07:06:03 $
+ * Version:       $Revision: 1.28 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <sstream>
+#include <GL/glu.h>
 #include "GameState.h"
-#include "IntroState.h"
-#include "MenuState.h"
+#include "StateFactory.h"
 #include "Pistol.h"
 #include "SpreadGun.h"
 #include "Shotgun.h"
@@ -44,6 +44,11 @@
 
 namespace mw
 {
+   namespace
+   {
+      StateCreatorImpl<GameState> creator("Game");
+   }
+
    GameState::GameState( Application* a )
       : State( a )
       , mSpeed(10)
@@ -434,7 +439,7 @@ namespace mw
       case SDLK_ESCAPE: case SDLK_q:
          if (down)
          {
-            this->invokeTransition( new MenuState( &this->application() ) );
+            this->invokeTransition("Menu");
          }
          break;
       }

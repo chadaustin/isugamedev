@@ -24,21 +24,23 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-07-07 03:40:20 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-09-09 07:06:04 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
-#include "MenuState.h"
-#include "GameState.h"
-#include "CreditsState.h"
-#include "Application.h"
-
 #include <math.h>
+#include "StateFactory.h"
+#include "MenuState.h"
+#include "Application.h"
 
 namespace mw
 {
+   namespace
+   {
+      StateCreatorImpl<MenuState> creator("Menu");
+   }
+
    MenuState::MenuState( Application* a ) : State( a )
    {
       mCursor.init( this->application().getWidth(), 
@@ -227,10 +229,10 @@ namespace mw
                switch (mCurrentItem)
                {
                   case 0:
-                     this->invokeTransition(new GameState( &this->application() ));
+                     invokeTransition("Game");
                      break;
                   case 3:
-                     this->invokeTransition(new CreditsState( &this->application() ));
+                     invokeTransition("Credits");
                      break;
                   case 4:
                      quit();
