@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-24 05:59:04 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2002-04-25 23:34:42 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -95,6 +95,9 @@ namespace client
 
       // update the state of the game
       mGame.update();
+
+      // update the jukebox so we can automagically move to the next track
+      mSoundMgr->getJukebox()->update();
    }
    
    void BrothaApp::draw() {
