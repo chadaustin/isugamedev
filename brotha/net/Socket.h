@@ -45,6 +45,8 @@ namespace net {
 
          PRStatus status = PR_StringToNetAddr(hostname, &addr);
          if (status != PR_SUCCESS) {
+            PR_Close(mSocket);
+            mSocket = 0;
             throw SocketException("Hostname lookup failed");
          }
 
@@ -53,6 +55,8 @@ namespace net {
 
          status = PR_Connect(mSocket, &addr, PR_INTERVAL_NO_TIMEOUT);
          if (status != PR_SUCCESS) {
+            PR_Close(mSocket);
+            mSocket = 0;
             throw SocketException("Connection failed");
          }
       }
@@ -98,15 +102,16 @@ namespace net {
       void close() {
          LOG<<"Socket::close()"<<ENDL;
          PRStatus status = PR_Close(mSocket);
+
          if( status != PR_SUCCESS) {
             throw SocketException("Close failed");
          }
       }
+
    private:
       PRFileDesc* mSocket;
       SocketOutputStream* mOutputStream;
       SocketInputStream* mInputStream;
-
    };
 
 }

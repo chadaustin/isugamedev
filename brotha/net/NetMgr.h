@@ -96,6 +96,7 @@ namespace net {
             }
          }
       }
+
    private:
       ConnMap m_connections; // maps IDs to Connections
    };
