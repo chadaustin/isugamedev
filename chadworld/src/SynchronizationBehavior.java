@@ -1,5 +1,6 @@
 package chadworld;
 
+import java.awt.*;
 import java.util.*;
 import javax.media.j3d.*;
 import javax.vecmath.*;
@@ -116,7 +117,7 @@ class SynchronizationBehavior extends Behavior {
         // update view transform
         Transform3D t3d = new Transform3D();
         t3d.rotY(e.axis_angle);
-        t3d.setTranslation(eup.entities[i].position);
+        t3d.setTranslation(e.position);
         m_view_transform.setTransform(t3d);
 
       // otherwise add a cone to the scene graph
@@ -128,11 +129,12 @@ class SynchronizationBehavior extends Behavior {
         t1.rotY(e.axis_angle);
         t2.rotX(-Math.PI / 2);
         t1.mul(t2);
-        t1.setTranslation(eup.entities[i].position);
+        t1.setTranslation(e.position);
 
         // stick it in the scene graph
         TransformGroup tgt = new TransformGroup(t1);
         tgt.addChild(createWhiteCone());
+        tgt.addChild(createRaisedText(e.text));
         coneworld.addChild(tgt);
 
       }
@@ -150,5 +152,29 @@ class SynchronizationBehavior extends Behavior {
     a.setColoringAttributes(ca);
     c.setAppearance(a);
     return c;
+  }
+
+  static Font3D s_font3D = new Font3D(new Font("Helvetica", Font.PLAIN, 1),
+                                      new FontExtrusion());
+  static ColoringAttributes s_textColor = new ColoringAttributes(
+    1, 1, 1, ColoringAttributes.NICEST);
+
+  static Appearance s_textAppear = new Appearance();
+
+  static {
+    s_textAppear.setColoringAttributes(s_textColor);
+  }
+
+  private TransformGroup createRaisedText(String text) {
+
+    Text3D textGeom = new Text3D(s_font3D, new String(text));
+    textGeom.setAlignment(Text3D.ALIGN_CENTER);
+
+    Transform3D t3d = new Transform3D();
+    t3d.rotX(Math.PI / 2);
+    t3d.setTranslation(new Vector3f(0, 0, 1));
+    TransformGroup tg = new TransformGroup(t3d);
+    tg.addChild(new Shape3D(textGeom, s_textAppear));
+    return tg;
   }
 }

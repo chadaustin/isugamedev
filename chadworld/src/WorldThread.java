@@ -71,6 +71,7 @@ public class WorldThread extends Thread {
 
   void processTalkEvent(Entity e, TalkPacket tp) {
     System.out.println("processTalkEvent: " + tp.text);
+    e.text = tp.text;
   }
 
   class WorldEntityUpdater implements EntityUpdater {
