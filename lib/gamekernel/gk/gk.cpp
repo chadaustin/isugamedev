@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.cpp,v $
-// Date modified: $Date: 2002-03-18 08:24:20 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-20 20:18:24 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -47,7 +47,7 @@ namespace gk {
       // exported getVersion function
       GK_APIDEF(const char*, GK_getVersion())
       {
-         return "0.1.2";
+         return "0.1.3";
       }
 
    } // namespace Private
