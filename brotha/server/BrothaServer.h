@@ -40,6 +40,7 @@ namespace server {
          }
 
          delete m_netMgr;
+         m_netMgr = 0;
 
          m_gameThread   = 0;
          m_listenServer = 0;
