@@ -108,7 +108,7 @@ def BuildIRIXEnvironment():
    )
 
 def BuildWin32Environment():
-   return Environment(ENV = os.environ)
+   return Environment(ENV = os.environ, CXXFLAGS = '-DWIN32')
 
 #------------------------------------------------------------------------------
 # Grok the arguments to this build
