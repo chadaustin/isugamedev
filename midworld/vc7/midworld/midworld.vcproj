@@ -525,6 +525,12 @@
 			<File
 				RelativePath="..\..\src\StoryState.h">
 			</File>
+			<File
+				RelativePath="..\..\src\UnsupportedState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\UnsupportedState.h">
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

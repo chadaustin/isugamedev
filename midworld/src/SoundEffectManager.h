@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.h,v $
- * Date modified: $Date: 2002-09-09 05:59:22 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-15 14:25:49 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,8 +38,6 @@
 
 namespace mw
 {
-   namespace adr = audiere;
-
    /**
     * Handles the triggering of sound effects for an application. Sounds played
     * through the SoundEffectManager are generally loaded into memory and played
@@ -53,7 +51,7 @@ namespace mw
        *
        * @param context    the Audiere context to use
        */
-      SoundEffectManager(adr::AudioDevice* device);
+      SoundEffectManager(audiere::AudioDevice* device);
 
       /**
        * Plays the sound contained within the given file.
@@ -79,25 +77,21 @@ namespace mw
 
    private:
       /**
-       * Checks the cache for a buffer associated with the given sound. If a
+       * Checks the cache for an effect associated with the given string. If a
        * buffer for the sound is not in the cache, it is created. Otherwise, the
        * buffer in the cache is returned.
        *
        * @param sound      the name of the sound to get
        *
-       * @return  a buffer for the sound, NULL if it could not be opened
+       * @return  a buffer for the sound, throws an exception if it could not be opened
        */
-      audiere::SampleBuffer* getBuffer(const std::string& sound);
+      audiere::SoundEffect* getEffect(const std::string& sound);
 
    private:
-      enum { MAX_SOUNDS = 8 };
+      audiere::AudioDevicePtr mDevice;
 
-      adr::RefPtr<adr::AudioDevice> mDevice;
-      adr::RefPtr<adr::OutputStream> mStreams[MAX_SOUNDS];
-      int mNextStream;
-
-      typedef std::map< std::string, adr::RefPtr<adr::SampleBuffer> > BufferMap;
-      BufferMap mCache;
+      typedef std::map<std::string, audiere::SoundEffectPtr> EffectMap;
+      EffectMap mCache;
    };
 }
 

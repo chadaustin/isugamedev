@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-11-14 11:46:56 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-15 14:25:49 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -90,9 +90,7 @@ namespace mw
       g.add(bullet);
 
       // Do the sound effect
-      SoundEffectManager* sfxmgr = GameManager::instance().getSoundManager()->
-                                       getSoundEffectManager();
-      sfxmgr->playSound("sfx/spreadgun.wav");
+      GameManager::instance().getSoundManager()->getSoundEffectManager()->playSound("sfx/spreadgun.wav");
    }
 
    void SpreadGun::ejectCasing(GameState& g)

@@ -24,89 +24,32 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.cpp,v $
- * Date modified: $Date: 2002-10-29 09:29:18 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-15 14:25:49 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
 #include "SoundEffectManager.h"
 
-// XXX: Remove these functions when audiere 1.9.1 is released (which
-// coincidentally contains these functions).
-namespace audieredr
-{
-  using namespace audiere;
-
-  typedef char u8;
-
-  inline OutputStream* OpenSound(
-    AudioDevice* device,
-    SampleBuffer* buffer)
-  {
-    return audiere::OpenSound(device, buffer->openStream(), false);
-  }
-
-  inline SampleBuffer* CreateSampleBuffer(SampleSource* source)
-  {
-    // If the stream is not seekable, we can't create a buffer for it.
-    if (!source || !source->isSeekable()) {
-      return 0;
-    }
-
-    int stream_length = source->getLength();
-    int channel_count, sample_rate;
-    SampleFormat sample_format;
-    source->getFormat(channel_count, sample_rate, sample_format);
-
-    int stream_length_bytes =
-      stream_length * channel_count * GetSampleSize(sample_format);
-    u8* buffer = new u8[stream_length_bytes];
-    source->setPosition(0);  // in case the source has been read from already
-    source->read(stream_length, buffer);
-
-    SampleBuffer* sb =  audiere::CreateSampleBuffer(
-       buffer, stream_length, channel_count,
-       sample_rate, sample_format);
-    delete[] buffer;
-    return sb;
-  }
-
-  inline SampleBuffer* CreateSampleBuffer(const char* filename)
-  {
-    return audieredr::CreateSampleBuffer(OpenSampleSource(filename));
-  }
-} // namespace audiere
 
 namespace mw
 {
    SoundEffectManager::SoundEffectManager(audiere::AudioDevice* device)
    {
       mDevice = device;
-      mNextStream = 0;
    }
 
    void
    SoundEffectManager::playSound(const std::string& sound)
    {
-      audiere::SampleBuffer* buffer = getBuffer(sound);
-      if (buffer)
-      {
-         audiere::OutputStream* stream = audieredr::OpenSound(mDevice.get(),
-                                                            buffer);
-         if (stream)
-         {
-            stream->play();
-            mStreams[mNextStream] = stream;
-            mNextStream = (mNextStream + 1) % MAX_SOUNDS;
-         }
-      }
+      getEffect(sound)->play();
    }
 
    bool
    SoundEffectManager::preload(const std::string& sound)
    {
-      return (getBuffer(sound) != 0);
+      return (getEffect(sound) != 0);
    }
 
    void
@@ -115,11 +58,11 @@ namespace mw
       mCache.clear();
    }
 
-   audieredr::SampleBuffer*
-   SoundEffectManager::getBuffer(const std::string& sound)
+   audiere::SoundEffect*
+   SoundEffectManager::getEffect(const std::string& sound)
    {
       // Check the cache first
-      BufferMap::iterator itr = mCache.find(sound);
+      EffectMap::iterator itr = mCache.find(sound);
 
       // Cache hit. Return a new stream for the cached buffer
       if (itr != mCache.end())
@@ -129,15 +72,19 @@ namespace mw
       // Cache miss. Open the sound into a buffer and cache it
       else
       {
-         std::cout<<"SoundEffectManager: Cache miss for '"<<sound<<"'"<<std::endl;
-         audiere::RefPtr<audieredr::SampleBuffer> buffer =
-                        audieredr::CreateSampleBuffer(sound.c_str());
-         if (buffer)
+         std::cout << "SoundEffectManager: Cache miss for '"
+                   << sound << "'" << std::endl;
+         audiere::SoundEffectPtr effect = audiere::OpenSoundEffect(
+            mDevice.get(),
+            sound.c_str(),
+            audiere::SINGLE);
+         if (!effect)
          {
-            mCache[sound] = buffer;
-            return buffer.get();
+            throw std::runtime_error("Could not load sound: " + sound);
          }
-         return 0;
+         
+         mCache[sound] = effect;
+         return effect.get();
       }
    }
 }
