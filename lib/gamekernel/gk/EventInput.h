@@ -24,17 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: EventInput.h,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef EVENTINPUT_H
 #define EVENTINPUT_H
 
-#include "akiCommon.h"
-#include "DigitalInput.h"
-#include "AnalogInput.h"
+#include "gk/gkCommon.h"
+#include "gk/DigitalInput.h"
+#include "gk/AnalogInput.h"
 
 class EventInput : public DigitalInput, AnalogInput
 {

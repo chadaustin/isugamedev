@@ -30,20 +30,20 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef MOUSE_H
 #define MOUSE_H
 
-#include "akiCommon.h"
+#include "gk/gkCommon.h"
 #include <map>
 #include <assert.h>
 
-#include "DigitalDevice.h"
-#include "AnalogDevice.h"
+#include "gk/DigitalDevice.h"
+#include "gk/AnalogDevice.h"
 
 /** Mouse device driver for the GameInput system.
  *

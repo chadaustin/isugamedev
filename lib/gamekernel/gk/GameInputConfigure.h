@@ -1,11 +1,12 @@
 #ifndef GAMEINPUT_CONFIGURE
 #define GAMEINPUT_CONFIGURE
 
+#include "gk/gkCommon.h"
 #include <iostream>
 #include <string>
 #include "xmlpp.h"
 
-#include "GameInput.h"
+#include "gk/GameInput.h"
 
 namespace gk
 {

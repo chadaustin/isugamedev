@@ -30,15 +30,16 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: ContextData.h,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef CONTEXT_DATA_H
 #define CONTEXT_DATA_H
 
-#include "akiCommon.h"
+#include "gk/gkCommon.h"
+#include <vector>
 
 //-----------------------------------------------------------------------
 //: map: int --> <Type>
@@ -60,7 +61,6 @@
 //! NOTE: Requires that the type of the context data provide a default
 //+  constructor used to initialize all of the copies of the data.
 //-----------------------------------------------------------------------
-#include <vector>
 template< class ContextDataType >
 class ContextData
 {

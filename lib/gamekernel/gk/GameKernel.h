@@ -24,23 +24,23 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GAMEKERNEL_H
 #define GAMEKERNEL_H
 
-#include "akiCommon.h"
+#include "gk/gkCommon.h"
 #include <vector>
 #include <GL/glut.h>                   // gl utility library
 
-#include "ContextData.h"
-#include "Singleton.h"
-#include "GameApp.h"      // the base application type
-#include "GameInput.h"
-#include "SystemDriver.h"
+#include "gk/ContextData.h"
+#include "gk/Singleton.h"
+#include "gk/GameApp.h"      // the base application type
+#include "gk/GameInput.h"
+#include "gk/SystemDriver.h"
 
 /**
  * Facade for all system driver interactions. The application should deal

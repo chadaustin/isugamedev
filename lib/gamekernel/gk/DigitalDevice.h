@@ -24,17 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalDevice.h,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef DIGITALDEVICE_H
 #define DIGITALDEVICE_H
 
-#include "akiCommon.h"
-#include "Device.h"
-#include "DigitalInput.h"
+#include "gk/gkCommon.h"
+#include "gk/Device.h"
+#include "gk/DigitalInput.h"
 
 /* a digital device
  * a keyboard, mouse, or joystick (for example) may be a digital device

@@ -24,14 +24,14 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-01-31 15:51:44 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#include "GlutDriver.h"
-#include "GameKernel.h"
-#include "GameInput.h"
+#include "gk/GlutDriver.h"
+#include "gk/GameKernel.h"
+#include "gk/GameInput.h"
 
 // init the glut driver instance pointer to NULL
 GlutDriver* GlutDriver::sDriver = NULL;

@@ -23,25 +23,26 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-01-31 16:15:39 $
-# Version:       $Revision: 1.8 $
+# Date modified: $Date: 2002-02-06 22:22:22 $
+# Version:       $Revision: 1.9 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
 
 # objects to be included in the project....
-SRCS = aki.cpp GameKernel.cpp GlutDriver.cpp\
-       xmlparser.cpp xmlpp.cpp xmltokenizer.cpp
+SRCS = \
+   GameKernel.cpp \
+   GlutDriver.cpp
 
 # project name...
-PROJECT_NAME = aki
+PROJECT_NAME = gk
 
 OBJDIR = .
-DEPDIR =
+DEPDIR = 
 
-PATH_TO_SRCS = .:xml
+PATH_TO_SRCS = ./gk
 MK_DIR = mk
-INCLUDE_PATHS = -I. -I/home/users/kevn/software/irix/include -Ixml
+INCLUDE_PATHS = -I.
 
 ########################################################################
 # system dependent stuff, that users will want to change...
@@ -50,30 +51,28 @@ INCLUDE_PATHS = -I. -I/home/users/kevn/software/irix/include -Ixml
 include ${MK_DIR}/mk.platform
 include ${MK_DIR}/mk.hosttype
 
-EXTRA = -L/home/users/kevn/software/irix/lib32
-
 # IRIX
 ifeq ($(HOSTTYPE), IRIX)
-   LIBS = -L/usr/X11R6/lib $(EXTRA) -lGLU -lGL -lglut -lX11 -lXmu -lm
+   LIBS = 
    include ${MK_DIR}/mk.irix
 endif
 
 #LiNUX
-ifeq ($(HOSTTYPE), linux)
-   LIBS = -L/usr/X11R6/lib -lGLU -lGL -lglut -lX11 -lXmu -lm
+ifeq ($(HOSTTYPE), Linux)
+   LIBS = 
    include ${MK_DIR}/mk.gnu
 endif
 
 # Win32
 ifeq ($(HOSTTYPE), Win32)
-   LIBS =
+   LIBS = 
    DEPENDFLAGS = -D__cplusplus -D_WIN32 -DWIN32 $(INCLUDE_PATHS)
    include ${MK_DIR}/mk.win32
 endif
 
 # gnu2
 ifeq ($(HOSTTYPE), GNU)
-   LIBS = -L/usr/X11R6/lib -lGLU -lGL -lglut -lX11 -lXmu -lm
+   LIBS = 
    include ${MK_DIR}/mk.gnu
 endif
 ########################################################################
@@ -86,10 +85,11 @@ build: $(OBJS)
 	-@echo "-------------------------------------------"
 	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .so)"
 	-@echo "-------------------------------------------"
-	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS) $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIBS)
+	$(SO_LINKER) $(SO_FLAGS) $(OBJS) $(OUTPUT_LIB_FLAG)$(LIB_FILENAME) $(LIBS)
+	$(STATIC_LINKER) $(STATIC_FLAGS) $(OUTPUT_STATIC_LIB_FLAG)$(STATIC_LIB_FILENAME) $(OBJS) 
 	-@echo ""
 	-@echo "-------------------------------------------"
-	-@echo "$(EXE_FILENAME) done"
+	-@echo "$(FILENAME) done"
 	-@echo "-------------------------------------------"
 
 # Remove the compiled stuff from the system
@@ -98,9 +98,7 @@ clean:
 	-@echo "-------------------------------------------"
 	-@echo "Removing compiled stuff from the system	 "
 	-@echo "-------------------------------------------"
-	-rm -r $(OBJS) $(EXE_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/
-
-
+	-rm -r $(OBJS) $(STATIC_LIB_FILENAME) $(LIB_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/
 
 clobber: clean
 	-rm *.d

@@ -24,25 +24,25 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GAMEINPUT_H
 #define GAMEINPUT_H
 
-#include "akiCommon.h"
+#include "gk/gkCommon.h"
 #include <string>
 #include <utility> // for pair
 
-#include "Mouse.h"
-#include "Keyboard.h"
-#include "Singleton.h"
+#include "gk/Mouse.h"
+#include "gk/Keyboard.h"
+#include "gk/Singleton.h"
 
-#include "DigitalInput.h"
-#include "AnalogInput.h"
-#include "EventInput.h"
+#include "gk/DigitalInput.h"
+#include "gk/AnalogInput.h"
+#include "gk/EventInput.h"
 
 /** 
  * Input manager for game input. 

@@ -24,17 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef ANALOGDEVICE_H
 #define ANALOGDEVICE_H
 
-#include "akiCommon.h"
-#include "Device.h"
-#include "AnalogInput.h"
+#include "gk/gkCommon.h"
+#include "gk/Device.h"
+#include "gk/AnalogInput.h"
 
 /* an analog device
  * a mouse, or joystick (for example) may be an analog device

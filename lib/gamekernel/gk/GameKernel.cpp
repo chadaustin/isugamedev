@@ -24,12 +24,12 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-02-06 22:22:22 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#include "GameKernel.h"
+#include "gk/GameKernel.h"
 
 GameKernel::GameKernel()
    : mDriver( NULL )
