@@ -5,6 +5,7 @@ Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenSG SetupOpenGL')
 
 # Listed here are interfaces that only have a .h associated with them
 interfaces = Split("""
+   ScoreBoard
    Types
 """)
 
@@ -43,7 +44,7 @@ env = baseEnv.Copy()
 SetupSDL(env)
 SetupCorona(env)
 # SetupAudiere(env)
-# SetupGLText(env)
+SetupGLText(env)
 # SetupOpenSG(env)
 SetupOpenGL(env)
 

@@ -11,6 +11,7 @@ namespace lr
    class Level;
    class Player;
    class Texture;
+   class ScoreBoard;
 
    class GameState : public State
    {
@@ -47,6 +48,7 @@ namespace lr
    private:
       Level* mLevel;
       Player* mPlayer;
+      ScoreBoard* mScoreBoard;
    };
 
 } // end namespace

@@ -39,6 +39,9 @@ namespace lr
       ladderImage = Texture::create(std::string("ladder.png"));
       wireImage = Texture::create(std::string("wire.png"));
       moneyImage = Texture::create(std::string("money.png"));
+
+      // initialize the number of bags to 0
+      numBags = 0;
    }
 
 
@@ -75,6 +78,7 @@ namespace lr
             }else if(temp==4)
             {
                mLevel[j][i] = money;
+               numBags++;
             }
          }
       }

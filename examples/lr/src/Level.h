@@ -51,6 +51,11 @@ namespace lr
       Texture* wireImage;
       Texture* moneyImage;
 
+      /**
+       * the number of money bags in the level
+       */
+      int numBags;
+
    };
 
 

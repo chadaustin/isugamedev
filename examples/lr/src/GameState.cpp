@@ -7,6 +7,7 @@
 #include "GameState.h"
 #include "Level.h"
 #include "Player.h"
+#include "ScoreBoard.h"
 #include "Texture.h"
 
 namespace lr
@@ -19,6 +20,8 @@ namespace lr
       // now that we have the level we create the player and give him the level
       // to work with
       mPlayer = new Player(*mLevel);
+
+      mScoreBoard = new ScoreBoard();
    }
 
    GameState::~GameState()
@@ -34,6 +37,7 @@ namespace lr
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
       glDisable(GL_CULL_FACE);
 
+      
       
       glClearColor(1.0f,1.0f,1.0f,1.0f);
       glClear(GL_COLOR_BUFFER_BIT);
@@ -53,8 +57,38 @@ namespace lr
 
       // draw the level
       glColor4f(1, 1, 1, 1);
+
+
+      // create the game viewport where the game is displayed then draw all the
+      // contents of the game there
+      glViewport(0,32,this->getApp().getWidth(),this->getApp().getHeight()-32);
       mLevel->draw();
       mPlayer->draw();
+
+      // now draw the scoreboard
+      glViewport(0,0,this->getApp().getWidth(),32);
+   
+      glMatrixMode(GL_PROJECTION);
+      glLoadIdentity();
+      
+      glOrtho(0, this->getApp().getWidth(), 0, 32, -1, 1);
+      
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
+
+      
+      glColor4f(0,0,0,1);
+      glBegin(GL_LINE_LOOP);
+         glVertex2f(1.0f, 1.0f);
+         glVertex2f(1023.0f, 1.0f);
+         glVertex2f(1023.0f, 30.0f);
+         glVertex2f(1.0f, 30.0f);
+      glEnd();
+      
+      glColor4f(1,0,0,1);
+      glTranslatef(3,3,0);
+      mScoreBoard->draw();
+      
       
    }
 
