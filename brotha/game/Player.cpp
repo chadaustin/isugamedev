@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-05-03 07:35:01 $
- * Version:       $Revision: 1.27 $
+ * Date modified: $Date: 2002-05-03 07:52:42 $
+ * Version:       $Revision: 1.28 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -52,7 +52,6 @@ namespace game {
       , mHealth(0)
       , mKills(0)
       , mDeaths(0)
-      , mVehicle(Object::UNKNOWN)
       , mCoins(0)
       , mIsAccelerating(false)
       , mIsBraking(false)
