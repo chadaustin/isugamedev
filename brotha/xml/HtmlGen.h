@@ -89,39 +89,32 @@ namespace reports {
       }
    };
 
-
-   std::string renderPlayerList(data::playerlist, reports::request, std::string);
-   std::string renderGangList(data::ganglist, reports::request);
-   std::string renderStatList(data::statlist);
-   std::string renderModList(data::modlist);
-
-   std::string  parseHTTPRequest(std::string in) {
-      in = in.substr(0,in.find_first_of('\n'));
-      int firstpace = in.find_first_of(' ');
-      int lastspace = in.find_last_of(' ');
-      std::string url = in.substr(firstpace + 2,lastspace - firstpace - 2);
-      return url;
-   }
-
-
-   std::string GenerateReport(std::string query, data::BrothaData& data) {
-      if(query.size() < 3){
-        query = "2*/1*/0*";
+   inline std::string renderStatList(data::StatList& sl) {
+      std::ostringstream html;
+      html << "<table>";
+      for (unsigned int i = 0; i < sl.size(); i++) {
+         data::Stat* m = sl[i];
+         html << "<tr><td>" << m->getName() << "</td><td>" << m->getVal() << "</td></tr>";
       }
-      reports::request r(query);
-      if (r.valid) {
-         data::ganglist gl = data.getGangList();
-         return inlineStyle() + "<a href=\"/\"><h1>Warn-a-brotha report server</h1></a> " +  renderGangList(gl,r);
+      html << "</table>";
+      return html.str();
+   }
+
+   inline std::string renderModList(data::ModList& ml) {
+      std::ostringstream html;
+      html << "<table><tr><th>mod</th><th>level</th></tr>";
+      for (unsigned int i = 0; i < ml.size(); i++) {
+         data::Mod* m = ml[i];
+         html << "<tr><td>" << m->getName() << "</td><td><center>" << m->getLevel() << "</center></td></tr>";
       }
-      return "error";
-
+      html << "</table>";
+      return html.str();
    }
 
-   std::string GenerateReportFromHTTP(std::string httpR, data::BrothaData& data) {
-      return GenerateReport(parseHTTPRequest(httpR), data);
-   }
-
-   std::string renderCarList(data::carlist cl, request schema, std::string gangname, std::string playername) {
+   inline std::string renderCarList(data::CarList& cl, request& schema,
+                             const std::string& gangname,
+                             const std::string& playername)
+   {
       std::ostringstream out;
       if (schema.carD == 1) {
          out << "<table width=70%><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
@@ -162,44 +155,9 @@ namespace reports {
       return out.str();
    }
 
-   std::string renderGangList(data::ganglist gl, reports::request schema) {
-      std::ostringstream html;
-
-      for (unsigned int i = 0; i < gl.size(); i++) {
-         data::Gang* g = gl[i];
-         if (schema.gang.find(g->getName())!= std::string::npos || schema.gang == "*") {
-            if (schema.gangD == 2) {
-               html << "<div class=\"gang2\">";
-               html << "<h1>" + g->getName() + "</h1>";
-               html << "<div class=\"ganginfo\">" << g->getInfo() << "</div>";
-               html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
-               html << "<div class=\"playerlist\">";
-               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
-               html << "</div>";
-               html << "</div>";
-            }
-            else if (schema.gangD == 1) {
-               html << "<h1>" << g->getName() << "</h1>";
-               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
-            }
-            else {
-               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
-            }
-         }
-      }
-      return html.str();
-   }
-
-   std::string renderCarTypeList(data::cartypelist ctl) {
-      std::string html = "";
-      for (unsigned int i = 0; i < ctl.size(); i++) {
-         data::Cartype* ct = ctl[i];
-         html += "<div class=\"cartype\"> <img src=\"" + urlBase + ct->getName() + ".jpg\"><br>" + ct->getName() + "<br><br>";
-      }
-      return html;
-   }
-
-   std::string renderPlayerList(data::playerlist pl, reports::request schema, std::string gangname) {
+   inline std::string renderPlayerList(data::PlayerList& pl, reports::request& schema,
+                                const std::string& gangname)
+   {
       std::ostringstream html;
       if (schema.playerD == 1) {
          html << "<table><th>Name</th><th># of cars</th>";
@@ -257,33 +215,74 @@ namespace reports {
       return html.str();
    }
 
-   std::string renderModList(data::modlist ml) {
+   inline std::string renderGangList(data::GangList& gl, reports::request& schema) {
       std::ostringstream html;
-      html << "<table><tr><th>mod</th><th>level</th></tr>";
-      for (unsigned int i = 0; i < ml.size(); i++) {
-         data::Mod* m = ml[i];
-         html << "<tr><td>" << m->getType() << "</td><td><center>" << m->getLevel() << "</center></td></tr>";
+
+      for (unsigned int i = 0; i < gl.size(); i++) {
+         data::Gang* g = gl[i];
+         if (schema.gang.find(g->getName())!= std::string::npos || schema.gang == "*") {
+            if (schema.gangD == 2) {
+               html << "<div class=\"gang2\">";
+               html << "<h1>" + g->getName() + "</h1>";
+               html << "<div class=\"ganginfo\">" << g->getInfo() << "</div>";
+               html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
+               html << "<div class=\"playerlist\">";
+               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
+               html << "</div>";
+               html << "</div>";
+            }
+            else if (schema.gangD == 1) {
+               html << "<h1>" << g->getName() << "</h1>";
+               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
+            }
+            else {
+               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
+            }
+         }
       }
-      html << "</table>";
       return html.str();
    }
 
-   std::string renderStatList(data::statlist sl) {
-      std::ostringstream html;
-      html << "<table>";
-      for (unsigned int i = 0; i < sl.size(); i++) {
-         data::Stat* m = sl[i];
-         html << "<tr><td>" << m->getName() << "</td><td>" << m->getVal() << "</td></tr>";
+   inline std::string renderCarTypeList(data::CarTypeList& ctl) {
+      std::string html = "";
+      for (unsigned int i = 0; i < ctl.size(); i++) {
+         data::CarType* ct = ctl[i];
+         html += "<div class=\"cartype\"> <img src=\"" + urlBase + ct->getName() + ".jpg\"><br>" + ct->getName() + "<br><br>";
       }
-      html << "</table>";
-      return html.str();
+      return html;
    }
 
-   std::string inlineStyle() {
+   inline std::string inlineStyle() {
       std::string CSS = "";
       CSS += "<link rel=\"STYLESHEET\" type=\"text/css\" href=\"http://hatori42.com/br.css\" />";
       CSS += "";
       return CSS;
+   }
+
+   inline std::string parseHTTPRequest(std::string in) {
+      in = in.substr(0,in.find_first_of('\n'));
+      int firstpace = in.find_first_of(' ');
+      int lastspace = in.find_last_of(' ');
+      std::string url = in.substr(firstpace + 2,lastspace - firstpace - 2);
+      return url;
+   }
+
+
+   inline std::string GenerateReport(std::string query, data::BrothaData& data) {
+      if(query.size() < 3){
+        query = "2*/1*/0*";
+      }
+      reports::request r(query);
+      if (r.valid) {
+         data::GangList gl = data.getGangList();
+         return inlineStyle() + "<a href=\"/\"><h1>Warn-a-brotha report server</h1></a> " +  renderGangList(gl,r);
+      }
+      return "error";
+
+   }
+
+   inline std::string GenerateReportFromHTTP(std::string httpR, data::BrothaData& data) {
+      return GenerateReport(parseHTTPRequest(httpR), data);
    }
 
 }
