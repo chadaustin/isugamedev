@@ -17,6 +17,11 @@ env = Environment(CPPPATH = '#',
                   CXXFLAGS = ['-DDEBUG_MEMORY=1'])
 Export('env GLUT_LIBS')
 
+
+# Determine the font libraries
+FONT_LIBS = ['gltt', 'ttf']
+Export('env FONT_LIBS')
+
 # process subdirectories
 SConscript('phui/SConscript')
 SConscript('examples/SConscript')
