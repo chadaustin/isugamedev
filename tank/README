@@ -8,5 +8,6 @@ a  s  d           |  spinleft    pitchdown     spinright
 left  down  right |  turntankL    tankreverse   turntankR
 
 
-
-q and e do a ZOOM
+q - zoom out
+e - zoom in
+spacebar - shoot
