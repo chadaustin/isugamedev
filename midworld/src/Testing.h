@@ -28,7 +28,10 @@ namespace mw
    class tests : public lm::testing
    {
    public:
-      virtual bool test() {}
+      virtual bool test()
+      {
+        return true;
+      }
 
       bool alwaysTrue()
       {

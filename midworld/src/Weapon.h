@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Weapon.h,v $
- * Date modified: $Date: 2002-11-11 08:05:54 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-11-14 11:34:41 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -80,7 +80,7 @@ namespace mw
       virtual const std::string& getName() const = 0;
       
       virtual void setSource(const std::string& source) = 0;
-      virtual const std::string& getSource() = 0;
+      virtual const std::string& getSource() const = 0;
 
       /**
        * Tells this weapon whether or not its trigger is being held down.

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.h,v $
- * Date modified: $Date: 2002-11-11 08:05:52 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-11-14 11:34:40 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -109,7 +109,7 @@ namespace mw
        */
       gmtl::Point3f getBarrelEndPos() const;
       
-      const std::string& getSource() { return mSource; }
+      const std::string& getSource() const { return mSource; }
       void setSource(const std::string& source) { mSource = source; }
 
    protected:

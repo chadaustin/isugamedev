@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: NullWeapon.h,v $
- * Date modified: $Date: 2002-11-11 08:05:53 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-14 11:34:40 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,7 +51,7 @@ namespace mw
 
       const std::string& getName() const { return mName; }
       
-      const std::string& getSource() { return mSource; }
+      const std::string& getSource() const { return mSource; }
       void setSource(const std::string& source) { mSource = source; }
 
       /**

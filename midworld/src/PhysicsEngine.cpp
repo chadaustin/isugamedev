@@ -24,14 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-14 10:35:15 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-11-14 11:34:41 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
 #include <gmtl/Generate.h>
 #include <gmtl/Intersection.h> // for debugging only
+#include "BaseBullet.h"
 #include "PhysicsEngine.h"
 
 namespace mw
@@ -118,7 +119,10 @@ namespace mw
          RigidBody* body = itr->second;
 
          // Apply gravity to every body
-         body->addForce(GRAVITY * body->getMass());
+         if (0 == dynamic_cast<BaseBullet*>(body))
+         {
+            body->addForce(GRAVITY * body->getMass());
+         }
 
          // Update the body for the remaining time differential
          update(body, dt);
