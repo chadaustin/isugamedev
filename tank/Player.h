@@ -3,7 +3,8 @@
 
 #include "UIDManager.h"
 //#include "Entity.h"
-#include "Tank.h"
+//#include "Tank.h"
+class Tank;
 #include "Camera.h"
 #include "HUD.h"
 
