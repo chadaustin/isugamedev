@@ -11,12 +11,7 @@ from AutoDist import *
 def GetGkVersion():
    "Gets the Gk version from gk/version.h"
    import re
-
-   contents = open('gk/version.h', 'r').read()
-   major = re.compile('.*(#define *GK_VERSION_MAJOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
-   minor = re.compile('.*(#define *GK_VERSION_MINOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
-   patch = re.compile('.*(#define *GK_VERSION_PATCH *(\d+)).*', re.DOTALL).sub(r'\2', contents)
-   return (int(major), int(minor), int(patch))
+   return (int(1), int(1), int(1))
 
 def GetPlatform():
    "Determines what platform this build is being run on."
@@ -195,7 +190,7 @@ env.ConfigBuilder('gk-config', 'gk-config.in',
    }
 )
 
-env.Depends('gk-config', 'gk/version.h')
+#env.Depends('gk-config', 'gk/version.h')
 env.Install(pj(PREFIX, 'bin'), 'gk-config')
 
 pkg.build()

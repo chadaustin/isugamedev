@@ -4,7 +4,6 @@ pj = os.path.join
 Import('pkg baseEnv PREFIX GetPlatform')
 
 headers = Split("""
-version.h
 AbstractGameApp.h   GameInput.h           Joystick.h
 AnalogDevice.h      GameInputConfigure.h  Keyboard.h
 AnalogInput.h       GameKernel.h          Mouse.h
@@ -18,7 +17,7 @@ EventInput.h        InputInterface.h
 """)
 
 sources = Split("""
- version.cpp GameInput.cpp  GameKernel.cpp  SystemDriverFactory.cpp  gk.cpp
+ GameInput.cpp  GameKernel.cpp  SystemDriverFactory.cpp  gk.cpp
 """)
 
 env = baseEnv.Copy()
