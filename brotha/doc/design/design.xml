@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.78 2002-04-12 18:22:18 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 18:22:18 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.79 2002-04-12 18:27:20 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 18:27:20 $</pubdate>
     <copyright>
       <year>2002</year>
       <holder>Chad Austin, </holder>
@@ -67,7 +67,7 @@
     <title>Subsystems</title>
     <para>At a high level, <emphasis>Warn-a-Brotha</emphasis> can be broken down into several clear subsystems. This includes Connection Manager, Data/XML, Game Logic, Input, Network, Report Server, Sound, Texture, Threading and UI.</para>
     <section>
-      <title>Connection Manager Subsystem</title>
+      <title>1. Connection Manager Subsystem</title>
       <para>The Connection Manager subsystem is responsible for handling the sending and receiving of messages from a number of peer connections. Objects of type <classname>Socket</classname> are passed into the subsystem through the <methodname>handleSocket</methodname> method. This method returns a unique connection identification number that will be associated with the <classname>Socket</classname> object. The <methodname>send</methodname> method accepts an object of type <classname>Message</classname> and a connection identification number. The message that is passed in will be sent to the peer connection represented by the connection identification number. The <methodname>readAll</methodname> method will return to the caller a collection of objects of type <classname>Message</classname> and the connection identification number that represents the peer connection from which the <classname>Message</classname> object originated from. The <classname>Message</classname> class provides the abstract implementation for all <classname>Message</classname> objects. Data cannot be sent using the Connection Manager unless the data is represented by an object that implements the <classname>Message</classname> class.</para>
       <para>Internally the Connection Manager subsystem is composed of several classes: <classname>Connection</classname>, <classname>WriteThread</classname> and <classname>ReadThread</classname><classname></classname>. Each <classname>Socket</classname> passed into the subsystem through <methodname>handleSocket</methodname> creates a <classname>Connection</classname> object. This <classname>Connection</classname> object creates a <classname>WriteThread</classname> and a <classname>ReadThread</classname> to handle the actual sending and receiving of data.</para>
       <para>The Connection Manager subsystem depends on the Network subsystem for the actual sending and receiving of bytes across the network, and the Threading subsystem to allow multiple connections, while keeping these connections separate from the other connections.</para>
@@ -196,7 +196,7 @@
       </section>
     </section>
     <section>
-      <title>Data/XML Subsystem</title>
+      <title>2. Data/XML Subsystem</title>
       <para>The Data/XML subsystem provides access to a persistent, data structure that stores game related data such as cars and players and gangs. One root node <classname>BrothaData</classname>, is used to hold all the data. <classname>BrothaData</classname> provides a method to load and save the data, as well as a convenience function to validate a player based on their password. <classname>BrothaData</classname> also exposes a collection of <classname>Gang</classname> objects, and a collection of <classname>Gang</classname> and <classname>CarType</classname> objects. The <classname>CarType</classname> objects store basic information on a "type" of car, the gangs, basically have a name and a collection of <classname>Player</classname> objects, which in turn hold a name, password and a collection of <classname>Car</classname> objects. Each car has an associated type (from <classname>CarTypes</classname> in the root <classname>BrothaData</classname> node) as well as a collection of <classname>Mod</classname>s. Mods have a "type" and "level" of modification.</para>
       <section>
         <title>Subsystem Interfaces</title>
@@ -403,7 +403,7 @@
       </section>
     </section>
     <section>
-      <title>Game Logic Subsystem</title>
+      <title>3. Game Logic Subsystem</title>
       <para>The Game Logic subsystem is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic subsystem manages game specific interactions between object in the world such as cars, buildings and projectile.</para>
       <para>This subsystem supports many different objects that exist in the game. Vehicles are allowed to interact with other vehicles by colliding with them or shooting ammunition at the enemy. When this happens, a vehicle takes on damage and loses health. Both cars lose health in the event of a collision, but only the vehicle that gets shot loses health in the event of a shooting. When a player loses health, coins are dropped onto the map where the damage occured. These coins can be collected by other players by colliding with them. Coins can be used later in order to purchase modifications to the players vehicle.</para>
       <para>Players also interact with inanimate objects such as buildings and walls. When a collision occurs with a building or wall, health is lost and coins are dropped much in the same way as interactions between players except that buildings and wall do not take on damage.When a players health is equal to zero, that player is dead and must be sent back to the garage. The player is allowed back into the game after purchasing repairs for the vehicle.</para>
@@ -589,7 +589,7 @@
       </section>
     </section>
     <section>
-      <title>Input Subsystem</title>
+      <title>4. Input Subsystem</title>
       <para>The Client Input subsystem is responsible for the retrieval of input from the devices. Since the application must run at an approximately consistent frame-rate, the input is polled once every frame by the application. For this subsystem, we will rely on a COTS library suitable for our application.</para>
       <section>
         <title>Design Issues</title>
@@ -690,7 +690,7 @@
       </section>
     </section>
     <section>
-      <title>Network Subsystem</title>
+      <title>5. Network Subsystem</title>
       <para>The network subsystem is responsible for creating sockets and server sockets. It also provides stream classes which simplify access to stream-like objects such as network connections and files. It is built on top of NSPR, a portable system abstraction library provided by mozilla.org.</para>
       <section>
         <title>Socket Module</title>
@@ -914,7 +914,7 @@
       </section>
     </section>
     <section>
-      <title>Report Server Subsystem</title>
+      <title>6. Report Server Subsystem</title>
       <para>The Report Server subsystem is responsible for generating dynamic reports requested by HTTP 1.0 standard compliant clients. The reports will be generated based on data gathered from the Data/XML subsystem. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This subsystem depends on the Data/XML subsystem for the gathering of data and the Network subsystem for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
       <section>
         <title>Subsystem Interfaces</title>
@@ -1028,7 +1028,7 @@
       </section>
     </section>
     <section>
-      <title>Sound Subsystem</title>
+      <title>7. Sound Subsystem</title>
       <para>The sound subsystem is responsible for managing background music and sound effects within the game. Brotha uses <emphasis>Audiere</emphasis>, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound subsystem consists of two subsystems: the background music <classname>Jukebox</classname> object and the <classname>SoundEffectManager</classname> object.</para>
       <section>
         <title>Jukebox Module</title>
@@ -1183,7 +1183,7 @@
       </section>
     </section>
     <section>
-      <title>Texture Subsystem</title>
+      <title>8. Texture Subsystem</title>
       <para>The texture subsystem is responsible for loading image files from the disk and creating OpenGL texture objects out of them. It uses the third-party <emphasis>Corona</emphasis> image library (externally developed by Chad Austin). The texture subsystem has two object types: one <classname>TextureManager</classname> and several <classname>Texture</classname> objects.</para>
       <para>The <classname>TextureManager</classname>, given the name of a <classname>Texture</classname>, will load the texture from disk, possibly process the image until it is in a format suitable for OpenGL, and create a new <classname>Texture</classname> object representing that texture. The <classname>TextureManager</classname> remembers and caches loaded textures so that it never loads a texture twice. </para>
       <para><classname>Texture</classname> objects provide a <methodname>bind</methodname> method which calls <methodname>glBindTexture</methodname>, changing OpenGL's current texture. It also provides a mechanism for changing texture parameters, such as whether to use <constant>NEAREST</constant> or <constant>LINEAR</constant> texel interpolation.</para>
@@ -1317,7 +1317,7 @@
       </section>
     </section>
     <section>
-      <title>Thread Subsystem</title>
+      <title>9. Thread Subsystem</title>
       <para>The thread subsystem provides a suite of utility classes for creating threads and synchronizing them. It is built on top of NSPR (Netscape Portable Runtime) which is a portable system abstraction layer for C provided by mozilla.org. It consists of several classes: a base <classname>Thread</classname> class, a <classname>Lockable</classname> interface, a <classname>Mutex</classname> implementation of the <classname>Lockable</classname> interface, a <classname>ConditionVariable</classname> class, and a <classname>Synchronized</classname> mix-in class which provides functionality similar to Java's synchronized method semantics.</para>
       <para>The thread, mutex, and lock classes are modeled after boost.org's boost.Threads thread model and the multithreaded framework described in Modern C++ Design. The Lock object takes and locks a Lockable object on construction. On destruction, the Lock unlocks its Lockable object. This allows for code that is exception-safe and easy to follow. The Lockable object is guaranteed to be unlocked whenever the Lock's scope is exited.</para>
       <para>The Synchronized class is designed so that classes in C++ can mimic the 'synchronized' attribute of Java. Simply derive a class from Synchronized and instantiate a Lock object at the beginning of each method, passing 'this' as the Lockable.</para>
@@ -1500,7 +1500,7 @@
       </section>
     </section>
     <section>
-      <title>UI Subsystem</title>
+      <title>10. UI Subsystem</title>
       <para>The UI subsystem is responsible for the creation and management of GUI widget elements such as windows, buttons and such. For this subsystem, we will rely on a COTS library suitable for our application.</para>
       <section>
         <title>Design Issues</title>
