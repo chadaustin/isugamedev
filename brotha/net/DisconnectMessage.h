@@ -15,7 +15,7 @@ namespace net {
 
    class DisconnectMessage : public Message {
    public:
-      PRUint32 getType() {
+      PRUint32 getType() const {
          return Disconnect;
       }
 

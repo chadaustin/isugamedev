@@ -4,7 +4,8 @@
 #ifndef NET_MESSAGE_H
 #define NET_MESSAGE_H
 
-
+#include <prtypes.h>
+#include <string>
 #include "InputStream.h"
 #include "OutputStream.h"
 
@@ -20,16 +21,16 @@ namespace net {
       virtual ~Message() {
          --mNumMsgsInMemory;
       }
-      virtual PRUint32 getType() = 0;
+      virtual PRUint32 getType() const = 0;
       virtual PRUint32 getSize() = 0;
       virtual void serialize(OutputStream& os) = 0;
       virtual void deserialize(InputStream& os) = 0;
    protected:
-      PRUint32 getVarSize(PRUint32 &var) {
+      PRUint32 getVarSize(const PRUint32 &var) {
          return PRUint32(sizeof(PRUint32));
       }
 
-      PRUint32 getVarSize(std::string &var) {
+      PRUint32 getVarSize(const std::string &var) {
          return PRUint32(sizeof(PRUint32) + var.length());
       }
    };

@@ -44,7 +44,7 @@ namespace net {
          mDesc = "fixme";
       }
 
-      PRUint32 getType() {
+      PRUint32 getType() const {
          return OK;
       }
 
@@ -65,7 +65,7 @@ namespace net {
        *
        * @return  the response code
        */
-      const ResponseCode getCode() {
+      const ResponseCode getCode() const {
          return (ResponseCode)mCode;
       }
 
@@ -74,7 +74,7 @@ namespace net {
        *
        * @return  the response description
        */
-      const std::string& getDescription() {
+      const std::string& getDescription() const {
          return mDesc;
       }
 

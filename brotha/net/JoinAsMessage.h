@@ -30,7 +30,7 @@ namespace net {
          : mCode( code ) {
       }
 
-      PRUint32 getType() {
+      PRUint32 getType() const {
          return JoinAs;
       }
 

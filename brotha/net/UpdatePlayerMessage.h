@@ -21,7 +21,7 @@ namespace net {
       UpdatePlayerMessage() {
       }
 
-      PRUint32 getType() {
+      PRUint32 getType() const {
          return UpdatePlayer;
       }
 
