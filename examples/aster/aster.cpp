@@ -85,6 +85,72 @@ namespace Math
       float size = x2 - x1;
       return r * size + x1;
    }
+   
+   // dot product.  sqrt of this gives dist between points..
+   inline float dot( float pt1[3], float pt2[3] )
+   {
+      float d = 0.0f;
+      d += pt1[0] * pt2[0];
+      d += pt1[1] * pt2[1];
+      d += pt1[2] * pt2[2];
+      return d;
+   }
+   // subtract two vectors, store result in res
+   inline void sub( float res[3], float vec1[3], float vec2[3] )
+   {
+      res[0] = vec1[0] - vec2[0];
+      res[1] = vec1[1] - vec2[1];
+      res[2] = vec1[2] - vec2[2];
+   }
+   // add two vectors, store result in res
+   inline void add( float res[3], float vec1[3], float vec2[3] )
+   {
+      res[0] = vec1[0] + vec2[0];
+      res[1] = vec1[1] + vec2[1];
+      res[2] = vec1[2] + vec2[2];
+   }
+   // scale a vector
+   inline void mul( float res[3], float vec1[3], float scalar )
+   {
+      res[0] = vec1[0] * scalar;
+      res[1] = vec1[1] * scalar;
+      res[2] = vec1[2] * scalar;
+   }
+   // copy a vector
+   inline void copy( float res[3], float vec1[3] )
+   {
+      res[0] = vec1[0];
+      res[1] = vec1[1];
+      res[2] = vec1[2];
+   }
+   // normalize a vector
+   inline void norm( float vec[3] )
+   {
+      float d = Math::dot( vec, vec );
+      if (d <= 0.0001f) // some epsillon (d should be > 0)
+         return;
+      
+      float n = sqrtf( d );
+      float n_inv = 1.0f / n;
+      Math::mul( vec, vec, n_inv );
+   }
+   // distance
+   inline float distance( float vec1[3], float vec2[3]  )
+   {
+      float temp[3];
+      Math::sub( temp, vec1, vec2 );
+      return sqrtf( Math::dot( temp, temp ) );
+   }
+   
+   // compute perfectly elastic reflection using available vectors... 
+   inline void reflect( float reflection[3], float incoming[3], float surfacenormal[3] )
+   {
+      Math::mul( reflection, incoming, -1.0f );
+      float d = Math::dot( reflection, surfacenormal );
+      Math::mul( reflection, surfacenormal, d );
+      Math::mul( reflection, reflection, 2.0f );
+      Math::add( reflection, reflection, incoming );
+   }   
 }
 
 ///////////////////////////////////////////////////////////
@@ -389,19 +455,55 @@ public:
       int x = proj_remove_queue.size();
       while (x--)
          projs.erase( proj_remove_queue[x] );
+      
+      // do collision between ship and asteroids...
+      for (itr = roids.begin(); itr != roids.end(); ++itr)
+      {
+         // get dist from ship to center of roid (treat roid as sphere for simplicity)
+         float dist = Math::distance( ship.position, (*itr).position );
+         float min_dist_between_ship_and_roid = ((*itr).size + ship.size);
+         
+         // if too close, then collision...
+         if (dist < min_dist_between_ship_and_roid)
+         {
+            // get vector from roid to ship (normal to collision angles)
+            float normal[3];
+            Math::sub( normal, ship.position, (*itr).position );
+            Math::norm( normal );
+
+            // reflect velocity only if moving toward each other
+            if (Math::dot( ship.velocity, normal ) < 0)
+            {
+               // compute perfectly elastic reflection
+               float reflectionVector[3];
+               Math::reflect( reflectionVector, ship.velocity, normal );
+
+               // dampen resulting reflection
+               Math::mul( ship.velocity, reflectionVector, dampen );
+            }
             
+            // asteroids can push the ship around... (affects position)
+            float vec[3], newposition[3];
+            Math::sub( vec, ship.position, (*itr).position );
+            Math::norm( vec );
+            Math::mul( vec, vec, min_dist_between_ship_and_roid );
+            Math::add( newposition, (*itr).position, vec );
+            
+            // set the new ship position and velocity
+            float additional_velocity_from_impact[3];
+            Math::sub( additional_velocity_from_impact, newposition, ship.position );
+            Math::add( ship.velocity, ship.velocity, additional_velocity_from_impact );
+            Math::copy( ship.position, newposition );            
+         }
+      }
+      
       // do collision between projectile and asteroids...
       for (itr = roids.begin(); itr != roids.end(); ++itr)
       {
          for (pitr = projs.begin(); pitr != projs.end(); ++pitr)
          {
             // get dist from bullet to center of roid (treat roid as sphere for simplicity)
-            float dist = 0.0f;
-            dist += ((*pitr).position[0] - (*itr).position[0]) * ((*pitr).position[0] - (*itr).position[0]);
-            dist += ((*pitr).position[1] - (*itr).position[1]) * ((*pitr).position[1] - (*itr).position[1]);
-            dist += ((*pitr).position[2] - (*itr).position[2]) * ((*pitr).position[2] - (*itr).position[2]);
-            if (dist != 0.0f)
-               dist = sqrtf( dist );
+            float dist = Math::distance( (*pitr).position, (*itr).position );
             
             // consider the size of the roid (smaller is harder to hit because the distance will need to be much closer)
             // the dist between object centers should be less than the sum of the two radii 
@@ -413,7 +515,7 @@ public:
                roids.erase( itr );
                projs.erase( pitr );
                   
-               // if it was bigenough, replace it with two smaller ones...
+               // if it was big enough, replace it with two smaller ones...
                if (aster.size > 0.5f) // .25 is smallest size roid can break into
                {
                   Roid r; 
