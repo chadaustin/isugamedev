@@ -22,8 +22,16 @@ b.size.set(150, 25)
 b.backgroundColor.set(0,0,1,1)
 b.foregroundColor.set(0,0,0,1)
 
+c = createCheckBox()
+c.checked = True
+c.position.set(180, 10)
+c.size.set(20, 20)
+c.backgroundColor = b.backgroundColor
+c.foregroundColor.set(1,1,1,1)
+
 # Add th widgets to the UI
 wnd.add(b)
+wnd.add(c)
 ui.add(wnd)
 
 # Create a button for the window made in C++

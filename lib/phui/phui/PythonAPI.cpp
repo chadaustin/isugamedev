@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 06:01:40 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-06 06:22:36 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -57,6 +57,11 @@ namespace phui
       WindowPtr createWindow()
       {
          return Window::create();
+      }
+
+      CheckBoxPtr createCheckBox()
+      {
+         return CheckBox::create();
       }
    }
 
@@ -180,6 +185,13 @@ namespace phui
                                make_function(&Button::setText))
       ;
 
+      // CheckBox
+      class_<CheckBox, bases<Widget>, CheckBoxPtr>("CheckBox", no_init)
+         .def("check", &CheckBox::check)
+         .def("uncheck", &CheckBox::uncheck)
+         .add_property("checked", &CheckBox::isChecked, &CheckBox::setChecked)
+      ;
+
       // RootWidget
       class_<RootWidget, bases<WidgetContainer>, RootWidgetPtr>("RootWidget", no_init)
       ;
@@ -192,6 +204,7 @@ namespace phui
 
       def("createRoot", CreateRoot);
       def("createButton", createButton);
+      def("createCheckBox", createCheckBox);
       def("createWindow", createWindow);
    }
 }
