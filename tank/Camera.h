@@ -1,6 +1,18 @@
 #ifndef CAMERA_INCLUDED_H
 #define CAMERA_INCLUDED_H
 
+#ifdef _WIN32
+   #include <windows.h> // make the app win32 friendly. :)
+#endif
+
+#ifdef _MSC_VER
+  // disable 'identifier was truncated to 255 characters in debug information' warning
+  #pragma warning(disable: 4786)
+#endif
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+
 #include "Matrix4f.h"
 #include "Quat.h"
 #include "convert.h"
