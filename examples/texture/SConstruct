@@ -1,0 +1,29 @@
+# build with 'scons'
+
+import sys
+import os
+import string
+
+# build everything by default
+Default('.')
+
+sources = [
+   'Texture.cpp',
+   'main.cpp',
+]
+
+# Setup a debug option
+if ARGUMENTS.get('debug'):
+   CXXFLAGS=['-g']
+else:
+   CXXFLAGS=[]
+
+# Setup the environment
+env = Environment(
+   CPPPATH = '#',
+   LIBPATH = '#',
+   LIBS = ['corona', 'glut', 'GLU', 'GL'],
+   ENV = os.environ,
+   CXXFLAGS = CXXFLAGS
+)
+env.Program(target = 'texture', source = sources)
