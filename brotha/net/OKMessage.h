@@ -20,15 +20,15 @@ namespace net {
    public:
       /// The response codes supported for an OKMessage.
       enum ResponseCode {
-         ERROR,   ///< Generic error
-         OK       ///< Generic ok
+         GENERIC_ERROR,   ///< Generic error
+         OKAY             ///< Generic ok
       };
    public:
       /**
        * Creates a new OK message with the response code OK.
        */
       OKMessage()
-         : mCode( OK )
+         : mCode( OKAY )
       {
          /// @todo get the standard response string
          mDesc = "fixme";
@@ -66,7 +66,7 @@ namespace net {
        * @return  the response code
        */
       const ResponseCode& getCode() {
-         return (ResponseCode)mCode;
+         return *(ResponseCode*)&mCode;
       }
 
       /**
