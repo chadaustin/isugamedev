@@ -2,7 +2,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <stdio.h>
-#include <iostream>
+//#include <iostream>
 #include <stdlib.h>
 #include "card.h"
 #include "deck.h"

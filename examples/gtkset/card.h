@@ -1,7 +1,7 @@
 /* Author: Daniel E. Shipton <dshipton@iastate.edu> */
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
-#include <iostream>
+//#include <iostream>
 #ifndef CARD_H
 #define CARD_H
 

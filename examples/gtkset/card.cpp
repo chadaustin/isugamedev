@@ -16,10 +16,10 @@
 #define SPACE_OUTER 15
 #define SPACE_INNER 15
 #define SPACE_INTER 10
-#define CARD_W (SHAPE_W+2*SPACE_OUTER)
-#define CARD_H (3*SHAPE_H+2*SPACE_INNER+2*SPACE_OUTER)
-#define CARD_WS (CARD_W+SPACE_INTER)
-#define CARD_HS (CARD_H+SPACE_INTER)
+#define CARD_WIDTH (SHAPE_W+2*SPACE_OUTER)
+#define CARD_HEIGHT (3*SHAPE_H+2*SPACE_INNER+2*SPACE_OUTER)
+#define CARD_WS (CARD_WIDTH+SPACE_INTER)
+#define CARD_HS (CARD_HEIGHT+SPACE_INTER)
 #define ARC_SIZE 15
 #define SEL_W 3
 #define PAD_3 0
@@ -113,7 +113,7 @@ int basex = SPACE_INTER+CARD_WS*bx;
   int basex2 = basex + SPACE_OUTER;
   int basey2 = basey + SPACE_OUTER;
   gdk_draw_pixmap(drawable, gc, card_bkg, 0, 0,
-    SPACE_INTER+CARD_WS*bx, SPACE_INTER+CARD_HS*by, CARD_W, CARD_H);
+    SPACE_INTER+CARD_WS*bx, SPACE_INTER+CARD_HS*by, CARD_WIDTH, CARD_HEIGHT);
   switch (number) {
     case 0:
       gdk_draw_pixmap(drawable, gc,
@@ -142,12 +142,12 @@ int basex = SPACE_INTER+CARD_WS*bx;
     default: ;
   }
   if (selected) {
-    gdk_draw_rectangle(drawable, gc, 1, basex, basey, CARD_W, SEL_W);
-    gdk_draw_rectangle(drawable, gc, 1, basex, basey, SEL_W, CARD_H);
-    gdk_draw_rectangle(drawable, gc, 1, basex+CARD_W-SEL_W, basey,
-      SEL_W, CARD_H);
-    gdk_draw_rectangle(drawable, gc, 1, basex, basey+CARD_H-SEL_W,
-      CARD_W, SEL_W);
+    gdk_draw_rectangle(drawable, gc, 1, basex, basey, CARD_WIDTH, SEL_W);
+    gdk_draw_rectangle(drawable, gc, 1, basex, basey, SEL_W, CARD_HEIGHT);
+    gdk_draw_rectangle(drawable, gc, 1, basex+CARD_WIDTH-SEL_W, basey,
+      SEL_W, CARD_HEIGHT);
+    gdk_draw_rectangle(drawable, gc, 1, basex, basey+CARD_HEIGHT-SEL_W,
+      CARD_WIDTH, SEL_W);
   }
 
 }

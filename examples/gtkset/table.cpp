@@ -47,10 +47,8 @@ void Table::makeSet()
 		{
 			mycards[lrand48()%12]=mydeck.Deal();
 			cardsleft--;
-			cout << "Dealing out to find a set" << endl;
 		}
 	}
-	cout << "Set made" << endl;
 	return;
 }
 
@@ -82,21 +80,17 @@ void Table::numSelected()
 		c1 = mycards[i];
 		cn1 = i;
 		i++;
-		cout << i-1;
 		while(!mycards[i].isSelected())
 		{i++;}
 		c2= mycards[i];
 		cn2 = i;
 		i++;
-		cout << i-1;
 		while(!mycards[i].isSelected())
 		{i++;}
 		c3 = mycards[i];
 		cn3 = i;
-		cout << i << endl;
 		if(!isaSet(c1, c2, c3))
 		{ 
-			cout << "not a set" << endl;
 			playscore--;
 			sprintf(remain, "%d", playscore);
 			gtk_label_set_text(GTK_LABEL(playerscore), remain);
@@ -109,7 +103,6 @@ void Table::numSelected()
 		}
 		else
 		{
-			cout << "is a set" << endl;
 			playscore++;
 			sprintf(remain, "%d", playscore);
 			gtk_label_set_text(GTK_LABEL(playerscore), remain);
@@ -134,7 +127,6 @@ void Table::numSelected()
 		}
 	}
 	sprintf(remain, "%d", cardsleft);
-	cout << "how many left " << cardsleft << endl;
 	gtk_label_set_text(GTK_LABEL(cards_remain), remain);
 	// if(x==2)
 	// turn computer off
@@ -190,7 +182,6 @@ void Table::Draw()
 	 gdk_gc_destroy(gc());
 	char remain[3];
 	sprintf(remain, "%d", cardsleft);
-	cout << "how many left " << cardsleft << endl;
 	gtk_label_set_text(GTK_LABEL(cards_remain), remain);
 	return;
 }

@@ -3,7 +3,7 @@
 #include <gnome.h>
 #include "card.h"
 #include "table.h"
-#include <iostream.h>
+//#include <iostream>
 #include <gdk/gdkkeysyms.h>
 #include <time.h>
 
@@ -22,10 +22,10 @@
 #define SPACE_OUTER 15
 #define SPACE_INNER 15
 #define SPACE_INTER 10
-#define CARD_W (SHAPE_W+2*SPACE_OUTER)
-#define CARD_H (3*SHAPE_H+2*SPACE_INNER+2*SPACE_OUTER)
-#define CARD_WS (CARD_W+SPACE_INTER)
-#define CARD_HS (CARD_H+SPACE_INTER)
+#define CARD_WIDTH (SHAPE_W+2*SPACE_OUTER)
+#define CARD_HEIGHT (3*SHAPE_H+2*SPACE_INNER+2*SPACE_OUTER)
+#define CARD_WS (CARD_WIDTH+SPACE_INTER)
+#define CARD_HS (CARD_HEIGHT+SPACE_INTER)
 #define ARC_SIZE 15
 #define SEL_W 3
 #define PAD_3 0
@@ -84,7 +84,6 @@ static int myidle(gpointer data)
 	}
 	
 	int i, j, k;
-	cout << "computer searching....." << endl;
 	for(int m =0; m<computer_tries; m++)
 	{
 		i=rand()%12;
@@ -95,8 +94,6 @@ static int myidle(gpointer data)
 
 		if(mytable.isaSet(mytable.mycards[i],mytable.mycards[j],mytable.mycards[k]))
 		{
-			cout << "Computer found one!... ";
-			cout << i << "," << j << "," << k << endl;
 			char remain[10];
 			computscore++;
 			sprintf(remain, "%d", computscore);
@@ -128,7 +125,6 @@ static int myidle(gpointer data)
 
 	}
 	lasttime = time(NULL);
-	cout << "computer didn't find one" << endl;
 	return 1;
 }
 
@@ -140,7 +136,6 @@ void newgame( GtkWidget *widget, gpointer   data )
 static int button_event(GtkWidget *wid, GdkEventButton *ev) {
   int cardx = (int)(ev->x - SPACE_INTER)/CARD_WS;
   int cardy = (int)(ev->y - SPACE_INTER)/CARD_HS;
-	cout << cardx << " " << cardy << endl;
   if (ev->type != GDK_BUTTON_PRESS)
     return FALSE;
   if (3*cardx+cardy <= -1)
@@ -152,7 +147,7 @@ static int button_event(GtkWidget *wid, GdkEventButton *ev) {
   return TRUE;
 }
 
-void main(int argc, char *argv[])
+int  main(int argc, char *argv[])
 {
 	gnome_init(VERSION, VERSION, argc, argv);
 
@@ -247,23 +242,23 @@ unsigned char *pixmap_data[] = {
   gc = gdk_gc_new(wn);
 
   /*** cards in normal state ***/
-  card_bkg = gdk_pixmap_new(wn, CARD_W, CARD_H, -1);
+  card_bkg = gdk_pixmap_new(wn, CARD_WIDTH, CARD_HEIGHT, -1);
   /* clear the card */
   gdk_gc_set_foreground(gc, &style->bg[GTK_STATE_NORMAL]);
-  gdk_draw_rectangle(card_bkg, gc, 1, 0, 0, CARD_W, CARD_H);
+  gdk_draw_rectangle(card_bkg, gc, 1, 0, 0, CARD_WIDTH, CARD_HEIGHT);
   /* draw corner arcs */
   gdk_gc_set_foreground(gc, &white);
   gdk_draw_arc(card_bkg, gc, 1, 0,                 0,
     2*ARC_SIZE, 2*ARC_SIZE, 90*64,  90*64);
-  gdk_draw_arc(card_bkg, gc, 1, CARD_W-2*ARC_SIZE, 0,
+  gdk_draw_arc(card_bkg, gc, 1, CARD_WIDTH-2*ARC_SIZE, 0,
     2*ARC_SIZE, 2*ARC_SIZE, 0,      90*64);
-  gdk_draw_arc(card_bkg, gc, 1, 0,                 CARD_H-2*ARC_SIZE,
+  gdk_draw_arc(card_bkg, gc, 1, 0,                 CARD_HEIGHT-2*ARC_SIZE,
     2*ARC_SIZE, 2*ARC_SIZE, 180*64, 90*64);
-  gdk_draw_arc(card_bkg, gc, 1, CARD_W-2*ARC_SIZE,
-    CARD_H-2*ARC_SIZE, 2*ARC_SIZE, 2*ARC_SIZE, 270*64, 90*64);
+  gdk_draw_arc(card_bkg, gc, 1, CARD_WIDTH-2*ARC_SIZE,
+    CARD_HEIGHT-2*ARC_SIZE, 2*ARC_SIZE, 2*ARC_SIZE, 270*64, 90*64);
   /* draw the rest */
-  gdk_draw_rectangle(card_bkg, gc, 1, ARC_SIZE, 0, CARD_W-2*ARC_SIZE, CARD_H);
-  gdk_draw_rectangle(card_bkg, gc, 1, 0, ARC_SIZE, CARD_W, CARD_H-2*ARC_SIZE);
+  gdk_draw_rectangle(card_bkg, gc, 1, ARC_SIZE, 0, CARD_WIDTH-2*ARC_SIZE, CARD_HEIGHT);
+  gdk_draw_rectangle(card_bkg, gc, 1, 0, ARC_SIZE, CARD_WIDTH, CARD_HEIGHT-2*ARC_SIZE);
 	  gdk_gc_destroy(gc);
 
 /************************ End Deck Setup *************************/

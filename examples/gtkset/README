@@ -1,4 +1,4 @@
-Authors: Daniel Shipton <dshipton@users.sourceforge.net>
+Authors: Daniel Shipton <dshipton@vrac.iastate.edu>
 
 To compile you should be able to simply type make.
 I don't use any weird libraries so that should be it.
