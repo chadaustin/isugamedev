@@ -31,7 +31,7 @@ namespace game {
       /**
        * Sets the position vector associated with this object.
        */
-      const setPosition(std::vector<PRFloat64>& velocity);
+      void setPosition(std::vector<PRFloat64>& velocity);
 
       /**
        * Gets the velocity vector associated with this object.
@@ -41,7 +41,7 @@ namespace game {
       /**
        * Sets the position vector associated with this object.
        */
-      const setVelocity(std::vector<PRFloat64>& velocity);
+      void setVelocity(std::vector<PRFloat64>& velocity);
 
       /**
        * Gets the health associated with this object.
@@ -51,7 +51,7 @@ namespace game {
       /**
        * Sets the position vector associated with this object.
        */
-      const setHealth(PRFloat64& health);
+      void setHealth(PRFloat64& health);
 
       virtual PRUint32 getType();
       virtual PRUint32 getSize();
