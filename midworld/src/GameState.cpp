@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 11:02:06 $
- * Version:       $Revision: 1.83 $
+ * Date modified: $Date: 2002-10-29 11:47:02 $
+ * Version:       $Revision: 1.84 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -74,10 +74,11 @@ namespace mw
       gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer); /// quaternion representing the rotation angle it would take to point at the player.
       gmtl::Quatf finalQuat;  /// the quat that we are actually going to rotate the turret by.
       
+
       
          
       std::cout << "TimeDelta: " << mTurret->getTimeDelta() << std::endl;
-      gmtl::slerp(finalQuat, mTurret->getTimeDelta()*1.5f, currentQuat, mQuat);  /// slerp to 7/10 the angle we need to have.
+      gmtl::slerp(finalQuat, 0.04f, currentQuat, mQuat);  /// slerp to 7/10 the angle we need to have.
       mTurret->setRot(finalQuat); 
          
       mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
