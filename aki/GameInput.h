@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-01-30 17:28:54 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -44,20 +44,31 @@
 #include "AnalogInput.h"
 #include "EventInput.h"
 
-/* input manager for game input
- * try to use the Interface classes instead of this class directly
+/** 
+ * Input manager for game input. 
+ * Try to use the Interface classes instead of this class directly
  * (i.e. use DigitalInterface or AnalogInterface)
  *
- * Usage (to sample input):
+ * <h3> "Usage (to sample input):" </h3>
+ * \code
  *    DigitalInterface accelerate;
  *    accelerate.init( "Accelerate" );
  *    if (accelerate.getDigitalData() == DigitalInput::DOWN)
  *       ... do something ...
+ * \endcode
  *
- * Usage (to configure):
+ * <h3>  "Usage (to configure):" </h3>
+ * \code
  *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_UPARROW" );
  *     GameInput::instance().bind( "StraefLeft", "Keyboard", "KEY_LEFTARROW" );
  *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_RIGHTARROW" );
+ * \endcode
+ *
+ * @see DigitalInterface
+ * @see AnalogInterface
+ * @see kev::Singleton<GameInput>
+ * @author Kevin Meinert <kevin@vrsource.org>
+ * @author other happy people...
  */
 class GameInput : public kev::Singleton<GameInput>
 {
@@ -68,7 +79,7 @@ public:
       mDevices["Mouse"] = mMouse = new Mouse;
    }
 
-   /* return an Input ptr
+   /** return an Input ptr
     * give the alias to the input
     * i.e. ACCELERATE_ACTION
     * !RETURN: NULL - Not found
@@ -82,7 +93,7 @@ public:
       return &event_input;
    }
 
-   /* Return an Input ptr
+   /** Return an Input ptr
     * give the real Device name (i.e. Keyboard) and
     * give the real input name within that Device (i.e. KEY_UPARROW)
     * !RETURN: NULL - Not found
@@ -116,19 +127,21 @@ public:
 
 // NOTE: the preferred
 public:
-   /* get the mouse device directly */
+   /** get the mouse device directly */
    inline const Mouse&        mouse() const { return *mMouse; }
 
-   /* get the mouse device directly */
+   /** get the mouse device directly */
    inline Mouse&              mouse() { return *mMouse; }
 
-   /* get the keyboard device directly */
+   /** get the keyboard device directly */
    inline const Keyboard&     keyboard() const { return *mKeyboard; }
 
-   /* get the keyboard device directly */
+   /** get the keyboard device directly */
    inline Keyboard&           keyboard() { return *mKeyboard; }
 
-   /* uh... how to deal with this? */
+   /** keyboard modifier key. 
+    * uh, how to deal with this? you might not want to use ... 
+    */
    inline char         modifier() const { return mKeyboardModifier; }
 
 private:
