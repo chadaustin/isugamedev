@@ -61,6 +61,10 @@ namespace mw
       EdgeState mReverse;
       EdgeState mStrafeRight, mStrafeLeft;
       EdgeState mShoot, mCycleWeapon;
+      
+      // input data for the Player object.
+      // note: in local screen space, not actual player vel
+      gmtl::Vec3f mPlayerVel;
    };
 }
 

@@ -17,7 +17,7 @@ namespace mw
 {
 class GameState;
 
-class Player
+class Player : public RigidBody
 {
 public:
    Player();
@@ -63,39 +63,11 @@ public:
    
    gmtl::Vec3f getForward() const;
    
-   const gmtl::Matrix44f& matrix() const;
-      
-   void setPos( const gmtl::Vec3f& pos );
+   gmtl::Matrix44f matrix() const;
       
    void update( GameState& gs, float timeDelta );
 
-   const gmtl::Vec3f& velocity() const;
-   
-   // with repect to tank local coordinate system.
-   // i.e. if tank is rotated, then 0,0,-1 is always "forward" for the tank.
-   void setVelocity( const gmtl::Vec3f& vel );
-   
-   // with repect to tank local coordinate system.
-   // i.e. if tank is rotated, then 0,0,-1 is always "forward" for the tank.
-   void setVelocity( float x, float y, float z );
-   
-   void translate( const gmtl::Vec3f& offset );
-
-   void setRot( gmtl::Quatf );
-
-   // true ang velocity vector
-   // w = [0, mag, 0]
-   void setAngVel( float magnitude );
-
-   const gmtl::Vec3f& position() const;
-
-   const gmtl::Quatf& rotation() const;
-
 private:
-   gmtl::Matrix44f mXForm;
-   gmtl::Vec3f mPos, mVel;
-   gmtl::Quatf mRot;
-
    std::map<int, Weapon*> mWeapons;
    std::map<int, Weapon*>::iterator mCurrentWeapon;
 };

@@ -29,48 +29,56 @@ namespace mw
    GameState::update(u64 elapsedTime)
    {
       float dt = ((float)elapsedTime) / 1000000.0f;
-      mCamera.setPlayerPos(mPlayer.position());
+      mCamera.setPlayerPos(mPlayer.getPos());
 
+      const gmtl::Vec3f accel( gmtl::Vec3f(0,0,-mSpeed) );
+      const gmtl::Vec3f reverse( gmtl::Vec3f(0,0,mSpeed*0.7f) );
+      const gmtl::Vec3f sleft( gmtl::Vec3f(-mSpeed*0.9f,0,0) );
+      const gmtl::Vec3f sright( gmtl::Vec3f(mSpeed*0.9f,0,0) );
+      
       // Accelerate
       if (mAccelerate == EDGE_DOWN)
       {
-         mPlayer.setVelocity(mPlayer.velocity() + gmtl::Vec3f(0,0,-mSpeed));
+         mPlayerVel += accel;
       }
       else if (mAccelerate == EDGE_UP)
       {
-         mPlayer.setVelocity(mPlayer.velocity() - gmtl::Vec3f(0,0,-mSpeed));
+         mPlayerVel -= accel;
       }
 
       // Reverse
       if (mReverse == EDGE_DOWN)
       {
-         mPlayer.setVelocity(mPlayer.velocity() + gmtl::Vec3f(0,0,mSpeed*0.7f));
+         mPlayerVel += reverse;
       }
       else if (mReverse == EDGE_UP)
       {
-         mPlayer.setVelocity(mPlayer.velocity() - gmtl::Vec3f(0,0,mSpeed*0.7f));
+         mPlayerVel -= reverse;
       }
 
       // Strafe left
       if (mStrafeLeft == EDGE_DOWN)
       {
-         mPlayer.setVelocity(mPlayer.velocity() + gmtl::Vec3f(-mSpeed*0.9f,0,0));
+         mPlayerVel += sleft;
       }
       else if (mStrafeLeft == EDGE_UP)
       {
-         mPlayer.setVelocity(mPlayer.velocity() - gmtl::Vec3f(-mSpeed*0.9f,0,0));
+         mPlayerVel -= sleft;
       }
 
       // Strafe right
       if (mStrafeRight == EDGE_DOWN)
       {
-         mPlayer.setVelocity(mPlayer.velocity() + gmtl::Vec3f(mSpeed*0.9f,0,0));
+         mPlayerVel += sright;
       }
       else if (mStrafeRight == EDGE_UP)
       {
-         mPlayer.setVelocity(mPlayer.velocity() - gmtl::Vec3f(mSpeed*0.9f,0,0));
+         mPlayerVel -= sright;
       }
 
+      // set velocity of player based on the computed inputs
+      mPlayer.setVel( mPlayer.getRot() * mPlayerVel );
+      
       // Shoot
       if (mShoot == EDGE_DOWN)
       {

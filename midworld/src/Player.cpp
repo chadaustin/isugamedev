@@ -15,7 +15,7 @@
 namespace mw
 {
 
-   Player::Player() : mPos(), mVel(), mRot(), mCurrentWeapon( mWeapons.end() )
+   Player::Player() : RigidBody(), mCurrentWeapon( mWeapons.end() )
    {
       // add default weapon...
       this->addWeapon( new NullWeapon );
@@ -32,7 +32,7 @@ namespace mw
    {
       //glEnable( GL_TEXTURE_2D );
       glPushMatrix();
-         glMultMatrixf( mXForm.getData() );
+         glMultMatrixf( this->matrix().getData() );
          glTranslatef( 0, 1, 0 );
          glPushMatrix();
             glScalef( 0.5f, 0.3f, 0.4f );
@@ -138,104 +138,32 @@ namespace mw
    gmtl::Vec3f Player::getBarrelEndPos() const
    {
       gmtl::Vec3f barrelEndPos = gmtl::Vec3f( 0, 2, -3 );
-      return (mRot * barrelEndPos) + mPos;
+      return (this->getRot() * barrelEndPos) + this->getPos();
    }
    
    gmtl::Vec3f Player::getForward() const
    {
       gmtl::Vec3f forward( 0,0,-1 );
-      return mRot * forward;
+      return this->getRot() * forward;
    }
    
-   const gmtl::Matrix44f& Player::matrix() const 
+   gmtl::Matrix44f Player::matrix() const 
    {
-      return mXForm;
+      // store the matrix from the pos/rot data...
+      gmtl::Matrix44f xform;
+      gmtl::set( xform, this->getRot() );
+      gmtl::setTrans( xform, gmtl::Vec3f( this->getPos() ) );
+      return xform;
    }
-      
-   void Player::setPos( const gmtl::Vec3f& pos )
-   {
-      mPos = pos;
-   }
-      
+
    void Player::update( GameState& gs, float timeDelta )
    {
-      // POS
-      // x' = v = vel in tank local coord system
-      gmtl::Vec3f pos_delta = mRot * mVel;
-      pos_delta *= timeDelta; // scale by time...
+      // @todo, use seconds not this weird range...
+      RigidBody::update( (long)(timeDelta * 1000000.0f) );
       
-      // add the derivative onto the tank's position
-      this->setPos( this->position() + pos_delta );
-      
-      /*
-      // ROT
-      // update ang velocity.
-      // change in rotation is 1/2 angvel times current rotation or...
-      // q' = 1/2 w * q, where w is a Vec3 who's magnitude is amount of angvel
-      // and who's axis defines the axis of rotation.
-      gmtl::Quatf rot_delta, temp;
-      temp.mult( mRotVel * 0.5f, mRot );
-      rot_delta.mult( temp, timeDelta );  // scale by time...
-      
-      // add the derivative onto the tank's rotation
-      mRot.add( mRot, rot_delta );
-      mRot.normalize();
-      */
-            
-      // XFORM
-      // store the matrix from the pos/rot data...
-      gmtl::set( mXForm, mRot );
-      gmtl::setTrans( mXForm, mPos );
-
       // update the current weapon
-      this->weapon().setPos( this->position() + this->rotation() * gmtl::Vec3f( 0, 0, -0.5f ) );
-      this->weapon().setRot( this->rotation() );
+      this->weapon().setPos( this->getPos() + this->getRot() * gmtl::Vec3f( 0, 0, -0.5f ) );
+      this->weapon().setRot( this->getRot() );
       this->weapon().update( gs, timeDelta );
-   }
-
-   const gmtl::Vec3f& Player::velocity() const
-   {
-      return mVel;
-   }
-   
-   // with repect to tank local coordinate system.
-   // i.e. if tank is rotated, then 0,0,-1 is always "forward" for the tank.
-   void Player::setVelocity( const gmtl::Vec3f& vel )
-   {
-      mVel = vel;
-   }
-   
-   // with repect to tank local coordinate system.
-   // i.e. if tank is rotated, then 0,0,-1 is always "forward" for the tank.
-   void Player::setVelocity( float x, float y, float z )
-   {
-      mVel.set( x, y, z );
-   }
-   
-   void Player::translate( const gmtl::Vec3f& offset )
-   {
-      mPos += offset;
-   }
-     
-   void Player::setRot( gmtl::Quatf r )
-   {
-      mRot = r;
-   }
-
-   // true ang velocity vector
-   // w = [0, mag, 0]
-   void Player::setAngVel( float magnitude )
-   {
-      //mRotVel = gmtl::makePure<gmtl::Quatf>( gmtl::Vec3f( 0.0f, 1.0f, 0.0f ) * magnitude );
-   }
-
-   const gmtl::Vec3f& Player::position() const
-   {
-      return mPos;
-   }
-
-   const gmtl::Quatf& Player::rotation() const
-   {
-      return mRot;
    }
 }// namespace.
