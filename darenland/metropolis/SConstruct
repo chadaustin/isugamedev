@@ -1,0 +1,49 @@
+import os
+import string
+pj = os.path.join
+
+def getSrcFiles(dir, src):
+	"""
+	Gets the source files in the specified directory
+	"""
+	dirs = []
+	for x in os.listdir(dir):
+		if os.path.isdir(pj(dir, x)):
+			getSrcFiles(pj(dir, x), src)
+		if x[-4:] == '.cpp':
+			src.append('#' + pj(dir, x))
+baseEnv = Environment(ENV = os.environ)
+
+# setup any elements of the environment that we want
+if ARGUMENTS.has_key('debug'):
+	baseEnv.Append(CXXFLAGS = ['-g'])
+else:
+	baseEnv.Append(CXXFLAGS = ['-O3', '-march=pentium4', '-mfpmath=sse'])
+baseEnv.Append(LIBS = ['GL', 'GLU', 'glut', 'SDL', 'pthread'])
+baseEnv.Append(CPPPATH = ['src/', '/usr/include/python2.2/', '#external/GMTL'])
+# baseEnv.Append(LIBPATH = ['./shared/lib'])
+# baseEnv.Append(LINKFLAGS = ['-shared'])
+
+# add any directories with necessary cpp files as arguments to this next function call
+src_files = []
+getSrcFiles("src", src_files)
+print src_files
+omit_files = ['#src/reality/EntityFactory.cpp',
+			     '#src/TestApp.cpp',
+				  '#src/Metropolis.cpp',
+				  '#src/python/metropolis.cpp']
+for x in omit_files:
+	if src_files.count(x) > 0:
+		src_files.remove(x)
+print 'Setting METRO_HOME to...' + os.getcwd()
+METRO_HOME = os.getcwd()
+Export('METRO_HOME')
+Export('baseEnv')
+baseEnv.SharedLibrary('./lib/metropolis', src_files)
+app_src = ['#src/TestApp.cpp',
+			  '#src/Metropolis.cpp']
+appEnv = baseEnv.Copy()
+appEnv.Append(LIBS = ['metropolis'], 
+              LIBPATH = ['#lib'])
+appEnv.Program('./metropolis', app_src)
+SConscript(dirs = Split('src/python/'))

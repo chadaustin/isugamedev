@@ -1,0 +1,111 @@
+Coding Standards:
+
+Header files should follow the falling structure:
+
+	// FileName.h
+	//
+	// Simple description of the class' function and any notes on use.
+
+	#ifndef _METRO_FILE_NAME_H_
+	#define _METRO_FILE_NAME_H_
+
+	#include <api_and_system_includes> // reason for inclusion
+
+	#include <utilities_like_stl_and_boost> // reason
+
+	#include "LocalIncludes" // reason
+
+	namespace metro
+	{
+		/**
+		 * The purpose of the class should go here if it's not
+		 * obvious.
+		 */
+		class FileName
+		{
+		public:
+			/**
+			 * My Function Description
+			 *
+			 * @param	with	with argument description
+			 * @param	args	args argument description
+			 * @return	description of return value
+			 */
+			int functions( char *with, char *args );
+		private:
+			// what is this var?
+			vector< int > mRefs;
+		};
+	}
+
+	#endif
+
+Source Files should look like this:
+
+// FileName.cpp
+
+#include "FileName.h"
+
+namespace metro
+{
+	void FileName::functions( char *with, char *arguments )
+	{
+		for ( int i = 0; i < 5; ++i )
+		{
+			int x = i + 3;
+			mRefs.push_back( x );
+		}
+	}
+}
+
+Here's a list of the rules being followed:
+
+- All files should start with a line '// filename'
+
+- Header files should continue with a commented description of their purpose.
+
+- Macro guard should always be: '_METRO_' + FILE_NAME_WITH_SPACES_BETWEEN_WORDS + '_H_'
+
+- Header files continue with System and API headers, utility headers, and local headers, 
+  seperated into blocks and commented with at least a general reason for why they're used.
+
+- All code should be explititly enclosed in a metro namespace tag. NOT using namespace metro.
+
+- In header files, protection blocks should be ordered public, protected, private, and there should
+  be only one of each block.
+
+- In a source file, the order of functions should follow their order of definition in the
+  matching header file.
+
+- Public member functions should use doxygen style comments; see above for
+  an example of this.
+
+- Functions should always be declared and called like so: func( arg, arg )
+  note that the opening ( is not spaced from the name, but that there is a space between every ()
+  and the argument it borders, as well as after each ','.
+
+- Similarly for creating a template instance, each <> should have a space between it and the type.
+
+- Operators should always have a space between their operands (such as x = 3 + 4), except for the
+  '.', '->', and '*' operator.
+
+- member variables should always start with an 'm'.
+
+- standard rules for capitals in variable and class names apply.
+
+- Todo notation should always contain the text TODO in the comment, with exactly that capitalization
+
+- Brackets: brackets should always be at the same level as their 'header' line, and each on their own line:
+  for ( ... )
+  {
+    ...;
+  }
+
+- Brackets may be ommitted from one-line control statements. The affected statement should be on the next
+  line and indented.
+  if ( ... )
+    statement;
+
+- One line functions should still be placed correctly in the corresponding .cpp file.
+
+- Tabs: all lines should be indented using tabs.

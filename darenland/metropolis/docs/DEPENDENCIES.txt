@@ -1,0 +1,19 @@
+Deps:
+
+Python: the python framework is required to build the parser into metropolis. This
+	is used for scripting game logic, basically handling the rule-set.
+
+Boost headers: used for their magical shared_ptr class. They make the baby jesus happy.
+
+Boost.Python: the boost python library must be available so that our python scripts
+	can import and use C++ libraries. This is a major element of the app architecture.
+
+Boost.Spirit: used to define the grammer of our data files, and generate parsers for them.
+	(this may only be needed the first time we generate them.)
+
+OpenGL: obviously.
+
+SDL: cross-platform framework for 3d context creation and input handling.
+
+SCons: the build system that we will use on linux and likely on windows as well (also
+	maybe Visual Studio).

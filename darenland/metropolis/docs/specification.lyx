@@ -1,0 +1,86 @@
+#LyX 1.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 221
+\textclass article
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\use_natbib 0
+\use_numerical_citations 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+Metropolis Design Specification
+\layout Author
+
+Johnathan Gurley, Andres Reinot, Evan Rothmeyer, Jeff Russell
+\layout Section
+
+Introduction
+\layout Paragraph
+
+This document is the design specification for the game Metropolis.
+ According to Game Architecture and Design, the design specification communicate
+s how the game will work to everyone, and how you see that end result being
+ accomplished.
+ It suggests covering the following aspects of the game: features, gameplay,
+ interface, rules and level design.
+ 
+\layout Section
+
+Features
+\layout Subsection
+
+Introduction
+\layout Paragraph
+
+The features are what make the game different from other games.
+ 
+\layout Subsection
+
+Overview
+\layout Paragraph
+
+Metropolis is a mission based Action-RPG, with a 3D isometric view, hex-tile
+ realtime movement and turn-based combat.
+ The following is a list of features with their descriptions.
+\layout Section
+
+Gameplay
+\layout Subsection
+
+Introduction
+\layout Paragraph
+
+The gameplay of metropolis is similar to that of an Action-RPG.
+ The action comes from the movement and the style of the missions.
+ The RPG elements come from the character statistics and combat rules.
+ 
+\layout Section
+
+Interface
+\layout Section
+
+Rules
+\layout Section
+
+Level Design
+\layout Section
+
+References
+\the_end

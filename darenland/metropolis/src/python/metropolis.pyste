@@ -1,0 +1,41 @@
+# This file is a pyste interface file for metropolis.
+# Pyste parses this file and generates the necessary Boost.Python C++ sources.
+
+# Python has access to the entities and the world for now.
+
+# gmtl::Point<> ===============================================================
+#Point = Template('gmtl::Point', 'gmtl/Point.h')
+#exclude(Point.getData)
+#exclude(Point.mData)
+#Point2i = Point('int 2')
+#rename(Point2i, 'Point2i')
+# =============================================================== gmtl::Point<>
+
+# Converters ==================================================================
+#point2i_to_tuple = Class('metro::point2i_to_tuple', 'python/metropolis-converters.h')
+Include('python/metropolis-converters.h')
+# ================================================================== Converters
+
+# Entities ====================================================================
+Entity = Class('metro::Entity', 'reality/Entity.h')
+use_shared_ptr(Entity)
+#final(Entity.draw)
+# ==================================================================== Entities
+
+# World =======================================================================
+World = Class('metro::World', 'reality/World.h')
+# Necessary for the Singleton to behave as expected
+set_policy(World.instance, return_value_policy(reference_existing_object))
+# These aren't implemented right now
+exclude(World.getEdgeState)
+exclude(World.setEdgeState)
+exclude(World.getLock)
+# ======================================================================= World
+
+# EdgeState ===================================================================
+Enum('metro::EdgeFlag', 'reality/EdgeState.h')
+# =================================================================== EdgeState
+
+# Lock ========================================================================
+Class('metro::Lock', 'reality/Lock.h')
+# ======================================================================== Lock

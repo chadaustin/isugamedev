@@ -1,0 +1,136 @@
+#LyX 1.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 221
+\textclass article
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\use_natbib 0
+\use_numerical_citations 0
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+
+\layout Title
+
+Metropolis Treatment Documentation
+\layout Author
+
+Johnathan Gurley, Andres Reinot, Evan Rothmeyer, Jeff Russell
+\layout Section
+
+Overview
+\layout Subsection
+
+The Game
+\layout Standard
+
+Metropolis is a mission based Action RPG.
+\layout Subsection
+
+Overview
+\layout Standard
+
+In Metropolis, a team of mercenaries executes vicarious missions in different
+ settings.
+ The missions range from robbery, information retrieval, assassination,
+ and protection.
+ Each of the mercenaries have different skills which are all necessary to
+ complete the missions thus requiring them to work together as a team.
+\layout Subsection
+
+Background
+\layout Standard
+
+Metropolis takes place in a futuristic Hawaii that features cities both
+ above and below water.
+ The cities feature dome style buildings with 1930's dome cars.
+ In the world of Metropolis, corporations have gained power that rivals
+ the government's, and in some cases, surpasses it.
+ The corporations have separate and often conflicting goals with both each
+ other and the government.
+ Due to the increased technology of the media, the corporations must keep
+ a very low profile with any and all 
+\begin_inset Quotes eld
+\end_inset 
+
+quasi-legal
+\begin_inset Quotes erd
+\end_inset 
+
+ activity.
+ This has given rise to a mercenary profession in the underworld, the shadowrunn
+er.
+ 
+\layout Standard
+
+The shadowrunner has no 
+\begin_inset Quotes eld
+\end_inset 
+
+official
+\begin_inset Quotes erd
+\end_inset 
+
+ existance as a citizen, however, interpol and other government agencies
+ (not to mention corporations) often maintain databases of runners affiliated
+ with their enemies (and allies).
+ Shadowrunners can be called on by anyone to do anything...for the right price.
+ Teams of runners will execute runs for various political factions; the
+ types of runs will include sabotage, theft, assassination, transportation,
+ and proliferation.
+ 
+\layout Standard
+
+Due to the covert nature of their operations, the police do not provide
+ a realiable source of protection against shadowrunner attacks.
+ Henceforth, corporations usually employ their own shadowrunners to protect
+ their valuable assets.
+ This need has also given rise to security corporations that specialize
+ in the protection of people, buildings, information networks, and technology.
+ 
+\layout Standard
+
+The shadowrunners, however, are not immune to police prosecution; they must
+ keep a low profile to avoid having their crimes recorded.
+ Even if they successfully complete runs, if they are spotted, corporations
+ often share their data on runners with the police...and other personal enemies
+ of the shadowrunners in question.
+\layout Subsection
+
+The Player
+\layout Standard
+
+In Metropolis, the player controls a group of shadowrunners.
+ They start out relatively inexperienced.
+ As the game progresses and the shadowrunners successfully complete missions,
+ their skills will improve as well as their resources, which enables them
+ to take on more challenging missions and purchase more sophisticated gear.
+ 
+\layout Section
+
+Setting
+\layout Subsection
+
+Hawaii
+\layout Standard
+
+The setting for Metropolis is a futuristic Hawaii.
+ The city will feature sleek dome shaped cars with a 1950's spin.
+ There are several design sketches available that demonstrate this style.
+ The setting will also include underwater cities that are scattered around
+ the islands; the islands are the hub of the surrounding cities.
+ 
+\the_end

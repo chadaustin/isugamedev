@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>Evan's House 'O Fun</title>
+	</head>
+	<body bgcolor="#FFFFFF">
+		Hi all! How's it going? I'm going to try putting an <img src="something.gif"/> here, and see what happens!
+		<table border="0" width="100%">
+			<tr>
+				<td>Some text.</td>
+				<td>Some more text.</td>
+			</tr>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,13 @@
+Todo:
+
+Figure out where we want to calculate DT and implement.
+
+Start an Entity inheritance tree.
+
+Define a grammer for object and map files, and get all that compiled.
+
+Loaders for the object and map files. (including data structures to load into)
+
+Start on the Event structure, hopefully we can get an inputHandler going here pretty quickly.
+
+Expand on this TODO list.

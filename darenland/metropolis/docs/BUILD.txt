@@ -1,0 +1,4 @@
+Build:
+
+Right now, this setup is basically dependent on being built on the ptah machines.
+It links some Boost libs directly from my home directory. How do we want to fix this?

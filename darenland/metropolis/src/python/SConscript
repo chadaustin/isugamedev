@@ -1,0 +1,72 @@
+# Builds the Boost.Python extensions for Metropolis
+
+import os, sys, string
+pj = os.path.join
+
+def SetupPython(env, requiredVersion):
+   "Sets up the environment for Python"
+   print 'Looking for python 2.2 ...'
+   python = WhereIs('python')
+   if not python:
+      print 'WARNING: Can\'t find python executable'
+      return
+
+   py_cmd = python + ' -c \'import sys; print sys.prefix; print sys.version[:3]\''
+   (prefix, py_ver) = string.split(os.popen(py_cmd).read())
+
+   # Version must match
+   if py_ver != requiredVersion:
+      print 'WARNING: Python version ' + py_ver + ' != ' + requiredVersion
+      return
+
+   # Build up the env information
+   py_cpppath = pj(prefix, 'include', 'python'+py_ver)
+   py_libpath = pj(prefix, 'lib', 'python'+py_ver, 'config')
+   py_lib = 'python'+py_ver
+
+   # Setup the env
+   env.Append(CPPPATH   = [py_cpppath],
+              LIBPATH   = [py_libpath],
+              LIBS      = [py_lib, 'pthread', 'util'])
+
+Import('baseEnv METRO_HOME')
+
+builders = {
+   'Pyste'     : Builder(action = '$PYTHON $PYSTE $CPPFLAGS --debug --module=${TARGET.filebase} --out=$TARGET $SOURCES && $PYTHON $CONVERTER $CONVERTER_SRC $CONVERTER_DEST',
+                         suffix = '.cpp',
+                         src_suffix = '.pyste')
+}
+
+LIBPATH = ['#lib']
+CPPPATH = ['#src']
+
+LIBS = []
+
+pyste_env = baseEnv.Copy(BUILDERS = builders)
+SetupPython(pyste_env, '2.2')
+
+pyste_env['with_pyste'] = WhereIs('pyste.py')
+if pyste_env['with_pyste'] == None:
+	print """[ERR] Pyste not found.  You must have pyste installed to build the
+	python extenstions."""
+	print """[WRN] Python bindings skipped."""
+else:
+	pyste_env['PYTHON'] = WhereIs('python')
+	pyste_env['PYSTE'] = pyste_env['with_pyste']
+	pyste_env['CPPPATH'].extend(CPPPATH)
+	pyste_env['CPPFLAGS'] = map(lambda x: '-I'+x, pyste_env['CPPPATH'])
+	for x in range(0, len(pyste_env['CPPFLAGS'])):
+		pyste_env['CPPFLAGS'][x] = string.replace(pyste_env['CPPFLAGS'][x], '#', pj(METRO_HOME, ''))
+	pyste_env['CONVERTER'] = pj(METRO_HOME, 'src', 'python', 'loadConverters.py')
+	pyste_env['CONVERTER_SRC'] = pj(METRO_HOME, 'src', 'python', 'converters.in')
+	pyste_env['CONVERTER_DEST'] = pj(METRO_HOME, 'src', 'python', 'metropolis.cpp')
+	# Source files for pyste go here.
+	sources = [
+		'metropolis'
+	]
+	pyste_env.Pyste('metropolis', source = map(lambda x: x+'.pyste', sources))
+	#AddPostAction(pyste_env.target, '$PYTHON $CONVERTER $CONVERTER_SRC $CONVERTER_DEST')
+	pymet_env = baseEnv.Copy(CPPPATH = CPPPATH,
+	 								 LIBPATH = LIBPATH)
+	pymet_env.Append(LIBS = ['boost_python', 'metropolis'])
+	pymet_env.SharedLibrary('metropolis', source = map(lambda x: x+'.cpp', sources), SHLIBPREFIX='')
