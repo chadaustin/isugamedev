@@ -6,8 +6,10 @@ import string
 Default('.')        # build everything by default
 
 CPPPATH=['#']
+
 # setup the environment
 env = Environment(CPPPATH=CPPPATH, ENV=os.environ)
 Export('env')
-SConscript('net/SConscript')
 SConscript('client/SConscript')
+SConscript('net/SConscript')
+SConscript('thread/SConscript')

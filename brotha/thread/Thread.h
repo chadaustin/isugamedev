@@ -2,8 +2,8 @@
 #define THREAD_THREAD_H
 
 
-#include "Synchronized.h"
 #include <prthread.h>
+#include "Synchronized.h"
 
 
 namespace thread {

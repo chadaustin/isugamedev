@@ -1,0 +1,8 @@
+Linux
+
+Get ftp://ftp.mozilla.org/pub/nspr/releases/v4.1.2/Linux2.4_x86_glibc_PTH_OPT.OBJ/nspr-4.1.2.tar.gz
+
+
+Windows (VC6 or VS.NET?)
+
+Get ftp://ftp.mozilla.org/pub/nspr/releases/v4.1.2/WINNT4.0_OPT.OBJ/nspr-4.1.2.zip
