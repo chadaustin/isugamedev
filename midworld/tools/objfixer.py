@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: objfixer.py,v $
-# Date modified: $Date: 2002-09-20 09:33:42 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-11-14 11:21:41 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 ############################################################## midworld-cpr end
 import os, re, sys
@@ -34,7 +34,9 @@ import os, re, sys
 # up so that OpenSG will grok it without error.
 #------------------------------------------------------------------------------
 
+UNIT_MM  = 0.001
 UNIT_CM  = 0.01
+UNIT_DM  = 0.1
 UNIT_M   = 1
 UNIT_FT  = 0.304801
 
@@ -45,10 +47,14 @@ if len(sys.argv) < 3:
    sys.exit(1)
 
 baseunit_opt = sys.argv[1]
-if baseunit_opt == 'cm':
+if baseunit_opt == 'mm':
+   baseunit = UNIT_MM
+elif baseunit_opt == 'cm':
    baseunit = UNIT_CM
 elif baseunit_opt == 'm':
    baseunit = UNIT_M
+elif baseunit_opt == 'dm':
+   baseunit = UNIT_DM
 elif baseunit_opt == 'ft':
    baseunit = UNIT_FT
 else:
