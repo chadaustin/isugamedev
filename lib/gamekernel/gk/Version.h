@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Version.h,v $
-// Date modified: $Date: 2002-02-21 05:13:43 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-14 06:39:35 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -57,12 +57,6 @@ namespace gk
     * Returns the GameKernel patch version.
     */
    extern unsigned int getVersionPatch();
-
-   /**
-    * Returns the string representation of the GameKernel build version. This is
-    * in the form of YYYYMMDD_HHMMSS
-    */
-   extern std::string getBuildVersion();
 
 } // namespace gk
 

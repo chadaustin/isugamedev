@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-26 01:34:22 $
-# Version:       $Revision: 1.5 $
+# Date modified: $Date: 2002-03-14 06:39:35 $
+# Version:       $Revision: 1.6 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -62,7 +62,7 @@ SRCS = \
 	GameInput.h \
 	GameKernel.h \
 	GameKernel.cpp \
-   gk.h \
+	gk.h \
 	gkCommon.h \
 	Input.h \
 	InputInterface.h \
@@ -103,7 +103,6 @@ include ${MK_DIR}/mk.objs
 # default targets
 default: all
 all:
-	$(top_srcdir)/tools/makever.sh --version-file="$(top_srcdir)/VERSION" $(top_srcdir)/gk/gkVersion.h.in
 	$(MAKE) DO_DEPEND=Y all-redirect
 
 all-redirect: $(LIB_FILENAME) $(STATIC_LIB_FILENAME)

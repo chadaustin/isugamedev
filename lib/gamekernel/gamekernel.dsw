@@ -18,7 +18,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "gkglut"=.\gkglut.dsp - Package Owner=<4>
+Project: "glut"=.\DRIVERS\glut\glut.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -45,7 +45,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "xmlpp"=.\xml\xmlpp.dsp - Package Owner=<4>
+Project: "xmlpp"=.\xmlpp\xmlpp.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
