@@ -1,5 +1,6 @@
-SRCS = maketables.c get.c study.c pcre.c \
-	regexx.cc split.cc
+SRCS1 = maketables.c get.c study.c pcre.c \
+	regexx.cpp split.cpp
+SRCS2 = testregexx.cpp
 
 PROJECT_NAME = regexx
 MK_DIR = ../mk
@@ -15,8 +16,8 @@ all:
 	@echo "Making regexx"
 	@echo "==============="
 	@echo " "
-	$(MAKE) regexx CXX_FLAGS='$(CXX_SHARED_FLAGS)'
-	$(MAKE) testapp CXX_FLAGS='$(CXX_STATIC_FLAGS)'
+	$(MAKE) regexx SRCS='$(SRCS1)' CXX_FLAGS='$(CXX_SHARED_FLAGS)'
+	$(MAKE) testapp SRCS='$(SRCS2)' CXX_FLAGS='$(CXX_STATIC_FLAGS)'
 
 regexx: $(OBJS)
 	@echo " "
@@ -26,13 +27,13 @@ regexx: $(OBJS)
 	@echo " "
 	$(SO_LINKER) $(SO_FLAGS) $(OBJS) $(OUTPUT_LIB_FLAG)$(LIB_FILENAME)
 
-testapp:
+testapp: $(OBJS)
 	@echo " "
 	@echo "------------------------------------"
 	@echo "Making regexx test app (testregexx)"
 	@echo "------------------------------------"
 	@echo " "
-	$(EXE_LINKER) $(EXE_FLAGS) $(INCLUDE_PATHS) testregexx.cc $(OUTPUT_EXE_FLAG) testregexx$(EXE_FILE_SUFFIX) -L. -lregexx
+	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS) $(OUTPUT_EXE_FLAG)testregexx$(EXE_FILE_SUFFIX) regexx.lib
 
 clean:
 	-rm $(OBJS)
