@@ -9,6 +9,10 @@
 
 namespace lr
 {
+   // forward declarations
+   class Player;
+   class BadGuy;
+   
    /**
     * helper class to deal with when the player burns a block out 
     */
@@ -43,7 +47,7 @@ namespace lr
       /**
        * this method reads a level file in
        */
-      void readLevelFile(const std::string& file);
+      void readLevelFile(const std::string& file, Player* p, BadGuy* b);
 
       /**
        * this method returns the entity type at a given location in the level

@@ -14,7 +14,7 @@ namespace lr
 
       currentTexture = guy1;
       initTime = offset = 0;
-      keyup = keydown = transition =  false;
+      keyup = keydown = transition = escape = false;
    }
 
    IntroState::~IntroState()
@@ -43,6 +43,9 @@ namespace lr
       }else if(sym == SDLK_RETURN && down)
       {
          transition = true;
+      }else if(sym == SDLK_ESCAPE && down)
+      {
+         escape = true;
       }
    }
    
@@ -57,11 +60,12 @@ namespace lr
          }
          initTime=0;
       }
-      if(keydown && offset<50)
+      if(keydown && offset<80)
          offset++;
       if(keyup && offset>0)
          offset--;
    }
+
 
    void IntroState::draw()
    {
@@ -89,22 +93,36 @@ namespace lr
       glTranslatef(295,400+offset,0);
       currentTexture->drawRectangle(0,0,16,32);
       glTranslatef(-295,-(400+offset),0);
-      if(offset==0)
+      if(offset<5)
       {
          select->drawRectangle(325,380,550,440);
       }
-      if(offset==50)
+      if(offset>35 && offset<50)
       {
-         select->drawRectangle(325,440,550,490);
+         select->drawRectangle(325,420,550,480);
       }
+      if(offset>75)
+      {
+         select->drawRectangle(325,460,550,520);
+      }
+      transition = false;
    }
 
-   bool IntroState::switchStates()
+   int IntroState::switchStates()
    {
-      if (transition)
-         return true;
-      else
-         return false;
+      if (transition && offset < 5)
+      {
+         return 1;
+      }else if(transition && offset>35 && offset<50)
+      {      
+         return 2;
+      }else if(transition && offset>75)
+      {
+         return 3;
+      }else if(escape)
+      {
+         return 4;
+      }
    }
       
 } // end namespace

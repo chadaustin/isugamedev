@@ -4,6 +4,8 @@
 #include <vector>
 
 #include "Level.h"
+#include "Player.h"
+#include "BadGuy.h"
 
 namespace lr
 {
@@ -87,7 +89,7 @@ namespace lr
       delete moneyImage;
    }
 
-   void Level::readLevelFile(const std::string& file)
+   void Level::readLevelFile(const std::string& file, Player* p, BadGuy* b)
    {
       std::ifstream in;
       in.open(file.c_str());
@@ -113,6 +115,15 @@ namespace lr
             {
                mLevel[j][i] = money;
                numBags++;
+            }else if(temp==5){
+               mLevel[j][i] = empty;
+               b->setHeight(i*32);
+               b->setPos(j*32);
+            }
+            else if(temp==6){
+               mLevel[j][i] = empty;
+               p->setHeight(i*32);
+               p->setPos(j*32);
             }
          }
       }

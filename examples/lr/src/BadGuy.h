@@ -1,39 +1,41 @@
-#ifndef LR_PLAYER_H
-#define LR_PLAYER_H
+#ifndef LR_BAD_GUY_H
+#define LR_BAD_GUY_H
 
-
-#include <iostream>
-#include <SDL.h>
-#include <SDL_opengl.h>
-
-#include "Types.h"
+#include "Player.h"
 
 namespace lr
 {
    // forward declarations
    class Level;
    class Texture;
+   class Player;
 
-   class Player{
+   /**
+    * I wish I woudl have created an abstract base person class to derive 
+    * both player and badguy from but since I didn't think that far ahead
+    * I'm stuck with duplicating a bunch of code :(  
+    */
+   class BadGuy 
+   {
    public:
       /**
        * default constructor
        */
-      Player();
+      BadGuy();
 
       /**
        * constructor
        * sets the position of the player to 0,1
        */
-      Player(Level& theLevel);
+      BadGuy(Level& theLevel, Player& thePlayer);
       
       /**
        * copy constructor
        * automatically starts with texture 0 for running.
        * @params Pheight and Ppos should take a floats between 0 and 1024 and 0
-       * and 768.
+       * and 768 respectively.
        */
-      Player(float Pheight, float Ppos, playerState Pstate)
+      BadGuy(float Pheight, float Ppos, playerState Pstate)
       {
          realHeight = Pheight;
          realPos = Ppos;
@@ -44,7 +46,7 @@ namespace lr
       /**
        * destructor
        */
-      ~Player();
+      virtual ~BadGuy();
       
       /**
        * update checks to see if we should move the player, if we should move then
@@ -69,23 +71,22 @@ namespace lr
       int getGridHeight(){ return (int)realHeight/32; }
 
       /**
-       * Set the position of the player to a certain location
+       * Set the position of the badguy to a certain location
        * @params pos is the actual position NOT the grid position
        */
       void setPos(int pos);
 
       /** 
-       * set the height of the player to a certain location
+       * set the height of the badguy to a certain location
        * @params h is the actual height NOT the grid height
        */
       void setHeight(int h);
            
-      
       /**
        * this is the keypress handler, it stores which keys were pressed since
        * the last update that we went through
        */
-      virtual void handleKeyPress(SDLKey sym, bool down);
+      void handleKeyPress(SDLKey sym, bool down);
 
       
       /**
@@ -100,26 +101,6 @@ namespace lr
       bool ladderUnder();  // returns true if there is a ladder under us
       bool brickUnder();   // returns true if there is bricks under us
       bool isMoney();      // returns true if we are touching a money bag.
-      
-      /** 
-       * method to return the integer number of lives this player currently has
-       */
-      int getLives();
-
-      /**
-       * mehtod to return the score the player has accumulated
-       */
-      int getScore();
-
-      /**
-       * setLives sets the number lives this player has to the given number
-       */
-      void setLives(int lives){ numLives = lives; }
-
-      /**
-       * setScore sets the score of for the player to s
-       */
-      void setScore(int s){ score = s; }
       
    private:
       float realPos;    // players real position on the screen from 0 to 1024
@@ -154,23 +135,25 @@ namespace lr
                               //  5 = hanging
       
       /** 
-       * the player keeps a reference to the level so that he can test to see what
+       * the badguy keeps a reference to the level so that he can test to see what
        * is in it
        */
       Level* mLevel;
 
-      /** players score */
-      int score;
+      /** 
+       * the badguy keeps a reference to the player so he knows where he is at all times
+       */
+      Player* mPlayer;
 
-      /** number of lives this player has left */
-      int numLives;
-
+      
       /** variables for update that get set in handleKeyPress - blah */
-      bool keyup, keydown, keyleft, keyright, burnright, burnleft;
+      bool keyup, keydown, keyleft, keyright;
 
       /** float to help us with timing issues with textures */
       float initTime;
    };
 
 } // end namespace
-#endif
+#endif     
+
+ 

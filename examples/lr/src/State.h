@@ -55,7 +55,7 @@ namespace lr
        * switchState is a pure virtual that is ment to be used by derived
        * classes to tell the application to change states to the next state
        */
-      virtual bool switchStates() = 0;
+      virtual int switchStates() = 0;
 
       void quit();
       bool isQuitting();

@@ -5,6 +5,7 @@
 
 #include "State.h"
 
+
 namespace lr
 {
    class Application;
@@ -12,6 +13,7 @@ namespace lr
    class Player;
    class Texture;
    class ScoreBoard;
+   class BadGuy;
 
    class GameState : public State
    {
@@ -43,12 +45,15 @@ namespace lr
       void onKeyPress(SDLKey sym, bool down);
 
 
-      bool switchStates();
+      int switchStates();
       
    private:
       Level* mLevel;
       Player* mPlayer;
       ScoreBoard* mScoreBoard;
+      BadGuy* mBadGuy;
+
+      bool transition;
    };
 
 } // end namespace

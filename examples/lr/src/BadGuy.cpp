@@ -1,61 +1,46 @@
 #include <string>
 #include <iostream>
 
+#include "BadGuy.h"
+#include "Level.h"
 #include "Player.h"
 #include "Texture.h"
 #include "Types.h"
-#include "Level.h"
+
 
 namespace lr
 {
-   Player::Player()
+   BadGuy::BadGuy()
    {
    }
 
-   void Player::draw(){
+   void BadGuy::draw(){
       currentTexture->drawRectangle(realPos, realHeight+32, realPos+16, realHeight);
    }
 
-   Player::Player(Level& theLevel){
+   BadGuy::BadGuy(Level& theLevel, Player& thePlayer){
       mLevel = &theLevel;
-      realHeight = 32;
+      mPlayer = &thePlayer;
+      realHeight = 768-64;
       realPos = 32;
       mTextureState = run1;
 
       // init all the keys to not down
-      keyup = keydown = keyleft = keyright = burnright = burnleft = false;
+      keyup = keydown = keyleft = keyright = false;
 
       // create the textures
-      run1Image = Texture::create(std::string("lr1.png"));
-      run2Image = Texture::create(std::string("lr2.png"));
-      climb1Image = Texture::create(std::string("lr-climb1.png"));
-      climb2Image = Texture::create(std::string("lr-climb2.png"));
-      hang1Image = Texture::create(std::string("lr-hang1.png"));
-      hang2Image = Texture::create(std::string("lr-hang2.png"));
+      run1Image = Texture::create(std::string("lr-bg-1.png"));
+      run2Image = Texture::create(std::string("lr-bg-2.png"));
+      climb1Image = Texture::create(std::string("lr-bg-climb1.png"));
+      climb2Image = Texture::create(std::string("lr-bg-climb2.png"));
+      hang1Image = Texture::create(std::string("lr-bg-hang1.png"));
+      hang2Image = Texture::create(std::string("lr-bg-hang2.png"));
 
       currentTexture = run1Image;
       initTime = 0.0;
-
-      // set lives to 1
-      numLives = 3;
-
-      // set the score to 0
-      score = 0;
-
    }
 
-   int Player::getLives()
-   {
-      return numLives;
-   }
-
-   int Player::getScore()
-   {
-      return score;
-   }
-   
-
-   void Player::update(float dt)
+   void BadGuy::update(float dt)
    {
       textureState tempState;
       bool updateTex=false;
@@ -123,14 +108,15 @@ namespace lr
       if(isMoney())
       {
          mLevel->setEmpty(getGridPos(), getGridHeight());
-         score+=100;
       }
 
+      std::cout << "fps: " << 1/dt << std::endl;
       if((initTime+=dt)>.08 && updateTex==true)
       {
          std::cout << "change texture" << std::endl;
-         if(tempState==hang1)  // are we hanging
+         if(tempState==hang1)
          {
+            std::cout << "hanging" << std::endl;
             if(mTextureState!=hang1){
                mTextureState=hang1;
                currentTexture = hang1Image;
@@ -138,8 +124,9 @@ namespace lr
                mTextureState=hang2;
                currentTexture = hang2Image;
             }
-         }else if(tempState==run1)  // are we running
+         }else if(tempState==run1)
          {
+            std::cout << "running" << std::endl;
             if(mTextureState!=run1){
                mTextureState=run1;
                currentTexture = run1Image;
@@ -147,8 +134,9 @@ namespace lr
                mTextureState=run2;
                currentTexture = run2Image;
             }
-         }else if(tempState==climb1) // are we climbing 
+         }else if(tempState==climb1)
          {
+            std::cout << "climbing" << std::endl;
             if(mTextureState!=climb1){
                mTextureState=climb1;
                currentTexture = climb1Image;
@@ -159,50 +147,31 @@ namespace lr
          }
          initTime=0;
       }
-      // if we are supposed to burn the right bricks out then do it
-      if(burnright)
-      {
-         if((mLevel->getEntityType(getGridPos()+1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()+1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()+1, getGridHeight())!=ladder))
-            mLevel->burn(getGridPos()+1, getGridHeight()-1);
+      SDLKey temp;
+      handleKeyPress(temp, true);
 
-      }
-      //if we are supposed to burn the left bricks out then do it
-      if(burnleft)
-      {
-         if((mLevel->getEntityType(getGridPos()-1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()-1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()-1, getGridHeight())!=ladder))
-         mLevel->burn(getGridPos()-1, getGridHeight()-1);
-      }
+      
    }
 
-   void Player::setPos(int pos)
-   {
-      realPos = pos;
-   }
-
-   void Player::setHeight(int h)
-   {
-      realHeight = h;
-   }
-   
-   Player::~Player()
+   BadGuy::~BadGuy()
    {
    }
 
-   bool Player::ladderUnder()
+   bool BadGuy::ladderUnder()
    {
       if(mLevel->getEntityType(getGridPos(), (getGridHeight()-1)==ladder))
          return true;
       return false;
    }
 
-   bool Player::brickUnder()
+   bool BadGuy::brickUnder()
    {
       if(mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==brick)
          return true;
       return false;
    }
    
-   bool Player::solidUnder()
+   bool BadGuy::solidUnder()
    {
       // if the block below us is a ladder or brick and we are at the bottom of
       // our current block then return true else return false
@@ -215,14 +184,14 @@ namespace lr
       return false;
    }
 
-   bool Player::onWire()
+   bool BadGuy::onWire()
    {
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==wire && (int)realHeight%32==0)
          return true;
       return false;
    }
 
-   bool Player::onLadder()
+   bool BadGuy::onLadder()
    {
       realPos+=8;
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==ladder)
@@ -235,15 +204,25 @@ namespace lr
       
    }
 
-   bool Player::isMoney()
+   bool BadGuy::isMoney()
    {
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==money)
          return true;
       return false;
    }
          
+   void BadGuy::setPos(int pos)
+   {
+      realPos = pos;
+   }
 
-   bool Player::brickRight()
+   void BadGuy::setHeight(int h)
+   {
+      realHeight = h;
+   }
+
+   
+   bool BadGuy::brickRight()
    {
       if((mLevel->getEntityType(getGridPos()+1, getGridHeight())==brick) && (int)realPos%32>=16)
          return true;
@@ -252,53 +231,49 @@ namespace lr
       return false;
    }
 
-   bool Player::brickLeft()
+   bool BadGuy::brickLeft()
    {
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
          return true;
       return false;
    }
 
-   void Player::handleKeyPress(SDLKey sym, bool down)
+   /**
+    * the handleKeyPress method for the badguys is where the ai happens.
+    * Instead of having the ai controlling the location and direction of the 
+    * badguy we have the ai decide which key's to press. 
+    * NOTE:  we now call this method from badguys update method instead of 
+    * getting called from the application since it would only get called on a
+    * keypress that way.
+    */
+   void BadGuy::handleKeyPress(SDLKey sym, bool down)
    {
-      if(sym == SDLK_DOWN && down)
-      {
-         keydown = true;
-      }else if(sym == SDLK_UP && down)
-      {
-         keyup = true;
-      }else if(sym == SDLK_LEFT && down)
-      {
-         keyleft = true;
-      }else if(sym == SDLK_RIGHT && down)
+      // our (albeit stupid) ai works like this we see which directions the
+      // player is from us (up,down,left,right) then we set those keys to be
+      // true.
+      if(mPlayer->getGridPos()>getGridPos()) // the player is right of us
       {
          keyright = true;
-      }else if(sym == SDLK_DOWN && !down)
-      {
-         keydown = false;
-      }else if(sym == SDLK_UP && !down)
-      {
-         keyup = false;
-      }else if(sym == SDLK_LEFT && !down)
-      {
          keyleft = false;
-      }else if(sym == SDLK_RIGHT && !down)
+      }else // the player is right of us 
       {
+         keyleft = true;
          keyright = false;
-      }else if(sym == SDLK_f && down)
-      {
-         burnright = true;
-      }else if(sym == SDLK_f && !down)
-      {
-         burnright = false;
-      }else if(sym == SDLK_d && down)
-      {
-         burnleft = true;
-      }else if(sym == SDLK_d && !down)
-      {
-         burnleft = false;
       }
-   }
+      if(mPlayer->getGridHeight()>getGridHeight()) // player is above us
+      {
+         keyup = true;
+         keydown = false;
+      }else // player is below us
+      {
+         keydown = true;
+         keyup = false;
+      }
+      if(mPlayer->getGridHeight()==getGridHeight() && mPlayer->getGridPos()==getGridPos())
+      {
+         mLevel->readLevelFile(std::string("level1.lvl"), mPlayer, this);
+         mPlayer->setLives(mPlayer->getLives()-1);
+      }
 
-   
+   }
 } // end namespace

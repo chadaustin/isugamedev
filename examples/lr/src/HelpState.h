@@ -1,5 +1,5 @@
-#ifndef LR_INTRO_STATE_H
-#define LR_INTRO_STATE_H
+#ifndef LR_HELP_STATE_H
+#define LR_HELP_STATE_H
 
 #include "State.h"
 
@@ -8,11 +8,11 @@ namespace lr
    class Application;
    class Texture;
 
-   class IntroState : public State
+   class HelpState : public State
    {
    public:
-      IntroState( Application* a);
-      ~IntroState();
+      HelpState( Application* a);
+      ~HelpState();
 
       /**
        * implementation of update from State class
@@ -34,18 +34,12 @@ namespace lr
        */
       int switchStates();
    private:
-      Texture* mIntroImage;
-      Texture* select;
-      Texture* guy1;
-      Texture* guy2;
-      // pointer to the current texture
-      Texture* currentTexture;
-      // up and down keys for looking through the menu choices
-      bool keyup, keydown, transition, escape;
-
-      float initTime;
-      int offset;
+      Texture* mHelpImage;
       
+      
+      // up and down keys for looking through the menu choices
+      bool transition;
+
    };
 } // end namespace
 
