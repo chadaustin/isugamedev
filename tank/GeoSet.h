@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-09-20 19:08:22 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-26 22:57:25 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -72,17 +72,22 @@
 class GeoSet : public RefObj
 {
 public:
-   GeoSet() : mGstate( NULL ), mNumVerts( 6969 ), mPrimitiveType( GeoSet::TRIS ), mNumPrimitives( 9696 )
+   GeoSet() : mName( "geoset_name" ), mGstate( NULL ), mNumVerts( 6969 ), mPrimitiveType( GeoSet::TRIS ), mNumPrimitives( 9696 )
    {
    }
 
-   ~GeoSet()
+   virtual ~GeoSet()
    {
+      //std::cout<<"deleting GeoSet "<<mName<<"\n"<<std::flush;
+      
       if ( mGstate != NULL)
       {
          mGstate->unref();
+         mGstate = NULL;
       }
    }
+   
+   void setName( const std::string& name ) { mName = name; }
 
     //: sets a GeoSet attribute binding type, attribute list,
     // and attribute index list. These GeoSet attributes include vertex
@@ -136,14 +141,16 @@ public:
     // alist.  If ilist is NULL, the GeoSet is non-indexed and accesses the
     //         attribute list in sequential order.
     //
-    enum GsAttribute { 
+    enum GsAttribute 
+    {
         COLOR4,
         NORMAL3,        
         TEXCOORD2,      
         COORD3,         
         PACKED_ATTRS   
     };
-    enum GsBind {
+    enum GsBind 
+    {
         OFF,          
         OVERALL,      
         PER_PRIM,     
@@ -368,6 +375,7 @@ public:
           mGstate->ref();
        }
     }
+    
     kev::GState* gstate() { return mGstate; }
     const kev::GState* gstate() const { return mGstate; }
    
@@ -592,6 +600,8 @@ private:
     
    kev::GState* mGstate;
 
+   std::string mName;
+   
 /*
     std::vector<Vec2<float> > mTexCoords;
     std::vector<Vec4<float> > mColors;

@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GState.h,v $
-//    $Date: 2001-09-13 23:43:07 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-26 22:57:25 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -40,15 +40,24 @@ namespace kev
    class GState : public RefObj
    {
    public:
-      GState()
+      GState() : mName( "GState_name" )
       {
       }
-      std::string name;
+      virtual ~GState()
+      {
+         //std::cout<<"deleting GState "<<mName<<"\n"<<std::flush;
+      }
+      
+      void setName( const std::string& name ) { mName = name; }
+      const std::string& getName() { return mName; }
       Material mat;
 
       std::string mapName;
       
       /* mutable */Texture texture;
+
+   private:
+      std::string mName;
    };
 };
 

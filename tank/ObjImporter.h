@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-20 20:04:51 $
-//    $Revision: 1.8 $
+//    $Date: 2001-09-26 22:57:25 $
+//    $Revision: 1.9 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -107,7 +107,7 @@ public:
          //std::cout<<matStrings.size()<<"\n"<<std::flush;
          for (int x = 0; x < matStrings.size(); ++x)
          {
-            //std::cout<<matStrings[x].c_str()<<"\n"<<std::flush;
+            //std::cout<<matStrings[x]<<"\n"<<std::flush;
             // newmtl blue_material
             // Ka  0.08889 0.06405 0.18170
             // Kd  0.26667 0.19216 0.54510
@@ -123,8 +123,8 @@ public:
             num_of_matches = extractMaterial.exec( matStrings[x],"newmtl[ ]+([^\n]*)", regexx::Regexx::global);
             if (num_of_matches)
             {
-               gstate->name = extractMaterial.match[0].atom[0].str();
-               //std::cout<<"new: \""<<gstate->name.c_str()<<"\"\n"<<std::flush;
+               gstate->setName( extractMaterial.match[0].atom[0].str() );
+               //std::cout<<"new: \""<<gstate->name<<"\"\n"<<std::flush;
             }
 
             // get the material/color info
@@ -160,11 +160,11 @@ public:
                for (int x = 0; x < num_of_matches; ++x)
                {
                   gstate->mapName = pathToFiles + extractMap.match[x].atom[1].str();
-                  std::cout<<"Loading: \""<<gstate->mapName.c_str()<<"\"\n"<<std::flush;
+                  std::cout<<"Loading: \""<<gstate->mapName<<"\"\n"<<std::flush;
                   Image* image = new Image;
                   if (ImageManager::instance().load( gstate->mapName.c_str(), *image ) == false)
                   {
-                     std::cout<<"         \""<<gstate->mapName.c_str()<<"\" not found.\n"<<std::flush;
+                     std::cout<<"         \""<<gstate->mapName<<"\" not found.\n"<<std::flush;
                      delete image;
                   }
                   else
@@ -173,25 +173,25 @@ public:
                   }                  
                }
             }
-
+            //gstate->setName( filename );
             matlist.push_back( gstate );
          }
       }
       catch (regexx::Regexx::CompileException &e)
       {
-         std::cerr << e.message().c_str() << std::endl;
+         std::cerr << e.message() << std::endl;
       }
    }
    
    bool lookupGState( const std::string& name, const std::vector< GState* >& gstateList, GState* &gstate )
    {
-      //std::cout<<"searching for: \""<<name.c_str()<<"\"\n"<<std::flush;
+      //std::cout<<"searching for: \""<<name<<"\"\n"<<std::flush;
       for (int x = 0; x < gstateList.size(); ++x)
       {
-         if (name == gstateList[x]->name)
+         if (name == gstateList[x]->getName())
          {
             gstate = gstateList[x];
-            //std::cout<<"found: \""<<gstate->name.c_str()<<"\"\n"<<std::flush;
+            //std::cout<<"found: \""<<gstate->getName()<<"\"\n"<<std::flush;
             return true;
          }
       }
@@ -239,7 +239,7 @@ public:
          if (num_of_matches)
          {
             currentWorkingDir = getWorkingDir.match[0];
-            std::cout<<"Current dir is: "<<currentWorkingDir.c_str()<<"\n"<<std::flush;
+            std::cout<<"Current dir is: "<<currentWorkingDir<<"\n"<<std::flush;
          }
 
          // parse line by line
@@ -250,7 +250,7 @@ public:
          {
             std::string oneLine = matchOneLine.match[lines].atom[0];
       
-            //std::cout<<"one: "<<oneLine.c_str()<<"\n"<<flush;
+            //std::cout<<"one: "<<oneLine<<"\n"<<flush;
             regexx::Regexx removeComments;
             oneLine = removeComments.replace( oneLine, "#[^\n]*\n", "", regexx::Regexx::global | regexx::Regexx::newline);
          
@@ -387,6 +387,10 @@ public:
             
          GeoSet* geoset = new GeoSet;
 
+         // set the name
+         geoset->setName( filename );
+
+         
          Vec4<float> color( 1.0f,1.0f,1.0f,1.0f );
 
          //std::cout<<"- coords == "<<lookup[(*it).first].cindex.size()<<"\n"<<std::flush;
