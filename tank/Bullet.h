@@ -6,6 +6,14 @@
 #include "convert.h"
 #include "glRenderLight.h"
 
+
+#include "glRenderTexture.h"
+#include "ImageManager.h"
+#include "ObjImporter.h"
+#include "GeoSet.h"
+#include "glRenderGeoSet.h"
+
+
 extern int GetNextLightNum();
 
 class Bullet
@@ -18,11 +26,14 @@ public:
 
       mLight.setNumber(GetNextLightNum());
       mLight.setPos( 0.0f, 0.0f, 0.0f, 1.0f );
-      mLight.setColor( Light::diffuse, 1.0f, 0.0f, 0.0f );
-      mLight.setColor( Light::ambient, 0.0f, 0.0f, 0.0f );
-      mLight.setColor( Light::specular, 0.0f, 0.0f, 0.0f );
+      mLight.setColor( Light::diffuse, 1.0f, 0.8f, 0.8f );
+      mLight.setColor( Light::ambient, 0.3f, 0.3f, 0.3f );
+      mLight.setColor( Light::specular, 1.0f, 1.0f, 1.0f );
       mLight.setAtten( 1.0f, 0.001f );
       mLight.on();
+
+      kev::ObjImporter obj;
+      obj.load( geosets, "models/bullet.obj" );
    }
 
    ~Bullet()
@@ -36,6 +47,13 @@ public:
    void draw() const
    {
       kev::glRender(mLight);
+      
+      glPushMatrix();
+         glMultMatrixf( mXForm.data() );
+         glRotatef( 90, 1,0,0 );
+         kev::glRenderGeoSets( geosets );
+      glPopMatrix();
+      return;
 
 //      glDisable( GL_LIGHTING );
       glPushMatrix();
@@ -151,6 +169,7 @@ private:
    Quat<float> mRot;
    float mRotVel;
    Light mLight;
+   std::vector< safe_ptr<GeoSet> > geosets;
 };
 
 #endif // ! BULLET_H_INCLUDED
