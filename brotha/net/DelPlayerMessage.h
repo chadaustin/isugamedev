@@ -18,7 +18,7 @@ namespace net {
     */
    class DelPlayerMessage : public Message {
    public:
-      DelPlayerMessage() {
+      DelPlayerMessage( game::Player::UID uid = -1 ) {
       }
 
       PRUint32 getType() const {
@@ -26,18 +26,18 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return net::sizes::getVarSize(mCode);
+         return net::sizes::getVarSize(mUID);
       }
 
       void serialize(OutputStream& os) {
-         os << mCode;
+         os << mUID;
       }
 
       void deserialize(InputStream& is) {
-         is >> mCode;
+         is >> mUID;
       }
    private:
-      PRUint32 mCode;
+      PRUint32 mUID;
    };
 
 }

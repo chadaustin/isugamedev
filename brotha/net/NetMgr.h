@@ -61,20 +61,17 @@ namespace net {
        *
        * @param msg     the message to send over the wire
        * @param dest    the destination connection ID
+       *
+       * @return true if the connection exists, false otherwise
        */
-      void send(Message* msg, ConnID dest) {
+      bool send(Message* msg, ConnID dest) {
          // simply pass the message to the approprate client
-         m_connections[dest]->send(msg);
-      }
-
-      /**
-       * Sends the given message to all connections that we know about (broadcast??)
-       * @param msg     the message to send over the wire
-       */
-      void sendToAll(Message* msg) {
-         for(ConnMapIter cIter=m_connections.begin();cIter!=m_connections.end();++cIter) {
-            // send the message to each connection
-            cIter->second->send(msg);
+         ConnMapIter iter = m_connections.find(dest);
+         if ( iter != m_connections.end() ) {
+            m_connections[dest]->send(msg);
+            return true;
+         } else {
+            return false;
          }
       }
 
