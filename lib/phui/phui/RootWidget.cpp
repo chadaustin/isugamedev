@@ -3,6 +3,10 @@
 
 namespace phui {
 
+  RootWidget::RootWidget() {
+  }
 
+  RootWidget::~RootWidget() {
+  }
 
 }
