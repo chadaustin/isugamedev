@@ -1,0 +1,33 @@
+ME 519 Final Project Proposal
+Chad Austin
+
+
+When I was in high school, I played a lot of video games.  It's pretty
+much what got me into graphics.  As I got older, I got smarter, and
+thus I could actually create games and various graphics programs on my
+own.  However, my time available to do these things became more and
+more limited.  It culminated this semester...  for the first time in
+my college experience, I took too many programming classes.
+Fortunately, I realized I could develop components for a game I want
+to make in these classes.
+
+Now, on to the proposal for my final project.  The final goal is a
+multiplayer, turn-based strategy game in a medieval world...  wizards
+and knights and armies and big magic battles and all that jazz.  :D
+One of the most important pieces of the game is rendering the terrain.
+For my final project, I'd like to work on an octree-based terrain
+renderer with support for rendering at different levels of detail.
+
+I have this really clear vision as to what it should look like in my
+head, but I can't exactly explain it in text form...  I see lots of
+nice, green textures...  and cool water...  :)
+
+
+Milestones
+--
+
+- generate initial terrain using plasma subdivision or loading from a
+  heightmap
+- render terrain with seamless textures
+- add support for variable LOD
+- optimize rendering with an octree (or maybe I just need a quadtree?)

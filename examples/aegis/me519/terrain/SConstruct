@@ -1,0 +1,35 @@
+import os
+import os.path
+execfile('glut_libs.py')
+CORONA_LIBS = ['corona', 'jpeg', 'png', 'z']
+AUDIERE_LIBS = ['audiere', 'vorbisfile', 'vorbis', 'ogg']
+
+Default('.')
+
+sources = Split("""
+    AmbientWind.cpp
+    FlyCamera.cpp
+    HoverCamera.cpp
+    ImageTerrain.cpp
+    Main.cpp
+    MyTerrain.cpp
+    PlasmaTerrain.cpp
+    RotationCamera.cpp
+    SnowSystem.cpp
+    TerrainApplication.cpp
+    Texture.cpp
+""")
+
+CXXFLAGS = ['-Wall']
+LINKFLAGS = []
+if ARGUMENTS.get('debug'):
+    CXXFLAGS.append('-g')
+else:
+    CXXFLAGS.append('-O2')
+    LINKFLAGS.append('-s')
+
+env = Environment(ENV = os.environ,
+                  LIBS = GLUT_LIBS + CORONA_LIBS + AUDIERE_LIBS,
+                  CXXFLAGS = CXXFLAGS,
+                  LINKFLAGS = LINKFLAGS)
+env.Program(target = 'terrain', source = sources)
