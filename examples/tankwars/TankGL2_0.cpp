@@ -845,35 +845,6 @@ void GameLoop()
 
 	if ( shotCursor != NULL ) // move bullets
 	{
-		// Check first case to see if it's the 1st bullet in the list hitting the tank
-/*		while ( shotCursor != NULL && !ifNCollide(tank2, shotCursor))
-		{
-			test2.deathDraw();
-			Weapon *foo = shotCursor;
-
-			shotCursor = shotCursor->next;
-
-			delete foo;
-		}
-
-		Weapon *prev_ptr = shotCursor;
-
-		for(Weapon *cursor = shotCursor; cursor != NULL; cursor = cursor->next)
-		{
-			if (ifNCollide(tank2, cursor))
-			{// ok to move the bullet
-				cursor->move(FORWARD);
-				//prev_ptr = cursor;
-			}
-			else
-			{// bullet has hit tank2, destroy it
-				//prev_ptr->next = cursor->next;
-				//delete cursor;
-				//cursor = prev_ptr;
-				test2.deathDraw();
-			}
-		}*/
-
 		Weapon *cursor;
 		Weapon *foo = NULL;
 		Weapon *newList = NULL;
@@ -881,22 +852,27 @@ void GameLoop()
 
 		for ( cursor = shotCursor; cursor != NULL; cursor = cursor->next)
 		{
-			if ( foo != NULL )	// release memory of foo
+			if( foo != NULL )	// release memory of foo
+			{
 				delete foo;		
+				foo = NULL;
+			}
 			
-			if (!ifNCollide(tank2, cursor))
+			if(!ifNCollide(tank2, cursor))
 			{
 				// bullet hit the tank, remove it
 				foo = cursor;
 			}
 			else
 			{
-				if(newList = NULL)
+				cursor->move(FORWARD);
+
+				if(newList == NULL)	// nothing in new list, put the first thing in
 				{
 					newList = cursor;
-					newListCursor = NULL;
+					newListCursor = newList;
 				}
-				else
+				else	// newList has at least 1 thing in it, put another on the end
 				{
 					newListCursor->next = cursor;
 					newListCursor = newListCursor->next;
@@ -907,35 +883,58 @@ void GameLoop()
 		if(foo != NULL)
 			delete foo;
 
-		newListCursor->next = NULL;
+		if(newListCursor != NULL)
+			newListCursor->next = NULL;
+
+		shotCursor = newList;
+		lastShot = newListCursor;
 	}
 
 	if ( shot2Cursor != NULL ) // move bullets
 	{
-		while ( shot2Cursor != NULL && !ifNCollide(tank1, shot2Cursor))
+		Weapon *cursor;
+		Weapon *foo = NULL;
+		Weapon *newList = NULL;
+		Weapon *newListCursor = NULL;
+
+		for ( cursor = shot2Cursor; cursor != NULL; cursor = cursor->next)
 		{
-			test.deathDraw();
-
-			Weapon *foo2 = shot2Cursor;
-
-			shot2Cursor = shot2Cursor->next;
-
-			delete foo2;
-		}
-
-		Weapon *prev_ptr2 = shot2Cursor;
-
-		for(Weapon *cursor2 = shot2Cursor; cursor2 != NULL; cursor2 = cursor2->next)
-		{
-			if (ifNCollide(tank1, cursor2))
-			{// ok to move the bullet
-				cursor2->move(FORWARD);
+			if( foo != NULL )	// release memory of foo
+			{
+				delete foo;		
+				foo = NULL;
+			}
+			
+			if(!ifNCollide(tank1, cursor))
+			{
+				// bullet hit the tank, remove it
+				foo = cursor;
 			}
 			else
-			{// bullet has hit tank1, destroy it
-				test.deathDraw();
+			{
+				cursor->move(FORWARD);
+
+				if(newList == NULL)	// nothing in new list, put the first thing in
+				{
+					newList = cursor;
+					newListCursor = newList;
+				}
+				else	// newList has at least 1 thing in it, put another on the end
+				{
+					newListCursor->next = cursor;
+					newListCursor = newListCursor->next;
+				}
 			}
 		}
+
+		if(foo != NULL)
+			delete foo;
+
+		if(newListCursor != NULL)
+			newListCursor->next = NULL;
+
+		shot2Cursor = newList;
+		lastShot2 = newListCursor;
 	}
 
 
