@@ -3,6 +3,7 @@
 import sys
 import os
 import string
+execfile('glut_libs.py')
 
 # build everything by default
 Default('.')
@@ -22,7 +23,7 @@ else:
 env = Environment(
    CPPPATH = '#',
    LIBPATH = '#',
-   LIBS = ['corona', 'glut', 'GLU', 'GL'],
+   LIBS = ['corona', 'png', 'z', 'jpeg'] + GLUT_LIBS,
    ENV = os.environ,
    CXXFLAGS = CXXFLAGS
 )
