@@ -78,6 +78,23 @@ public class Server
     RemoteClient This = (RemoteClient)m_clients.get(new Integer(id));
     if (This != null) {
       PlayerEntity pe = (PlayerEntity)m_world.get(id);
+
+      if (key.getID() == KeyEvent.KEY_PRESSED) {
+        switch (key.getKeyCode()) {
+          case KeyEvent.VK_C:
+            System.out.println("C pressed");
+            m_world.add(
+              new CubeEntity(m_generator.getNext(), pe.getTransform()));
+            return;
+            
+          case KeyEvent.VK_S:
+            System.out.println("S pressed");
+            m_world.add(
+              new SphereEntity(m_generator.getNext(), pe.getTransform()));
+            return;
+        }
+      }
+
       if (pe != null) {
         pe.processKey(key);
       }
