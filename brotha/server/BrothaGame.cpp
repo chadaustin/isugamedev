@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-01 22:07:05 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-05-01 22:12:45 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -120,14 +120,6 @@ namespace server {
          net::DelPlayerMessage *msg = new net::DelPlayerMessage(uid);
          sendToAll(msg, true);
       }
-   }
-
-   void BrothaGame::addObject( game::Object* object ) {
-      assert ( object != NULL && "Cannot add a Null object!" );
-   }
-
-   void BrothaGame::removeObject( game::Object* object ) {
-      //code goes here :(
    }
 
    void BrothaGame::removeConnection( net::NetMgr::ConnID cID ) {

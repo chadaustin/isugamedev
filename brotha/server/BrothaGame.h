@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-05-01 22:07:05 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-01 22:12:45 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -92,21 +92,6 @@ namespace server {
        * @param player     the player to remove
        */
       void removePlayer( game::Player* player );
-
-	  /**
-	   * Adds a given object in the game
-	   *
-	   * @param object     the object to add
-	   * @pre object != NULL
-	   */
-	  void addObject( game::Object* object );
-
-      /**
-       * Removes the given object
-       *
-       * @param object     the object to remove
-       */
-	  void removeObject( game::Object* object );
 
       /**
        * Removes the given connection
