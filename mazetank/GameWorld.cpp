@@ -3,8 +3,12 @@
 #include "TankObject.h"
 #include "Camera.h"
 #include "Input.h"
+#include "SoundManager.h"
+#include "SoundEffectManager.h"
+#include "JukeBox.h"
 
 extern Input GameInput;
+sound::SoundManager* GameSound;
 
 GameWorld::GameWorld()
 {
@@ -17,6 +21,8 @@ GameWorld::~GameWorld()
 		delete TheGameObjects[i];
 
 	TheGameObjects.erase(TheGameObjects.begin(), TheGameObjects.end());
+
+   delete GameSound;
 }
 
 void GameWorld::Init()
@@ -43,10 +49,19 @@ void GameWorld::Init()
 
    GameInput.SetCamera(GameCamera);
    GameInput.SetGameObjects(TheGameObjects);
+
+   /////////////////////////////////////////
+   //Initialize GameSound
+   /////////////////////////////////////////
+   GameSound = new sound::SoundManager;
+
+   GameSound->getJukebox()->addTrack("music/track1.ogg");
+   GameSound->getJukebox()->play();
 }
 
 void GameWorld::Update()
 {
+   GameSound->getJukebox()->update();
    GamePhysics.Update(TheGameObjects);
 }
 

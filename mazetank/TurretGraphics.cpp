@@ -38,7 +38,7 @@ TurretGraphics::TurretGraphics()
 
 void TurretGraphics::Init()
 {
-	model = glmReadOBJ("HoverTankTurret.obj");
+	model = glmReadOBJ("models/HoverTankTurret.obj");
 	glmUnitize(model);
 	glmFacetNormals(model);
 	glmVertexNormals(model, smoothing_angle);

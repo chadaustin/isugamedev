@@ -24,7 +24,7 @@ TankGraphics::TankGraphics()
 
 void TankGraphics::Init()
 {
-	model = glmReadOBJ("HoverTankBody.obj");
+	model = glmReadOBJ("models/HoverTankBody.obj");
 	glmUnitize(model);
 	glmFacetNormals(model);
 	glmVertexNormals(model, smoothing_angle);

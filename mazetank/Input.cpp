@@ -2,6 +2,9 @@
 #include "GraphicsObject.h"
 #include "GameObject.h"
 #include "BulletObject.h"
+#include "SoundManager.h"
+
+extern sound::SoundManager* GameSound;
 
 Input::Input()
 {
@@ -87,4 +90,9 @@ void Input::ShootBullet()
 
 	TheTurret->GetRotate(TurretRotations);
 
+}
+
+void Input::Honk()
+{
+   GameSound->getSoundEffectManager()->playSound("music/car2.wav");
 }

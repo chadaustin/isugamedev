@@ -36,6 +36,7 @@ public:
 
 	void ShootBullet();
 
+   void Honk();
 private:
 
    GameObject* Player1;

@@ -75,21 +75,7 @@ void KeyboardInput(int key, int x, int y)
 {
    switch(key)
    {
-   case GLUT_KEY_RIGHT:
-      GameInput.Turn(-0.03);
-      break;
-
-   case GLUT_KEY_LEFT:
-      GameInput.Turn(0.03);
-      break;
-
-   case GLUT_KEY_UP:
-      GameInput.Accel(0.017);
-      break;
-
-   case GLUT_KEY_DOWN:
-      GameInput.Accel(-0.017);
-      break;
+ 
    }
 }
 
@@ -97,21 +83,7 @@ void KeyboardInputUp(int key, int x, int y)
 {
    switch(key)
    {
-   case GLUT_KEY_RIGHT:
-      GameInput.Turn(0.0);
-      break;
 
-   case GLUT_KEY_LEFT:
-      GameInput.Turn(0.0);
-      break;
-
-   case GLUT_KEY_UP:
-      GameInput.Accel(0.0);
-      break;
-
-   case GLUT_KEY_DOWN:
-      GameInput.Accel(0.0);
-      break;
    }
 }
 
@@ -128,6 +100,25 @@ void MyKeyboard(unsigned char key, int x, int y)
 	case 27:
 		exit(0);
 		break;
+
+   case 'd':
+      GameInput.Turn(-0.03);
+      break;
+
+   case 'a':
+      GameInput.Turn(0.03);
+      break;
+
+   case 'w':
+      GameInput.Accel(0.017);
+      break;
+
+   case 's':
+      GameInput.Accel(-0.017);
+      break;
+
+   case 'h':
+      GameInput.Honk();
 	}
 
 }
@@ -142,6 +133,22 @@ void MyKeyboardUp(unsigned char key, int x, int y)
 		CamMode = false;
 		GameInput.SnapCamera();
 		break;
+
+   case 'd':
+      GameInput.Turn(0.0);
+      break;
+
+   case 'a':
+      GameInput.Turn(0.0);
+      break;
+
+   case 'w':
+      GameInput.Accel(0.0);
+      break;
+
+   case 's':
+      GameInput.Accel(0.0);
+      break;
 	}
 
 }
@@ -169,7 +176,7 @@ int main (int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(640, 480);
+	glutInitWindowSize(1024, 768);
 	glutInitWindowPosition(100,50);
 	glutCreateWindow("Final Project");
 	Initialize();
