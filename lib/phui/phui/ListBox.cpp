@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-12-31 06:24:07 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2003-01-04 00:14:25 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -76,7 +76,6 @@ namespace phui {
 
       int fontHeight = font->getAscent() + font->getDescent();
       int fontLineGap = font->getLineGap();
-      int itemHeight = fontHeight+fontLineGap;
 
       glPushMatrix();
       glTranslatef(3.0,0.0,0.0);
@@ -140,13 +139,11 @@ namespace phui {
    {
       if (button == BUTTON_LEFT) 
       {
-         const Size& size = getSize();
-         const int height = size.getHeight();
          gltext::FontPtr font = getFont();
 
          unsigned int itemHeight = font->getAscent() + font->getDescent() + font->getLineGap();
         
-         unsigned int selectedIdx = unsigned int((p.y-(p.y%itemHeight))/double(itemHeight));
+         unsigned int selectedIdx = (unsigned int)((p.y-(p.y%itemHeight))/double(itemHeight));
          // Check that the computed index isn't outside our list of values
          if (selectedIdx < mItems.size()) 
          {
