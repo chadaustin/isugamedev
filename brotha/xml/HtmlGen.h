@@ -10,6 +10,16 @@
 namespace reports{
 
 
+	std::string GenerateReport(std::string query){
+		request r(query);
+		ganglist gl = dataxml::b.getGangList();
+		for(int i = 0; i < gl.size(); gl++){
+
+		}
+	}
+
+
+	}
 	std::string renderCarList(dataxml::carlist cl){
 		std::string html = "";
 		html += "<table><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
@@ -20,6 +30,7 @@ namespace reports{
 		html += "</table>";
 		return html;
 	}
+
 	std::string renderGangList(dataxml::ganglist gl){
 		std::string html = "";
 		for(int i = 0; i < gl.size(); i++){
