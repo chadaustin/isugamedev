@@ -30,7 +30,7 @@ namespace mw
          mReloadCounter = 0.0f;
          
          mCockDelayLeft = 0.0f;
-         mCockRate = 0.05f;
+         mCockRate = 0.01f;
          mCocking = false;
          mCocked = true;
       }
@@ -47,8 +47,22 @@ namespace mw
          glPopMatrix();
       }
    protected:
+      /**
+       * Creates a bullet as though fired from this weapon.
+       * @return A RigidBody representing the bullet.
+       */
+      virtual RigidBody* createBullet() const
+      {
+         RigidBody* bullet = new RigidBody();
+         bullet->setVel(gmtl::Vec3f(0, 0, -200));
+         return bullet;
+      }
       
-      void discharge(GameState& g)
+      /**
+       * Discharges this weapon, emitting whatever projectiles it fires.
+       * @param g the current GameState.
+       */
+      virtual void discharge(GameState& g)
       {
          //Slight spread with the assualt rifle.
          float angle = gmtl::Math::deg2Rad(0.5f);
