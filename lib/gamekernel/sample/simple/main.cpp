@@ -24,20 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-20 05:20:01 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-05-14 15:28:47 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 
-#include <gk/GameApp.h>      // the base application type
-#include <gk/GameKernel.h>
-#include <gk/GameInput.h>
-#include <gk/GameInputConfigure.h>
-#include <gk/AnalogInterface.h>
-#include <gk/DigitalInterface.h>
-#include <GlutDriver.h>
-#include <gk/SystemDriverFactory.h>
+#include <gk/gk.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 
@@ -48,22 +41,22 @@
  *
  *  @see GameApp
  */
-class GkSimpleApp : public gk::GameApp
+class GkSimpleApp : public gk::AbstractGameApp
 {
 public:
-   GkSimpleApp( gk::GameKernel* kernel )
-      : mKernel( kernel )
+   GkSimpleApp()
    {
    }
    
-   virtual void OnAppInit()
+   virtual void onAppInit( gk::IGameKernel* kernel )
    {
+      mKernel = kernel;
       mKernel->setName( "Simple" );
       mQuitButton.init( "Quit", mKernel );
       mFullscreenButton.init( "Fullscreen", mKernel );
    }
 
-   virtual void OnContextInit()
+   virtual void onContextInit()
    {
       mKernel->setWindowSize( 640, 480 );
       mFullscreen = false;
@@ -73,7 +66,7 @@ public:
     *  these calls are usually driven by the game state data that was 
     *  updated by OnPostFrame, use opengl to draw
     */
-   virtual void OnContextDraw( int context = 0 )
+   virtual void onDraw( int context = 0 )
    {
       // get the window params...
       int width, height;
@@ -117,7 +110,7 @@ public:
    /** update your game state data.
     * do your data (non opengl) calculations here 
     */
-   virtual void OnPostFrame()
+   virtual void onPreUpdate()
    {
       if (mQuitButton.getDigitalData() == gk::DigitalInput::DOWN)
       {
@@ -137,21 +130,24 @@ public:
 public:
    gk::DigitalInterface mFullscreenButton, mQuitButton;
    bool mFullscreen;
-   gk::GameKernel* mKernel;
+   gk::IGameKernel* mKernel;
 };
 
 int main( int argc, char *argv[] )
 {
-   // create the kernel and add our app in
-   gk::GameKernel* kernel = new gk::GameKernel();
-   kernel->add( new GkSimpleApp( kernel ) );
+   std::cout<<"Running GameKernel v"<<gk::getVersion()<<std::endl;
 
-   // configure the system
-   gk::loadInputConfig( "config.xml", kernel );
-
-   // create our system driver and let's go!
-   gk::SystemDriverFactory::instance().probe( "glut", "GLUT" );
-   gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
-   kernel->startup( driver );
+   // let our app loose in the Game Kernel
+   gk::AbstractGameApp* app = new GkSimpleApp();   
+   gk::IGameKernel* kernel = gk::createGameKernel( app );
+   if (kernel->config( "config.xml" ))
+   {
+      kernel->run();
+      return 0;
+   }
+   else
+   {
+      std::cerr << "Couldn't load config.xml" << std::endl;
+   }
    return 1;
 }
