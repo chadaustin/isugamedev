@@ -6,22 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 Entity::Entity()
-   : mRot(), mBehavior(NULL)
+   : mPos( 0,0,0 ), mRot(), mBehavior( NULL )
 {
-}
-
-/*----------------------------------------------------------------------------*/
-
-Entity::~Entity()
-{
-   //Release our reference to the behavior object
-   mBehavior->unref();
-
-   //Release our reference to the geometry we used
-   std::vector< safe_ptr<GeoSet> >::iterator itr;
-   for (itr = mGeometry.begin; itr != mGeometry.end(); itr++) {
-      (*itr)->unref();
-   }
 }
 
 /*----------------------------------------------------------------------------*/
@@ -34,7 +20,7 @@ Entity::draw() const
         
         std::vector< safe_ptr<GeoSet> >::const_iterator itr;
         for (itr = mGeometry.begin(); itr != mGeometry.end(); itr++) {
-            glRenderGeoSet( *(*itr) );
+            kev::glRenderGeoSet( *(*itr) );
         }
 
    glPopMatrix();

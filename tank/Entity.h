@@ -15,7 +15,6 @@ class Entity : public RefObj
 {
 public:
    Entity();
-   ~Entity();
 
    //: Draws this entity as described by its geometry sets.
    void draw() const;
