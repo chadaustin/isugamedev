@@ -42,6 +42,7 @@ drawCube()
    // Front Face (note that the texture's corners have to match the quad's corners)
    gTextures[0]->bind();
    glBegin(GL_QUADS);
+      glNormal3f(0,0,1);
       // bottom left, bottom right, top right, top left
       glTexCoord2f(0.0f, 0.0f); glVertex3f(-1, -1,  1);
       glTexCoord2f(1.0f, 0.0f); glVertex3f( 1, -1,  1);
@@ -52,6 +53,7 @@ drawCube()
    // Back Face
    gTextures[1]->bind();
    glBegin(GL_QUADS);
+      glNormal3f(0,0,-1);
       // bottom right, top right, top left, bottom left
       glTexCoord2f(1.0f, 0.0f); glVertex3f(-1, -1, -1);
       glTexCoord2f(1.0f, 1.0f); glVertex3f(-1,  1, -1);
@@ -62,6 +64,7 @@ drawCube()
    // Top Face
    gTextures[2]->bind();
    glBegin(GL_QUADS);
+      glNormal3f(0,1,0);
       // top left, bottom left, bottom right, top right
       glTexCoord2f(0.0f, 1.0f); glVertex3f(-1,  1, -1);
       glTexCoord2f(0.0f, 0.0f); glVertex3f(-1,  1,  1);
@@ -72,6 +75,7 @@ drawCube()
    // Bottom Face
    gTextures[3]->bind();
    glBegin(GL_QUADS);
+      glNormal3f(0,-1,0);
       // top right, top left, bottom left, bottom right
       glTexCoord2f(1.0f, 1.0f); glVertex3f(-1, -1, -1);
       glTexCoord2f(0.0f, 1.0f); glVertex3f( 1, -1, -1);
@@ -82,6 +86,7 @@ drawCube()
    // Right face
    gTextures[4]->bind();
    glBegin(GL_QUADS);
+      glNormal3f(1,0,0);
       // bottom right, top right, top left, bottom left
       glTexCoord2f(1.0f, 0.0f); glVertex3f( 1, -1, -1);
       glTexCoord2f(1.0f, 1.0f); glVertex3f( 1,  1, -1);
@@ -92,6 +97,7 @@ drawCube()
    // Left Face
    gTextures[5]->bind();
    glBegin(GL_QUADS);
+      glNormal3f(-1,0,0);
       // bottom left, bottom right, top right, top left
       glTexCoord2f(0.0f, 0.0f); glVertex3f(-1, -1, -1);
       glTexCoord2f(1.0f, 0.0f); glVertex3f(-1, -1,  1);
