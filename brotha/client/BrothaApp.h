@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-24 05:59:04 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-04-24 21:54:38 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -112,13 +112,12 @@ namespace client
 
       /// Facade for connection with server.
       ServerConnection mServerConnection;
-      
 
+      //@{
       /// Current dimensions of the window.
-      ///@{
       int mWidth;
       int mHeight;
-      ///@}
+      //@}
 
       /// Sound music and effects manager.
       sound::SoundManager* mSoundMgr;
