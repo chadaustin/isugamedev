@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-03-21 04:53:14 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-03-21 05:04:08 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -48,9 +48,14 @@ namespace gk {
  */
 class AnalogDevice : public TypedDevice<AnalogInput>
 {
-public:
+protected:
+   /**
+    * This class is abstract. You can't create an AnalogDevice directly.
+    * Instead you should create a specific implementation of AnalogDevice.
+    */
    AnalogDevice() {}
 
+public:
    /**
     * Gets the xth axial input in this device.
     *
