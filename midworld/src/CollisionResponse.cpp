@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-11-12 16:48:48 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-11-14 11:57:28 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -74,6 +74,18 @@ namespace mw
    {
       g->giveTo(p);
    }
+
+
+   void collideBulletStatic(BaseBullet* b, StaticEntity*)
+   {
+      b->expire();
+   }
+
+
+   void collideBulletAmmo(BaseBullet* b, AmmoCrate*)
+   {
+      b->expire();
+   }
    
 
    CollisionResponse::CollisionResponse()
@@ -83,6 +95,8 @@ namespace mw
       defineResponse<BaseBullet, Turret>(collideBulletTurret);
       defineResponse<Player, AmmoCrate> (collidePlayerAmmoCrate);
       defineResponse<Player, GunPickup> (collidePlayerGunPickup);
+      defineResponse<BaseBullet, StaticEntity>(collideBulletStatic);
+      defineResponse<BaseBullet, AmmoCrate>(collideBulletAmmo);
       
       setCollidable<BaseBullet, BaseBullet>    (false);
       setCollidable<StaticEntity, StaticEntity>(false);

@@ -133,7 +133,7 @@ namespace mw
       pos1 = mTurret->getPos();
       pos2 = mPlayer->getPos();
       gmtl::LineSegf dist(pos1, pos2);
-      if(dist.getLength() < 20)
+      if(dist.getLength() < 28)
          return true;
       else
          return false;
