@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-02-25 21:33:38 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-20 03:32:44 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -39,20 +39,24 @@
  *
  ************************************************************ brotha-cpr-end */
 #include <gk/gk.h>   // pull in GameKernel
-#include <GlutDriver.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-class BrothaApp : public gk::GameApp
+class BrothaApp : public gk::AbstractGameApp
 {
 public:
-   BrothaApp( gk::GameKernel* kernel )
-      : mKernel( kernel )
+   BrothaApp( )
+      : mKernel( NULL )
    {
    }
 
-   virtual void OnAppInit()
+   virtual ~BrothaApp( ){
+   }
+
+
+   virtual void onAppInit( gk::IGameKernel* kernel )
    {
+	  mKernel = kernel;
       mKernel->setName( "Warn-a-Brotha" );
       mQuit.init( "Quit", mKernel );
       mAccelerate.init( "Accelerate", mKernel );
@@ -60,12 +64,12 @@ public:
       mMouseY.init( "MouseLookY", mKernel );
    }
 
-   virtual void OnContextInit()
+   virtual void onContextInit()
    {
       mKernel->setWindowSize( 640, 480 );
    }
 
-   virtual void OnContextDraw( int context = 0 )
+   virtual void onContextDraw( int context = 0 )
    {
       int width, height;
       mKernel->getWindowSize( width, height );
@@ -98,7 +102,7 @@ public:
       glEnd();
    }
 
-   virtual void OnPostFrame()
+   virtual void onPostFrame()
    {
       if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
       {
@@ -115,22 +119,15 @@ public:
    gk::AnalogInterface mMouseX, mMouseY;
    gk::DigitalInterface mAccelerate, mQuit;
 
-   gk::GameKernel* mKernel;
+   gk::IGameKernel* mKernel;
 };
 
 int main( int argc, char *argv[] )
 {
    // create the kernel and add our app in
-   gk::GameKernel* kernel = new gk::GameKernel();
-   kernel->add( new BrothaApp( kernel ) );
-
-   // configure the system
+   gk::IGameKernel* kernel = gk::createGameKernel(new BrothaApp());
    kernel->config( "config.xml" );
+   kernel->startup();
 
-   // create our system driver and let's go!
-   gk::SystemDriverFactory::instance().probe( "glut", "GLUT" );
-   gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
-   kernel->startup( driver );
-
-   return 1;
+   return 0;
 }
