@@ -38,7 +38,7 @@ namespace lr
          realHeight = Pheight;
          realPos = Ppos;
          mState = Pstate;
-         mTextureState = run1;  // set the texture state to 0;
+         mTextureState = runright1;  // set the texture state to 0;
       }
 
       /**
@@ -120,13 +120,17 @@ namespace lr
        * setScore sets the score of for the player to s
        */
       void setScore(int s){ score = s; }
+
+      void burnOutRightBrick(float dt);
+
+      void burnOutLeftBrick(float dt);
       
    private:
       float realPos;    // players real position on the screen from 0 to 1024
       float realHeight; // players real height on the screen from 0 to 768
       
       playerState mState;			// players current state either hang1,2, climb1,2, or run1,2,
-      Texture* run1Image, *run2Image, *climb1Image, *climb2Image, *hang1Image, *hang2Image;
+      Texture* run1leftImage, *run2leftImage, *run3leftImage, *run1rightImage, *run2rightImage, *run3rightImage, *climb1Image, *climb2Image, *hang1rightImage, *hang2rightImage, *hang3rightImage, *hang1leftImage, *hang2leftImage, *hang3leftImage;
       
       /** 
        * now we create a currentTexture pointer that just points at the one we
@@ -134,24 +138,25 @@ namespace lr
        */
       Texture* currentTexture;
       
-
+            
       /**
        * fall just drops the player a certain amount everyframe (divisible by 2)
        */
-      void fall(float dt)
-      {
-         realHeight-=(128*dt);
-      }
-      
+      void fall(float dt);
+
       // an enumeration to determin what textures we should be drawing
       textureState mTextureState;		
                               //: state to flip textures around
-                              //  0 = running
-                              //  1 = running
-                              //  2 = climbing
-                              //  3 = climbing
-                              //  4 = hanging
-                              //  5 = hanging
+                              //  0 = runleft1
+                              //  1 = runleft2
+                              //  2 = runleft3
+                              //  3 = runright1
+                              //  4 = runright2
+                              //  5 = runright3
+                              //  6 = climb1
+                              //  7 = climb2
+                              //  8 = hang1
+                              //  9 = hang2
       
       /** 
        * the player keeps a reference to the level so that he can test to see what

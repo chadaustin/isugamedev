@@ -23,7 +23,7 @@ namespace lr
       mPlayer = &thePlayer;
       realHeight = 768-64;
       realPos = 32;
-      mTextureState = run1;
+      mTextureState = runright1;
 
       // init all the keys to not down
       keyup = keydown = keyleft = keyright = false;
@@ -42,8 +42,8 @@ namespace lr
 
    void BadGuy::update(float dt)
    {
-      if(dt>(1.0/32.0))
-         dt=(1.0/32.0);
+      if(dt>(1.0/128.0))
+         dt=(1.0/128.0);
       textureState tempState;
       bool updateTex=false;
       // if it's not solid under us and we're not on a wire and we're not on a
@@ -79,7 +79,7 @@ namespace lr
       // to our left and we aren't running off the screen
       {
          realPos-=((128*dt));
-         tempState=run1;
+         tempState=runright1;
          updateTex=true;
       }
       else if(keyright && (solidUnder() || onLadder()) && !brickRight() && realPos<1008)
@@ -87,7 +87,7 @@ namespace lr
       // to our right and we aren't running off the screen
       { 
          realPos+=((128*dt));
-         tempState=run1;
+         tempState=runright1;
          updateTex=true;
       }
       else if(keyleft && onWire() && !brickLeft() && realPos>0)
@@ -95,7 +95,7 @@ namespace lr
       // our left and we are not running off the screen
       {
          realPos-=((128*dt));
-         tempState=hang1;
+         tempState=hangright1;
          updateTex=true;
       }
       else if(keyright && onWire() && !brickRight() && realPos<1008)
@@ -103,7 +103,7 @@ namespace lr
       // to our right and we are not running off the screen
       {
          realPos+=((128*dt));
-         tempState=hang1;
+         tempState=hangright1;
          updateTex=true;
       }
 
@@ -116,24 +116,24 @@ namespace lr
       if((initTime+=dt)>.08 && updateTex==true)
       {
          std::cout << "change texture" << std::endl;
-         if(tempState==hang1)
+         if(tempState==hangright1)
          {
             std::cout << "hanging" << std::endl;
-            if(mTextureState!=hang1){
-               mTextureState=hang1;
+            if(mTextureState!=hangright1){
+               mTextureState=hangright1;
                currentTexture = hang1Image;
             }else{
-               mTextureState=hang2;
+               mTextureState=hangright2;
                currentTexture = hang2Image;
             }
-         }else if(tempState==run1)
+         }else if(tempState==runright1)
          {
             std::cout << "running" << std::endl;
-            if(mTextureState!=run1){
-               mTextureState=run1;
+            if(mTextureState!=runright1){
+               mTextureState=runright1;
                currentTexture = run1Image;
             }else{
-               mTextureState=run2;
+               mTextureState=runright2;
                currentTexture = run2Image;
             }
          }else if(tempState==climb1)

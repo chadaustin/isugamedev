@@ -13,9 +13,9 @@ namespace lr
    /**
     * an enumeration for the various states the player could be in
     */
-   enum playerState {runRight, runLeft, climbRight, climbLeft, hangRight, hangLeft};
+   enum playerState {runright, runleft, climb, hangright, hangleft};
 
-   enum textureState {run1, run2, climb1, climb2, hang1, hang2};
+   enum textureState {runleft1, runleft2, runleft3, runright1, runright2, runright3, climb1, climb2, hangright1, hangright2, hangright3, hangleft1, hangleft2, hangleft3};
    
    // typedefs for a bunch of the major sizes in c++
    #ifndef _MSC_VER // assume i386

@@ -108,7 +108,7 @@ namespace lr
       mPlayer->update(dt);
       mScoreBoard->update(mPlayer->getScore(), mPlayer->getLives());
       mLevel->update(dt);
-      mBadGuy->update(dt);
+      //mBadGuy->update(dt);
    }
 
    int GameState::switchStates()

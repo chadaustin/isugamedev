@@ -40,7 +40,7 @@ namespace lr
          realHeight = Pheight;
          realPos = Ppos;
          mState = Pstate;
-         mTextureState = run1;  // set the texture state to 0;
+         mTextureState = runright1;  // set the texture state to 0;
       }
 
       /**

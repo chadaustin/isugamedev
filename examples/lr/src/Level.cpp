@@ -10,11 +10,35 @@
 namespace lr
 {
 
-   void Level::burn(const int& x, const int& y)
-   {
-      Block* b = new Block(x,y);
-      // this is a memory leak that I will need to fix later
-      removedBlocks.push_front(b);
+   bool Level::burn(const int& x, const int& y, float dt)
+   { 
+      if (burnTime==0)
+         // XXX: this is a mem leak needs to be fixed
+         burnBlock = new Block(x,y);
+      burnTime+=dt;
+      if(burnTime<.25)
+      {
+         if(burnTime<.25)
+            burnTextureNum=4;
+         if(burnTime<.2)
+            burnTextureNum=3;
+         if(burnTime<.15)
+            burnTextureNum=2;
+         if(burnTime<.1)
+            burnTextureNum=1;
+         if(burnTime<.05)
+            burnTextureNum=0;
+         
+         std::cout << "burntime: " << burnTextureNum << std::endl;
+      }
+      else
+      {
+         // XXX: this is a memory leak that I will need to fix later
+         removedBlocks.push_front(burnBlock);
+         burnTime=0;
+         return true;
+      }
+      return false;
    }
 
    void Level::update(float dt)
@@ -43,7 +67,25 @@ namespace lr
          {
             if(mLevel[j][i] == brick)
             {
-               brickImage->drawRectangle(j*32,i*32,(j+1)*32,(i+1)*32);
+               brickImage->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
+               if(burnTime>0)
+               {
+                  std::cout << "x=" << burnBlock->pos << ":" << i << "   y=" << burnBlock->height << ":" << j << std::endl;
+                  if(burnBlock->pos==j && burnBlock->height==i)
+                  {
+                     std::cout << "drawing burntexture" << std::endl;
+                     if(burnTextureNum==0)
+                        brickImage->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
+                     else if(burnTextureNum==1)
+                        brickBurn1Image->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
+                     else if(burnTextureNum==2)
+                        brickBurn2Image->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
+                     else if(burnTextureNum==3)
+                        brickBurn3Image->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
+                     else if(burnTextureNum==4)
+                        brickBurn4Image->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
+                  }
+               }
             }else if(mLevel[j][i] == wire)
             {
                wireImage->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
@@ -72,18 +114,29 @@ namespace lr
    Level::Level()
    {
       brickImage = Texture::create(std::string("Brick.png"));
+      brickBurn1Image = Texture::create(std::string("Brick-burn1.png"));
+      brickBurn2Image = Texture::create(std::string("Brick-burn2.png"));
+      brickBurn3Image = Texture::create(std::string("Brick-burn3.png"));
+      brickBurn4Image = Texture::create(std::string("Brick-burn4.png"));
+            
       ladderImage = Texture::create(std::string("ladder.png"));
       wireImage = Texture::create(std::string("wire.png"));
       moneyImage = Texture::create(std::string("money.png"));
 
       // initialize the number of bags to 0
       numBags = 0;
+      burnTime = 0.0;
+      burnTextureNum=0;
    }
 
 
    Level::~Level()
    {
       delete brickImage;
+      delete brickBurn1Image;
+      delete brickBurn2Image;
+      delete brickBurn3Image;
+      delete brickBurn4Image;
       delete ladderImage;
       delete wireImage;
       delete moneyImage;

@@ -19,21 +19,30 @@ namespace lr
    Player::Player(Level& theLevel){
       mLevel = &theLevel;
       realHeight = 32;
-      realPos = 32;
-      mTextureState = run1;
+      realPos = 768-64;
+      mTextureState = runright1;
 
       // init all the keys to not down
       keyup = keydown = keyleft = keyright = burnright = burnleft = false;
 
       // create the textures
-      run1Image = Texture::create(std::string("lr1.png"));
-      run2Image = Texture::create(std::string("lr2.png"));
+      run1leftImage = Texture::create(std::string("lr1-left.png"));
+      run2leftImage = Texture::create(std::string("lr2-left.png"));
+      run3leftImage = Texture::create(std::string("lr3-left.png"));
+      run1rightImage = Texture::create(std::string("lr1-right.png"));
+      run2rightImage = Texture::create(std::string("lr2-right.png"));
+      run3rightImage = Texture::create(std::string("lr3-right.png"));
       climb1Image = Texture::create(std::string("lr-climb1.png"));
       climb2Image = Texture::create(std::string("lr-climb2.png"));
-      hang1Image = Texture::create(std::string("lr-hang1.png"));
-      hang2Image = Texture::create(std::string("lr-hang2.png"));
+      hang1leftImage = Texture::create(std::string("lr-hang1-left.png"));
+      hang2leftImage = Texture::create(std::string("lr-hang2-left.png"));
+      hang3leftImage = Texture::create(std::string("lr-hang3-left.png"));
+      hang1rightImage = Texture::create(std::string("lr-hang1-right.png"));
+      hang2rightImage = Texture::create(std::string("lr-hang2-right.png"));
+      hang3rightImage = Texture::create(std::string("lr-hang3-right.png"));
+      
 
-      currentTexture = run1Image;
+      currentTexture = run1rightImage;
       initTime = 0.0;
 
       // set lives to 1
@@ -55,11 +64,40 @@ namespace lr
    }
    
 
-   void Player::update(float dt)
+   void Player::fall(float dt)
    {
+      float beforeHeight=realHeight;
+      float remainingHeight;
+      realHeight-=(128*dt);
+      std::cout << "real: " << realHeight << "  before: " << beforeHeight << std::endl;
+      if(((int)realHeight%32)>((int)beforeHeight%32) && (int)beforeHeight%32!=0)
+      {
+         remainingHeight=(int)beforeHeight%32;
+         realHeight=beforeHeight-remainingHeight;
+      }
+   }
+
+   void Player::burnOutRightBrick(float dt)
+   {
+      // if the spot to our right is burnable then burn it.
+      if((mLevel->getEntityType(getGridPos()+1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()+1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()+1, getGridHeight())!=ladder))
+            if(mLevel->burn(getGridPos()+1, getGridHeight()-1, dt))
+               burnright=false;
+   }
+
+   void Player::burnOutLeftBrick(float dt)
+   {
+      // if the spot to our left is burnable then burn it.
+      if((mLevel->getEntityType(getGridPos()-1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()-1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()-1, getGridHeight())!=ladder))
+         if(mLevel->burn(getGridPos()-1, getGridHeight()-1, dt))
+            burnleft=false;
+   }
+   
+   void Player::update(float dt)
+   {   
       if(dt>(1.0/128.0))
-         dt=(1.0/32.0);
-      textureState tempState;
+         dt=(1.0/128.0);
+      playerState tempState;
       bool updateTex=false;
       // if it's not solid under us and we're not on a wire and we're not on a
       // ladder then we should be falling and if there is something solid under
@@ -69,10 +107,24 @@ namespace lr
       {
          fall(dt);
       }
+      // if we are supposed to burn the right bricks out then do it
+      else if(burnright)
+      {
+         burnOutRightBrick(dt);
+         
+
+      }
+      //if we are supposed to burn the left bricks out then do it
+      else if(burnleft)
+      {
+         burnOutLeftBrick(dt);
+         
+      }
+      
       else if(keyup && onLadder()) // we want to go up and we're on a ladder
       {
          realHeight+=((128*dt));
-         tempState=climb1;
+         tempState=climb;
          updateTex=true;
       }
       else if(keydown && ((onLadder() || ladderUnder()) && (!brickUnder() || brickUnder() && (int)realHeight%32!=0)))
@@ -80,7 +132,7 @@ namespace lr
       // us, or if there is we're not at the bottom of this block
       {
          realHeight-=((128*dt));
-         tempState=climb1;
+         tempState=climb;
          updateTex=true;
       }
       else if(keydown && onWire() && !solidUnder() && !onLadder() && realHeight>0)
@@ -94,7 +146,7 @@ namespace lr
       // to our left and we aren't running off the screen
       {
          realPos-=((128*dt));
-         tempState=run1;
+         tempState=runleft;
          updateTex=true;
       }
       else if(keyright && (solidUnder() || onLadder()) && !brickRight() && realPos<1008)
@@ -102,7 +154,7 @@ namespace lr
       // to our right and we aren't running off the screen
       { 
          realPos+=((128*dt));
-         tempState=run1;
+         tempState=runright;
          updateTex=true;
       }
       else if(keyleft && onWire() && !brickLeft() && realPos>0)
@@ -110,7 +162,7 @@ namespace lr
       // our left and we are not running off the screen
       {
          realPos-=((128*dt));
-         tempState=hang1;
+         tempState=hangleft;
          updateTex=true;
       }
       else if(keyright && onWire() && !brickRight() && realPos<1008)
@@ -118,7 +170,7 @@ namespace lr
       // to our right and we are not running off the screen
       {
          realPos+=((128*dt));
-         tempState=hang1;
+         tempState=hangright;
          updateTex=true;
       }
 
@@ -131,25 +183,56 @@ namespace lr
       if((initTime+=dt)>.08 && updateTex==true)
       {
          std::cout << "change texture" << std::endl;
-         if(tempState==hang1)  // are we hanging
+         if(tempState==hangright)  // are we hanging
          {
-            if(mTextureState!=hang1){
-               mTextureState=hang1;
-               currentTexture = hang1Image;
+            if(mTextureState==hangright1){
+               mTextureState=hangright2;
+               currentTexture = hang2rightImage;
+            }else if(mTextureState==hangright2){
+               mTextureState=hangright3;
+               currentTexture = hang3rightImage;
             }else{
-               mTextureState=hang2;
-               currentTexture = hang2Image;
+               mTextureState=hangright1;
+               currentTexture = hang1rightImage;
             }
-         }else if(tempState==run1)  // are we running
+         }else if(tempState==hangleft)
          {
-            if(mTextureState!=run1){
-               mTextureState=run1;
-               currentTexture = run1Image;
+            if(mTextureState==hangleft1){
+               mTextureState=hangleft2;
+               currentTexture = hang2leftImage;
+            }else if(mTextureState==hangleft2)
+            {
+               mTextureState=hangleft3;
+               currentTexture = hang3leftImage;
             }else{
-               mTextureState=run2;
-               currentTexture = run2Image;
+               mTextureState=hangleft1;
+               currentTexture = hang1leftImage;
             }
-         }else if(tempState==climb1) // are we climbing 
+         }else if(tempState==runright)  // are we running
+         {
+            if(mTextureState==runright1){
+               mTextureState=runright2;
+               currentTexture = run2rightImage;
+            }else if(mTextureState==runright2){
+               mTextureState=runright3;
+               currentTexture = run3rightImage;
+            }else{
+               mTextureState=runright1;
+               currentTexture = run1rightImage;
+            }
+         }else if(tempState==runleft)
+         {
+            if(mTextureState==runleft1){
+               mTextureState=runleft2;
+               currentTexture = run2leftImage;
+            }else if(mTextureState==runleft2){
+               mTextureState=runleft3;
+               currentTexture = run3leftImage;
+            }else{
+               mTextureState=runleft1;
+               currentTexture = run1leftImage;
+            }  
+         }else if(tempState==climb) // are we climbing 
          {
             if(mTextureState!=climb1){
                mTextureState=climb1;
@@ -161,19 +244,8 @@ namespace lr
          }
          initTime=0;
       }
-      // if we are supposed to burn the right bricks out then do it
-      if(burnright)
-      {
-         if((mLevel->getEntityType(getGridPos()+1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()+1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()+1, getGridHeight())!=ladder))
-            mLevel->burn(getGridPos()+1, getGridHeight()-1);
+      
 
-      }
-      //if we are supposed to burn the left bricks out then do it
-      if(burnleft)
-      {
-         if((mLevel->getEntityType(getGridPos()-1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()-1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()-1, getGridHeight())!=ladder))
-         mLevel->burn(getGridPos()-1, getGridHeight()-1);
-      }
    }
 
    void Player::setPos(int pos)
@@ -291,15 +363,9 @@ namespace lr
       }else if(sym == SDLK_f && down)
       {
          burnright = true;
-      }else if(sym == SDLK_f && !down)
-      {
-         burnright = false;
       }else if(sym == SDLK_d && down)
       {
          burnleft = true;
-      }else if(sym == SDLK_d && !down)
-      {
-         burnleft = false;
       }
    }
 

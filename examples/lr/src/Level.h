@@ -66,9 +66,11 @@ namespace lr
 
       /** 
        * mark a position to be burned - that is removed temporarily by being placed 
-       * in the removedBlocks list
+       * in the removedBlocks list.  The dt helps us flip through the animation
+       * at constant speed.
+       * Returns true when the bricks are gone otherwise returns false
        */
-      void burn(const int& x, const int& y);
+      bool burn(const int& x, const int& y, float dt);
 
       
       /**
@@ -95,6 +97,10 @@ namespace lr
        * various textures that we need
        */
       Texture* brickImage;
+      Texture* brickBurn1Image;
+      Texture* brickBurn2Image;
+      Texture* brickBurn3Image;
+      Texture* brickBurn4Image;
       Texture* ladderImage;
       Texture* wireImage;
       Texture* moneyImage;
@@ -104,6 +110,14 @@ namespace lr
        */
       int numBags;
 
+      /**
+       * the amount of time gone by since we started burning out a hole in the
+       * ground.
+       */
+      float burnTime;
+      Block* burnBlock;
+      int burnTextureNum;
+      
       /**
        * we maintain a list of blocks that have been removed
        */
