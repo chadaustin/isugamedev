@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../../../../../../../devtools/docbook/css/docbook_bscott.css" type="text/css"?>
+<!DOCTYPE book SYSTEM "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<book>
+  <bookinfo>
+    <title>GameKernel</title>
+    <subtitle>Getting Started Guide</subtitle>
+    <releaseinfo>Version 0.1.3</releaseinfo>
+    <pubdate>$Date: 2002-03-21 08:06:34 $</pubdate>
+  </bookinfo>
+  <preface>
+    <title>Preface</title>
+    <para>This book is for people who are just getting started with GameKernel. New users are guided through building and installing GameKernel, compiling and running the sample applications and creating their own applications. By the end of this book, you should understand how to use and integrate GameKernel into your own applications.</para>
+    <para>I am assuming a few things about you:</para>
+    <itemizedlist>
+      <listitem>
+        <para>You are busy.</para>
+      </listitem>
+      <listitem>
+        <para>You know how to use either MS Visual Studio or a command-line interface.</para>
+      </listitem>
+      <listitem>
+        <para>You understand C++ including templates and namespaces or at least have a good reference to fall back on.</para>
+      </listitem>
+      <listitem>
+        <para>You can write and read simple OpenGL applications.</para>
+      </listitem>
+    </itemizedlist>
+  </preface>
+  <chapter>
+    <title>A Crash Course on GameKernel Design</title>
+    <para>To successfully use GameKernel it is best to know a little bit about how it is designed.</para>
+  </chapter>
+  <chapter id="buildandinstall.gk.chapter">
+    <title>Building and Installing GameKernel</title>
+    <para>GameKernel is an open-source cross-platform library. Building and installing GameKernel is a straight forward process on both Windows and Unix. If you have acquired a binary - pre-build - version of GameKernel, you can skip the Building section and move on to Installing.</para>
+    <para>First things first; GameKernel has some external dependencies. If you wish have GameKernel run using GLUT, then you need to download and install the latest version of GLUT. You can find binaries and instructions at <ulink url="http://www.opengl.org/developers/documentation/glut.html">http://www.opengl.org/developers/documentation/glut.html</ulink>. Additionally, if you wish to use the SDL system driver, you need to download and install the latest version of SDL. You can find binaries and instructions at <ulink url="http://www.libsdl.org">http://www.libsdl.org</ulink>.</para>
+    <section>
+      <title>Building GameKernel (Windows Only)</title>
+      <para>GameKernel comes with VisualStudio 6.0 project files to make compilation easier for Windows users. If you are familiar with VisualStudio 6.0, building the source should be a no-brainer. Note that all successfully built files will be created in <filename>&lt;GK_DIR&gt;\dist\dbg</filename> for debug builds and <filename>&lt;GK_DIR&gt;\dist\opt</filename> for release builds.</para>
+      <para>Fire up VStudio and open the gamekernel project. It is located at <filename>&lt;GK_DIR&gt;\vc6\gamekernel.dsw</filename>. First you'll want to build the gk project. This will create the <filename>gk.dll</filename> library that you will need to link your applications against. If you wish to have GameKernel use the GLUT system driver, build the glut project. This will produce <filename>glut.gkd</filename>. Similarly you may optionally build the sdl project if you wish to use the SDL system driver. This will produce <filename>sdl.gkd</filename>.</para>
+      <para>Now it's time to build the example app. Build the input project. This should create the <filename>input.exe</filename> executable.</para>
+      <para>Hey, you're done. Now how easy was that!</para>
+    </section>
+    <section>
+      <title>Building GameKernel (Unix Only)</title>
+      <para>Ahhh ... Unix. Now that's where you really want to be. Building GameKernel on Unix follows the standard GNU conventions. There are two ways of doing a build here - the quick way and the detailed way. First ... the quick and easy way.</para>
+      <screen>% cd &lt;GK_DIR&gt;
+% ./configure &amp;&amp; gmake</screen>
+      <para>If <filename>configure</filename> detects that you have GLUT and/or SDL installed, it will automatically build those system drivers for you.</para>
+      <para>Now ... the detailed way. If you don't have GLUT or SDL installed in the default path, <filename>/usr</filename>, then you will need to tell <filename>configure</filename> where it can find them. You can do this by giving arguments to configure. For example,</para>
+      <screen>% ./configure --with-glutroot=$HOME/software --with-sdlroot=/usr/local</screen>
+      <para>You can also disable the generation of either library by doing something along the lines of</para>
+      <screen>% ./configure --disable-glut --disable-sdl</screen>
+      <para>You can also tell configure you don't want to install into the default location, <filename>/usr/local</filename>, by giving it a new prefix path.</para>
+      <screen>% ./configure --prefix=$HOME/software</screen>
+      <para>Finally, you want to build the sources, so issue a gmake command.</para>
+      <screen>% gmake</screen>
+    </section>
+  </chapter>
+</book>
