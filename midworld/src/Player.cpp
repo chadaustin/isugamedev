@@ -1,4 +1,5 @@
 #include <map>
+#include <assert.h>
 #include <gmtl/Matrix.h>
 #include <gmtl/Quat.h>
 #include <gmtl/MatrixOps.h>
