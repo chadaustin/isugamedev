@@ -6,8 +6,9 @@ http://java.sun.com/products/java-media/3D/, you shouldn't have to
 modify your PATH or CLASSPATH at all.  If you're on the CS machines in
 Atanasoff, or any other machine where you don't have administrative
 access, download the JAR and DLL files at
-http://pyrallis.aegisknight.org/j3d/.  You must add every JAR file to
-your CLASSPATH.  If you put them in H:\j3d, for example, type:
+http://prdownloads.sourceforge.net/isugamedev/j3d.tar.bz2.  You must
+add every JAR file to your CLASSPATH.  If you put them in H:\j3d, for
+example, type:
 
 set CLASSPATH=%CLASSPATH%;H:\j3d\j3daudio.jar;H:\j3d\j3dcore.jar;H:\j3d\j3dutils.jar;H:\j3d\vecmath.jar
 
