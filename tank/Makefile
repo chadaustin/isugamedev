@@ -61,7 +61,21 @@ endif
 
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
-default: ${OBJS}
+default: 
+	cd regexx; $(MAKE) 
+	@echo " "
+	@echo "================="
+	@echo "Making TANK"
+	@echo "================="
+	@echo " "
+	$(MAKE) tank
+         
+tank: ${OBJS}
+	@echo " "
+	@echo "----------------------"
+	@echo "Making TANK executable"
+	@echo "----------------------"
+	@echo " "
 	$(EXE_LINKER) $(EXE_FLAGS) ${OBJS} $(LINKALL_ON) imageIoReg.cxx $(LINKALL_OFF) $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIB_PATHS) $(LIBS)
 
 
@@ -73,6 +87,17 @@ clobber: clean
 # the "clean" target, cleans object code and exe from the directory...
 # NOTE: SGI's CC command produces an ii_files directory.
 clean:
+	@echo " "
+	@echo "================="
+	@echo "Cleaning regexx"
+	@echo "================="
+	@echo " "
+	cd regexx; $(MAKE) clean
+	@echo " "
+	@echo "================="
+	@echo "Cleaning TANK"
+	@echo "================="
+	@echo " "
 	-rm -rf $(OBJS) $(FILENAME) ii_files
 
 include ${MK_DIR}/mk.depend
