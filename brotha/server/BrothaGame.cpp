@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-03 07:18:34 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-05-03 15:49:56 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -75,6 +75,8 @@ namespace server {
    }
 
    void BrothaGame::update() {
+      static float timePassed = 0;
+
       // remove players for connections that have closed
       for(ClosedConnectionMapIter iter=mClosedConnections.begin();iter!=mClosedConnections.end();++iter) {
          removeConnection(*iter);
@@ -82,28 +84,31 @@ namespace server {
 
       // Do a frame in the game logic if we haven't paused the game
       if (! isPaused()) {
-         mGameTime.update();
          // Convert to seconds
-         float dt = mGameTime.getElapsedTime() / 1000.0f;
+         float dt = mGameTime.update() / 1000.0f;
+         timePassed+=dt;
          mLogic.update(dt);
       }
 
-      // Run through all objects in game and broadcast their updated data
-      typedef std::vector<game::Object*> ObjList;
-      ObjList& objs = mLogic.getObjects();
-      for (ObjList::iterator itr = objs.begin(); itr != objs.end(); ++itr) {
-         net::UpdateObjMessage *msg = new net::UpdateObjMessage(*itr);
-         sendToAll(msg, true);
-      }
+      if(timePassed > 1.0f) {
+         timePassed = 0;
 
-      // Run through all players in game and broadcast their updated data
-      typedef std::vector<game::Player*> PlayerList;
-      PlayerList& players = mLogic.getPlayers();
-      for (PlayerList::iterator itr = players.begin(); itr != players.end(); ++itr) {
-         net::UpdatePlayerMessage *msg = new net::UpdatePlayerMessage(*itr);
-         sendToAll(msg, true);
-      }
+         // Run through all objects in game and broadcast their updated data
+         typedef std::vector<game::Object*> ObjList;
+         ObjList& objs = mLogic.getObjects();
+         for (ObjList::iterator itr = objs.begin(); itr != objs.end(); ++itr) {
+            net::UpdateObjMessage *msg = new net::UpdateObjMessage(*itr);
+            sendToAll(msg, true);
+         }
 
+         // Run through all players in game and broadcast their updated data
+         typedef std::vector<game::Player*> PlayerList;
+         PlayerList& players = mLogic.getPlayers();
+         for (PlayerList::iterator itr = players.begin(); itr != players.end(); ++itr) {
+            net::UpdatePlayerMessage *msg = new net::UpdatePlayerMessage(*itr);
+            sendToAll(msg, true);
+         }
+      }
 
       /// @todo do a frame in the game
       /// @todo for each object that is modified broadcast to everyone

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-05-03 07:18:33 $
- * Version:       $Revision: 1.35 $
+ * Date modified: $Date: 2002-05-03 15:49:55 $
+ * Version:       $Revision: 1.36 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -68,10 +68,11 @@ namespace client
 
       // init the sound subsystem
       try {
-         mSoundMgr = new sound::SoundManager();
+         mSoundMgr = NULL;
+/*         mSoundMgr = new sound::SoundManager();
          mSoundMgr->getJukebox()->addTrack("music/track1.ogg");
          mSoundMgr->getJukebox()->addTrack("music/track2.ogg");
-         mSoundMgr->getJukebox()->play();
+         mSoundMgr->getJukebox()->play();*/
       }
       catch (const std::exception& e) {
          std::cerr << "Caught exception " << e.what() << std::endl;

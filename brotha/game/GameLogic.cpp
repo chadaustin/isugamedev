@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-03 07:27:11 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2002-05-03 15:49:55 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -242,21 +242,22 @@ namespace game
 
       // handle acceleration
       if (player->mIsAccelerating) {
-         gmtl::Vec3f newV = vehicle->getVelocity() + (forward * (speed * dt));
+         gmtl::Vec3f newV = forward * speed;
          vehicle->setVelocity(newV);
       }
       if (player->mIsBraking) {
-         vehicle->setVelocity(vehicle->getVelocity() - (forward * (speed * dt)));
+         gmtl::Vec3f newV = forward * -speed;
+         vehicle->setVelocity(newV);
       }
       if (player->mIsHandBraking) {
          /// @todo implement hand braking
          std::cout<<"Hand Braking (not implemented)!"<<std::endl;
       }
       if (player->mIsTurningLeft) {
-//         vehicle->setAngularVelocity(vehicle->getAngularVelocity() + (angSpeed * dt));
+     //    vehicle->setAngularVelocity(vehicle->getAngularVelocity() + (angSpeed * dt));
       }
       if (player->mIsTurningRight) {
-//         vehicle->setAngularVelocity(vehicle->getAngularVelocity() - (angSpeed * dt));
+     //    vehicle->setAngularVelocity(vehicle->getAngularVelocity() - (angSpeed * dt));
       }
    }
 }

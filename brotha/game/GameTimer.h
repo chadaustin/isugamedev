@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameTimer.h,v $
- * Date modified: $Date: 2002-04-28 16:41:04 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-05-03 15:49:55 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -137,7 +137,7 @@ namespace game
        * since the last update. If game time is paused, game time will not be
        * incremented.
        */
-      void update()
+      double update()
       {
          if ( ! isStopped() )
          {
@@ -148,7 +148,11 @@ namespace game
 
             // update game time as appropriate
             mGameTime += deltaTime;
+
+            return deltaTime;
          }
+
+         return 0;
       }
 
       /**
@@ -176,15 +180,15 @@ namespace game
          _ftime( &tv );
 
          // consolidate to milliseconds
-         return ( static_cast<double>(tv.time) +
-                  static_cast<double>(tv.millitm) / 1000.0 );
+         return ( static_cast<double>(tv.time) * 1000.0 +
+                  static_cast<double>(tv.millitm) );
 #else
          struct timeval tv;
          gettimeofday( &tv, 0 );
 
          // consolidate to milliseconds
-         return ( static_cast<double>(tv.tv_sec) +
-                  static_cast<double>(tv.tv_usec) / 1000000.0 );
+         return ( static_cast<double>(tv.tv_sec) * 1000.0 +
+                  static_cast<double>(tv.tv_usec) / 1000.0 );
 #endif // WIN32
       }
 
