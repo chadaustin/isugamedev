@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<game>
+ <level>
+  <group>
+   <static>
+    <pos x="-10.9375" y="0" z="-7.375"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-0.875" y="0" z="-7.375"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="6.6875" y="0" z="-2.625"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wall_corner</model>
+   </static>
+   <static>
+    <pos x="6.6875" y="0" z="-7.5625"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wall_corner</model>
+   </static>
+   <static>
+    <pos x="-4.3125" y="0" z="8.625"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="6.875" y="0" z="12.3125"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+  </group>
+ </level>
+</game>

@@ -1,0 +1,7 @@
+Import('InstallFiles')
+InstallFiles(Split("""
+    mat.crf
+    mesh.cmf
+    skeleton.csf
+    walk.caf
+"""))

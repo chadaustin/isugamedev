@@ -1,0 +1,25 @@
+#
+# Wavefront material file: /home9/users/browner/wallew.mtl
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 11/13/2002 12:30:02
+#
+# Bounding box of geometry = (-49.2126,0,-24.6063) to (49.2126,59.0551,24.6063).
+
+newmtl default
+	Ns 32
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.7 0.7 0.7
+	Ka 0.3 0.3 0.3
+
+newmtl material__52
+	Ns 3
+	d 1
+	illum 2
+	Kd 0.584314 0.584314 0.584314
+	Ks 0 0 0
+	Ka 0.584314 0.584314 0.584314
+	map_Kd crete.png
+

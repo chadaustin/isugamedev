@@ -1,0 +1,43 @@
+#
+# Wavefront material file: /home9/users/bscott/open/isugamedev/midworld/model_dev/3ds/turret/turret.mtl
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 10/23/2002 18:00:51
+#
+# Bounding box of geometry = (-247.204,-0.56414,-291.289) to (335.374,287.24,291.289).
+
+newmtl default
+	Ns 32
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.7 0.7 0.7
+	Ka 0.3 0.3 0.3
+
+newmtl barrel
+	Ns 3
+	d 1
+	illum 2
+	Kd 0.584314 0.584314 0.584314
+	Ks 0 0 0
+	Ka 0.584314 0.584314 0.584314
+	map_Kd turret_barrel.png
+
+newmtl base
+	Ns 3
+	d 1
+	illum 2
+	Kd 0.584314 0.584314 0.584314
+	Ks 0 0 0
+	Ka 0.584314 0.584314 0.584314
+	map_Kd turret_base.png
+
+newmtl turret
+	Ns 3
+	d 1
+	illum 2
+	Kd 0.584314 0.584314 0.584314
+	Ks 0 0 0
+	Ka 0.584314 0.584314 0.584314
+	map_Kd turret.png
+

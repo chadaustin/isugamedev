@@ -1,0 +1,25 @@
+#
+# Wavefront material file: /home9/users/browner/crate2.mtl
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 11/13/2002 12:40:21
+#
+# Bounding box of geometry = (-53.1738,1.16415e-10,-53.1738) to (53.1738,106.348,53.1738).
+
+newmtl default
+	Ns 32
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.7 0.7 0.7
+	Ka 0.3 0.3 0.3
+
+newmtl 6___default
+	Ns 3
+	d 1
+	illum 2
+	Kd 0.588235 0.588235 0.588235
+	Ks 0 0 0
+	Ka 0.588235 0.588235 0.588235
+	map_Kd /bitmaps/crate.jpg
+

@@ -1,0 +1,25 @@
+#
+# Wavefront material file: /home9/users/bscott/open/isugamedev/midworld/model_dev/3ds/walls/wallcorner.mtl
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 10/23/2002 19:14:27
+#
+# Bounding box of geometry = (-25.0713,0,-24.6063) to (73.3539,59.0551,73.8063).
+
+newmtl default
+	Ns 32
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.7 0.7 0.7
+	Ka 0.3 0.3 0.3
+
+newmtl material__49
+	Ns 3
+	d 1
+	illum 2
+	Kd 0.584314 0.584314 0.584314
+	Ks 0 0 0
+	Ka 0.584314 0.584314 0.584314
+	map_Kd cretel.png
+

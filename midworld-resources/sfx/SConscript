@@ -1,0 +1,6 @@
+Import('InstallFiles')
+InstallFiles(Split("""
+   pistol.wav
+   shotgun.wav
+   spreadgun.wav
+"""))

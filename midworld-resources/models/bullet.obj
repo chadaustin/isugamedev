@@ -1,0 +1,113 @@
+#
+# Wavefront OBJ file: /home9/users/bscott/open/isugamedev/midworld/model_dev/3ds/tracer/tracer.obj
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 10/23/2002 17:56:06
+#
+# Bounding box of geometry = (-1.14487,-2.90965,-37.422) to (3.99392,2.90965,38.0022).
+
+mtllib bullet.mtl
+
+# Coordinates for object 'Plane02'
+v 0.03779291 0.02909654 0.38002247
+v 0.03779294 0.02909651 -0.37422016
+v -0.00930238 -0.02909651 0.38002247
+v -0.00930236 -0.02909655 -0.37422016
+# 4 vertices
+
+vt 0.0 0.0
+vt 0.0 1.0
+vt 1.0 0.0
+vt 1.0 1.0
+# 4 texture vertices
+
+vn  -0.777332 0.629090 0.0 
+# 1 normals
+
+usemtl 3___default
+
+o Plane02
+g Plane02
+
+s off
+f 3/2/1 1/1/1 4/4/1
+f 2/3/1 4/4/1 1/1/1
+# 2 polygons
+
+# Coordinates for object 'Plane03'
+v -0.01144863 0.02721994 0.38002247
+v -0.01144856 0.0272199 -0.37422016
+v 0.03993911 -0.02721991 0.38002247
+v 0.03993918 -0.02721995 -0.37422016
+# 4 vertices
+
+vt 0.0 0.0
+vt 0.0 1.0
+vt 1.0 0.0
+vt 1.0 1.0
+# 4 texture vertices
+
+vn  -0.727198 -0.686428 0.0 
+# 1 normals
+
+usemtl 3___default
+
+o Plane03
+g Plane03
+
+s off
+f 7/6/2 5/5/2 8/8/2
+f 6/7/2 8/8/2 5/5/2
+# 2 polygons
+
+# Coordinates for object 'Plane04'
+v 0.03779291 0.02909654 0.38002247
+v 0.03779294 0.02909651 -0.37422016
+v -0.00930238 -0.02909651 0.38002247
+v -0.00930236 -0.02909655 -0.37422016
+# 4 vertices
+
+vt 0.0 0.0
+vt 0.0 1.0
+vt 1.0 0.0
+vt 1.0 1.0
+# 4 texture vertices
+
+vn  0.777332 -0.629090 0.0 
+# 1 normals
+
+usemtl 3___default
+
+o Plane04
+g Plane04
+
+s off
+f 9/9/3 11/10/3 12/12/3
+f 12/12/3 10/11/3 9/9/3
+# 2 polygons
+
+# Coordinates for object 'Plane05'
+v -0.01144863 0.02721994 0.38002247
+v -0.01144856 0.0272199 -0.37422016
+v 0.03993911 -0.02721991 0.38002247
+v 0.03993918 -0.02721995 -0.37422016
+# 4 vertices
+
+vt 0.0 0.0
+vt 0.0 1.0
+vt 1.0 0.0
+vt 1.0 1.0
+# 4 texture vertices
+
+vn  0.727198 0.686428 0.0 
+# 1 normals
+
+usemtl 3___default
+
+o Plane05
+g Plane05
+
+s off
+f 13/13/4 15/14/4 16/16/4
+f 16/16/4 14/15/4 13/13/4
+# 2 polygons

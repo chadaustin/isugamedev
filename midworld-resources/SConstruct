@@ -1,0 +1,30 @@
+import sys
+import os
+
+env = Environment()
+
+def InstallFiles(files):
+    global TARGET, env
+    for f in files:
+        env.Install(TARGET, f)
+
+BASE_TARGET = ARGUMENTS.get('TARGET')
+if not BASE_TARGET:
+    print "Specify --target=<destdir> on the command line"
+    sys.exit(-1)
+Default(BASE_TARGET)
+
+Export("InstallFiles")
+
+# Recurse to subdirs
+SUBDIRS = ['animations', 'fonts', 'images', 'levels', 'models', 'music', 'sfx']
+for s in SUBDIRS:
+    TARGET = os.path.join(BASE_TARGET, s)
+    SConscript(dirs = [s])
+
+# Install files in the current dir
+TARGET = os.path.join(BASE_TARGET)
+InstallFiles(Split("""
+   inputmap.cfg
+   resources.txt
+"""))

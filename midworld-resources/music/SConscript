@@ -1,0 +1,8 @@
+Import('InstallFiles')
+InstallFiles(Split("""
+    Level001.ogg
+    Level002.ogg
+    story.ogg
+    Theme001.ogg
+    theme.ogg
+"""))

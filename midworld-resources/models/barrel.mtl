@@ -1,0 +1,25 @@
+#
+# Wavefront material file: /home9/users/bscott/open/isugamedev/midworld/model_dev/3ds/barrels/barrel.mtl
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 10/23/2002 17:47:26
+#
+# Bounding box of geometry = (-57.1751,0,-57.4098) to (53.1615,145.274,55.7172).
+
+newmtl default
+	Ns 32
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.7 0.7 0.7
+	Ka 0.3 0.3 0.3
+
+newmtl material__27
+	Ns 3
+	d 1
+	illum 2
+	Kd 1 1 1
+	Ks 0 0 0
+	Ka 1 1 1
+	map_Kd barrel.png
+

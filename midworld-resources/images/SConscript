@@ -1,0 +1,28 @@
+Import('InstallFiles')
+InstallFiles(Split("""
+    credits.jpeg
+    ending.jpeg
+    explosive_particle.png
+    gameover.jpeg
+    ground.png
+    intro.jpeg
+    loading.jpeg
+    loadingbar.png
+    menu_bg.jpeg
+    menu_credits.png
+    menu_exit.png
+    menu_load_game.png
+    menu_new_game.png
+    menu_options.png
+    menu_selection.png
+    menu_square.png
+    nebula.bmp
+    sky.jpg
+    story1_frame1_cell1.jpg
+    story1_frame1_cell2.jpg
+    story1_frame1_cell3.jpg
+    story1_frame1_cell4.jpg
+    story1_frame2_cell1.jpg
+    DomeTexture.jpg
+    unsupported.jpeg
+"""))

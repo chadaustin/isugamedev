@@ -1,0 +1,26 @@
+#
+# Wavefront material file: /home9/users/bscott/open/isugamedev/midworld/model_dev/3ds/tracer/tracer.mtl
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 10/23/2002 17:56:06
+#
+# Bounding box of geometry = (-1.14487,-2.90965,-37.422) to (3.99392,2.90965,38.0022).
+
+newmtl default
+	Ns 32
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.7 0.7 0.7
+	Ka 0.3 0.3 0.3
+
+newmtl 3___default
+	Ns 3
+	d 1
+	illum 2
+	Kd 1 1 1
+	Ks 0 0 0
+	Ka 1 1 1
+	map_Kd bullet.png
+	map_d bullet.png
+

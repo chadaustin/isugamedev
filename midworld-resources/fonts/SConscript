@@ -1,0 +1,2 @@
+Import('InstallFiles')
+InstallFiles(['arial.ttf'])

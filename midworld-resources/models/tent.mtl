@@ -1,0 +1,25 @@
+#
+# Wavefront material file: /home9/users/bscott/open/isugamedev/midworld/model_dev/tent.mtl
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 10/23/2002 01:33:20
+#
+# Bounding box of geometry = (-435.6,-1.00549e-05,-900.055) to (435.6,609.612,911.959).
+
+newmtl default
+	Ns 32
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.7 0.7 0.7
+	Ka 0.3 0.3 0.3
+
+newmtl tent
+	Ns 3
+	d 1
+	illum 2
+	Kd 0.584314 0.584314 0.584314
+	Ks 0 0 0
+	Ka 0.584314 0.584314 0.584314
+	map_Kd tent.png
+

@@ -1,0 +1,56 @@
+#
+# Wavefront material file: /home9/users/browner/droid2.mtl
+#
+# Converted by the PolyTrans geometry converter from Okino Computer Graphics, Inc.
+# Date/time of export: 11/13/2002 12:21:32
+#
+# Bounding box of geometry = (-148.433,52.8747,-64.7028) to (134.597,309.93,97.0378).
+
+newmtl default
+	Ns 32
+	d 1
+	illum 2
+	Kd 0.4 0.4 0.4
+	Ks 0.7 0.7 0.7
+	Ka 0.3 0.3 0.3
+
+newmtl 2___default
+	Ns 3
+	d 1
+	illum 2
+	Kd 1 0 0
+	Ks 0 0 0
+	Ka 1 0 0
+
+newmtl 3___default
+	Ns 1
+	d 1
+	illum 2
+	Kd 0.121569 0.121569 0.121569
+	Ks 8.38 8.38 8.38
+	Ka 0.243137 0.243137 0.243137
+
+newmtl 4___default
+	Ns 5
+	d 1
+	illum 2
+	Kd 0.294118 0.294118 0.294118
+	Ks 5.92 5.92 5.92
+	Ka 0.588235 0.588235 0.588235
+
+newmtl 6___default
+	Ns 3
+	d 1
+	illum 2
+	Kd 0.588235 0.588235 0.588235
+	Ks 0 0 0
+	Ka 0.588235 0.588235 0.588235
+
+newmtl metal_rust
+	Ns 133
+	d 1
+	illum 2
+	Kd 1 1 1
+	Ks 1.50871 1.50871 1.50871
+	Ka 0.733333 0.721569 0.678431
+
