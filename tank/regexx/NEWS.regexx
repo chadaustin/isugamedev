@@ -1,0 +1,58 @@
+Regexx NEWS -- history of user-visible changes.
+
+Please, send bug reports to <bug-regexx@nn.com.br>.
+
+Version 0.98.1
+
+* Added missing PCRE files.
+
+Version 0.98
+
+* When the same atom was used many times with Regexx, the replace didn't
+  work as expected. Fixed.
+* Now replacef() methods work with function pointers intstead of templates
+  (nice idea Michael Piefel!).
+* Updated PCRE to release 3.4.
+
+Version 0.97
+
+* Now we're using Perl Compatible Regular Expressions (PCRE) instead
+  of GNU regex
+* Removed flag Regexx::basic
+* Added flag Regexx::study
+
+Version 0.96
+
+* Added replacef() method, allowing custom string replacing
+  through a function passed as a parameter.
+* Added constructors to allow one-line regular expressions.
+* Now exec(), replace() and replacef() methods store results.
+* Added matches(), replaced() and operators int() and string() to
+  retrieve stored results.
+* Added operators to compare RegexxMatch and RegexxMatchAtom with
+  a string.
+* Added examples for the new features.
+
+Version 0.95
+
+* Turned Regexx into a library.
+* Added Autoconf, Automake and libtool support.
+* Sources moved to /src.
+* Example renamed, changed and moved to /examples.
+* Renamed copyright to COPYING.
+* Added doc files NEWS, README, INSTALL, AUTHORS, TODO and ChangeLog.
+
+Version 0.91
+
+* Fixed many compile time warnings.
+* Added copyright notice.
+
+Version 0.90
+
+* First public release.
+
+
+Copyright (C) 2000 Gustavo Niemeyer <gustavo@nn.com.br>
+
+$Revision: 1.1 $
+$Date: 2001-09-19 15:03:08 $

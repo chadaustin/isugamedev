@@ -1,0 +1,80 @@
+55,56c55,56
+<     std::cout << "1: ";
+<     std::cout << rxx.replace("I love expensive software!","expensive (soft[a-z]*)",
+---
+>     cout << "1: ";
+>     cout << rxx.replace("I love expensive software!","expensive (soft[a-z]*)",
+58c58
+<     std::cout << std::endl;
+---
+>     cout << endl;
+63c63
+<     std::cout << "2: ";
+---
+>     cout << "2: ";
+66c66
+<       std::cout << "Regexx's host is " << rxx.match[0].atom[0] << "." << std::endl;
+---
+>       cout << "Regexx's host is " << rxx.match[0].atom[0] << "." << endl;
+68c68
+<       std::cout << "Oops, no hosts found!" << std::endl;
+---
+>       cout << "Oops, no hosts found!" << endl;
+73c73
+<     std::cout << "3: ";
+---
+>     cout << "3: ";
+75c75
+<       std::cout << "Yeah! It's from gnu.org!" << std::endl;
+---
+>       cout << "Yeah! It's from gnu.org!" << endl;
+77c77
+<       std::cout << "No, it's not from gnu.org." << std::endl;
+---
+>       cout << "No, it's not from gnu.org." << endl;
+82,83c82,83
+<     std::cout << "4: ";
+<     std::cout << "There are "
+---
+>     cout << "4: ";
+>     cout << "There are "
+86c86
+< 	 << " 'a's in this phrase." << std::endl;
+---
+> 	 << " 'a's in this phrase." << endl;
+91,92c91,92
+<     std::cout << "5: ";
+<     std::cout << rxx.replace("<B>Please, <STRIKE>no</STRIKE> tags.</B>",
+---
+>     cout << "5: ";
+>     cout << rxx.replace("<B>Please, <STRIKE>no</STRIKE> tags.</B>",
+95c95
+<     std::cout << std::endl;
+---
+>     cout << endl;
+100,101c100,101
+<     std::cout << "6: ";
+<     std::cout << rxx.replacef("Turn your free software into expensive software.",
+---
+>     cout << "6: ";
+>     cout << rxx.replacef("Turn your free software into expensive software.",
+103c103
+<     std::cout << std::endl;
+---
+>     cout << endl;
+108c108
+<     std::cout << "7: ";
+---
+>     cout << "7: ";
+110c110
+<       std::cout << "I've found the 'constructor' word!" << std::endl;
+---
+>       cout << "I've found the 'constructor' word!" << endl;
+112c112
+<       std::cout << "I haven't found the 'constructor' word!" << std::endl;
+---
+>       cout << "I haven't found the 'constructor' word!" << endl;
+116c116
+<     std::cerr << e.message() << std::endl;
+---
+>     cerr << e.message() << endl;

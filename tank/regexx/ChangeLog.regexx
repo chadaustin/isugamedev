@@ -1,0 +1,47 @@
+2001-03-16 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* Released 0.98.1
+	* Added missing PCRE files.
+
+2001-03-13 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* Released 0.98
+	* configure.in: Now using AC_CONFIG_SUBDIRS() to configure PCRE.
+	* src/regexx.cc: When the same atom was used many times with
+	  Regexx, the replace didn't work as expected. Fixed.
+	* src/regexx.hh: Now replacef() methods work with function
+	  pointers intstead of templates (nice idea Michael Piefel!).
+	* examples/simple.cc: Updated example.
+	* pcre/*: Updated to PCRE 3.4.
+
+2000-08-22 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* Released 0.97
+	* configure, configure.in: Removed regex verifyings since we're
+	  using PCRE.
+	* regexx.spec.in: Included regexx.spec.in into the tarball.
+
+2000-08-18 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* pcre/*: Included PCRE in the source tree.
+	* src/*: Changed regexx code to work with PCRE native functions.
+	* examples/*: Fixed examples to work with PCRE.
+
+2000-07-10 Gustavo Niemeyer <niemeyer@conectiva.com>
+	* src/*: Added std:: to string, vector and pair.
+
+2000-01-29 Gustavo Niemeyer <gustavo@nn.com.br>
+	* configure, configure.in: Version updated to 0.96.
+	* src/Makefile.am, src/Makefile.in: Library version info updated.
+	* NEWS, README, TODO: Updated.
+	* examples/simple.cc: Added constructor example.
+	* src/regexx.hh: Added constructors allowing one-line regular
+	  expressions.
+	* src/regexx.cc, src/regexx.hh: Changed exec(), replace() and
+	  replacef() methods to store results and return a reference to them.
+	  Added matches(), replaced() and operators int() and string() to
+	  retrieve last result.
+	* examples/simple.cc, src/regexx.hh: Added operator==() methods to
+	  RegexxMatch and RegexxMatchAtom.
+
+2000-01-28 Gustavo Niemeyer <gustavo@nn.com.br>
+	* examples/simple.cc: Added replacef() example.
+	* src/regexx.cc: Renamed parameter flags to _flags.
+	* src/regexx.hh: Added replacef() methods.
+	* Regexx imported into CVS tree.
