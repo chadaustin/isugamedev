@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-20 05:05:57 $
-# Version:       $Revision: 1.2 $
+# Date modified: $Date: 2002-02-20 14:00:41 $
+# Version:       $Revision: 1.3 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -45,7 +45,7 @@ DRIVER_FILENAME=$(PROJECT_NAME:%drv=%).drv
 OBJDIR = .
 DEPDIR =
 
-PATH_TO_SRCS = .
+PATH_TO_SRCS = .:$(srcdir)
 MK_DIR = $(top_srcdir)/mk
 INCLUDE_PATHS = -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/external/xdl @INCLUDES@ @GLUT_DRIVER_INCLUDES@
 LIBS = @GLUT_DRIVER_LIBS@
