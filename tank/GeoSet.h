@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-09-19 19:44:00 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-20 19:08:22 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -369,6 +369,7 @@ public:
        }
     }
     kev::GState* gstate() { return mGstate; }
+    const kev::GState* gstate() const { return mGstate; }
    
     // next pass of renderer makes this a display list
     void compile() { assert( false && "not implemented" ); }

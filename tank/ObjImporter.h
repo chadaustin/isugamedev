@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-19 19:44:00 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-20 19:08:22 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -67,29 +67,10 @@ public:
          return;
       }
 
-/*
-      bool exists2 = CFileIO::fileExists( "./models/cubes-tex.mtl" );
-      bool exists3 = CFileIO::fileExists( "./models/cubes-tex.obj" );
-      bool exists4 = CFileIO::fileExists( "./models/./cubes-tex.mtl" );
-      if (exists2 == false)
-      {
-         std::cout<<"WARNING: exsts2 failed\n"<<std::flush;
-      }
-      if (exists3 == false)
-      {
-         std::cout<<"WARNING: exsts3 failed\n"<<std::flush;
-      }
-      if (exists4 == false)
-      {
-         std::cout<<"WARNING: exsts4 failed\n"<<std::flush;
-      }
-*/
       ifstream dataFile;
       dataFile.open( filename.c_str(), ios::in, filebuf::openprot );
       CFileIO::getAll( dataFile, filetext );
       dataFile.close();
-
-//std::cout<<filetext.c_str()<<"\n"<<std::flush;
 
       try 
       {
@@ -406,6 +387,8 @@ public:
       std::map< std::string, Indicies >::iterator it;
       for (it = lookup.begin(); it != lookup.end(); ++it)
       {
+         std::cout<<"Building "<<(*it).first<<" geoset\n"<<std::flush;
+            
          GeoSet* geoset = new GeoSet;
 
          Vec4<float> color( 1.0f,1.0f,1.0f,1.0f );
@@ -418,12 +401,12 @@ public:
          if (normals.size() > 0 && lookup[(*it).first].nindex.size() > 0)
             geoset->setAttr( GeoSet::NORMAL3, GeoSet::PER_VERTEX, (void*)&normals[0], (unsigned int*)&lookup[(*it).first].nindex[0] );
          else
-            std::cout<<"not enough normals\n"<<std::flush;
+            std::cout<<"- Not enough normals.  total normals = "<<normals.size()<<", indecies == "<<lookup[(*it).first].nindex.size()<<"\n"<<std::flush;
          geoset->setAttr( GeoSet::TEXCOORD2, GeoSet::PER_VERTEX, (void*)&texcoords[0], (unsigned int*)&lookup[(*it).first].tindex[0] );
 
          if (lookup[(*it).first].mat != NULL)
          {
-            std::cout<<"Setting texture: "<<(*it).first<<" to new geoset\n"<<std::flush;
+            std::cout<<"- Setting texture: "<<(*it).first<<" to new geoset\n"<<std::flush;
             geoset->setGstate( lookup[(*it).first].mat );
          }
          

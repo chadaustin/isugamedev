@@ -6,7 +6,7 @@
 
 namespace kev
 {
-   void glRenderGeoSet( GeoSet& gset )
+   inline void glRenderGeoSet( GeoSet& gset )
    {
       if (gset.gstate() != NULL)
       {
@@ -42,7 +42,7 @@ namespace kev
        }
    }
    
-   void glRenderGeoSets( std::vector<GeoSet*>& gsets )
+   inline void glRenderGeoSets( std::vector<GeoSet*>& gsets )
    {
       for (int x = 0; x < gsets.size(); ++x)
       {
