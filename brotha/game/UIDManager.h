@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: UIDManager.h,v $
- * Date modified: $Date: 2002-03-26 23:31:19 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-03-27 00:50:53 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,6 +43,8 @@
 
 #include <queue>
 #include <assert.h>
+#include "thread/Synchronized.h"
+#include "thread/Lock.h"
 
 /**
  * A singleton class that manages unique ids for a particular object class.
@@ -50,9 +52,9 @@
  * A queue is maintained with the available unique IDs. Also, the highest
  * UID allocated so far is stored.
  */
-template < class managedClass,
-           class id_t = unsigned long >
-class UIDManager
+template< class managedClass,
+          class id_t = unsigned long >
+class UIDManager : private thread::Synchronized
 {
 public:
    typedef id_t            UID;
@@ -70,12 +72,14 @@ private:
    {}
 
    /**
-    * Copies of singletons are prohibited.
+    * Copies of singletons are prohibited. This constructor is not implemented
+    * on purpose. Usage should cause a compile-time error.
     */
    UIDManager( const UIDManager<managedClass, id_t>& copy );
 
    /**
-    * Copies of singletons are prohibited.
+    * Copies of singletons are prohibited. This assignment operator is not
+    * implemented on purpose. Usage should cause a compile-time error.
     */
    UIDManager<managedClass, id_t> operator=(
                const UIDManager<managedClass, id_t>& copy );
@@ -106,6 +110,8 @@ public:
     */
    UID reserveID()
    {
+      thread::Lock l__(this);
+
       //Check if there's an ID in the available pool we can use
       if ( mAvail.size() > 0 ) {
          //Remove the next ID from the pool and reserve it
@@ -125,6 +131,8 @@ public:
     */
    void releaseID( const UID &id )
    {
+      thread::Lock l__(this);
+
       //We should not be releasing IDs we are not managing!
       assert( id <= mLargestUID );
 
