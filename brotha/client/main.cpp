@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-04-21 21:06:47 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-21 23:38:33 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -107,7 +107,12 @@ int BrothaMain(int argc, char *argv[]) {
                case SDL_VIDEORESIZE:
                   app->resize(event.resize.w, event.resize.h);
                   break;
-            
+
+               case SDL_KEYDOWN:
+               case SDL_KEYUP:
+                  app->processInput(event.key.keysym.sym, event.key.state == SDL_PRESSED);
+                  break;
+
                case SDL_QUIT:
                   should_quit = true;
                   break;

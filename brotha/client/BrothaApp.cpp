@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-19 09:09:39 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-04-21 23:38:33 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -97,7 +97,7 @@ namespace client
       }
 
       // Process input from the user
-      processInput();
+//handled by main()      processInput();
 
       // update the state of the game
       mGame.update();
@@ -151,10 +151,28 @@ namespace client
       glViewport(0, 0, width, height);
    }
 
-   void BrothaApp::processInput()
+   void BrothaApp::processInput(SDLKey sym, bool keyDown)
    {
-/*
       game::Player* player = mGame.getLocalPlayer();
+      net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::UpdateWhat::NOTHING;
+      PRFloat64 to;
+
+      if(sym == SDLK_a) {
+         what = net::UpdatePlayerInfoMessage::UpdateWhat::ACCELERATION;
+         if(keyDown) {
+            to = 1;
+         } else {
+            to = 0;
+         }
+      }
+
+      if(what != net::UpdatePlayerInfoMessage::UpdateWhat::NOTHING) {
+         net::UpdatePlayerInfoMessage* msg = new net::UpdatePlayerInfoMessage(what, to);
+         getNetMgr()->send(msg, getConnID());
+      }
+
+      /*
+      
 
       // test for quit
       if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)

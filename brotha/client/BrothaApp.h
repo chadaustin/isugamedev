@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-21 21:06:47 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-21 23:38:33 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -66,7 +66,7 @@ namespace client
       void draw();
       void resize(int width, int height);
       
-      void processInput();
+      void processInput(SDLKey sym, bool keyDown);
 
       /**
        * Gets the network manager for this app.
