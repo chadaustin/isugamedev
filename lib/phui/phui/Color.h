@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2003-01-05 07:13:45 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2003-01-05 08:22:08 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -93,6 +93,18 @@ namespace phui
    inline std::ostream& operator<<(std::ostream& out, const Color<T>& clr)
    {
       out<<"("<<clr.r<<", "<<clr.g<<", "<<clr.b<<", "<<clr.a<<")";
+   }
+
+   template< typename T >
+   inline bool operator==(const Color<T>& lhs, const Color<T>& rhs)
+   {
+      return lhs.r == rhs.r && lhs.g == rhs.g && lhs.b == rhs.b && lhs.a == rhs.a;
+   }
+
+   template< typename T >
+   inline bool operator!=(const Color<T>& lhs, const Color<T>& rhs)
+   {
+      return !(lhs == rhs);
    }
 
    //@{
