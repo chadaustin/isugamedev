@@ -23,7 +23,7 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -72,7 +72,7 @@
 				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="TRUE"
-				RuntimeLibrary="4"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
@@ -115,50 +115,64 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="..\client\BrothaApp.cpp">
-			</File>
-			<File
-				RelativePath="..\client\Camera.cpp">
-			</File>
-			<File
-				RelativePath="..\client\LoginState.cpp">
-			</File>
-			<File
-				RelativePath="..\client\ModelManager.cpp">
-			</File>
-			<File
-				RelativePath="..\client\Scene.cpp">
-			</File>
-			<File
-				RelativePath="..\client\ServerConnection.cpp">
-			</File>
-			<File
-				RelativePath="..\client\main.cpp">
-			</File>
-			<File
-				RelativePath="..\client\realmain.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc">
-			<File
 				RelativePath="..\client\AppState.h">
+			</File>
+			<File
+				RelativePath="..\client\BrothaApp.cpp">
 			</File>
 			<File
 				RelativePath="..\client\BrothaApp.h">
 			</File>
 			<File
+				RelativePath="..\client\Camera.cpp">
+			</File>
+			<File
 				RelativePath="..\client\Camera.h">
+			</File>
+			<File
+				RelativePath="..\client\ChopShopWnd.cpp">
+			</File>
+			<File
+				RelativePath="..\client\ChopShopWnd.h">
+			</File>
+			<File
+				RelativePath="..\client\DealerWnd.cpp">
+			</File>
+			<File
+				RelativePath="..\client\DealerWnd.h">
+			</File>
+			<File
+				RelativePath="..\client\GameState.cpp">
+			</File>
+			<File
+				RelativePath="..\client\GameState.h">
+			</File>
+			<File
+				RelativePath="..\client\GarageState.cpp">
+			</File>
+			<File
+				RelativePath="..\client\GarageState.h">
+			</File>
+			<File
+				RelativePath="..\client\LoginState.cpp">
 			</File>
 			<File
 				RelativePath="..\client\LoginState.h">
 			</File>
 			<File
+				RelativePath="..\client\ModelManager.cpp">
+			</File>
+			<File
 				RelativePath="..\client\ModelManager.h">
 			</File>
 			<File
+				RelativePath="..\client\Scene.cpp">
+			</File>
+			<File
 				RelativePath="..\client\Scene.h">
+			</File>
+			<File
+				RelativePath="..\client\ServerConnection.cpp">
 			</File>
 			<File
 				RelativePath="..\client\ServerConnection.h">
@@ -167,12 +181,14 @@
 				RelativePath="..\client\State.h">
 			</File>
 			<File
+				RelativePath="..\client\main.cpp">
+			</File>
+			<File
 				RelativePath="..\client\main.h">
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
+			<File
+				RelativePath="..\client\realmain.cpp">
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

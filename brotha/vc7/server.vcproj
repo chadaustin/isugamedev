@@ -23,7 +23,8 @@
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="FALSE"
@@ -69,8 +70,9 @@
 				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="FALSE"
@@ -79,10 +81,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="external/nspr/lib/nspr4.lib"
+				AdditionalDependencies="nspr4.lib"
 				OutputFile="../bin/win32/server.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="external"
+				AdditionalLibraryDirectories="external/lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -163,6 +165,34 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 			<File
 				RelativePath="..\server\server.rc">
+			</File>
+		</Filter>
+		<Filter
+			Name="xmlpp"
+			Filter="">
+			<File
+				RelativePath="external\xmlpp\shared_ptr.h">
+			</File>
+			<File
+				RelativePath="external\xmlpp\xmlconfig.h">
+			</File>
+			<File
+				RelativePath="external\xmlpp\xmlparser.cpp">
+			</File>
+			<File
+				RelativePath="external\xmlpp\xmlparser.h">
+			</File>
+			<File
+				RelativePath="external\xmlpp\xmlpp.cpp">
+			</File>
+			<File
+				RelativePath="external\xmlpp\xmlpp.h">
+			</File>
+			<File
+				RelativePath="external\xmlpp\xmltokenizer.cpp">
+			</File>
+			<File
+				RelativePath="external\xmlpp\xmltokenizer.h">
 			</File>
 		</Filter>
 	</Files>
