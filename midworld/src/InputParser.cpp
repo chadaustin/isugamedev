@@ -24,16 +24,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputParser.cpp,v $
- * Date modified: $Date: 2002-10-26 05:35:12 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-26 08:01:47 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "InputParser.h"
-#include "InputBinder.h"
 #include <iostream>
 #include <fstream>
 #include <utility>
+#include <assert.h>
+#include "InputParser.h"
+#include "InputBinder.h"
 
 namespace mw
 {
