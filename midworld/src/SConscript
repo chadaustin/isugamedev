@@ -49,6 +49,7 @@ classes = Split("""
    MenuState
    MissileLauncher
    ModelManager
+   NavNodeTree
    OpenSGSceneViewer
    Particle
    ParticleEngine
