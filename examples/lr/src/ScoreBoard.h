@@ -29,6 +29,8 @@ namespace lr
 
          numLives = 0;
          playerScore = 0;
+         msg =  "";
+         FPS= 0;
       }
 
       ~ScoreBoard()
@@ -38,10 +40,11 @@ namespace lr
       /** 
        * update the scoreboard with the current score and the number of lives
        */
-      void update(int score, int lives)
+      void update(int score, int lives, float fps)
       {
          numLives = lives;
          playerScore = score;
+         FPS = fps;
       }
 
       /**
@@ -49,10 +52,13 @@ namespace lr
        */
       void draw()
       {
+//         renderer->getStream() << "Score: " << playerScore << "              lives: " << numLives << "     fps: "  << FPS << gltext::flush;
          renderer->getStream() << "Score: " << playerScore << "              lives: " << numLives << gltext::flush;
       }
    public:
       int numLives, playerScore;
+      float FPS;
+      std::string msg;
       
       gltext::FontPtr font;
       gltext::FontRendererPtr renderer;

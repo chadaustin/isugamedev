@@ -181,7 +181,7 @@ namespace lr
                   if(mLevel->getEntityType(i,getGridHeight()) == brick)
                   {
                      found=false;
-                     i=32;
+                     i=0;
                   }
                }
             }
@@ -899,7 +899,7 @@ namespace lr
          }
          initTime=0;
       }
-      SDLKey temp;
+      SDLKey temp=SDLK_r;
       handleKeyPress(temp, true);
       
    }

@@ -76,7 +76,7 @@ namespace lr
       lm::aiNode* badGuy2;
       
       
-
+      float FPS;
       
       bool transition;
    };

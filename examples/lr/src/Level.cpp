@@ -16,17 +16,17 @@ namespace lr
          // XXX: this is a mem leak needs to be fixed
          burnBlock = new Block(x,y);
       burnTime+=dt;
-      if(burnTime<.25)
+      if(burnTime<.125)
       {
-         if(burnTime<.25)
+         if(burnTime<.125)
             burnTextureNum=4;
-         if(burnTime<.2)
-            burnTextureNum=3;
-         if(burnTime<.15)
-            burnTextureNum=2;
          if(burnTime<.1)
-            burnTextureNum=1;
+            burnTextureNum=3;
+         if(burnTime<.075)
+            burnTextureNum=2;
          if(burnTime<.05)
+            burnTextureNum=1;
+         if(burnTime<.025)
             burnTextureNum=0;
          
       }

@@ -144,8 +144,6 @@ namespace lr
       glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
       glDisable(GL_CULL_FACE);
-
-      
       
       glClearColor(1.0f,1.0f,1.0f,1.0f);
       glClear(GL_COLOR_BUFFER_BIT);
@@ -214,46 +212,39 @@ namespace lr
          mLevel->readLevelFile(mPlayer, mBadGuys);
       }
       
+      FPS = 1.0/dt; // store the frames per second
+      
+      
       bool first=true;
       bool done=false;
       if(mLevel->getNumBags()==0)  // if there is no money left then the player 
                                  // got all the money and we go to the next
                                  // level.
       {
-         for(std::vector<std::string>::iterator itr=mLevel->getLevels().begin(); itr!=mLevel->getLevels().end() && !done;itr++)
+  
+         for(int i=0;i<mLevel->getLevels().size() && !done;i++)
          {
-            if(first)
+         
+            if(mLevel->getCurrentLevel()==mLevel->getLevels()[i])
             {
-               if(mLevel->getCurrentLevel()==mLevel->getLevels().front())
+               if((i+1)==mLevel->getLevels().size())
                {
-                  itr++;
-                  mLevel->setCurrentLevel(*itr);
-                  done=true;
-                  mLevel->readLevelFile(mPlayer, mBadGuys);
-                  setupBadGuys();
+                  mLevel->setCurrentLevel(mLevel->getLevels()[0]);
                }
-               first=false;
-            }
-            else if(mLevel->getCurrentLevel()==(*itr))
-            {
-               itr++;
-               if(itr!=mLevel->getLevels().end())
-               {
-                  mLevel->setCurrentLevel(*itr);
-               }else
-               {
-                  mLevel->setCurrentLevel(mLevel->getLevels().front());
+               else
+               { 
+                  mLevel->setCurrentLevel(mLevel->getLevels()[i+1]);
                }
-               done=true;
+               done = true;
                mLevel->readLevelFile(mPlayer, mBadGuys);
                setupBadGuys();
             }
+            mLevel->nextLevel==true;
          }
-         mLevel->nextLevel==true;
       }
       
       mLevel->update(dt);
-      mScoreBoard->update(mPlayer->getScore(), mPlayer->getLives());
+      mScoreBoard->update(mPlayer->getScore(), mPlayer->getLives(), FPS);
       
       for(int i=0;i<mBadGuys.size();i++)
          mBadGuys[i]->update(dt);
