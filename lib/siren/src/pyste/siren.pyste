@@ -21,26 +21,29 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: siren.pyste,v $
-# Date modified: $Date: 2003-05-20 07:41:58 $
-# Version:       $Revision: 1.4 $
+# Date modified: $Date: 2003-05-20 23:59:47 $
+# Version:       $Revision: 1.5 $
 # -----------------------------------------------------------------
 #
 # *************************************************************** siren-cpr-end
 Kernel = Class('siren::Kernel', 'siren/Kernel.h')
 
-# SDL helpers
+# SDL helpers =================================================================
 Key = Enum('SDLKey', 'siren/State.h')
 rename(Key, 'Key')
 WarpMouse = Function('SDL_WarpMouse', 'siren/State.h')
 rename(WarpMouse, 'WarpMouse')
+# ================================================================= SDL helpers
 
-
+# State Subsystem =============================================================
 State = Class('siren::State', 'siren/State.h')
 
 StateFactory = Class('siren::StateFactory', 'siren/StateFactory.h')
 set_policy(StateFactory.getInstance, return_value_policy(reference_existing_object))
 StateCreator = Class('siren::StateCreator', 'siren/StateFactory.h')
+# ============================================================= State Subsystem
 
+# Sound Subsystem =============================================================
 SoundManager = Class('siren::SoundManager', 'siren/sound/SoundManager.h')
 set_policy(SoundManager.getJukebox, return_internal_reference())
 set_policy(SoundManager.getSoundEffectManager, return_internal_reference())
@@ -49,6 +52,21 @@ Jukebox = Class('siren::Jukebox', 'siren/sound/Jukebox.h')
 set_policy(Jukebox.getTrack, return_internal_reference())
 
 SoundEffectManager = Class('siren::SoundEffectManager', 'siren/sound/SoundEffectManager.h')
+# ============================================================= Sound Subsystem
+
+# Resource Subsystem ==========================================================
+Texture = Class('siren::Texture', 'siren/Texture.h')
+set_policy(Texture.create, return_value_policy(reference_existing_object))
+# ========================================================== Resource Subsystem
 
 
-#ResourceManager = Class('siren::ResourceManager', 'siren/ResourceManager.h')
+# Avatar Subsystem ============================================================
+Avatar = Class('siren::Avatar', 'siren/avatar/Avatar.h')
+set_policy(Avatar.create, return_value_policy(reference_existing_object))
+set_policy(Avatar.getRotXYZ, return_internal_reference())
+set_policy(Avatar.getPos, return_internal_reference())
+exclude(Avatar.getBone)
+exclude(Avatar.model)
+
+#Avatar_DrawMode = Enum('siren::Avatar::DrawMode', 'siren/avatar/Avatar.h')
+# ============================================================ Avatar Subsystem
