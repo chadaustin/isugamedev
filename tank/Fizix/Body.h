@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Body.h,v $
-//    $Date: 2001-10-10 12:39:00 $
-//    $Revision: 1.3 $
+//    $Date: 2001-10-10 13:42:13 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -88,7 +88,7 @@ namespace ani
    public:
       Body() : ani::Memory(),
                mMass( 1.0f ), mInvMass( 1.0f ), mVolume( 1.0f, 1.0f, 1.0f ),
-               mBodySpaceInertiaTensor(), mBodySpaceInertiaTensorInv(), 
+               mBodySpaceInertiaTensor( Matrix4f::identity() ), mBodySpaceInertiaTensorInv( Matrix4f::identity() ), 
 
                mPosition( 0.0f, 0.0f, 0.0f ),
                mRotation(),
@@ -393,17 +393,26 @@ namespace ani
       // here we do a quick calc of Ibody(t) if the object is cube shaped
       void precalcBodyInertiaTensorForBlock()
       {
-         mBodySpaceInertiaTensor.makeIdent();
+         // no need to init, since we're only ever overwriting the 3 diagonals.
+         //mBodySpaceInertiaTensor.makeIdent();
+         
          mBodySpaceInertiaTensor(0,0) = mMass * (mVolume[1]*mVolume[1] + mVolume[2]*mVolume[2]);
          mBodySpaceInertiaTensor(1,1) = mMass * (mVolume[0]*mVolume[0] + mVolume[2]*mVolume[2]);
          mBodySpaceInertiaTensor(2,2) = mMass * (mVolume[0]*mVolume[0] + mVolume[1]*mVolume[1]);
          
-         float scalar = 12.0f;
-         mBodySpaceInertiaTensor(0,0) /= scalar;
-         mBodySpaceInertiaTensor(1,1) /= scalar;
-         mBodySpaceInertiaTensor(2,2) /= scalar;
+         // divide by a scalar 12
+         float inv_scalar = 12.0f;
+         mBodySpaceInertiaTensor(0,0) *= inv_scalar;
+         mBodySpaceInertiaTensor(1,1) *= inv_scalar;
+         mBodySpaceInertiaTensor(2,2) *= inv_scalar;
 
-         mBodySpaceInertiaTensorInv.invert( mBodySpaceInertiaTensor );
+         // Invert sloooowly
+         //mBodySpaceInertiaTensorInv.invert( mBodySpaceInertiaTensor );
+         
+         // invert very fast
+         mBodySpaceInertiaTensorInv(0,0) = 1.0f / mBodySpaceInertiaTensor(0,0);
+         mBodySpaceInertiaTensorInv(1,1) = 1.0f / mBodySpaceInertiaTensor(1,1);
+         mBodySpaceInertiaTensorInv(2,2) = 1.0f / mBodySpaceInertiaTensor(2,2);
       }
       
       //: Precompute the inertia tensor in local (body) coordinates
