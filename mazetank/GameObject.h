@@ -10,8 +10,9 @@
 #define __GAMEOBJECT_H__
 
 #include "GraphicsObject.h"
+#include <vector>
 
-enum ObjectType{CAMTANK = 0, BULLET};
+enum ObjectType{CAMTANK = 0, BULLET, NPCTANK};
 
 class GameObject
 {
@@ -52,12 +53,9 @@ public:
    {
       ObjectVelocityZ = Velocity;
    }
-   void SetObjectBoundingBox(float BottomCorner[3])
+   void SetObjectSphere(float Radius)
    {
-		for(int i = 0; i < 3; i++)
-		{
-			ObjectBottomBox[i] = BottomCorner[i];
-		}
+      ObjectSphere = Radius;
    }
 	////////////////////////////////////
 
@@ -94,16 +92,43 @@ public:
    {
       Velocity = ObjectVelocityZ;
    }
-   void GetObjectBoundingBox(float BottomCorner[3])
+   void GetObjectSphere(float& Radius)
    {
-		for(int i = 0; i < 3; i++)
-		{
-			BottomCorner[i] = ObjectBottomBox[i];
-		}
+      Radius = ObjectSphere;
    }
 	/////////////////////////////////////////
 
+   ////////////////////////////////////////////////
+   // Common Functions used for collision detection
+   ////////////////////////////////////////////////
+   void AddCollision(GameObject* &CollidedObject)
+   {
+      TheCollisions.push_back(CollidedObject);
+      ACollision = true;
+   }
 
+   void ResetCollisions()
+   {
+      TheCollisions.clear();
+      ACollision = false;
+   }
+
+   void AddCollision()
+   {
+      ACollision = true;
+   }
+
+   void GetCollisions(std::vector<GameObject*> &Collisions)
+   {
+      for(int i = 0; i < TheCollisions.size(); i++)
+         Collisions.push_back(TheCollisions[i]);
+   }
+
+   bool IsCollision()
+   {
+      return ACollision;
+   }
+   //////////////////////////////////////////////////
 protected:
 	float ObjectPosition[3];
 	float ObjectVelocity;
@@ -111,8 +136,12 @@ protected:
 	float ObjectAngleVelocity;
     float ObjectZAngle;
     float ObjectVelocityZ;
-	float ObjectBottomBox[3];
+	float ObjectBox[3];
+   float ObjectSphere;
 	ObjectType ObjectName;
+   bool ACollision;
+
+   std::vector<GameObject*> TheCollisions;
 
 };
 #endif

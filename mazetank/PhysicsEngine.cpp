@@ -53,7 +53,7 @@ void PhysicsEngine::Update(vector<GameObject*> &TheObjects)
 			break;
 
 		case BULLET:
-			//BulletUpdate(TheObjects[i]);
+			BulletUpdate(TheObjects[i]);
 			break;
 		}
 
@@ -69,6 +69,9 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject)
 	float ObjectAngle;
 	float ObjectAngularVelocity;
 
+   ///////////////////////////////////////////////////////////
+   // Collect all the information about the Camera Tank Object
+   ///////////////////////////////////////////////////////////
 	TruckObject->GetVelocity(ObjectVelocity);	
 	ObjectVelocity *= dt;
 	TruckObject->GetPosition(ObjectPosition);
@@ -155,62 +158,73 @@ void PhysicsEngine::BulletUpdate(GameObject* &BulletObject)
 void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
 {
 	float Position[3];
-
+   ObjectType ObjectName;
 	vector<GameObject*> ToRemove;
 
+   ///////////////////////////////////////////////////////
+   // Remove bullets once they get below the ground plane
+   //////////////////////////////////////////////////////
 	int i;
 	for(i = 0; i < TheObjects.size(); i++)
 	{
 		TheObjects[i]->GetPosition(Position);
+      TheObjects[i]->GetCurrentObjectType(ObjectName);
 
-		if(Position[2] < -2)
+		if(Position[2] < 0 && ObjectName == BULLET)
 		{
-			ToRemove.push_back(TheObjects[i]);
+ 			TheObjects[i]->AddCollision();
 		}
 	}
 
 	int j;
 
 
+   ////////////////////////////////////////
+   // Check here for all the collisions
+   ////////////////////////////////////////
 	for(i = 0; i < TheObjects.size(); i++)
 	{
 		for(j = i+1; j < TheObjects.size(); j++)
 		{
 			if(CheckForCollision(TheObjects[i], TheObjects[j]))
 			{
-				int temp = 1;
-				//Respond to collision;
+				TheObjects[i]->AddCollision(TheObjects[j]);
+            TheObjects[j]->AddCollision(TheObjects[i]);
 			}
 		}
 	}
-	
 
-	//////////////////////////////////////////////
-	// Actually remove the objects from the game
-	//////////////////////////////////////////////
-	for(i = 0; i < ToRemove.size(); i++)
-	{
-		for(j = 0; ToRemove[i] != TheObjects[j]; j++);
-
-		delete ToRemove[i];
-		TheObjects.erase(TheObjects.begin()+j);
-	}
+   ObjectsResponse.ResponseToCollisions(TheObjects);
+   ObjectsResponse.RemoveObjects(TheObjects);
 }
 
 bool PhysicsEngine::CheckForCollision(GameObject* ObjectOne, GameObject* ObjectTwo)
 {
-	float OneTop[3];
-	float OneBottom[3];
+   return SphereToSphereCollision(ObjectOne, ObjectTwo);
+}
 
-	float TwoTop[3];
-	float TwoBottom[3];
+bool PhysicsEngine::SphereToSphereCollision(GameObject* ObjectOne, GameObject* ObjectTwo)
+{
+   float PositionOne[3];
+   float PositionTwo[3];
 
-//	ObjectOne->GetObjectBoundingBox(OneTop, OneBottom);
-//	ObjectTwo->GetObjectBoundingBox(TwoTop, TwoBottom);
+   ObjectOne->GetPosition(PositionOne);
+   ObjectTwo->GetPosition(PositionTwo);
 
-	if(OneTop[0] > TwoBottom[0] || OneTop[1] > TwoBottom[1] || OneTop[2] < TwoBottom[2]
-		|| TwoTop[0] > OneBottom[0] || TwoTop[1] > OneBottom[1] || TwoTop[2] < OneBottom[2])
-		return false;
-	else
-		return true;
+   float Dist = sqrt(pow(PositionOne[0]-PositionTwo[0],2)+
+                     pow(PositionOne[1]-PositionTwo[1],2)+
+                     pow(PositionOne[2]-PositionTwo[2],2));
+
+   float OneRadius;
+   float TwoRadius;
+
+   ObjectOne->GetObjectSphere(OneRadius);
+   ObjectTwo->GetObjectSphere(TwoRadius);
+
+   Dist = Dist - (OneRadius+TwoRadius);
+
+   if(Dist > 0)
+      return false;
+   else
+      return true;
 }

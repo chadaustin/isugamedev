@@ -9,13 +9,8 @@ TankObject::TankObject()
 	this->SetAngularVelocity(0.0);
 	this->SetObjectAngle(0.0);
 
-	float Position[3];
-
-	Position[0] = 3.0;
-	Position[1] = 2.2;
-	Position[2] = 1.9;
-
-	this->SetObjectBoundingBox(Position);
+   this->SetObjectSphere(1.9);
+   this->ResetCollisions();
 }
 
 TankObject::~TankObject()
@@ -61,24 +56,18 @@ void TankObject::Draw()
 
 	glPopMatrix();
 
-	float size[3];
-	this->GetObjectBoundingBox(size);
+	float radius;
+	this->GetObjectSphere(radius);
 
 	glPushMatrix();
 		glColor3f(1.0, 0.0, 0.0);
-		glTranslatef(Translate[0]-1.9, Translate[1]-1.1, Translate[2]-0.2);
+		glTranslatef(Translate[0], Translate[1], Translate[2]);
 		glLineWidth(1.0);
 		glDisable(GL_DEPTH);
 		glDisable(GL_LIGHTING);
 
-		glBegin(GL_LINES);
-			glVertex3f(0.0, 0.0, 0.0);
-			glVertex3f(size[0], 0.0, 0.0);
-			glVertex3f(0.0, 0.0, 0.0);
-			glVertex3f(0.0, size[1], 0.0);
-			glVertex3f(0.0, 0.0, 0.0);
-			glVertex3f(0.0, 0.0, size[2]);
-		glEnd();
+      glutSolidSphere(radius, 10, 10);
+
 		glLineWidth(1.0);
 		glEnable(GL_DEPTH);
 		glEnable(GL_LIGHTING);

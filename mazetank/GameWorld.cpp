@@ -37,6 +37,17 @@ void GameWorld::Init()
    Player1->SetVelocity(0.0);
    TheGameObjects.push_back(Player1);
 
+   GameObject* NonPlayer = new TankObject;
+
+   NonPlayer->Init();
+   NonPlayer->SetObjectAngle(0.0);
+   NonPlayer->SetCurrentObjectType(NPCTANK);
+   float Position2[3] = {40.0, 0.0, 0.0};
+   NonPlayer->SetPosition(Position2);
+   NonPlayer->SetVelocity(0.0);
+
+   TheGameObjects.push_back(NonPlayer);
+
    GameCamera = new Camera;
    float CamDist[3] = {10.0, 0.0, -4.0};
    GameCamera->SetDistanceFromObjectCenter(CamDist);

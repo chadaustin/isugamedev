@@ -11,6 +11,7 @@
 
 #include "Camera.h"
 #include "GameObject.h"
+#include "CollisionResponse.h"
 #include <vector>
 
 using namespace std;
@@ -46,12 +47,15 @@ public:
 private:
 	Camera* CurrentCamera;
 	int dt, Starttime, Stoptime;
-    float GRAVITY;
+   float GRAVITY;
+
+   CollisionResponse ObjectsResponse;
 
 	void CameraTruckUpdate(GameObject* &TruckObject);
 	void BulletUpdate(GameObject* &BulletObject);
 	void CollisionDetection(vector<GameObject*> &TheObjects);
 	bool CheckForCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
+   bool SphereToSphereCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
 
 };
 #endif
