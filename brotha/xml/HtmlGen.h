@@ -21,7 +21,7 @@ namespace reports {
       std::string gang;
       std::string player;
       std::string car;
-	  std::string err;
+      std::string err;
 
       request(std::string brothaPath) {
          valid = false;
@@ -38,12 +38,12 @@ namespace reports {
             else{
                if (state == 0) {
                   if (tem.size() < 2) {
-					  err = "gang path to short";
+                     err = "gang path to short";
                      break;
                   }
                   gangD = tem[0] - '0';
                   if (gangD < 0 || gangD > 3) {
-					  err = "invalid level in gang part";
+                     err = "invalid level in gang part";
                      break;
                   }
                   gang = tem.substr(1,tem.size()-1);
@@ -52,12 +52,12 @@ namespace reports {
                }
                else if (state == 1) {
                   if (tem.size() < 2) {
-					  err = "player path to short";
+                     err = "player path to short";
                      break;
                   }
                   playerD = tem[0] - '0';
                   if (playerD < 0 || playerD > 3) {
-					  err = "invalid level on player";
+                     err = "invalid level on player";
                      break;
                   }
                   player = tem.substr(1,tem.size()-1);
@@ -66,11 +66,11 @@ namespace reports {
                }
                else if (state == 2) {
                   if (tem.size() < 2) {
-					  err = "carpath to short";
+                     err = "carpath to short";
                      break;
                   }
                   carD = tem[0] - '0';
-				  if (carD < 0 || carD > 3) {
+                  if (carD < 0 || carD > 3) {
                      break;
                   }
                   car = tem.substr(1,tem.size()-1);
@@ -105,9 +105,9 @@ namespace reports {
 
 
    std::string GenerateReport(std::string query, data::BrothaData& data) {
-	  if(query.size() < 3){
-		  query = "2*/1*/0*";
-	  }
+      if(query.size() < 3){
+        query = "2*/1*/0*";
+      }
       reports::request r(query);
       if (r.valid) {
          data::ganglist gl = data.getGangList();
@@ -131,27 +131,27 @@ namespace reports {
          if (schema.car.find(c->getName()) !=  std::string::npos || schema.car == "*") {
             if (schema.carD == 1) {
                out << "<tr><td><img src=" << urlBase << c->getName() << "_small.jpg>";
-			   out << "</td><td><center>";
-			   out << "<a href=\"/0" << gangname << "/2" << playername << "/2" << c->getName() << "\">";
-			   out << c->getName() << "</a></center></td><td><center>";
+               out << "</td><td><center>";
+               out << "<a href=\"/0" << gangname << "/2" << playername << "/2" << c->getName() << "\">";
+               out << c->getName() << "</a></center></td><td><center>";
                out << c->getMods().size() << "</center></td></tr>";
             }
             if (schema.carD == 2) {
                out << "<div class=\"car2\">";
                out << "<font size=+2>"; 
-			   out << "<a href=\"/2" << gangname << "/1*/0*\">" << gangname << "</a>/";
-			   out << "<a href=\"/0" << gangname << "/2" << playername << "/1*\">" << playername << "</a>/";
-			   out << c->getName() << "<font>";
-			   if(c->getMods().size() > 0){
-                 out << "<table><tr><td valign=top>";
-                 out << "<div><img src=" << urlBase << c->getName() << ".jpg></div>";
-                 out << "</td><td valign=top>";
-                 out << "<div>" << renderModList(c->getMods()) << "</div>";
-                 out << "</td></tr></table>";
-			   }
-			   else{
-				   out << "<br><b>unmodified</b>";
-			   }
+               out << "<a href=\"/2" << gangname << "/1*/0*\">" << gangname << "</a>/";
+               out << "<a href=\"/0" << gangname << "/2" << playername << "/1*\">" << playername << "</a>/";
+               out << c->getName() << "<font>";
+               if(c->getMods().size() > 0){
+                  out << "<table><tr><td valign=top>";
+                  out << "<div><img src=" << urlBase << c->getName() << ".jpg></div>";
+                  out << "</td><td valign=top>";
+                  out << "<div>" << renderModList(c->getMods()) << "</div>";
+                  out << "</td></tr></table>";
+               }
+               else{
+                  out << "<br><b>unmodified</b>";
+               }
                out << "</div>";
             }
          }
@@ -169,22 +169,22 @@ namespace reports {
          data::Gang* g = gl[i];
          if (schema.gang.find(g->getName())!= std::string::npos || schema.gang == "*") {
             if (schema.gangD == 2) {
-			   html << "<div class=\"gang2\">";
+               html << "<div class=\"gang2\">";
                html << "<h1>" + g->getName() + "</h1>";
                html << "<div class=\"ganginfo\">" << g->getInfo() << "</div>";
                html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
-			   html << "<div class=\"playerlist\">";
-			   html << renderPlayerList(g->getPlayerList(), schema, g->getName());
-			   html << "</div>";
-			   html << "</div>";
+               html << "<div class=\"playerlist\">";
+               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
+               html << "</div>";
+               html << "</div>";
             }
             else if (schema.gangD == 1) {
                html << "<h1>" << g->getName() << "</h1>";
-			   html << renderPlayerList(g->getPlayerList(), schema, g->getName());
-
+               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
             }
-			else
-			   html << renderPlayerList(g->getPlayerList(), schema, g->getName());
+            else {
+               html << renderPlayerList(g->getPlayerList(), schema, g->getName());
+            }
          }
       }
       return html.str();
@@ -210,41 +210,41 @@ namespace reports {
          if (schema.player.find(p->getName())!=  std::string::npos || schema.player == "*") {
             if (schema.playerD == 1) {
                html << "<tr><td>";
-			   html << "<a href=\"/0" << gangname << "/2" << p->getName() << "/1*\">";
-			   html << p->getName() << "</a></td><td><center>" << p->getCars().size() << "</center></td></tr>";
+               html << "<a href=\"/0" << gangname << "/2" << p->getName() << "/1*\">";
+               html << p->getName() << "</a></td><td><center>" << p->getCars().size() << "</center></td></tr>";
                html << "<tr><td colspan=2>" << renderCarList(p->getCars(), schema, gangname, p->getName()) << "</td></tr>";
             }
             if (schema.playerD == 2) {
-	           if(schema.gangD == 0){
-		          html << "<div class=\"gang2\">";
-	           }
+               if(schema.gangD == 0){
+                  html << "<div class=\"gang2\">";
+               }
                html << "<div class=\"playerinfo\">";
                html << "<table width=100%><tr><td valign=top>";
                html << "<img src=\"" << urlBase << p->getName() << ".jpg\"></td>";
                html << "<td width=100%>";
-			   html << "<h2>";
-			   html << "<a href=\"/2" << gangname << "/1*/0*\">" << gangname << "</a>/";
-			   html << p->getName() << "</h2>";
-			   if(p->getStats().size() > 0){
-				  html << "stats:<br>";
-			      html << "<div class=\"statlist\">";
-				  html << renderStatList(p->getStats());
-				  html << "</div>";
-			   }
-			   else{
-				   html << "no stats available<br>";
-			   }
+               html << "<h2>";
+               html << "<a href=\"/2" << gangname << "/1*/0*\">" << gangname << "</a>/";
+               html << p->getName() << "</h2>";
+               if(p->getStats().size() > 0){
+                  html << "stats:<br>";
+                  html << "<div class=\"statlist\">";
+                  html << renderStatList(p->getStats());
+                  html << "</div>";
+               }
+               else{
+                  html << "no stats available<br>";
+               }
 
-			   if(schema.carD > 0){
+               if(schema.carD > 0){
                   html << "cars:<br>";
-				  html << "<div class=\"carlist\">";
-			      html << renderCarList(p->getCars(),schema, gangname, p->getName());
-				  html << "</div>";
-			   }
+                  html << "<div class=\"carlist\">";
+                  html << renderCarList(p->getCars(),schema, gangname, p->getName());
+                  html << "</div>";
+               }
                html << "</td></table></div>";
-	           if(schema.gangD == 0){
-		          html << "</div>";
-	           }
+               if(schema.gangD == 0){
+                  html << "</div>";
+               }
             }
             if (schema.playerD == 0) {
                html << renderCarList(p->getCars(),schema, gangname, p->getName());
