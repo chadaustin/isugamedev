@@ -38,6 +38,10 @@ public:
     return cars;
   }
 
+  statlist getStats(){
+	  return stats;
+  }
+
   void addCar(Car* c){
     cars.push_back(c);
   }

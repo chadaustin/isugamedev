@@ -21,7 +21,7 @@ namespace dataxml{
         while (it != cursor.end()){
             xmlpp::XMLAttributes& attr = (*it)->get_attrmap();
 			Gang* g = new Gang(attr.get("name"));
-			xmlpp::xmlnode* info =  (*it)->getChild("info");
+			xmlpp::xmlnodeptr info =  (*it)->getChild("info");
 			g->setInfo( info->get_cdata());
 			b.addGang(g);
 		    xmlpp::xmlnodelist cursor2 = (*it)->getChildren("player");
