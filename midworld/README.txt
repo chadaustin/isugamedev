@@ -1,4 +1,7 @@
-Midworld README File
+Midworld
+http://isugamedev.sf.net
+
+README File
 
 Congratulations on downloaded the latest (probably broken) source to Midworld!
 The following contains instructions on how to attempt to build our source code.
