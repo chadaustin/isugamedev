@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.h,v $
-//    $Date: 2001-09-20 20:04:51 $
-//    $Revision: 1.4 $
+//    $Date: 2001-10-12 04:42:21 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -260,7 +260,7 @@ public:
 	void makePerspective( float fovy, float aspect, float zNear, float zFar );
 
 	//: Set the matrix to a rotation matrix defined by the rotation part of M
-	void					setRotation( const Matrix4f& M );
+	void					setRot( const Matrix4f& M );
 	// NOTE: erases any translation
 	void					makeRot( const Matrix4f& M );
 	
@@ -268,9 +268,9 @@ public:
 	// NOTE: this erases any translation in this matrix
 	void					makeRot( const float& rad, const float& x, const float& y, const float& z );
 	
-	void					setRotationX( float angle );
-	void					setRotationY( float angle );
-	void					setRotationZ( float angle );
+	void					setRotX( float angle );
+	void					setRotY( float angle );
+	void					setRotZ( float angle );
 
 	void					makeRotX( float angle );
 	void					makeRotY( float angle );
@@ -320,7 +320,7 @@ public:
 	void makeScale( const Vec3<float>& s );
 	void getScale( Vec3<float>& s ) const;
 
-	//void setRotation( const float& rad, const Vec3<float>& axis);
+	//void setRot( const float& rad, const Vec3<float>& axis);
 	void makeRot( const float& rad, const Vec3<float>& axis);
 	void rotate( const float& rad, const Vec3<float>& axis);
 	//void getRotation( float& rad, Vec3<float>& axis) const;

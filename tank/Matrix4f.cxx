@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.cxx,v $
-//    $Date: 2001-09-20 20:04:51 $
-//    $Revision: 1.6 $
+//    $Date: 2001-10-12 04:42:21 $
+//    $Revision: 1.7 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -889,7 +889,7 @@ void Matrix4f::makeRot( const float& rad, const float& x, const float& y, const 
 }
 
 //: copy the rotation part of the matrix mat
-void Matrix4f::setRotation( const Matrix4f& mat )
+void Matrix4f::setRot( const Matrix4f& mat )
 {
    // rotation part
    _m[0] = mat[0];
@@ -909,7 +909,7 @@ void Matrix4f::setRotation( const Matrix4f& mat )
 // NOTE: erases any translation
 void Matrix4f::makeRot( const Matrix4f& mat )
 {
-   this->setRotation( mat );
+   this->setRot( mat );
    
    // translation part
    _m[12] = 0;
@@ -924,7 +924,7 @@ void Matrix4f::makeRot( const Matrix4f& mat )
 }
 
 
-void Matrix4f::setRotationX( float angle )
+void Matrix4f::setRotX( float angle )
 {
    float value = cosf( angle );
 
@@ -937,7 +937,7 @@ void Matrix4f::setRotationX( float angle )
    _m[6] =   value;
 }
 
-void Matrix4f::setRotationY( float angle )
+void Matrix4f::setRotY( float angle )
 {
    float value = cosf( angle );
 
@@ -950,7 +950,7 @@ void Matrix4f::setRotationY( float angle )
    _m[8] =   value;
 }
 
-void Matrix4f::setRotationZ( float angle )
+void Matrix4f::setRotZ( float angle )
 {
    float value = cosf( angle );
 
@@ -966,17 +966,17 @@ void Matrix4f::setRotationZ( float angle )
 void Matrix4f::makeRotX( float angle )
 {
         this->makeIdent();
-   this->setRotationX( angle );
+   this->setRotX( angle );
 }
 void Matrix4f::makeRotY( float angle )
 {
         this->makeIdent();
-   this->setRotationY( angle );
+   this->setRotY( angle );
 }
 void Matrix4f::makeRotZ( float angle )
 {
         this->makeIdent();
-   this->setRotationZ( angle );
+   this->setRotZ( angle );
 }
 
 /*
