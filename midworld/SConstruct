@@ -24,8 +24,11 @@ if ARGUMENTS.get('prefix'):
 Export('PREFIX')
 
 
-# link with SDL and GL
-LIBS = ['SDL', 'GL', 'GLU']
+# link with external libraries
+SDL_LIBS    = ['SDL']
+GL_LIBS     = ['GL', 'GLU']
+CORONA_LIBS = ['corona']
+LIBS = SDL_LIBS + GL_LIBS + CORONA_LIBS
 
 
 # create the base environment

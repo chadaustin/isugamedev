@@ -23,13 +23,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-06-06 05:00:42 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-06-06 08:46:52 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
 #include <memory>
+#include <stdexcept>
 #include <string>
 #include <stdlib.h>
 #include <SDL/SDL_opengl.h>
@@ -49,21 +50,25 @@ std::string GetSDLError()
 }
 
 
-int main(int argc, char** argv)
+void ThrowSDLError(const std::string& prefix)
+{
+   throw std::runtime_error((prefix + ": " + GetSDLError()).c_str());
+}
+
+
+void run()
 {
    // initialize SDL
    int init_flags = SDL_INIT_NOPARACHUTE | SDL_INIT_VIDEO | SDL_INIT_TIMER;
    if (SDL_Init(init_flags) < 0)
    {
-      log("SDL Initialization failed: " + GetSDLError());
-      return EXIT_FAILURE;
+      ThrowSDLError("SDL Initialization failed");
    }
 
    const SDL_VideoInfo* info = SDL_GetVideoInfo();
    if (!info)
    {
-      log("Retrieving video information failed: " + GetSDLError());
-      return EXIT_FAILURE;
+      ThrowSDLError("Retrieving video information failed");
    }
 
    // define our minimum requirements for the GL window
@@ -78,85 +83,91 @@ int main(int argc, char** argv)
 
    if (!SDL_SetVideoMode(width, height, info->vfmt->BitsPerPixel, SDL_OPENGL))
    {
-      log("Setting video mode failed: " + GetSDLError());
-      return EXIT_FAILURE;
+      ThrowSDLError("Setting video mode failed");
    }
 
    SDL_WM_SetCaption("Midworld", 0);
+   std::auto_ptr<mw::Application> app(new mw::Application);
+      
+   // let the app know what size it is
+   app->resize(width, height);
+      
+   Uint32 last_time = SDL_GetTicks();
 
+   for (;;)
+   {      
+      SDL_Event event;
+      int result = SDL_PollEvent(&event);
+      bool should_quit = false;
+      while (result == 1)
+      {
+         switch (event.type)
+         {
+            case SDL_VIDEORESIZE:
+               app->resize(event.resize.w, event.resize.h);
+               break;
+
+            case SDL_KEYDOWN:
+            case SDL_KEYUP:
+               app->onKeyPress(event.key.keysym.sym,
+                               event.key.state == SDL_PRESSED);
+               break;
+
+            case SDL_MOUSEBUTTONDOWN:
+            case SDL_MOUSEBUTTONUP:
+               app->onMousePress(event.button.button,
+                                 event.button.state == SDL_PRESSED,
+                                 event.button.x, event.button.y);
+               break;
+
+            case SDL_MOUSEMOTION:
+               app->onMouseMove(event.motion.x, event.motion.y);
+               break;
+
+            case SDL_QUIT:
+               should_quit = true;
+               break;
+         }
+
+         result = SDL_PollEvent(&event);
+      }
+
+      // error or SDL_QUIT message         
+      if (result < 0 || should_quit)
+      {
+         break;
+      }
+         
+      // update and draw application
+         
+      Uint32 now = SDL_GetTicks();
+      // ignore wraparound
+      if (now >= last_time)
+      {
+         app->update(now - last_time);
+      }
+      last_time = now;
+         
+      app->draw();
+      SDL_GL_SwapBuffers();
+   }
+   
+   SDL_Quit();
+}
+
+
+int main()
+{
    try
    {
-      std::auto_ptr<mw::Application> app(new mw::Application);
-
-      // let the app know what size it is
-      app->resize(width, height);
-
-      Uint32 last_time = SDL_GetTicks();
-
-      while (1)
-      {
-         SDL_Event event;
-         int result = SDL_PollEvent(&event);
-         bool should_quit = false;
-         while (result == 1)
-         {
-            switch (event.type)
-            {
-               case SDL_VIDEORESIZE:
-                  app->resize(event.resize.w, event.resize.h);
-                  break;
-
-               case SDL_KEYDOWN:
-               case SDL_KEYUP:
-                  app->onKeyPress(event.key.keysym.sym,
-                                  event.key.state == SDL_PRESSED);
-                  break;
-
-               case SDL_MOUSEBUTTONDOWN:
-               case SDL_MOUSEBUTTONUP:
-                  app->onMousePress(event.button.button,
-                                    event.button.state == SDL_PRESSED,
-                                    event.button.x, event.button.y);
-                  break;
-
-               case SDL_MOUSEMOTION:
-                  app->onMouseMove(event.motion.x, event.motion.y);
-                  break;
-
-               case SDL_QUIT:
-                  should_quit = true;
-                  break;
-            }
-
-            result = SDL_PollEvent(&event);
-         }
-
-         // error or SDL_QUIT message
-         if (result < 0 || should_quit)
-         {
-            break;
-         }
-
-         // update and draw application
-
-         Uint32 now = SDL_GetTicks();
-         // ignore wraparound
-         if (now >= last_time)
-         {
-            app->update(now - last_time);
-         }
-         last_time = now;
-
-         app->draw();
-         SDL_GL_SwapBuffers();
-      }
+      run();
    }
    catch (const std::exception& e)
    {
-      log(std::string("uncaught exception: ") + e.what());
+      log(std::string("Caught exception: ") + e.what());
    }
-
-   SDL_Quit();
-
-   return 0;
+   catch (...)
+   {
+      log("Caught unknown exception!");
+   }
 }

@@ -6,7 +6,9 @@ classes = Split("""
    Application
    BoundsCollisionDetector
    CollisionDesc
+   IntroState
    RigidBody
+   Texture
 """)
 
 sources = Split("""
@@ -15,8 +17,9 @@ sources = Split("""
 
 headers = Split("""
    CollisionDetector.h
-   SpatialIndex.h
    NullCollisionDetector.h
+   SpatialIndex.h
+   State.h
 """)
 
 sources.extend(map(lambda n: n + '.cpp', classes))

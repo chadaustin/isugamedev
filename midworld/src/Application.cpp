@@ -23,24 +23,30 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-06-06 05:00:42 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-06-06 08:46:52 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <SDL/SDL_opengl.h>
 #include "Application.h"
+#include "IntroState.h"
 
-namespace mw
-{
+namespace mw {
+
    Application::Application()
    {
       mWidth  = 0;
       mHeight = 0;
+      mState  = new IntroState();
    }
 
    Application::~Application()
    {
+      /// @todo  think about state management: who owns the memory? 
+      ///        are states allocated in a poll?  should states even
+      ///        have state or should they be purely behavior?
+      delete mState;
    }
 
    void
@@ -51,24 +57,7 @@ namespace mw
    void
    Application::draw()
    {
-      // set up projection matrix
-      glMatrixMode(GL_PROJECTION);
-      glLoadIdentity();
-//      float aspect_ratio = (mHeight == 0 ? 1 : float(mWidth) / mHeight);
-      glOrtho(0, mWidth, mHeight, 0, -1, 1);
-//      gluPerspective(45, aspect_ratio, 0.001f, 100);
-
-      // set up view matrix
-      glMatrixMode(GL_MODELVIEW);
-      glLoadIdentity();
-
-      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-      glBegin(GL_LINES);
-      glColor3f(1, 1, 1);
-      glVertex2f(0, 0);
-      glVertex2f(mWidth, mHeight);
-      glEnd();
+      mState->draw();
    }
 
    void
@@ -92,4 +81,5 @@ namespace mw
    Application::onMouseMove(int x, int y)
    {
    }
+
 }

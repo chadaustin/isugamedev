@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.h,v $
- * Date modified: $Date: 2002-06-06 05:00:42 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-06-06 08:46:52 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -32,6 +32,7 @@
 #define MW_APPLICATION_H
 
 #include <SDL/SDL.h>
+#include "State.h"
 #include "Types.h"
 
 namespace mw
@@ -54,6 +55,7 @@ namespace mw
    private:
       int mWidth;
       int mHeight;
+      State* mState;
    };
 }
 

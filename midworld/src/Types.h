@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Types.h,v $
- * Date modified: $Date: 2002-06-06 05:00:42 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-06-06 08:46:52 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,13 +36,25 @@ namespace mw
 
 #ifdef _MSC_VER
 
-  typedef          __int64 i64;
-  typedef unsigned __int64 u64;
+   typedef          __int8  i8;
+   typedef unsigned __int8  u8;
+   typedef          __int16 i16;
+   typedef unsigned __int16 u16;
+   typedef          __int32 i32;
+   typedef unsigned __int32 u32;
+   typedef          __int64 i64;
+   typedef unsigned __int64 u64;
 
-#else
+#else  // assume i386 gcc
 
-  typedef          long long i64;
-  typedef unsigned long long u64;
+   typedef   signed char      i8;
+   typedef unsigned int       u8;
+   typedef          short     i16;
+   typedef unsigned short     u16;
+   typedef          int       i32;
+   typedef unsigned int       u32;
+   typedef          long long i64;
+   typedef unsigned long long u64;
 
 #endif
 
