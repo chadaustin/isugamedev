@@ -1,0 +1,65 @@
+DATE       AUTHOR       CHANGE
+---------- -----------  -------------------------------------------------------
+2003-11-26 aegis        NEW VERSION: 0.3.1
+2003-11-26 aegis        Added missing OpenGL.h to 'make dist' release
+2003-08-04 aegis        NEW VERSION: 0.3.0
+2003-03-18 aegis        Renamed FontStream to Stream and added the
+                        GLTEXT_STREAM convenience macro.
+2003-03-15 aegis        Added an fps example and made the renderers always
+	                draw with the current position being the upper left
+	                corner of the text.
+2003-03-14 aegis        Added a MIPMAP font renderer that generates a full set
+	                of mipmaps instead of just one, like TEXTURE does.
+2003-02-25 aegis        Improved rendering by taking advantage of kerning.
+2003-02-25 aegis        Added getHeight() to FontRenderer.
+2003-02-25 aegis        Re-added getFont() to FontRenderer and added getDPI()
+	                to Font.
+2003-02-25 aegis        When rendering a \n, the FontRenderer now drops down
+                        to the next line, rather than trying to draw the glyph
+                        for \n.
+2003-02-13 aegis        Fixed the texture renderer to actually use alpha
+                        blending and added an alpha example.
+2003-02-13 aegis        OpenFont takes an optional dpi argument now.
+2003-02-07 aegis        Renamed CreateFont to OpenFont
+2003-02-03 aegis        Modified internal structure slightly so that
+                        custom Font and Glyph implementations will work.
+                        Greatly reduced footprint by removing the few uses
+	                of iostream from the gltext library itself.  Got
+	                rid of exceptions as well.
+	                FontRenderers now take a Font as an argument.  Got
+                        rid of the SetFont method.
+                        Cache GLGlyph objects in the FontRenderer so all
+	                render() calls reuse glyphs.
+			Implemented the TEXTURE renderer.
+			Made method calls use the __stdcall calling
+	                convention on Windows so they are compatible with
+	                COM.
+			Moved OpenGL includes into OpenGL.h to factor out
+	                Windows-specific and future MacOS X-specific
+	                include logic.
+			Removed the FTLibrary singleton class (each font
+	                allocates an FT_Library object now) because of
+	                potential thread safety problems in the C6.
+			Got rid of FontStyle because it was never used
+	                (and most fonts use one file per style).
+			New iostream-compatible and DLL compatible
+	                streaming API.
+2002-12-23 nonchocoboy  NEW VERSION: 0.2.0
+2002-12-23 nonchocoboy  Added FontStream class for allowing the rendering of
+                        text using a stream interface.
+2002-12-23 nonchocoboy  Added method to the renderer for querying the width of
+                        a string in pixels.
+2002-12-23 nonchocoboy  Reworked the scons build system.
+2002-12-20 nonchocoboy  Reworked the interface to use reference counting to
+                        manage memory.
+2002-06-30 nonchocoboy  NEW VERSION: 0.1.0
+2002-06-30 aegis        autotools build system
+2002-06-30 nonchocoboy  Improved documentation. Added a quick tutorial to get
+                        users started with the basics.
+                        NEW VERSION: 0.0.2
+2002-06-15 nonchocoboy  Aliased (bitmap) rendering added.
+2002-05-08 nonchocoboy  Added the sizes example.
+2002-05-08 nonchocoboy  Antialiased (pixmap) rendering added.
+2002-05-08 nonchocoboy  FT2 glyph management support added.
+2002-05-07 nonchocoboy  FT2 face opening support added.
+2002-05-06 nonchocoboy  Initial version

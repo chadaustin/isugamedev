@@ -1,0 +1,76 @@
+# Build for gltext to be integrated into the main phui build.
+import os, sys, string
+pj = os.path.join
+
+def SetupFreetype(cc):
+   """
+   Checks for Freetype
+   """
+   if cc.env['PLATFORM'] == 'win32':
+      # Freetype goes to C:\Program Files\GnuWin32 on Windows
+      cc.Message('Assuming freetype is installed in C:\Program Files\GnuWin32\n')
+      cc.env.Append( CPPPATH = ['C:\Program Files\GnuWin32\include',
+                                'C:\Program Files\GnuWin32\include\\freetype2'],
+                     LIBPATH = ['C:\Program Files\GnuWin32\lib',
+                                'C:\Program Files\GnuWin32\\bin'] )
+      cc.env.Append( LIBS = ['libfreetype'] )
+   else:
+      cc.env.Append( CPPPATH = ['/usr/include/freetype2'],
+                     LIBS = ['freetype'] )
+   test_src = """
+   #include <ft2build.h>
+   int main(int argc, char* argv[])
+   {
+      return 0;
+   }
+   """
+   res = cc.TryLink(test_src, '.cpp')
+   cc.Message('Checking for Freetype...')
+   cc.Result(res)
+   return res
+
+Import('baseEnv buildRoot')
+
+env = baseEnv.Copy()
+
+# Check for Freetype
+cc = env.Configure(custom_tests = {'SetupFreetype' : SetupFreetype} )
+res = cc.SetupFreetype()
+if not res:
+   print "[ERR] You don't appear to have Freetype installed; download it at http://www.freetype.org"
+   sys.exit(1)
+cc.Finish()
+
+classes = Split("""
+   AbstractRenderer
+   BitmapRenderer
+   FTFont
+   FTGlyph
+   GLPixelGlyph
+   gltext
+   GLTextureGlyph
+   PixmapRenderer
+   TextureRenderer
+""")
+classes = map(lambda c: pj('src', c), classes)
+srcs = map(lambda s: s + '.cpp', classes)
+headers = map(lambda h: h + '.h', classes)
+h_files = Split("""
+   GLGlyph.h
+   GlyphCache.h
+   OpenGL.h
+""")
+h_files = map(lambda h: pj('src', h), h_files)
+headers.extend(h_files)
+
+lib = env.SharedLibrary('gltext', srcs)
+if 'install' not in COMMAND_LINE_TARGETS:
+   Alias('local_build', env.Install( pj(buildRoot, 'external', 'lib'), lib ))
+   for h in headers:
+      Alias('local_build', env.Install(pj(buildRoot, 'external', 'include', 'gltext'), h))
+
+Alias('install', env.Install( pj(env['prefix'], 'lib'), lib ))
+for h in headers:
+   Alias('install', env.Install(pj(env['prefix'], 'include', 'gltext'), h))
+
+Default('local_build')

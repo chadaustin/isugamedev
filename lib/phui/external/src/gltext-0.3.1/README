@@ -1,0 +1,123 @@
+# Copyright (c) 2002 Ben Scott
+
+               GLText - OpenGL TrueType Font Renderer
+
+Thank you for downloading GLText and taking the time to read this file! GLText
+is a TrueType font rendering system for OpenGL. This library is reminiscent of
+GLTT and FTGL, but is designed to work well as a shared library. Most of all, it
+is designed from the ground up to be cross-platform, supporting no less than
+Windows (VC7 and Cygwin), Linux and IRIX.
+
+The goal of GLText is to have a platform independent font rendering system
+implemented in an object-oriented way, such that the details of the fonts and
+the font rendering can be abstracted from the applications. I have worked very
+hard to make it easy to plug in new renderers into the library.
+
+LATEST VERSION
+==============
+
+Before going any further, you can check that this package you have is the latest
+version at the GLText download page.
+
+         http://gltext.sourceforge.net/download.html
+
+
+REQUIREMENTS
+============
+
+GLText uses FreeType 2.1.x for the handling of TrueType fonts and OpenGL for the
+rendering of the fonts to the screen. There should be no other dependencies or
+requirements to use GLText.
+
+You can obtain FreeType from the FreeType Project Web site at:
+
+      http://www.freetype.org
+
+You can obtain OpenGL from the OpenGL Web site at:
+
+      http://www.opengl.org
+
+OPTIONAL REQUIREMENTS
+=====================
+
+The examples use GLUT 3.7 to abstract the windowing system from the
+applications. If you wish to compile and run the examples, you will need to get
+GLUT.
+
+The test suite in the CVS tree requires CppUnit 1.8.x to build and run. If you
+wish to run the tests, you will need to get CppUnit.
+
+You can obtain GLUT from the OpenGL Web site at:
+
+      http://www.opengl.org/developers/documentation/glut.html
+
+You can obtain CppUnit from the CppUnit Web site at:
+
+      http://cppunit.sourceforge.net
+
+DOCUMENTATION
+=============
+
+Installation instructions can be found in the INSTALL file.
+
+A quick and dirty tutorial can be found in the doc/tutorial.txt file.
+
+GLText API documentation is generated from the source code using Doxygen which
+may be obtained from http://www.doxygen.org.
+
+Additional documentation for GLText is available at:
+
+      http://gltext.sourceforge.net
+
+LICENSING
+=========
+
+GLText is distributed under the GNU LGPL, a full copy of which is available in
+the COPYING file. The LGPL is an approved Open Source license, which means:
+
+      This software is OSI Certified Open Source Software. OSI Certified is a
+      certification mark of the Open Source Initiative.
+
+More information about OSI certifications and Open Source software is available
+at:
+      http://www.opensource.org
+
+REPORTING BUGS
+==============
+
+You can report bugs either by following the "Tracker - Bugs" link on the GLText
+project page:
+
+      http://sourceforge.net/projects/gltext
+
+or by sending email to the GLText developers mailing list:
+
+      gltext-devel@lists.sourceforge.net
+
+MAILING LISTS
+=============
+
+A mailing list for developers of GLText is available. You may send questions or
+comments to the list at:
+
+      gltext-devel@lists.sourceforge.net
+
+You may request a subscription to the gltext-devel mailing list at:
+
+      http://lists.sourceforge.net/lists/listinfo/gltext-devel
+
+FOR MORE INFORMATION
+====================
+
+Check out the GLText Web site at:
+
+      http://gltext.sourceforge.net
+
+AUTHOR INFO
+===========
+
+Ben Scott
+nonchocoboy@users.sourceforge.net
+
+Much additional help was made from the GLText development team:
+      Chad Austin

@@ -1,0 +1,43 @@
+This is a very simple introduction to the easy to use GLText API.
+
+1.
+Make sure you include the gltext header.
+
+   #include <gltext.h>
+
+2.
+First you'll need to open a font. The font describes how each character
+looks to the renderer. You need to specify:
+   - the name of the file that contains the font definition
+   - the point size of the font you want
+If the creation fails, OpenFont will return NULL.
+
+   gltext::FontPtr myFont(gltext::OpenFont("arial.ttf", 24));
+
+3.  Create a renderer for the font. The renderer is responsible for
+making the OpenGL calls necessary to draw the text you want on the
+screen. You must tell GLText what type of renderer you want and what
+font it should render. If the creation fails, CreateRenderer will
+return NULL.
+
+   gltext::RendererPtr myRenderer(gltext::CreateRenderer(
+      gltext::PIXMAP, myFont));
+
+4.
+Tell the renderer which font you want to use when it draws your text to the
+screen.
+
+5.
+Set up the OpenGL MODELVIEW matrix to place the font on the screen and ask the
+renderer to show off its tough stuff. Note that the renderer will use the
+current OpenGL color to draw the text.
+
+   glMatrixMode(GL_MODELVIEW);
+   glTranslatef(100, 100, 100);
+   glColor4f(1, 1, 1, 0.5f);
+   GLTEXT_STREAM(myRenderer) << "hello world in the year " << 2002;
+
+6.  When you're done, make sure you delete your fonts and renderers.
+The smart pointers will take care of this in most cases for you.
+
+That's it! Look in gltext.h for descriptions of the remaining functions.
