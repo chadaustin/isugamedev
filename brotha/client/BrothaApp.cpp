@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-22 04:55:17 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-04-22 09:00:48 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -161,8 +161,36 @@ namespace client
       net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
       PRFloat64 to;
 
-      if(sym == SDLK_a) {
+      if(sym == SDLK_w) {
          what = net::UpdatePlayerInfoMessage::ACCELERATION;
+         if(keyDown) {
+            to = 1;
+         } else {
+            to = 0;
+         }
+      } else if(sym == SDLK_s) {
+         what = net::UpdatePlayerInfoMessage::BRAKE;
+         if(keyDown) {
+            to = 1;
+         } else {
+            to = 0;
+         }
+      } else if(sym == SDLK_SPACE) {
+         what = net::UpdatePlayerInfoMessage::HANDBRAKE;
+         if(keyDown) {
+            to = 1;
+         } else {
+            to = 0;
+         }
+      } else if(sym == SDLK_a) {
+         what = net::UpdatePlayerInfoMessage::TURNLEFT;
+         if(keyDown) {
+            to = 1;
+         } else {
+            to = 0;
+         }
+      } else if(sym == SDLK_d) {
+         what = net::UpdatePlayerInfoMessage::TURNRIGHT;
          if(keyDown) {
             to = 1;
          } else {

@@ -21,15 +21,17 @@ namespace net {
       enum UpdateWhat {
          NOTHING, ///< Update nothing
          ACCELERATION, ///< Acceleration
+         BRAKE, ///< Brake (-Acceleration)
          HANDBRAKE, ///< Hand break (on/off)
-         TURN, ///< Angle of turn
+         TURNRIGHT, ///< Turn right
+         TURNLEFT, ///< Turn left
          WEAPON, ///< Change weapon
          SHOOT ///< Shoot weapon
       };
 
    public:
-      UpdatePlayerInfoMessage(const UpdateWhat& what = NOTHING, const PRFloat64& to = 0.0)
-         : mUpdateWhat(what), mUpdateTo(to)
+      UpdatePlayerInfoMessage(const UpdateWhat& what = NOTHING, const PRFloat64& on = 0)
+         : mUpdateWhat(what), mOn(on)
       {
       }
 
@@ -38,27 +40,27 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return net::sizes::getVarSize(mUpdateWhat) + net::sizes::getVarSize(mUpdateTo);
+         return net::sizes::getVarSize(mUpdateWhat) + net::sizes::getVarSize(mOn);
       }
 
       const UpdateWhat getUpdateWhat() {
          return (UpdateWhat)mUpdateWhat;
       }
 
-      const PRFloat64 getUpdateTo() {
-         return mUpdateTo;
+      const bool getOn() {
+         return mOn;
       }
 
       void serialize(OutputStream& os) {
-         os << mUpdateWhat << mUpdateTo;
+         os << mUpdateWhat << mOn;
       }
 
       void deserialize(InputStream& is) {
-         is >> mUpdateWhat >> mUpdateTo;
+         is >> mUpdateWhat >> mOn;
       }
    private:
       PRUint32 mUpdateWhat;
-      PRFloat64 mUpdateTo;
+      PRFloat64 mOn;
    };
 
 }

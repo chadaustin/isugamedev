@@ -22,16 +22,22 @@ namespace server {
          // update info
          switch(uMsg->getUpdateWhat()) {
             case (net::UpdatePlayerInfoMessage::ACCELERATION):
-               player->setAcceleration(uMsg->getUpdateTo());
+               player->mIsAccelerating = (uMsg->getOn() != 0);
+               break;
+            case (net::UpdatePlayerInfoMessage::BRAKE):
+               player->mIsBraking = (uMsg->getOn() != 0);
                break;
             case (net::UpdatePlayerInfoMessage::HANDBRAKE):
-               ///@todo do something with this
+               player->mIsHandBraking = (uMsg->getOn() != 0);
                break;
             case (net::UpdatePlayerInfoMessage::SHOOT):
                ///@todo do something with this
                break;
-            case (net::UpdatePlayerInfoMessage::TURN):
-               player->setTurnAngle(uMsg->getUpdateTo());
+            case (net::UpdatePlayerInfoMessage::TURNRIGHT):
+               player->mIsTurningRight = (uMsg->getOn() != 0);
+               break;
+            case (net::UpdatePlayerInfoMessage::TURNLEFT):
+               player->mIsTurningLeft = (uMsg->getOn() != 0);
                break;
             case (net::UpdatePlayerInfoMessage::WEAPON):
                ///@todo do something with this
