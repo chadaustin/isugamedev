@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 18:57:32 $
- * Version:       $Revision: 1.87 $
+ * Date modified: $Date: 2002-10-29 19:52:01 $
+ * Version:       $Revision: 1.88 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -534,12 +534,6 @@ namespace mw
          {
             body->moveToNextState();
 
-            // Make sure entities never go below the ground.
-            // XXX: This is such a hack. We need to get ground collision
-            // detection to be done in the collision detector.
-            float& y = body->getPos()[1];
-            y = std::max(y, 0.0f);
-
             remaining_dt = 0.0f;
          }
          // There was a collision!
@@ -571,6 +565,12 @@ namespace mw
             delete desc;
          }
       }
+      
+      // Make sure entities never go below the ground.
+      // XXX: This is such a hack. We need to get ground collision
+      // detection to be done in the collision detector.
+      float& y = body->getPos()[1];
+      y = std::max(y, 0.0f);
    }
 
    void GameState::reapDeadEntities()

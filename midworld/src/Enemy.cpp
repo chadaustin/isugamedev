@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-10-29 18:50:35 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-29 19:52:01 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -62,6 +62,7 @@ namespace mw
 
    void Enemy::update(float timeDelta)
    {
+/*
       unsigned int randRange = 5;
       gmtl::Vec3f force;
       if (rand() % 100 < 10)
@@ -84,6 +85,8 @@ namespace mw
             gmtl::AxisAnglef(rand() % randRange, 0, 1, 0));
          setRot(nRot);
       }
+*/
+      
       RigidBody::update(timeDelta);
    }
 
