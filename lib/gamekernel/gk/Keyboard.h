@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Keyboard.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-01-30 18:01:45 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -40,12 +40,33 @@
 #include "kqueue.h"
 #include "DigitalDevice.h"
 
+/** Keyboard device driver for the GameInput system.
+ *
+ * Don't use this device directly (although you could, it isn't recommended).
+ * Instead, use the DigitalInterface class
+ * to access the button data in the Keyboard.  Using the Interface classes 
+ * gives your application the ability to bind keys to event identifiers 
+ * (keybinding).  If you use this class by itself, you will not get any kind 
+ * of keybinding ability.
+ *
+ * <H3> TODO: </h3>
+ * - need to add TextDevice support to this driver, and to the GameInput system
+ *
+ * @see Mouse
+ * @see Joystick
+ * @see DigitalDevice
+ * @see Device
+ */
 class Keyboard : public DigitalDevice
 {
 public:
+   /** Keyboard Buttons.
+    * This is the list of keyboard identifiers you can use.
+    * When binding keys in the GameInput class, you can 
+    * prefix each of these with "KEY_"  (i.e. ESC would be "KEY_ESC").
+    */
    enum Key
    {
-      nul = 0, soh = 1, stx = 2, etx = 3, eot = 4, enq = 5, ack = 6,
       BELL = 7,
       BACKSPACE = 8,
       TAB = 9,
@@ -53,11 +74,7 @@ public:
       VERTTAB = 11,
       FORMFEED = 12,
       CR = 13,
-      so = 14, si = 15, dle = 16,
-      dc1 = 17, dc2 = 18, dc3 = 19, dc4 = 20, nak = 21, syn = 22, etb = 23,
-      can = 24, em = 25, sub = 26,
       ESC = 27,
-      fs = 28, gs = 29, rs = 30, us = 31,
       SPACE = 32,
       BANG = 33,
       DOUBLEQUOTES = 34,
@@ -117,12 +134,14 @@ public:
       NumberOfKeys = 282 // make sure this number is bigger than the others.
    };
 
+   /** constructor */
    Keyboard() : DigitalDevice()
    {
       this->setNumInputs( NumberOfKeys );
       initialize_map();
    }
 
+   /** get the keys pressed since the last frame */
    kev::queue<Key>& queue() { return mQueue; }
 
 private:

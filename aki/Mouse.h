@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-01-30 18:01:45 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -44,10 +44,21 @@
 #include "DigitalDevice.h"
 #include "AnalogDevice.h"
 
-//: Mouse class
-// keeps track of mouse position and button state in a simulation
-// you must call update() each frame of your simulation
-// before you read any data from Mouse (like position and button states)
+/** Mouse device driver for the GameInput system.
+ *
+ * Don't use this device directly (although you could, it isn't recommended).
+ * Instead, use the DigitalInterface, and/or AnalogInterface classes
+ * to access the button and axis data in the Mouse.  Using the Interface classes 
+ * gives your application the ability to bind keys to event identifiers 
+ * (keybinding).  If you use this class by itself, you will not get any kind 
+ * of keybinding ability.
+ *
+ * @see Keyboard
+ * @see Joystick
+ * @see AnalogDevice
+ * @see DigitalDevice
+ * @see Device
+ */
 class Mouse : public AnalogDevice, public DigitalDevice
 {
 public:
