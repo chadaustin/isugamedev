@@ -11,22 +11,26 @@ public class Client {
   private JTextField m_server;
 
   public static void main(String[] args) {
-    new Client().run();
+    new Client().run(args);
   }
 
-  void run() {
-    m_frame = new JFrame("Connect to ChadWorld Server");
-    m_frame.getContentPane().add(createComponents());
+  void run(String[] args) {
+    if (args.length == 0) {
+      m_frame = new JFrame("Connect to ChadWorld Server");
+      m_frame.getContentPane().add(createComponents());
 
-    m_frame.addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent e) {
-        System.exit(0);
-      }
-    });
+      m_frame.addWindowListener(new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+            System.exit(0);
+          }
+        });
 
-    m_frame.pack();
-    centerWindow();
-    m_frame.setVisible(true);
+      m_frame.pack();
+      centerWindow();
+      m_frame.setVisible(true);
+    } else {
+      start(args[0]);
+    }
   }
 
   Component createComponents() {
@@ -41,7 +45,7 @@ public class Client {
         String server = new String(m_server.getText());
         String[] args = { server };
         m_frame.dispose();
-        chadworld.client.ChadWorldClient.main(args);
+        start(server);
       }
     });
 
@@ -58,5 +62,9 @@ public class Client {
     m_frame.setLocation(new Point((w - m_frame.getSize().width) / 2,
                                   (h - m_frame.getSize().height) / 2));
                         
+  }
+
+  static void start(String server) {
+    chadworld.client.ChadWorldFrame.createFrame(server, 640, 480);
   }
 }

@@ -18,11 +18,17 @@ import java.awt.AWTEvent;
 import com.sun.j3d.utils.behaviors.keyboard.*;
 
 
-public class ChadWorldClient extends Applet {
+public class ChadWorldFrame extends Applet {
 
   private ServerConnection m_connection;
+  private Vector3f m_orientation = new Vector3f();
 
-  public ChadWorldClient(String server) {
+
+  public static MainFrame createFrame(String server, int width, int height) {
+    return new MainFrame(new ChadWorldFrame(server), width, height);
+  }
+
+  public ChadWorldFrame(String server) {
 
     // connect to the server
     try {
@@ -85,6 +91,18 @@ public class ChadWorldClient extends Applet {
       m_connection, world);
     sync.setSchedulingBounds(bigSphere);
     root.addChild(sync);
+
+    NavigationBehavior nav = new NavigationBehavior(
+      new NavigationListener() {
+        public void update(Vector3f orientation) {
+          m_orientation.add(orientation);
+          System.out.println(m_orientation);
+        }
+      }
+    );
+    nav.setSchedulingBounds(bigSphere);
+    root.addChild(nav);
+
     root.addChild(world);
 
     ViewingPlatform vp = su.getViewingPlatform();
@@ -105,20 +123,4 @@ public class ChadWorldClient extends Applet {
     return root;
   }
 
-  public static void main(String[] args) {
-    System.out.println("ChadWorld Client");
-    System.out.println("--");
-    System.out.println("Chad Austin");
-    System.out.println("Chad Okere");
-    System.out.println("Hyouk-il Kwoen");
-    System.out.println("Jae-ho Kwak");
-    System.out.println("");
-
-    if (args.length == 0) {
-      System.out.println("Usage: java ChadWorldClient <server>");
-      return;
-    } else {
-      new MainFrame(new ChadWorldClient(args[0]), 640, 480);
-    }
-  }
 }
