@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="file://localhost/G:/project/brotha/doc/design/docbook.css" type="text/css"?>
+<?xml-stylesheet href="docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.46 2002-04-09 05:56:06 jjhnsn Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 05:56:06 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.47 2002-04-09 08:04:53 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 08:04:53 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -168,46 +168,135 @@
       <para><classname></classname><classname></classname>The Data/XML module provides access to a persistent, data structure that stores game related data such as cars and players and gangs. One root node <classname>BrothaData</classname>, is used to hold all the data. <classname>BrothaData</classname> provides a method to load and save the data, as well as a convenience function to validate a player based on their password. <classname>BrothaData</classname> also exposes a collection of <classname>Gang</classname> objects, and a collection of <classname>Gang</classname> and <classname>CarType</classname> objects. The <classname>CarType</classname> objects store basic information on a "type" of car, the gangs, basically have a name and a collection of <classname>Player</classname> objects, which in turn hold a name, password and a collection of <classname>Car</classname> objects. Each car has an associated type (from <classname>CarTypes</classname> in the root <classname>BrothaData</classname> node) as well as a collection of <classname>Mod</classname>s. Mods have a "type" and "level" of modification.</para>
       <section>
         <title>Module Interfaces</title>
-        <para></para>
-        <para>Gang {</para>
-        <para>Property string name; </para>
-        <para>Property collection&lt;Player&gt; players;</para>
-        <para> }</para>
-        <para> </para>
-        <para>Player {</para>
-        <para> String name; </para>
-        <para> String password; </para>
-        <para> Property collection&lt;Car&gt; cars; </para>
-        <para>}</para>
-        <para></para>
-        <para>CarType {</para>
-        <para>string model_file;</para>
-        <para>string name; </para>
-        <para>} </para>
-        <para></para>
-        <para>Car {</para>
-        <para>CarType cartype; </para>
-        <para>Property collection&lt;Mod&gt; mods; </para>
-        <para>} </para>
-        <para></para>
-        <para>ModType { </para>
-        <para>// ModType defines actual modification like WeaponModType or something </para>
-        <para>// depends on the mod type</para>
-        <para>string name; </para>
-        <para>string mount_point;</para>
-        <para>int amount; } </para>
-        <para></para>
-        <para>Mod {</para>
-        <para>ModType modtype;</para>
-        <para>int level;</para>
-        <para>}</para>
-        <para></para>
-        <para>BrothaData {</para>
-        <para>Property collection&lt;Gang&gt; gangs; </para>
-        <para>boolean validatePlayer(string player, password passwd);</para>
-        <para>static BrothaData load(string filename) throws DataException</para>
-        <para>Void save(string filename) throws DataException</para>
-        <para>} </para>
+        <classsynopsis>
+          <ooclass>
+            <classname>Gang</classname>
+          </ooclass>
+          <fieldsynopsis>
+            <type>string</type>
+            <varname>name</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>collection&lt;Player&gt;</type>
+            <varname>players</varname>
+          </fieldsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>Player</classname>
+          </ooclass>
+          <fieldsynopsis>
+            <type>string</type>
+            <varname>name</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>string</type>
+            <varname>password</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>collection&lt;Car&gt;</type>
+            <varname>cars</varname>
+          </fieldsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>CarType</classname>
+          </ooclass>
+          <fieldsynopsis>
+            <type>string</type>
+            <varname>modelFile</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>string</type>
+            <varname>name</varname>
+          </fieldsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>Car</classname>
+          </ooclass>
+          <fieldsynopsis>
+            <type>CarType</type>
+            <varname>carType</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>collection&lt;Mod&gt;</type>
+            <varname>mods</varname>
+          </fieldsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>ModType</classname>
+          </ooclass>
+          <fieldsynopsis>
+            <type>string</type>
+            <varname>name</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>string</type>
+            <varname>mountPoint</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>float</type>
+            <varname>amount</varname>
+          </fieldsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>Mod</classname>
+          </ooclass>
+          <fieldsynopsis>
+            <type>ModType</type>
+            <varname>modType</varname>
+          </fieldsynopsis>
+          <fieldsynopsis>
+            <type>int</type>
+            <varname>level</varname>
+          </fieldsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>BrothaData</classname>
+          </ooclass>
+          <fieldsynopsis>
+            <type>collection&lt;Gang&gt;</type>
+            <varname>gangs</varname>
+          </fieldsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>boolean</type>
+            <methodname>validatePlayer</methodname>
+            <methodparam>
+              <type>string</type>
+              <parameter>player</parameter>
+            </methodparam>
+            <methodparam>
+              <type>string</type>
+              <parameter>password</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <modifier>static</modifier>
+            <type>BrothaData</type>
+            <methodname>load</methodname>
+            <methodparam>
+              <type>string</type>
+              <parameter>filename</parameter>
+            </methodparam>
+            <exceptionname>DataException</exceptionname>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>void</type>
+            <methodname>save</methodname>
+            <methodparam>
+              <type>string</type>
+              <parameter>filename</parameter>
+            </methodparam>
+            <exceptionname>DataException</exceptionname>
+          </methodsynopsis>
+        </classsynopsis>
       </section>
       <section>
         <title>Design Issues</title>
