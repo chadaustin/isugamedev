@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-15 09:42:32 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-17 07:16:44 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -35,6 +35,7 @@
  *
  ************************************************************** phui-cpr-end */
 #include "Widget.h"
+#include "WidgetContainer.h"
 
 namespace phui
 {
@@ -142,5 +143,28 @@ namespace phui
    WidgetContainer* Widget::getParent()
    {
       return mParent;
+   }
+
+   bool Widget::contains(int x, int y) const
+   {
+      if ((x >= 0) && (y >= 0) && (x <= mWidth) && (y <= mHeight))
+      {
+         return true;
+      }
+      return false;
+   }
+
+   void Widget::getScreenPosition(int& x, int& y) const
+   {
+      const WidgetContainer* parent = getParent();
+      getPosition(x, y);
+      while (parent)
+      {
+         int px, py;
+         parent->getPosition(px, py);
+         x += px;
+         y += py;
+         parent = parent->getParent();
+      }
    }
 }

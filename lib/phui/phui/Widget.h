@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-17 06:23:12 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-04-17 07:16:44 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -186,6 +186,24 @@ namespace phui
        */
       virtual const WidgetContainer* getParent() const;
       virtual WidgetContainer* getParent();
+
+      /**
+       * Tests if the given point is contained within this widget where the
+       * point is relative to this widget's coordinate system.
+       *
+       * @param x    x position
+       * @param y    y position
+       */
+      virtual bool contains(int x, int y) const;
+
+      /**
+       * Gets the position of the upper-left corner of this widget relative to
+       * the screen's coordinate system.
+       *
+       * @param x [out]    the x position
+       * @param y [out]    the y position
+       */
+      void getScreenPosition(int& x, int& y) const;
 
       virtual bool hasFocus() { return false; }
 
