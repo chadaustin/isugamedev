@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-10-29 06:27:34 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -90,7 +90,7 @@ namespace mw
        */
       gmtl::Vec3f getBarrelEndPos() const;
 
-      void update(GameState& gs, float timeDelta);
+      void update(float timeDelta);
 
       bool isExpired() const
       {

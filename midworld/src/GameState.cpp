@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 05:39:09 $
- * Version:       $Revision: 1.78 $
+ * Date modified: $Date: 2002-10-29 06:27:34 $
+ * Version:       $Revision: 1.79 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -329,7 +329,7 @@ namespace mw
 
       // Update the player and the camera
       mCamera.update(dt);
-      mPlayer.update(*this, dt);
+      mPlayer.update(dt);
 
       // Update the FPS stat
       ++mFrameCount;
