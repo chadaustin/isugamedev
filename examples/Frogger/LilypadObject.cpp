@@ -7,10 +7,11 @@
 //////////////////////////////////////////////////////
 
 #include <stdlib.h>
-#include <gl/glut.h>
-#include <iostream.h>
+#include <GL/glut.h>
+#include <iostream>
 #include "LilypadObject.h"
 
+using namespace std;
 
 extern int WindowSizeX, WindowSizeY;
 

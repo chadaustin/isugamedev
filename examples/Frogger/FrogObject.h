@@ -65,5 +65,6 @@ private:
 	float VelocityY;
 	ObjectName Name;
 };
-
 #endif
+
+

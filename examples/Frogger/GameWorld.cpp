@@ -12,7 +12,7 @@
 #include "LogObject.h"
 #include "LilyPadObject.h"
 #include "GameWorld.h"
-#include <gl/glut.h>
+#include <GL/glut.h>
 #include <stdlib.h>
 #include <fstream>
 
@@ -308,3 +308,5 @@ int GameWorld::ReadGameData()
 	infile.close();
 	return i-1;
 }
+
+

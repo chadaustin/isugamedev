@@ -5,8 +5,6 @@
 //
 // Frogger.cpp
 /////////////////////////////////////////////////////
-
-#include <windows.h>
 #include <stdlib.h>
 #include <GL/glut.h>
 #include "GameWorld.h"
@@ -27,7 +25,7 @@ Movement FrogMove = NONE;
 ///////////////////////
 
 
-DWORD start_clock_count = GetTickCount();
+int start_clock_count = glutGet(GLUT_ELAPSED_TIME);
 int temp = 0;
 
 // Game Object
@@ -42,13 +40,13 @@ void init()
 
 void update()
 {
-	while(GetTickCount()-start_clock_count < 30)
+	while(glutGet(GLUT_ELAPSED_TIME)-start_clock_count < 30)
 	{
 		glClear(GL_COLOR_BUFFER_BIT);
 		Frogger.Draw();
 		glutSwapBuffers();
 	}
-	start_clock_count = GetTickCount();
+	start_clock_count = glutGet(GLUT_ELAPSED_TIME);
 	Frogger.Update();
 
 }
@@ -106,17 +104,13 @@ void FrogInput(int key, int x, int y)
 
 }
 
-
-
-
-
 int main (int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(WindowSizeX,WindowSizeY);
 	glutInitWindowPosition(100,100);
-	glutCreateWindow(argv[0]);
+	glutCreateWindow("Frogger");
 	init();
 
 	glutDisplayFunc(display);
@@ -127,4 +121,5 @@ int main (int argc, char** argv)
 
 	return 0;
 }
+
 

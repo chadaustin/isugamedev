@@ -86,7 +86,7 @@ void CollisionDetection::AddObject(MyObject*& InObject)
 /////////////////////////////////////////////////
 void CollisionDetection::RemoveObject(MyObject*& InObject)
 { 	
-	int Index;
+	unsigned int Index;
 	int Shifted = 0;
 
 	Index = 0;
@@ -110,7 +110,7 @@ void CollisionDetection::RemoveObject(MyObject*& InObject)
 ////////////////////////////////////////////////////////
 void CollisionDetection::Move(MyObject*& ObjectToMove, float x, float y)
 { 
-	int Index = 0;
+	unsigned int Index = 0;
 	float SizeX, SizeY;
 
 	ObjectToMove->GetSize(SizeX, SizeY);
@@ -145,11 +145,11 @@ bool CollisionDetection::CheckForCollisions(vector<MyObject*> Collisions[30], in
 		Moved = false;
 		sort(MyObjectEdges.begin(), MyObjectEdges.end());
 
-		for (int i = 0; i < MyObjectEdges.size(); i++)
+		for (unsigned int i = 0; i < MyObjectEdges.size(); i++)
 		{	
 			if(MyObjectEdges[i].start)
 			{
-				int index = 0;
+				unsigned int index = 0;
 				First = true;
 
 				while(index < TempCollisions.size())
@@ -224,4 +224,6 @@ bool operator <(EdgeStore Left, EdgeStore Right)
 	else
 		return false;
 }
+
+
 

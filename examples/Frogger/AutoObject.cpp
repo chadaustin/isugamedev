@@ -152,3 +152,5 @@ void AutoObject::Draw()
 	glRectf(float(GameX),float(GameY), float(GameX+ObjectSizeX), float(GameY+ObjectSizeY)); 
 }
 
+
+
