@@ -1,6 +1,6 @@
 import sys
 Import('env')
-Import('GLUT_LIBS SDL_LIBS OSG_LIBS')
+Import('OPENGL_LIBS SDL_LIBS OSG_LIBS')
 
 classes = [
    'AppState',
@@ -26,7 +26,7 @@ headers.extend( map(lambda fn: fn + '.h', classes) )
 sources.extend( map(lambda fn: fn + '.cpp', classes) )
 
 LIBS = ['sound', 'net', 'game', 'nspr4', 'audiere' ];
-LIBS.extend(GLUT_LIBS + SDL_LIBS + OSG_LIBS)
+LIBS.extend(OPENGL_LIBS + SDL_LIBS + OSG_LIBS)
 
 env2 = env.Copy( LIBPATH=['#net', '#game', '#sound'], LIBS=LIBS );
 env2.Program(target = 'brotha', source = sources)
