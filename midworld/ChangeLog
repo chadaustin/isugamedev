@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-11-03 nonchocoboy  CollisionDetector algorithms now report all collisions
+                        found rather than just the best one.
 2002-11-02 nonchocoboy  Decoupled level loading and the GameState.
 2002-11-01 nonchocoboy  Added in a temporally coherant collision detector using
                         an AABox sweep test.
