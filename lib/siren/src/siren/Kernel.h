@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-03 03:38:28 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -44,17 +44,9 @@ namespace siren
     */
    class Kernel
    {
-   private:
+   public:
       Kernel();
-
-      /// Not implemented on purpose. Usage will cause a compile-time error.
-      Kernel(const Kernel& kernel);
-
-   public:
       ~Kernel();
-
-   public:
-      static Kernel& getInstance();
 
       /**
        * Updates this kernel based on the amount of time that has passed since
@@ -105,8 +97,6 @@ namespace siren
 
       /// The state to switch to the next time the app is updated.
       StatePtr mNextState;
-
-      static Kernel* mInstance;
    };
 }
 

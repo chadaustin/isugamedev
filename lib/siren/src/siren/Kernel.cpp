@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.cpp,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-03 03:38:28 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -34,9 +34,6 @@
 
 namespace siren
 {
-   // Init the singleton instance of Kernel
-   Kernel* Kernel::mInstance = 0;
-
    Kernel::Kernel()
       : mWidth(0)
       , mHeight(0)
@@ -44,16 +41,6 @@ namespace siren
 
    Kernel::~Kernel()
    {}
-
-   Kernel&
-   Kernel::getInstance()
-   {
-      if (!mInstance)
-      {
-         mInstance = new Kernel();
-      }
-      return *mInstance;
-   }
 
    void
    Kernel::update(float dt)
