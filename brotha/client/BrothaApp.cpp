@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 08:33:21 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-29 08:50:57 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -103,7 +103,7 @@ namespace client
       if ( mConnID == -1 )
       {
          mNetMgr = new net::NetMgr();
-         auto_ptr<net::Socket> s( new net::Socket("127.0.0.1", 35791) );
+         std::auto_ptr<net::Socket> s( new net::Socket("127.0.0.1", 35791) );
          mConnID = mNetMgr->handleSocket( s );
          mNetMgr->send( new net::LoginMessage("user1", "passup"), mConnID );
          std::cout<<"Sent login message"<<std::endl;
