@@ -1,4 +1,9 @@
+import os
+execfile('glut_libs.py')
+
+
 Default('.')
 
-env = Environment(LIBS = ['opengl32', 'glu32', 'glut32'])
+
+env = Environment(ENV = os.environ, LIBS = GLUT_LIBS + ['m'])
 env.Program(target = 'vday', source = 'vday.cpp')
