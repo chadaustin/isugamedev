@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Utility.h,v $
- * Date modified: $Date: 2002-11-06 01:40:14 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-11 07:40:13 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -83,6 +83,11 @@ namespace mw
    inline void glTranslate(const gmtl::VecBase<float, 3>& vec)
    {
       glTranslatef(vec[0], vec[1], vec[2]);
+   }
+   
+   inline void glColor(const gmtl::VecBase<float, 4>& vec)
+   {
+      glColor4f(vec[0], vec[1], vec[2], vec[3]);
    }
 }
 
