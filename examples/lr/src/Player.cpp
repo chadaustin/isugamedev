@@ -333,9 +333,10 @@ namespace lr
    {
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
       {
-         std::cout << "her" << std::endl;
          return true;
       }
+      if((int)realHeight%32>8 && (mLevel->getEntityType(getGridPos(), getGridHeight()+1)==brick))
+         return true;
       return false;
    }
 
