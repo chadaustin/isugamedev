@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-29 17:47:09 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-29 19:44:53 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -51,6 +51,7 @@ namespace client
 
       if(msg->getType() == net::OK) {
          std::cout<<"Sync successful"<<std::endl;
+         app->setInGame(true);
          return std::auto_ptr<AppState>(new InGameState());
       } else if(msg->getType() == net::AddObj) {
          std::cout<<"Unhandled sync type, TODO"<<std::endl;
