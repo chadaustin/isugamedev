@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-11 01:35:04 $
-// Version:       $Revision: 1.16 $
+// Date modified: $Date: 2002-02-11 01:57:21 $
+// Version:       $Revision: 1.17 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -111,8 +111,9 @@ GlutDriver::init()
       // add a joystick device
       int numButtons = glutGet( GLUT_JOYSTICK_BUTTONS );
       int numAxes = glutGet( GLUT_JOYSTICK_AXES );
-      mJoystick = new Joystick( numButtons, numAxes );
-      GameInput::instance().addDevice( mJoystick, "Joystick" );
+      mJoystick = new DeviceHandle<Joystick>( "Joystick" );
+      mJoystick->getDevice()->setNumButtons( numButtons );
+      mJoystick->getDevice()->setNumAxes( numAxes );
    }
 
    return true;
@@ -155,7 +156,6 @@ GlutDriver::shutdown()
    // remove our joystick device
    if ( mJoystick != NULL )
    {
-      GameInput::instance().removeDevice( "Joystick" );
       delete mJoystick;
       mJoystick = NULL;
    }
@@ -476,11 +476,11 @@ GlutDriver::OnJoystick( unsigned int buttonMask, int x, int y, int z )
 {
    // check if we actually have a joystick device. this should NEVER happen if
    // we're in a glut joystick callback, but just in case ...
-   Joystick* joy = sDriver->mJoystick;
-   if ( joy == NULL )
+   if ( sDriver->mJoystick == NULL )
    {
       return;
    }
+   Joystick* joy = sDriver->mJoystick->getDevice();
 
    // check the buttons
    int numButtons = joy->numButtons();

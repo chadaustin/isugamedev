@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-11 01:57:21 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -197,10 +197,9 @@ private:
    DeviceHandle<Keyboard>* mKeyboard;
 
    /**
-    * Our joystick device. We can't use a DeviceHandle because the Joystick
-    * Device does not have a default constructor.
+    * Our joystick device.
     */
-   Joystick* mJoystick;
+   DeviceHandle<Joystick>* mJoystick;
 
    /**
     * There should only be 1 GLUT driver at any given time, but we don't want

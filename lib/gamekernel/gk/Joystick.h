@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Joystick.h,v $
-// Date modified: $Date: 2002-02-10 19:03:23 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-02-11 01:57:21 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -59,24 +59,46 @@ class Joystick : public AnalogDevice, public DigitalDevice
 {
 public:
    /**
-    * Creates a new Joystick with the given number of digital buttons and analog
-    * axes.
+    * Creates a new Joystick with initially no buttons or axes. You must call
+    * setNumAxes() and setNumButtons() respectively to configure this device
+    * appropriately.
     *
-    * @param numButtons    the number of buttons on the joystick
-    * @param numAxes       the number of axes supported by the joystick
+    * @see setNumAxes( int )
+    * @see setNumButtons( int )
     */
-   Joystick( int numButtons, int numAxes )
+   Joystick()
       : AnalogDevice(), DigitalDevice()
    {
-      DigitalDevice::setNumInputs( numButtons ); // num buttons
-      AnalogDevice::setNumInputs( numAxes ); // num axes
-      initializeMap();
+      DigitalDevice::setNumInputs( 0 ); // num buttons
+      AnalogDevice::setNumInputs( 0 ); // num axes
    }
 
    /**
     * Destroys this joystick device.
     */
    virtual ~Joystick() {}
+
+   /**
+    * Sets the number of buttons that are supported by this joystick.
+    *
+    * @param numButtons    the number of buttons supported by the joystick
+    */
+   void setNumButtons( int numButtons )
+   {
+      DigitalDevice::setNumInputs( numButtons );
+      initializeButtonMap();
+   }
+
+   /**
+    * Sets the number of axes that are supported by this joystick.
+    *
+    * @param numAxes       the number of axes supported by the joystick
+    */
+   void setNumAxes( int numAxes )
+   {
+      AnalogDevice::setNumInputs( numAxes );
+      initializeAxisMap();
+   }
 
    /**
     * Updates this object to match the state of the device. The game kernel must
@@ -124,12 +146,11 @@ public:
 
 private:
    /**
-    * Initialize all the joystick input name mappings.
+    * Initialize all the joystick button input name mappings.
     */
-   void initializeMap()
+   void initializeButtonMap()
    {
       const std::string btnPrefix( "JOYSTICKBUTTON_" );
-      const std::string axisPrefix( "JOYSTICKAXIS_" );
       int i;
 
       // Map the buttons
@@ -140,6 +161,16 @@ private:
          std::cout<<"Mapping joystick button: "<<tmp<<std::endl;
          DigitalDevice::mMap[ tmp.c_str() ] = i;
       }
+
+   }
+
+   /**
+    * Initialize all the joystick axes input name mappings.
+    */
+   void initializeAxisMap()
+   {
+      const std::string axisPrefix( "JOYSTICKAXIS_" );
+      int i;
 
       // Map the axes
       for ( i = 0; i < numAxes(); ++i )
