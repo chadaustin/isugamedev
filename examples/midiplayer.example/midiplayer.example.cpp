@@ -77,7 +77,7 @@
       /* open the midi device
        * this must be called prior to any other functions in this class 
        */
-      virtual void open()
+      virtual bool open()
       {
          unsigned long result;
       
@@ -86,8 +86,12 @@
          if (result)
          {
             printf("There was an error opening MIDI Mapper!\r\n");
+            return false;
          }
-
+         else
+         {
+            return true;
+         }
       }
 
       /* trigger the midi note, on channel, with velocity */
@@ -99,7 +103,7 @@
 
          int msg = (velocity << 16) | (note << 8) | status;
 
-         midiOutShortMsg(mHandle, msg);
+         midiOutShortMsg( mHandle, msg );
       }
 
       /* release the midi note, velocity is ignored and should be 0 */
@@ -250,13 +254,20 @@
       /* open the midi device
        * this must be called prior to any other functions in this class 
        */
-      virtual void open()
+      virtual bool open()
       {
-         // dev/sequencer should also work...
-         if ((mFile = ::open("/dev/music", O_WRONLY, 0))==-1)
+         //  /dev/music and /dev/sequencer2 are the same
+         std::string filename = "/dev/music";
+         if ((mFile = ::open(filename.c_str(), O_WRONLY, 0)) == -1)
 	{
-		perror("/dev/music");
-		return;
+            perror( filename.c_str() );
+         
+            filename = "/dev/sequencer2";
+            if ((mFile = ::open(filename.c_str(), O_WRONLY, 0)) == -1)
+	   {
+		perror( filename.c_str() );
+		return false;
+             }
 	}
          
  	// Check that the (synth) device to be used is available.
@@ -264,20 +275,23 @@
 	if (ioctl(mFile, SNDCTL_SEQ_NRSYNTHS, &ndevices)==-1)
 	{
 	   perror("SNDCTL_SEQ_NRSYNTHS");
-	   exit(-1);
+	   return false;
 	}
 
 	if (mDevice >= ndevices)
 	{
 	   fprintf(stderr, 
 		"Error: The requested playback device doesn't exist\n");
-	   exit(-1);
+	   return false;
 	}
+         
+         return true;
       }
 
       /* trigger the midi note, on channel, with velocity */
       virtual void trigger( char note, char channel = 0x0, char velocity = 0x40 )
       {
+         if (mFile == -1) return;
          SEQ_START_NOTE( mDevice, channel, note, velocity );
          SEQ_DUMPBUF(); // write immediately
       }
@@ -285,6 +299,7 @@
       /* release the midi note, velocity is ignored and should be 0 */
       virtual void release( char note, char channel = 0x0, char velocity = 0x00 )
       {
+         if (mFile == -1) return;
          SEQ_STOP_NOTE( mDevice, channel, note, 0 );
          SEQ_DUMPBUF(); // write immediately
       }
@@ -300,6 +315,7 @@
       /* change the instrument on a given channel */
       virtual void programchange( char program, char channel = 0x0 )
       {
+         if (mFile == -1) return;
          SEQ_PGM_CHANGE( mDevice, program, channel );
          SEQ_SET_PATCH( mDevice, channel, program );
          SEQ_DUMPBUF(); // write immediately
@@ -308,11 +324,13 @@
       /* close the midi device. */
       virtual void close()
       {
+         if (mFile == -1) return;
          ::close( mFile );
       }
 
       virtual void midimsg( unsigned long msg )
       {
+         if (mFile == -1) return;
          // TODO: implement ME!
          //
       }    
@@ -321,6 +339,7 @@
       // not needed if you have libOSS
       void seqbuf_dump ()
       {
+         if (mFile == -1) return;
         if (_seqbufptr)
           if (write (mFile, _seqbuf, _seqbufptr) == -1)
             {
@@ -331,8 +350,6 @@
       }
       int mDevice;
       int mFile;
-      
-      
    };
 
    // under linux/OSS, our "Midi" class is the OssMidi class...
