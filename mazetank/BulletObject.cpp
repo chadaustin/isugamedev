@@ -56,7 +56,7 @@ void BulletObject::Draw()
 	glPopMatrix();
 
 
-   float radius;
+ /*  float radius;
 
    this->GetObjectSphere(radius);
 
@@ -71,5 +71,5 @@ void BulletObject::Draw()
 		glLineWidth(1.0);
 		glEnable(GL_DEPTH);
 		glEnable(GL_LIGHTING);
-	glPopMatrix();
+	glPopMatrix();*/
 }

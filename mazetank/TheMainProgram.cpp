@@ -9,6 +9,10 @@
 #include <GL/glut.h>
 #include "GameWorld.h"
 #include "Input.h"
+#include "BMPLoader.h"
+#include <iostream>
+
+using namespace std;
 
 
 // Globals ///////////////////////////////////////////////////
@@ -22,19 +26,28 @@ bool CamMode = false;
 int OldX = -1;
 int OldY = -1;
 
+GLuint gamefloor[1];
+
 /////////////////////////////////////////////////////////////
 
 void Initialize()
 {
+	GLfloat light_position[] = { 10.0, 10.0, 10.0, 0.0 };
     MazeTank.Init();
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
     glEnable(GL_DEPTH_TEST);
-
     glEnable(GL_CULL_FACE);
+
+	if(LOAD_TEXTUREBMP_SUCCESS == loadOpenGL2DTextureBMP("Textures/concrete.bmp", &gamefloor[0]))
+		cout << "Success" << endl;
+
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);	// Linear Filtering
+	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	// Linear Filtering
 
 }
 
@@ -173,7 +186,7 @@ int main (int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(1024, 768);
+	glutInitWindowSize(640, 480);
 	glutInitWindowPosition(100,50);
 	glutCreateWindow("Final Project");
 	Initialize();

@@ -10,6 +10,8 @@
 
 #include "GraphicsObject.h"
 
+extern GLuint gamefloor[1];
+
 class FloorGraphics:public GraphicsObject
 {
 public:
@@ -20,9 +22,9 @@ public:
 		ambient[2] = 0.2;
 		ambient[3] = 1.0;
 
-		diffuse[0] = 0.3;
-		diffuse[1] = 0.0;
-		diffuse[2] = 1.0;
+		diffuse[0] = 0.5;
+		diffuse[1] = 0.5;
+		diffuse[2] = 0.5;
 		diffuse[3] = 1.0;
 
 		specular[0] = 0.0;
@@ -41,7 +43,7 @@ public:
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
 		glMaterialf(GL_FRONT, GL_SHININESS, shininess);	
 
-      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 
 		DrawFloor(100.0, 100.0, 1.0);
@@ -54,6 +56,9 @@ public:
 private:
 	void DrawFloor(float SizeX, float SizeY, float Spacing)
    {
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, gamefloor[0]);
+
 	   glNormal3f(0.0, 0.0, 1.0);
 	   bool first = false;
 	   float x,y,LastX;
@@ -85,7 +90,10 @@ private:
 		   }
 		   glEnd();
 		   LastX = x;
+	   
 	   }
+
+	glDisable(GL_TEXTURE_2D);
    }
     GLfloat ambient[4];
     GLfloat diffuse[4];

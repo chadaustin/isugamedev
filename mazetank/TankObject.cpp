@@ -67,7 +67,7 @@ void TankObject::Draw()
 	float radius;
 	this->GetObjectSphere(radius);
 
-	glPushMatrix();
+/*	glPushMatrix();
 		glColor3f(1.0, 0.0, 0.0);
 		glTranslatef(Translate[0], Translate[1], Translate[2]);
 		glLineWidth(1.0);
@@ -79,7 +79,7 @@ void TankObject::Draw()
 		glLineWidth(1.0);
 		glEnable(GL_DEPTH);
 		glEnable(GL_LIGHTING);
-	glPopMatrix();
+	glPopMatrix();*/
 
 }
 
