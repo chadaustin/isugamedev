@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Quat.h,v $
-//    $Date: 2001-09-06 04:17:32 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-06 15:21:24 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -338,7 +338,7 @@ inline void Quat<dataType>::copy( const Quat<dataType>& quat )
 
 //: Construct Quat from 4 dataTypes
 template<class dataType>
-inline Quat<dataType>::Quat<dataType>( dataType w,
+inline Quat<dataType>::Quat( dataType w,
                                        dataType x,
                                        dataType y,
                                        dataType z ) : vec()
@@ -386,14 +386,14 @@ inline void Quat<dataType>::makePure( const Vec3<dataType>& pure_quat )
 //: default constructor
 //!POST: initialize self to identity
 template<class dataType>
-inline Quat<dataType>::Quat<dataType>() : vec()
+inline Quat<dataType>::Quat() : vec()
 {
    this->makeIdent();
 }
 
 //: Construct self from another Quat<dataType> 
 template<class dataType>
-inline Quat<dataType>::Quat<dataType>( const Quat<dataType>& quat ) : vec()
+inline Quat<dataType>::Quat( const Quat<dataType>& quat ) : vec()
 {
    this->copy( quat );
 }
