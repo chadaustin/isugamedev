@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-11 04:46:40 $
- * Version:       $Revision: 1.114 $
+ * Date modified: $Date: 2002-11-11 05:24:17 $
+ * Version:       $Revision: 1.115 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -261,7 +261,7 @@ namespace mw
       glLoadIdentity();
 
       /// @todo get rid of this...     maybe the clearing buffer too...
-      gluPerspective(80.0f, 4.0f/3.0f, 0.01f, 10000.0f);
+      gluPerspective(80.0f, 4.0f/3.0f, 0.01f, 3000.0f);
 
       // initialize your matrix stack used for transforming your models
       glMatrixMode(GL_MODELVIEW);

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-11 04:53:23 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-11-11 05:24:17 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -59,10 +59,10 @@ namespace mw
 
       // setup the camera
       osg::Matrix proj_matrix, modelview_matrix;
-      osg::MatrixPerspective(proj_matrix, 80.0f, 4.0f/3.0f, 0.01f, 10000.0f);
+      osg::MatrixPerspective(proj_matrix, 80.0f, 4.0f/3.0f, 0.01f, 3000.0f);
       osg::beginEditCP(mCamera);
          mCamera->setNear(0.1);
-         mCamera->setFar(10000.0);
+         mCamera->setFar(3000.0);
          mCamera->setProjectionMatrix(proj_matrix);
          mCamera->setModelviewMatrix(modelview_matrix);
       osg::endEditCP(mCamera);
