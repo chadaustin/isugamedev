@@ -94,7 +94,7 @@ public:
          
          fe = new FlameEmitter<__EntityType>;
          fe->setSize( 2.5f );
-         fe->setAgeOfDeath( 2.3f );
+         fe->setAgeOfDeath( .3f );
          fe->setEmissionRate( 0.014 );
          this->add( fe );
          
