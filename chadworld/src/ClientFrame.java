@@ -1,5 +1,4 @@
-package chadworld.client;
-import chadworld.*;
+package chadworld;
 
 import java.io.*;
 import java.net.*;
@@ -18,7 +17,7 @@ import java.awt.AWTEvent;
 import com.sun.j3d.utils.behaviors.keyboard.*;
 
 
-public class ChadWorldFrame extends Applet {
+public class ClientFrame extends Applet {
 
   private ServerConnection m_connection;
   private Vector3f m_orientation = new Vector3f();
@@ -26,11 +25,11 @@ public class ChadWorldFrame extends Applet {
 
 
   public static MainFrame createFrame(String server, int width, int height) {
-    return new MainFrame(new ChadWorldFrame(server), width, height);
+    return new MainFrame(new ClientFrame(server), width, height);
   }
 
 
-  public ChadWorldFrame(String server) {
+  public ClientFrame(String server) {
 
     // connect to the server
     try {

@@ -1,5 +1,4 @@
-package chadworld.client;
-import chadworld.*;
+package chadworld;
 
 import java.util.*;
 import javax.media.j3d.*;

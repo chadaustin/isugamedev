@@ -1,5 +1,4 @@
-package chadworld.server;
-import chadworld.*;
+package chadworld;
 
 import java.io.*;
 import java.net.*;

@@ -1,5 +1,4 @@
-package chadworld.client;
-import javax.vecmath.*;
+package chadworld;
 
 
 public interface NavigationListener {

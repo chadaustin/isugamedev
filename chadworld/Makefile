@@ -1,14 +1,14 @@
-SOURCES = \
-	Client/ChadWorldFrame.java \
-	Client/Client.java \
-	Client/NavigationBehavior.java \
-	Client/NavigationListener.java \
-	Client/ServerConnection.java \
-	Client/SynchronizationBehavior.java \
-	Common/Packet.java \
-	Common/WorldPacket.java \
-	Server/ChadWorldServer.java \
-	Server/ConnectionThread.java
+SOURCES =					\
+	src/Client.java				\
+	src/ClientFrame.java			\
+	src/ConnectionThread.java		\
+	src/NavigationBehavior.java		\
+	src/NavigationListener.java		\
+	src/Server.java				\
+	src/ServerConnection.java		\
+	src/SynchronizationBehavior.java	\
+	src/Packet.java				\
+	src/WorldPacket.java
 
 JAVAC = javac -deprecation -d .
 

@@ -1,8 +1,7 @@
-package chadworld.client;
+package chadworld;
 
 import java.io.*;
 import java.net.*;
-import chadworld.*;
 
 
 class ServerConnection {

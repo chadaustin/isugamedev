@@ -65,6 +65,6 @@ public class Client {
   }
 
   static void start(String server) {
-    chadworld.client.ChadWorldFrame.createFrame(server, 640, 480);
+    ClientFrame.createFrame(server, 640, 480);
   }
 }

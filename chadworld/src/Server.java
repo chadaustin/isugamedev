@@ -1,4 +1,4 @@
-package chadworld.server;
+package chadworld;
 
 import chadworld.*;
 import java.io.*;
@@ -6,11 +6,11 @@ import java.net.*;
 import javax.vecmath.*;
 
 
-public class ChadWorldServer {
+public class Server {
 
   WorldPacket m_world = new WorldPacket();
 
-  ChadWorldServer() {
+  Server() {
 
     m_world.cubes = new Matrix4f[20];
     for (int i = 0; i < 20; ++i) {
@@ -73,6 +73,6 @@ public class ChadWorldServer {
   }
 
   public static void main(String[] args) {
-    new ChadWorldServer().run();
+    new Server().run();
   }
 }
