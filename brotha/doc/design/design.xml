@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="docbook.css" type="text/css"?>
+<?xml-stylesheet href="file://localhost/G:/project/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.29 2002-04-09 01:55:17 jjhnsn Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 01:55:17 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.30 2002-04-09 02:37:51 jjhnsn Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 02:37:51 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -141,29 +141,56 @@
     </section>
     <section>
       <title>Data/XML Module</title>
-      <para>Description of what this module does here ...</para>
-      <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
+      <para><classname></classname><classname></classname>The Data/XML module provides access to a persistent, data structure that stores game related data such as cars and players and gangs. One root node <classname>BrothaData</classname>, is used to hold all the data. <classname>BrothaData</classname> provides a method to load and save the data, as well as a convenience function to validate a player based on their password. <classname>BrothaData</classname> also exposes a collection of <classname>Gang</classname> objects, and a collection of <classname>Gang</classname> and <classname>CarType</classname> objects. The <classname>CarType</classname> objects store basic information on a "type" of car, the gangs, basically have a name and a collection of <classname>Player</classname> objects, which in turn hold a name, password and a collection of <classname>Car</classname> objects. Each car has an associated type (from <classname>CarTypes</classname> in the root <classname>BrothaData</classname> node) as well as a collection of <classname>Mod</classname>s. Mods have a "type" and "level" of modification.</para>
       <section>
         <title>Module Interfaces</title>
-        <para>blah blah</para>
+        <para></para>
+        <para>Gang {</para>
+        <para>Property string name; </para>
+        <para>Property collection&lt;Player&gt; players;</para>
+        <para> }</para>
+        <para> </para>
+        <para>Player {</para>
+        <para> String name; </para>
+        <para> String password; </para>
+        <para> Property collection&lt;Car&gt; cars; </para>
+        <para>}</para>
+        <para></para>
+        <para>CarType {</para>
+        <para>string model_file;</para>
+        <para>string name; </para>
+        <para>} </para>
+        <para></para>
+        <para>Car {</para>
+        <para>CarType cartype; </para>
+        <para>Property collection&lt;Mod&gt; mods; </para>
+        <para>} </para>
+        <para></para>
+        <para>ModType { </para>
+        <para>// ModType defines actual modification like WeaponModType or something </para>
+        <para>// depends on the mod type</para>
+        <para>string name; </para>
+        <para>string mount_point;</para>
+        <para>int amount; } </para>
+        <para></para>
+        <para>Mod {</para>
+        <para>ModType modtype;</para>
+        <para>int level;</para>
+        <para>}</para>
+        <para></para>
+        <para>BrothaData {</para>
+        <para>Property collection&lt;Gang&gt; gangs; </para>
+        <para>boolean validatePlayer(string player, password passwd);</para>
+        <para>static BrothaData load(string filename) throws DataException</para>
+        <para>Void save(string filename) throws DataException</para>
+        <para>} </para>
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+         <para>The BrothaData object needed to be able to store all the information persistantly. Do do that, we decided to use XML and an off the shelf parser. We also decided to use one that supported Xpath and XSL for the report server.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Loading</title> 
+           <para>One thing we decided to do was to load all the data into memory and create simple wrapper classes around it, rather then using something like SAX and only loading data on demand (and creating wrapper collections and the like). This was done to save time, especially since it won't really end up holding all that much data.</para> 
         </section>
       </section>
     </section>
@@ -266,18 +293,15 @@
       <para>The Report Server module is responsible for generating dynamic reports requested by HTTP 1.0 standards complient clients. The reports will be generated based on data gathered from the Data/XML module. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This module depends on the Data/XML module for the gathering of data and the Network module for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
       <section>
         <title>Module Interfaces</title>
-        <para>blah blah</para>
+        <para>ReportServer.Start():bool </para> 
+         <para>ReportServer.Stop():void </para> 
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>One of the design decisions made was to use "high tech" XML processing systems to create and format the data, this means using things like XSL and XPath to select the data. Rather then writing a bunch of custom routines to generate the HTML, we'll use a style sheet to create it directly from XML, and use XPath to select arbitrary data from the tree.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>XML parser</title>  
+          <para>The design requirements for the Reporter server influenced the choice of XML parser used. We had started with XMLpp, but moved to Apache Xerces</para> 
         </section>
       </section>
     </section>
@@ -608,4 +632,3 @@
     </variablelist>
   </appendix>
 </book>
-
