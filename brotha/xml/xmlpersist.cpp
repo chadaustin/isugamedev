@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-05-01 05:40:16 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-05-01 07:31:21 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -114,7 +114,7 @@ namespace data {
 
          while (itTypes != types.end()) {
             xmlpp::XMLAttributes& attr = (*itTypes)->get_attrmap();
-            Cartype* c = new Cartype(attr.get("name"),attr.get("model"));
+            CarType* c = new CarType(attr.get("name"),attr.get("model"));
             data->addCarType(c);
             itTypes++;
          }
@@ -127,7 +127,7 @@ namespace data {
       Player* p = new Player("ama","kuriyama");
       Car* c = new Car("tercel");
       Mod* m = new Mod("breaks",4);
-      Cartype* ct = new Cartype("tercel");
+      CarType* ct = new CarType("tercel");
       b->addGang(g);
       b->addCarType(ct);
       c->addMod(m);

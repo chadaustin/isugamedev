@@ -15,18 +15,18 @@ namespace data {
    class BrothaData {
    private:
       ganglist gangs;
-      cartypelist cars;
+      CarTypeList cars;
 
    public:
       ganglist getGangList() {
          return gangs;
       }
 
-      cartypelist getcartypes() {
+      CarTypeList& getCarTypes() {
          return cars;
       }
 
-      void addCarType(Cartype* c) {
+      void addCarType(CarType* c) {
          cars.push_back(c);
       }
 
@@ -45,7 +45,7 @@ namespace data {
          out << "</wbdata>";
       }
 
-      Gang* getGang(std::string name) {
+      Gang* getGang(const std::string& name) {
          for (unsigned int i = 0; i < gangs.size(); ++i) {
             if (gangs[i]->getName() == name) {
                return gangs[i];
