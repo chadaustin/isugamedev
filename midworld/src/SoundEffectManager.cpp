@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.cpp,v $
- * Date modified: $Date: 2002-10-29 08:21:58 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-29 08:49:32 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -74,7 +74,7 @@ namespace audieredr
 
   inline SampleBuffer* CreateSampleBuffer(const char* filename)
   {
-    return CreateSampleBuffer(OpenSampleSource(filename));
+    return audieredr::CreateSampleBuffer(OpenSampleSource(filename));
   }
 } // namespace audiere
 
