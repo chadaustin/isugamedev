@@ -48,16 +48,26 @@ public:
    
    void drawSystem()
    {
-      glColor3f( 1,1,1 );
-      glBegin( GL_POINTS );
+      
          for (int x = 0; x < torch.entities().size(); ++x)
          {
             ani::FireParticle* ent = torch.entities()[x];
             const Vec3<float>& pos = ent->position();
+            const ColorRGBA& col = ent->color(); 
+            glColor4f( col[0], col[1], col[2], col[3] );
+            //glPushMatrix();
+            //glTranslatef( pos[0], pos[1], pos[2] );
+            
+            glBegin( GL_TRIANGLES );
             glVertex3f( pos[0], pos[1], pos[2] );
-            std::cout<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<"\n"<<std::flush;
+            glVertex3f( pos[0]+1, pos[1], pos[2] );
+            glVertex3f( pos[0]+1, pos[1]+1, pos[2] );
+            glEnd();
+
+            //glPopMatrix();
+            //glVertex3f( pos[0], pos[1], pos[2] );
+            //std::cout<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<"\n"<<std::flush;
          }
-      glEnd();
    }   
    
    ani::Torch<ani::FireParticle> torch;
@@ -107,12 +117,15 @@ static void OnRedisplay()
 
       
    drawGrid();
-   app.drawSystem();
-   app.torch.step( 0.01 );
+   
+   
    
    glTranslatef( 5, 0, -20 );
    
    app.cube.render();
+
+   glTranslatef( 0, 3, 0 );
+   app.drawSystem();
    
    // swaps the front and back frame buffers.
    // hint: you've been drawing on the back, offscreen, buffer.  
@@ -127,6 +140,8 @@ static void OnIdle()
 {
    app.stopWatch.pulse();
    
+   app.torch.step( app.stopWatch.timeInstant() );
+
    ////////////////////////////
    // According to the GLUT specification, the current window is
    // undefined during an idle callback.  So we need to explicitly change

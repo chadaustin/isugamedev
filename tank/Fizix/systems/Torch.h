@@ -20,16 +20,18 @@ namespace ani
 class FireParticle : public ani::Body
 {
 public:
-   FireParticle() : mAge(0), mAgeOfDeath(0)
+   FireParticle() : mAge(0), mAgeOfDeath(10)
    {
    }
    
-   void setColor( const ColorRGBA& color ) {}
+   const ColorRGBA& color() const { return mColor; }
+   void setColor( const ColorRGBA& color ) { mColor = color; }
    void setAgeOfDeath( float age ) { mAgeOfDeath = age; }
    float ageOfDeath() const { return mAgeOfDeath; }
    float age() const { return mAge; }
-   void growOlder( float age ) { ++mAge; }
+   void growOlder( float age ) { mAge += age; }
    float mAge, mAgeOfDeath;
+   ColorRGBA mColor;
 };
 
 template<class __EntityType = FireParticle>
@@ -112,13 +114,6 @@ public:
          sizes.push_back( 10.0f );
          gwa->setVolumes( sizes );
          this->add( gwa );
-
-         //drag->unrefDelete();
-         cur->unrefDelete();
-         gwa->unrefDelete();
-         reaper->unrefDelete();
-         cwa->unrefDelete();
-         fe->unrefDelete();
       }
 };
 
