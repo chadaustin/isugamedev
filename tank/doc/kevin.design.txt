@@ -26,7 +26,7 @@ detail description: cross genre - (elements of RPG, puzzle, and
 
 Similar to other games?
 ========================
-DreamGame takes ideas from many places:
+aki's quest takes ideas from many places:
 - ankh (triggerable objects, puzzles, remote control room)
 - zelda (market places you can buy and sell at)
 - blaster master (tank, and person that can get out, weapons powerup)
@@ -133,6 +133,11 @@ the mages create a flock of luminescent insects and explain that they will guide
 to the start of her adventure.  they wish her luck and cast the flock into the darkness. 
 aki follows, and emerges from a secret door on the side of what appears to be a large 
 ziggarraut...
+
+
+anyway, this is where the story picks up, and the gameplay begins.
+
+
 
 village of atla (theme is ancient mayan)
 ===========================================
