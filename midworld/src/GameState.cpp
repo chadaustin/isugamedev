@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-29 05:48:35 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-08-14 20:25:02 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -301,10 +301,6 @@ namespace mw
 
    void GameState::reapDeadEntities()
    {
-      std::cout<<"Reap Pass"<<std::endl;
-      int old_size = mEntities.size();
-      int dead = 0;
-      std::cout<<"\tOld Size: "<<old_size<<std::endl;
       for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); )
       {
          Entity* entity = (*itr);
@@ -313,15 +309,12 @@ namespace mw
             mSpatialIndex->remove(entity);
             delete entity;
             mEntities.erase(itr);
-            ++dead;
          }
          else
          {
             ++itr;
          }
       }
-      std::cout<<"\tKilled: "<<dead<<std::endl;
-      std::cout<<"\tNew Size: "<<(mEntities.size())<<std::endl;
    }
 
    void GameState::add(Entity* entity)
