@@ -20,10 +20,11 @@ env.Append(CXXFLAGS = ['-DXDL_BUILD_DLL'])
 if GetPlatform() == 'irix':
    env['SHCXXFLAGS'] = '${CXXFLAGS}'
 
-#lib = pkg.createStaticLibrary('sdl.gk', env)
+env.Replace(SHLIBPREFIX = '',
+            SHLIBSUFFIX = '')
 
-lib = pkg.createSharedLibrary('sdl.gk', env)
+lib = pkg.createSharedLibrary('sdl.gkd', env)
 lib.addSources(sources)
-lib.addHeaders(headers, 'sdl.gk')
+lib.addHeaders(headers, 'sdl.gkd')
 
 

@@ -20,10 +20,11 @@ env.Append(CXXFLAGS = ['-DXDL_BUILD_DLL'])
 if GetPlatform() == 'irix':
    env['SHCXXFLAGS'] = '${CXXFLAGS}'
 
-#lib = pkg.createStaticLibrary('glut.gk', env)
+env.Replace(SHLIBPREFIX = '',
+            SHLIBSUFFIX = '')
 
-lib = pkg.createSharedLibrary('glut.gk', env)
+lib = pkg.createSharedLibrary('glut.gkd', env)
 lib.addSources(sources)
-lib.addHeaders(headers, 'glut.gk')
+lib.addHeaders(headers, 'glut.gkd')
 
 
