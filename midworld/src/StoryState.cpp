@@ -65,7 +65,7 @@ namespace mw
    {
       if (down)
       {
-         invokeTransition("Game");
+         invokeTransition("Load");
       }
    }
 
@@ -73,7 +73,7 @@ namespace mw
    {
       if (down)
       {
-         invokeTransition("Game");
+         invokeTransition("Load");
       }
    }
 }

@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-10-08 nonchocoboy  Added a loading state for filling up the resource
+                        caches.
 2002-10-08 nonchocoboy  Added cache preloading abilities to the model manager.
 2002-10-08 nonchocoboy  Collision detection is now done using the bounds of the
                         models in the scene graph. OpenSGSceneViewer now

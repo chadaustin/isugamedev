@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-10-09 07:25:57 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-09 08:35:14 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,7 +47,7 @@ namespace mw
    OpenSGSceneViewer::OpenSGSceneViewer(Scene* scene)
       : mScene(scene)
    {
-      osg::osgInit(0,0);
+//      osg::osgInit(0,0);
 
       mRenderAction = osg::RenderAction::create();
       mWin = osg::PassiveWindow::create();

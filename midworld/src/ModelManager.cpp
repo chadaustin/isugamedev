@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ModelManager.cpp,v $
- * Date modified: $Date: 2002-10-09 08:09:39 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-09 08:35:14 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,8 @@ namespace mw
 {
    ModelManager::ModelManager()
    {
+      osg::osgInit(0, 0);
+
       typedef std::list<const char*> SuffixList;
       SuffixList suffixes;
       osg::SceneFileHandler::the().getSuffixList(suffixes);
