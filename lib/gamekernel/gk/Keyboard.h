@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Keyboard.h,v $
-// Date modified: $Date: 2002-01-30 18:01:45 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-01-30 18:02:20 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,7 +37,6 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "kqueue.h"
 #include "DigitalDevice.h"
 
 /** Keyboard device driver for the GameInput system.
@@ -142,10 +141,10 @@ public:
    }
 
    /** get the keys pressed since the last frame */
-   kev::queue<Key>& queue() { return mQueue; }
+   std::vector<Key>& queue() { return mQueue; }
 
 private:
-   kev::queue<Key> mQueue;
+   std::vector<Key> mQueue;
 
    void initialize_map()
    {

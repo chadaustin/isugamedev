@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-01-30 18:02:20 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,8 +36,8 @@
  *
  * -----------------------------------------------------------------------------
  * File:          $RCSfile: GlutDriver.cpp,v $
- * Last modified: $Date: 2002-01-30 06:48:25 $
- * Version:       $Revision: 1.3 $
+ * Last modified: $Date: 2002-01-30 18:02:20 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------------------
  *
  *******************************************************************************
@@ -287,7 +287,7 @@ GlutDriver::OnReshape( int w, int h )
 void
 GlutDriver::OnKeyboardDown( unsigned char k, int x, int y )
 {
-   GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
+   GameInput::instance().keyboard().queue().push_back( (Keyboard::Key)(int)k );
 
    // ignore case
    if ('a' <= k && k <= 'z')
@@ -307,7 +307,7 @@ GlutDriver::OnKeyboardDown( unsigned char k, int x, int y )
 void
 GlutDriver::OnKeyboardUp( unsigned char k, int x, int y )
 {
-   GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
+   //GameInput::instance().keyboard().queue().push_back( (Keyboard::Key)(int)k );
 
    if ('a' <= k && k <= 'z')
    {
@@ -362,7 +362,7 @@ GlutDriver::keyboardEvent( const bool& isdown, const int& k, Keyboard& keyboard 
          return;
    }
    //keyboard.updateEdgeStates();
-   keyboard.queue().enqueue( key );
+   //keyboard.queue().push_back( key );
 }
 
 //------------------------------------------------------------------------------
