@@ -62,7 +62,7 @@ endif
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
 default: 
-	cd regexx; $(MAKE) 
+	cd regexx && $(MAKE) 
 	@echo " "
 	@echo "================="
 	@echo "Making TANK"
@@ -92,7 +92,7 @@ clean:
 	@echo "Cleaning regexx"
 	@echo "================="
 	@echo " "
-	cd regexx; $(MAKE) clean
+	cd regexx && $(MAKE) clean
 	@echo " "
 	@echo "================="
 	@echo "Cleaning TANK"
