@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="file://localhost/home9/users/aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
+<?xml-stylesheet href="file://localhost/G:/project/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.22 2002-04-09 00:20:39 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 00:20:39 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.23 2002-04-09 00:28:30 jjhnsn Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 00:28:30 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -169,7 +169,7 @@
     </section>
     <section>
       <title>Game Logic Module</title>
-      <para>Description of what this module does here ...</para>
+      <para>The Game Logic module is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic module manages game specific interactions between object in the world such as cars, buildings and projectiles.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
