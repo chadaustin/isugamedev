@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.48 2002-04-10 02:13:05 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-10 02:13:05 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.49 2002-04-10 03:44:22 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-10 03:44:22 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -452,25 +452,129 @@
       </section>
       <section>
         <title>Module Interfaces</title>
-        <para>class Socket {</para>
-        <para> Socket(string hostname, int port);</para>
-        <para> int write(buffer, size);</para>
-        <para> void read(buffer, size);</para>
-        <para> void close();</para>
-        <para> InputStream getInputStream();</para>
-        <para> OutputStream getOutputStream();</para>
-        <para>}</para>
-        <para>class ServerSocket {</para>
-        <para> ServerSocket(int port);</para>
-        <para> Socket accept();</para>
-        <para>}</para>
-        <para>interface InputStream {</para>
-        <para> void read(buffer, size);</para>
-        <para>}</para>
-        <para>interface OutputStream {</para>
-        <para> void write(buffer, size);</para>
-        <para>}</para>
-        <para>class ByteBuffer implements InputStream, OutputStream;</para>
+        <classsynopsis>
+          <ooclass>
+            <classname>Socket</classname>
+          </ooclass>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <methodname>Socket</methodname>
+            <methodparam>
+              <type>string</type>
+              <parameter>hostname</parameter>
+            </methodparam>
+            <methodparam>
+              <type>int</type>
+              <parameter>port</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>int</type>
+            <methodname>write</methodname>
+            <methodparam>
+              <modifier>const</modifier>
+              <type>void*</type>
+              <parameter>buffer</parameter>
+            </methodparam>
+            <methodparam>
+              <type>int</type>
+              <parameter>size</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>read</methodname>
+            <methodparam>
+              <type>void*</type>
+              <parameter>buffer</parameter>
+            </methodparam>
+            <methodparam>
+              <type>int</type>
+              <parameter>size</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>close</methodname>
+            <void/>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>InputStream</type>
+            <methodname>getInputStream</methodname>
+            <void/>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>OutputStream</type>
+            <methodname>getOutputStream</methodname>
+            <void/>
+          </methodsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>ServerSocket</classname>
+          </ooclass>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <methodname>ServerSocket</methodname>
+            <methodparam>
+              <type>int</type>
+              <parameter>port</parameter>
+            </methodparam>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>Socket</type>
+            <methodname>accept</methodname>
+            <void/>
+          </methodsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>InputStream</classname>
+          </ooclass>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>read</methodname>
+            <methodparam>
+              <modifier>const</modifier>
+              <type>void*</type>
+              <parameter>buffer</parameter>
+            </methodparam>
+            <methodparam>
+              <type>int</type>
+              <parameter>size</parameter>
+            </methodparam>
+          </methodsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>OutputStream</classname>
+          </ooclass>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>write</methodname>
+            <methodparam>
+              <type>void*</type>
+              <parameter>buffer</parameter>
+            </methodparam>
+            <methodparam>
+              <type>int</type>
+              <parameter>size</parameter>
+            </methodparam>
+          </methodsynopsis>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>ByteBuffer implements InputStream, OutputStream</classname>
+          </ooclass>
+        </classsynopsis>
         <para></para>
         <para>template&lt;typename T&gt; OutputStream&amp; operator&lt;&lt;(OutputStream&amp; os, T value);</para>
         <para>template&lt;typename T&gt; InputStream&amp; operator&gt;&gt;(InputStream&amp; os, T&amp; value);</para>
