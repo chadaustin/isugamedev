@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.cpp,v $
- * Date modified: $Date: 2002-04-22 04:16:20 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-22 07:21:44 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,9 +48,9 @@ namespace client {
       mSceneView = new osgUtil::SceneView();
       mSceneView->setDefaults();
       mSceneView->setBackgroundColor(osg::Vec4(0,0,0,0));
-      mSceneView->getLight()->setAmbient(osg::Vec4(0.3,0.3,0.3,1.0));
-      mSceneView->getLight()->setDiffuse(osg::Vec4(0.9,0.9,0.9,1.0));
-      mSceneView->getLight()->setSpecular(osg::Vec4(1.0,1.0,1.0,1.0));
+      mSceneView->getLight()->setAmbient(osg::Vec4(0.3f,0.3f,0.3f,1.0f));
+      mSceneView->getLight()->setDiffuse(osg::Vec4(0.9f,0.9f,0.9f,1.0f));
+      mSceneView->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
 
       mRoot = new osg::Group();
       mViews = new osg::Group();
