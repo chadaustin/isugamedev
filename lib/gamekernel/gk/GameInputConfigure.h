@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInputConfigure.h,v $
-// Date modified: $Date: 2002-02-19 21:36:35 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-21 18:59:29 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -72,7 +72,7 @@ inline static bool loadInputConfig( const std::string& filename,
 
    std::cerr << "Loaded Configuration: " << filename << std::endl;
 
-   xmlpp::XMLNodeList nl = doc.firstchild( "gameinput" )->children();
+   xmlpp::XMLNodeList nl = doc.getChild( "gameinput" )->getChildren();
    xmlpp::XMLNodeListIterator it = nl.begin();
    while (it != nl.end())
    {
