@@ -1,12 +1,14 @@
 from os import path
 
-Import('baseEnv PREFIX')
+Import('baseEnv PREFIX BuildInfo')
 Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenGL')
 
 interfaces = Split("""
    CollisionDetector
    CollisionListener
    Entity
+   SceneListener
+   SceneViewer
    SpatialIndex
    Weapon
 """)
@@ -25,9 +27,12 @@ classes = Split("""
    IntroState
    Jukebox
    MenuState
+   OpenSGSceneViewer
    Player
    RigidBody
    Shotgun
+   Scene
+   SceneEvent
    State
    StateFactory
    SoundEffectManager
@@ -37,11 +42,8 @@ classes = Split("""
    cubeGeometry
 """)
 
-sources = Split("""
-    Main.cpp
-""")
-
-headers = Split("""
+buildInfo = BuildInfo()
+buildInfo.addHeaders(map(File, Split("""
    AssaultRifle.h
    BaseBullet.h
    CollisionEvent.h
@@ -49,21 +51,31 @@ headers = Split("""
    UIDManager.h
    VectorSpatialIndex.h
    Version.h
-""")
+""")))
 
-headers.extend(map(lambda n: n + '.h',    interfaces))
-sources.extend(map(lambda n: n + '.cpp',  classes))
-headers.extend(map(lambda n: n + '.h',    classes))
+buildInfo.addSources(map(File, Split("""
+   Main.cpp
+""")))
+
+buildInfo.addExtraDist(map(File, Split("""
+   SConscript
+""")))
+
+buildInfo.addHeaders(map(lambda n: File(n + '.h'),    interfaces))
+buildInfo.addHeaders(map(lambda n: File(n + '.h'),    classes))
+buildInfo.addSources(map(lambda n: File(n + '.cpp'),  classes))
 
 env = baseEnv.Copy()
+env['LIBS'].extend(['OSGSystem', 'OSGBase'])
 SetupSDL(env)
 SetupCorona(env)
 SetupAudiere(env)
 SetupGLText(env)
 SetupOpenGL(env)
 
-programs = [
-    env.Program(target = 'midworld', source = sources)
-]
+buildInfo.addPrograms([
+    env.Program(target = 'midworld', source = buildInfo.getSources())
+])
+env.Install(path.join(PREFIX, 'bin'), buildInfo.getPrograms())
 
-env.Install(path.join(PREFIX, 'bin'), programs)
+Return('buildInfo')

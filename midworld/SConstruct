@@ -1,30 +1,32 @@
 # build with 'scons'
-import sys
-import os
-import string
+import string, sys, os
 
-# Check for optimize option
-optimize = 0
-if ARGUMENTS.get('opt', 0):
-   optimize = 1
+#------------------------------------------------------------------------------
+# Define some generally useful functions
+#------------------------------------------------------------------------------
+def RequireSConsVersion(minimum):
+   "Check the version of SCons being run is at least the given minimum."
+   import SCons
+   if float(SCons.__version__) < float(minimum):
+      print "SCons too old: " + SCons.__version__ + " < " + str(minimum)
+      sys.exit(-1)
 
-# Check for profile option
-profile = 0
-if ARGUMENTS.get('profile', 0):
-   profile = 1
+def GetMidworldVersion():
+   "Gets the Midworld version from the src/Version.h header"
+   import re
 
-# Check for an install prefix
-PREFIX = '/usr/local'
-if ARGUMENTS.get('prefix'):
-   PREFIX = ARGUMENTS['prefix']
-Export('PREFIX')
-
+   contents = open('src/Version.h', 'r').read()
+   major = re.compile('.*(#define *MW_VERSION_MAJOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   minor = re.compile('.*(#define *MW_VERSION_MINOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   patch = re.compile('.*(#define *MW_VERSION_PATCH *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   return (int(major), int(minor), int(patch))
 
 def BuildBaseEnvironment():
+   "Builds a base environment for other modules to build on."
    global optimize, profile
 
-   "Builds a base environment for other modules to build on."
-
+   CXX = 'g++3'
+   LINK = 'g++3'
    CXXFLAGS = ['-Wall', '-Wno-non-virtual-dtor']
    LINKFLAGS = []
 
@@ -39,6 +41,8 @@ def BuildBaseEnvironment():
 
    env = Environment(
       ENV = os.environ,
+      CXX = CXX,
+      LINK = LINK,
       CPPPATH = [],
       LIBPATH = [],
       LIBS = [],
@@ -48,6 +52,33 @@ def BuildBaseEnvironment():
 
    return env
 
+def InitGZipBuilder(env):
+   "Adds the builder and construction variables for gzip to an Environment."
+   try:
+      bld = env['BUILDERS']['GZip']
+   except KeyError:
+      bld = Builder(action = '$GZIPCOM',
+                    suffix = '$GZIPSUFFIX')
+      env['BUILDERS']['GZip'] = bld
+
+   env['GZIP']       = 'gzip'
+   env['GZIPFLAGS']  = ''
+   env['GZIPCOM']    = '$GZIP $GZIPFLAGS $SOURCES'
+   env['GZIPSUFFIX'] = '.gz'
+
+def InitBZip2Builder(env):
+   "Adds the builder and construction variables for bzip2 to an Environment."
+   try:
+      bld = env['BUILDERS']['BZip2']
+   except KeyError:
+      bld = Builder(action = '$BZIP2COM',
+                    suffix = '$BZIP2SUFFIX')
+      env['BUILDERS']['BZip2'] = bld
+
+   env['BZIP2']         = 'bzip2'
+   env['BZIP2FLAGS']    = ''
+   env['BZIP2COM']      = '$BZIP2 $BZIP2FLAGS $SOURCES'
+   env['BZIP2SUFFIX']   = '.bz2'
 
 def ParseConfig(env, command, options):
    "Parses xxx-config style output for compilation directives"
@@ -106,16 +137,160 @@ def SetupOpenGL(env):
 Export('ParseConfig')
 Export('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenGL')
 
-# create the base environment
+#------------------------------------------------------------------------------
+# The BuildInfo data structure allows subdirectories of a recursive build to
+# pass information to their parents about the build.
+#------------------------------------------------------------------------------
+class BuildInfo:
+   def __init__(self):
+      self.programs = []
+      self.libraries = []
+      self.headers = []
+      self.sources = []
+      self.docs = []
+      self.extraDist = []
+
+   def add(self, bi):
+      "Adds the contents of the given build info object to this one"
+      self.programs.extend(bi.programs)
+      self.libraries.extend(bi.libraries)
+      self.headers.extend(bi.headers)
+      self.sources.extend(bi.sources)
+      self.docs.extend(bi.docs)
+      self.extraDist.extend(bi.extraDist)
+
+   def addPrograms(self, progs):
+      self.programs.extend(progs)
+
+   def addLibraries(self, libs):
+      self.libraries.extend(libs)
+
+   def addHeaders(self, files):
+      self.headers.extend(files)
+
+   def addSources(self, files):
+      self.sources.extend(files)
+
+   def addDocs(self, files):
+      self.docs.extend(files)
+
+   def addExtraDist(self, files):
+      self.extraDist.extend(files)
+
+   def getAll(self):
+      result = []
+      result.extend(self.programs)
+      result.extend(self.libraries)
+      result.extend(self.headers)
+      result.extend(self.sources)
+      result.extend(self.docs)
+      result.extend(self.extraDist)
+      return result
+
+   #---------------------------------------------------------------------------
+   # Accessors
+   #---------------------------------------------------------------------------
+   def getPrograms(self):
+      return self.programs
+
+   def getLibraries(self):
+      return self.libraries
+
+   def getHeaders(self):
+      return self.headers
+
+   def getSources(self):
+      return self.sources
+
+   def getDocs(self):
+      return self.docs
+
+   def getExtraDist(self):
+      return self.extraDist
+
+Export('BuildInfo')
+
+#------------------------------------------------------------------------------
+# This function sets up distribution targets for a source distribution based on
+# the given BuildInfo.
+#------------------------------------------------------------------------------
+def SetupDist(env, bi, distName):
+
+   def FileSorter(a, b):
+      if str(a) < str(b):
+         return -1
+      elif str(a) == str(b):
+         return 0
+      else:
+         return 1
+
+   distTar = distName + '.tar'
+   distTarGz = distTar + '.gz'
+
+   # Get the list of files that should be included in the distribution
+   srcDistFiles = []
+   srcDistFiles.extend(buildInfo.getHeaders())
+   srcDistFiles.extend(buildInfo.getSources())
+   srcDistFiles.extend(buildInfo.getExtraDist())
+   srcDistFiles.extend(buildInfo.getDocs())
+   srcDistFiles.sort(FileSorter)
+
+   # Create targets for the distribution
+   env.Tar(target = distTar, source = srcDistFiles)
+   env.GZip(target = distTarGz, source = distTar)
+   env.Alias('dist', distTarGz)
+
+#------------------------------------------------------------------------------
+# Grok the arguments to this build
+#------------------------------------------------------------------------------
+RequireSConsVersion(0.08)
+
+# Check for optimize option
+optimize = 0
+if ARGUMENTS.get('opt', 0):
+   optimize = 1
+
+# Check for profile option
+profile = 0
+if ARGUMENTS.get('profile', 0):
+   profile = 1
+
+# Check for an install prefix
+PREFIX = '/usr/local'
+if ARGUMENTS.get('prefix'):
+   PREFIX = ARGUMENTS['prefix']
+Export('PREFIX')
+
+#------------------------------------------------------------------------------
+# Setup build information for this directory
+#------------------------------------------------------------------------------
+buildInfo = BuildInfo();
+buildInfo.addExtraDist(map(File, Split("""
+   AUTHORS
+   ChangeLog
+   COPYING
+   README.txt
+   SConstruct
+""")))
+
+#------------------------------------------------------------------------------
+# Create the base environment
+#------------------------------------------------------------------------------
 baseEnv = BuildBaseEnvironment()
+InitGZipBuilder(baseEnv)
 Export('baseEnv')
 
-# recurse
+# recurse (keeping track of build information)
 subdirs = Split('src test')
-SConscript(dirs = subdirs)
+for dir in subdirs:
+   retval = SConscript(dirs = dir)
+   if retval != None:
+      buildInfo.add(retval)
 
 # install target
 baseEnv.Alias('install', PREFIX)
+
+SetupDist(baseEnv, buildInfo, 'midworld-%s.%s.%s' % GetMidworldVersion())
 
 # build all sources by default but not the tests
 Default('src')
