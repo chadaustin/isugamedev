@@ -35,6 +35,8 @@ classes = Split("""
    MenuState
    ModelManager
    OpenSGSceneViewer
+   Particle
+   ParticleEngine
    PhysicsEngine
    Player
    ResourceManager
