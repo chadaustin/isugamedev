@@ -34,8 +34,6 @@ int PaddleWidth = 10;
 
 //Used in FPS calculation
 int frame = 0;
-int time;
-int timebase = 0;
 float fps;
 
 //-----Computer's Aggressiveness---------------------------
@@ -367,6 +365,9 @@ void MyDisplay()
 
 	//----Try to lock game at 60 FPS----------------------------------------
 	frame++;
+
+   int time;
+   int timebase = 0;
 	time = glutGet(GLUT_ELAPSED_TIME);
 	
 	if (frame > 60)
@@ -525,5 +526,5 @@ void main(int argc, char **argv)
 	cout << "== You " << yourScore << endl;
 	cout << "== CPU " << compScore << endl;
 	cout << "==----------------\n";
-	getchar();
+	cin.get();
 }
