@@ -16,7 +16,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
-#include "HUD.h"
+ #include "HUD.h"
 
 // a place to store application data...
 class App
@@ -346,10 +346,9 @@ static void OnRedisplay()
    //draw the origin
    drawOrigin();
    
-   // !!!todo!!!: replace the following with your own opengl commands!
    if(gridOn)
    {
-      drawGrid(app.width/2);
+      drawGrid(app.width);
    }
    drawModels();
    glPushMatrix();
@@ -621,6 +620,8 @@ void NowWeCanReallyAddTheLevel(XMLNodePtr& levelNode, XMLContextPtr& context)
       posNode->setName("pos");
       rotNode->setName("rot");
       nameNode->setName("model");
+
+               
       
       staticNode->setType(xml_nt_node);
       posNode->setType(xml_nt_leaf);
@@ -644,6 +645,43 @@ void NowWeCanReallyAddTheLevel(XMLNodePtr& levelNode, XMLContextPtr& context)
       realNameNode->setCdata(modelsInWorld[i].name);
       nameNode->addChild(realNameNode);
       staticNode->addChild(nameNode);
+
+      if(modelsInWorld[i].name==std::string("turret"))
+      {
+         std::cout << "adding turret info to xml node" << std::endl;
+         staticNode->setName("turret");
+         XMLNodePtr turretNameNode(new XMLNode(context));
+         XMLNodePtr maxChildNode(new XMLNode(context));
+         XMLNodePtr aiLevelNode(new XMLNode(context));
+         XMLNodePtr parentNode(new XMLNode(context));
+         XMLNodePtr realParentNode(new XMLNode(context));
+         XMLNodePtr realTurretNameNode(new XMLNode(context));
+
+         turretNameNode->setType(xml_nt_node);
+         realTurretNameNode->setType(xml_nt_cdata);
+         parentNode->setType(xml_nt_node);
+         realParentNode->setType(xml_nt_cdata);
+         aiLevelNode->setType(xml_nt_leaf);
+         maxChildNode->setType(xml_nt_leaf);
+
+         turretNameNode->setName("name");
+         parentNode->setName("parent");
+         aiLevelNode->setName("level");
+         maxChildNode->setName("maxChildren");
+         
+         realParentNode->setCdata("null");
+         realTurretNameNode->setCdata("turret");
+         
+         aiLevelNode->setAttribute("nu", -1);
+         maxChildNode->setAttribute("num", 0);
+         parentNode->addChild(realParentNode);
+         turretNameNode->addChild(realTurretNameNode);
+
+         staticNode->addChild(aiLevelNode);
+         staticNode->addChild(parentNode);
+         staticNode->addChild(turretNameNode);
+         staticNode->addChild(maxChildNode);
+      }
    }
 }
 

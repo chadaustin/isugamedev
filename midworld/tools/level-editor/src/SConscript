@@ -9,7 +9,7 @@ interfaces = Split("""
 
 # Listed here are classes that have a .h and a .cpp file associated with them
 classes = Split("""
-   HUD
+HUD
 """)
 
 buildInfo = BuildInfo()
