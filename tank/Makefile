@@ -24,7 +24,6 @@ SRCS = \
    Material.cxx \
    Matrix4f.cxx \
    Player.cxx \
-   sys_glut.cxx \
    TankGame.cxx \
    Texture.cxx \
    TgaImporter.cxx \
@@ -47,13 +46,23 @@ endif
 endif
 
 ifeq ($(WHOAMI), bscott)
+   INCLUDE_PATHS += -I/home/users/kevn/software/${HOSTTYPE}/include
+   LIB_PATHS += -L/home/users/kevn/software/${HOSTTYPE}/lib32
 ifeq ($(HOSTTYPE), linux)
    INCLUDE_PATHS += -I/usr/X11R6/include
    LIBPATHS += -L/usr/X11R6/lib
 endif
 endif
 
-
+ifeq ($(VRJUGGLER),Y)
+   INCLUDE_PATHS += -I$(VJ_BASE_DIR)/include
+   LIBPATHS += -B dynamic -L$(VJ_BASE_DIR)/lib32
+   LIBS += -lJuggler -lJuggler_utils -lJuggler_ogl \
+           -Wl,-rpath,$(VJ_BASE_DIR)/lib32
+   SRCS += sys_juggler.cxx
+else
+   SRCS += sys_glut.cxx
+endif
 
 
 include ${MK_DIR}/mk.objs
@@ -68,6 +77,9 @@ endif
 # depends on ${OBJS}, and then links them into an exe
 default:
 	$(MAKE) tank$(EXE_FILE_SUFFIX)
+
+vjtank:
+	$(MAKE) VRJUGGLER='Y' default
 
 debug:
 	$(MAKE) USE_DEBUG='Y' default
@@ -97,7 +109,7 @@ do_tank:
 	@echo "Building spacetank     "
 	@echo "======================="
 	@echo " "
-	$(MAKE) USE_DEPEND='Y' USE_DEBUG=$(USE_DEBUG) build_tank
+	$(MAKE) VRJUGGLER=$(VRJUGGLER) USE_DEPEND='Y' USE_DEBUG=$(USE_DEBUG) build_tank
 	@echo " "
 	@echo "======================="
 	@echo "Done building spacetank"
