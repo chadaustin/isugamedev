@@ -45,11 +45,6 @@ public:
 	   count=0;
    }
 
-   void test(){
-      for(int i=0;i<12;i++){
-         std::cout << "card " << i << " :" << cardPos[i].x << ":" << cardPos[i].y << std::endl;
-      }
-   }
    
    void getCardPos(int const card, int& x, int& y){
       x = cardPos[card].x;
@@ -59,10 +54,18 @@ public:
    // returns the index of the card if we are on a card 
    // else returns -1
    int isACard(int x, int y){
-      
+      for(int i=0;i<12;i++){
+         if(x>cardPos[i].x && x<(cardPos[i].x+50) && y>cardPos[i].y && y<cardPos[i].y+120){
+            return i;
+         }
+      }
+      return -1;
    }  
 
-   void getCardAttribute(int card){
+   void getCardAttribute(int card, int& color, int& shape, int& number){
+      color = Cards[card].getColor();
+      shape = Cards[card].getShape();
+      number = Cards[card].getNumber();
    }      
    
 private:
