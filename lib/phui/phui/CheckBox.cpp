@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CheckBox.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-06 06:20:50 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -85,15 +85,20 @@ namespace phui
 
    void CheckBox::check()
    {
-      mIsChecked = true;
+      setChecked(true);
    }
 
    void CheckBox::uncheck()
    {
-      mIsChecked = false;
+      setChecked(false);
    }
 
-   bool CheckBox::isChecked()
+   void CheckBox::setChecked(bool checked)
+   {
+      mIsChecked = checked;
+   }
+
+   bool CheckBox::isChecked() const
    {
       return mIsChecked;
    }
@@ -102,7 +107,7 @@ namespace phui
    {
       if (button == BUTTON_LEFT)
       {
-         mIsChecked = !isChecked();
+         setChecked(!isChecked());
       }
    }
 }

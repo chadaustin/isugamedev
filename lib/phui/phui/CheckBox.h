@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CheckBox.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-06 06:20:50 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -51,7 +51,8 @@ namespace phui
       void check();
       void uncheck();
 
-      bool isChecked();
+      void setChecked(bool checked);
+      bool isChecked() const;
 
       void onMouseDown(InputButton button, const Point& p);
 
