@@ -21,9 +21,6 @@ public:
    {
    }
    
-   virtual void update() {}
-   
-   
    EdgeTriggerState& edgeState()
    {
       return mEdge;
@@ -44,7 +41,7 @@ public:
       return mBinary;
    }
    
-   void updateEdgeStates()
+   virtual void update()
    {
       //find out if...
       switch( mBinary )

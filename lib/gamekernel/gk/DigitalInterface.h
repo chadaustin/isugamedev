@@ -10,7 +10,7 @@ public:
    DigitalInterface() {}
    virtual ~DigitalInterface() {}
    
-   /* get the analog data from the analog device. */
+   /* get the digital data from the analog device. */
    virtual DigitalInput::EdgeTriggerState getDigitalData()
    {
       // this can surely be optimized...

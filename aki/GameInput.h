@@ -13,7 +13,8 @@
 
 
 /* input manager for game input
- * try to use the DeviceInterface class instead of this class directly
+ * try to use the Interface classes instead of this class directly
+ * (i.e. use DigitalInterface or AnalogInterface)
  */
 class GameInput : public kev::Singleton<GameInput>
 {

@@ -94,20 +94,6 @@ public:
       initialize_map();
    }
    
-   /* lookup button by character */
-   const DigitalInput& button( char k ) const
-   {
-      int kk = (int)k;
-      return mButton[kk];
-   }
-   
-   /* lookup button by character */
-   DigitalInput& button( char k )
-   {
-      int kk = (int)k;
-      return mButton[kk];
-   }
-   
    kev::queue<Key>& queue() { return mQueue; }
    
 private:

@@ -11,8 +11,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //   $RCSfile: Mouse.h,v $
-//   $Date: 2002-01-29 20:43:44 $
-//   $Revision: 1.4 $
+//   $Date: 2002-01-30 00:13:38 $
+//   $Revision: 1.5 $
 //   Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //   This library is free software; you can redistribute it and/or
@@ -39,12 +39,13 @@
 #include <assert.h>
 
 #include "DigitalDevice.h"
+//#include "AnalogDevice.h"
 
 //: Mouse class
 // keeps track of mouse position and button state in a simulation
 // you must call update() each frame of your simulation
 // before you read any data from Mouse (like position and button states)
-class Mouse : public DigitalDevice
+class Mouse : public DigitalDevice//, public AnalogDevice
 {
 // Types
 public:
@@ -214,10 +215,8 @@ inline void Mouse::update()
 {
    mNeedToCallUpdate = false;
    
-   for (int b = 0; b < 3; ++b)
-   {
-      mButton[b].updateEdgeStates();
-   }
+   DigitalDevice::update();
+   //AnalogDevice::update();
    
    // do the position update...
    

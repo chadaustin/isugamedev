@@ -8,60 +8,12 @@
  * a keyboard, mouse, or joystick (for example) may be a digital device
  * a digital device can contain many inputs (or buttons)
  */
-class DigitalDevice : public Device
+class DigitalDevice : public TypedDevice<DigitalInput>
 {
 public:
    DigitalDevice() {}
-   
-   /* lookup button by input number */
-   const DigitalInput& button( const int& b ) const  { return mButton[b]; }
-
-   /* lookup button by input number */
-   DigitalInput& button( const int& b ) { return mButton[b]; }
-   
-   /* lookup button by string */
-   const DigitalInput& button( const std::string& name ) const
-   {
-      int k = 0;
-      if (mMap.count( name ) > 0)
-         k = (*(mMap.find( name ))).second;
-      return mButton[k];
-   }
-   
-   /* lookup button by string */
-   DigitalInput& button( const std::string& name )
-   {
-      int k = 0;
-      if (mMap.count( name ) > 0)
-         k = (*(mMap.find( name ))).second;
-      return mButton[k];
-   }
-   
-   virtual void setNumInputs( int n )
-   {
-      mButton.resize( n );
-   }   
-   
-   virtual void update()
-   {
-      for (int x = 0; x < mButton.size(); ++x)
-      {
-         mButton[x].updateEdgeStates();
-      }
-   }
-   
-   virtual Input* getInput( const std::string& input )
-   {
-      int k = 0;
-      if (mMap.count( input ) > 0)
-         k = (*(mMap.find( input ))).second;
-      return &mButton[k];
-   }   
-   
-   
-protected:
-   std::vector< DigitalInput > mButton;
-   std::map< std::string, unsigned int > mMap;
+   DigitalInput& button( int x ) { return *((DigitalInput*)TypedDevice<DigitalInput>::getInput( x )); }
+   DigitalInput* button( const std::string& x ) { return (DigitalInput*)TypedDevice<DigitalInput>::getInput( x ); }
 };
 
 #endif
