@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.cpp,v $
- * Date modified: $Date: 2003-02-03 05:37:01 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-02-07 04:35:29 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -72,34 +72,7 @@ namespace siren
    {}
 
    void
-   Kernel::start(StatePtr state)
-   {
-      // Setup the inital state
-      mState = state;
-
-      controlLoop();
-   }
-
-   void
-   Kernel::transitionTo(const std::string& name)
-   {
-      mNextState = StateFactory::getInstance().create(name);
-   }
-
-   int
-   Kernel::getWidth() const
-   {
-      return mWidth;
-   }
-
-   int
-   Kernel::getHeight() const
-   {
-      return mHeight;
-   }
-
-   void
-   Kernel::controlLoop()
+   Kernel::start(const std::string& name)
    {
       // initialize SDL
       int init_flags = SDL_INIT_NOPARACHUTE | SDL_INIT_VIDEO | SDL_INIT_TIMER;
@@ -130,6 +103,9 @@ namespace siren
       // init the mouse state...
       SDL_WarpMouse(mWidth / 2, mHeight / 2);
       SDL_ShowCursor(SDL_DISABLE);
+
+      // Setup the inital state
+      mState = StateFactory::getInstance().create(name);
 
       // let the app know what size it is
       resize(mWidth, mHeight);
@@ -195,6 +171,24 @@ namespace siren
 
       SDL_Quit();
       SDL_ShowCursor(SDL_ENABLE);
+   }
+
+   void
+   Kernel::transitionTo(const std::string& name)
+   {
+      mNextState = StateFactory::getInstance().create(name);
+   }
+
+   int
+   Kernel::getWidth() const
+   {
+      return mWidth;
+   }
+
+   int
+   Kernel::getHeight() const
+   {
+      return mHeight;
    }
 
    void

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.h,v $
- * Date modified: $Date: 2003-02-03 05:37:01 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-02-07 04:35:29 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -50,9 +50,11 @@ namespace siren
 
       /**
        * Starts up this kernel with the given initial state. This method will
-       * not return until the kernel is exit.
+       * not return until the kernel is exited.
+       *
+       * @param name       the name of the initial state
        */
-      void start(StatePtr state);
+      void start(const std::string& name);
 
       /**
        * Sets the next state to switch to. The transition will occur at the
@@ -68,12 +70,6 @@ namespace siren
       int getHeight() const;
 
    private:
-      /**
-       * The main control loop of the kernel. This method does not return until
-       * the kernel is stopped.
-       */
-      void controlLoop();
-
       /**
        * Updates this kernel based on the amount of time that has passed since
        * the last frame.
