@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-11-25 10:08:03 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,7 +36,7 @@
 #include "Texture.h"
 #include "Types.h"
 #include "Utility.h"
-#include "GameManager.h"
+#include "ResourceManager.h"
 using namespace corona;
 
 
@@ -125,7 +125,7 @@ namespace mw
    Texture*
    Texture::create(const std::string& resid)
    {
-      return GameManager::instance().getResourceManager()->get<Texture*>(resid);
+      return ResourceManagerSingleton::instance().get<Texture*>(resid);
    }
 
    void

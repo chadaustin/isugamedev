@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Pistol.cpp,v $
- * Date modified: $Date: 2002-11-25 09:25:15 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-11-25 10:08:03 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #include "BaseBullet.h"
 #include "BulletCasing.h"
 #include "GameManager.h"
+#include "Utility.h"
 
 namespace mw
 {

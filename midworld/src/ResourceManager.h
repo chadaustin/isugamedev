@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.h,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-25 10:08:03 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,6 +38,7 @@
 #include <stdexcept>
 #include "Utility.h"
 #include "LokiTypeInfo.h"
+#include "Singleton.h"
 
 namespace mw
 {
@@ -66,6 +67,11 @@ namespace mw
    public:
       ResourceManager();
 
+      ResourceManager(const ResourceManager& resmgr);
+      void operator=(const ResourceManager& resmgr);
+      ~ResourceManager();
+
+   public:
       /**
        * Gets the string associated with the given resource identifier.
        *
@@ -201,6 +207,8 @@ namespace mw
       /// The registered factory functions
       FactoryMap mFactories;
    };
+
+   typedef Singleton<ResourceManager> ResourceManagerSingleton;
 }
 
 #endif

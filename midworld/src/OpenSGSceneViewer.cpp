@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-11-25 10:08:03 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,6 +42,7 @@
 #include <OpenSG/OSGAction.h>
 #include "OpenSGSceneViewer.h"
 #include "GameManager.h"
+#include "ResourceManager.h"
 
 namespace mw
 {
@@ -192,8 +193,8 @@ namespace mw
       Entity* entity = evt.getEntity();
       std::cout << "[OpenSGSceneViewer] Adding entity: " << entity->getUID() << std::endl;
 
-      ResourceManager* res_mgr = GameManager::instance().getResourceManager();
-      const std::string& model = res_mgr->lookup(entity->getModel());
+      ResourceManager& res_mgr = ResourceManagerSingleton::instance();
+      const std::string& model = res_mgr.lookup(entity->getModel());
       osg::NodePtr model_node = GameManager::instance().getModelManager()->get(model);
 
       // Create a parent transform node for the model

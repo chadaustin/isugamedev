@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-25 10:08:03 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #include "LoadState.h"
 #include "StateFactory.h"
 #include "GameManager.h"
+#include "ResourceManager.h"
 
 namespace mw
 {
@@ -73,16 +74,16 @@ namespace mw
    {
       if (mModelsComplete < mModels.size())
       {
-         ResourceManager* resmgr = GameManager::instance().getResourceManager();
+         ResourceManager& resmgr = ResourceManagerSingleton::instance();
          ModelManager* mdlmgr = GameManager::instance().getModelManager();
 
-         mdlmgr->preload(resmgr->lookup(mModels[mModelsComplete]));
+         mdlmgr->preload(resmgr.lookup(mModels[mModelsComplete]));
          ++mModelsComplete;
       }
       else if (mTexturesComplete < mTextures.size())
       {
-         ResourceManager* resmgr = GameManager::instance().getResourceManager();
-         resmgr->preload<Texture*>(mTextures[mTexturesComplete]);
+         ResourceManager& resmgr = ResourceManagerSingleton::instance();
+         resmgr.preload<Texture*>(mTextures[mTexturesComplete]);
          ++mTexturesComplete;
       }
       else

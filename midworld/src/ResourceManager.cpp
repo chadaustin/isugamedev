@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-11-25 10:08:03 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -52,6 +52,9 @@ namespace mw
 
       defineFactory<Texture*>(&createTexture);
    }
+
+   ResourceManager::~ResourceManager()
+   {}
 
    const std::string&
    ResourceManager::lookup(const std::string& resid) const
