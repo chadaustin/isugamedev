@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2002-02-24 04:26:50 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-24 06:21:12 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,17 +39,21 @@
 
 namespace phui {
 
-  Window::Window() {
-  }
+   Window::Window() {
+   }
 
-  Window::~Window() {
-  }
+   Window::~Window() {
+   }
 
-  void Window::draw() {
-    glColor3f(1, 1, 1);
-    glBegin(GL_LINE_STRIP);
-    // draw a rectangle around the size or something
-    glEnd();
-  }
+   void Window::draw() {
+      // render the background
+      glColor( mBackgroundColor );
+      glBegin(GL_TRIANGLE_FAN);
+         glVertex2i( mX,          mY           );
+         glVertex2i( mX + mWidth, mY           );
+         glVertex2i( mX + mWidth, mY + mHeight );
+         glVertex2i( mX,          mY + mHeight );
+      glEnd();
+   }
 
 } // namespace phui

@@ -6,6 +6,7 @@ Import('env')
 headers = [
     'phui',
     'Button',
+    'Color',
     'RootWidget',
     'WidgetContainer',
     'Widget',

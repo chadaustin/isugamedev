@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.cpp,v $
- * Date modified: $Date: 2002-02-24 04:26:50 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-24 06:21:12 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,10 +38,30 @@
 
 namespace phui {
 
-  RootWidget::RootWidget() {
+  RootWidget::RootWidget( int width, int height ) {
+     setSize(width, height);
   }
 
   RootWidget::~RootWidget() {
+  }
+
+  void RootWidget::draw() {
+      // setup the projection matrix
+      glMatrixMode( GL_PROJECTION );
+      glPushMatrix();
+         glLoadIdentity();
+         gluOrtho2D( 0, mWidth, mHeight, 0 );
+
+      // setup the modelview matrix
+      glMatrixMode( GL_MODELVIEW );
+      glPushMatrix();
+         glLoadIdentity();
+
+      // draw children
+      WidgetContainer::draw();
+
+      glPopMatrix(); // modelview
+      glPopMatrix(); // projection
   }
 
 } // namespace phui

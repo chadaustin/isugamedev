@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.h,v $
- * Date modified: $Date: 2002-02-24 05:08:02 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-02-24 06:21:12 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -37,14 +37,31 @@
 #ifndef PHUI_ROOT_WIDGET_H
 #define PHUI_ROOT_WIDGET_H
 
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "WidgetContainer.h"
 
 namespace phui {
 
    class RootWidget : public WidgetContainer {
    public:
-      RootWidget();
-      ~RootWidget();
+      /**
+       * Creates a new root widget with the given size.
+       *
+       * @param width      the width of the UI
+       * @param height     the height of the UI
+       */
+      RootWidget( int width, int height );
+      virtual ~RootWidget();
+
+      /**
+       * First the projection matrix is modified to 2D orthographic projection.
+       * Then the modelview matrix is setup to support drawing in window
+       * coordinates. Then WidgetContainer::draw() is called.
+       *
+       * @see WidgetContainer::draw()
+       */
+      virtual void draw();
    };
 
 } // namespace phui

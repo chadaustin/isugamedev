@@ -8,11 +8,12 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-02-24 03:41:28 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-24 06:21:12 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
- ************************************************************* phui-head-end *//***************************************************************** phui-cpr beg
+ ************************************************************* phui-head-end */
+/***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
  * phui is (C) Copyright 2002 by Chad Austin, Ben Scott
@@ -33,12 +34,14 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
+
 #include <GL/glut.h>
 #include <phui/phui.h>
 
 static int gWidth  = 640;
 static int gHeight = 480;
 static int mainWin_contextID;
+static phui::RootWidget* gUI(NULL);
 
 //-----------------------------------------------------------------------------
 
@@ -61,12 +64,13 @@ void OnRedisplay()
 
    // draw a teapot
    glPushMatrix();
+      glColor4f( 0,0,1,1 );
       glTranslatef( 0, 0, -50 );
       glutSolidTeapot( 25 );
    glPopMatrix();
 
    // draw a window
-   // ui->draw();
+   gUI->draw();
 
    glutSwapBuffers();
 }
@@ -77,6 +81,7 @@ void OnReshape( int width, int height )
    gHeight = height;
 
    glViewport( 0, 0, gWidth, gHeight );
+   gUI->setSize(width, height);
 }
 
 void OnIdle()
@@ -112,6 +117,14 @@ int main( int argc, char** argv )
    glutReshapeFunc( OnReshape );
    glutIdleFunc( OnIdle );
    glutKeyboardFunc( OnKeyboardDown );
+
+   gUI = phui::CreateRoot( gWidth, gHeight );
+   phui::Window* wnd = new phui::Window();
+   wnd->setPosition( 150, 75 );
+   wnd->setSize( 300, 250 );
+   phui::Colorf c = { 1, 0, 0, 0.5 };
+   wnd->setBackgroundColor( c );
+   gUI->addWidget( wnd );
 
    glutMainLoop();
 }
