@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-03-29 17:23:01 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-03-29 23:36:20 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,16 +42,21 @@
 
 namespace game {
    Player::Player()
-      : mName("Player"), mAccelerate(0), mBrake(0), mTurnAngle(0)
-   {
+      : mName("Player"), mAccelerate(0), mBrake(0), mTurnAngle(0) {
+      mUID = UIDManager<Player, PRUint32>::getInstance().reserveID();
    }
 
    Player::Player( const std::string& name )
-      : mName(name), mAccelerate(0), mBrake(0), mTurnAngle(0)
-   {
+      : mName(name), mAccelerate(0), mBrake(0), mTurnAngle(0) {
+      mUID = UIDManager<Player, PRUint32>::getInstance().reserveID();
    }
 
    Player::~Player() {
+      UIDManager<Object, PRUint32>::getInstance().releaseID( mUID );
+   }
+
+   const Player::UID& Player::getUID() const {
+      return mUID;
    }
 
    void Player::setAcceleration( PRFloat64 newAcc ) {
@@ -86,22 +91,23 @@ namespace game {
       mName = name;
    }
 
-   PRUint32 Player::getType() const {
-      return PlayerObject;
+   Object* Player::getObject() {
+      return mObject;
    }
 
    PRUint32 Player::getSize() {
-      return getVarSize(mName) + getVarSize(mAccelerate) + getVarSize(mBrake)
-         + getVarSize(mTurnAngle) + Object::getSize();
+      return net::sizes::getVarSize(mName) + net::sizes::getVarSize(mAccelerate)
+           + net::sizes::getVarSize(mBrake) + net::sizes::getVarSize(mTurnAngle)
+           + mObject->getSize();
    }
 
    void Player::serialize(net::OutputStream& os) {
-      Object::serialize(os);
+      mObject->serialize(os);
       os << mName << mAccelerate << mBrake << mTurnAngle;
    }
 
    void Player::deserialize(net::InputStream& is) {
-      Object::deserialize(is);
+      mObject->deserialize(is);
       is >> mName >> mAccelerate >> mBrake >> mTurnAngle;
    }
 

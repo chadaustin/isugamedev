@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 19:56:48 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-03-29 23:36:19 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -118,7 +118,7 @@ namespace client
       // Only draw if we're in the game
       if ( isInGame() ) {
          game::Player* player = mGame.getLocalPlayer();
-         const gmtl::Vec<PRFloat64,3>& pos = player->getPosition();
+         const gmtl::Vec<PRFloat64,3>& pos = player->getObject()->getPosition();
 
          glColor4f( 1.0, 0.0, 0.0, 1.0f );
          // setup camera

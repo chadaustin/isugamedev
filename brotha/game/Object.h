@@ -67,23 +67,6 @@ namespace game {
       virtual void serialize(net::OutputStream& os);
       virtual void deserialize(net::InputStream& os);
 
-   protected:
-      PRUint32 getVarSize(const bool var) {
-         return PRUint32(sizeof(PRUint32));
-      }
-
-      PRUint32 getVarSize(const PRUint32 &var) {
-         return PRUint32(sizeof(PRUint32));
-      }
-
-      PRUint32 getVarSize(const PRFloat64 &var) {
-         return PRUint32(sizeof(PRFloat64));
-      }
-
-      PRUint32 getVarSize(const std::string &var) {
-         return PRUint32(sizeof(PRUint32) + var.length());
-      }
-
    private:
       /// This object's UID
       UID mUID;

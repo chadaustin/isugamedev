@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-03-29 17:23:01 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-03-29 23:36:20 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,9 +44,13 @@
 #include <string>
 #include "Object.h"
 
-namespace game
-{
-   class Player : public Object {
+namespace game {
+   class Player {
+   public:
+      /**
+      * The UID type for players.
+      */
+      typedef UIDManager<Player,PRUint32>::UID UID;
    public:
       /**
        * Creates a new player with the default name "Player".
@@ -57,6 +61,11 @@ namespace game
        * Creates a new player with the given name.
        */
       Player( const std::string& name );
+
+      /**
+       * Gets the unique ID associated with this player.
+       */
+      const UID& getUID() const;
 
       /**
        * Destroys this player.
@@ -105,6 +114,8 @@ namespace game
        */
       PRFloat64 getTurnAngle() const;
 
+      Object* getObject();
+
    public:
       /**
        * Gets the name of this player.
@@ -120,12 +131,14 @@ namespace game
        */
       void setName( const std::string& name );
 
-      virtual PRUint32 getType() const;
       virtual PRUint32 getSize();
       virtual void serialize(net::OutputStream& os);
       virtual void deserialize(net::InputStream& os);
 
    private:
+      /// This players's UID
+      UID mUID;
+
       /// This player's name
       std::string mName;
 
@@ -138,6 +151,8 @@ namespace game
       /// True if the player is turning left
       PRFloat64 mTurnAngle;
 
+      /// the players object (car, box, etc.)
+      Object *mObject;
    };
 }
 

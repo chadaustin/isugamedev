@@ -18,8 +18,10 @@ namespace game {
    }
 
    PRUint32 Object::getSize() {
-      return getVarSize((PRUint32)mUID) + getVarSize(m_position[0])*3 +
-             getVarSize(m_velocity[0])*3 + getVarSize(m_health);
+      return net::sizes::getVarSize((PRUint32)mUID) 
+           + net::sizes::getVarSize(m_position[0])*3 
+           + net::sizes::getVarSize(m_velocity[0])*3
+           + net::sizes::getVarSize(m_health);
    }
 
    void Object::serialize(net::OutputStream& os) {
