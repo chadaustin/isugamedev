@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-05-01 05:59:58 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 10:06:11 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,8 +45,8 @@
 
 #include <map>
 #include <vector>
-#include "game/GameTimer.h"
-#include "game/Player.h"
+#include "Player.h"
+#include "GameTimer.h"
 #include "xml/DataManager.h"
 
 namespace game
@@ -76,7 +76,7 @@ namespace game
       * 
       * @param player      the player to remove
       */
-     void remove(game::Player* player);
+     void remove(Player* player);
 
 	  /**
 	   * Adds a given object in the game
@@ -94,13 +94,13 @@ namespace game
 	  void remove(game::Object* object);
 
      /**
-      * Gets the player with the given UID.
+      * Gets the player with the given name.
       *
-      * @param uid   the UID of the player to search for
+      * @param name     the name of the player to search for
       *
       * @return   the player if found; NULL otherwise
       */
-     Player* getPlayer(Player::UID uid);
+     Player* getPlayer(const std::string& name);
 
      /// Gets the data manager for this game.
      data::DataManager& getDataManager();

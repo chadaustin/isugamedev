@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-01 05:59:58 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 10:06:11 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -55,16 +55,16 @@ namespace game
    }
 
    void BrothaGame::update(float time){ 
-      gmtl::Vec3f Position;
-      
-      for (unsigned int i=0; i < mPlayer.size(); i++){
-
-         // compute new position
-         Position = mPlayer[i]->getPosition() + (mPlayer[i]->getVelocity() * time);
-      
-         // update player's position
-         mPlayer[i]->setPosition(Position);
-      }
+//      gmtl::Vec3f Position;
+//      
+//      for (unsigned int i=0; i < mPlayer.size(); i++){
+//
+//         // compute new position
+//         Position = mPlayer[i]->getPosition() + (mPlayer[i]->getVelocity() * time);
+//      
+//         // update player's position
+//         mPlayer[i]->setPosition(Position);
+//      }
 
          /// @todo collision detection
          /// @todo update player attributes (health, kills, etc)  
@@ -111,11 +111,11 @@ namespace game
       }
    }
 
-   Player* BrothaGame::getPlayer(Player::UID uid) {
+   Player* BrothaGame::getPlayer(const std::string& name) {
       PlayerListItr itr = mPlayer.begin();
       for (itr = mPlayer.begin(); itr != mPlayer.end(); ++itr) {
          Player* player = (*itr);
-         if (player->getUID() == uid) {
+         if (player->getName() == name) {
             return player;
          }
       }

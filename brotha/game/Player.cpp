@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-05-01 05:52:04 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-05-01 10:06:11 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,14 +46,8 @@
 namespace game {
    const Player::UID Player::UNKNOWN = 0;
 
-   Player::Player()
-      : mName("Player"), mPass(""), mKills(0), mBrake(0), mTurnAngle(0)
-   {
-      mUID = UIDMgr::getInstance().reserveID();
-   }
-
-   Player::Player( const std::string& name )
-      : mName(name), mPass(""), mKills(0), mBrake(0), mTurnAngle(0)
+   Player::Player(const std::string& name)
+      : mName(name), mBrake(0), mTurnAngle(0)
    {
       mUID = UIDMgr::getInstance().reserveID();
    }
@@ -68,22 +62,6 @@ namespace game {
 
    void Player::setBrake( PRFloat64 newBreak ){
       mBrake = newBreak;
-   }
-
-   gmtl::Vec3f Player::getVelocity(){
-      return mVelocity;
-   }
-
-   gmtl::Vec3f Player::getPosition(){
-      return mPosition;
-   }
-
-   void Player::setPosition(gmtl::Vec3f newPosition){
-      mPosition = newPosition;
-   }
-
-   void Player::setVelocity(gmtl::Vec3f newVelocity){
-      mVelocity = newVelocity;
    }
 
    PRFloat64 Player::getBrake() const {
@@ -104,33 +82,6 @@ namespace game {
 
    void Player::setName( const std::string& name ){
       mName = name;
-   }
-
-   const std::string& Player::getPassword() const {
-      return mPass;
-   }
-
-   void Player::setPassword(const std::string& pass){
-      mPass = pass;
-   }
-
-   void Player::addCar(Car* car){
-      assert ( car != NULL && "Cannot add a Null car!" );
-
-      // add car to vector
-      mCars.push_back(car);
-   }
-
-   void Player::removeCar(Car* car){
-      CarListItr Itr;
-
-      // find the car to remove and set to iterator
-      Itr = std::find(mCars.begin(), mCars.end(), car);
-      
-      // makes sure car exists and removes if it does
-      if(Itr != mCars.end()){
-         mCars.erase(Itr);
-      }
    }
 
    PRUint32 Player::getSize(){

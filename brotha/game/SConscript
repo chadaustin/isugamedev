@@ -2,10 +2,6 @@ Import('env')
 
 classes = [
    'BrothaGame',
-   'Car',
-   'CarType',
-   'Gang',
-   'Mod',
    'Object',
    'Player',
 ]

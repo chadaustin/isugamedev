@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-01 06:13:28 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-05-01 10:06:11 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,13 +46,12 @@
 #include <string>
 #include <vector>
 #include "Object.h"
-#include "Car.h"
 
 namespace game {
    class Player {
    public:
       /// UID manager for player objects.
-      typedef UIDManager<Player,PRUint32,1> UIDMgr;
+      typedef util::UIDManager<Player,PRUint32,1> UIDMgr;
 
       /// The UID type for players.
       typedef UIDMgr::UID UID;
@@ -60,22 +59,11 @@ namespace game {
       /// The UID reserved for UNKNOWN players.
       static const UID UNKNOWN;
 
- 	  /// List of cars player owns
-	  typedef std::vector<Car*> CarList;
-
-	  /// Iterator for Car list
-      typedef CarList::iterator CarListItr;
-
    public:
-      /**
-       * Creates a new player with the default name "Player".
-       */
-      Player();
-
       /**
        * Creates a new player with the given name.
        */
-      Player( const std::string& name );
+      Player(const std::string& name = "Player");
 
       /**
        * Destroys this player.
@@ -87,72 +75,21 @@ namespace game {
        */
       const UID& getUID() const;
 
-       /**
-       * Gets the players velocity
-       *
-       * @return the velocity of the player
-       */
-      gmtl::Vec3f getVelocity();
-
-      /**
-       * Gets the players position
-       *
-       * @return the position of the player
-       */
-      gmtl::Vec3f getPosition();
-
       /**
        * Gets the players health
        *
        * @return the health of the player
        */
-      int getHealth() const{
+      int getHealth() const {
          return mHealth;
       }
-
-      /**
-       * Gets the players health
-       *
-       * @return the health of the player
-       */
-      int getKills() const{
-         return mKills;
-      }
-
-      /**
-       * Gets the players health
-       *
-       * @return the health of the player
-       */
-      double getCoins() const{
-         return mCoins;
-      }
-
-      /**
-       * Gets the players health
-       *
-       * @return the health of the player
-       */
-      const std::string getGang() const{
-         return mGang;
-      }
-
-      /**
-       * Sets player position to given position
-       */
-      void setPosition(gmtl::Vec3f newPosition);
-
-      /**
-       * Sets player velocity to given velocity
-       */
-      void setVelocity(gmtl::Vec3f newVelocity);
 
       /**
        * Sets whether this player is braking.
        *
        * @param flag    true if this player is braking, false otherwise
        */
-      void setBrake( PRFloat64 flag );
+      void setBrake(PRFloat64 flag);
 
       /**
        * Tests if this player is braking.
@@ -166,7 +103,7 @@ namespace game {
        *
        * @param flag    true if this player is turning left, false otherwise
        */
-      void setTurnAngle( PRFloat64 flag );
+      void setTurnAngle(PRFloat64 flag);
 
       /**
        * Tests if this player is turning left.
@@ -174,32 +111,6 @@ namespace game {
        * @return  true if the player is turning left, false otherwise
        */
       PRFloat64 getTurnAngle() const;
-
-	   /**
-	    * Increments Kills Statistic
-	    */
-	   void addKill(){
-	 	   mKills++;
-	   }
-
-	   /**
-	    * Queries for owned cars
-	    *
-	    * @return a list of Cars the player owns
-	    */
-	   CarList getCars(){
-		   return mCars;
-	   }
-     
-      /**
-       * Adds another car to the player's list
-       */
-      void addCar(Car* car);
-
-      /**
-       * Removes a car from the player's list
-       */
-      void removeCar(Car* car);
 
       Object* getObject();
 
@@ -218,18 +129,6 @@ namespace game {
        */
       void setName(const std::string& name);
 
-      /**
-       * Gets the password for this player.
-       */
-      const std::string& getPassword() const;
-
-      /**
-       * Sets the password for this player.
-       *
-       * @param pass    the new password for this player
-       */
-      void setPassword(const std::string& pass);
-
       virtual PRUint32 getSize();
       virtual void serialize(net::OutputStream& os);
       virtual void deserialize(net::InputStream& os);
@@ -241,9 +140,6 @@ namespace game {
       /// This player's name
       std::string mName;
 
-      /// This player's password
-      std::string mPass;
-
       /// This player's velocity
       gmtl::Vec3f mVelocity;
 
@@ -251,18 +147,6 @@ namespace game {
       gmtl::Vec3f mPosition;
       /// This player's health
       int mHealth;
-
-      /// Number of Player kills
-      int mKills;
-
-      /// player's coins
-      double mCoins;
-
-      /// player's gang
-      std::string mGang;
-	   
-      /// List of owned cars
-	   CarList mCars;
 
       /// True if the player is braking
       PRFloat64 mBrake;
