@@ -77,10 +77,10 @@ private:
    }
 
    void randomize(){
-      color = (int)((double)rand()/(double)RAND_MAX * 4+1);
-      shape = (int)((double)rand()/(double)RAND_MAX * 4+1);
+      color = (int)((double)rand()/(double)RAND_MAX * 4);
+      shape = (int)((double)rand()/(double)RAND_MAX * 4);
       number = (int)((double)rand()/(double)RAND_MAX * 4+1);
-      std::cout << "c,s,n, rand: " << color << "," << shape << "," << number << "," << rand() << std::endl;
+//      std::cout << "c,s,n, rand: " << color << "," << shape << "," << number << "," << rand() << std::endl;
    }
    
 

@@ -82,14 +82,14 @@ double lasttime = getTime(), currenttime = getTime();
 int count=0;
 int i,j;
 deck dek;
-
+int score=20;
 
 ////////////////////////////////////
 // I don't have a good place to put
 // this so I'm putting it here for now
 // TODO: move this to a more appropriate place
 ////////////////////////////////////
-void checkForWinner(){
+bool checkForWinner(){
    int c1_color, 
        c1_number, 
        c1_shape, 
@@ -114,18 +114,20 @@ void checkForWinner(){
              }
           }
        }
-       std::cout << "got here" << std::endl;        
+//       std::cout << c1_color << c2_color << c3_color << c1_shape << c2_shape << c3_shape << c1_number << c2_number << c3_number << std::endl;        
    if(((c1_color == c2_color) && (c2_color == c3_color)) || ((c1_color != c2_color) && (c2_color != c3_color) && (c1_color != c3_color))){
       if(((c1_number == c2_number) && (c2_number == c3_number)) || ((c1_number != c2_number) && (c2_number != c3_number) && (c1_number != c3_number))){
          if(((c1_shape == c2_shape) && (c2_shape == c3_shape)) || ((c1_shape != c2_shape) && (c2_shape != c3_shape) && (c1_shape != c3_shape))){
             std::cout << "winner" << std::endl;
-            exit(0);
+            score+=20;
+            return true;
          }else{
          }
       }
    }
    std::cout << "looser" << std::endl;
-   exit(0);
+   score-=20;
+   return false;
 }
 
 
@@ -282,10 +284,21 @@ static void OnMouseClick( int button, int state, int x, int y )
    //             (use www.google.com to search for it)
    if (button==GLUT_LEFT_BUTTON && state == GLUT_DOWN){
       if((temp=dek.isACard(mouseX, mouseY))!=-1){
-         std::cout << temp << std::endl;
          dek.selectCard(temp);
          if(dek.numSel()==3){
-            checkForWinner();
+            if(checkForWinner()){
+               std::cout << "winner:" << score << std::endl;
+               for(int i=0;i<12;i++){
+                  if(dek.isSelected(i))
+                     dek.deselectCard(i);
+               }
+            }else{
+               for(j=0;j<12;j++){
+                  if(dek.isSelected(j))
+                     dek.deselectCard(j);
+               }
+               std::cout << "loser:" << score << std::endl;
+            }
          }
       }
    }
