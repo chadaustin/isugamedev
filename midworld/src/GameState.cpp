@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-03 05:18:54 $
- * Version:       $Revision: 1.105 $
+ * Date modified: $Date: 2002-11-03 05:32:25 $
+ * Version:       $Revision: 1.106 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -468,8 +468,8 @@ namespace mw
    {
       // todo replace this with a keymapper.
       // map keys to events... yay.
-      InputBinder* binder = InputBinder::instance();
-      InputAction *act = binder->getAction(SDLtoISym(sym));
+      InputBinder& binder = InputBinder::instance();
+      InputAction *act = binder.getAction(SDLtoISym(sym));
       if (act == NULL)
       {
          return;

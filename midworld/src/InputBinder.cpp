@@ -5,15 +5,18 @@
 
 namespace mw
 {
-   InputBinder* InputBinder::_Instance = 0;
+   InputBinder* InputBinder::mInstance = 0;
 
-   InputBinder* InputBinder::instance()
+   InputBinder::InputBinder()
+   {}
+
+   InputBinder& InputBinder::instance()
    {
-      if (_Instance == 0)
+      if (mInstance == 0)
       {
-         _Instance = new InputBinder();
+         mInstance = new InputBinder();
       }
-      return _Instance;
+      return *mInstance;
    }
 
    void InputBinder::bindAction(InputAction *action, const InputKey &key)
@@ -25,4 +28,4 @@ namespace mw
    {
       return mKeyMap[key];
    }
-}//end of namespace mw
+}

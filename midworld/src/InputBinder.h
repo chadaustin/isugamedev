@@ -22,7 +22,7 @@ namespace mw
       /**
        * This class is a Singleton
        */
-      static InputBinder* instance();
+      static InputBinder& instance();
       /**
        * Binds an SDL_Event to an InputAction
        * @param event the event to bind
@@ -37,14 +37,22 @@ namespace mw
       InputAction* getAction(const InputKey &key);
       
    protected:
-      InputBinder()
-      {
-      }
+      /// This object is a singleton. Use InputBinder::instance() instead.
+      InputBinder();
+
+      ///@{
+      ///  Not implemented on purpose to cause a compile-time error on usage.
+      InputBinder(const InputBinder& binder);
+      InputBinder& operator=(const InputBinder& binder);
+      ///@}
+
    private:
-      static InputBinder* _Instance;
+      static InputBinder* mInstance;
+
       //@todo make this generic
       std::map<InputKey, InputAction*>mKeyMap;
 
    };
-}//end of namespace mw
+}
+
 #endif

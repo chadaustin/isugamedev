@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputParser.cpp,v $
- * Date modified: $Date: 2002-11-03 05:23:32 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-03 05:32:25 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -94,13 +94,13 @@ namespace mw
       std::pair< std::multimap<std::string, InputKey>::iterator, std::multimap<std::string, InputKey>::iterator > range = mActionKeys.equal_range(name);
 
       //Get the binder
-      InputBinder *binder = InputBinder::instance();
+      InputBinder &binder = InputBinder::instance();
 
       //Loop through the keys and bind them to the action passed to us.
       for (std::multimap<std::string, InputKey>::iterator itr = range.first; itr != range.second; ++itr)
       {
          std::cerr << "Binding: " << name << " to " << itr->second << std::endl;
-         binder->bindAction(action, itr->second);
+         binder.bindAction(action, itr->second);
       }
       return true;
    }
