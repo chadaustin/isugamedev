@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-20 04:01:15 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-02-20 14:01:59 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -45,7 +45,7 @@ DRIVER_FILENAME=$(PROJECT_NAME:%drv=%).drv
 OBJDIR = .
 DEPDIR =
 
-PATH_TO_SRCS = .
+PATH_TO_SRCS = .:$(srcdir)
 MK_DIR = $(top_srcdir)/mk
 INCLUDE_PATHS = -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/external/xdl @INCLUDES@ @SDL_DRIVER_INCLUDES@
 LIBS = @SDL_DRIVER_LIBS@
