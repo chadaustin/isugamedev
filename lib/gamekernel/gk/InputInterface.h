@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-02-09 19:27:10 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -49,6 +49,7 @@ public:
    virtual void init( const std::string& alias )
    {
       mAlias = alias;
+      std::cout << "Created interface to " << alias << std::endl;
    }
 
 

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-09 17:36:47 $
-// Version:       $Revision: 1.25 $
+// Date modified: $Date: 2002-02-09 19:27:10 $
+// Version:       $Revision: 1.26 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -129,12 +129,10 @@ public:
          mDevices[ name ] = devPtr;
          std::cout << "Added device: " << name << std::endl;
          return true;
+         this->refreshEventInputs();
       }      
-      else
-      {
-         std::cout << "Failed to add device: " << name << std::endl;
-         return false;
-      }
+      std::cout << "Failed to add device: " << name << std::endl;
+      return false;
    }
 
    /**
@@ -152,6 +150,7 @@ public:
       {
          return itr->second;
       }
+      std::cout << "WARNING: cannot lookup device " << name << std::endl;
       return NULL;
    }
 
@@ -169,6 +168,7 @@ public:
       {
          mDevices.erase( itr );
          std::cout << "Removed device: " << name << std::endl;
+         this->refreshEventInputs();
       }
    }
 
@@ -178,10 +178,11 @@ public:
    void bind( const std::string& alias, const std::string& device, const std::string& input )
    {
       Input* in_put = GameInput::instance().getInput( device, input );
-      mBindTable[alias].bind( in_put );
+      mBindTable[alias].bind( in_put, device, input );
       std::cout << "Bound [" << device << ":" << input << "] to [" << alias << "]" << std::endl;
    }
 
+   
 public:
    /** update function.
     * if using the GameInput manager without GameKernel, you will need to
@@ -193,6 +194,15 @@ public:
       for( itr = mDevices.begin(); itr != mDevices.end(); ++itr )
       {
          itr->second->update();
+      }
+   }
+
+   void refreshEventInputs()
+   {
+      std::map<std::string, EventInput>::iterator it;
+      for (it = mBindTable.begin(); it != mBindTable.end(); ++it)
+      {
+         (*it).second.refresh();
       }
    }
 

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: EventInput.h,v $
-// Date modified: $Date: 2002-02-08 05:03:16 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-09 19:27:10 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -88,8 +88,7 @@ public:
 
 
 
-
-   void bind( Input* in_put )
+   void bind( Input* in_put, const std::string& device, const std::string& input )
    {
       if (in_put)
       {
@@ -104,6 +103,18 @@ public:
             mAnalogBindings.push_back( ana );
          }
       }
+   }
+
+   /** this is called when a new device is added to the system */
+   void refresh()
+   {
+      // clear out mAnalogBindings and mDigitalBindings
+      // using device and input, relookup from the GameInput:: the Analog and DigitalInput bindings...
+   }
+
+   void unbind( Input* in_put, const std::string& device, const std::string& input ) 
+   {
+      // TODO...
    }
 
    std::vector< AnalogInput* > mAnalogBindings;
