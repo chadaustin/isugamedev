@@ -1,23 +1,45 @@
 # build with 'scons'
 import os, string, sys
 
+# Helper function
+def ParseConfig(env, command, options):
+   "Parses xxx-config style output for compilation directives"
+
+   cmd = WhereIs(command)
+   if cmd is None:
+      print "Error: Could not find %s" % command
+      sys.exit(-1)
+
+   # Run the command
+   cmd = cmd + ' ' + string.join(options)
+   params = string.split(os.popen(cmd).read())
+
+   # Parse its output
+   for arg in params:
+      switch = arg[0:1]
+      option = arg[1:2]
+      if switch == '-':
+         if option == 'I':
+            env.Append(CPPPATH = [arg[2:]])
+         elif option == 'D':
+            env.Append(CPPDEFINES = [arg[2:]])
+         elif option == 'L':
+            env.Append(LIBPATH = [arg[2:]])
+         elif option == 'l':
+            env.Append(LIBS = [arg[2:]])
+         elif arg[0:11] == '-Wl,-rpath,':
+            env.Append(LINKFLAGS = [arg[0:]])
+         else:
+            env.Append(CXXFLAGS = [arg[2:]])
+      else:
+         # Must be a static library, add it to the libs
+         env.Append(LIBS = [arg[2:]])
+
 Default('.')
 
 #------------------------------------------------------------------------------
 # Setup the GLUT libraries to link with
 #------------------------------------------------------------------------------
-
-# CYGWIN
-if sys.platform == 'cygwin':
-    GLUT_LIBS = ['glut32', 'opengl32', 'glu32']
-
-# IRIX
-elif string.find(sys.platform, 'irix') != -1:
-    GLUT_LIBS = ['glut', 'GLU', 'GL', 'X11', 'Xmu']
-
-# GENERIC (LINUX?)
-else:
-    GLUT_LIBS = ['glut', 'GLU', 'GL']
 
 sources = Split("""
    AutoObject.cpp
@@ -28,12 +50,26 @@ sources = Split("""
    LogObject.cpp
    collisiondetection.cpp
 """)
+ # CYGWIN
+if sys.platform == 'cygwin':
+    GL_LIBS = ['opengl32', 'glu32']
+
+ # IRIX
+elif string.find(sys.platform, 'irix') != -1:
+    GL_LIBS = ['GLU', 'GL', 'X11', 'Xmu']
+
+# GENERIC (LINUX?)
+else:
+    GL_LIBS = ['GLU', 'GL']
+
 
 env = Environment(
-   CPP_PATH ='#',
-   CXXFLAGS = '-Wall',
-   LIBS     = GLUT_LIBS,
+   CPPPATH =   ['#'],
+   CXXFLAGS = ['-Wall'],
+   LIBS = GL_LIBS,
    ENV      = os.environ,
 )
+
+ParseConfig(env, 'sdl-config', ['--cflags', '--libs'])
 
 env.Program(target = 'frogger', source = sources)
