@@ -10,6 +10,7 @@
  * Public domain
  */
 #include <GL/glut.h>
+#include <cstdlib>
 
 // global variables that controls the position of the square
 int xpos = 0;
