@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2002-04-22 05:08:50 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-24 01:54:17 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -55,12 +55,8 @@ namespace phui {
 
    void Label::draw()
    {
-      Point pos = getPosition();
       int width, height;
       getSize(width, height);
-
-      glPushMatrix();
-      glTranslatef(pos.x, pos.y, 0.0f);
 
       // draw the label background
       glColor(getBackgroundColor());
@@ -92,8 +88,6 @@ namespace phui {
       int fontY = textRectY + fontAscent;
 
       renderer.draw(mText, fontX, fontY);
-
-      glPopMatrix();
    }
 
    void Label::setText(const std::string& text)
