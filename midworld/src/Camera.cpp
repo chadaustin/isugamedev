@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.cpp,v $
- * Date modified: $Date: 2002-10-28 04:32:45 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-29 12:44:50 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,10 +43,14 @@ namespace mw
       , mLastTargetRot()
       , mFollowDistance(10)
       , mFollowDistanceVel(0)
+      , mMaxFollowDistance(20)
+      , mMinFollowDistance(2)
       , mYaw(0)
       , mYawVel(0)
       , mPitch(gmtl::Math::deg2Rad(30.0f))
       , mPitchVel(0)
+      , mMaxPitch(gmtl::Math::deg2Rad(90.0f))
+      , mMinPitch(gmtl::Math::deg2Rad(0.0f))
       , mTransform()
    {}
 
@@ -93,6 +97,24 @@ namespace mw
       mYaw              += mYawVel * dt;
       mPitch            += mPitchVel * dt;
       mFollowDistance   += mFollowDistanceVel * dt;
+      
+      // Check bounds on follow distance and pitch
+      if (mFollowDistance > mMaxFollowDistance)
+      {
+         mFollowDistance = mMaxFollowDistance;
+      }
+      if (mFollowDistance < mMinFollowDistance)
+      {
+         mFollowDistance = mMinFollowDistance;
+      }
+      if (mPitch > mMaxPitch)
+      {
+         mPitch = mMaxPitch;
+      }  
+      if (mPitch < mMinPitch)
+      {
+         mPitch = mMinPitch;
+      } 
    }
 
    void
@@ -108,7 +130,30 @@ namespace mw
    void
    Camera::setFollowDistance(float distance)
    {
-      mFollowDistance = distance;
+      if (distance > mMaxFollowDistance)
+      {
+         mFollowDistance = mMaxFollowDistance;
+      }
+      else if (distance < mMinFollowDistance)
+      {
+         mFollowDistance = mMinFollowDistance;
+      }
+      else
+      {
+         mFollowDistance = distance;
+      }
+   }
+
+   void
+   Camera::setMaxFollowDistance(float max)
+   {
+      mMaxFollowDistance = max;
+   }
+   
+   void
+   Camera::setMinFollowDistance(float min)
+   {
+      mMinFollowDistance = min;
    }
 
    void
@@ -144,7 +189,26 @@ namespace mw
    void
    Camera::setPitch(float angle)
    {
-      mPitch = angle;
+      if (angle > mMaxPitch)
+      {
+         mPitch = mMaxPitch;
+      }
+      else
+      {     
+         mPitch = angle;
+      }
+   }
+
+   void
+   Camera::setMaxPitch(float max)
+   {
+      mMaxPitch = max;
+   }
+  
+   void
+   Camera::setMinPitch(float min)
+   {
+      mMinPitch = min;
    }
 
    void

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 11:47:02 $
- * Version:       $Revision: 1.84 $
+ * Date modified: $Date: 2002-10-29 12:44:50 $
+ * Version:       $Revision: 1.85 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -143,6 +143,8 @@ namespace mw
 
       mExplosion = new ParticleEngine("images/explosive_particle.png",
                                       5000, gmtl::Point3f(2, 0, -50), mCamera);
+      mCamera.setMaxFollowDistance(50.0f);
+      mCamera.setMinFollowDistance(2.0f);
    }
 
    void

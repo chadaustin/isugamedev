@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.h,v $
- * Date modified: $Date: 2002-10-28 04:32:45 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-29 12:44:50 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -79,6 +79,20 @@ namespace mw
        * @param distance   the follow distance
        */
       void setFollowDistance(float distance);
+      
+      /**
+       * Sets the maximum following distance of the camera
+       *
+       * @param max        the maximum following distance
+       */
+      void setMaxFollowDistance(float max);
+
+      /**
+       * Sets the minimum following distance of the camera
+       *
+       * @param min        the minimum following distance
+       */
+      void setMinFollowDistance(float min);
 
       /**
        * Sets the velocity by which the follow distance should change.
@@ -121,6 +135,20 @@ namespace mw
        * @param angle      the pitch angle in radians
        */
       void setPitch(float angle);
+      
+      /**
+       * Sets the maximum pitch angle this camera will rotate to.
+       *
+       * @param max        the maximum pitch angle in radians
+       */
+      void setMaxPitch(float max);
+      
+      /**
+       * Sets the minimum pitch angle this camera will rotate to.
+       *
+       * @param min        the minimum pitch angle in radians
+       */
+      void setMinPitch(float min);
 
       /**
        * Sets the angular velocity by which the pitch angle should change.
@@ -144,11 +172,18 @@ namespace mw
       // The distance by which the camera is following the target.
       float mFollowDistance;
       float mFollowDistanceVel;
+      // The bounds on the camera's following distance
+      float mMaxFollowDistance;
+      float mMinFollowDistance;
 
       float mYaw;
       float mYawVel;
       float mPitch;
       float mPitchVel;
+
+      // The bounds on the camera's pitch
+      float mMaxPitch;
+      float mMinPitch;
 
       // Cache of the current transform for the location of the camera.
       gmtl::Matrix44f mTransform;
