@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-05-03 03:09:14 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-03 04:13:09 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -66,6 +66,8 @@ namespace data {
       while (it != cursor.end()) {
          xmlpp::XMLAttributes& attr = (*it)->get_attrmap();
          Gang* g = new Gang(attr.get("name"));
+		 g->mPic = attr.get("pic");
+		 g->mThumbPic = attr.get("lilpic");
          xmlpp::xmlnodeptr info = (*it)->getChild("info");
          g->setInfo( info->get_cdata());
          data->addGang(g);
@@ -78,12 +80,16 @@ namespace data {
             attr = (*it2)->get_attrmap();
             Player* p = new Player(attr.get("name"), attr.get("password"));
             g->addPlayer(p);
+			p->mPic = attr.get("pic");
+			p->mThumbPic = attr.get("lilpic");
             xmlpp::xmlnodelist cursor3 = (*it2)->getChildren("car");
             xmlpp::XMLNodeListIterator it3 = cursor3.begin();
 
             while (it3 != cursor3.end()) {
                attr = (*it3)->get_attrmap();
                Car* c = new Car(attr.get("cartype"));
+			   c->mPic = attr.get("pic");
+			   c->mThumbPic = attr.get("pic");
                p->addCar(c);
                xmlpp::xmlnodelist cursor4 = (*it3)->getChildren("mod");
                xmlpp::XMLNodeListIterator it4 = cursor4.begin();

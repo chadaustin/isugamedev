@@ -19,7 +19,7 @@
 	</gang>
 	<gang name="brothaTeam">
 		<info>the game's developers</info>
-		<player name="chadO" password="p1">
+		<player name="chadO" password="p1" pic="player.jpg" lilpic="lilplayer.jpg">
 			<stat name="kills" value="5" />
 			<stat name="coins" value="3" />
 			<stat name="deaths" value="0" />
@@ -33,7 +33,7 @@
 				<mod name="tires" level="3" />
 			</car>
 		</player>
-		<player name="chadA" password="p1">
+		<player name="chadA" password="p1" pic="player.jpg" lilpic="lilplayer.jpg">
 			<stat name="kills" value="2" />
 			<stat name="coins" value="5" />
 			<stat name="deaths" value="1" />
@@ -46,7 +46,7 @@
 				<mod name="exhaust" />
 			</car>
 		</player>
-		<player name="ben" password="p4">
+		<player name="ben" password="p4" pic="http://hatori42.com/wb/player.jpg" lilpic="http://hatori42.com/wb/lilplayer.jpg">
 			<stat name="kills" value="2" />
 			<stat name="coins" value="4" />
 			<stat name="deaths" value="2" />
@@ -54,16 +54,16 @@
 				<mod name="cave mod" level="1" />
 			</car>
 		</player>
-		<player name="josh" password="sup?">
+		<player name="josh" password="sup?" pic="http://hatori42.com/wb/player.jpg" lilpic="http://hatori42.com/wb/lilplayer.jpg">
 			<car cartype="civic">
 				<mod type="exhaust" level="4" />
 			</car>
 		</player>
-		<player name="jermy" password="note">
+		<player name="jermy" password="note" pic="http://hatori42.com/wb/player.jpg" lilpic="http://hatori42.com/wb/lilplayer.jpg">
 			<stat name="kills" value="1" />
 			<stat name="coins" value="3" />
 			<stat name="deaths" value="2" />
-			<car cartype="fiesta">
+			<car cartype="fiesta" pic="http://hatori42.com/wb/car.jpg" lilpic="http://hatori42.com/wb/lilcar.jpg">
 				<mod name="spoiler" level="4" />
 				<mod name="tint" level="1" />
 				<mod name="rims" level="-1" />

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Gang.h,v $
- * Date modified: $Date: 2002-05-01 08:10:01 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-03 04:13:09 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -51,11 +51,18 @@
 namespace data {
 
    class Gang {
+
    public:
+
+  	  std::string mPic; //image URL
+	  std::string mThumbPic; //thumbnail image url
       /// Creates a new gang with the given name.
       Gang(const std::string& name)
          : mName(name)
-      {}
+      {
+		 mPic = std::string("");
+		 mThumbPic = std::string("");
+	  }
 
       /// Adds the given player to this gang.
       void addPlayer(Player* player) {
@@ -90,7 +97,7 @@ namespace data {
       }
 
       void xMLify(std::ostream& out) {
-         out << "  <gang name=\"" << mName << "\">" << std::endl;
+         out << "  <gang name=\"" << mName << "\" pic=\"" << mPic << "\" lilpic=\"" << mThumbPic << "\" >" << std::endl;
          out << "    <info>" << mInfo << "</info>" <<std::endl;
          for(unsigned int i = 0; i < mPlayers.size(); i++) {
             mPlayers[i]->xMLify(out);
@@ -98,7 +105,11 @@ namespace data {
          out << "  </gang>" <<std::endl;
       }
 
+
+
    private:
+
+
       /// The name of this gang.
       std::string mName;
 

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-02 05:33:26 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-05-03 04:13:09 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -54,10 +54,15 @@ namespace data {
 
    class Player {
    public:
+	  std::string mPic; //image URL
+	  std::string mThumbPic; //thumbnail image url
       /// Creates a new player with the given name/pass pair.
       Player(const std::string& name, const std::string& password)
          : mName(name), mPassword(password)
-      {}
+      {
+		 mPic = std::string("");
+		 mThumbPic = std::string("");
+	  }
 
       /// Gets this player's password.
       const std::string& getPassword() const {
@@ -130,7 +135,7 @@ namespace data {
       }
 
       void xMLify(std::ostream& out) {
-         out << "    <player name=\"" << mName << "\" password=\"" << mPassword << "\">" << std::endl;
+         out << "    <player name=\"" << mName << "\" password=\"" << mPassword << "\" pic=\"" << mPic << "\" lilpic=\"" << mThumbPic << "\" >" << std::endl;
          for (unsigned int i = 0; i < mCars.size(); ++i) {
             mCars[i]->xMLify(out);
          }
@@ -139,6 +144,8 @@ namespace data {
          }
          out << "   </player>" << std::endl;
       }
+
+
   
    private:
       /// The name of this player.

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-05-01 09:58:23 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-03 04:13:09 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -53,9 +53,14 @@
 namespace data {
    class Car {
    public:
+
+  	   std::string mPic; //image URL
+	   std::string mThumbPic; //thumbnail image url
       /// Creates a new car with the given name.
       Car(const std::string& name) {
          mName = name;
+		 mPic = std::string("");
+		 mThumbPic = std::string("");
       }
 
       /// Gets the name of this car.
@@ -74,12 +79,13 @@ namespace data {
       }
 
       void xMLify(std::ostream& out) {
-         out << "      <car cartype=\"" << mName << "\">" << std::endl;
+         out << "      <car cartype=\"" << mName << "\" pic=\"" << mPic << "\" lilpic=\"" << mThumbPic << "\" >" << std::endl;
          for(unsigned int i = 0; i < mMods.size(); ++i) {
             mMods[i]->xMLify(out);
          }
          out << "      </car>" << std::endl;
       }
+
 
    private:
       /// The name of this car.
