@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.53 2002-04-11 01:08:53 tamc Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-11 01:08:53 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.54 2002-04-11 07:21:01 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-11 07:21:01 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -83,7 +83,7 @@
           </methodsynopsis>
           <methodsynopsis>
             <modifier>public</modifier>
-            <type>vector&lt;pair&lt;Message*,ConnectionID&gt;&gt; </type>
+            <type>vector&lt;pair&lt;Message*,ConnectionID&gt; &gt; </type>
             <methodname>readAll</methodname>
             <void/>
           </methodsynopsis>
@@ -101,41 +101,41 @@
               <formalpara>
                 <title>Alternative 1 - <emphasis>Threads</emphasis></title>
                 <para><variablelist>
-                  <varlistentry>
-                    <term>Pros</term>
-                    <listitem>
-                      <itemizedlist spacing="compact">
-                        <listitem>
-                          <para>Easy to implement.</para>
-                        </listitem>
-                        <listitem>
-                          <para>Scheduling CPU time for each connection is handled by the operating system.</para>
-                        </listitem>
-                      </itemizedlist>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>Cons</term>
-                    <listitem>
-                      <itemizedlist spacing="compact">
-                        <listitem>
-                          <para>Doesn't scale well past a few thousand connections.</para>
-                        </listitem>
-                        <listitem>
-                          <para>Added overhead for context switching between threads and the use of mutexes.</para>
-                        </listitem>
-                      </itemizedlist>
-                    </listitem>
-                  </varlistentry>
-                </variablelist></para>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Easy to implement.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Scheduling CPU time for each connection is handled by the operating system.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Doesn't scale well past a few thousand connections.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Added overhead for context switching between threads and the use of mutexes.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
               </formalpara>
               <formalpara>
                 <title>Alternative 2 - <emphasis>select() or poll()</emphasis></title>
                 <para><variablelist>
-                  <varlistentry>
-                    <term>Pros</term>
-                    <listitem>
-                      <itemizedlist spacing="compact">
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Reduced overhead for handling multiple connections, no context switches or need for mutexes.</para>
                           </listitem>
@@ -146,19 +146,19 @@
                       <term>Cons</term>
                       <listitem>
                         <itemizedlist spacing="compact">
-                        <listitem>
-                          <para>More difficult to implement, have to use asynchronous I/O.</para>
-                        </listitem>
-                        <listitem>
-                          <para>Doesn't scale well past a thousand connections.</para>
-                        </listitem>
-                        <listitem>
-                          <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan connections linearly.</para>
-                        </listitem>
-                      </itemizedlist>
-                    </listitem>
-                  </varlistentry>
-                </variablelist></para>
+                          <listitem>
+                            <para>More difficult to implement, have to use asynchronous I/O.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Doesn't scale well past a thousand connections.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan connections linearly.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
               </formalpara>
               <formalpara>
                 <title>Conclusion</title>
@@ -713,42 +713,42 @@
               <formalpara>
                 <title>Alternative 1 - <emphasis>Web based scripting (Perl, ASP, PHP)</emphasis></title>
                 <para><variablelist>
-                  <varlistentry>
-                    <term>Pros</term>
-                    <listitem>
-                      <itemizedlist spacing="compact">
-                        <listitem>
-                          <para>Easy to generate dynamic output.</para>
-                        </listitem>
-                        <listitem>
-                          <para>Efficient use of bandwidth as the data is limitted on the server.</para>
-                        </listitem>
-                        <listitem>
-                          <para>Most clients already have applications capable of viewing the output.</para>
-                        </listitem>
-                      </itemizedlist>
-                    </listitem>
-                  </varlistentry>
-                  <varlistentry>
-                    <term>Cons</term>
-                    <listitem>
-                      <itemizedlist spacing="compact">
-                        <listitem>
-                          <para>Requires external interpreter for the chosen language.</para>
-                        </listitem>
-                        <listitem>
-                          <para>Formatting the data is a tedious process.</para>
-                        </listitem>
-                      </itemizedlist>
-                    </listitem>
-                  </varlistentry>
-                </variablelist></para>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Easy to generate dynamic output.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Efficient use of bandwidth as the data is limitted on the server.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Most clients already have applications capable of viewing the output.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Requires external interpreter for the chosen language.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Formatting the data is a tedious process.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
               </formalpara>
               <formalpara>
                 <title>Alternative 2 - <emphasis>XML and XSL and XPath</emphasis></title>
                 <para><variablelist>
-                  <varlistentry>
-                    <term>Pros</term>
+                    <varlistentry>
+                      <term>Pros</term>
                       <listitem>
                         <itemizedlist spacing="compact">
                           <listitem>
@@ -767,13 +767,13 @@
                           <listitem>
                             <para>Inefficient use of bandwidth as data is limitted on the client.</para>
                           </listitem>
-                        <listitem>
-                          <para>Requires client to have an application capable of using this technology.</para>
-                        </listitem>
-                      </itemizedlist>
-                    </listitem>
-                  </varlistentry>
-                </variablelist></para>
+                          <listitem>
+                            <para>Requires client to have an application capable of using this technology.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
               </formalpara>
               <formalpara>
                 <title>Conclusion</title>
