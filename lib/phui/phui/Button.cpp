@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-22 04:34:36 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-22 04:49:15 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -77,16 +77,16 @@ namespace phui {
       FontRenderer renderer(getFont());
 
       const Insets& i = getInsets();
-      int w = width  - i.getLeft() - i.getRight();
-      int h = height - i.getTop()  - i.getBottom();
+//      int w = width  - i.getLeft() - i.getRight();
+//      int h = height - i.getTop()  - i.getBottom();
       unsigned int fontHeight = renderer.getHeight();
-      unsigned int fontWidth = renderer.getWidth(mText);
+//      unsigned int fontWidth = renderer.getWidth(mText);
       unsigned int fontAscent = fontHeight - renderer.getDescent();
 
       int textRectX = i.getLeft();
       int textRectY = i.getTop();
-      int textRectW = width  - (i.getRight()  + textRectX);
-      int textRectH = height - (i.getBottom() + textRectY);
+//      int textRectW = width  - (i.getRight()  + textRectX);
+//      int textRectH = height - (i.getBottom() + textRectY);
 
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-04-22 04:34:36 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-22 04:49:15 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -57,7 +57,7 @@ namespace phui {
    }
 
    void WidgetContainer::remove(Widget* widget) {
-      for (int i = 0; i < mWidgets.size(); ++i) {
+      for (size_t i = 0; i < mWidgets.size(); ++i) {
          if (mWidgets[i] == widget) {
             mWidgets.erase(mWidgets.begin() + i);
             widget->mParent = 0;
@@ -67,7 +67,7 @@ namespace phui {
 
    void WidgetContainer::draw() {
       // draw all children to this widget
-      for (int i = 0; i < mWidgets.size(); ++i) {
+      for (size_t i = 0; i < mWidgets.size(); ++i) {
          Widget* wgt = mWidgets[i];
          Point pos = wgt->getPosition();
 
@@ -118,7 +118,7 @@ namespace phui {
    }
 
    void WidgetContainer::focus(Widget* widget) {
-      for (int i = 0; i < mWidgets.size(); ++i) {
+      for (size_t i = 0; i < mWidgets.size(); ++i) {
          if (mWidgets[i] == widget) {
             std::swap(mWidgets[0], mWidgets[i]);
             break;
@@ -139,19 +139,18 @@ namespace phui {
    }
 
    Widget* WidgetContainer::getWidgetAt(const Point& p) {
-      for (int i = 0; i < mWidgets.size(); ++i) {
+      for (size_t i = 0; i < mWidgets.size(); ++i) {
          if (mWidgets[i]->contains(p)) {
+            std::cout << i << " " << mWidgets[i] << std::endl;
             return mWidgets[i];
          }
       }
+      return 0;
    }
 
    Widget* WidgetContainer::getMouseWidget(const Point& p) {
-      return getWidgetAt(p);
-/*
       Widget* widget = getCapture();
       return (widget ? widget : getWidgetAt(p));
-*/
    }
 
 
