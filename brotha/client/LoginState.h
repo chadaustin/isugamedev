@@ -4,6 +4,7 @@
 
 #include <phui/phui.h>
 #include "State.h"
+#include "Scene.h"
 
 
 namespace client {
@@ -29,6 +30,8 @@ namespace client {
       phui::TextField*  mPassword;
       phui::TextField*  mServer;
       phui::TextField*  mPort;
+
+      Scene mScene;
    };
 
 }
