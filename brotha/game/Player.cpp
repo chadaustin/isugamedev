@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-05-01 22:11:12 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-05-02 04:07:44 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,8 +47,13 @@ namespace game {
    const Player::UID Player::UNKNOWN = 0;
 
    Player::Player(const std::string& name)
-      : mName(name), mHealth(0), mBrake(0), mTurnAngle(0), mIsBraking(false),
-        mIsHandBraking(false), mIsTurningLeft(false), mIsTurningRight(false)
+      : mName(name)
+      , mHealth(0)
+      , mIsAccelerating(false)
+      , mIsBraking(false)
+      , mIsHandBraking(false)
+      , mIsTurningLeft(false)
+      , mIsTurningRight(false)
    {
       mUID = UIDMgr::getInstance().reserveID();
    }
@@ -61,22 +66,6 @@ namespace game {
       return mUID;
    }
 
-   void Player::setBrake( PRFloat64 newBreak ){
-      mBrake = newBreak;
-   }
-
-   PRFloat64 Player::getBrake() const {
-      return mBrake;
-   }
-
-   PRFloat64 Player::getTurnAngle() const {
-      return mTurnAngle;
-   }
-   
-   void Player::setTurnAngle(PRFloat64 newAngle){
-      mTurnAngle = newAngle;
-   }
-
    const std::string& Player::getName() const {
       return mName;
    }
@@ -87,17 +76,14 @@ namespace game {
 
    PRUint32 Player::getSize(){
       return net::sizes::getVarSize(mUID)
-           + net::sizes::getVarSize(mName) 
-           + net::sizes::getVarSize(mBrake)
-           + net::sizes::getVarSize(mTurnAngle);
+           + net::sizes::getVarSize(mName);
    }
 
    void Player::serialize(net::OutputStream& os){
-      os << mUID << mName << mBrake << mTurnAngle;
+      os << mUID << mName;
    }
 
    void Player::deserialize(net::InputStream& is){
-      is >> mUID >> mName >> mBrake >> mTurnAngle;
+      is >> mUID >> mName;
    }
-
 }

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-02 00:35:11 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-05-02 04:07:44 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -123,34 +123,6 @@ namespace game {
          mCoins = coins;
       }
 
-      /**
-       * Sets whether this player is braking.
-       *
-       * @param flag    true if this player is braking, false otherwise
-       */
-      void setBrake(PRFloat64 flag);
-
-      /**
-       * Tests if this player is braking.
-       *
-       * @return  true if the player is braking, false otherwise
-       */
-      PRFloat64 getBrake() const;
-
-      /**
-       * Sets whether this player is turning left.
-       *
-       * @param flag    true if this player is turning left, false otherwise
-       */
-      void setTurnAngle(PRFloat64 flag);
-
-      /**
-       * Tests if this player is turning left.
-       *
-       * @return  true if the player is turning left, false otherwise
-       */
-      PRFloat64 getTurnAngle() const;
-
       Object* getObject();
 
    public:
@@ -194,15 +166,9 @@ namespace game {
       /// The number of coins this player has
       int mCoins;
 
-      /// True if the player is braking
-      PRFloat64 mBrake;
-
-      /// True if the player is turning left
-      PRFloat64 mTurnAngle;
-
-
    public: // accessors wouldn't be worth the effor here
       /// whether or not player is doing something (not serialized, server side only)
+      bool mIsAccelerating;
       bool mIsBraking;
       bool mIsHandBraking;
       bool mIsTurningLeft;
