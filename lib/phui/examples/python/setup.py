@@ -3,6 +3,11 @@ from phui import *
 
 print 'You rock!'
 
+class MyActionListener(ActionListener):
+   def onAction(evt):
+      global wnd
+      wnd.visible = not wnd.visible
+
 # Get the root widget of the UI
 ui = appconnect.getUI()
 
@@ -61,6 +66,7 @@ beer_btn.text = 'Drink'
 beer_btn.position.set(170, 105)
 beer_btn.size.set(60, 25)
 beer_btn.backgroundColor.set(0,0,1,0.5)
+beer_btn.addActionListener(MyActionListener())
 
 txt = createTextField()
 txt.text = "I'm a text box"

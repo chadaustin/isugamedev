@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 07:07:06 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2003-01-06 13:41:56 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -38,9 +38,9 @@ namespace phui
 {
    namespace python
    {
-      struct PyLayoutConstraint : public LayoutConstraint
+      struct LayoutConstraintWrap : public LayoutConstraint
       {
-         PyLayoutConstraint(PyObject* self)
+         LayoutConstraintWrap(PyObject* self)
             : mSelf(self)
          {}
 
@@ -48,36 +48,32 @@ namespace phui
 
          PyObject* mSelf;
       };
+      typedef boost::shared_ptr<LayoutConstraintWrap> LayoutConstraintWrapPtr;
+
+      struct ActionListenerWrap : public ActionListener
+      {
+         ActionListenerWrap(PyObject* self)
+            : mSelf(self)
+         {}
+
+         void onAction(const ActionEvent& evt) { return call_method<void>(mSelf, "onAction"); }
+
+         PyObject* mSelf;
+      };
+      typedef boost::shared_ptr<ActionListenerWrap> ActionListenerWrapPtr;
 
 #define PHUI_CREATE(Type)           \
    Type ## Ptr create ## Type()     \
    {                                \
       return Type::create();        \
    }
-
    PHUI_CREATE(Button)
    PHUI_CREATE(CheckBox)
    PHUI_CREATE(Label)
    PHUI_CREATE(ListBox)
    PHUI_CREATE(Window)
    PHUI_CREATE(TextField)
-
 #undef PHUI_CREATE
-
-//      ButtonPtr createButton()
-//      {
-//         return Button::create();
-//      }
-//
-//      WindowPtr createWindow()
-//      {
-//         return Window::create();
-//      }
-//
-//      CheckBoxPtr createCheckBox()
-//      {
-//         return CheckBox::create();
-//      }
    }
 
    using namespace python;
@@ -149,18 +145,31 @@ namespace phui
          .add_property("bottom", &Insets::getBottom, &Insets::setBottom)
       ;
 
-      // LayoutContraint
-      class_<LayoutConstraint, PyLayoutConstraint, boost::noncopyable>("LayoutConstraint", no_init)
-         .def("type", &PyLayoutConstraint::getType)
+      // ActionEvent
+      class_<ActionEvent>("ActionEvent", init<WidgetPtr>())
+         .add_property("source", &ActionEvent::getSource)
       ;
 
-      // LayoutManager
-      class_<LayoutManager, LayoutManagerPtr>("LayoutManager", init<WidgetContainer*, LayoutConstraintPtr>())
-         .def("add", &LayoutManager::add)
-         .def("remove", &LayoutManager::remove)
-         .def("resize", &LayoutManager::resize)
-         .add_property("valid", &LayoutManager::isValid)
+      // ActionListener
+      class_<ActionListener, ActionListenerWrap, boost::noncopyable>("ActionListener")
+         .def("onAction", &ActionListenerWrap::onAction)
       ;
+
+
+      // LayoutContraint
+//      class_<LayoutConstraint, LayoutConstraintWrap, boost::noncopyable>("LayoutConstraint", no_init)
+//         .def("type", &LayoutConstraintWrap::getType)
+//      ;
+
+      // LayoutManager
+//      class_<LayoutManager, LayoutManagerPtr>("LayoutManager",
+//                                              init<WidgetContainer*,
+//                                                   LayoutConstraintPtr>())
+//         .def("add", &LayoutManager::add)
+//         .def("remove", &LayoutManager::remove)
+//         .def("resize", &LayoutManager::resize)
+//         .add_property("valid", &LayoutManager::isValid)
+//      ;
 
       // Widget
       class_<Widget, WidgetPtr, boost::noncopyable>("Widget", no_init)
