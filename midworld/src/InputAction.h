@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputAction.h,v $
- * Date modified: $Date: 2002-10-26 05:35:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-05 21:22:16 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,67 +34,31 @@
 
 namespace mw
 {
-   /**
-    * States of the action
-    */
-   enum EdgeState
-   {
-      DOWN, UP, EDGE_DOWN, EDGE_UP
-   };
- 
-   /**
-    * An action representing something that is input from the user.
-    */
    class InputAction
    {
    public:
-      /**
-       * The UID data type.
-       */
-      typedef unsigned long UID;
-
-      /**
-       * Creates a new InputAction.
-       */
       InputAction();
+      
+      void onPress(bool down);
+      
+      /// Called once per frame.
+      void update(float dt);
 
       /**
-       * Destroys this InputAction, releasing the UID it had reserved.
+       * Returns true if the relevent key(s) are pressed.
        */
-      ~InputAction();
+      bool isActive();
       
       /**
-       * Gets the unique ID for this action
+       * Returns the derivative of the "signal".  1 if on a rising edge, -1 if
+       * a falling edge, or 0 if steady.
        */
-      const UID& getUID() const;
-
-      /**
-       * Gets the present state of this action
-       * @return the state of this action
-       */
-      EdgeState getState() const;
-
-      /**
-       * Sets the state of this action
-       * @param state the new state
-       */
-      void setState(EdgeState state);
-
-      /**
-       * Compares the unique ID of the objects.
-       *
-       * @param action the action to compare to.
-       * 
-       * @return true if equal, false if not
-       */
-      bool operator==(const InputAction& action);
-
+      int getEdgeState();
+      
    private:
-      /// The unique ID for this action
-      UID mUID;
-
-      ///The present state of this action
-      EdgeState mState;
+      int mPressCount;
+      int mLastPressCount;
+      int mEdgeState;
    };
 
 }

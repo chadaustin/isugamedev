@@ -24,44 +24,42 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputAction.cpp,v $
- * Date modified: $Date: 2002-10-26 05:35:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-05 21:22:16 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include "InputAction.h"
-#include "UIDManager.h"
 
 namespace mw
 {
    InputAction::InputAction()
-      : mState(UP)
    {
-      mUID = UIDManager<InputAction, InputAction::UID>::getInstance().reserveID();
+      mPressCount = 0;
+      mLastPressCount = 0;
+      mEdgeState = 0;
+   }
+   
+   void InputAction::onPress(bool down)
+   {
+      down ?
+         ++mPressCount :
+         --mPressCount;
+   }
+   
+   void InputAction::update(float /*dt*/)
+   {
+      mEdgeState = (mPressCount != 0) - (mLastPressCount != 0);
+      mLastPressCount = mPressCount;
+   }
+   
+   bool InputAction::isActive()
+   {
+      return (mPressCount != 0);
    }
 
-   InputAction::~InputAction()
+   int InputAction::getEdgeState()
    {
-      UIDManager<InputAction, InputAction::UID>::getInstance().releaseID(mUID);
-   }
-
-   const InputAction::UID& InputAction::getUID() const
-   {
-      return mUID;
-   }
-
-   EdgeState InputAction::getState() const
-   {
-      return mState;
-   }
-
-   void InputAction::setState(EdgeState state)
-   {
-      mState = state;
-   }
-
-   bool InputAction::operator==(const InputAction& action)
-   {
-      return (mUID == action.getUID());
+      return mEdgeState;
    }
 }

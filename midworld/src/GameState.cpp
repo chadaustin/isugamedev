@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-05 08:29:00 $
- * Version:       $Revision: 1.109 $
+ * Date modified: $Date: 2002-11-05 21:22:15 $
+ * Version:       $Revision: 1.110 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,10 +48,7 @@
 #include "EntityFactory.h"
 #include "GameManager.h"
 #include "GameState.h"
-#include "InputAction.h"
-#include "InputBinder.h"
-#include "InputParser.h"
-#include "InputSymbol.h"
+#include "InputManager.h"
 #include "LevelLoader.h"
 #include "MissileLauncher.h"
 #include "OpenSGSceneViewer.h"
@@ -79,25 +76,11 @@ namespace mw
       , mFrameTime(0)
       , mPlayerYawChange(0)
       , mIgnoreMouseMove(true)
-      , mShoot(UP)
-      , mCycleWeapon(UP)
    {
       // DO THIS FIRST!!!
       // Tell the EntityFactory to use this as the GameState
       EntityFactory::instance().setGameState(this);
       
-      mGunSlots.resize( 10 );
-      for (unsigned int x = 0; x < mGunSlots.size(); ++x)
-         mGunSlots[x] = UP;
-
-/*
-      mPlayer.addWeapon( new Pistol );
-      mPlayer.addWeapon( new SpreadGun );
-      mPlayer.addWeapon( new Shotgun );
-      mPlayer.addWeapon( new AssaultRifle );
-      mPlayer.addWeapon( new MissileLauncher );
-*/
-
       // Change the music as appropriate for gaming. :)
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       jukebox->clear();
@@ -134,6 +117,7 @@ namespace mw
    GameState::update(float dt)
    {
       AI.update();
+      mInputManager.update(dt);
 
       mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
@@ -145,107 +129,69 @@ namespace mw
       const float camera_zoom_vel(10.0f);
       const float camera_pitch_vel(gmtl::Math::deg2Rad(100.0f));
 
-      // Accelerate
-      if (mActionUp->getState() == EDGE_DOWN)
-      {
-         mPlayerVel += accel;
-      }
-      else if (mActionUp->getState() == EDGE_UP)
-      {
-         mPlayerVel -= accel;
-      }
-
-      // Reverse
-      if (mActionDown->getState() == EDGE_DOWN)
-      {
-         mPlayerVel += reverse;
-      }
-      else if (mActionDown->getState() == EDGE_UP)
-      {
-         mPlayerVel -= reverse;
-      }
-
-      // Strafe left
-      if (mActionLeft->getState() == EDGE_DOWN)
-      {
-         mPlayerVel += sleft;
-      }
-      else if (mActionLeft->getState() == EDGE_UP)
-      {
-         mPlayerVel -= sleft;
-      }
-
-      // Strafe right
-      if (mActionRight->getState() == EDGE_DOWN)
-      {
-         mPlayerVel += sright;
-      }
-      else if (mActionRight->getState() == EDGE_UP)
-      {
-         mPlayerVel -= sright;
-      }
+      mPlayerVel += accel   * mActionUp->getEdgeState();
+      mPlayerVel += reverse * mActionDown->getEdgeState();
+      mPlayerVel += sleft   * mActionLeft->getEdgeState();
+      mPlayerVel += sright  * mActionRight->getEdgeState();
 
       // set velocity of player based on the computed inputs
       mPlayer.setVel(mPlayer.getRot() * mPlayerVel);
 
       // Shoot
-      if (mShoot == EDGE_DOWN)
-      {
-         mPlayer.weapon().trigger( true );
+      if (mActionShoot->getEdgeState() == 1)
+      {                               
+         mPlayer.weapon().trigger(true);
       }
-      else if (mShoot == EDGE_UP)
+      else if (mActionShoot->getEdgeState() == -1)
       {
-         mPlayer.weapon().trigger( false );
+         mPlayer.weapon().trigger(false);
       }
 
-      if (mCycleWeapon == EDGE_DOWN)
+      if (mActionCycleWeapon->getEdgeState() == 1)
       {
          mPlayer.nextWeapon();
       }
 
-      for (unsigned int x = 0; x < 9; ++x)
-      {
-         if (mGunSlots[x] == EDGE_DOWN)
-         {
-            mPlayer.setWeapon( x );
-         }
-      }
-
       // Camera zoom in
-      if (mActionZoomIn->getState() == EDGE_DOWN)
+      if (mActionZoomIn->getEdgeState() == 1)
       {
          mCamera.setFollowDistanceVel(-camera_zoom_vel);
       }
-      else if (mActionZoomIn->getState() == EDGE_UP)
+      else if (mActionZoomIn->getEdgeState() == -1)
       {
          mCamera.setFollowDistanceVel(0);
       }
       // Camera zoom out
-      if (mActionZoomOut->getState() == EDGE_DOWN)
+      if (mActionZoomOut->getEdgeState() == 1)
       {
          mCamera.setFollowDistanceVel(camera_zoom_vel);
       }
-      else if (mActionZoomOut->getState() == EDGE_UP)
+      else if (mActionZoomOut->getEdgeState() == -1)
       {
          mCamera.setFollowDistanceVel(0);
       }
       // Camera pitch down
-      if (mActionPitchDown->getState() == EDGE_DOWN)
+      if (mActionPitchDown->getEdgeState() == 1)
       {
          mCamera.setPitchVel(camera_pitch_vel);
       }
-      else if (mActionPitchDown->getState() == EDGE_UP)
+      else if (mActionPitchDown->getEdgeState() == -1)
       {
          mCamera.setPitchVel(0);
       }
       // Camera pitch up
-      if (mActionPitchUp->getState() == EDGE_DOWN)
+      if (mActionPitchUp->getEdgeState() == 1)
       {
          mCamera.setPitchVel(-camera_pitch_vel);
       }
-      else if (mActionPitchUp->getState() == EDGE_UP)
+      else if (mActionPitchUp->getEdgeState() == -1)
       {
          mCamera.setPitchVel(0);
+      }
+      
+      if (mActionQuit->isActive())
+      {
+         invokeTransition("Menu");
       }
 
       // update player transform (using mouse-look)
@@ -260,24 +206,6 @@ namespace mw
          mPlayerYawChange = 0.0f;
       }
 
-      // update edge states...
-      updateEdgeState(mShoot);
-      updateEdgeState(mCycleWeapon);
-
-      // update action states
-      updateEdgeState(*mActionUp);
-      updateEdgeState(*mActionDown);
-      updateEdgeState(*mActionLeft);
-      updateEdgeState(*mActionRight);
-      updateEdgeState(*mActionZoomIn);
-      updateEdgeState(*mActionZoomOut);
-      updateEdgeState(*mActionPitchDown);
-      updateEdgeState(*mActionPitchUp);
-      updateEdgeState(*mActionYawLeft);
-      updateEdgeState(*mActionYawRight);
-
-      for (unsigned int x = 0; x < mGunSlots.size(); ++x)
-         updateEdgeState( mGunSlots[x] );
 
       // Reap dead entities
       reapDeadEntities();
@@ -412,42 +340,13 @@ namespace mw
    void
    GameState::onKeyPress(SDLKey sym, bool down)
    {
-      // todo replace this with a keymapper.
-      // map keys to events... yay.
-      InputBinder& binder = InputBinder::instance();
-      InputAction *act = binder.getAction(SDLtoISym(sym));
-      if (act == NULL)
-      {
-         return;
-      }
-
-      std::cout << "Got quit action" << std::endl;
-
-      updateEdgeState(*act, down);
-
-      // Quit immediately if requested
-      if (act == mActionQuit)
-      {
-         if (down)
-         {
-            invokeTransition("Menu");
-         }
-      }
+      mInputManager.onKeyPress(sym, down);
    }
 
    void
-   GameState::onMousePress(Uint8 button, bool down, int x, int y)
+   GameState::onMousePress(Uint8 button, bool down, int /*x*/, int /*y*/)
    {
-      if (button == SDL_BUTTON_LEFT)
-      {
-         updateEdgeState(mShoot, down);
-         //std::cout<<"LMB "<<down<<std::endl;
-      }
-      if (button == SDL_BUTTON_RIGHT)
-      {
-         updateEdgeState(mCycleWeapon, down);
-         //std::cout<<"RMB "<<down<<std::endl;
-      }
+      mInputManager.onMousePress(button, down);
    }
 
    void
@@ -531,41 +430,20 @@ namespace mw
 
    void GameState::initializeInput()
    {
-      InputParser* parser = InputParser::instance();
-      parser->parseFile("inputmap.cfg");
-
-      mActionUp = new InputAction();
-      parser->bindAction("MOVE UP",    mActionUp);
-
-      mActionDown = new InputAction();
-      parser->bindAction("MOVE DOWN",  mActionDown);
-
-      mActionRight = new InputAction();
-      parser->bindAction("MOVE RIGHT", mActionRight);
-
-      mActionLeft = new InputAction();
-      parser->bindAction("MOVE LEFT",  mActionLeft);
-
-      mActionQuit = new InputAction();
-      parser->bindAction("QUIT",       mActionQuit);
-
-      mActionZoomIn = new InputAction();
-      parser->bindAction("ZOOM IN",    mActionZoomIn);
-
-      mActionZoomOut = new InputAction();
-      parser->bindAction("ZOOM OUT",   mActionZoomOut);
-
-      mActionPitchUp = new InputAction();
-      parser->bindAction("PITCH UP",   mActionPitchUp);
-
-      mActionPitchDown = new InputAction();
-      parser->bindAction("PITCH DOWN", mActionPitchDown);
-
-      mActionYawLeft = new InputAction();
-      parser->bindAction("YAW LEFT",   mActionYawLeft);
-
-      mActionYawRight = new InputAction();
-      parser->bindAction("YAW RIGHT",  mActionYawRight);
+      mInputManager.loadMappings("inputmap.cfg");
+      mActionUp          = mInputManager.getAction("MOVE UP");
+      mActionDown        = mInputManager.getAction("MOVE DOWN");
+      mActionRight       = mInputManager.getAction("MOVE RIGHT");
+      mActionLeft        = mInputManager.getAction("MOVE LEFT");
+      mActionQuit        = mInputManager.getAction("QUIT");
+      mActionZoomIn      = mInputManager.getAction("ZOOM IN");
+      mActionZoomOut     = mInputManager.getAction("ZOOM OUT");
+      mActionPitchUp     = mInputManager.getAction("PITCH UP");
+      mActionPitchDown   = mInputManager.getAction("PITCH DOWN");
+      mActionYawLeft     = mInputManager.getAction("YAW LEFT");
+      mActionYawRight    = mInputManager.getAction("YAW RIGHT");
+      mActionShoot       = mInputManager.getAction("SHOOT");
+      mActionCycleWeapon = mInputManager.getAction("CYCLE WEAPON");
    }
 
    /** 
@@ -627,44 +505,5 @@ namespace mw
       mMap[turret->getUID()] = node1;
 
       return turret;
-   }
-      
-   void
-   GameState::updateEdgeState(EdgeState& state, bool absoluteState)
-   {
-      switch (state)
-      {
-         case DOWN:      if (!absoluteState) state = EDGE_UP;   break;
-         case UP:        if (absoluteState)  state = EDGE_DOWN; break;
-         case EDGE_DOWN: if (absoluteState)  state = DOWN;      break;
-         case EDGE_UP:   if (!absoluteState) state = UP;        break;
-      }
-   }
-
-   void
-   GameState::updateEdgeState(EdgeState& state)
-   {
-      switch (state)
-      {
-         case EDGE_DOWN: state = DOWN; break;
-         case EDGE_UP:   state = UP;   break;
-         default: break;
-      }
-   }
-
-   void
-   GameState::updateEdgeState(InputAction& action, bool absoluteState)
-   {
-      EdgeState action_state = action.getState();
-      updateEdgeState(action_state, absoluteState);
-      action.setState(action_state);
-   }
-
-   void
-   GameState::updateEdgeState(InputAction& action)
-   {
-      EdgeState action_state = action.getState();
-      updateEdgeState(action_state);
-      action.setState(action_state);
    }
 }

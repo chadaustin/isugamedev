@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-05 08:29:00 $
- * Version:       $Revision: 1.67 $
+ * Date modified: $Date: 2002-11-05 21:22:16 $
+ * Version:       $Revision: 1.68 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,9 +41,6 @@
 #include <loom/command.h>
 
 #include <gmtl/Point.h>
-//#include <gmtl/LineSeg.h>
-//#include <gmtl/Generate.h>
-//#include <gmtl/QuatOps.h>
 
 #include <SDL.h>
 #include "Camera.h"
@@ -53,6 +50,7 @@
 #include "GameScene.h"
 #include "HUD.h"
 #include "InputAction.h"
+#include "InputManager.h"
 #include "Player.h"
 #include "Scene.h"
 #include "SceneViewer.h"
@@ -134,14 +132,6 @@ namespace mw
       /// Draws the bounds around all the entities. For debugging purposes.
       void drawBounds();
 
-      /// Called on input change
-      void updateEdgeState(EdgeState& state, bool absoluteState);
-      void updateEdgeState(InputAction& action, bool absoluteState);
-
-      /// Called on update for each button
-      void updateEdgeState(EdgeState& state);
-      void updateEdgeState(InputAction& action);
-
       /**
        * Deletes and removes from the game all entities that have marked
        * themselves as being expired and thus want to be removed from the game.
@@ -213,6 +203,7 @@ namespace mw
       HUD mHUD;
 
       // Actions
+      InputManager mInputManager;
       InputAction* mActionUp;
       InputAction* mActionDown;
       InputAction* mActionRight;
@@ -224,11 +215,8 @@ namespace mw
       InputAction* mActionPitchDown;
       InputAction* mActionYawLeft;
       InputAction* mActionYawRight;
-
-      // "Actions" that have not yet been converted over to use the InputBinder
-      EdgeState mShoot, mCycleWeapon;
-      std::vector<EdgeState> mGunSlots;
-
+      InputAction* mActionShoot;
+      InputAction* mActionCycleWeapon;
    };
 }
 

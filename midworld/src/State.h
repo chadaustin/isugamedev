@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.h,v $
- * Date modified: $Date: 2002-10-01 01:00:29 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-05 21:22:16 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -54,9 +54,9 @@ namespace mw
       virtual void update(float dt) = 0;
 
       virtual void draw() = 0;
-      virtual void onKeyPress(SDLKey sym, bool down) { };
-      virtual void onMousePress(Uint8 button, bool down, int x, int y) { };
-      virtual void onMouseMove(int x, int y) { };
+      virtual void onKeyPress(SDLKey sym, bool down) { }
+      virtual void onMousePress(Uint8 button, bool down, int x, int y) { }
+      virtual void onMouseMove(int x, int y) { }
 
       Application& application() { assert( mApp != NULL ); return *mApp; }
       const Application& application() const { assert( mApp != NULL ); return *mApp; }
