@@ -102,34 +102,22 @@
 	</Configurations>
 	<Files>
 		<Filter
-			Name="files"
-			Filter="">
-			<File
-				RelativePath="..\..\src\Application.cpp">
-			</File>
+			Name="Headers"
+			Filter="h;hh;hpp">
 			<File
 				RelativePath="..\..\src\Application.h">
 			</File>
 			<File
-				RelativePath="..\..\src\BaseProjectileWeapon.cpp">
+				RelativePath="..\..\src\AssaultRifle.h">
 			</File>
 			<File
 				RelativePath="..\..\src\BaseProjectileWeapon.h">
 			</File>
 			<File
-				RelativePath="..\..\src\BoundsCollisionDetector.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\BoundsCollisionDetector.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Camera.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\Camera.h">
-			</File>
-			<File
-				RelativePath="..\..\src\CollisionDesc.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\CollisionDesc.h">
@@ -141,7 +129,7 @@
 				RelativePath="..\..\src\CreditsState.h">
 			</File>
 			<File
-				RelativePath="..\..\src\GameManager.cpp">
+				RelativePath="..\..\src\Enemy.h">
 			</File>
 			<File
 				RelativePath="..\..\src\GameManager.h">
@@ -150,28 +138,13 @@
 				RelativePath="..\..\src\GameScene.h">
 			</File>
 			<File
-				RelativePath="..\..\src\GameState.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\GameState.h">
-			</File>
-			<File
-				RelativePath="..\..\src\IntroState.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\IntroState.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Jukebox.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\Jukebox.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Main.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\MenuState.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\MenuState.h">
@@ -186,13 +159,7 @@
 				RelativePath="..\..\src\Pistol.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Player.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\Player.h">
-			</File>
-			<File
-				RelativePath="..\..\src\RigidBody.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\RigidBody.h">
@@ -201,13 +168,7 @@
 				RelativePath="..\..\src\Shotgun.h">
 			</File>
 			<File
-				RelativePath="..\..\src\SoundEffectManager.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\SoundEffectManager.h">
-			</File>
-			<File
-				RelativePath="..\..\src\SoundManager.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\SoundManager.h">
@@ -219,16 +180,7 @@
 				RelativePath="..\..\src\SpreadGun.h">
 			</File>
 			<File
-				RelativePath="..\..\src\State.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\State.h">
-			</File>
-			<File
-				RelativePath="..\..\src\StopWatch.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Texture.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\Texture.h">
@@ -240,13 +192,74 @@
 				RelativePath="..\..\src\Utility.h">
 			</File>
 			<File
+				RelativePath="..\..\src\VectorSpatialIndex.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Weapon.h">
 			</File>
 			<File
-				RelativePath="..\..\src\cubeGeometry.cpp">
+				RelativePath="..\..\src\cubeGeometry.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Sources"
+			Filter="cpp;cxx;c">
+			<File
+				RelativePath="..\..\src\Application.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\cubeGeometry.h">
+				RelativePath="..\..\src\BaseProjectileWeapon.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\BoundsCollisionDetector.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Camera.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\CollisionDesc.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Enemy.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\GameManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\GameState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\IntroState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Jukebox.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Main.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\MenuState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Player.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\RigidBody.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\SoundEffectManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\SoundManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\State.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Texture.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\cubeGeometry.cpp">
 			</File>
 		</Filter>
 	</Files>
