@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-03 03:49:59 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-03 08:04:46 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -124,10 +124,11 @@ namespace mw
 
          // Check if the body collided aith anything
          gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
-         std::auto_ptr<CollisionDesc> desc(mCollisionDetector->checkCollision(body, path));
+         CollisionDetector::CollisionList collisions =
+                  mCollisionDetector->checkCollisions(body, path);
 
          // No collisions, let the body update for the remaining distance
-         if (!desc.get())
+         if (collisions.size() == 0)
          {
             body->moveToNextState();
          }
@@ -137,7 +138,7 @@ namespace mw
             // Figure out how much time passed to get to the collision. We do this
             // by scaling back the remaining dt by the % of the distance that was
             // travelled.
-            float time_to_collision = dt * desc->getDistance();
+            float time_to_collision = dt * collisions[0]->getDistance();
 
             // Update the body to the point of the collision
             PhysicsEngine::update(body, time_to_collision);
@@ -145,7 +146,7 @@ namespace mw
 
             // body                == collider
             // desc->getCollidee() == collidee
-            mCollisionResponse->collide(body, desc->getCollidee());
+            mCollisionResponse->collide(body, collisions[0]->getCollidee());
          }
          
          // Make sure entities never go below the ground.

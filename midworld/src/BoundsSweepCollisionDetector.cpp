@@ -24,23 +24,33 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsSweepCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-11-02 02:59:20 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-03 08:04:46 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <vector>
-#include "BoundsSweepCollisionDetector.h"
+#include <algorithm>
 #include <gmtl/VecOps.h>
 #include <gmtl/Generate.h>
 #include <gmtl/Containment.h>
 #include <gmtl/Intersection.h>
+#include "BoundsSweepCollisionDetector.h"
 
 namespace mw
 {
-   CollisionDesc*
-   BoundsSweepCollisionDetector::checkCollision(const RigidBody* body,
-                                                const gmtl::Vec3f& path)
+   namespace
+   {
+      bool
+      compareByDistance(const CollisionDesc* lhs, const CollisionDesc* rhs)
+      {
+         return (lhs->getDistance() < rhs->getDistance());
+      }
+   }
+
+   CollisionDetector::CollisionList
+   BoundsSweepCollisionDetector::checkCollisions(const RigidBody* body,
+                                                 const gmtl::Vec3f& path)
    {
       const gmtl::AABoxf& bounds = body->getBounds();
 
@@ -52,9 +62,11 @@ namespace mw
       // Find all objects that this body may collide with on its travels
       std::list<RigidBody*> pcs = mSpatialIndex->intersect(bounds);
 
-      // Init the collision parameters to no collision
-      float min_dist = 1.0f; // parametric distance to collision
-      RigidBody* closest_body = 0;
+      // For now, our collision normal is the opposite of the path
+      gmtl::Vec3f normal = gmtl::makeNormal(-path);
+
+      // Init the list of detected collisions to empty
+      CollisionList collisions;
 
       for (std::list<RigidBody*>::iterator itr = pcs.begin(); itr != pcs.end(); ++itr)
       {
@@ -73,37 +85,21 @@ namespace mw
                              collidee->getBounds(), gmtl::Vec3f(0,0,0),
                              first_contact, second_contact))
          {
-            // There was a possible collision!
-
-            // Test if this is a CONTACT collision
-//            gmtl::Vec3f dist_travelled = path * first_contact;
-//            if (gmtl::length(dist_travelled) <= 0.001)
-//            {
-//               // ignore for now
-//               continue;
-//            }
-
-            // Check this against the best possible solution.
-            if (first_contact < min_dist)
-            {
-               min_dist = first_contact;
-               closest_body = collidee;
-            }
+            // There was a collision!
+            collisions.push_back(new CollisionDesc(collidee, normal,
+                                                   first_contact, false));
          }
       }
 
-      // Pick the best collision if there was one
-      if (closest_body)
+      // Sort the list of collisions in order of distance to collision with the
+      // closest collisions coming first.
+      if (collisions.size() > 1)
       {
-         // This algorithm collides with the first body found with the normal in
-         // the opposite direction of the path travelled.
-         gmtl::Vec3f normal = gmtl::makeNormal(-path);
-
-         return new CollisionDesc(closest_body, normal, min_dist, false);
+         std::cout<<"Found "<<collisions.size()<<" collisions"<<std::endl;
       }
+      std::sort(collisions.begin(), collisions.end(), compareByDistance);
 
-      // No collisions, return null
-      return 0;
+      return collisions;
    }
 
    void

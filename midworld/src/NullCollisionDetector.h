@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: NullCollisionDetector.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-03 08:04:46 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -59,13 +59,13 @@ namespace mw
        * @param body    the body that is the collider
        * @param path    the path along which the body must travel
        *
-       * @return  a description of the collision, null if there is no collision.
-       *          The caller is responsible for freeing the CollisionDesc.
+       * @return  a list of all the collisions detected sorted in order of
+       *          distance travelled to the collision
        */
-      CollisionDesc* checkCollision(const RigidBody* body,
+      CollisionList checkCollisions(const RigidBody* body,
                                     const gmtl::Vec3f& path)
       {
-         return 0;
+         return CollisionList();
       }
 
       /**

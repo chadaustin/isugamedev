@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-11-01 12:27:21 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-11-03 08:04:46 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,11 +43,13 @@ namespace mw
    {
    }
 
-   CollisionDesc* BoundsCollisionDetector::checkCollision(
-      const RigidBody* body,
-      const gmtl::Vec3f& path)
+   CollisionDetector::CollisionList
+   BoundsCollisionDetector::checkCollisions(const RigidBody* body,
+                                            const gmtl::Vec3f& path)
    {
       static const float delta = 1.0f / 16;
+
+      CollisionList collisions;
       
       // try 16 steps along the path
       for (float i = 0; i < 1; i += delta) {
@@ -75,13 +77,14 @@ namespace mw
             gmtl::Vec3f normal = gmtl::makeNormal(-path);
 
             // In this simple algorithm, we return the first collidee found
-            return new CollisionDesc(collidee, normal, std::max(i - delta, 0.0f), false);
+            collisions.push_back(new CollisionDesc(collidee, normal,
+                                 std::max(i - delta, 0.0f), false));
+            break;
          }
          
       }
 
-      // No collisions, return null
-      return 0;
+      return collisions;
    }
 
    void BoundsCollisionDetector::setSpatialIndex(SpatialIndex* index)

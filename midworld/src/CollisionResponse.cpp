@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-10-31 18:10:12 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-03 08:04:46 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,7 +39,8 @@ namespace mw
    void collideBulletPlayer(BaseBullet* b, Player* p)
    {
       b->expire();
-      p->damage(b->getDamage());
+//      p->damage(b->getDamage());
+      p->damage(1);
    }
    
    void collideBulletEnemy(BaseBullet* b, Enemy* e)

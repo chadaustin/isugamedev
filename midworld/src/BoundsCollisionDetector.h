@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsCollisionDetector.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-03 08:04:46 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -63,9 +63,10 @@ namespace mw
        * @param body    the body that is the collider
        * @param path    the path along which the body must travel
        *
-       * @return  a description of the collision, null if there is no collision
+       * @return  a list of all the collisions detected sorted in order of
+       *          distance travelled to the collision
        */
-      CollisionDesc* checkCollision(const RigidBody* body,
+      CollisionList checkCollisions(const RigidBody* body,
                                     const gmtl::Vec3f& path);
 
       /**

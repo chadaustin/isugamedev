@@ -24,14 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionDetector.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-03 08:04:46 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_COLLISION_DETECTOR_H
 #define MW_COLLISION_DETECTOR_H
 
+#include <vector>
 #include <gmtl/Vec.h>
 #include "SpatialIndex.h"
 #include "CollisionDesc.h"
@@ -47,6 +48,10 @@ namespace mw
    class CollisionDetector
    {
    public:
+      /// A list of collision descriptions.
+      typedef std::vector<CollisionDesc*> CollisionList;
+
+   public:
       virtual ~CollisionDetector() {}
 
       /**
@@ -56,10 +61,10 @@ namespace mw
        * @param body    the body that is the collider
        * @param path    the path along which the body must travel
        *
-       * @return  a description of the collision, null if there is no collision.
-       *          The caller is responsible for freeing the CollisionDesc.
+       * @return  a list of all the collisions detected sorted in order of
+       *          distance travelled to the collision
        */
-      virtual CollisionDesc* checkCollision(const RigidBody* body,
+      virtual CollisionList checkCollisions(const RigidBody* body,
                                             const gmtl::Vec3f& path) = 0;
 
       /**
