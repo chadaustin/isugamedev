@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:04 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-01 05:59:58 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,6 +46,14 @@
 
 namespace game
 {
+   BrothaGame::BrothaGame() {
+      mDataMgr = new data::DataManager("data.xml");
+   }
+
+   BrothaGame::~BrothaGame() {
+      delete mDataMgr;
+   }
+
    void BrothaGame::update(float time){ 
       gmtl::Vec3f Position;
       
@@ -112,6 +120,10 @@ namespace game
          }
       }
       return NULL;
+   }
+
+   data::DataManager& BrothaGame::getDataManager() {
+      return *mDataMgr;
    }
 
    void BrothaGame::outputList() {

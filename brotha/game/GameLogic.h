@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-04-28 16:41:04 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-01 05:59:58 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,9 +44,10 @@
 #define BROTHAGAME_H
 
 #include <map>
+#include <vector>
 #include "game/GameTimer.h"
 #include "game/Player.h"
-#include <vector>
+#include "xml/DataManager.h"
 
 namespace game
 {
@@ -57,6 +58,8 @@ namespace game
    class BrothaGame
    {
    public:
+     BrothaGame();
+     ~BrothaGame();
 
      void update(float time);
 
@@ -99,6 +102,9 @@ namespace game
       */
      Player* getPlayer(Player::UID uid);
 
+     /// Gets the data manager for this game.
+     data::DataManager& getDataManager();
+
      void outputList();
 
    private:
@@ -110,6 +116,9 @@ namespace game
       typedef std::vector<Object*> ObjectList;
       ObjectList mObject;
       typedef ObjectList::iterator ObjectListItr;
+
+      /// The data manager
+      data::DataManager* mDataMgr;
    };
 }
 
