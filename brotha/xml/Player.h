@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-01 23:36:51 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-05-02 05:33:26 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -108,6 +108,7 @@ namespace data {
             }
          }
          assert(false && "Player does not have the stat requested");
+         throw "player does not have that stat"; // should not reach here in debug mode
       }
 
       /// Sets the stat with the given name to the given value.
