@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-03-12 02:04:57 $
-// Version:       $Revision: 1.23 $
+// Date modified: $Date: 2003-03-12 02:09:23 $
+// Version:       $Revision: 1.24 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -44,7 +44,7 @@ createSystemDriver()
 
 namespace gk {
 
-SdlDriver::SdlDriver() : mHeight(640), mWidth(480), mBpp(16), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
+SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(16), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
 {
 	misRunning = false;
 	mName = "SDL with OpenGL";	
