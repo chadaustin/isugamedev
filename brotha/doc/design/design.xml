@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.63 2002-04-12 04:06:26 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 04:06:26 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.64 2002-04-12 06:10:56 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 06:10:56 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -596,6 +596,14 @@
       </section>
       <section>
         <title>Module Interfaces</title>
+        <figure>
+          <title>Network Module Interface Specification</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="figures/network_classes.png" format="PNG" scalefit="1"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
         <classsynopsis>
           <ooclass>
             <classname>Socket</classname>
@@ -799,6 +807,14 @@
       <para>The Report Server module is responsible for generating dynamic reports requested by HTTP 1.0 standard compliant clients. The reports will be generated based on data gathered from the Data/XML module. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This module depends on the Data/XML module for the gathering of data and the Network module for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
       <section>
         <title>Module Interfaces</title>
+        <figure>
+          <title>Report Server Module Interface Specification</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="figures/reportserver_classes.png" format="PNG" scalefit="1"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
         <classsynopsis>
           <ooclass>
             <classname>ReportServer</classname>
@@ -1188,6 +1204,14 @@
       <para>The Synchronized class is designed so that classes in C++ can mimic the 'synchronized' attribute of Java. Simply derive a class from Synchronized and instantiate a Lock object at the beginning of each method, passing 'this' as the Lockable.</para>
       <section>
         <title>Module Interfaces</title>
+        <figure>
+          <title>Thread Module Interface Specification</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="figures/thread_classes.png" format="PNG" scalefit="1"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
         <classsynopsis>
           <ooclass>
             <classname>Thread</classname>
