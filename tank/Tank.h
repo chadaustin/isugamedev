@@ -12,23 +12,28 @@ public:
    
    void drawPyramidThing()
    {
-      glBegin( GL_TRIANGLES );
-         
-              glNormal3f( -1.0f, 1.0f, -1.0f );
-              glVertex3f( -1.0f, 0.0f, 0.0f );
-              glVertex3f(  0.0f, 1.0f, 0.0f );
-              glVertex3f(  0.0f, 0.0f, -1.0f );
+      glPushMatrix();
+         glTranslatef( 0.0f, 0.0f, 0.25f );
+         glBegin( GL_TRIANGLES );
+            // left face
+            glNormal3f( -1.0f, 1.0f, -1.0f );
+            glVertex3f( -1.0f, 0.0f, 0.0f );
+            glVertex3f(  0.0f, 1.0f, 0.1f );
+            glVertex3f(  0.0f, 0.0f, -1.0f );
 
-              glNormal3f( 1.0f, 1.0f, -1.0f );
-              glVertex3f( 0.0f, 1.0f, 0.0f );
-              glVertex3f( 1.0f, 0.0f, 0.0f );
-              glVertex3f( 0.0f, 0.0f, -1.0f );
+            // right face
+            glNormal3f( 1.0f, 1.0f, -1.0f );
+            glVertex3f( 0.0f, 1.0f, 0.1f );
+            glVertex3f( 1.0f, 0.0f, 0.0f );
+            glVertex3f( 0.0f, 0.0f, -1.0f );
 
-              glNormal3f(  0.0f, 0.0f, 1.0f );
-              glVertex3f(  0.0f, 1.0f, 0.0f );
-              glVertex3f( -1.0f, 0.0f, 0.0f );
-              glVertex3f(  1.0f, 0.0f, 0.0f );
+            // back face
+            glNormal3f(  0.0f, 0.0f, 1.0f );
+            glVertex3f(  0.0f, 1.0f, 0.1f );
+            glVertex3f( -1.0f, 0.0f, 0.0f );
+            glVertex3f(  1.0f, 0.0f, 0.0f );
          glEnd();
+      glPopMatrix();
    }   
    
    void draw()
@@ -115,6 +120,9 @@ public:
    {
       mVel = vel;
    }
+   
+   // with repect to tank local coordinate system.
+   // i.e. if tank is rotated, then 0,0,-1 is always "forward" for the tank.
    void setVelocity( float x, float y, float z )
    {
       mVel.set( x, y, z );
@@ -123,13 +131,15 @@ public:
    void translate( const Vec3<float>& offset )
    {
       mPos += offset;
-   }   
-   
-      
+   }
+     
    void setRot( float deg )
    {
       mRot.makeRot( kev::deg2rad( deg ), 0,1,0 );
-   }   
+   }
+   
+   // true ang velocity vector 
+   // w = [0, mag, 0]
    void setAngVel( float magnitude )
    {
       mRotVel.makePure( Vec3<float>( 0,1,0 ) * magnitude );
