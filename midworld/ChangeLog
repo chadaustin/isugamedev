@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-11-25 nonchocoboy  Display the version number on the menu screen.
 2002-11-25 nonchocoboy  Pistol now emits a sound and casings.
 2002-11-25 nonchocoboy  Refactored ResourceManager to do the caching work that
                         used to be relegated to the TextureManager.

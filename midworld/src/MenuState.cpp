@@ -24,17 +24,19 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-11-25 12:39:13 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-11-26 03:05:19 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
+#include <stdexcept>
 #include <math.h>
 #include "StateFactory.h"
 #include "MenuState.h"
 #include "Application.h"
 #include "GameManager.h"
+#include "Version.h"
 
 namespace mw
 {
@@ -43,13 +45,13 @@ namespace mw
       StateCreatorImpl<MenuState> creator("Menu");
    }
 
-   MenuState::MenuState( Application* a ) : State( a )
+   MenuState::MenuState(Application* a)
+      : State(a)
    {
-      //setup sound and play
+      // setup music and play
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
-      if(jukebox->getTrack(0)== "music/theme.ogg"){
-         std::cout << std::endl << std::endl << std::endl << "theme.ogg" << std::endl << std::endl << std::endl;
-      }else{
+      if (jukebox->getTrack(0) != "music/theme.ogg")
+      {
          jukebox->clear();
          jukebox->addTrack("music/theme.ogg");
          jukebox->play();
@@ -104,10 +106,31 @@ namespace mw
          mSquares[i].width = mSquares[i].height = 10;
          mSquares[i].alpha = 0.3f;
       }
+
+
+      // Setup the font renderer
+      mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 12);
+      if (! mFont)
+      {
+         throw std::runtime_error("Could not create gltext font: fonts/arial.ttf");
+      }
+
+      mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
+      if (! mFontRenderer)
+      {
+         delete mFont;
+         mFont = 0;
+         throw std::runtime_error("Could not create gltext renderer");
+      }
+
+      mFontRenderer->setFont(mFont);
    }
 
    MenuState::~MenuState()
-   {}
+   {
+      delete mFont;
+      delete mFontRenderer;
+   }
 
    void
    MenuState::update(float dt)
@@ -207,6 +230,18 @@ namespace mw
 	
       }
   */
+
+      // Draw the version string
+      glPushMatrix();
+      {
+         glTranslatef(application().getWidth() - 50,
+                      application().getHeight() - 10 - mFont->getAscent() - mFont->getDescent(),
+                      0);
+         glColor4f(1,1,1,1);
+         std::string ver_string = std::string("v") + version;
+         mFontRenderer->render(ver_string.c_str());
+      }
+      glPopMatrix();
    }
 
    void

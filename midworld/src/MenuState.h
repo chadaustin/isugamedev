@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.h,v $
- * Date modified: $Date: 2002-11-08 02:38:41 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-26 03:05:19 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #define MW_MENU_STATE_H
 
 #include <vector>
+#include <gltext.h>
 #include "State.h"
 #include "Texture.h"
 
@@ -117,6 +118,9 @@ namespace mw
       std::vector<MenuItem> mItemList; //list of all selectable menu items
       std::vector<MenuSquare> mSquares; //decorative, moving squares
       int mCurrentItem;
+
+      gltext::Font* mFont;
+      gltext::FontRenderer* mFontRenderer;
    };
 }
 
