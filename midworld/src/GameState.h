@@ -94,12 +94,34 @@ namespace mw
             
       virtual void onMousePress( Uint8 button, bool down, int x, int y )
       {
-         int screen_size_x = 640;
-         int screen_size_y = 480;
+         
+         
       }
       
       virtual void onMouseMove( int x, int y )
       {
+         float screen_size_x = 640;
+         float screen_size_y = 480;
+         gmtl::Vec3f mid( screen_size_x / 2, screen_size_y / 2, 0 );
+         gmtl::Vec3f pos( x, y, 0 );
+         gmtl::Vec3f dir( pos - mid );
+         gmtl::normalize( dir );
+         
+         float rad = gmtl::Math::aCos( gmtl::dot( dir, gmtl::Vec3f( 1,0,0 ) ) );
+         gmtl::Vec3f side = gmtl::cross( dir, gmtl::Vec3f( 1,0,0 ) );
+         
+         // move so it points in mouse dir...
+         rad += gmtl::Math::deg2Rad( 90.0f );
+         
+         // map the dot (angle) and cross (side) to the player
+         if (side[2] >= 0.0f)
+         {
+            mPlayer.setRot( rad + gmtl::Math::deg2Rad( 180.0f ) );
+         }
+         else
+         {
+            mPlayer.setRot( -rad );
+         }
       }
 
    private:
