@@ -8,6 +8,7 @@ classes = [
     'FontRenderer',
     'Insets',
     'Label',
+    'ListBox',
     'Rect',
     'RootFactory',
     'RootWidget',

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-04-22 07:22:39 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-22 08:33:43 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -82,8 +82,8 @@ namespace phui {
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;
 
-      for(unsigned int x=0;x<mItems.size();++x) {
-         if(mSelectedItem == x) {
+      for (int x = 0; x < int(mItems.size()); ++x) {
+         if (mSelectedItem == x) {
             // draw the selected box
             glColor(getForegroundColor());
             glBegin(GL_TRIANGLE_FAN);
