@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.h,v $
- * Date modified: $Date: 2002-04-22 05:08:50 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-24 07:49:33 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -50,21 +50,11 @@ namespace phui {
    class Label : public Widget {
    public:
       /**
-       * Creates a new label with no text at (0,0) with size (0,0).
-       */
-      Label();
-
-      /**
        * Creates a new label with the given text at (0,0) with size (0,0).
        *
-       * @param text      the text for the label
+       * @param text   the text for the label, defaults to the no label
        */
-      Label( const std::string& text );
-
-      /**
-       * Destroys this label.
-       */
-      virtual ~Label();
+      Label(const std::string& text = "");
 
       /**
        * Draws this label with its text.

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2002-04-24 05:57:33 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-24 07:49:33 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,18 +41,10 @@
 
 namespace phui {
 
-   Label::Label()
-      : mText("")
-   {
-   }
-
    Label::Label(const std::string& text)
       : mText(text)
    {
-   }
-
-   Label::~Label()
-   {
+      setBackgroundColor(NONE);
    }
 
    void Label::draw()
