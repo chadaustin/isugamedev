@@ -145,7 +145,7 @@ pkg.addExtraDist(Split("""
 Export('pkg')
 
 # Recurse
-subdirs = Split('src')
+subdirs = Split('src test')
 SConscript(dirs = subdirs)
 
 pkg.build()

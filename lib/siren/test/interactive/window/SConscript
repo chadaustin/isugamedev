@@ -1,0 +1,17 @@
+import os
+pj = os.path.join
+
+Import('baseEnv pkg')
+Import('SetupOpenGL SetupSDL')
+
+sources = ['main.cpp']
+
+# Clone the environment
+env = baseEnv.Copy()
+SetupOpenGL(env)
+SetupSDL(env)
+env.Append(CPPPATH = ['#external/Loki', '#src'])
+env.Append(LIBPATH = ['#src/siren'],
+           LIBS = ['siren'])
+prog = pkg.createProgram('window', env)
+prog.addSources(sources)
