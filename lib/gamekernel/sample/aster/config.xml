@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<gameinput>
+   <bind action="Quit" device="Keyboard" input="KEY_ESC" />
+   <bind action="Accelerate" device="Keyboard" input="KEY_W" />
+   <bind action="Accelerate" device="Keyboard" input="KEY_UPARROW" />
+   <bind action="Backstep" device="Keyboard" input="KEY_DOWNARROW" />
+   <bind action="Backstep" device="Keyboard" input="KEY_S" />
+   <bind action="StrafeLeft" device="Keyboard" input="KEY_A" />
+   <bind action="StrafeRight" device="Keyboard" input="KEY_D" />
+   <bind action="Fire" device="Mouse" input="MOUSEBUTTON_LEFT" />
+   <bind action="Fire" device="Keyboard" input="KEY_SPACE" />
+   <bind action="MouseLookYaxis" device="Mouse" input="MOUSEAXIS_X" />
+   <bind action="RotateLeft" device="Keyboard" input="KEY_RIGHTARROW" />
+   <bind action="RotateRight" device="Mouse" input="KEY_LEFTARROW" />
+</gameinput>
