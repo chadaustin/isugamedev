@@ -1,0 +1,37 @@
+# *************************************************************** siren-cpr beg
+#
+# siren - flexible 3D game engine
+# siren is (C) Copyright 2003 by members of the
+#    Iowa State University Game Developers Club
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Library General Public
+# License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+#
+# You should have received a copy of the GNU Library General Public
+# License along with this library; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+# Boston, MA 02111-1307, USA.
+#
+# -----------------------------------------------------------------
+# File:          $RCSfile: siren.pyste,v $
+# Date modified: $Date: 2003-05-20 07:04:54 $
+# Version:       $Revision: 1.1 $
+# -----------------------------------------------------------------
+#
+# *************************************************************** siren-cpr-end
+Kernel = Class('siren::Kernel', 'siren/Kernel.h')
+
+State = Class('siren::State', 'siren/State.h')
+
+StateFactory = Class('siren::StateFactory', 'siren/StateFactory.h')
+set_policy(StateFactory.getInstance, return_value_policy(reference_existing_object))
+StateCreator = Class('siren::StateCreator', 'siren/StateFactory.h')
+
+#ResourceManager = Class('siren::ResourceManager', 'siren/ResourceManager.h')
