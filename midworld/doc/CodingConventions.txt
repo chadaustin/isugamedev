@@ -6,3 +6,4 @@
 - One namespace for the entire project
 - Doxygen tags for comments.
 - The project copyright must added to the top of every file.
+- Prefix member variables with 'm'. So you will have mName and mMyVariable.
