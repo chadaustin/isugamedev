@@ -12,9 +12,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: GarageState.h,v $
+ * File:          $RCSfile: DealerWnd.h,v $
  * Date modified: $Date: 2002-04-28 20:43:39 $
- * Version:       $Revision: 1.6 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,47 +40,36 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef CLIENT_GARAGE_STATE_H
-#define CLIENT_GARAGE_STATE_H
+#ifndef CLIENT_DEALER_WND_H
+#define CLIENT_DEALER_WND_H
 
 #include <phui/phui.h>
-#include "State.h"
-#include "Scene.h"
-#include "DealerWnd.h"
 
 namespace client {
-
-   class GarageState : public State
-                            , phui::ActionListener
-                            , phui::WindowAdapter
+   /**
+    * Specialized window for Brotha that handles the Mini-Dealer window within
+    * the garage.
+    */
+   class DealerWnd : public phui::Window
+                          , phui::ActionListener
+                          , phui::ListSelectionListener
    {
    public:
-      GarageState();
-      ~GarageState();
+      DealerWnd();
+      ~DealerWnd();
 
-      void draw();
-      void update(BrothaApp* app, int elapsedTime);
-      void onKeyPress(SDLKey sym, bool down);
-      void onMousePress(Uint8 button, bool down, int x, int y);
-      void onMouseMove(int x, int y);
-
-      virtual void onAction(const phui::ActionEvent& evt);
-      virtual void onWindowClosed(const phui::WindowEvent& evt);
+      void onAction(const phui::ActionEvent& evt);
+      void onListSelection(const phui::ListSelectionEvent& evt);
 
    private:
-      phui::RootWidget* mRoot;
-      phui::Window* mMainWnd;
-      phui::Button* mDealerBtn;
-      phui::Button* mChopShopBtn;
-      phui::Button* mJoinGameBtn;
+      phui::Window* mDealerWnd;
+      phui::ListBox* mCarsList;
+      phui::ListBox* mCarsOwnedList;
+      phui::Button* mBuyBtn;
+      phui::Button* mSellBtn;
+      phui::Button* mDoneBtn;
 
-      /// The mini-dealer window.
-      DealerWnd* mDealer;
-
-      phui::Window* mChopShopWnd;
    };
-
 }
-
 
 #endif
