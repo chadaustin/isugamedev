@@ -23,13 +23,12 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputManager.cpp,v $
- * Date modified: $Date: 2003-01-02 08:04:50 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-02 11:22:09 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
 #include <fstream>
-#include "InputAction.h"
 #include "InputManager.h"
 #include "InputSymbol.h"
 

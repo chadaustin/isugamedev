@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputManager.h,v $
- * Date modified: $Date: 2003-01-02 08:04:50 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-02 11:22:09 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -34,11 +34,10 @@
 #include <SDL.h>
 #include <string>
 #include <map>
+#include "InputAction.h"
 
 namespace siren
 {
-   class InputAction;
-
    class InputManager
    {
    public:
