@@ -9,7 +9,7 @@
 // - straef
 // - air hockey physics
 // - alternate keyboard controls (works without mouse)
-//
+// - 2 gun turrets on either side...
 //
 // Usage/Keys:
 //
@@ -648,6 +648,13 @@ static void OnSpecialKeyboardUp( int k, int x, int y )
 ////////////////////////////////
 static void OnMousePos( int x, int y ) 
 {
+   static bool once_only = true;
+   if (once_only)
+   {
+      once_only = false;
+      return;
+   }
+   
    // this implements a 1st person mouselook (similar to quake)
    // this requires that you call glutWarpPointer each frame to center of screen.
    float center[2];
@@ -702,9 +709,22 @@ void main( int argc, char* argv[] )
     app.mainWin_contextID = ::glutCreateWindow( "GLUT application" );
     
     std::cout<<"\n"<<std::flush;
-    std::cout<<"YourApp - by YourName - you@your.address.com\n"<<std::flush;
-    std::cout<<"       usage:  some params\n"<<std::flush;
-    std::cout<<"               some more params\n"<<std::flush;
+    std::cout<<"aster - by Kevin Meinert - subatomic@vrsource.org\n"<<std::flush;
+    std::cout<<" Usage/Keys:                                   \n"<<std::flush;
+    std::cout<<"                                               \n"<<std::flush;
+    std::cout<<"    -------------------------------------------\n"<<std::flush;
+    std::cout<<"        W                    accel             \n"<<std::flush;
+    std::cout<<"      A S D          straef  decel  straef     \n"<<std::flush;
+    std::cout<<"    -------------------------------------------\n"<<std::flush;
+    std::cout<<"        up                   accel             \n"<<std::flush;
+    std::cout<<"    left  right      rotate         rotate     \n"<<std::flush;
+    std::cout<<"       down                  decel             \n"<<std::flush;
+    std::cout<<"    -------------------------------------------\n"<<std::flush;
+    std::cout<<"    mouse(x,y) axes          rotate            \n"<<std::flush;
+    std::cout<<"    left mouse button        fire              \n"<<std::flush;
+    std::cout<<"    -------------------------------------------\n"<<std::flush;
+    std::cout<<"    <SPACEBAR>               fire              \n"<<std::flush;
+    std::cout<<"    -------------------------------------------\n"<<std::flush;
     std::cout<<"\n"<<std::flush;
     
    // display callbacks.
