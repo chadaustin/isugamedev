@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-19 01:16:23 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-04-06 12:14:12 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -72,9 +72,10 @@ public:
 
    virtual ~AsterApp() {}
    
-   virtual void OnAppInit( gk::IGameKernel* kernel )
+   virtual void onAppInit( gk::IGameKernel* kernel )
    {
-      mKernel = kernel;
+      std::cerr<<"Inside OnAppInit()..."<<std::endl;
+	mKernel = kernel;
       gameBoard.init( mKernel );
 
       stopwatch.pulse();
@@ -90,9 +91,10 @@ public:
       
    }
 
-   virtual void OnContextInit()
+   virtual void onContextInit()
    {
-      mKernel->setWindowSize( 640, 480 );
+      std::cerr << "Inside OnContextInit()..." << std::endl;
+	mKernel->setWindowSize( 640, 480 );
       mKernel->showMouse( false );
    }
 
@@ -100,9 +102,10 @@ public:
     *  these calls are usually driven by the game state data that was 
     *  updated by OnPostFrame, use opengl to draw
     */
-   virtual void OnContextDraw( int context = 0 )
+   virtual void onDraw( int context = 0 )
    {
-      // get the window params...
+      std::cout << "Inside OnDraw()..." << std::endl;
+	// get the window params...
       int width, height;
       mKernel->getWindowSize( width, height );
       ::glViewport( 0, 0, width, height );
@@ -125,14 +128,16 @@ public:
          ::glLoadIdentity();      
          
       gameBoard.draw();
+
    }
 
    /** update your game state data.
     * do your data (non opengl) calculations here 
     */
-   virtual void OnPostFrame()
+   virtual void onUpdate()
    {
-      if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
+      std::cout << "Inside OnUpdate()..." << std::endl;
+	if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
          mKernel->shutdown();
 
       // update the gameboard      
@@ -156,9 +161,11 @@ int main( int argc, char *argv[] )
    std::cout<<"Running GameKernel v"<<gk::getVersion()<<std::endl;
 
    // let our app loose in the Game Kernel
-   gk::IGameKernel* kernel = gk::createGameKernel( new AsterApp() );
+   AsterApp *app = new AsterApp();   
+   gk::IGameKernel* kernel = gk::createGameKernel( app );
    kernel->config( "config.xml" );
-   kernel->startup();
+   std::cout<<"Kernel Configured; Calling run..." << std::endl;
+   kernel->run();
 
    return 0;
 }
