@@ -24,17 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalDevice.h,v $
-// Date modified: $Date: 2002-02-20 03:27:38 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_DIGITALDEVICE_H
 #define GK_DIGITALDEVICE_H
 
-#include "gk/gkCommon.h"
-#include "gk/Device.h"
-#include "gk/DigitalInput.h"
+#include <gk/gkCommon.h>
+#include <gk/TypedDevice.h>
+#include <gk/DigitalInput.h>
 
 namespace gk {
 

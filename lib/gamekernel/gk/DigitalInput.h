@@ -24,16 +24,16 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInput.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_DIGITALINPUT_H
 #define GK_DIGITALINPUT_H
 
-#include "gk/gkCommon.h"
-#include "gk/Input.h"
+#include <gk/gkCommon.h>
+#include <gk/Input.h>
 #include <assert.h>
 
 namespace gk {

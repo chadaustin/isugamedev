@@ -30,20 +30,20 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-02-20 03:27:38 $
-// Version:       $Revision: 1.19 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.20 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_MOUSE_H
 #define GK_MOUSE_H
 
-#include "gk/gkCommon.h"
+#include <gk/gkCommon.h>
 #include <map>
 #include <assert.h>
 
-#include "gk/DigitalDevice.h"
-#include "gk/AnalogDevice.h"
+#include <gk/DigitalDevice.h>
+#include <gk/AnalogDevice.h>
 
 namespace gk {
 

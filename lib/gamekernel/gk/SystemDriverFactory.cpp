@@ -24,12 +24,12 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.cpp,v $
-// Date modified: $Date: 2002-03-19 01:59:21 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#include "gk/SystemDriverFactory.h"
+#include "SystemDriverFactory.h"
 #include <iostream>
 
 namespace gk {

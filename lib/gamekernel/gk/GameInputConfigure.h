@@ -24,21 +24,20 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInputConfigure.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_GAMEINPUTCONFIGURE_H
 #define GK_GAMEINPUTCONFIGURE_H
 
-#include "gk/gkCommon.h"
+#include <gk/gkCommon.h>
 #include <iostream>
 #include <string>
-#include "xmlpp/xmlpp.h"
+#include <xmlpp/xmlpp.h>
 
-#include "gk/GameInput.h"
-#include "gk/IGameKernel.h"
+#include <gk/IGameKernel.h>
 
 namespace gk {
 

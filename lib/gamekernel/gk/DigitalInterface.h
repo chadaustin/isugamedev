@@ -24,17 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-02-20 02:58:40 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_DIGITALINTERFACE_H
 #define GK_DIGITALINTERFACE_H
 
-#include "gk/gkCommon.h"
-#include "InputInterface.h"
-#include "DigitalInput.h"
+#include <gk/gkCommon.h>
+#include <gk/InputInterface.h>
+#include <gk/DigitalInput.h>
 
 namespace gk {
 

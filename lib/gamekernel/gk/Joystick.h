@@ -24,20 +24,20 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Joystick.h,v $
-// Date modified: $Date: 2002-02-18 03:17:06 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_JOYSTICK_H
 #define GK_JOYSTICK_H
 
-#include "gk/gkCommon.h"
+#include <gk/gkCommon.h>
 #include <map>
 #include <assert.h>
 
-#include "gk/DigitalDevice.h"
-#include "gk/AnalogDevice.h"
+#include <gk/DigitalDevice.h>
+#include <gk/AnalogDevice.h>
 
 namespace gk {
 

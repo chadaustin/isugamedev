@@ -24,17 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: ISystemDriver.h,v $
-// Date modified: $Date: 2002-03-20 17:38:26 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_SYSTEMDRIVER_H
 #define GK_SYSTEMDRIVER_H
 
-#include "gk/gkCommon.h"
+#include <gk/gkCommon.h>
 #include <string>
-#include "gk/DLLInterface.h"
+#include <gk/DLLInterface.h>
 
 namespace gk {
 class IGameKernel;

@@ -24,17 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInterface.h,v $
-// Date modified: $Date: 2002-02-20 02:58:40 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_ANALOGINTERFACE_H
 #define GK_ANALOGINTERFACE_H
 
-#include "gk/gkCommon.h"
-#include "gk/InputInterface.h"
-#include "gk/AnalogInput.h"
+#include <gk/gkCommon.h>
+#include <gk/InputInterface.h>
+#include <gk/AnalogInput.h>
 
 namespace gk 
 {

@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DLLInterface.h,v $
-// Date modified: $Date: 2002-03-19 01:19:56 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_DLLINTERFACE_H
 #define GK_DLLINTERFACE_H
 
-#include "gk/gkCommon.h"
+#include <gk/gkCommon.h>
 #include <iostream>
 
 namespace gk {

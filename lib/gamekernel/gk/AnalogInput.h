@@ -24,16 +24,16 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInput.h,v $
-// Date modified: $Date: 2002-02-22 04:00:58 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_ANALOGINPUT_H
 #define GK_ANALOGINPUT_H
 
-#include "gk/gkCommon.h"
-#include "gk/Input.h"
+#include <gk/gkCommon.h>
+#include <gk/Input.h>
 
 namespace gk {
 

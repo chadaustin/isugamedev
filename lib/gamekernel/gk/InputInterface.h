@@ -24,17 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_INPUTINTERFACE_H
 #define GK_INPUTINTERFACE_H
 
-#include "gk/gkCommon.h"
+#include <gk/gkCommon.h>
 #include <string>
-#include "gk/IGameKernel.h"
+#include <gk/IGameKernel.h>
 
 namespace gk 
 {

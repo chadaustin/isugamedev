@@ -24,13 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.cpp,v $
-// Date modified: $Date: 2002-03-20 20:18:24 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-03-21 06:02:13 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#include "gk/gk.h"
-#include "gk/GameKernel.h"
+#include "gk.h"
+#include "GameKernel.h"
 
 #define GK_APIDEF(ret, name) XDL_FUNC ret GK_CALL name
 
