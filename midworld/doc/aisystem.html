@@ -41,11 +41,25 @@ Fig. 1  The way we are NOT doing the AI.
 The AI part of each node:
 Each node has 5 AI components:  
 
-1) Instinct component - which is how the unit reacts to his surroundings - an example would be: if I see an enemy, then run away. 
-2) Behavior component - which is a list of behaviors that nodes directly below him can perform.  This is actually kept in a state machine which allows us to control units efficiently.  It also allows us the easiest way I can think of to swap out the state machine for genetic algorithms controlled by a neural network in a future revision - something I really want to be able to do.
-3) Action Component - This is the action being performed at any given moment.  These are calls to the unit's methods like shoot and run.
-4) Behavior Queue - a priority queue which receives input from the parent node's behavior component and the Instinct component, the Action component will always receive the next command in the queue and if the next command is at a higher priority it will immediately switch and start performing the new command.
-5) State Manager - this receives input from a child node's Instinct component telling him that the child is doing something new/unexpected.  The State manager then does two things, he sends the instinct component a message (which potentially updates his parent node of a change) and he reupdates the state machine with a new behavior structure (which sends behavior commands to the child's Behavior queue.
+1) Instinct component - which is how the unit reacts to his surroundings - an 
+example would be: if I see an enemy, then run away. 
+2) Behavior component - which is a list of behaviors that nodes directly below him 
+can perform.  This is actually kept in a state machine which allows us to control 
+units efficiently.  It also allows us the easiest way I can think of to swap out 
+the state machine for genetic algorithms controlled by a neural network in a 
+future revision - something I really want to be able to do.
+3) Action Component - This is the action being performed at any given moment.  
+These are calls to the unit's methods like shoot and run.
+4) Behavior Queue - a priority queue which receives input from the parent node's 
+behavior component and the Instinct component, the Action component will 
+always receive the next command in the queue and if the next command is at a 
+higher priority it will immediately switch and start performing the new command.
+5) State Manager - this receives input from a child node's Instinct component 
+telling him that the child is doing something new/unexpected.  The State manager 
+then does two things, he sends the instinct component a message (which potentially 
+updates his parent node of a change) and he reupdates the state machine with a 
+new behavior structure (which sends behavior commands to the child's Behavior 
+queue.
 </pre></p>
 
 <p>A graph here would be nice to think about all these relationships huh...well aren't you lucky - here is an example of a 2 node system.</p>
