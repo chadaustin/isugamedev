@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-12-03 06:50:44 $
- * Version:       $Revision: 1.76 $
+ * Date modified: $Date: 2002-12-04 07:26:01 $
+ * Version:       $Revision: 1.77 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -63,6 +63,7 @@
 #include "Turret.h"
 #include "PhysicsEngine.h"
 #include "SnowSystem.h"
+#include "PerformanceMonitor.h"
 
 
 namespace gmtl
@@ -250,6 +251,7 @@ namespace mw
       gmtl::Vec3f mPlayerVel;
 
       FPSCounter mFPSCounter;
+      PerformanceMonitor mPM;
 
       /// The change in angle of the player's yaw for the next frame
       float mPlayerYawChange;

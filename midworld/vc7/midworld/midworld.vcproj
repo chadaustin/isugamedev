@@ -34,7 +34,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="loom_d.lib OSGBaseD.lib OSGSystemD.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
+				AdditionalDependencies="cal3d_d.lib loom_d.lib xmlpp_d.lib OSGBaseD.lib OSGSystemD.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib winmm.lib"
 				OutputFile="$(OutDir)/midworld.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)../third-party/lib&quot;"
@@ -83,7 +83,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="loom.lib OSGBase.lib OSGSystem.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
+				AdditionalDependencies="cal3d.lib loom.lib xmlpp.lib OSGBase.lib OSGSystem.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib winmm.lib"
 				OutputFile="$(OutDir)/midworld.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)../third-party/lib&quot;"
@@ -269,12 +269,6 @@
 				RelativePath="..\..\src\Main.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\ModelManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\ModelManager.h">
-			</File>
-			<File
 				RelativePath="..\..\src\NavNodeTree.cpp">
 			</File>
 			<File
@@ -297,6 +291,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\ParticleEngine.h">
+			</File>
+			<File
+				RelativePath="..\..\src\PerformanceMonitor.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\PerformanceMonitor.h">
 			</File>
 			<File
 				RelativePath="..\..\src\PhysicsEngine.cpp">

@@ -15,7 +15,9 @@ namespace mw
       HUD();
       ~HUD();
 
-      void draw(float width, float height, Player& player, float fps);
+      void draw(
+         float width, float height,
+         Player& player, float fps, const std::vector<std::string>& perf);
 
    private:
       gltext::Font* mFont;

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-12-04 05:58:29 $
- * Version:       $Revision: 1.132 $
+ * Date modified: $Date: 2002-12-04 07:26:00 $
+ * Version:       $Revision: 1.133 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -119,17 +119,20 @@ namespace mw
       if (! mPlayerCoreModel.create("the player"))
       {
          std::cout << "failed to create mPlayerCoreModel!" << std::endl;
+         throw std::runtime_error("failed to create mPlayerCoreModel!");
       }
       // load the core skeleton
       if (! mPlayerCoreModel.loadCoreSkeleton("animations/skeleton.csf"))
       {
          std::cout << "failed to load core skeleton!" << std::endl;
+         throw std::runtime_error("failed to load core skeleton");
       }
       // load the material and animations
       walkingAnimationID = mPlayerCoreModel.loadCoreAnimation("animations/walk.caf");
       if (startWalkingAnimationID == -1 || walkingAnimationID == -1)
       {
-         std::cout << "failed to load core animcation file!" << std::endl;
+         std::cout << "failed to load core animation file!" << std::endl;
+         throw std::runtime_error("failed to load core animation file!");
       }
 
       // load the core mesh data
@@ -137,6 +140,7 @@ namespace mw
       if (meshID == -1)
       {
          std::cout << "failed to load core mesh file!" << std::endl;
+         throw std::runtime_error("failed to load core mesh file!");
       }
 
       //load the core material data
@@ -144,6 +148,7 @@ namespace mw
       if (hatMaterialID == -1)
       {
          std::cout << "failed to load core material data!" << std::endl;
+         throw std::runtime_error("failed to load core material data!");
       }
 
       
@@ -164,11 +169,13 @@ namespace mw
       if (! myModel.create(&mPlayerCoreModel))
       {
          std::cout << "Error creating model instance" << std::endl;
+         throw std::runtime_error("Error creating model instance");
       }
 
       if (! myModel.attachMesh(meshID))
       {
          std::cout << "Error could not attach mesh!" << std::endl;
+         throw std::runtime_error("Error could not attach mesh!");
       }
 
       myModel.setLodLevel(1.0f);
@@ -183,6 +190,9 @@ namespace mw
    void
    GameState::update(float dt)
    {
+      mPM.beginFrame();
+      PMBlock block__(mPM, "update");
+   
       AI.update();
       myModel.update(dt);
       mInputManager.update(dt);
@@ -285,7 +295,7 @@ namespace mw
       mPhysics->update(dt);
 
       // Iterate over all the entities and update them
-      Group* grp = mScene->getRoot();
+//      Group* grp = mScene->getRoot();
       for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
          const Entity::UID& uid = itr->first;
@@ -313,6 +323,8 @@ namespace mw
    
    void GameState::draw()
    {
+      PMBlock block__(mPM, "draw");
+   
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
       glEnable(GL_DEPTH_TEST);
@@ -368,7 +380,7 @@ namespace mw
       glPopMatrix();
 
       mHUD.draw(application().getWidth(), application().getHeight(),
-                mPlayer, mFPSCounter.getFPS());
+                mPlayer, mFPSCounter.getFPS(), mPM.getOutput());
    }
    
    void

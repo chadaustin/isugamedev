@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <sstream>
 #include <stdexcept>
+#include <vector>
 #include <SDL_opengl.h>
 #include "HUD.h"
 
@@ -36,7 +37,10 @@ namespace mw
       delete mFontRenderer;
    }
 
-   void HUD::draw(float width, float height, Player& player, float fps)
+   void HUD::draw(
+      float width, float height,
+      Player& player, float fps,
+      const std::vector<std::string>& perf)
    {
       static const gmtl::Vec4f white(1, 1, 1, 1);
       static const gmtl::Vec4f red  (1, 1, 1, 1);
@@ -93,6 +97,15 @@ namespace mw
          mFontRenderer->render(str.str().c_str());
       }
       glPopMatrix();
+      
+      glColor4f(1, 1, 1, 1);
+      for (int i = 0; i < perf.size(); ++i)
+      {
+         glPushMatrix();
+         glTranslatef(800, 100.0f + mFont->getAscent() + i * 20, 0);
+         mFontRenderer->render(perf[i].c_str());
+         glPopMatrix();
+      }
 
       glMatrixMode(GL_PROJECTION);
       glPopMatrix();
