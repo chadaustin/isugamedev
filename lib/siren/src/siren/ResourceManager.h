@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.h,v $
- * Date modified: $Date: 2003-02-13 05:42:14 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-02-13 06:38:28 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -190,7 +190,7 @@ namespace siren
 
    private:
       /// This is a map of typeids to the cache for the type
-      typedef std::map<Loki::TypeInfo, void*> CacheMap;
+      typedef std::map<Loki::TypeInfo, AbstractResourceCache*> CacheMap;
 
       /// Gets the cache for the given type.
       template< typename T >
