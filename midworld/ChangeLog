@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-10-31 aegis        Added Game Over screen, player health, and some
+	                basic collision responses.
 2002-10-31 aegis        Added new collision detection architecture.
 2002-10-31 nonchocoboy  Added a cache for textures loaded onto the video card.
 2002-10-30 nonchocoboy  Updated control to a chase camera with mouse-look.
