@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.27 $
+// Date modified: $Date: 2002-02-10 19:03:42 $
+// Version:       $Revision: 1.28 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -128,8 +128,8 @@ public:
       {
          mDevices[ name ] = devPtr;
          std::cout << "Added device: " << name << std::endl;
-         return true;
          this->refreshEventInputs();
+         return true;
       }      
       std::cout << "Failed to add device: " << name << std::endl;
       return false;
@@ -178,7 +178,8 @@ public:
    void bind( const std::string& alias, const std::string& device, const std::string& input )
    {
       Input* in_put = GameInput::instance().getInput( device, input );
-      mBindTable[alias].bind( in_put, device, input );
+      mBindTable[alias].add( in_put );
+      mBindStrings.insert( std::pair<std::string, std::pair<std::string, std::string> >( alias, std::pair<std::string, std::string>(device, input) ) ); 
       std::cout << "Bound [" << device << ":" << input << "] to [" << alias << "]" << std::endl;
    }
 
@@ -199,15 +200,31 @@ public:
 
    void refreshEventInputs()
    {
-      std::map<std::string, EventInput>::iterator it;
-      for (it = mBindTable.begin(); it != mBindTable.end(); ++it)
+      // reset each EventInput object (this removes all binding info from them...)
+      std::map<std::string, EventInput>::iterator itr;
+      for (itr = mBindTable.begin(); itr != mBindTable.end(); ++itr)
       {
-         (*it).second.refresh();
+         (*itr).second.clear();
+      }
+      
+      // re-add all binding info to EventInputs based on currently added devices..
+      std::multimap<std::string, std::pair<std::string, std::string> >::iterator it;
+      for (it = mBindStrings.begin(); it != mBindStrings.end(); ++it)
+      {
+         Input* in_put = GameInput::instance().getInput( (*it).second.first, (*it).second.second );
+         mBindTable[(*it).first].add( in_put );
+         //std::cout << "   refresh: " << (*it).first << " " << (*it).second.first << " " << (*it).second.second << std::endl;
       }
    }
 
 private:
+   // database of all bound items.
+   std::multimap<std::string, std::pair<std::string, std::string> > mBindStrings;
+
+   // quick lookup of alias -> Input
    std::map<std::string, EventInput> mBindTable;
+
+   // currently registred devices.
    std::map<std::string, Device*> mDevices;
 };
 

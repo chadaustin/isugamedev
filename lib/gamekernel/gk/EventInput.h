@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: EventInput.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-10 19:03:42 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,6 +38,8 @@
 
 namespace gk {
 
+/** helper class, don't use directly.  for use by GameInput...
+ */
 class EventInput : public DigitalInput, AnalogInput
 {
 public:
@@ -86,9 +88,11 @@ public:
       return state;
    }
 
+protected:
 
+   friend class GameInput;
 
-   void bind( Input* in_put, const std::string& device, const std::string& input )
+   void add( Input* in_put )
    {
       if (in_put)
       {
@@ -105,16 +109,10 @@ public:
       }
    }
 
-   /** this is called when a new device is added to the system */
-   void refresh()
+   void clear()
    {
-      // clear out mAnalogBindings and mDigitalBindings
-      // using device and input, relookup from the GameInput:: the Analog and DigitalInput bindings...
-   }
-
-   void unbind( Input* in_put, const std::string& device, const std::string& input ) 
-   {
-      // TODO...
+      mAnalogBindings.clear();
+      mDigitalBindings.clear();
    }
 
    std::vector< AnalogInput* > mAnalogBindings;

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-09 17:02:47 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-02-10 19:03:42 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -94,7 +94,7 @@ public:
       std::cout<< "Accelerate: "
                << mAccelerate.getDigitalData() << " "
                << " MouseX: " << mMouseX.getAnalogData() << ","
-               << mMouseY.getAnalogData() << std::endl;
+               << mMouseY.getAnalogData() << "\r" << std::flush;
    }
 
 public:
