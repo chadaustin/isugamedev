@@ -1,0 +1,9 @@
+Import('env')
+
+sources = [
+    'Jukebox.cpp',
+    'SoundEffectManager.cpp',
+    'SoundManager.cpp',
+]
+
+env.Library(target = 'sound', source = sources)
