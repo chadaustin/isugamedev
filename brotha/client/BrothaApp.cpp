@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-30 21:04:26 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-04-17 02:35:43 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,7 +41,6 @@
 #include "BrothaApp.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <audiere.h>
 #include <stdexcept>
 
 namespace client
@@ -50,31 +49,27 @@ namespace client
       : mKernel(NULL), mNetMgr(NULL), mConnID(-1),
         mAppState(new NotConnectedState()),
         mName("yourname"), mPass("yourpassword"), mIsConnected(false),
-        mInGame(false)
+        mInGame(false), mSoundMgr(NULL)
    {
    }
 
    BrothaApp::~BrothaApp()
    {
-      delete mAudiereContext;
-      delete mMainStream;
+      delete mSoundMgr;
    }
 
    void BrothaApp::onAppInit( gk::IGameKernel* kernel )
    {
-      // open audiere context
-      mAudiereContext = audiere::CreateContext(0);
-      if (!mAudiereContext) {
-         throw std::runtime_error("audiere context creation failed");
+      // init the sound subsystem
+      try {
+         mSoundMgr = new sound::SoundManager();
+         sound::Jukebox* jukebox = mSoundMgr->getJukebox();
+         jukebox->addTrack("la_marche_de_la_lune.ogg");
+         jukebox->play();
+      } catch ( std::exception& e ) {
+         std::cerr<<"Caught exception "<<e.what()<<std::endl;
+         std::cerr<<"Disabling sound!"<<std::endl;
       }
-
-      // open stream
-      mMainStream = mAudiereContext->openStream("la_marche_de_la_lune.ogg");
-      if (!mMainStream) {
-         throw std::runtime_error("could not open audiere stream");
-      }
-
-      mMainStream->play();
 
       mKernel = kernel;
       mKernel->setName( "Warn-a-Brotha" );

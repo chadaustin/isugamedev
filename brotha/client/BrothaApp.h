@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-03-29 19:27:52 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-17 02:35:43 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,10 +44,10 @@
 #include <gk/gk.h>   // pull in GameKernel
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <audiere.h>
 #include "game/BrothaGame.h"
 #include "net/NetMgr.h"
 #include "net/JoinAsMessage.h"
+#include "sound/SoundManager.h"
 #include "AppState.h"
 
 namespace client
@@ -147,11 +147,8 @@ namespace client
       bool mIsConnected;
       bool mInGame;
 
-      // we can't use auto_ptr because gcc 2.95 and 2.96 suck :(
-      //std::auto_ptr<audiere::Context> mAudiereContext;
-      //std::auto_ptr<audiere::Stream> mMainStream;
-      audiere::Context* mAudiereContext;
-      audiere::Stream*  mMainStream;
+      /// Sound music and effects manager.
+      sound::SoundManager* mSoundMgr;
    };
 }
 
