@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="file://localhost/C:/Documents and Settings/Josh/My Documents/brotha/doc/design/docbook.css" type="text/css"?>
+<?xml-stylesheet href="http://isugamedev.sourceforge.net/brotha/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.17 2002-04-08 12:44:11 tamc Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 12:44:11 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.18 2002-04-08 20:02:48 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 20:02:48 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
