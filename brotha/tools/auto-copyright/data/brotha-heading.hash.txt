@@ -1,0 +1,16 @@
+#
+# Warn-a-Brotha
+#
+# Original Authors:
+#    Chad Austin <aegis@aegisknight.org>
+#    Josh Carlson <josh@chegg.com>
+#    Jeremy Hanson <jjhanson@iastate.edu>
+#    Chad Okere <cokere@hatori42.com>
+#    Ben Scott <bscott@iastate.edu>
+#
+# -----------------------------------------------------------------
+# File:          $RCSfile: brotha-heading.hash.txt,v $
+# Date modified: $Date: 2002-03-26 21:10:14 $
+# Version:       $Revision: 1.1 $
+# -----------------------------------------------------------------
+#
