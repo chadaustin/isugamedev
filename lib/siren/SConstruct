@@ -112,9 +112,9 @@ Export('SetupSDL SetupAudiere SetupCorona SetupCppUnit SetupOpenGL')
 
 
 def GetSirenVersion():
-   "Gets the Siren version from the src/Version.h header"
+   "Gets the Siren version from the src/siren/Version.h header"
    import re
-   contents = open('src/Version.h', 'r').read()
+   contents = open('src/siren/Version.h', 'r').read()
    major = re.compile('.*(#define *SIREN_VERSION_MAJOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
    minor = re.compile('.*(#define *SIREN_VERSION_MINOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
    patch = re.compile('.*(#define *SIREN_VERSION_PATCH *(\d+)).*', re.DOTALL).sub(r'\2', contents)
@@ -137,7 +137,9 @@ pkg.addExtraDist(Split("""
    README
    SConstruct
    src/SConscript
-   src/sound/SConscript
+   src/siren/SConscript
+   src/siren/input/SConscript
+   src/siren/sound/SConscript
    tools/build/AutoDist.py
 """))
 Export('pkg')
