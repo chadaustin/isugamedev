@@ -461,6 +461,12 @@
 				RelativePath="..\..\src\CreditsState.h">
 			</File>
 			<File
+				RelativePath="..\..\src\EndingState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\EndingState.h">
+			</File>
+			<File
 				RelativePath="..\..\src\GameOverState.cpp">
 			</File>
 			<File

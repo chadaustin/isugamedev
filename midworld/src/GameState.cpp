@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-05 22:35:42 $
- * Version:       $Revision: 1.111 $
+ * Date modified: $Date: 2002-11-06 06:35:17 $
+ * Version:       $Revision: 1.112 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -229,6 +229,14 @@ namespace mw
       // Update the player and the camera
       mCamera.update(dt);
       mPlayer.update(dt);
+      
+      
+      // if the player is below 300, he won!!
+      if (mPlayer.getPos()[2] > 300)
+      {
+         invokeTransition("Ending");
+      }
+      
 
       // Update the FPS stat
       ++mFrameCount;
