@@ -120,7 +120,6 @@ namespace mw
 	{
 
 		gmtl::Vec3f lookAt,objToCamProj,upAux, objToCam;
-		gmtl::Matrix44f modelview;
 		float angleCosine;
 
 		glPushMatrix();
