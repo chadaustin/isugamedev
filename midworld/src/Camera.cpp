@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.cpp,v $
- * Date modified: $Date: 2002-10-29 12:44:50 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-30 15:53:03 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,8 +45,6 @@ namespace mw
       , mFollowDistanceVel(0)
       , mMaxFollowDistance(20)
       , mMinFollowDistance(2)
-      , mYaw(0)
-      , mYawVel(0)
       , mPitch(gmtl::Math::deg2Rad(30.0f))
       , mPitchVel(0)
       , mMaxPitch(gmtl::Math::deg2Rad(90.0f))
@@ -86,7 +84,6 @@ namespace mw
       mTransform = gmtl::make<gmtl::Matrix44f>(target_coord);
 
       // Apply the camera's offset information
-      mTransform *= gmtl::makeRot<gmtl::Matrix44f>(gmtl::AxisAnglef(-mYaw, gmtl::Vec3f(0,1,0)));
       mTransform *= gmtl::makeRot<gmtl::Matrix44f>(gmtl::AxisAnglef(-mPitch, gmtl::Vec3f(1,0,0)));
       mTransform *= gmtl::makeTrans<gmtl::Matrix44f>(gmtl::Vec3f(0,0,mFollowDistance));
 
@@ -94,7 +91,6 @@ namespace mw
 //      target_mat *= gmtl::makeRot<gmtl::Matrix44f>(
 
       // Update yaw, pitch, and follow distance by their velocities
-      mYaw              += mYawVel * dt;
       mPitch            += mPitchVel * dt;
       mFollowDistance   += mFollowDistanceVel * dt;
       
@@ -160,24 +156,6 @@ namespace mw
    Camera::setFollowDistanceVel(float vel)
    {
       mFollowDistanceVel = vel;
-   }
-
-   float
-   Camera::getYaw() const
-   {
-      return mYaw;
-   }
-
-   void
-   Camera::setYaw(float angle)
-   {
-      mYaw = angle;
-   }
-
-   void
-   Camera::setYawVel(float vel)
-   {
-      mYawVel = vel;
    }
 
    float

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.h,v $
- * Date modified: $Date: 2002-10-29 12:44:50 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-30 15:53:03 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -101,26 +101,6 @@ namespace mw
        */
       void setFollowDistanceVel(float vel);
 
-      /**
-       * Gets the yaw angle this camera adds to the target rotation.
-       *
-       * @return  the yaw angle in radians
-       */
-      float getYaw() const;
-
-      /**
-       * Sets the yaw angle this camera will add to the target rotation.
-       *
-       * @param angle      the yaw angle in radians
-       */
-      void setYaw(float angle);
-
-      /**
-       * Sets the angular velocity by which the yaw angle should change.
-       *
-       * @param vel        the angular velocity of the yaw angle
-       */
-      void setYawVel(float vel);
 
       /**
        * Gets the pitch angle this camera adds to the target rotation.
@@ -176,8 +156,6 @@ namespace mw
       float mMaxFollowDistance;
       float mMinFollowDistance;
 
-      float mYaw;
-      float mYawVel;
       float mPitch;
       float mPitchVel;
 

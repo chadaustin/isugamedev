@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-30 08:02:11 $
- * Version:       $Revision: 1.93 $
+ * Date modified: $Date: 2002-10-30 15:53:04 $
+ * Version:       $Revision: 1.94 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -161,7 +161,6 @@ namespace mw
 
       const float camera_zoom_vel(10.0f);
       const float camera_pitch_vel(gmtl::Math::deg2Rad(100.0f));
-      const float camera_yaw_vel(gmtl::Math::deg2Rad(100.0f));
 
       // Accelerate
       if (mActionUp->getState() == EDGE_DOWN)
@@ -264,24 +263,6 @@ namespace mw
       else if (mActionPitchUp->getState() == EDGE_UP)
       {
          mCamera.setPitchVel(0);
-      }
-      // Camera yaw left
-      if (mActionYawLeft->getState() == EDGE_DOWN)
-      {
-         mCamera.setYawVel(camera_yaw_vel);
-      }
-      else if (mActionYawLeft->getState() == EDGE_UP)
-      {
-         mCamera.setYawVel(0);
-      }
-      // Camera yaw right
-      if (mActionYawRight->getState() == EDGE_DOWN)
-      {
-         mCamera.setYawVel(-camera_yaw_vel);
-      }
-      else if (mActionYawRight->getState() == EDGE_UP)
-      {
-         mCamera.setYawVel(0);
       }
 
       // update player transform (using mouse-look)
