@@ -73,10 +73,12 @@ namespace client {
 
       // Setup the scene
       mScene.addObject("tank", "models/hovertank_body.obj");
+
       mScene.addObject("tank2", "models/hovertank_body.obj");
       mScene.getObject("tank2")->preMult(osg::Matrix::translate(0.5,0,-2));
       mScene.getObject("tank2")->preMult(osg::Matrix::rotate(180.0f, 0,1,0));
-      mScene.getCamera().setFollowDist(2);
+
+      mScene.getCamera().setFollowDist(5);
       mScene.getCamera().setPitch(deg2rad(15.0f));
    }
 
@@ -206,6 +208,11 @@ namespace client {
             forward *= dt;
             mScene.getObject("tank")->preMult(osg::Matrix::translate(forward));
          }
+         if (input["reverse"]) {
+            osg::Vec3 backward(0,0,speed);
+            backward *= dt;
+            mScene.getObject("tank")->preMult(osg::Matrix::translate(backward));
+         }
          if (input["turnleft"]) {
             float ang = deg2rad(30.0f) * dt;
             mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
@@ -227,6 +234,9 @@ namespace client {
    LoginState::onKeyPress(SDLKey sym, bool down) {
       if (sym == SDLK_w) {
          input["drive"] = down;
+      }
+      else if (sym == SDLK_s) {
+         input["reverse"] = down;
       }
       else if (sym == SDLK_a) {
          input["turnleft"] = down;
