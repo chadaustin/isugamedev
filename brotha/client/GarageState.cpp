@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-28 17:56:43 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -54,9 +54,6 @@ namespace client {
 
       mRoot = phui::CreateRoot(640,480);
 
-      const int border_w = 50;
-      const int border_h = 50;
-
       // main window
       phui::Window* mMainWnd = new phui::Window();
       mMainWnd->setSize(200, 140);
@@ -85,18 +82,18 @@ namespace client {
 
       // dealer window
       mDealerWnd = new phui::Window();
-      mDealerWnd->setSize(640 - border_w*2, 480 - border_h*2);
-      mDealerWnd->setPosition(border_w, border_h);
+      mDealerWnd->setSize(540, 380);
+      mDealerWnd->setPosition(50, 50);
       mDealerWnd->setBackgroundColor(phui::Colorf(0.8f, 0.3f, 0.2f, 0.8f));
 
       phui::Label* mDealerTitle = new phui::Label("Mini-Dealer");
-      mDealerTitle->setSize(200, 20);
+      mDealerTitle->setSize(100, 20);
       mDealerTitle->setPosition(10, 10);
       mDealerTitle->setForegroundColor(phui::RED);
       mDealerWnd->add(mDealerTitle);
 
       mCarsList = new phui::ListBox();
-      mCarsList->setSize((640 - border_w*2 - 40)/2, 480 - border_h*2 - 70);
+      mCarsList->setSize(250, 310);
       mCarsList->setPosition(10, 30);
       mCarsList->setBackgroundColor(phui::Colorf(0.2f, 0.3f, 0.8f, 0.8f));
       mCarsList->setForegroundColor(phui::WHITE);
@@ -104,30 +101,30 @@ namespace client {
       mCarsList->add("Road Hummer");
 
       mCarsOwnedList = new phui::ListBox();
-      mCarsOwnedList->setSize((640 - border_w*2 - 40)/2, 480 - border_h*2 - 70);
-      mCarsOwnedList->setPosition(20 + (640 - border_w*2 - 40)/2, 30);
+      mCarsOwnedList->setSize(250, 310);
+      mCarsOwnedList->setPosition(280, 30);
       mCarsOwnedList->setBackgroundColor(phui::Colorf(0.2f, 0.3f, 0.8f, 0.8f));
       mCarsOwnedList->setForegroundColor(phui::WHITE);
       mDealerWnd->add(mCarsOwnedList);
 
       mBuyBtn = new phui::Button("Buy");
       mBuyBtn->setSize(75, 20);
-      mBuyBtn->setPosition(10 + (640 - border_w*2 - 40)/2 - 75, 480 - border_h*2 - 30);
+      mBuyBtn->setPosition(185, 350);
       mBuyBtn->setBackgroundColor(phui::BLACK);
       mBuyBtn->setForegroundColor(phui::WHITE);
       mDealerWnd->add(mBuyBtn);
 
       mSellBtn = new phui::Button("Sell");
       mSellBtn->setSize(75, 20);
-      mSellBtn->setPosition(20 + (640 - border_w*2 - 40)/2 + (640 - border_w*2 - 40)/2 - 75, 480 - border_h*2 - 30);
+      mSellBtn->setPosition(455, 350);
       mSellBtn->setBackgroundColor(phui::BLACK);
       mSellBtn->setForegroundColor(phui::WHITE);
       mDealerWnd->add(mSellBtn);
 
       // chop shop window
       mChopShopWnd = new phui::Window();
-      mChopShopWnd->setSize(640 - border_w*2, 480 - border_h*2);
-      mChopShopWnd->setPosition(border_w, border_h);
+      mChopShopWnd->setSize(540, 380);
+      mChopShopWnd->setPosition(50, 50);
       mDealerWnd->setBackgroundColor(phui::Colorf(0.3f, 0.8f, 0.2f, 0.8f));
 
       // start with the main window
