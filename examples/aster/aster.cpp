@@ -349,18 +349,13 @@ public:
       
       
       
-      
-      
-      
-         
-      
       //////////////
       // GAME LOGIC
-      // collisions, roid warp, removing, etc..
+      // collisions, roid bounce, removing, etc..
       //////////////
 
 
-      // do asteroid warp/wrap (if it's too far away, then wrap to the other side of the board)
+      // do asteroid bounce with the walls of the arena.
       std::vector<Roid>::iterator itr;
       const float eps = 0.01f;
       for (itr = roids.begin(); itr != roids.end(); ++itr)
@@ -372,6 +367,16 @@ public:
          if ((*itr).position[2] > boardSize || (*itr).position[2] < -boardSize)
             (*itr).velocity[2] = -(*itr).velocity[2];
       }
+      
+      // do bounce on the ship with the edges of the arena.
+      float outside = 10.0f;// ship can go this much outside the arena before bouncing
+      float dampen = 0.8f;// dampen the elastic collision with wall
+      if (ship.position[0] > (boardSize+outside) || ship.position[0] < -(boardSize+outside))
+         ship.velocity[0] = -ship.velocity[0] * dampen;
+      if (ship.position[1] > (boardSize+outside) || ship.position[1] < -(boardSize+outside))
+         ship.velocity[1] = -ship.velocity[1] * dampen;
+      if (ship.position[2] > (boardSize+outside) || ship.position[2] < -(boardSize+outside))
+         ship.velocity[2] = -ship.velocity[2] * dampen;
 
       // remove projectiles that are too old
       std::vector<Projectile>::iterator pitr;
