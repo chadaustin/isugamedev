@@ -19,17 +19,33 @@ namespace lr
    {
       mLevel = new Level();
 
+// add the names of all the levels in order
+      std::vector<std::string> levels;
+      std::string l1("level1.lvl");
+      std::string l2("level2.lvl");
+      levels.push_back(l1);
+      levels.push_back(l2);
+      
+      // register the levels with the level object
+      mLevel->loadLevelFiles(levels);
+
       // now that we have the level we create the player and give him the level
       // to work with
       mPlayer = new Player(*mLevel);
       // then a bad guy and give him the level and the player to find
       mBadGuy = new BadGuy(*mLevel, *mPlayer);
+      
+      // now read the first level
+      mLevel->readLevelFile(mPlayer, mBadGuy);
+      
+      
 
-      mLevel->readLevelFile(std::string("level1.lvl"), mPlayer, mBadGuy);
+      
       
       // create a scoreboard
       mScoreBoard = new ScoreBoard();
 
+      
       // initialize transitions to false
       transition = false;
 
@@ -157,8 +173,51 @@ namespace lr
 
    void GameState::update(float dt)
    {
+      bool first=true;
+      bool done=false;
+      std::cout << "num gabs: " << mLevel->getNumBags() << std::endl;
+      if(mLevel->getNumBags()==0)  // if there is no money left then the player 
+                                 // got all the money and we go to the next
+                                 // level.
+      {
+         for(std::vector<std::string>::iterator itr=mLevel->getLevels().begin(); itr!=mLevel->getLevels().end() && !done;itr++)
+         {
+            std::cout << "front: " << mLevel->getLevels().front() << std::endl;
+            std::cout << "itr: " << (*itr) << "." << std::endl;
+            std::cout << "currentLevel: " << mLevel->getCurrentLevel() << std::endl;
+            if(first)
+            {
+               if(mLevel->getCurrentLevel()==mLevel->getLevels().front())
+               {
+                  itr++;
+                  mLevel->setCurrentLevel(*itr);
+                  done=true;
+                  mLevel->readLevelFile(mPlayer, mBadGuy);
+               }
+               first=false;
+            }
+            else if(mLevel->getCurrentLevel()==(*itr))
+            {
+               itr++;
+               if(itr!=mLevel->getLevels().end())
+               {
+                  mLevel->setCurrentLevel(*itr);
+                  std::cout << "next level" << std::endl;
+               }else
+               {
+                  mLevel->setCurrentLevel(mLevel->getLevels().front());
+                  std::cout << "At end: first level" << std::endl;
+               }
+               done=true;
+               mLevel->readLevelFile(mPlayer, mBadGuy);
+            }
+         }
+
+      }
+      
       mPlayer->update(dt);
       mScoreBoard->update(mPlayer->getScore(), mPlayer->getLives());
+      
       mLevel->update(dt);
       mBadGuy->update(dt);
       AI.update();
@@ -167,7 +226,7 @@ namespace lr
    int GameState::switchStates()
    {
       if(transition){
-         mLevel->readLevelFile(std::string("level1.lvl"), mPlayer, mBadGuy);
+         mLevel->readLevelFile(mPlayer, mBadGuy);
          mPlayer->setScore(0);
          mPlayer->setLives(3);
          return 1;

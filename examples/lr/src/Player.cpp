@@ -141,7 +141,6 @@ namespace lr
       {
          die=false;
       }
-      std::cout << "mid now" << std::endl;
       if(numLives==0)
       {
          gameOver=true;

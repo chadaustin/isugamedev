@@ -139,10 +139,10 @@ namespace lr
       delete moneyImage;
    }
 
-   void Level::readLevelFile(const std::string& file, Player* p, BadGuy* b)
+   void Level::readLevelFile(Player* p, BadGuy* b)
    {
       std::ifstream in;
-      in.open(file.c_str());
+      in.open(currentLevelFile.c_str());
       int temp;
       for(int i=0;i<24;i++) // for all the rows
       {
@@ -165,6 +165,7 @@ namespace lr
             {
                mLevel[j][i] = money;
                numBags++;
+               std::cout << "numBags: " << numBags << std::endl;
             }else if(temp==5){
                mLevel[j][i] = empty;
                b->setHeight(i*32);
@@ -183,6 +184,37 @@ namespace lr
       }
       in.close();
    }
+
+   void Level::loadLevelFiles(std::vector<std::string> theLevels)
+   {
+      for(std::vector<std::string>::iterator itr=theLevels.begin();itr!=theLevels.end();itr++)
+      {
+         levelFiles.push_back(*itr);
+      }
+      currentLevelFile = levelFiles.front();
+   }
+
+   std::vector<std::string> Level::getLevels()
+   {
+      return levelFiles;
+   }
+
+   std::string Level::getCurrentLevel()
+   {
+      return currentLevelFile;
+   }
+
+   void Level::setCurrentLevel(std::string l)
+   {
+      for(std::vector<std::string>::iterator itr=levelFiles.begin();itr!=levelFiles.end();itr++)
+      {
+         if(l==(*itr))
+         {
+            currentLevelFile = (*itr);
+         }
+      }
+   }
+   
 
    positionType Level::getEntityType(const int& width, const int& height)
    {

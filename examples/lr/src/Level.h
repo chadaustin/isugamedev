@@ -3,6 +3,7 @@
 
 #include <SDL_opengl.h>
 #include <list>
+#include <vector>
 
 #include "Block.h"
 #include "Texture.h"
@@ -31,9 +32,30 @@ namespace lr
       ~Level();
 
       /**
-       * this method reads a level file in
+       * this method reads the current level file in
        */
-      void readLevelFile(const std::string& file, Player* p, BadGuy* b);
+      void readLevelFile(Player* p, BadGuy* b);
+
+      /**
+       * this method loads all the level files in the given vector into the
+       * level class so we can iterate over them.
+       */
+      void loadLevelFiles(std::vector<std::string> theLevels);
+
+      /**
+       * returns the vector of level names
+       */
+      std::vector<std::string> getLevels();
+
+      /**
+       * returns the currentLevel pointer
+       */
+      std::string getCurrentLevel();
+
+      /**
+       * sets teh currentLevel pointer to the given string
+       */
+      void setCurrentLevel(std::string l);
 
       /**
        * this method returns the entity type at a given location in the level
@@ -123,6 +145,16 @@ namespace lr
        */
       std::list<Block*> removedBlocks;
 
+      /**
+       * this is a vector of all the names of the files that we load in
+       */
+      std::vector<std::string> levelFiles;
+
+      /**
+       * this is a pointer to the current levelFile
+       */
+      std::string currentLevelFile;
+      
    };
 
 
