@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-10-01 07:54:16 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-03 05:26:50 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,8 @@
 
 namespace mw
 {
+   const float PhysicsEngine::TIME_EPSILON = 0.0001f;
+
    void
    PhysicsEngine::update(RigidBody* body, float dt)
    {

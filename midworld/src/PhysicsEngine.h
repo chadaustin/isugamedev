@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.h,v $
- * Date modified: $Date: 2002-10-01 07:54:16 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-03 05:26:50 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,6 +48,10 @@ namespace mw
     */
    class PhysicsEngine
    {
+   public:
+      /// Epsilon value for time value testing.
+      const static float TIME_EPSILON;
+
    public:
       /**
        * Applies all the forces to the given body over the given change of time.

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-02 09:05:06 $
- * Version:       $Revision: 1.43 $
+ * Date modified: $Date: 2002-10-03 05:26:50 $
+ * Version:       $Revision: 1.44 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -494,65 +494,64 @@ namespace mw
 
    void GameState::updateDynamics(Entity* body, float dt)
    {
-      float remaining_dt = dt;
-      const gmtl::Vec3f& orig_vel = body->getVel();
-
       // Apply gravity to every body
       body->addForce(gmtl::Vec3f(0, -9.81f, 0) * body->getMass());
 
-      // Check for collisions
-      CollisionDesc* desc = mCollDet->checkCollision(body, orig_vel * dt);
+      float remaining_dt = dt;
 
-      // No more collisions, let the body update the remaining distance
-      if (!desc)
+      // Keep moving the object until
+      while (remaining_dt > PhysicsEngine::TIME_EPSILON)
       {
-         mPhysics.update(body, dt);
-         body->moveToNextState();
-         body->update(remaining_dt);
+         // Update the body for the remaining time differential
+         mPhysics.update(body, remaining_dt);
 
-         // Make sure entities never go below the ground.
-         float& y = body->getPos()[1];
-         y = std::max(y, 0.0f);
-      }
-      // We had a collision
-      else
-      {
-         // Figure out how much time passed to get to the collision
-         float dist = desc->getDistance();
-         float time_to_coll = 0;
-         if (orig_vel[0] != 0)
+         // Check if the body collided with anything
+         gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
+         CollisionDesc* desc = mCollDet->checkCollision(body, path);
+
+         // No more collisions, let the body update for the remaining distance
+         if (!desc)
          {
-            time_to_coll = dist / orig_vel[0];
+            mPhysics.update(body, remaining_dt);
+            body->update(remaining_dt);   // XXX: remove this
+            body->moveToNextState();
+
+            // Make sure entities never go below the ground.
+            // XXX: This is such a hack. We need to get ground collision
+            // detection to be done in the collision detector.
+            float& y = body->getPos()[1];
+            y = std::max(y, 0.0f);
+
+            remaining_dt = 0.0f;
          }
-         else if (orig_vel[1] != 0)
-         {
-            time_to_coll = dist / orig_vel[1];
-         }
-         else if (orig_vel[2] != 0)
-         {
-            time_to_coll = dist / orig_vel[2];
-         }
+         // There was a collision!
          else
          {
-            time_to_coll = 0;
+            std::cout<<"Collision!"<<std::endl;
+            // Figure out how much time passed to get to the collision. We do this
+            // by scaling back the remaining dt by the % of the distance that was
+            // travelled.
+            float time_to_collision = remaining_dt * desc->getDistance();
+
+            // Update the body to the point of the collision
+            mPhysics.update(body, time_to_collision);
+            body->update(remaining_dt);   // XXX: remove this
+            body->moveToNextState();
+
+            // Notify the collider of the collision
+            CollisionEvent evt(body, desc);
+            body->onCollisionEntry(evt);
+
+            // Notify the collidee of the collision
+            Entity* collidee = (Entity*)desc->getCollidee();
+            collidee->onCollisionEntry(evt);
+
+            // Update the remaining time differential
+            remaining_dt -= time_to_collision;
+
+            // Be good and clean up memory
+            delete desc;
          }
-
-         // Update the body to the point of the collision
-         mPhysics.update(body, time_to_coll);
-         body->moveToNextState();
-         body->update(time_to_coll);
-
-         // Notify the collider and the collidee of the collision
-         CollisionEvent evt(body, desc);
-         body->onCollisionEntry(evt);
-         Entity* collidee = (Entity*)desc->getCollidee();
-         collidee->onCollisionEntry(evt);
-
-         // Stop the body for now
-//         body->setVel(gmtl::Vec3f());
-
-         // Be good and clean up our collision desc
-         delete desc;
       }
    }
 
