@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-04-22 04:34:36 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-22 04:55:28 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,6 +39,7 @@
 
 #include "phuiCommon.h"
 #include <vector>
+#include <iostream>
 #include "Widget.h"
 
 namespace phui {
