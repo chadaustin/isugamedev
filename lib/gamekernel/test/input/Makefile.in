@@ -23,14 +23,19 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-20 04:01:16 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-02-20 14:48:34 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
 
+# points to top dir where you checked out the project.
 top_srcdir=@top_srcdir@
+# points to wherever you ran configure.
+topdir=@topdir@
+# points to the directory where the sources are for this directory (in case config was ran in separate dir)
 srcdir=@srcdir@
+
 
 # objects to be included in the project....
 SRCS = main.cpp
@@ -45,7 +50,7 @@ PATH_TO_SRCS = $(srcdir)
 MK_DIR = $(top_srcdir)/mk
 INCLUDE_PATHS = -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/external/xdl -I$(top_srcdir)/drivers/glut @GLUT_DRIVER_INCLUDES@
 DEFS = @OSTYPE_DEFS@
-LIBS = -L$(top_srcdir)/gk -lgk
+LIBS = -L$(topdir)/gk -lgk
 
 ########################################################################
 # system dependent stuff, that users will want to change...
