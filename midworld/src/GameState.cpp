@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-14 01:08:53 $
- * Version:       $Revision: 1.123 $
+ * Date modified: $Date: 2002-11-14 10:35:15 $
+ * Version:       $Revision: 1.124 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -261,7 +261,7 @@ namespace mw
       glEnable(GL_DEPTH_TEST);
       glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-      glEnable(GL_CULL_FACE);
+      glDisable(GL_CULL_FACE);
 
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();

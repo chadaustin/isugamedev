@@ -220,12 +220,12 @@ namespace mw
    {
       gmtl::Vec3f result(0.0f, 0.0f, 0.0f);
       gmtl::Vec3f temp;
-      std::cout << "in moveDroid (executed every frame):" << std::endl;
-      if(mDroid->getFuckedFlag())
-      {
-         std::cout << "  * FuckedFlag is set" << std::endl;
-      }
-      else if(mDroid->getWasFuckedFlag())
+//      std::cout << "in moveDroid (executed every frame):" << std::endl;
+//      if(mDroid->getFuckedFlag())
+//      {
+//         std::cout << "  * FuckedFlag is set" << std::endl;
+//      }
+      if(mDroid->getWasFuckedFlag())
       {  
          if(mDroid->getFirstTimeFlag()==true)
          {
@@ -233,11 +233,13 @@ namespace mw
             mDroid->setFirstTimeFlag(false);
          }
             
+/*
          std::cout << "  * wasFuckedFlag is set" << std::endl;
          std::cout << "    * force is: " << mDroid->getVel() << std::endl;
          std::cout << "    * fakeNode: " << mDroid->getFakeNode()->loc << std::endl;
          std::cout << "    * goalNode: " << mDroid->getGoalNode()->loc << std::endl;
          std::cout << "    * droidPos: " << mDroid->getPos() << std::endl;
+*/
          temp = (mDroid->getGoalNode()->loc - mDroid->getFakeNode()->loc);
          result += temp;
          if(gmtl::length(mDroid->getVel()) < 120.0f)

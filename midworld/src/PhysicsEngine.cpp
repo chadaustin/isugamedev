@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-14 10:24:31 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-11-14 10:35:15 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -145,10 +145,11 @@ namespace mw
             // by scaling back the remaining dt by the % of the distance that was
             // travelled.
             float time_to_collision = dt * desc->getDistance();
+/*
             std::cout << "Collision: " << ((Entity*)body)->getUID() << " => "
                       << ((Entity*)desc->getCollidee())->getUID()
                       << ", Time to collision: " << time_to_collision << std::endl;
-
+*/
             time_to_collision = std::max(0.0f, time_to_collision - 0.01f);
 
             // Update the body to the point of the collision
