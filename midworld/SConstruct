@@ -67,6 +67,8 @@ def ParseConfig(env, command, options):
             env['LIBPATH'].append(arg[2:])
          elif option == 'l':
             env['LIBS'].append(arg[2:])
+         elif arg[0:11] == '-Wl,-rpath,':
+            env['LINKFLAGS'].append(arg)
          else:
             env['CXXFLAGS'].append(arg)
       else:
