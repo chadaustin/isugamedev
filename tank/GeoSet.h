@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-09-11 22:09:47 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-13 23:43:07 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -62,13 +62,14 @@
 
 #include <vector>
 #include <iostream>
-#include <Vec2.h>
-#include <Vec3.h>
-#include <Vec4.h>
+#include "Vec2.h"
+#include "Vec3.h"
+#include "Vec4.h"
 
 #include "GState.h"
+#include "RefObj.h"
 
-class GeoSet
+class GeoSet : public RefObj
 {
 public:
    GeoSet() : mGstate( NULL ), mNumVerts( 6969 ), mPrimitiveType( GeoSet::TRIS ), mNumPrimitives( 9696 )
@@ -79,10 +80,10 @@ public:
    {
       if ( mGstate != NULL)
       {
-         mGstate->unrefDelete();
+         mGstate->unref();
       }
    }
-   
+
     //: sets a GeoSet attribute binding type, attribute list,
     // and attribute index list. These GeoSet attributes include vertex
     // coordinate, color specification, normal vector, texture coordinate, or
@@ -337,7 +338,7 @@ public:
     {
        if ( mGstate != NULL)
        {
-          mGstate->unrefDelete();
+          mGstate->unref();
        }   
        mGstate = g;
        if ( mGstate != NULL)
@@ -545,7 +546,7 @@ public:
             if (mGstate != NULL)
  
           {
-             mGstate->unrefDelete();
+             mGstate->unref();
              mGstate = NULL;
          }       
     }    

@@ -8,7 +8,7 @@ void glRenderGeoSet( GeoSet& gset )
 {
    if (gset.gstate() != NULL)
    {
-      kev::glRenderBind( gset.gstate()->texture );
+      kev::glRenderAndBind( gset.gstate()->texture );
    }
    
     float* data = NULL;
