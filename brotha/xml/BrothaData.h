@@ -5,17 +5,14 @@
 #include <string.h>
 #include <vector>
 
-#include "Mod.h"
-#include "stat.h"
-
 #include "Car.h"
 #include "Gang.h"
 #include "Cartype.h"
 #include "Player.h"
 
-namespace dataxml {
+namespace data {
 
-   class Bdata {
+   class BrothaData {
    private:
       ganglist gangs;
       cartypelist cars;
