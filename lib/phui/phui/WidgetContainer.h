@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-12-31 15:12:33 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2003-01-04 00:30:04 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -64,7 +64,7 @@ namespace phui {
        *
        * @param   manager        the layout manager for this container
        */
-      WidgetContainer(LayoutManager *manager);
+      WidgetContainer(LayoutManager* manager);
       
       ~WidgetContainer();
 

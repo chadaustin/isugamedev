@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-12-31 15:12:33 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2003-01-04 00:30:03 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -61,7 +61,7 @@ namespace phui {
       }
       mWidgets.push_back(widget);
       widget->mParent = this;
-      mLayoutManager->add(widget->getPoint(), widget->getSize());
+      mLayoutManager->add(widget->getPosition(), widget->getSize());
    }
 
    void WidgetContainer::remove(Widget* widget) {
@@ -69,7 +69,7 @@ namespace phui {
          if (mWidgets[i] == widget) {
             mWidgets.erase(mWidgets.begin() + i);
             widget->mParent = 0;
-            mLayoutManager->remove(widget->getPoint());
+            mLayoutManager->remove(widget->getPosition());
          }
       }
    }
