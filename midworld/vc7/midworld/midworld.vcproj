@@ -33,7 +33,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OSGBaseD.lib OSGSystemD.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
+				AdditionalDependencies="loom.lib OSGBaseD.lib OSGSystemD.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
 				OutputFile="$(OutDir)/midworld.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)../third-party/lib&quot;"
@@ -81,7 +81,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OSGBase.lib OSGSystem.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
+				AdditionalDependencies="loom.lib OSGBase.lib OSGSystem.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
 				OutputFile="$(OutDir)/midworld.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)../third-party/lib&quot;"
@@ -210,6 +210,12 @@
 				RelativePath="..\..\src\GameState.h">
 			</File>
 			<File
+				RelativePath="..\..\src\HUD.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\HUD.h">
+			</File>
+			<File
 				RelativePath="..\..\src\IntroState.cpp">
 			</File>
 			<File
@@ -220,6 +226,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\Jukebox.h">
+			</File>
+			<File
+				RelativePath="..\..\src\LoadState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\LoadState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Main.cpp">
@@ -247,6 +259,18 @@
 			</File>
 			<File
 				RelativePath="..\..\src\OpenSGSceneViewer.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Particle.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Particle.h">
+			</File>
+			<File
+				RelativePath="..\..\src\ParticleEngine.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\ParticleEngine.h">
 			</File>
 			<File
 				RelativePath="..\..\src\PhysicsEngine.cpp">
