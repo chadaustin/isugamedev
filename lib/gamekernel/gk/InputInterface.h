@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2003-02-09 07:43:03 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2003-02-10 05:04:21 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -57,7 +57,7 @@ public:
     *
     * @see init( const std::string& )
     */
-   InputInterface()
+   InputInterface() : mKernel( NULL )
    {}
 
    /**
