@@ -8,6 +8,7 @@
 namespace game {
 
    enum ObjectType {
+      NoObject,
       PlayerObject,
       //...
    }; // ObjectType
