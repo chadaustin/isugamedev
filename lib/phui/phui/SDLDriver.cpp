@@ -74,6 +74,15 @@ namespace phui
                << std::endl;
             exit(2);
          }
+         glClearColor(0.0, 0.0, 0.0, 0.0);
+         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_ACCUM_BUFFER_BIT |
+                 GL_STENCIL_BUFFER_BIT);
+         glMatrixMode(GL_PROJECTION);
+         glLoadIdentity();
+         gluOrtho2D(0, s.getWidth(), s.getHeight(), 0);
+
+         glMatrixMode(GL_MODELVIEW);
+         glLoadIdentity();
       }
       mRootWidget = root;
    }
@@ -158,6 +167,8 @@ namespace phui
                   break;
             }
          }
+         mRootWidget->draw();
+         SDL_GL_SwapBuffers();
       }
    }
 

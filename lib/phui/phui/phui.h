@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: phui.h,v $
- * Date modified: $Date: 2003-01-04 06:40:57 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2005-01-24 21:21:00 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -35,6 +35,7 @@
 #include "Button.h"
 #include "CheckBox.h"
 #include "Color.h"
+#include "DriverManager.h"
 #include "EmptyConstraint.h"
 #include "FlowLayout.h"
 #include "FlowVerticalConstraint.h"
