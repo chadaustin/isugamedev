@@ -274,11 +274,11 @@ namespace reports {
       }
 	  if(query == "test"){
 		  std::string html = "";
-		  html += "<a href=/2*/1*/0*>one</a><br>";
-		  html += "<a href=/0reflect/2*/1*>one</a><br>";
-		  html += "<a href=/0reflect/2ama/1*>one</a><br>";
-		  html += "<a href=/1*/2*/0*>one</a><br>";
-		  html += "<a href=/0*/0*/2*>one</a><br>";
+		  html += "<a href=/2*/1*/0*>34AA</a><br>";
+		  html += "<a href=/0reflect/2*/1*>34AB</a><br>";
+		  html += "<a href=/0reflect/2ama/1*>34AC</a><br>";
+		  html += "<a href=/1*/2*/0*>34AD</a><br>";
+		  html += "<a href=/0*/0*/2*>34AE</a><br>";
 		  return html;
 	  }
       reports::request r(query);
