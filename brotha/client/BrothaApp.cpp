@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-21 23:38:33 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-04-22 02:09:04 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -154,11 +154,11 @@ namespace client
    void BrothaApp::processInput(SDLKey sym, bool keyDown)
    {
       game::Player* player = mGame.getLocalPlayer();
-      net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::UpdateWhat::NOTHING;
+      net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
       PRFloat64 to;
 
       if(sym == SDLK_a) {
-         what = net::UpdatePlayerInfoMessage::UpdateWhat::ACCELERATION;
+         what = net::UpdatePlayerInfoMessage::ACCELERATION;
          if(keyDown) {
             to = 1;
          } else {
@@ -166,7 +166,7 @@ namespace client
          }
       }
 
-      if(what != net::UpdatePlayerInfoMessage::UpdateWhat::NOTHING) {
+      if(what != net::UpdatePlayerInfoMessage::NOTHING) {
          net::UpdatePlayerInfoMessage* msg = new net::UpdatePlayerInfoMessage(what, to);
          getNetMgr()->send(msg, getConnID());
       }
