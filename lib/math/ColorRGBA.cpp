@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ColorRGBA.cpp,v $
-//    $Date: 2002-01-11 17:23:41 $
-//    $Revision: 1.4 $
+//    $Date: 2002-05-05 17:07:40 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -239,7 +239,7 @@ void ColorRGBA::validate()
 }
 
 //  Output operator.
-ostream& operator<<( ostream &out, const ColorRGBA &color )
+std::ostream& operator<<( std::ostream &out, const ColorRGBA &color )
 {
 	out << color[0] << " " 
 		<< color[1] << " " 
@@ -250,7 +250,7 @@ ostream& operator<<( ostream &out, const ColorRGBA &color )
 }
 
 //  Input operator.
-istream& operator>>( istream &in, ColorRGBA &color )
+std::istream& operator>>( std::istream &in, ColorRGBA &color )
 {
 	in >> color[0] 
 	   >> color[1] 
