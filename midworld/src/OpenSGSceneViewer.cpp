@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-11 08:05:53 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-11-11 08:18:14 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -152,7 +152,7 @@ namespace mw
          mWin->frameExit();
       glPopAttrib();
 
-      drawBounds();
+//      drawBounds();
    }
 
    std::list<RigidBody*>

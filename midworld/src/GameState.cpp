@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-11 08:06:38 $
- * Version:       $Revision: 1.118 $
+ * Date modified: $Date: 2002-11-11 08:18:14 $
+ * Version:       $Revision: 1.119 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -82,8 +82,8 @@ namespace mw
       // DO THIS FIRST!!!
       // Tell the EntityFactory to use this as the GameState
       EntityFactory::instance().setGameState(this);
-      
-      
+
+
       // Change the music as appropriate for gaming. :)
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       jukebox->clear();
@@ -91,7 +91,7 @@ namespace mw
       jukebox->addTrack("music/Level001.ogg");
       jukebox->addTrack("music/Level002.ogg");
       jukebox->play();
-      
+
       mScene = new Scene();
       OpenSGSceneViewer* viewer = new OpenSGSceneViewer(mScene);
       mSceneViewer = viewer;
@@ -116,7 +116,7 @@ namespace mw
       mCamera.setMinFollowDistance(2.0f);
 
       //THis is the generation of the skydome
-      GenerateDome(200.0f, 5.0f, 5.0f, 1.0f, 1.0f);  
+      GenerateDome(200.0f, 5.0f, 5.0f, 1.0f, 1.0f);
       mSkydomeTex = new Texture("images/nebula.bmp");
    }
 
@@ -147,7 +147,7 @@ namespace mw
 
       // Shoot
       if (mActionShoot->getEdgeState() == 1)
-      {                               
+      {
          mPlayer.weapon().trigger(true);
       }
       else if (mActionShoot->getEdgeState() == -1)
@@ -196,7 +196,7 @@ namespace mw
       {
          mCamera.setPitchVel(0);
       }
-      
+
       if (mActionQuit->isActive())
       {
          invokeTransition("Menu");
@@ -234,14 +234,14 @@ namespace mw
       // Update the player and the camera
       mCamera.update(dt);
       mPlayer.update(dt);
-      
-      
+
+
       // if the player is below 300, he won!!
       if (mPlayer.getPos()[2] > 300)
       {
          invokeTransition("Ending");
       }
-      
+
 
       // Update the FPS stat
       ++mFrameCount;
@@ -279,8 +279,6 @@ namespace mw
          RenderSkyDome();
          mSkydomeTex->unbind();
 
-         mGameScene.draw();
-
          // Make sure we clean up after OpenSG until they fix their bugs
          glPushAttrib(GL_ENABLE_BIT);
          {
@@ -292,12 +290,14 @@ namespace mw
 
          drawEntities();
 
-         drawBounds();
+         mGameScene.draw();
+
+//         drawBounds();
       glPopMatrix();
 
       mHUD.draw(*this);
    }
-   
+
    void
    GameState::drawEntities()
    {
@@ -416,8 +416,8 @@ namespace mw
          {
             AI.unregisterNode(itr->second->getName());
          }
-         
-         
+
+
          if (entity == &mPlayer)
          {
             // if the player is dead, it's Game Over
@@ -448,7 +448,7 @@ namespace mw
       droidNavTree->addNode(node);
    }
 
-   void 
+   void
    GameState::addNavNodeLink(std::string n1, std::string n2)
    {
       droidNavTree->addLink(n1, n2);
@@ -472,7 +472,7 @@ namespace mw
       mActionCycleWeapon = mInputManager.getAction("CYCLE WEAPON");
    }
 
-   /** 
+   /**
     * this function sets up the turret object in the game, assigns it all the
     * ai related stuff that it needs and returns a reference to the droid.
     * TODO: figure out how to handle the parent case.
@@ -488,7 +488,7 @@ namespace mw
       node2sCommand = new lm::simpleCommand<Droid>(droid, &Droid::walkRandom);
       myTestCommand = new droidTesting(droid, &mPlayer);
       shootCommand = new droidCommand(droid, &mPlayer);
-      
+
       second = new lm::behavior;
       second->addCommand(node2sCommand);
       second->addCommand(shootCommand);
@@ -497,26 +497,26 @@ namespace mw
       AI.registerNode(node1);
 
       mMap[droid->getUID()] = node1;
-      
+
       return droid;
    }
-   
+
 
    /**
     * This function sets up the turret object in the game, assigns it all the ai
     * related stuff that it needs and returns a reference to that Turret.
     * TODO: figure out how to handle the parent case.
     */
-   Turret* 
+   Turret*
    GameState::setupTurret(const std::string& name, const std::string& parent,
                           int maxChild, int level)
    {
       lm::aiNode* node1 = new lm::aiNode(name, NULL, maxChild, level);
       mAInodes.push_back(node1);
-      
+
       Turret* turret = EntityFactory::instance().create<Turret>();
       node1sCommand = new lm::simpleCommand<Turret>(turret, &Turret::aim);
-      
+
       first = new lm::behavior;
       first->addCommand(node1sCommand);
 
