@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Stat.h,v $
- * Date modified: $Date: 2002-04-29 03:17:46 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-29 07:26:26 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,58 +40,46 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef BDATA_STAT_H
-#define BDATA_STAT_H
+#ifndef DATA_STAT_H
+#define DATA_STAT_H
 
 #include <iostream.h>
 #include <string.h>
 #include <vector>
 
+namespace data {
 
-namespace dataxml{
+   //modifications to the car.
+   class Stat {
+   private:
+      std::string name;
+      std::string value;
 
+   public:
+      Stat(std::string iname, std::string ival) {
+         name=iname;
+         value=ival;
+      }
 
-
-//modifications to the car.
-class Stat {
-
-private:
-
-  std::string name;
-  std::string value;
-
-public:
-
-  Stat(std::string iname, std::string ival){
-		name=iname;
-		value=ival;
-  }
-
-  std::string getName(){
-    return name;
-  }
+      std::string getName() {
+         return name;
+      }
   
-  std::string getVal(){
-    return value;
-  }
+      std::string getVal() {
+         return value;
+      }
 
-  void setVal(std::string in){
-	  value = in;
-  }
+      void setVal(std::string in) {
+         value = in;
+      }
   
-  void xMLify(std::ostream& out){
-    out <<"        <stat name=\"" << name << "\" value=\"" << value << "\" />" << std::endl;
-  }
-};
+      void xMLify(std::ostream& out) {
+         out <<"        <stat name=\"" << name << "\" value=\"" << value << "\" />" << std::endl;
+      }
+   };
 
-
-
-
-
-typedef std::vector<Stat*> statlist;
+   typedef std::vector<Stat*> statlist;
 
 }
-
-
 
 #endif
