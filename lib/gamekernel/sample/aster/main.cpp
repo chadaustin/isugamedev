@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-04-06 22:17:12 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-05-14 15:29:18 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -74,7 +74,7 @@ public:
    
    virtual void onAppInit( gk::IGameKernel* kernel )
    {
-	mKernel = kernel;
+      mKernel = kernel;
       gameBoard.init( mKernel );
 
       stopwatch.pulse();
@@ -93,7 +93,7 @@ public:
    virtual void onContextInit()
    {
       //std::cerr << "Inside OnContextInit()..." << std::endl;
-	mKernel->setWindowSize( 640, 480 );
+   mKernel->setWindowSize( 640, 480 );
       mKernel->showMouse( false );
    }
 
@@ -104,43 +104,42 @@ public:
    virtual void onDraw( int context = 0 )
    {
       //std::cout << "Inside OnDraw()..." << std::endl;
-	// get the window params...
+   // get the window params...
       int width, height;
       mKernel->getWindowSize( width, height );
       ::glViewport( 0, 0, width, height );
-      
+
       ::glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
       ::glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
       ::glEnable( GL_DEPTH_TEST );
 
       // enable alpha blending..
       ::glEnable( GL_BLEND );
-      ::glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
+      ::glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
       // set up the projection matrix in the proj stack
       ::glMatrixMode( GL_PROJECTION );
-         ::glLoadIdentity();                     
+         ::glLoadIdentity();
          ::gluPerspective( 100.0f, width / height, 0.01f, 1000.0f );
 
       // initialize the other matrix stack we'll use to transform models
       ::glMatrixMode( GL_MODELVIEW );
-         ::glLoadIdentity();      
-         
-      gameBoard.draw();
+         ::glLoadIdentity();
 
+      gameBoard.draw();
    }
 
    /** update your game state data.
     * do your data (non opengl) calculations here 
     */
-   virtual void onUpdate()
+   virtual void onPreUpdate()
    {
       //std::cout << "Inside OnUpdate()..." << std::endl;
-	if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
-         {
-		mKernel->shutdown();
-		return;
-	 }
+      if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
+      {
+         mKernel->shutdown();
+         return;
+      }
       // update the gameboard      
       stopwatch.pulse();
       mKernel->getWindowSize( gameBoard.width, gameBoard.height );
@@ -164,7 +163,15 @@ int main( int argc, char *argv[] )
    // let our app loose in the Game Kernel
    AsterApp *app = new AsterApp();   
    gk::IGameKernel* kernel = gk::createGameKernel( app );
-   kernel->config( "config.xml" );
-   kernel->run();
-   return 0;
+   if (kernel->config( "config.xml" ))
+   {
+      kernel->run();
+      return 0;
+   }
+   else
+   {
+      std::cerr << "Couldn't load config.xml" << std::endl;
+   }
+   
+   return 1;
 }
