@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-22 11:55:17 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-24 12:17:13 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -36,7 +36,7 @@
  ************************************************************** phui-cpr-end */
 #include "Button.h"
 #include <GL/gl.h>
-#include "FontRenderer.h"
+#include "FontRendererCache.h"
 #include "WidgetContainer.h"
 
 namespace phui {
@@ -72,14 +72,14 @@ namespace phui {
       // draw text
       glColor(mButtonDown ? getBackgroundColor() : getForegroundColor());
 
-      FontRenderer renderer(getFont());
+      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
 
       const Insets& i = getInsets();
 //      int w = width  - i.getLeft() - i.getRight();
 //      int h = height - i.getTop()  - i.getBottom();
-      unsigned int fontHeight = renderer.getHeight();
+      unsigned int fontHeight = renderer->getHeight();
 //      unsigned int fontWidth = renderer.getWidth(mText);
-      unsigned int fontAscent = fontHeight - renderer.getDescent();
+      unsigned int fontAscent = fontHeight - renderer->getDescent();
 
       int textRectX = i.getLeft();
       int textRectY = i.getTop();
@@ -89,7 +89,7 @@ namespace phui {
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;
 
-      renderer.draw(mText, fontX, fontY);
+      renderer->draw(mText, fontX, fontY);
    }
 
    void Button::setText(const std::string& text) {

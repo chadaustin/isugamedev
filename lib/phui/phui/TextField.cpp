@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2002-04-22 06:31:10 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-24 12:17:13 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -36,7 +36,7 @@
  ************************************************************** phui-cpr-end */
 #include "TextField.h"
 #include <GL/gl.h>
-#include "FontRenderer.h"
+#include "FontRendererCache.h"
 #include "WidgetContainer.h"
 
 namespace phui {
@@ -70,14 +70,14 @@ namespace phui {
       // draw text
       glColor(getForegroundColor());
 
-      FontRenderer renderer(getFont());
+      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
 
       const Insets& i = getInsets();
 //      int w = width  - i.getLeft() - i.getRight();
 //      int h = height - i.getTop()  - i.getBottom();
-      unsigned int fontHeight = renderer.getHeight();
+      unsigned int fontHeight = renderer->getHeight();
 //      unsigned int fontWidth = renderer.getWidth(mText);
-      unsigned int fontAscent = fontHeight - renderer.getDescent();
+      unsigned int fontAscent = fontHeight - renderer->getDescent();
 
       int textRectX = i.getLeft();
       int textRectY = i.getTop();
@@ -88,8 +88,8 @@ namespace phui {
       int fontY = textRectY + fontAscent;
 
       std::string cursor = "|";
-      renderer.draw(cursor, fontX+mCursorScreenPosition, fontY);
-      renderer.draw(mText, fontX, fontY);
+      renderer->draw(cursor, fontX+mCursorScreenPosition, fontY);
+      renderer->draw(mText, fontX, fontY);
    }
 
    void TextField::setText(const std::string& text)
@@ -104,22 +104,22 @@ namespace phui {
 
    void TextField::onKeyDown(InputKey key)
    {
-      FontRenderer renderer(getFont());
+      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
       std::string toAdd; // if we are to add anything, put it here
       if(key == KEY_RIGHT) {
          if(mCursorCharacterPosition < mText.length()) {
-            mCursorScreenPosition+=renderer.getWidth(mText.substr(mCursorCharacterPosition,1));
+            mCursorScreenPosition+=renderer->getWidth(mText.substr(mCursorCharacterPosition,1));
             mCursorCharacterPosition++;
          }
       } else if(key == KEY_LEFT) {
          if(mCursorCharacterPosition > 0) {
             mCursorCharacterPosition--;
-            mCursorScreenPosition-=renderer.getWidth(mText.substr(mCursorCharacterPosition,1));
+            mCursorScreenPosition-=renderer->getWidth(mText.substr(mCursorCharacterPosition,1));
          }
       } else if(key == KEY_BACKSPACE) {
          if(mCursorCharacterPosition > 0) {
             mCursorCharacterPosition--;
-            mCursorScreenPosition-=renderer.getWidth(mText.substr(mCursorCharacterPosition,1));
+            mCursorScreenPosition-=renderer->getWidth(mText.substr(mCursorCharacterPosition,1));
             mText.erase(mCursorCharacterPosition,1);
          }
       } else if(key == KEY_DELETE) {
@@ -136,7 +136,7 @@ namespace phui {
 
       if(!toAdd.empty()) {
          mText.insert(mCursorCharacterPosition, toAdd);
-         mCursorScreenPosition+=renderer.getWidth(toAdd);
+         mCursorScreenPosition+=renderer->getWidth(toAdd);
          mCursorCharacterPosition++;
       }
    }
