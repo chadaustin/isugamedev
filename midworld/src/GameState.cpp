@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-01 04:26:42 $
- * Version:       $Revision: 1.37 $
+ * Date modified: $Date: 2002-10-01 04:49:52 $
+ * Version:       $Revision: 1.38 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -456,7 +456,15 @@ namespace mw
          mCamera.draw();
          mPlayer.draw();
          mGameScene.draw();
-         mSceneViewer->draw();
+
+         // Make sure we clean up after OpenSG until they fix their bugs
+         glPushAttrib(GL_ENABLE_BIT);
+         {
+            mSceneViewer->draw();
+            // Grrr... OpenSG leaves the current texture bound
+            glBindTexture(GL_TEXTURE_2D, 0);
+         }
+         glPopAttrib();
       glPopMatrix();
 
       mCursor.draw(application().getWidth(), application().getHeight());
