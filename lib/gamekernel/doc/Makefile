@@ -1,0 +1,2 @@
+all:
+	doxygen aki.doxy
