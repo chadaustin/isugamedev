@@ -2,7 +2,7 @@ import os
 pj = os.path.join
 
 Import('baseEnv pkg')
-Import('SetupAudiere SetupOpenGL SetupSDL')
+Import('SetupAudiere SetupCal3D SetupCorona SetupOpenGL SetupSDL')
 
 # Define the sources
 classes = Split("""
@@ -27,14 +27,17 @@ sources.extend(map(lambda n: n + '.cpp', classes))
 # Clone the environment
 env = baseEnv.Copy()
 SetupAudiere(env)
+SetupCal3D(env)
+SetupCorona(env)
 SetupSDL(env)
-env.Append(CPPPATH = ['#external/Loki'])
+env.Append(CPPPATH = Split('#external/Loki #src'))
 lib = pkg.createSharedLibrary('siren', env)
+#lib = pkg.createStaticLibrary('siren', env)
 lib.addSources(sources)
 lib.addHeaders(headers, 'siren')
 
 Export('lib')
 
 # Recurse
-subdirs = Split('input sound')
+subdirs = Split('avatar input sound')
 SConscript(dirs = subdirs)

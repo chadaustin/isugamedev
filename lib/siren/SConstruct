@@ -82,6 +82,10 @@ def SetupAudiere(env):
    "Sets up the given environment for Audiere"
    env.Append(LIBS = ['audiere'])
 
+def SetupCal3D(env):
+   "Sets up the given environment for Cal3D"
+   env.Append(LIBS = ['cal3d'])
+
 def SetupCorona(env):
    "Sets up the given environment for Corona"
    env.Append(LIBS = ['corona'])
@@ -108,7 +112,7 @@ def SetupOpenGL(env):
    env.Append(LIBS = OPENGL_LIBS)
 
 Export('ParseConfig')
-Export('SetupSDL SetupAudiere SetupCorona SetupCppUnit SetupOpenGL')
+Export('SetupSDL SetupAudiere SetupCal3D SetupCorona SetupCppUnit SetupOpenGL')
 
 
 def GetSirenVersion():

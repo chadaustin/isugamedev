@@ -1,0 +1,20 @@
+import os
+pj = os.path.join
+
+Import('lib')
+
+# Define the sources
+classes = Split("""
+   Avatar
+   AvatarLoader
+""")
+
+headers = []
+sources = []
+
+headers.extend(map(lambda n: n + '.h',   classes))
+sources.extend(map(lambda n: n + '.cpp', classes))
+
+# Clone the environment
+lib.addSources(sources)
+lib.addHeaders(headers, pj('siren', 'avatar'))
