@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: StopWatch.h,v $
-//    $Date: 2001-09-27 22:50:36 $
-//    $Revision: 1.5 $
+//    $Date: 2001-09-28 15:20:17 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -33,6 +33,7 @@
 #ifndef WIN32
     #include <sys/time.h>
 #endif
+#include <assert.h>
 
 //: A StopWatch
 //  This class monitors frame rate, and general time performance metrics 

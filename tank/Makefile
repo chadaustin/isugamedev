@@ -111,6 +111,7 @@ build_tank: ${OBJS} imageIoReg$(OBJ_FILE_SUFFIX)
 
 clobber: clean
 	rm -f *.d
+	-rm *.ilk *.pdb *.opt *.idb *.pch *.lib *.exp
 
 # the "clean" target, cleans object code and exe from the directory...
 # NOTE: SGI's CC command produces an ii_files directory.

@@ -47,7 +47,7 @@ int GetNextLightNum()
    return (nextLightNum++ % 7) + 1;
 }
 
-#include "unistd.h"
+//#include "unistd.h"
 
 // a place to store application data...
 class App
