@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="docbook.css" type="text/css"?>
-<!DOCTYPE article SYSTEM "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<article lang="en">
-  <articleinfo>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<book>
+  <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.2 2002-04-06 05:33:06 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-06 05:33:06 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -28,8 +30,6 @@
       </author>
     </authorgroup>
     <address><email>isugamedev-brotha@lists.sourceforge.net</email></address>
-    <pubdate>$Date: 2002-04-05 04:12:53 $</pubdate>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.1 2002-04-05 04:12:53 nonchocoboy Exp $</releaseinfo>
     <revhistory>
       <revision>
         <revnumber>1.1</revnumber>
@@ -37,15 +37,15 @@
         <revremark>Created document skeleton.</revremark>
       </revision>
     </revhistory>
-  </articleinfo>
-  <abstract>
+  </bookinfo>
+  <preface>
     <title>Introduction</title>
     <para><emphasis>Warn-a-Brotha</emphasis> is an online 3D racing game in the spirit of <emphasis>Mario Kart</emphasis> and <emphasis>F-Zero</emphasis>. The game will feature cartoon characters in a multi-player battle cart racing game. Players will be able to compete in combat and racing action against several other networked friends.</para>
     <para>The game will include power-ups, damage meters and an interesting interface. We plan on keeping track of player and gang-related statistics and preferences such as the number of kills they've made, number of times they've died and the number of cars they've trashed. The player will be able to choose one of several characters, each with his or her own look and attitude.</para>
     <para>The <emphasis>Warn-a-Brotha</emphasis> client program will be implemented using OpenGL and C++ while the server will be implemented with portable C++. The clients and server will communicate over the TCP/IP layer. Due to time constraints, we will assume that all computers are on a LAN or other suitably fast connection so that we can generally ignore the lag problems associated with dial-up networked play.</para>
     <para>The underlying database will be implemented using XML tables storing gangs, players, cars and car modifications where each gang can have multiple players, each player can have multiple cars and each car can have multiple modifications.</para>
-  </abstract>
-  <section>
+  </preface>
+  <chapter>
     <title>Modules</title>
     <para>At a high level, <emphasis>Warn-a-Brotha</emphasis> can be broken down into several clear modules. This includes Network, Sound, Data, Game Logic, Client Input, Client UI and Server UI.</para>
     <section>
@@ -162,7 +162,16 @@
     </section>
     <section>
       <title>Client Input Module</title>
-      <para>Description of what this module does here ...</para>
+      <para>The Client Input module is responsible for the retrieval of input from the devices. Since the application must run at an approximately consistent frame-rate, the input is polled once every frame by the application. This module has effectively already been implemented using the external GameKernel library developed by Kevin Meinert and Ben Scott. In this library, each device's input is classified as either a digital input or an analog input. Thus inputs can be bound to application specific commands at runtime. GameKernel is also designed to be platform independent making portability as simple as recompiling the application.</para>
+      <para>The GameKernel library is broken into three parts - the input manager (<oointerface>
+          <interfacename>IGameInput</interfacename>
+        </oointerface>), the system driver (<oointerface>
+          <interfacename>ISystemDriver</interfacename>
+        </oointerface>) and the application callbacks (<oointerface>
+          <interfacename>IGameApp</interfacename>
+        </oointerface>). The <oointerface>
+          <interfacename>IGameKernel</interfacename>
+        </oointerface> interface is the facade on top of all of these subsystems through which the application is managed by the GameKernel library.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
@@ -244,9 +253,21 @@
         </section>
       </section>
     </section>
-  </section>
-  <section>
+  </chapter>
+  <chapter>
+    <title>Putting It All Together</title>
+    <para>Since <emphasis>Warn-a-Brotha</emphasis> has an overall client/server design, the project can be split into two distinctly seperate applications that use the modules differently. The server is the main workhorse, responsible for managing multiple client connections and their requests, updating the state of the game on a regular basis and sending messages to connected clients with updates on the state of the game. The client on the other hand is really just a relatively dumb display which allows the user to connect to the server. Once connected, it processes input from the attached devices and when device inputs are triggered, forwards the corresponding request to the server. The client also provides a visual view onto the game world based on the update data received from the server.</para>
+    <section>
+      <title>The Server Application</title>
+      <para>blah blah. blah blah blah blah.</para>
+    </section>
+    <section>
+      <title>The Client Application</title>
+      <para>blah blah. blah blah blah blah.</para>
+    </section>
+  </chapter>
+  <chapter>
     <title>Traceability Matrix</title>
     <para>probably figure out how to create a table or else stuff a pic in here</para>
-  </section>
-</article>
+  </chapter>
+</book>
