@@ -5,9 +5,9 @@
 #include <iostream>
 #include <stdlib.h>
 #include "textures.h"
-#include <gl\gl.h>
-#include <gl\glut.h>
-#include <gl\glu.h>
+#include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
 
 
 #define BLACK  0
@@ -95,18 +95,18 @@ private:
 	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 
-	   textures[0].LoadFromFile("C:/gamedev/set/art/black-square.bmp");
-	   textures[1].LoadFromFile("C:/gamedev/set/art/black-circle.bmp");
-      textures[2].LoadFromFile("C:/gamedev/set/art/black-triangle.bmp");
-      textures[3].LoadFromFile("C:/gamedev/set/art/black-squiggle.bmp");
-      textures[4].LoadFromFile("C:/gamedev/set/art/red-square.bmp");
-      textures[5].LoadFromFile("C:/gamedev/set/art/red-circle.bmp");
-      textures[6].LoadFromFile("C:/gamedev/set/art/red-triangle.bmp");
-      textures[7].LoadFromFile("C:/gamedev/set/art/red-squiggle.bmp");
-      textures[8].LoadFromFile("C:/gamedev/set/art/blue-square.bmp");
-      textures[9].LoadFromFile("C:/gamedev/set/art/blue-circle.bmp");
-      textures[10].LoadFromFile("C:/gamedev/set/art/blue-triangle.bmp");
-      textures[11].LoadFromFile("C:/gamedev/set/art/blue-squiggle.bmp");
+	   textures[0].LoadFromFile("art/black-square.bmp");
+	   textures[1].LoadFromFile("art/black-circle.bmp");
+      textures[2].LoadFromFile("art/black-triangle.bmp");
+      textures[3].LoadFromFile("art/black-squiggle.bmp");
+      textures[4].LoadFromFile("art/red-square.bmp");
+      textures[5].LoadFromFile("art/red-circle.bmp");
+      textures[6].LoadFromFile("art/red-triangle.bmp");
+      textures[7].LoadFromFile("art/red-squiggle.bmp");
+      textures[8].LoadFromFile("art/blue-square.bmp");
+      textures[9].LoadFromFile("art/blue-circle.bmp");
+      textures[10].LoadFromFile("art/blue-triangle.bmp");
+      textures[11].LoadFromFile("art/blue-squiggle.bmp");
       textures[12].LoadFromFile("C:/gamedev/set/art/green-square.bmp");
       textures[13].LoadFromFile("C:/gamedev/set/art/green-circle.bmp");
       textures[14].LoadFromFile("C:/gamedev/set/art/green-triangle.bmp");
@@ -120,22 +120,22 @@ private:
       if(color==BLACK){
          glColor3f(0,0,0);
          textures[shape].SetActive();
-         std::cout << shape << std::endl;
+//         std::cout << shape << std::endl;
       }else if(color==RED){
          glColor3f(1,0,0);
          textures[4+shape].SetActive();
-         std::cout << shape << std::endl;
+//         std::cout << shape << std::endl;
 
  
       }else if(color==BLUE){
          glColor3f(0,0,1);
          textures[8+shape].SetActive();
-         std::cout << shape << std::endl;
+//         std::cout << shape << std::endl;
 
       }else if(color==GREEN){
          glColor3f(0,1,0);
          textures[12+shape].SetActive();
-         std::cout << shape << std::endl;
+//         std::cout << shape << std::endl;
 
       }
    }
