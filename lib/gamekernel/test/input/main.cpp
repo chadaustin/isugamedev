@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-30 23:36:16 $
-// Version:       $Revision: 1.20 $
+// Date modified: $Date: 2002-05-14 15:11:16 $
+// Version:       $Revision: 1.21 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -86,7 +86,7 @@ public:
       grid.draw();
    }
 
-   virtual void onUpdate()
+   virtual void onPreUpdate()
    {
       if (mQuit.getDigitalData() == DigitalInput::DOWN)
       {
