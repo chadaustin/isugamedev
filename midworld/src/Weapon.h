@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Weapon.h,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-11-11 08:05:54 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -100,11 +100,7 @@ namespace mw
        *
        * @param dt   the change in time in seconds
        */
-      virtual void update(GameState& g, float timeDelta)
-      {
-         // @todo change rigid body's weird time formating to secs...
-         RigidBody::update(timeDelta);
-      }
+      virtual void update(GameState& g, float timeDelta) = 0;
 
       // @todo, the hand weapon doesn't have ammo or clips!!!
       

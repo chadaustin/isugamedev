@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-11-11 04:39:47 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-11-11 08:05:53 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -152,7 +152,7 @@ namespace mw
        *
        * @param dt      the differtial of time in seconds
        */
-      virtual void update(float dt);
+      virtual void update(float dt) = 0;
 
       /**
        * Gets the axis-aligned bounding box that tightly contains this body.

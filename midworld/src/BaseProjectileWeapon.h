@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.h,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-11-11 08:05:52 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -82,6 +82,9 @@ namespace mw
        * @param dt   the change in time in seconds
        */
       virtual void update(GameState& g, float dt);
+
+      void update(float dt)
+      {}
 
       /**
        * Gets the number of bullets in this weapon's clip.

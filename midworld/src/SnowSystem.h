@@ -23,41 +23,38 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-11-11 08:05:52 $
- * Version:       $Revision: 1.12 $
+ * File:          $RCSfile: SnowSystem.h,v $
+ * Date modified: $Date: 2002-11-11 08:05:54 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
- *
  ********************************************************** midworld-cpr-end */
-
-#include <gmtl/Quat.h>
-#include <gmtl/Vec.h>
-#include <gmtl/Generate.h>
-#include <SDL_opengl.h>
-#include <cstdlib>
-#include "Enemy.h"
-#include "EntityFactory.h"
-#include "ParticleEngine.h"
-#include "Pistol.h"
+#ifndef MW_SNOW_SYSTEM_H
+#define MW_SNOW_SYSTEM_H
 
 namespace mw
 {
+   class SnowSystem
+   {
+   public:
+     SnowSystem();
+     ~SnowSystem();
 
-   Enemy::Enemy(GameState* gameState)
-      : AbstractEntity(gameState)
-      , mHealth(100)
-   {
-   }
-   
-   Enemy::~Enemy()
-   {
-      EntityFactory& factory = EntityFactory::instance();
-      ParticleEngine* engine = new ParticleEngine(
-         factory.getGameState(),
-         "images/explosive_particle.png",
-         500);
-      factory.add(engine);
-     
-      engine->setPos(getPos());
-   }
+     void draw();
+     void update(float dt);
+
+   private:
+     enum { SNOWFLAKE_COUNT = 2000 };
+
+     struct Particle
+     {
+       float x;
+       float y;
+       float z;
+       float velocity;
+     };
+
+     Particle mParticles[SNOWFLAKE_COUNT];
+   };
 }
+
+#endif

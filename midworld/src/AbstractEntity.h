@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AbstractEntity.h,v $
- * Date modified: $Date: 2002-10-29 18:50:35 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-11 08:05:52 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -61,8 +61,10 @@ namespace mw
 
    public:
       void draw() const
-      {
-      }
+      {}
+
+      void update(float dt)
+      {}
    
       /**
        * Gets the ID of the model this entity requires.

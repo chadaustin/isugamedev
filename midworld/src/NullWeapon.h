@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: NullWeapon.h,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-11 08:05:53 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -72,9 +72,10 @@ namespace mw
 
       /// Called each frame
       void update(GameState& g, float dt)
-      {
-         Weapon::update(g, dt);
-      }
+      {}
+
+      void update(float dt)
+      {}
 
       void addAmmo( int ammount )  //for ammo pickup
       {

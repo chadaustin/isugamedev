@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-11-11 08:05:53 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -199,8 +199,6 @@ namespace mw
 
    void Player::update(float timeDelta)
    {
-      RigidBody::update(timeDelta);
-
       // update the current weapon
       weapon().setPos( getPos() + getRot() * gmtl::Vec3f( 0, 0, -0.5f ) );
       weapon().setRot( getRot() );

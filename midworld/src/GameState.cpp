@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-11 07:22:16 $
- * Version:       $Revision: 1.116 $
+ * Date modified: $Date: 2002-11-11 08:05:52 $
+ * Version:       $Revision: 1.117 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -125,6 +125,7 @@ namespace mw
    {
       AI.update();
       mInputManager.update(dt);
+      mGameScene.update(dt);
 
       mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
@@ -273,11 +274,13 @@ namespace mw
 
       glPushMatrix();
          mCamera.draw();
-         mGameScene.draw();
 
          mSkydomeTex->bind();
          RenderSkyDome();
          mSkydomeTex->unbind();
+
+         mGameScene.draw();
+
          // Make sure we clean up after OpenSG until they fix their bugs
          glPushAttrib(GL_ENABLE_BIT);
          {

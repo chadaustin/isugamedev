@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameScene.h,v $
- * Date modified: $Date: 2002-10-02 07:49:03 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-11-11 08:05:52 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,7 @@
 #include <string>
 #include <vector>
 #include "Texture.h"
+#include "SnowSystem.h"
 
 namespace mw
 {
@@ -54,10 +55,13 @@ namespace mw
       void loadLevel(const std::string& filename);
 
       void draw();
+      void update(float dt);
 
    private:
       Texture* mGroundTexture;
       std::vector<Element> mElements;
+
+      SnowSystem mSnowSystem;
    };
 
 }

@@ -61,6 +61,8 @@ classes = Split("""
    Scene
    SceneEvent
    Shotgun
+   SkyDome
+   SnowSystem
    State
    StateFactory
    SoundEffectManager

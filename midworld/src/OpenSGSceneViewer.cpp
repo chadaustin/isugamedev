@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-11 05:24:17 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-11-11 08:05:53 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -114,46 +114,6 @@ namespace mw
    void
    OpenSGSceneViewer::draw()
    {
-//      // XXX: Refactor this update into an event-based system
-//      for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
-//           itr != mEntityNodeMap.end(); ++itr)
-//      {
-//         const Entity::UID& uid = itr->first;
-//         Entity* entity = mScene->get(uid);
-//         if (entity != 0)
-//         {
-//            // Compute the xform matrix for the entity
-//            const gmtl::Point3f& pos = entity->getPos();
-//            const gmtl::Quatf& rot = entity->getRot();
-//            gmtl::Matrix44f xform = gmtl::makeTrans<gmtl::Matrix44f>(static_cast<gmtl::Vec3f>(pos));
-//            xform *= gmtl::make<gmtl::Matrix44f>(rot);
-//
-//            gmtl::Matrix44f scaleMat;
-//            gmtl::setScale(scaleMat, entity->getScale());
-//            xform *= scaleMat;
-//
-//            // Convert the matrix to OpenSG matrix
-//            osg::Matrix osg_mat;
-//            gmtl::set(osg_mat, xform);
-//
-//            // Update the node for the entity
-//            osg::NodePtr node = itr->second;
-//            osg::TransformPtr trans = osg::TransformPtr::dcast(node->getCore());
-//            osg::beginEditCP(trans, osg::Transform::MatrixFieldMask);
-//            {
-//               trans->setMatrix(osg_mat);
-//            }
-//            osg::endEditCP(trans, osg::Transform::MatrixFieldMask);
-//
-//            // Update the entity's bounds
-//            osg::Pnt3f min, max;
-//            node->getVolume().getBounds(min, max);
-//            gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
-//            gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
-//            entity->setBounds(gmtl::AABoxf(gmtl_min, gmtl_max));
-//         }
-//      }
-
       // OpenSG likes to modify the viewport and not change it back :(
       glPushAttrib(GL_VIEWPORT_BIT);
          // init this frame
@@ -192,7 +152,7 @@ namespace mw
          mWin->frameExit();
       glPopAttrib();
 
-//      drawBounds();
+      drawBounds();
    }
 
    std::list<RigidBody*>

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-11-01 12:14:51 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-11-11 08:05:52 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -77,7 +77,8 @@ namespace mw
        * @param timeDelta the change in time that has occurred since the last
        * update
        */
-      virtual void update(float timeDelta);
+      void update(float timeDelta)
+      {}
 
       /**
        * Tests if this entity would like to be removed from the game.

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.cpp,v $
- * Date modified: $Date: 2002-11-06 01:40:14 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-11-11 08:05:52 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -83,8 +83,6 @@ namespace mw
 
    void BaseProjectileWeapon::update(GameState& g, float dt)
    {
-      Weapon::update(g, dt);
-
       // Process the reloading state if we're currently reloading the weapon
       if (isReloading())
       {
