@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-05-14 16:20:21 $
-# Version:       $Revision: 1.10 $
+# Date modified: $Date: 2002-05-14 16:49:18 $
+# Version:       $Revision: 1.11 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -46,6 +46,7 @@ cppdomincludedir=$(includedir)/cppdom
 xdlincludedir=$(includedir)
 
 INSTALL=@INSTALL@
+INSTALLDIR=-install -d 
 INSTALL_DATA=@INSTALL_DATA@
 
 # objects to be included in the project....
@@ -153,6 +154,7 @@ $(STATIC_LIB_FILENAME): $(OBJS)
 install: install-libs install-headers
 
 install-libs:
+	$(INSTALLDIR) $(libdir)
 	$(INSTALL) $(LIB_FILENAME) $(libdir)/$(LIB_FILENAME)
 	$(INSTALL) $(STATIC_LIB_FILENAME) $(libdir)/$(STATIC_LIB_FILENAME)
 
@@ -165,19 +167,19 @@ CPPDOM_HEADERS=$(call makeheaders, $(CPPDOM_SRCS))
 XDL_HEADERS=$(call makeheaders, $(XDL_SRCS))
 
 install-headers:
-	-@mkdir $(gkincludedir)
+	$(INSTALLDIR) $(gkincludedir)
 	@list='$(GK_HEADERS)'; for h in $$list; do \
 		if test -f "$$h"; then d= ; else d="$(srcdir)/"; fi; \
 		echo " $(INSTALL_DATA) $$d$$h $(gkincludedir)/$$h"; \
 		$(INSTALL_DATA) $$d$$h $(gkincludedir)/$$h; \
 	done
-	-@mkdir $(cppdomincludedir)
+	$(INSTALLDIR) $(cppdomincludedir)
 	@list='$(CPPDOM_HEADERS)'; for h in $$list; do \
-		if test -f "$$h"; then d= ; else d="$(top_srcdir)/cppdom/"; fi; \
+		if test -f "$$h"; then d= ; else d="$(top_srcdir)/cppdom/cppdom/"; fi; \
 		echo " $(INSTALL_DATA) $$d$$h $(cppdomincludedir)/$$h"; \
 		$(INSTALL_DATA) $$d$$h $(cppdomincludedir)/$$h; \
 	done
-	-@mkdir $(xdlincludedir)
+	$(INSTALLDIR) $(xdlincludedir)
 	@list='$(XDL_HEADERS)'; for h in $$list; do \
 		if test -f "$$h"; then d= ; else d="$(top_srcdir)/external/xdl/"; fi; \
 		echo " $(INSTALL_DATA) $$d$$h $(xdlincludedir)/$$h"; \
