@@ -1,16 +1,16 @@
 a:link
 {
-   color: #aa88dd; 
+   color: #ead4f9; 
 }
 
 a:visited
 {
-   color: #aa88dd; 
+   color: #ead4f9; 
 } 
 
 a:active, a:hover
 {
-   color: #FFFF33;
+   color: #ffa9a4;
 }
 
 a:hover
@@ -30,6 +30,12 @@ P:first-line
 P:first-letter
 {
 }
+
+B
+{
+   color: #afefff;
+}
+
 
 LI
 {
@@ -141,12 +147,12 @@ h1, .h1, h1 a, .blue, .blueitalic, .blueplain, HR
 
 h2, .h2, h2 a, .orange, .orangeitalic, .orangeplain
 {
-   color: #ff8800
+   color: #66faff
 }
 
 .redorange, .redorangeitalic, .redorangeplain
 {
-   color: #ff6600
+   color: #ff8800
 }
 
 h3, .h3, h3 a, .yellow, .yellowitalic, .yellowplain
@@ -172,7 +178,7 @@ h6, .h6, h6 a
 TT, tt, PRE, pre, CODE
 {
    font-family: monospace,monospaced,courier,default,serif;
-   font-size: 2pt; 
+   font-size: 10pt; 
    color: rgb(210, 255, 210);
 }
 
