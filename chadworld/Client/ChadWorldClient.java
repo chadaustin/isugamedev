@@ -1,3 +1,9 @@
+package chadworld.client;
+import chadworld.*;
+
+import java.io.*;
+import java.net.*;
+
 import java.applet.Applet;
 import java.awt.BorderLayout;
 import java.awt.Frame;
@@ -9,11 +15,35 @@ import javax.vecmath.*;
 
 import java.awt.event.*;
 import java.awt.AWTEvent;
-import java.util.Enumeration;
 import com.sun.j3d.utils.behaviors.keyboard.*;
 
 
 public class ChadWorldClient extends Applet {
+
+  private ServerConnection m_connection;
+  private BranchGroup m_sg_root;
+
+  public ChadWorldClient(String server) {
+
+    // connect to the server
+    try {
+
+      m_connection = new ServerConnection(server);
+
+    } catch (Exception e) {
+      System.out.println("Could not connect to server");
+      System.out.println(e);
+      System.exit(0);
+    }
+
+    setLayout(new BorderLayout());
+    Canvas3D canvas3D = new Canvas3D(null);
+    add("Center", canvas3D);
+
+    SimpleUniverse simpleU = new SimpleUniverse(canvas3D);
+    BranchGroup scene = createSceneGraph(simpleU);
+    simpleU.addBranchGraph(scene);
+  }
 
   Shape3D createTree() {
     int[] counts = { 19 };
@@ -73,7 +103,7 @@ public class ChadWorldClient extends Applet {
     return new Shape3D(land);
   }
 
-  public BranchGroup createCubes() {
+  BranchGroup createCubes() {
     BranchGroup root = new BranchGroup();
     SharedGroup share = new SharedGroup();
     share.addChild(new ColorCube());
@@ -102,7 +132,7 @@ public class ChadWorldClient extends Applet {
     return root;
   }
 
-  public BranchGroup createSceneGraph(SimpleUniverse su) {
+  BranchGroup createSceneGraph(SimpleUniverse su) {
 
     // root scene graph node
     BranchGroup objRoot = new BranchGroup();
@@ -160,16 +190,6 @@ public class ChadWorldClient extends Applet {
     return objRoot;
   }
 
-  public ChadWorldClient() {
-    setLayout(new BorderLayout());
-    Canvas3D canvas3D = new Canvas3D(null);
-    add("Center", canvas3D);
-
-    SimpleUniverse simpleU = new SimpleUniverse(canvas3D);
-    BranchGroup scene = createSceneGraph(simpleU);
-    simpleU.addBranchGraph(scene);
-  }
-
   public static void main(String[] args) {
     System.out.println("ChadWorld Client");
     System.out.println("--");
@@ -177,6 +197,13 @@ public class ChadWorldClient extends Applet {
     System.out.println("Chad Okere");
     System.out.println("Hyouk-il Kwoen");
     System.out.println("Jae-ho Kwak");
-    new MainFrame(new ChadWorldClient(), 640, 480);
+    System.out.println("");
+
+    if (args.length == 0) {
+      System.out.println("Usage: java ChadWorldClient <server>");
+      return;
+    } else {
+      new MainFrame(new ChadWorldClient(args[0]), 640, 480);
+    }
   }
 }
