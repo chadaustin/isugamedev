@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-22 02:04:27 $
-// Version:       $Revision: 1.18 $
+// Date modified: $Date: 2002-03-22 02:59:32 $
+// Version:       $Revision: 1.19 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -35,7 +35,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-GK_USING_NAMESPACE
+using namespace gk;
 
 class InputApp : public AbstractGameApp
 {

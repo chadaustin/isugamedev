@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gkCommon.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-03-22 02:59:32 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,10 +38,5 @@
 #  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
 #endif
-
-// just in case we decide to change the namespace later or compile it out ...
-// This macro will first ensure that the namespace does exist before it
-// declares that it is being used. This is done for compilation safety.
-#define GK_USING_NAMESPACE namespace gk {} using namespace gk;
 
 #endif
