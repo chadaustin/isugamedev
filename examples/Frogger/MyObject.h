@@ -14,8 +14,8 @@ enum State{ALIVE = 0, COLLISION, LOGRIDING};
 class MyObject
 
 {
-
 public:
+   virtual ~MyObject() {}
 
 	virtual void SetGameCoordinates(float x, float y) = 0;
 	virtual void SetSize(float x, float y) = 0;
