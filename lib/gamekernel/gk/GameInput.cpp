@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.cpp,v $
-// Date modified: $Date: 2002-03-21 05:57:16 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2003-02-10 05:10:37 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -128,8 +128,11 @@ void GameInput::refreshEventInputs()
    for (it = mBindStrings.begin(); it != mBindStrings.end(); ++it)
    {
       Input* in_put = getInput( (*it).second.first, (*it).second.second );
-      mBindTable[(*it).first].add( in_put );
-      //std::cout << "   refresh: " << (*it).first << " " << (*it).second.first << " " << (*it).second.second << std::endl;
+      if (in_put)
+      {
+         mBindTable[(*it).first].add( in_put );
+         //std::cout << "   refresh: " << (*it).first << " " << (*it).second.first << " " << (*it).second.second << std::endl;
+      }
    }
 }
 
