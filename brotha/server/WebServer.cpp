@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WebServer.cpp,v $
- * Date modified: $Date: 2002-04-29 04:02:22 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-29 05:34:06 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -71,8 +71,8 @@ namespace server {
    std::string WebServer::readRequest(net::Socket *socket) {
       std::string retVal;
       while(1) {
-         char buffer[256];
-         int bytesRead = socket->read(buffer, 256);
+         char buffer[10000];
+         int bytesRead = socket->read(buffer, 10000);
          retVal.resize(retVal.length() + bytesRead);
          std::copy(buffer, buffer+bytesRead, retVal.begin());
          if(retVal.find("\r\n\r\n") != std::string::npos) {
@@ -85,10 +85,11 @@ namespace server {
 
    void WebServer::processRequest(net::Socket *socket, const std::string &str) {
       /// @todo actually process request and generate dynamic response :)
-
-      std::string response = "HTTP/1.0 200\r\n";
+	   std::cout << "processing request:" <<std::endl << str << std::endl;
+      std::string response = "HTTP/1.1 200\r\n";
 	  response += "Content-Type: text/html\r\n\r\n";
 	  response += reports::GenerateReportFromHTTP(str);
+	  std::cout << response ;
       sendResponse(socket, response);
    }
 
