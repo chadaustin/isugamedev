@@ -31,7 +31,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib glu32.lib audiere.lib corona.lib SDL.lib"
+				AdditionalDependencies="opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
 				OutputFile="$(OutDir)/midworld.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
@@ -111,6 +111,12 @@
 				RelativePath="..\..\src\Application.h">
 			</File>
 			<File
+				RelativePath="..\..\src\BaseProjectileWeapon.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\BaseProjectileWeapon.h">
+			</File>
+			<File
 				RelativePath="..\..\src\BoundsCollisionDetector.cpp">
 			</File>
 			<File
@@ -130,6 +136,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\CollisionDetector.h">
+			</File>
+			<File
+				RelativePath="..\..\src\CreditsState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\GameManager.cpp">
@@ -171,6 +180,9 @@
 				RelativePath="..\..\src\NullCollisionDetector.h">
 			</File>
 			<File
+				RelativePath="..\..\src\NullWeapon.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Pistol.h">
 			</File>
 			<File
@@ -186,6 +198,9 @@
 				RelativePath="..\..\src\RigidBody.h">
 			</File>
 			<File
+				RelativePath="..\..\src\Shotgun.h">
+			</File>
+			<File
 				RelativePath="..\..\src\SoundEffectManager.cpp">
 			</File>
 			<File
@@ -199,6 +214,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\SpatialIndex.h">
+			</File>
+			<File
+				RelativePath="..\..\src\SpreadGun.h">
 			</File>
 			<File
 				RelativePath="..\..\src\State.cpp">
