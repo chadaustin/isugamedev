@@ -22,10 +22,19 @@ public:
 	generic();
 	virtual ~generic();
 
-	virtual GLfloat getX() { return 0.0;};
-	virtual GLfloat getY() { return 0.0;};
-	virtual GLfloat getZ() { return 0.0;};
-	virtual GLfloat getExtents() { return 0.0;};
+	virtual GLfloat getX() { return xPos;};
+	virtual GLfloat getY() { return yPos;};
+	virtual GLfloat getZ() { return zPos;};
+	virtual GLfloat getExtents() { return extents;};
+
+protected:
+
+	GLfloat xPos;
+	GLfloat yPos;
+	GLfloat zPos;
+	GLfloat speed;
+	GLfloat angle;
+	GLfloat extents;
 
 };
 
