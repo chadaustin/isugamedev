@@ -7,6 +7,7 @@ classes = [
     'CheckBox',
     'Font',
     'FontRenderer',
+    'FontRendererCache',
     'Insets',
     'Label',
     'ListBox',
