@@ -1,0 +1,35 @@
+external events:
+  mouse move
+  mouse button down
+  mouse button up
+  key down
+  key up
+
+generated events:
+
+  // generated events
+  key press    // can be created by key repeat
+  mouse click? // created by mouse button down and then mouse button up
+
+  // window
+  window close
+  window resize
+  window move
+
+  // button
+  button click
+
+  // checkbox
+  checkbox toggle
+
+  // radiobutton
+  radio button selchange
+
+  // textfield
+  textfield change
+
+  // widget
+  focus
+  blur
+  activate
+  deactivate

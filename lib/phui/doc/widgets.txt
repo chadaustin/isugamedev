@@ -1,0 +1,8 @@
++window
++buttons
++textfields
++labels
++checkbox
++lists
+-radiobutton
+-combobox
