@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Mod.h,v $
- * Date modified: $Date: 2002-05-01 07:16:59 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-05-03 10:25:21 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -75,7 +75,10 @@ namespace data {
       int getLevel() const {
          return mLevel;
       }
-  
+      void setLevel(int level) {
+         mLevel = level;
+      }
+
       void xMLify(std::ostream& out) {
          out <<"        <mod name=\"" << mName << "\" level=\"" << mLevel << "\" />" << std::endl;
       }
