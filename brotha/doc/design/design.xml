@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.74 2002-04-12 08:33:42 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 08:33:42 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.75 2002-04-12 15:59:59 takanara Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 15:59:59 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -45,10 +45,31 @@
   </bookinfo>
   <preface>
     <title>Introduction</title>
-    <para><emphasis>Warn-a-Brotha</emphasis> is an on-line 3D racing game in the spirit of <emphasis>Mario Kart</emphasis> and <emphasis>F-Zero</emphasis>. The game will feature cartoon characters in a multi-player battle cart racing game. Players will be able to compete in combat and racing action against several other networked friends.</para>
-    <para>The game will include power-ups, damage meters and an interesting interface. We plan on keeping track of player and gang-related statistics and preferences such as the number of kills they've made, number of times they've died and the number of cars they've trashed. The player will be able to choose one of several characters, each with his or her own look and attitude.</para>
-    <para>The <emphasis>Warn-a-Brotha</emphasis> client program will be implemented using OpenGL and C++ while the server will be implemented with portable C++. The clients and server will communicate over the TCP/IP layer. Due to time constraints, we will assume that all computers are on a LAN or other suitably fast connection so that we can generally ignore the lag problems associated with dial-up networked play.</para>
-    <para>The underlying database will be implemented using XML tables storing gangs, players, cars and car modifications where each gang can have multiple players, each player can have multiple cars and each car can have multiple modifications.</para>
+
+
+
+  <para>
+
+Warn-a-Brother uses a client server architecture to allow for multiple people to play a game at the same time.  The client is a relatively simple system, which does little more then display the world and move around as the server tells it to. The client uses the networking components(connection mgr, networking, threading) as well as the input, sound, texture and UI components. The server is much more sophisticated, responsible for managing the state of the world, calculating all the physics, storing all game world related data, as well as handling requests for reports based on the data. It uses the connection manager, the data/XML module, the game logic module, the network module, the report server, and of course the thread module
+
+</para>
+
+<para>
+The client/server networking will be over TCP/IP using our own networking object library, which will include a socket, stream, and serialization subsystem.  The report server will use the same socket libraries, but be based on HTTP, so that you'll just need a web server to query against it.
+</para>
+
+<para>
+The client side graphics will be displayed using OpenGL 3d rendering.  Input will be handled using GameKernel, and will be converted into command requests, which will be sent to the server to be processed.
+</para>
+
+<para>
+Once they are received by the server, the Game Logic module processes user commands by attempting to apply to them to the game world and seeing what happens.  The results are then sent back to every player's computer as updated positions.</para>
+  
+
+
+
+
+
   </preface>
   <chapter>
     <title>Subsystems</title>
@@ -327,11 +348,78 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>The BrothaData object needed to be able to store all the information persistently. To do that, we decided to use XML and an off-the-shelf parser. We also decided to use one that supported XPath and XSL for the report server.</para>
-        <section>
-          <title>Loading</title>
-          <para>One thing we decided to do was to load all the data into memory and create simple wrapper classes around it, rather then using something like SAX and only loading data on demand (and creating wrapper collections and the like). This was done to save time, especially since it won't really end up holding all that much data.</para>
-        </section>
+
+
+
+<qandaset>
+  <qandaentry>
+  <question>
+     <para>What COTS XML parser should we use?</para>
+  </question>
+  <answer>
+    <para>
+      The XML parser we used needed be able to support advanced features like XPath and XSL.
+    </para>
+
+    <title>Alternative 1 - <emphasis>Apache Xerces</emphasis></title>
+    <variablelist>
+     <varlistentry>
+      <listitem>
+       <term>Pros</term>
+       <itemizedlist spacing="compact">
+        <listitem>
+         <para>Supports XPath and XSL</para>
+        </listitem>
+       </itemizedlist>
+      </listitem>
+     </varlistentry>
+    </variablelist>
+      
+      
+     <title>Alternative 2 - <emphasis>Xmlpp</emphasis></title>
+     <variablelist>
+      <varlistentry>
+       <itemizedlist>
+        <listitem>
+         <term>Pros</term>
+          <itemizedlist spacing="compact">
+           <listitem>
+            <para>lightweight</para>
+           </listitem>
+           <listitem>
+            <para>well known In the group</para>
+           </listitem>
+          </itemizedlist>
+        </listitem>
+       </itemizedlist>
+        
+       <itemizedlist>
+        <listitem>
+         <term>Cons</term>
+         <itemizedlist spacing="compact">
+           <listitem>
+            <para>doesn't support XPath</para>
+            </listitem>
+           <listitem>
+             <para>lacking in good documentation</para>
+           </listitem>
+          </itemizedlist>
+         </listitem>
+       </itemizedlist>
+      </varlistentry>
+     </variablelist>
+
+</answer>
+</qandaentry>
+</qandaset>
+
+<para>
+Conclusion:
+</para>
+<para>
+We chose Apache Xerces because it supported XPath and XSL, which would let us use XPath for making querys in the report server, and because it came with resonable documentation.
+</para>
+
       </section>
     </section>
     <section>
