@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-04-15 09:20:38 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-17 07:19:36 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -84,11 +84,32 @@ namespace phui {
        */
       const std::string& getLabel() const;
 
+      /**
+       * Called whenever a mouse button has been pressed inside this button. In
+       * this case, we want to set the button's down state so that it can update
+       * its visual appearance and test if the next MouseUp event will be inside
+       * this button.
+       */
+      virtual void onMouseDown(InputButton button, int x, int y);
+
+      /**
+       * Called whenever a mouse button has been released after it has been
+       * pressed inside this button. If the button is released inside this
+       * button then we will fire a ButtonPressed event, otherwise we'll just
+       * toggle the button's down state.
+       */
+      virtual void onMouseUp(InputButton button, int x, int y);
+
    private:
       /**
        * The label on this button.
        */
       std::string mLabel;
+
+      /**
+       * Button down state. True if the button is down.
+       */
+      bool mButtonDown;
    };
 
 } // namespace phui

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-17 05:38:57 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-17 07:19:36 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,14 +42,15 @@
 namespace phui {
 
    Button::Button()
-      : mLabel("")
+      : mLabel(""), mButtonDown(false)
    {}
 
    Button::Button( const std::string& label )
-      : mLabel( label )
+      : mLabel(label), mButtonDown(false)
    {}
 
-   Button::~Button() {
+   Button::~Button()
+   {
    }
 
    void Button::draw()
@@ -57,7 +58,14 @@ namespace phui {
       glPushMatrix();
       glTranslatef((GLfloat)mX, (GLfloat)mY, 0.0f);
       // draw the button background
-      glColor( mBackgroundColor );
+      if (mButtonDown)
+      {
+         glColor( mForegroundColor );
+      }
+      else
+      {
+         glColor( mBackgroundColor );
+      }
       glBegin(GL_TRIANGLE_FAN);
          glVertex2i(0,      0       );
          glVertex2i(mWidth, 0       );
@@ -66,7 +74,14 @@ namespace phui {
       glEnd();
 
       // draw label text
-      glColor( mForegroundColor );
+      if (mButtonDown)
+      {
+         glColor( mBackgroundColor );
+      }
+      else
+      {
+         glColor( mForegroundColor );
+      }
       FontRenderer renderer( mFont );
 
       int w = mWidth - (2*mInsetX);
@@ -98,4 +113,33 @@ namespace phui {
       return mLabel;
    }
 
+   void Button::onMouseDown(InputButton button, int x, int y)
+   {
+      std::cout<<"Button::onMouseDown("<<x<<", "<<y<<")"<<std::endl;
+      /// @todo capture the mouse so we can receive the MouseUp event even if
+      //        the mouse is no longer inside the button.
+      if (button == BUTTON_LEFT)
+      {
+         std::cout<<"\tLMB"<<std::endl;
+         mButtonDown = true;
+      }
+   }
+
+   void Button::onMouseUp(InputButton button, int x, int y)
+   {
+      std::cout<<"Button::onMouseUp("<<x<<", "<<y<<")"<<std::endl;
+      if (button == BUTTON_LEFT)
+      {
+         std::cout<<"\tLMB"<<std::endl;
+         mButtonDown = false;
+
+         // Only fire button pressed event if the mouse was released inside
+         // this button.
+         if (contains(x, y))
+         {
+            std::cout<<"FIRE button pressed"<<std::endl;
+            /// @todo fire ButtonPressed event
+         }
+      }
+   }
 } // namespace phui
