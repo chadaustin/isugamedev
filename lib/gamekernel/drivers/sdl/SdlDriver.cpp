@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-04-06 22:25:34 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-04-08 02:21:28 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -129,7 +129,7 @@ bool SdlDriver::init(IGameKernel *kernel)
 		return false;
 	}
 	//This enables repeating keybaord events.  These values should be read from somewhere, not hardcoded in.
-	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
+	//SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 	return true;
 }
 
