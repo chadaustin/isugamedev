@@ -9,6 +9,8 @@
 #include "GeoSet.h"
 #include "glRenderGeoSet.h"
 
+#include "iniFile.h"
+
 class Tank
 {
 public:
@@ -19,14 +21,21 @@ public:
 
    void init()
    {
-      bool result = ImageManager::instance().load( "atomic.tga", image );
+      std::string filename;
+      bool result;
+      iniFile ini;
+      ini.load( "tank.ini" );
+      ini.getKey( "tank", "model", filename, result );
+      assert( result );
+
+      result = ImageManager::instance().load( "atomic.tga", image );
       assert( result && "cannot load image" );
       tex.setImage( &image );
       result = tex.imageValid();
       assert( result && "image is not valid" );
       
       kev::ObjImporter obj;
-      obj.load( geosets, "models/ship.obj" );
+      obj.load( geosets, filename );
       assert( geosets.size() > 0 && "load failed" );
    }
    
