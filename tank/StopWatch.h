@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: StopWatch.h,v $
-//    $Date: 2001-09-07 22:23:03 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-10 13:09:46 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -63,6 +63,13 @@ public:
     //  result - Resets every param except for [mRefreshRate]
     void           reset();
     
+    //: do a stop then a start.  usually called once per frame.
+    void pulse()
+    {
+       this->stop();
+       this->start();
+    }
+       
 // StopWatch settings:
 public:
     //: the refresh rate for mFpsAverage and mTimeAverage (in number of frames)
