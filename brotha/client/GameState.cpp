@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-05-01 19:39:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-05-02 02:34:00 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,8 +46,6 @@
 #include "GameState.h"
 #include <map>
 
-
-
 namespace client {
    std::map<std::string, bool> input;
 
@@ -58,7 +56,9 @@ namespace client {
       return deg * PI / T(180);
    }
    
-   GameState::GameState() {
+   GameState::GameState(BrothaApp* app)
+      : mApp(app)
+   {
       // Setup the scene
       mScene.addObject("tank", "models/hovertank_body.obj");
 
@@ -113,20 +113,44 @@ namespace client {
 
    void
    GameState::onKeyPress(SDLKey sym, bool down) {
-      if (sym == SDLK_w) {
-         input["drive"] = down;
+//      if (sym == SDLK_w) {
+//         input["drive"] = down;
+//      }
+//      else if (sym == SDLK_s) {
+//         input["reverse"] = down;
+//      }
+//      else if (sym == SDLK_a) {
+//         input["turnleft"] = down;
+//      }
+//      else if (sym == SDLK_d) {
+//         input["turnright"] = down;
+//      }
+//      else if (sym == SDLK_ESCAPE) {
+//         exit(0);
+//      }
+      net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
+      PRFloat64 to = (down ? 1 : 0);
+      
+      switch (sym) {
+      case SDLK_w:
+         what = net::UpdatePlayerInfoMessage::ACCELERATION;
+         break;
+      case SDLK_s:
+         what = net::UpdatePlayerInfoMessage::BRAKE;
+         break;
+      case SDLK_SPACE:
+         what = net::UpdatePlayerInfoMessage::HANDBRAKE;
+         break;
+      case SDLK_a:
+         what = net::UpdatePlayerInfoMessage::TURNLEFT;
+         break;
+      case SDLK_d:
+         what = net::UpdatePlayerInfoMessage::TURNRIGHT;
+         break;
       }
-      else if (sym == SDLK_s) {
-         input["reverse"] = down;
-      }
-      else if (sym == SDLK_a) {
-         input["turnleft"] = down;
-      }
-      else if (sym == SDLK_d) {
-         input["turnright"] = down;
-      }
-      else if (sym == SDLK_ESCAPE) {
-         exit(0);
+
+      if (what != net::UpdatePlayerInfoMessage::NOTHING) {
+         mApp->sendMessage(new net::UpdatePlayerInfoMessage(what, to));
       }
    }
 

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginState.cpp,v $
- * Date modified: $Date: 2002-05-01 19:39:11 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-05-02 02:34:00 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -237,7 +237,7 @@ namespace client {
                if(entMsg->getCode() == net::EnterMessage::GAME) {
                   std::cout<<"Enter As successful (in game)"<<std::endl;
 
-                  app->invokeStateTransition(new GameState());
+                  app->invokeStateTransition(new GameState(app));
                } else if(entMsg->getCode() == net::EnterMessage::GARAGE) {
                   std::cout<<"Enter As successful (in garage)"<<std::endl;
 

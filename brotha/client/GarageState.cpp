@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-05-02 00:40:58 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-02 02:34:00 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -141,7 +141,7 @@ namespace client {
             }
          }
       } else if(mSubState == Join_Game) {
-         app->invokeStateTransition(new GameState());
+         app->invokeStateTransition(new GameState(app));
          mSubState = User_Input;
       } else {
          // do nothing
