@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-29 11:04:43 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-29 11:06:50 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,14 +46,12 @@
 #include "game/Player.h"
 #include "net/NetMgr.h"
 
-namespace game
-{
+namespace server {
    /**
     * Contains the current state information relative to the game as well as all
     * the data required to display the game.
     */
-   class BrothaGame
-   {
+   class BrothaGame {
    public:
       /**
        * Creates a new game with no players.
@@ -66,29 +64,21 @@ namespace game
       void update();
 
       /**
-       * Adds the given player to the game.
+       * Adds the given player to players that have connection pool.
        *
        * @param player     the player to add
+       * @param cID        the connection id
        * @pre  player != NULL
        */
-      void add( Player* player);
+      void add( game::Player* player, net::NetMgr::ConnID cID);
 
       /**
-       * Sets which player is on the local machine. If player is NULL, then it is
-       * assumed that there is no local player and this is a dedicated server.
+       * Joins the player with said connection to the game.
        *
-       * @param player     the player corresponding to the local player
+       * @param cID     the connection id
+       * @pre  cID has already been added
        */
-      void setLocalPlayer( Player* player );
-
-      /**
-       * Gets the player on the local machine. If there is no local player, as
-       * could be the case on a dedicated server, this method will return NULL.
-       *
-       * @return  the local player or NULL if there is no player on the local
-       *          machine
-       */
-      Player* getLocalPlayer();
+      void joinPlayer( net::NetMgr::ConnID cID );
 
       /**
        * Pauses or unpauses the game.
@@ -107,23 +97,20 @@ namespace game
       /**
        * Gets the game timer
        */
-      const GameTimer& getGameTimer() const;
+      const game::GameTimer& getGameTimer() const;
 
    private:
-      typedef std::map<Player::UID, Player*> PlayerMap;
-      typedef std::map<net::NetMgr::ConnID, Player*> PlayerConnectionMap;
+      typedef std::map<game::Player::UID, game::Player*> PlayerMap;
+      typedef std::map<net::NetMgr::ConnID, game::Player*> PlayerConnectionMap;
 
       /// The game timer.
-      GameTimer mGameTime;
+      game::GameTimer mGameTime;
 
       /// All players that have actually joined the game.
       PlayerMap mPlayers;
 
       /// All players that have may a connection
       PlayerConnectionMap mConnectedPlayers;
-
-      /// The local player.
-      Player* mLocalPlayer;
    };
 }
 
