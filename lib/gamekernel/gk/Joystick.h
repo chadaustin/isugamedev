@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Joystick.h,v $
-// Date modified: $Date: 2002-02-11 01:57:21 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-02-18 03:17:06 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -116,7 +116,7 @@ public:
 
    /**
     * Retrieve an input (button or axis) from this joystick.
-    * 
+    *
     * @param alias   an alias bound to a Device/Input pair that was
     *                preconfigured in the GameInput input manager
     */

@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-02-10 10:20:48 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-02-18 03:17:06 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -52,21 +52,21 @@ class SdlDriver : public SystemDriver
 public:
 	SdlDriver();
 	virtual ~SdlDriver();
-	
+
 	/**
     	* Initializes this driver and starts it through its main loop.
     	*
     	* @return  true if successful, false otherwise
     	*/
    	virtual bool init();
-   	
+
    	/**
     * Starts the driver through its main loop.
     *
     * @return  true if successful, false otherwise
     */
    	virtual bool run();
-   	
+
 	/**
 	* Destroys this driver and cleans up all memory allocated to it.
 	*/

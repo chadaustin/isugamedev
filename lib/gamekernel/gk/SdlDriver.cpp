@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-02-11 02:47:21 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-02-18 03:17:06 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -39,7 +39,7 @@ namespace gk {
 SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(16), mvideoFlags(0), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
 {
 	misRunning = false;
-	mName = "SDL with OpenGL";	
+	mName = "SDL with OpenGL";
 	//We really don't need to do anything other than initialize variables.
 }
 
@@ -123,7 +123,7 @@ bool SdlDriver::run()
 	}
 	handleEvent();
 	return true;
-}	
+}
 
 void SdlDriver::shutdown()
 {
@@ -157,7 +157,7 @@ void SdlDriver::showMouse( bool show )
 		SDL_ShowCursor(SDL_ENABLE);
 	}
 	else
-	{	
+	{
 		SDL_ShowCursor(SDL_DISABLE);
 	}
 }
@@ -281,7 +281,7 @@ void SdlDriver::onMouseDown()
 	{
 		mouse->button(button).setBinaryState(DigitalInput::ON);
 	}
-	
+
 	mouse->axis(0).setData(mEvent.button.x);
 	mouse->axis(1).setData(mEvent.button.y);
 }
@@ -561,7 +561,7 @@ std::string SdlDriver::getKeyID(SDL_keysym& key)
 		if (key.mod == KMOD_SHIFT)
 		{
 			return "KEY_CURLYLEFT";
-		}	
+		}
 		return "KEY_LEFTBRACKET";
 	}
 	else if (key.sym == SDLK_BACKSLASH)
@@ -708,6 +708,6 @@ std::string SdlDriver::getKeyID(SDL_keysym& key)
    assert( false && "SDL Driver Error: Unknown key pressed." );
    return "";
 }
-		
-	
+
+
 } // namespace gk

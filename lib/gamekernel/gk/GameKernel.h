@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-18 03:11:15 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2002-02-18 03:17:06 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -42,14 +42,14 @@
 #include "gk/SystemDriver.h"
 #include "gk/GameInput.h"
 
-namespace gk 
+namespace gk
 {
 
 /**
  * The GameKernel serves as an effective system platform for a game application.
- * After defining your application object, use the GameKernel to run your 
+ * After defining your application object, use the GameKernel to run your
  * application.
- * 
+ *
  * <h3> "Example (to start your application using GLUT):" </h3>
  * \code
  *    class MyApplicationType : public gk::GameApp {};
@@ -74,10 +74,10 @@ namespace gk
  *    }
  * \endcode
  *
- * GameKernel is a Facade for all system driver interactions. 
+ * GameKernel is a Facade for all system driver interactions.
  * An application should deal directly with an instance of this object to avoid
  * talking directly to a SystemDriver implementation.
- * 
+ *
  * @see GameApp
  * @see GameKernelRegister
  */
@@ -95,9 +95,9 @@ public:
     * @return  true if successful, false otherwise
     */
    bool startup( SystemDriver* driver );
-   
-   /** system shutdown. 
-    *  exits the system.  
+
+   /** system shutdown.
+    *  exits the system.
     */
    void shutdown();
 
@@ -105,7 +105,7 @@ public:
     *  x and y are relative to your game's open window.
     */
    void warpMouse( int x, int y );
-   
+
    /** show/hide mouse cursor. */
    void showMouse( bool show );
 
@@ -138,17 +138,17 @@ public:
    GameInput* getInput();
 
    /** set the name of the running application.
-    * you should call this in AppInit with your app's name, 
+    * you should call this in AppInit with your app's name,
     * because some kernels can't set the window title after AppInit.
     * TODO: consider moving this function to the App baseclass.
-    *       this way if more than one app is registered, then 
+    *       this way if more than one app is registered, then
     *       each can be named.
     */
    void setName( const std::string& name );
 
    /** get the name of the application
     * TODO: consider moving this function to the App baseclass.
-    *       this way if more than one app is registered, then 
+    *       this way if more than one app is registered, then
     *       each can be named.
     */
    const std::string& name() const;

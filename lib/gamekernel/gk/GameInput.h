@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-18 03:11:15 $
-// Version:       $Revision: 1.31 $
+// Date modified: $Date: 2002-02-18 03:17:06 $
+// Version:       $Revision: 1.32 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -136,7 +136,7 @@ public:
          std::cout << "Added device: " << name << std::endl;
          this->refreshEventInputs();
          return true;
-      }      
+      }
       std::cout << "Failed to add device: " << name << std::endl;
       return false;
    }
@@ -192,11 +192,11 @@ public:
    {
       Input* in_put = getInput( device, input );
       mBindTable[alias].add( in_put );
-      mBindStrings.insert( std::pair<std::string, std::pair<std::string, std::string> >( alias, std::pair<std::string, std::string>(device, input) ) ); 
+      mBindStrings.insert( std::pair<std::string, std::pair<std::string, std::string> >( alias, std::pair<std::string, std::string>(device, input) ) );
       std::cout << "Bound [" << device << ":" << input << "] to [" << alias << "]" << std::endl;
    }
 
-   
+
 public:
    /**
     * Updates all the devices in this input manager. SystemDriver
@@ -228,7 +228,7 @@ private:
       {
          (*itr).second.clear();
       }
-      
+
       // re-add all binding info to EventInputs based on currently added devices..
       std::multimap<std::string, std::pair<std::string, std::string> >::iterator it;
       for (it = mBindStrings.begin(); it != mBindStrings.end(); ++it)
