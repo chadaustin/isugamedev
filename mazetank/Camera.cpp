@@ -74,8 +74,8 @@ void Camera::RotateAroundObject(float InDegrees)
 
 void Camera::LookAround(int ChangeX, int ChangeY)
 {
-	LookAroundRotates[1] += ChangeX*MULTX;
-	LookAroundRotates[2] += ChangeY*MULTZ;
+	LookAroundRotates[2] += ChangeX*MULTX;
+	LookAroundRotates[1] += ChangeY*MULTZ;
 }
 
 void Camera::Apply()
