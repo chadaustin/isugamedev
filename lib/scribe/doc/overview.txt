@@ -1,0 +1,61 @@
+Scribe Scripting Engine Overview
+Chad Austin
+2002.01.11
+
+
+This is informal...  Refactor as needed.
+
+
+In order to facilitate easy integration of scripting capabilities, Scribe
+exposes a simple language-independent API.  Engine code doesn't have to change
+(much) if the game designers choose to use a different scripting language.
+
+The API encapsulates general concepts common to all language embedding APIs (that I've used anyway).
+
+// sans error handling, of course
+
+// you can think of CreatePythonRuntime as a factory
+// it could also be something like:
+//   runtime = ScriptRuntimeFactory<Python>::instance()->create();
+// or:
+//   runtime = ScriptRuntimeFactory::instance()->create("python");
+
+Runtime* runtime = CreatePythonRuntime();
+
+/**
+  If you remember from my talk, a runtime is like an operating system: it
+  contains and manages execution for several contexts, which are analogous
+  to executables.
+**/
+
+ExecutionContext* ec = runtime->createContext();
+
+// If you've done any Perl, Python, JavaScript, or Scheme, you know that
+// code evaluation sometimes just modifies the context's symbol table:
+// defining new functions, new global variables, creating classes, etc.
+
+// add function 'foo' to the list of functions
+ec->evaluate(
+  "def foo():\n"
+  "  print 'Hello!'\n");
+
+ec->evaluate("foo()");  // call foo()
+
+
+Obviously, calling from C++ into Python is easy.  You could create a native
+class that simply forwards calls to the scripting engine.  The interesting
+part is letting Python call functions that are implemented in C++.  Since
+there's no way the Python runtime can automatically know about native
+functions, the native code has to explicitly specify binding points.
+
+// void foo();
+// int bar(const char* s, float f);
+ec->defineFunction<void, NulType>("foo", foo);
+ec->defineFunction<int, TYPELIST_2(const char*, float)>("bar", bar);
+
+Via some typelist magic, the grunt work involved here could be automated to a
+large degree.
+
+
+I believe this system is reasonably small and easy to implement, and yet would
+provide more than enough functionality for the games in the club.
