@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SellModMessageHandler.h,v $
- * Date modified: $Date: 2002-05-03 07:33:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-03 09:53:07 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -61,18 +61,12 @@ namespace server {
          // get the main data and the player the user is
          data::BrothaData& data = data::DataManager::instance().getData();
          data::Player* player = data.getPlayer(m_brothaGame->getPlayer(cID)->getName());
-         data::CarList* carlist = &player->getCars();
 
          /// @todo maybe add some validation (i.e. cost, car exists, etc.)
 
-         // find the car to remove the mod from
-         for(unsigned int x=0;x<carlist->size();++x) {
-            // if this is the car referred to
-            if((*carlist)[x]->getName().compare(mMsg->getCarName()) == 0) {
-               // remove the mod
-               (*carlist)[x]->removeMod(mMsg->getModName());
-               break;
-            }
+         data::Car* car = player->getCar(mMsg->getCarName());
+         if(car != NULL) {
+            car->removeMod(mMsg->getModName());
          }
 
          // send the good response
