@@ -13,7 +13,8 @@ namespace server {
    }
 
    void WriteServer::run() {
-      while(1) {
+      while(PR_AtomicIncrement(&mKillMe)) {
+         PR_AtomicDecrement(&mKillMe);
       }
    }
 } // namespace server

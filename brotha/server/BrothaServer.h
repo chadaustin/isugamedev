@@ -55,14 +55,17 @@ namespace server {
             m_writeServer->stop();
          }
 
+         m_gameServer   = 0;
+         m_listenServer = 0;
+         m_writeServer  = 0;
+
          delete m_writeQueue;
          delete m_readQueue;
+         m_writeQueue = 0;
+         m_readQueue = 0;
 
          delete m_clients;
-
-         delete m_gameServer;
-         delete m_listenServer;
-         delete m_writeServer;
+         m_clients = 0;
       }
 
       void StartWebServer() {

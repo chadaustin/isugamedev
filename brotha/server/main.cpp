@@ -33,6 +33,7 @@ LRESULT CALLBACK WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
                EnableMenuItem(menu, ID_SERVER_START, MF_GRAYED);
                EnableMenuItem(menu, ID_SERVER_STOP, MF_ENABLED);
                g_BrothaServer.StartServer();
+               break;
             case ID_SERVER_STOP:
                EnableMenuItem(menu, ID_SERVER_START, MF_ENABLED);
                EnableMenuItem(menu, ID_SERVER_STOP, MF_GRAYED);

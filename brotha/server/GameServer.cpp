@@ -13,7 +13,8 @@ namespace server {
    }
 
    void GameServer::run() {
-      while(1) {
+      while(PR_AtomicIncrement(&mKillMe)) {
+         PR_AtomicDecrement(&mKillMe);
       }
    }
 } // namespace server
