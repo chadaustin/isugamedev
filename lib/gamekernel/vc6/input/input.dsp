@@ -49,10 +49,10 @@ BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386 /out:"../../dist/opt/input.exe"
 # Begin Special Build Tool
-TargetDir=\home\omni\open\lib\gamekernel\dist\opt
+TargetDir=\home\kevn\src\lib\gamekernel\dist\opt
 SOURCE="$(InputPath)"
 PostBuild_Cmds=copy ..\..\test\input\config.xml $(TargetDir)\config.xml
 # End Special Build Tool
@@ -70,20 +70,20 @@ PostBuild_Cmds=copy ..\..\test\input\config.xml $(TargetDir)\config.xml
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ  /c
-# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "../.." /I "../../external/xdl" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "XDL_USE_DLL" /YX /FD /GZ  /c
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "../.." /I "../../external/xdl" /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "XDL_USE_DLL" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
 LINK32=link.exe
-# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /out:"../../dist/dbg/input.exe" /pdbtype:sept
 # Begin Special Build Tool
-TargetDir=\home\omni\open\lib\gamekernel\dist\dbg
 SOURCE="$(InputPath)"
-PostBuild_Cmds=copy ..\..\test\input\config.xml $(TargetDir)\config.xml
+PostBuild_Desc=copy ..\..\test\input\config.xml .
+PostBuild_Cmds=copy ..\..\test\input\config.xml .
 # End Special Build Tool
 
 !ENDIF 
@@ -92,6 +92,10 @@ PostBuild_Cmds=copy ..\..\test\input\config.xml $(TargetDir)\config.xml
 
 # Name "input - Win32 Release"
 # Name "input - Win32 Debug"
+# Begin Source File
+
+SOURCE=..\..\test\input\config.xml
+# End Source File
 # Begin Source File
 
 SOURCE=..\..\test\input\Grid.h

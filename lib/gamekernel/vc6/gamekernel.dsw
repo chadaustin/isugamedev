@@ -38,6 +38,9 @@ Package=<4>
     Begin Project Dependency
     Project_Dep_Name gk
     End Project Dependency
+    Begin Project Dependency
+    Project_Dep_Name glut
+    End Project Dependency
 }}}
 
 ###############################################################################
