@@ -6,12 +6,16 @@
 
 
 
+
 class XMLPersistory{
 
   public:
+    //io stuff.  Not currently functional
     bool open(std::string filename);
     void close();
     bool save(std::string filename);
+    
+
 
 };
      
