@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-11 09:20:44 $
- * Version:       $Revision: 1.72 $
+ * Date modified: $Date: 2002-11-13 07:35:28 $
+ * Version:       $Revision: 1.73 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,6 +51,7 @@
 #include "HUD.h"
 #include "InputAction.h"
 #include "InputManager.h"
+#include "NavNodeTree.h"
 #include "Player.h"
 #include "Scene.h"
 #include "SceneViewer.h"
@@ -114,6 +115,8 @@ namespace mw
        */
       void addNavNodeLink(std::string n1, std::string n2);
       
+      NavNodeTree* getNavNodeTree(){ return droidNavTree; }
+      
       /**
        * Get the player
        */
@@ -135,7 +138,7 @@ namespace mw
       Turret* setupTurret(const std::string& name, const std::string& parent,
                           int maxChild, int level);
       Droid* setupDroid(const std::string& name, const std::string& parent,
-                        int maxChild, int level);
+                        int maxChild, int level, NavNodeTree& tree);
 
    private:
       void initializeInput();
@@ -174,18 +177,57 @@ namespace mw
       
       testing* appTest;
       std::vector<lm::aiNode*> mAInodes;
-      lm::command* node1sCommand;
-      lm::command* node2sCommand;
-      lm::command* aimCommand;
-      lm::command* shootCommand;
-      lm::behavior* first;
-      lm::behavior* second;
-      lm::testing* myTestCommand;
+      
+      // this is the test case to see if the player is in range
       lm::testing* aimTestCommand;
-
+      // this is the shoot pivot and shoot command
+      lm::command* aimCommand;
+      // this is the behavior that we stor aimCommand into 
+      lm::behavior* first;
+      // this is the turrets only reflex
       lm::reflex* node1Instinct;
+      
+      // this is the droids reaction if myTestCommand comes true
+      lm::command* shootCommand;
+      // the behavior that shootCommand gets stored into 
+      lm::behavior* second;
+      // for droids this test to see if the player is out in front of the droid
+      lm::testing* myTestCommand;
+      // reflex for the droid
       lm::reflex* node2Instinct;
 
+      // droidFuked is the reflex associated with checking if a droids
+      // fuckedflag is currently set
+      lm::reflex* droidFuked;
+      // fukedTest returns true if the droids fukedflag is set
+      lm::testing* fukedTest;
+      // fuckedCommand is the reaction for fukedTest
+      lm::command* fuckedCommand;
+      // fuckedBehavior is the behaivor that stores the fuckedCommand
+      lm::behavior* fuckedBehavior;
+
+      // atGoalNode is the reflex associated with checking if a droid is at the
+      // goal node
+      lm::reflex* atGoalNode;
+      // goalTest returns true if the droid is at the goal node
+      lm::testing* goalTest;
+      // goalCommand is the reaction for the goalTest
+      lm::command* goalCommand;
+      // goalBehavior is the behavior that stores teh goalCommand
+      lm::behavior* goalBehavior;
+
+      // defualtDroidAction is the reflex that is always called and handle moving
+      // the droid around
+      lm::reflex* defaultDroidAction;
+      // moveCommand is the command that moves the droid every frame toward
+      // whatever is most important
+      lm::command* moveCommand;
+      // moveBehavior stores moveCommand
+      lm::behavior* moveBehavior;
+      // moveTest returns true always
+      lm::testing* moveTest;
+
+      
 
       Scene* mScene;
       SceneViewer* mSceneViewer;

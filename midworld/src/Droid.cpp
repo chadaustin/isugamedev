@@ -6,6 +6,7 @@
 #include "Pistol.h"
 #include "Droid.h"
 #include "ParticleEngine.h"
+#include "NavNodeTree.h"
 
 namespace mw
 {
@@ -14,6 +15,14 @@ namespace mw
    {
       gun = new Pistol();
       gun->setSource("Droid");
+      fuckedFlag = true;
+      mTree = new NavNodeTree();     
+
+      goalNode = new Node();
+      fakeNode = new Node();
+      currentNode = new Node();
+      
+      
    }
 
    Droid::~Droid()

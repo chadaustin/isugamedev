@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-11-11 08:05:52 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-11-13 07:35:27 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -89,9 +89,6 @@ namespace mw
          return (mHealth <= 0);
       }
 
-      void walkRandom();
-      void rotate();
-      
       virtual Weapon* getGun()
       {
          return gun;

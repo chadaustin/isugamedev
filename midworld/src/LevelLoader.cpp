@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.cpp,v $
- * Date modified: $Date: 2002-11-08 09:40:17 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-13 07:35:28 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -86,7 +86,7 @@ namespace mw
             if(in >> name >> parent >> maxChild >> level)
             {
                Entity* en;
-               en = gameState->setupDroid(name, parent, maxChild, level);
+               en = gameState->setupDroid(name, parent, maxChild, level, *gameState->getNavNodeTree());
                en->setModel("security_droid");
                e = en;
             }

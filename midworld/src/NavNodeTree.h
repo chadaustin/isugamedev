@@ -14,8 +14,24 @@ namespace mw
    /**
     * structure to make it easier to deal with Nodes.
     */
-   struct Node
+   class Node
    {
+   public:
+      Node()
+      {
+         loc[0]=loc[1]=loc[2]=0.0f;
+         name = "unknown";
+      }
+      Node(std::string n)
+      {
+         Node();
+         name = n;
+      }
+      gmtl::Vec3f getLoc(){ 
+         std::cout << "in getLoc" << std::endl;
+         std::cout << name << std::endl;
+         std::cout << loc[0] << std::endl;
+         return loc; }
       std::string name;
       gmtl::Vec3f loc;
       std::vector<Node*> links;
@@ -27,6 +43,21 @@ namespace mw
    class NavNodeTree
    {
    public:   
+      
+      /**
+       * constructor
+       */
+      NavNodeTree()
+      {
+         Tree.clear();
+      }
+
+      /** 
+       * a method that allows us to query the tree for the closest node 
+       * to a given point
+       */
+      Node* findNearestNavNode(gmtl::Vec3f pos);
+      
       /**
        * adds a node to the tree
        * returns true if successfully added node
@@ -36,11 +67,14 @@ namespace mw
        */
       void addNode(Node* newNode)
       {
+         std::cout << "pushing newNode onto Tree" << std::endl;
          Tree.push_back(newNode);
+         std::cout << "Tree.begin()->name = "<< Tree[0]->getLoc()[0] << std::endl;
          for(unsigned int i=0;i<newNode->links.size();i++)
          {
             newNode->links[i]->links.push_back(newNode);
          }
+         std::cout << "Tree.size(): " << Tree.size() << std::endl;
       }
 
       /** 
@@ -62,6 +96,7 @@ namespace mw
        */
       std::vector<Node*>& allLinks(const std::string& node);
       
+      std::vector<Node*>& getTree(){ return Tree; }
    private:
       std::vector<Node*> Tree;
    };

@@ -1,9 +1,32 @@
 #include "NavNodeTree.h"
 
 
+
 namespace mw
 {
    
+   Node* NavNodeTree::findNearestNavNode(gmtl::Vec3f pos)
+   {
+      float nearestDist=10000000;
+      
+      float testDist;
+      Node* nearestNode=NULL;
+      std::cout << "findNNN Tree.size: " << Tree.size() << std::endl;
+      for(int i=0;i<Tree.size();i++)
+      {
+         if((testDist = (Tree[i]->loc[0]-pos[0])*(Tree[i]->loc[0]-pos[0])+
+         (Tree[i]->loc[2]-pos[2])*(Tree[i]->loc[2]-pos[2]))<=nearestDist)
+         {
+            std::cout << "we have a new node that is closer: " << i << std::endl;
+            nearestDist = testDist;
+            nearestNode = Tree[i];
+         }
+         std::cout << "testDist:" << testDist << std::endl;
+      }
+      return nearestNode;
+   }
+   
+
    bool NavNodeTree::addLink(const std::string& node1, const std::string& node2)
    {
       Node* n1 = 0;

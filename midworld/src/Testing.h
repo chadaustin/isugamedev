@@ -15,6 +15,8 @@
 #include <vector>
 
 
+#include "NavNodeTree.h"
+
 
 namespace mw
 {
@@ -33,6 +35,26 @@ namespace mw
    private:
       Droid* mDroid;
       Player* mPlayer;
+   };
+
+   class droidFuckedTesting : public lm::testing
+   {
+   public:
+      droidFuckedTesting(Droid* e);
+      virtual bool test();
+   private:
+      Droid* mDroid;
+   };
+   
+
+   class droidChooseNewNodeTesting : public lm::testing
+   {
+   public:
+      droidChooseNewNodeTesting(Droid* e, NavNodeTree* t);
+      virtual bool test();
+   private:
+      Droid* mDroid;
+      NavNodeTree* mTree;
    };
    
 
@@ -62,6 +84,40 @@ namespace mw
       Player* mPlayer;
    };
 
+   class droidFuckedCommand : public lm::command
+   {
+   public:
+      droidFuckedCommand(Droid* e, NavNodeTree* t);
+      virtual void execute();
+
+   private:
+      Droid* mDroid;
+      NavNodeTree* mTree;
+   };
+
+   class droidFindCloseNodeCommand : public lm::command
+   {
+   public:
+      droidFindCloseNodeCommand(Droid* e, NavNodeTree* t);
+      virtual void execute();
+
+   private:
+      Droid* mDroid;
+      NavNodeTree* mTree;
+   };
+
+   class droidMoveToNodeCommand : public lm::command
+   {
+   public:
+      droidMoveToNodeCommand(Droid* e, NavNodeTree* t);
+      virtual void execute();
+
+   private:
+      Droid* mDroid;
+      NavNodeTree* mTree;
+   };
+         
+   
    class turretCommand : public lm::command
    {
       public:
@@ -79,11 +135,17 @@ namespace mw
    };
    
    
-   
-   class testing
+   class moveTests : public lm::testing
    {
    public:
-      testing() {}
+      moveTests(){}
+      virtual bool test(){return true;}
+   };
+   
+   class tests : public lm::testing
+   {
+   public:
+      virtual bool testing() {}
 
       bool alwaysTrue()
       {
@@ -92,10 +154,6 @@ namespace mw
       bool alwaysFalse()
       {
          return false;
-      }
-      bool aimTrue()
-      {
-         return true;
       }
    private:
    };

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-11 09:20:43 $
- * Version:       $Revision: 1.121 $
+ * Date modified: $Date: 2002-11-13 07:35:27 $
+ * Version:       $Revision: 1.122 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -451,6 +451,7 @@ namespace mw
    GameState::addNavNode(Node* node)
    {
       droidNavTree->addNode(node);
+      droidNavTree->getTree().size();
    }
 
    void
@@ -484,21 +485,51 @@ namespace mw
     */
    Droid*
    GameState::setupDroid(const std::string& name, const std::string& parent,
-                         int maxChild, int level)
+                         int maxChild, int level, NavNodeTree& tree)
    {
       lm::aiNode* node1 = new lm::aiNode(name, NULL, maxChild, level);
       mAInodes.push_back(node1);
 
       Droid* droid = EntityFactory::instance().create<Droid>();
-      node2sCommand = new lm::simpleCommand<Droid>(droid, &Droid::walkRandom);
+      
+      std::cout << "setupDroid---> tree.size(): " << tree.getTree().size() << std::endl << std::endl;
+
+      
+      // setup the shoot reflex
       myTestCommand = new droidTesting(droid, &mPlayer);
       shootCommand = new droidCommand(droid, &mPlayer);
 
       second = new lm::behavior;
-      second->addCommand(node2sCommand);
+      
       second->addCommand(shootCommand);
-
       node2Instinct = new lm::reflex(node1, second, myTestCommand);
+      
+      // setup the fucked reflex
+      fukedTest = new droidFuckedTesting(droid);
+      fuckedCommand = new droidFuckedCommand(droid, droidNavTree);
+      fuckedBehavior = new lm::behavior;
+
+      fuckedBehavior->addCommand(fuckedCommand);
+      droidFuked = new lm::reflex(node1, fuckedBehavior, fukedTest);
+
+      // setup the Goal reflex
+      goalTest = new droidChooseNewNodeTesting(droid, droidNavTree);
+      goalCommand = new droidFindCloseNodeCommand(droid, droidNavTree);
+      goalBehavior = new lm::behavior;
+
+      goalBehavior->addCommand(goalCommand);
+      atGoalNode = new lm::reflex(node1, goalBehavior, goalTest);
+/*
+      // setup the last reflex which is the defualt (always called reflex)
+      moveCommand = new droidMoveToNodeCommand(droid, &tree);
+      moveBehavior = new lm::behavior
+      moveTest = new moveTests();
+
+      moveBehavior->addCommand(moveCommand);
+      defaultDroidAction = new lm::reflex(node1, moveBehavior, moveTest);
+*/
+      droid->setTree(droidNavTree);
+      
       AI.registerNode(node1);
 
       mMap[droid->getUID()] = node1;
@@ -520,10 +551,10 @@ namespace mw
       mAInodes.push_back(node1);
 
       Turret* turret = EntityFactory::instance().create<Turret>();
-      node1sCommand = new lm::simpleCommand<Turret>(turret, &Turret::aim);
+ 
+//      node1sCommand = new lm::simpleCommand<Turret>(turret, &Turret::aim);
 
       first = new lm::behavior;
-      first->addCommand(node1sCommand);
 
       aimTestCommand = new turretTesting(turret, &mPlayer);
       aimCommand = new turretCommand(turret, &mPlayer);
