@@ -9,8 +9,8 @@
  *
  *  @section Using Using This Reference Guide
  *  Welcome to Isym.  To use this reference guide effectively, we suggest 
- *  you see the <a href="modules.html">Modules</a> section first.
- *  The <a href="modules.html">Modules</a> section provides the most 
+ *  you see the <a href="namespaceisym.html">NamespaceList/isym</a> section first.
+ *  The <a href="namespaceisym.html">NamespaceList/isym</a> section provides the most 
  *  intuitive navigation of the reference guide because this
  *  section is structured very similar to Isym.  Lastly, you should subscribe 
  *  to the mailing lists so that you can ask questions, or propose extensions 
