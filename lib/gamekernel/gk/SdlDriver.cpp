@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-02-10 10:20:48 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-02-10 10:36:37 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -129,8 +129,18 @@ void SdlDriver::shutdown()
 {
 	//Cleanup time...
 	misRunning = false;
-	//GameInput::instance().removeDevice("Keyboard");
-	//GameInput::instance().removeDevice("Mouse");
+	GameInput::instance().removeDevice("Keyboard");
+	GameInput::instance().removeDevice("Mouse");
+	if (mKeyboard != NULL)
+	{
+		mKeyboard == NULL;
+		delete mKeyboard;
+	}
+	if (mKeyboard != NULL)
+	{
+		mKeyboard == NULL;
+		delete mKeyboard;
+	}
 	//GameInput::instance().removeDevice("Joystick");
 	SDL_Quit();
 }
