@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInputConfigure.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-05-14 15:52:59 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -35,7 +35,7 @@
 #include <gk/gkCommon.h>
 #include <iostream>
 #include <string>
-#include <xmlpp/xmlpp.h>
+#include <cppdom/cppdom.h>
 
 #include <gk/IGameKernel.h>
 
@@ -45,23 +45,23 @@ inline static bool loadInputConfig( const std::string& filename,
                                     IGameKernel* kernel )
 {
    assert( kernel != NULL );
-   xmlpp::XMLContextPtr ctx( new xmlpp::XMLContext );
-   xmlpp::XMLDocument doc( ctx );
+   cppdom::XMLContextPtr ctx( new cppdom::XMLContext );
+   cppdom::XMLDocument doc( ctx );
 
    // load a xml document from a file
    try
    {
-      doc.load_file( filename );
+      doc.loadFile( filename );
    }
-   catch (xmlpp::xmlerror e)
+   catch (cppdom::XMLError e)
    {
-      std::cerr << "Error: " << e.get_string() << std::endl;
-      if (e.get_info().size())
+      std::cerr << "Error: " << e.getString() << std::endl;
+      if (e.getInfo().size())
       {
-         std::cerr << "File: " << e.get_info() << std::endl;
+         std::cerr << "File: " << e.getInfo() << std::endl;
       }
-      if (e.get_error() != xmlpp::xml_filename_invalid &&
-          e.get_error() != xmlpp::xml_file_access)
+      if (e.getError() != cppdom::xml_filename_invalid &&
+          e.getError() != cppdom::xml_file_access)
       {
          //e.show_error( ctx );
          //e.show_line( ctx, filename );
@@ -71,22 +71,22 @@ inline static bool loadInputConfig( const std::string& filename,
 
    std::cerr << "Loaded Configuration: " << filename << std::endl;
 
-   xmlpp::XMLNodeList nl = doc.getChild( "gameinput" )->getChildren();
-   xmlpp::XMLNodeListIterator it = nl.begin();
+   cppdom::XMLNodeList nl = doc.getChild( "gameinput" )->getChildren();
+   cppdom::XMLNodeListIterator it = nl.begin();
    while (it != nl.end())
    {
       //std::cerr << "in name: " << (*it)->name() << std::endl;
       try
       {
-         xmlpp::XMLAttributes& attr = (*it)->get_attrmap();
+         cppdom::XMLAttributes& attr = (*it)->getAttrMap();
          //std::cout << "attr: " << attr.get( "action" ) << "\n" << std::flush;
          //std::cout << "attr: " << attr.get( "device" ) << "\n" << std::flush;
          //std::cout << "attr: " << attr.get( "input" ) << "\n" << std::flush;
          kernel->getInput()->bind( attr.get( "action" ), attr.get( "device" ), attr.get( "input" ) );
       }
-      catch (xmlpp::xmlerror e)
+      catch (cppdom::XMLError e)
       {
-         std::cerr << "Error: " << e.get_string() << std::endl;
+         std::cerr << "Error: " << e.getString() << std::endl;
          it++;
          continue;
       }

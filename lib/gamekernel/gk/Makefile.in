@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-03-25 21:49:53 $
-# Version:       $Revision: 1.8 $
+# Date modified: $Date: 2002-05-14 15:52:36 $
+# Version:       $Revision: 1.9 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -42,7 +42,7 @@ mandir=@mandir@
 gkincludedir=$(includedir)/gk
 gklibdir=$(libdir)/gk
 gkdatadir=$(datadir)/gk
-xmlppincludedir=$(includedir)/xmlpp
+cppdomincludedir=$(includedir)/cppdom
 xdlincludedir=$(includedir)
 
 INSTALL=@INSTALL@
@@ -83,20 +83,20 @@ GK_SRCS = \
 	SystemDriverFactory.cpp \
 	TypedDevice.h
 
-XMLPP_SRCS = \
+CPPDOM_SRCS = \
 	shared_ptr.h \
-	xmlconfig.h \
+	config.h \
 	xmlparser.h \
 	xmlparser.cpp \
-	xmlpp.h \
-	xmlpp.cpp \
+	cppdom.h \
+	cppdom.cpp \
 	xmltokenizer.h \
 	xmltokenizer.cpp
 
 XDL_SRCS = \
 	xdl.h
 
-SRCS = $(GK_SRCS) $(XMLPP_SRCS)
+SRCS = $(GK_SRCS) $(CPPDOM_SRCS)
 
 # project name...
 PROJECT_NAME = gk
@@ -105,10 +105,10 @@ PROJECT_NAME = gk
 OBJDIR = .
 DEPDIR = 
 
-PATH_TO_SRCS = $(srcdir):$(top_srcdir)/xmlpp
+PATH_TO_SRCS = $(srcdir):$(top_srcdir)/cppdom/cppdom
 MK_DIR = $(top_srcdir)/mk
-INCLUDE_PATHS = -I$(top_srcdir) -I$(top_srcdir)/external/xdl @INCLUDES@
-LIBS=@LIBS@
+INCLUDE_PATHS = -I$(top_srcdir) -I$(top_srcdir)/cppdom/installed/include -I$(top_srcdir)/external/xdl @INCLUDES@
+LIBS=@LIBS@ -I$(top_srcdir)/cppdom/installed/lib$(LIBBITSUF)
 DEFS=@GK_DEFS@
 
 ################################################################################
@@ -161,7 +161,7 @@ install-libs:
 _header_suffix_list = h hpp hh
 makeheaders = $(foreach _suffix, $(_header_suffix_list), $(filter %.$(_suffix), $1))
 GK_HEADERS=$(call makeheaders, $(GK_SRCS))
-XMLPP_HEADERS=$(call makeheaders, $(XMLPP_SRCS))
+CPPDOM_HEADERS=$(call makeheaders, $(CPPDOM_SRCS))
 XDL_HEADERS=$(call makeheaders, $(XDL_SRCS))
 
 install-headers:
@@ -171,11 +171,11 @@ install-headers:
 		echo " $(INSTALL_DATA) $$d$$h $(gkincludedir)/$$h"; \
 		$(INSTALL_DATA) $$d$$h $(gkincludedir)/$$h; \
 	done
-	-@mkdir $(xmlppincludedir)
-	@list='$(XMLPP_HEADERS)'; for h in $$list; do \
-		if test -f "$$h"; then d= ; else d="$(top_srcdir)/xmlpp/"; fi; \
-		echo " $(INSTALL_DATA) $$d$$h $(xmlppincludedir)/$$h"; \
-		$(INSTALL_DATA) $$d$$h $(xmlppincludedir)/$$h; \
+	-@mkdir $(cppdomincludedir)
+	@list='$(CPPDOM_HEADERS)'; for h in $$list; do \
+		if test -f "$$h"; then d= ; else d="$(top_srcdir)/cppdom/"; fi; \
+		echo " $(INSTALL_DATA) $$d$$h $(cppdomincludedir)/$$h"; \
+		$(INSTALL_DATA) $$d$$h $(cppdomincludedir)/$$h; \
 	done
 	-@mkdir $(xdlincludedir)
 	@list='$(XDL_HEADERS)'; for h in $$list; do \
@@ -197,10 +197,10 @@ uninstall-headers:
 		rm -f $(gkincludedir)/$$h; \
 	done
 	-@rmdir $(gkincludedir)
-	@list='$(XMLPP_HEADERS)'; for h in $$list; do \
-		rm -f $(xmlppincludedir)/$$h; \
+	@list='$(CPPDOM_HEADERS)'; for h in $$list; do \
+		rm -f $(cppdomincludedir)/$$h; \
 	done
-	-@rmdir $(xmlppincludedir)
+	-@rmdir $(cppdomincludedir)
 	@list='$(XDL_HEADERS)'; for h in $$list; do \
 		rm -f $(xdlincludedir)/$$h; \
 	done
