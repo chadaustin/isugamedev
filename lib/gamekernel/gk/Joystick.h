@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Joystick.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-02-10 19:03:23 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -66,7 +66,7 @@ public:
     * @param numAxes       the number of axes supported by the joystick
     */
    Joystick( int numButtons, int numAxes )
-      : DigitalDevice(), AnalogDevice()
+      : AnalogDevice(), DigitalDevice()
    {
       DigitalDevice::setNumInputs( numButtons ); // num buttons
       AnalogDevice::setNumInputs( numAxes ); // num axes
