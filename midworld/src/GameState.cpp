@@ -4,6 +4,7 @@
 #include "IntroState.h"
 #include "MenuState.h"
 #include "Pistol.h"
+#include "SpreadGun.h"
 
 namespace mw
 {
@@ -17,6 +18,7 @@ namespace mw
       , mCycleWeapon(UP)
    {
       mPlayer.addWeapon( new Pistol );
+      mPlayer.addWeapon( new SpreadGun );
    }
 
    GameState::~GameState()
