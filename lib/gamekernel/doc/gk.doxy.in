@@ -268,7 +268,7 @@ WARN_LOGFILE           =
 # directories like "/usr/src/myproject". Separate the files or directories 
 # with spaces. 
 
-INPUT                  = ../gk/ mainpage.doxy
+INPUT                  = @srcdir@/../gk/ @srcdir@/mainpage.doxy
 
 # If the value of the INPUT tag contains directories, you can use the 
 # FILE_PATTERNS tag to specify one or more wildcard pattern (like *.cpp 
@@ -639,7 +639,7 @@ PERL_PATH              = /usr/freeware/bin/perl
 # toolkit from AT&T and Lucent Bell Labs. The other options in this section 
 # have no effect if this option is set to NO (the default) 
 
-HAVE_DOT               = YES
+HAVE_DOT               = @HAVE_DOT@
 
 # If the CLASS_GRAPH and HAVE_DOT tags are set to YES then doxygen 
 # will generate a graph for each documented class showing the direct and 
