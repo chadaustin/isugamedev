@@ -41,10 +41,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib cppdom.lib"
 				OutputFile="Debug\gk.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\cppdom\vc7\Debug"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Debug/gk.pdb"
 				ImportLibrary=".\Debug/gk.lib"/>
@@ -102,10 +103,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib cppdom.lib"
 				OutputFile="Release\gk.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="..\..\cppdom\vc7\Release"
 				ProgramDatabaseFile=".\Release/gk.pdb"
 				ImportLibrary=".\Release/gk.lib"/>
 			<Tool
