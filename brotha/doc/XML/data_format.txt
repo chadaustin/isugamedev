@@ -1,7 +1,12 @@
 XML structure.
 
 
-Ok, this is what I'm thinking.  The root tag will be something like <wbdata>. Inside that we'll have a <gang> tags, and <cartype> tags. the <gangs> tag will have <player> elements, which will hold the player info, including <car> elements.  Each car element will have <mod> tags, with type and level attributes.  Aditionaly, each <player> element will have a <stats> element, containg <stat> element, with all the stats we want to keep track of.  Here would be an example file
+Ok, this is what I'm thinking.  The root tag will be something like <wbdata>. 
+Inside that we'll have a <gang> tags, and <cartype> tags. the <gangs> tag will 
+have <player> elements, which will hold the player info, including <car> elements.
+Each car element will have <mod> tags, with type and level attributes.  Aditionaly, 
+each <player> element will have a <stats> element, containg <stat> element, with all
+the stats we want to keep track of.  Here would be an example file
 
 
 <wbdata>
