@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsSweepCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-11-11 05:03:21 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-11 08:44:23 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,12 +35,14 @@
 #include <gmtl/Containment.h>
 #include <gmtl/Intersection.h>
 #include "BoundsSweepCollisionDetector.h"
+#include "CollisionResponse.h"
 
 namespace mw
 {
    CollisionDesc*
    BoundsSweepCollisionDetector::checkCollision(const RigidBody* body,
-                                                const gmtl::Vec3f& path)
+                                                const gmtl::Vec3f& path,
+                                                CollisionResponse& cr)
    {
       const gmtl::AABoxf& bounds = body->getBounds();
 
@@ -67,7 +69,9 @@ namespace mw
          RigidBody* collidee = *itr;
 
          // Don't collide against ourself or against non-collidables
-         if (body == collidee || !collidee->isCollidable())
+         if (body == collidee ||
+             !collidee->isCollidable() ||
+             !cr.isCollidable(body, collidee))
          {
             continue;
          }

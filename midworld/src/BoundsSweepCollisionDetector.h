@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsSweepCollisionDetector.h,v $
- * Date modified: $Date: 2002-11-11 04:39:47 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-11-11 08:44:23 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,7 +58,8 @@ namespace mw
        * @return  a description of the collision, null if there is no collision
        */
       CollisionDesc* checkCollision(const RigidBody* body,
-                                    const gmtl::Vec3f& path);
+                                    const gmtl::Vec3f& path,
+                                    CollisionResponse& cr);
 
       /**
        * Sets the spatial index to use with this detector.

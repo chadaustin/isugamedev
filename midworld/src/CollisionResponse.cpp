@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-11-06 06:09:29 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-11 08:44:23 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -64,11 +64,6 @@ namespace mw
       }
    }
    
-   void collidePlayerDroid(Player* p, Droid* d)
-   {
-//      DBG_BREAK();
-   }
-   
    void collidePlayerAmmoCrate(Player* p, AmmoCrate* c)
    {
       c->giveTo(p);
@@ -76,7 +71,6 @@ namespace mw
    
    void collidePlayerGunPickup(Player* p, GunPickup* g)
    {
-//      DBG_BREAK();
       g->giveTo(p);
    }
    
@@ -86,9 +80,10 @@ namespace mw
       defineResponse<BaseBullet, Player>(collideBulletPlayer);
       defineResponse<BaseBullet, Droid> (collideBulletDroid);
       defineResponse<BaseBullet, Turret>(collideBulletTurret);
-      defineResponse<Player, Droid>(collidePlayerDroid);
       defineResponse<Player, AmmoCrate> (collidePlayerAmmoCrate);
       defineResponse<Player, GunPickup> (collidePlayerGunPickup);
+      
+      setCollidable<BaseBullet, BaseBullet>(false);
    }
    
    CollisionResponse::~CollisionResponse()

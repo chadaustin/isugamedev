@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionDetector.h,v $
- * Date modified: $Date: 2002-11-11 04:39:47 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-11 08:44:23 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,6 +38,8 @@
 
 namespace mw
 {
+   class CollisionResponse;
+
    /**
     * @ingroup CollDet
     *
@@ -60,7 +62,8 @@ namespace mw
        *          The caller is responsible for freeing the CollisionDesc.
        */
       virtual CollisionDesc* checkCollision(const RigidBody* body,
-                                            const gmtl::Vec3f& path) = 0;
+                                            const gmtl::Vec3f& path,
+                                            CollisionResponse& cr) = 0;
 
       /**
        * Sets the spatial index to use with this detector.

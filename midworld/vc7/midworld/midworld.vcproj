@@ -344,6 +344,12 @@
 				RelativePath="..\..\src\SkyDome.h">
 			</File>
 			<File
+				RelativePath="..\..\src\SnowSystem.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\SnowSystem.h">
+			</File>
+			<File
 				RelativePath="..\..\src\SoundEffectManager.cpp">
 			</File>
 			<File

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-11 05:03:21 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-11-11 08:44:23 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -125,7 +125,7 @@ namespace mw
          
          // Check if the body collided with anything
          gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
-         std::auto_ptr<CollisionDesc> desc(mCollisionDetector->checkCollision(body, path));
+         std::auto_ptr<CollisionDesc> desc(mCollisionDetector->checkCollision(body, path, *mCollisionResponse));
 
          // No collisions, let the body update for the remaining distance
          if (!desc.get())

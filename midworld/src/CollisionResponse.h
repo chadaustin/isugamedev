@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.h,v $
- * Date modified: $Date: 2002-10-31 08:35:58 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-11 08:44:23 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -115,15 +115,34 @@ namespace mw
       {
          Loki::TypeInfo type1(typeid(*e1));
          Loki::TypeInfo type2(typeid(*e2));
-         Response* response = mResponseMap[std::make_pair(type1, type2)];
+         Response* response = mResponseMap[TypePair(type1, type2)];
          if (response)
          {
             response->onCollide(e1, e2);
          }
       }
+      
+      template<typename T1, typename T2>
+      void setCollidable(bool collidable)
+      {
+         Loki::TypeInfo type1(typeid(T1));
+         Loki::TypeInfo type2(typeid(T2));
+         TypePair pair1(type1, type2);
+         TypePair pair2(type2, type1);
+         mCollidableMap[pair1] = !collidable;
+         mCollidableMap[pair2] = !collidable;
+      }
+      
+      bool isCollidable(const RigidBody* e1, const RigidBody* e2)
+      {
+         Loki::TypeInfo type1(typeid(*e1));
+         Loki::TypeInfo type2(typeid(*e2));
+         return !mCollidableMap[TypePair(type1, type2)];
+      }
 
    private:
       typedef std::pair<Loki::TypeInfo, Loki::TypeInfo> TypePair;
+
       typedef std::map<TypePair, Response*> ResponseMap;
 
       /**
@@ -131,6 +150,15 @@ namespace mw
        * In this map, the pair has the restriction such that type1 <= type2.
        */
       ResponseMap mResponseMap;
+      
+      typedef std::map<TypePair, bool> CollidableMap;
+      
+      /**
+       * Whether two entity types are allowed to collide.  Since this
+       * should default to true, but bool defaults to false, the map
+       * actually holds the inverse of what you would expect;
+       */
+      CollidableMap mCollidableMap;
    };
 }
 
