@@ -5,25 +5,18 @@ import javax.vecmath.*;
 
 
 /**
- * A World represents a set of WorldElements (cubes, houses, objects,
- * polygons, whatever) positioned relative to the origin of the world.
- * WorldElements are static objects: i.e. dynamic entities are not
- * WorldElements.
+ * A World represents a set of world Entity objects (cubes, spheres, players).
  */
 public class World implements Serializable {
 
-  public WorldElement[] elements;
+  private List m_entities = new ArrayList;
+  private long m_current_id = 0;
 
-  // generate randomized world of cubes
   World() {
 
-    // number of cubes in the world
+    // add some cubes to the world
     final int ELEMENT_COUNT = 20;
-
-    elements = new WorldElement[ELEMENT_COUNT];
     for (int i = 0; i < ELEMENT_COUNT; ++i) {
-      elements[i] = new WorldElement();
-
       float px = (float)(Math.random() * 20 - 10);
       float py = (float)(Math.random() * 20 - 10);
       float pz = (float)(Math.random() * 20 - 10);
@@ -37,9 +30,15 @@ public class World implements Serializable {
       result.mul(getRotX(ax));
       result.mul(getRotY(ay));
       result.mul(getRotZ(az));
-      elements[i].transform = result;
 
+      Transform3D t3d = new Transform3D(result);
+      TransformGroup tgt = new TransformGroup(t3d);
+      tgt.addChild(new ColorCube());
+      add(new SimpleEntity(tgt));
     }
+  }
+
+  public int add(Node node) {
   }
 
   private Matrix4f getTranslation(float x, float y, float z) {

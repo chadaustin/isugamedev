@@ -1,16 +1,13 @@
 package chadworld;
 
 import java.io.*;
-import javax.vecmath.*;
+import javax.media.j3d.*;
 
 
-/**
- * Entity objects represent the attributes of an entity in the system.
- */
-public class Entity implements Serializable {
+public interface Entity implements Serializable {
+  public int getID();
+  public Node getSceneGraphNode();
 
-  public int id;
-  public Vector3f position = new Vector3f(0, 0, 0);
   public float velocity = 0;
   public float axis_velocity = 0;
   public float axis_angle;
