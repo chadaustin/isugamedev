@@ -10,7 +10,7 @@
 #include "FrogObject.h"
 #include "AutoObject.h"
 #include "LogObject.h"
-#include "LilyPadObject.h"
+#include "LilypadObject.h"
 #include "GameWorld.h"
 #include <GL/glut.h>
 #include <stdlib.h>
