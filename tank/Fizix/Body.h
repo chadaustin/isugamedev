@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Body.h,v $
-//    $Date: 2001-10-10 22:07:50 $
-//    $Revision: 1.6 $
+//    $Date: 2001-10-12 04:44:56 $
+//    $Revision: 1.7 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -30,12 +30,12 @@
 #ifndef BODY
 #define BODY
 
-#include <Matrix4f.h>
-#include <Vec3.h>
-#include <Quat.h>
+#include "Matrix4f.h"
+#include "Vec3.h"
+#include "Quat.h"
 
 #include "Fizix/Memory.h"
-#include <convert.h>
+#include "convert.h"
 
 // Rigid body references:
 //  - Thick, very detailed.
