@@ -109,6 +109,25 @@ read on for more detail....
 
 
 
+Describe Levels in general
+========================
+well...  similar to metroid, zelda, blaster master etc...  there were tons   
+of areas or "levels", but they do end at some point, and there is a weak story 
+line.  levels are continuous, and able to be reentered from beginning or end.
+for example, Aki could return to the first village in the game to pick up 
+more supplies if needed...
+
+Compared to mario/zelda/metroid: I hope to make the story better, more epic, 
+the player should feel compelled to play because their imagination tells them
+that playing is important and that they are making some great change in the 
+world.  but the story is still secondary.  So basically, there should be a 
+great story, not just some dumb "save the princess" like mario had.
+But it is important to note that this story is _behind_ the action (since 
+the gameplay is similar to mario and ankh).
+
+
+
+
 Our story So Far
 =================
 The basic premise: a prophecy is about to be fulfilled.
