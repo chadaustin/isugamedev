@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-29 11:06:50 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-03-29 12:23:42 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -79,6 +79,14 @@ namespace server {
        * @pre  cID has already been added
        */
       void joinPlayer( net::NetMgr::ConnID cID );
+
+      /**
+       * Performs a resync on the player referred to by the connection.
+       *
+       * @param cID     the connection id
+       * @pre  cID refers to a player already in the game
+       */
+      void resync( net::NetMgr::ConnID cID );
 
       /**
        * Pauses or unpauses the game.

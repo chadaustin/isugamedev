@@ -5,6 +5,8 @@
 #define NET_MESSAGE_READER_H
 
 
+#include "util/HWNDstream.h"
+
 #include "InputStream.h"
 #include "MessageTypes.h"
 
@@ -22,7 +24,6 @@
 #include "UpdatePlayerMessage.h"
 #include "DelPlayerMessage.h"
 #include "UpdatePlayerInfoMessage.h"
-#include <iostream>
 
 namespace net {
 
@@ -36,8 +37,8 @@ namespace net {
          PRUint32 tag, size;
          (*mInputStream) >> tag >> size;
 
-         std::cout<<"New message: type=0x"<<std::hex<<std::hex<<tag<<std::dec
-                  <<", size="<<size<<std::endl;
+         LOG<<"New message: type=0x"<<std::hex<<std::hex<<tag<<std::dec
+                  <<", size="<<size<<ENDL;
 
          // make sure we read everything (in case of bad message)
          PRUint8* buffer = new PRUint8[size];
@@ -98,7 +99,7 @@ namespace net {
                break;
 
             default:
-               std::cout<<"ERROR: unknown message type"<<std::endl;
+               LOG<<"ERROR: unknown message type"<<ENDL;
                delete[] buffer;
                return 0;
          }

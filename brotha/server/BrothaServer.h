@@ -31,6 +31,7 @@ namespace server {
 
          m_gameThread->start();
          m_listenServer->start();
+         LOG<<"Started server"<<ENDL;
       }
 
       void StopServer() {

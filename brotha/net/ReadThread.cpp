@@ -23,7 +23,7 @@ namespace net {
             PR_AtomicDecrement(&mKillMe);
          }
       } catch (SocketException &e) {
-         std::cout<<"Failed to deserialize msg: "<<e.what()<<std::endl;
+         LOG<<"Failed to deserialize msg: "<<e.what()<<ENDL;
       }
    }
 

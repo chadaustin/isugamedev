@@ -8,10 +8,10 @@
 #include <prnetdb.h>
 #include <prerror.h>
 #include <string.h>
+#include "util/HWNDstream.h"
 #include "SocketOutputStream.h"
 #include "SocketInputStream.h"
 #include "SocketException.h"
-#include <iostream>
 
 namespace net {
 
@@ -96,7 +96,7 @@ namespace net {
       }
 
       void close() {
-         std::cout<<"Socket::close()"<<std::endl;
+         LOG<<"Socket::close()"<<ENDL;
          PRStatus status = PR_Close(mSocket);
          if( status != PR_SUCCESS) {
             throw SocketException("Close failed");

@@ -1,6 +1,7 @@
 #ifdef WIN32
 #  include <windows.h>
 #  include "resource.h"
+#  include "util/HWNDstream.h"
 #endif
 
 #include <string>
@@ -23,6 +24,8 @@ LRESULT CALLBACK WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
          HMENU menu = GetMenu(wnd);
          EnableMenuItem(menu, ID_SERVER_STOP, MF_GRAYED);
          EnableMenuItem(menu, ID_WEBSERVER_STOP, MF_GRAYED);
+
+         util::log = new util::HWNDostream(wndLog);
       } return 0;
       case WM_SIZE:
          MoveWindow(wndLog, 0, 0, LOWORD(lParam), HIWORD(lParam), true);
@@ -99,12 +102,12 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, PSTR cmdLine, int
 #include <iostream>
 int main( int argc, char** argv )
 {
-   std::cout<<"Unix Warn-a-Brotha Server"<<std::endl;
+   LOG<<"Unix Warn-a-Brotha Server"<<ENDL;
    bool quit(false);
    while ( ! quit )
    {
       std::string cmd;
-      std::cout << "brotha> " << std::flush;
+      LOG << "brotha> " << std::flush;
       char c = std::cin.get();
       while ( c != -1 )
       {
@@ -118,22 +121,22 @@ int main( int argc, char** argv )
 
       if ( cmd == "startserver" )
       {
-         std::cout<<"Starting game server"<<std::endl;
+         LOG<<"Starting game server"<<ENDL;
          g_BrothaServer.StartServer();
       }
       else if ( cmd == "stopserver" )
       {
-         std::cout<<"Stopping game server"<<std::endl;
+         LOG<<"Stopping game server"<<ENDL;
          g_BrothaServer.StopServer();
       }
       else if ( cmd == "startwebserver" )
       {
-         std::cout<<"Starting web server"<<std::endl;
+         LOG<<"Starting web server"<<ENDL;
          g_BrothaServer.StartWebServer();
       }
       else if ( cmd == "stopwebserver" )
       {
-         std::cout<<"Stopping web server"<<std::endl;
+         LOG<<"Stopping web server"<<ENDL;
          g_BrothaServer.StopWebServer();
       }
       else if ( cmd == "exit" )
@@ -142,7 +145,7 @@ int main( int argc, char** argv )
       }
       else
       {
-         std::cout<<"Unknown command: "<<cmd<<std::endl;
+         LOG<<"Unknown command: "<<cmd<<ENDL;
       }
    }
 }

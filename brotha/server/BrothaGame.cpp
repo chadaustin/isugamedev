@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-29 11:06:50 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-29 12:23:42 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -56,6 +56,10 @@ namespace server {
    void BrothaGame::joinPlayer( net::NetMgr::ConnID cID ) {
       game::Player *player = mConnectedPlayers[cID];
       mPlayers[player->getUID()] = player;
+   }
+
+   void BrothaGame::resync( net::NetMgr::ConnID cID) {
+
    }
 
    void BrothaGame::setPaused( bool pause ) {

@@ -21,4 +21,4 @@ namespace server {
    };
 }
 
-#endif // JOIN_AS_MESSAGE_H
+#endif // RESYNC_MESSAGE_H
