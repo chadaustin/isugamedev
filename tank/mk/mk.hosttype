@@ -1,4 +1,4 @@
-#HOSTTYPE := $(shell uname | sed "s/CYGWIN.*//Win32/")
+#HOSTTYPE := $(shell uname | sed "s/CYGWIN.*/Win32/")
 HOSTTYPE:=$(shell uname)
 
 # standardize on the names: linux, Win32, irix

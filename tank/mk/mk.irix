@@ -2,15 +2,15 @@
 CC = CC
 WARNINGS_FLAGS = -w2 -woff 3303,1001
 CXX_COMPILE = $(CC)
-CXX_STATIC_FLAGS = -LANG:std -n32 -mips3 $(WARNINGS_FLAGS)
-CXX_SHARED_FLAGS = -LANG:std -n32 -mips3 -KPIC $(WARNINGS_FLAGS)
+CXX_STATIC_FLAGS = -LANG:std -n32 -mips3 -g $(WARNINGS_FLAGS)
+CXX_SHARED_FLAGS = -LANG:std -n32 -mips3 -g -KPIC $(WARNINGS_FLAGS)
 CXX_FLAGS = $(CXX_STATIC_FLAGS)
 C_COMPILE = cc
 C_FLAGS = $(CXX_FLAGS)
 EXE_LINKER = $(CXX_COMPILE)
-EXE_FLAGS = -LANG:std -n32 -mips3 $(WARNINGS_FLAGS)
+EXE_FLAGS = -LANG:std -n32 -mips3 -g $(WARNINGS_FLAGS)
 SO_LINKER = $(CXX_COMPILE)
-SO_FLAGS = -LANG:std -n32 -mips3 -shared -KPIC
+SO_FLAGS = -LANG:std -n32 -mips3 -g -shared -KPIC
 DEFS =
 
 # cannot be specified with the -c option
