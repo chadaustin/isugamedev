@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-03-27 06:13:43 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-28 07:32:17 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -54,8 +54,10 @@ namespace client
    class BrothaApp : public gk::AbstractGameApp
    {
    public:
+      /// Creates a new brotha app.
       BrothaApp();
 
+      /// Cleans up resources used by this app.
       virtual ~BrothaApp();
 
       /**
@@ -84,6 +86,11 @@ namespace client
        * Called by the game kernel immediately after each frame is drawn.
        */
       virtual void onPostFrame();
+
+      /**
+       * Handles input and acts on the game accordingly.
+       */
+      void processInput();
 
    public:
       gk::DigitalInterface

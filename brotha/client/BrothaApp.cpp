@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-28 05:19:04 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-28 07:32:17 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -97,19 +97,33 @@ namespace client
 
    void BrothaApp::onPostFrame()
    {
-	  //int id = -1;
-	  //Socket s;
-	  //NetMgr mgr;
+      //int id = -1;
+      //Socket s;
+      //NetMgr mgr;
+
+      // test for connection
+      /*
+      if (id == -1) 
+      {
+         id = mgr.handleSocket(s);
+         mgr.send(new LoginMessage("user", "pass"), id);
+      }
+      */
+       
+      /*  To do.. just psuedo code right now
+      //send msg to server to update status
+      //assuming already logged on
+      mgr.send(new Message("position", "health", "velocity"), id); 
+      */
+
+      // update the state of the game
+      mGame.update();
+   }
+
+   void BrothaApp::processInput()
+   {
       game::Player* player = mGame.getLocalPlayer();
 
-	  // test for connection
-	  /*
-	  if (id == -1) 
-	  {
-		 id = mgr.handleSocket(s);
-		 mgr.send(new LoginMessage("user", "pass"), id);
-	  }
-	  */
       // test for quit
       if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
       {
@@ -164,15 +178,6 @@ namespace client
          {
             player->setTurnRight( false );
          }
-		 
-		 /*  To do.. just psuedo code right now
-		 //send msg to server to update status
-		 //assuming already logged on
-		 mgr.send(new Message("position", "health", "velocity"), id); 
-		 */
       }
-
-      // update the state of the game
-      mGame.update();
    }
 }
