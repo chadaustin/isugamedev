@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.h,v $
- * Date modified: $Date: 2002-04-22 04:16:20 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-22 09:34:49 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -77,6 +77,15 @@ namespace client {
        * Removes the object with the given name from the scene.
        */
       void removeObject(const std::string& name);
+
+      /**
+       * Gets the tranform node that contains the object with the given name.
+       *
+       * @param name    the name of the object to retrieve
+       *
+       * @return  the transform node if found; NULL otherwise
+       */
+      osg::Transform* getObject(const std::string& name);
 
    private:
       /// Our view into the scene.

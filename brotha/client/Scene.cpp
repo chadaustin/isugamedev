@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.cpp,v $
- * Date modified: $Date: 2002-04-22 07:21:44 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-22 09:34:49 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -80,15 +80,15 @@ namespace client {
       osg::Node* modelNode = NULL;
       try {
          modelNode = mModelMgr.get(model);
-         modelNode->setName(name);
       } catch (std::exception& e) {
-         std::cerr<<"Failed to load model "<<model<<": "<<e.what()<<std::endl;
+         std::cerr<<"Failed to load model "<<model<<" for "<<name<<": "<<e.what()<<std::endl;
          return;
       }
 
       // Add a transform node on top of the model so we can control it
       osg::Transform* modelTrans = new osg::Transform();
       modelTrans->addChild(modelNode);
+      modelTrans->setName(name);
 
       // Add our new model to the scene
       mObjs->addChild(modelTrans);
@@ -96,6 +96,23 @@ namespace client {
 
    void Scene::removeObject(const std::string& name)
    {
-      /// @todo
+      for (int i=0; i<mObjs->getNumChildren(); ++i) {
+         osg::Node* node = mObjs->getChild(i);
+         if (node->getName() == name) {
+            mObjs->removeChild(node);
+            return;
+         }
+      }
+   }
+
+   osg::Transform* Scene::getObject(const std::string& name)
+   {
+      for (int i=0; i<mObjs->getNumChildren(); ++i) {
+         osg::Node* node = mObjs->getChild(i);
+         if (node->getName() == name) {
+            return (osg::Transform*)node;
+         }
+      }
+      return NULL;
    }
 }
