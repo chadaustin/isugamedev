@@ -1,11 +1,23 @@
 Import('env')
 
 classes = [
-    'Socket',
-    'ServerSocket',
+   'MessageQueue',
 ]
 
 headers = [
+   'ByteBuffer',
+   'InputStream',
+   'LoginMessage',
+   'Message',
+   'MessageReader',
+   'MessageTypes',
+   'OKMessage',
+   'OutputStream',
+   'Serialize',
+   'ServerSocket',
+   'SocketException',
+   'Socket',
+   'StreamException',
 ]
 
 sources = [
@@ -17,6 +29,6 @@ sources = map(lambda fn: fn + '.cpp', sources)
 
 # add in the files from classes
 headers.extend( map(lambda fn: fn + '.h', classes) )
-headers.extend( map(lambda fn: fn + '.cpp', classes) )
+sources.extend( map(lambda fn: fn + '.cpp', classes) )
 
 env.Library(target = 'net', source = sources)
