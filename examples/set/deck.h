@@ -91,6 +91,10 @@ public:
       shape = Cards[card].getShape();
       number = Cards[card].getNumber();
    }      
+
+   int numSel(){
+      return numSelected;
+   }
    
    void selectCard(int card){
       if(numSelected+1<=3){
