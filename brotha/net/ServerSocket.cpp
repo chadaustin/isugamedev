@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ServerSocket.cpp,v $
- * Date modified: $Date: 2002-03-02 13:08:31 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-02 20:31:50 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,8 +42,7 @@
 
 namespace net {
 
-ServerSocket::ServerSocket(long _numQueued)
-   :m_numQueued(_numQueued) {
+   ServerSocket::ServerSocket() {
 }
 
 ServerSocket::~ServerSocket(void) {
@@ -69,17 +68,8 @@ bool ServerSocket::open(long port) {
    return true;
 }
 
-long ServerSocket::select(unsigned int timeout) {
-   long result = Socket::select(timeout);
-   if(result==select_READ) {
-      long length = getRecieveSize();
-      result = (length==0 ? select_CONNECT : select_READ);
-   }
-   return result;
-}
-
-bool ServerSocket::listen() {
-   if(::listen(m_socket, m_numQueued) != 0) {
+bool ServerSocket::listen(long _numQueued) {
+   if(::listen(m_socket, _numQueued) != 0) {
       // getLastError = Error Code
       return false;
    } else {

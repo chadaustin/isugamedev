@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ServerSocket.h,v $
- * Date modified: $Date: 2002-03-02 13:08:31 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-02 20:31:50 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,17 +47,19 @@ namespace net {
 
 class ServerSocket : public Socket
 {
-protected:
-   long m_numQueued;
 public:
-   enum selectResponses{ select_ERROR, select_NONE, select_READ, select_SEND, select_CLOSE, select_CONNECT };
-   ServerSocket(long _numQueued);
+   enum selectResponses{select_ERROR = -1,
+                        select_NONE = 0,
+                        select_READ = 1,
+                        select_SEND = 2,
+                        select_CLOSE = 4, // close and connect are the same,
+                        select_CONNECT = 4}; // user will have to figure this out??
+   ServerSocket();
    virtual ~ServerSocket();
 
    bool open(long port);
-   long select(unsigned int timeout);
 
-   bool listen();
+   bool listen(long _numQueued);
    bool accept(Socket &socket);
 };
 
