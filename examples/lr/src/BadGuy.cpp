@@ -67,6 +67,8 @@ namespace lr
 
    void BadGuy::chooseNextGoal()
    {
+      std::cout << "in chooseNextGoal" << std::endl;
+      atGoal=false;
       // if we are closer horizontally then we are vertically
       if(abs(mPlayer->getGridHeight()-getGridHeight()) < abs(mPlayer->getGridPos()-getGridPos()))
       {
@@ -257,6 +259,22 @@ namespace lr
             }
          }
       }
+   }
+
+   void BadGuy::moveToGoal()
+   {
+      keyright=false;
+      keyleft=false;
+      keyup=false;
+      keydown=false;
+      if(goal->pos<getGridPos()) // then we need to move left
+         keyleft=true;
+      if(goal->pos>getGridPos())
+         keyright=true;
+      if(goal->height>getGridHeight())
+         keyup=true;
+      if(goal->height<getGridHeight())
+         keydown=true;
    }
 
    void BadGuy::update(float dt)

@@ -42,26 +42,42 @@ namespace lr
       moveUpCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveUp);
       moveDownCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveDown);
 
+      chooseNewGoalCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::chooseNextGoal);
+      moveToGoalCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveToGoal);
+
       moveLeftBehavior = new lm::behavior;
       moveRightBehavior = new lm::behavior;
       moveUpBehavior = new lm::behavior;
       moveDownBehavior = new lm::behavior;
+      
+      chooseNewGoalBehavior = new lm::behavior;
+      goTowardGoalBehavior = new lm::behavior;
 
       moveLeftBehavior->addCommand(moveLeftCommand);
       moveRightBehavior->addCommand(moveRightCommand);
       moveUpBehavior->addCommand(moveUpCommand);
       moveDownBehavior->addCommand(moveDownCommand);
       
+      chooseNewGoalBehavior->addCommand(chooseNewGoalCommand);
+      goTowardGoalBehavior->addCommand(moveToGoalCommand);
+      
       playerIsLeftTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerLeft);
       playerIsRightTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerRight);
       playerIsUpTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerAbove);
       playerIsDownTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerBelow);
-      
+
+      atGoalTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isAtGoal);
+      notAtGoalTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::notAtGoal);
+
+      // these two reflexes are for if the player is directly left or right of us
       mReflex1 = new lm::reflex(badGuy1, moveLeftBehavior, playerIsLeftTest);
       mReflex2 = new lm::reflex(badGuy1, moveRightBehavior, playerIsRightTest);
 //      mReflex3 = new lm::reflex(badGuy1, moveUpBehavior, playerIsUpTest);
 //      mReflex4 = new lm::reflex(badGuy1, moveDownBehavior, playerIsDownTest);
-  
+
+      mReflex4 = new lm::reflex(badGuy1, goTowardGoalBehavior, notAtGoalTest);
+      mReflex3 = new lm::reflex(badGuy1, chooseNewGoalBehavior, atGoalTest);
+      
       
 
       AI.registerNode(badGuy1);

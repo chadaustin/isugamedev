@@ -216,6 +216,7 @@ namespace lr
 
       
       void chooseNextGoal();
+      void moveToGoal();
                      
                   
             
@@ -257,7 +258,16 @@ namespace lr
 
       bool isAtGoal()
       {
-         return atGoal;
+         std::cout << "Goal pos: " << goal->pos << ", " << goal->height << std::endl;
+         std::cout << "badG pos: " << getGridPos() << ", " << getGridHeight() << std::endl;
+         if(getGridPos()==goal->pos && getGridHeight()==goal->height || atGoal==true)
+            return true;
+         return false;
+      }
+
+      bool notAtGoal()
+      {
+         return !isAtGoal();
       }
       
       

@@ -73,16 +73,22 @@ namespace lr
       lm::command* moveRightCommand;
       lm::command* moveUpCommand;
       lm::command* moveDownCommand;
+      lm::command* chooseNewGoalCommand;
+      lm::command* moveToGoalCommand;
 
       lm::behavior* moveLeftBehavior;
       lm::behavior* moveRightBehavior;
       lm::behavior* moveUpBehavior;
       lm::behavior* moveDownBehavior;
+      lm::behavior* chooseNewGoalBehavior;
+      lm::behavior* goTowardGoalBehavior;
       
       lm::testing* playerIsLeftTest;
       lm::testing* playerIsRightTest;
       lm::testing* playerIsUpTest;
       lm::testing* playerIsDownTest;
+      lm::testing* atGoalTest;
+      lm::testing* notAtGoalTest;
 
       lm::reflex* mReflex1;
       lm::reflex* mReflex2;

@@ -29,7 +29,6 @@ namespace lr
          if(burnTime<.05)
             burnTextureNum=0;
          
-         std::cout << "burntime: " << burnTextureNum << std::endl;
       }
       else
       {
@@ -70,10 +69,8 @@ namespace lr
                brickImage->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
                if(burnTime>0)
                {
-                  std::cout << "x=" << burnBlock->pos << ":" << i << "   y=" << burnBlock->height << ":" << j << std::endl;
                   if(burnBlock->pos==j && burnBlock->height==i)
                   {
-                     std::cout << "drawing burntexture" << std::endl;
                      if(burnTextureNum==0)
                         brickImage->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
                      else if(burnTextureNum==1)
