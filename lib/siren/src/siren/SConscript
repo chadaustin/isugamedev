@@ -16,6 +16,8 @@ classes = Split("""
 """)
 
 headers = Split("""
+   Export.h
+   OpenGL.h
    siren.h
    Singleton.h
    Types.h
