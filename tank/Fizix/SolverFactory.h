@@ -1,6 +1,7 @@
 #ifndef SOLVER_FACTORY
 #define SOLVER_FACTORY
 
+#include <string>
 #include "Fizix/ODEsolver.h"
 #include "Fizix/EulerODEsolver.h"
 #include "Fizix/ModifiedEulerODEsolver.h"

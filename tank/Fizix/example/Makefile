@@ -1,68 +1,103 @@
+
 #!gmake
 # How to build?  Use gnu-make (type gmake)
-# NOTE! some systems might not have gmake, only make.. 
-#       IRIX, LiNUX, and Win32 has gmake available for sure.
+
+# You'll need to edit this file .
+# fill in the glut search paths
 
 # project name...
-NAME = simple
+PROJECT_NAME = e
+
 
 # objects to be included in the project....
-OBJS = simpleGlutApp.o cubeGeometry.o QuakeNav.o Matrix4f.o
+SRCS = simpleGlutApp.cxx cubeGeometry.cpp QuakeNav.cxx Matrix4f.cxx
 
-vpath %.cxx ../../
+MK_DIR = ../../mk
+PATH_TO_SRCS = .:../../Fizix:../../
+INCLUDE_PATHS += -I./boost -I. -I../../ -I../../Fizix -I../../Fizix/operators -I../../Fizix/system
 
-# IRIX:
-# your compiler and it's flags:
-CXX = CC 
-CXXFLAGS = -LANG:std -g -n32 -mips3 -all
+include ${MK_DIR}/mk.hosttype
+include ${MK_DIR}/mk.platform
 
-# Linux
-#CXX = g++
-#CXXFLAGS = -g 
-LIBBITSUF = 32
-BE_VERBOSE = -Wl,-v 
 
-# libraries needed for opengl and glut
-GLUT_LIB_PATH = -L/home/users/kevn/software/${HOSTTYPE}/lib$(LIBBITSUF)
-#X_LIB_PATH = -L/usr/X11R6/lib
-GLIBS = $(GLUT_LIB_PATH) -lglut -lGLU -lGL -lXmu -lXext -lX11 -lXi 
-LIBS = ${GLIBS} -lm
+WHOAMI:=$(shell whoami)
+ifeq ($(WHOAMI), kevn)
+ifneq ($(HOSTTYPE), Win32)
+   INCLUDE_PATHS += -I/home/users/kevn/software/${HOSTTYPE}/include
+   LIB_PATHS += -L/home/users/kevn/software/${HOSTTYPE}/lib32
+endif
+endif
 
-# search paths for glut
-INCLUDEPATHS = -I.. -I../.. -I/home/users/kevn/software/${HOSTTYPE}/include
- 
+ifeq ($(WHOAMI), bscott)
+   INCLUDE_PATHS += -I/home/users/kevn/software/${HOSTTYPE}/include
+   LIB_PATHS += -L/home/users/kevn/software/${HOSTTYPE}/lib32
+ifeq ($(HOSTTYPE), linux)
+   INCLUDE_PATHS += -I/usr/X11R6/include
+   LIBPATHS += -L/usr/X11R6/lib
+endif
+endif
+
+
+include ${MK_DIR}/mk.objs
+
+ifeq ($(HOSTTYPE), Win32)
+   LIBS += Glut32.lib Glu32.lib OpenGL32.lib 
+else
+   LIBS += -lglut -lGLU -lGL -L/usr/X11R6/lib -lXmu -lXext -lX11 -lXi -lm
+endif
+
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
-default: ${OBJS}
-	$(CXX) $(CXXFLAGS) ${OBJS} -o $(NAME) $(LIBS)
+default:
+	$(MAKE) $(EXE_FILENAME)
 
-# Rules for compiling any sourcecode filetype into a .o
-CREATE_OBJ_FILE = $(CXX) $(CXXFLAGS) -c $(WARNINGS) $(DEFS) $(INCLUDEPATHS) $< -o $@
+vjtank:
+	$(MAKE) VRJUGGLER='Y' default
 
-%.o: %.c
-	$(CREATE_OBJ_FILE)
+debug:
+	$(MAKE) USE_DEBUG='Y' default
 
-%.o: %.cxx
-	$(CREATE_OBJ_FILE)
+release:
+	$(MAKE) USE_DEBUG='N' default
 
-%.o: %.c++
-	$(CREATE_OBJ_FILE)
+$(EXE_FILENAME): do_tank
 
-%.o: %.C
-	$(CREATE_OBJ_FILE)
+do_tank:
+	@echo " "
+	@echo "======================="
+	@echo "Building example     "
+	@echo "======================="
+	@echo " "
+	$(MAKE) USE_DEPEND='Y' USE_DEBUG=$(USE_DEBUG) build_tank
+	@echo " "
+	@echo "======================="
+	@echo "Done building spacetank"
+	@echo "======================="
+	@echo " "
 
-%.o: %.cpp
-	$(CREATE_OBJ_FILE)
+build_tank: ${OBJS}
+	@echo "  "
+	@echo "----------------------"
+	@echo "Making $(EXE_FILENAME)"
+	@echo "----------------------"
+	@echo " "
+	$(EXE_LINKER) $(EXE_FLAGS) ${OBJS} $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIB_PATHS) $(LIBS)
 
-%.o: %.C
-	$(CREATE_OBJ_FILE)
-
-tarball: clean clobber
-	./make-tarball.sh glutsimple src ${TARBALLPATH}
 
 clobber: clean
+	rm -f *.d
+	-rm *.ilk *.pdb *.opt *.idb *.pch *.lib *.exp
 
 # the "clean" target, cleans object code and exe from the directory...
 # NOTE: SGI's CC command produces an ii_files directory.
 clean:
-	-rm -r $(OBJS) $(NAME) ii_files
+	@echo " "
+	@echo "================="
+	@echo "Cleaning $(PROJECT_NAME)"
+	@echo "================="
+	@echo " "
+	-rm -rf $(OBJS) $(EXE_FILENAME) ii_files
+
+ifeq ($(USE_DEPEND),Y)
+include ${MK_DIR}/mk.depend
+endif

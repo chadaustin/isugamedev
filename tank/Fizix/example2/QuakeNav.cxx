@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <Quat.h>
 #include <Matrix4f.h>
 #include <Vec3.h>
