@@ -1,3 +1,29 @@
+classsynopsis    {
+	display: block;
+	font-family: monospace;
+	background-color: gray;
+}
+
+methodsynopsis    {
+   display: block;
+   font-family: monospace;
+}
+
+methodsynopsis:after    {
+   content: " )";
+}
+
+modifier   {
+   display: inline;
+   color: red;
+}
+
+void    {
+   display: inline;
+   content: "void";
+   color: red;
+}
+
 constant    {
 	font-family: monospace;
 	display: inline;
@@ -10,8 +36,16 @@ exceptionname    {
 	display: inline;
 }
 
+ooclass:before    {
+   content: "class ";
+}
+
 ooclass    {
 	display: inline;
+}
+
+ooclass:after    {
+   content: " {";
 }
 
 oointerface    {
@@ -93,6 +127,31 @@ methodname    {
 	font-family: Courier;
 	display: inline;
 	font-weight: bold;
+}
+
+methodname:after    {
+   content: "( ";
+}
+
+methodparam    {
+   display: inline;
+   font-family: monospace;
+}
+
+methodparam:after    {
+   content: ", ";
+}
+
+methodparam > type    {
+   display: inline;
+   font-family: monospace;
+   font-style: oblique;
+}
+
+methodparam > parameter    {
+   display: inline;
+   font-family: monospace;
+   font-weight: bold;
 }
 
 varname    {
