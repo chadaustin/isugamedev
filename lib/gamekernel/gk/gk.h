@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.h,v $
-// Date modified: $Date: 2002-03-18 08:24:20 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-03-18 08:35:22 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -43,7 +43,6 @@
 #include <gk/DigitalInterface.h>
 #include <gk/AbstractGameApp.h>
 #include <gk/IGameKernel.h>
-#include <gk/GameInputConfigure.h>
 
 // exported functions need a calling convention for win32
 #ifdef WIN32
