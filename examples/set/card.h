@@ -62,8 +62,6 @@ public:
 
 private:
    void drawPrim(){
-      
-      
       glPushMatrix();
       glTranslatef(0.0, -30.0, 0.0);
       glEnable(GL_TEXTURE_2D);
@@ -113,7 +111,7 @@ private:
       textures[15].LoadFromFile("art/green-squiggle.bmp");
 	   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
       return true;
-
+     
    }
 
    void SetTexture(){
