@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-31 18:10:14 $
- * Version:       $Revision: 1.98 $
+ * Date modified: $Date: 2002-11-01 12:14:51 $
+ * Version:       $Revision: 1.99 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -64,10 +64,41 @@ namespace mw
       StateCreatorImpl<GameState> creator("Game");
    }
 
+   void droidCommand::execute()
+   {
+      gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
+      gmtl::Vec3f downVec(0.0f,0.0f,-1.0f);
+      gmtl::Quatf currentQuat = mEnemy->getRot(); /// Turret's current orientation
+      gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mEnemy->getPos();
+      gmtl::normalize(vecToPlayer);
+      /// quaternion representing the rotation angle it would take to point at the player.
+      gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer); 
+      /// the quat that we are actually going to rotate the turret by.
+      gmtl::Quatf finalQuat;  
+      
+
+      
+         
+      gmtl::slerp(finalQuat, 0.055f, currentQuat, mQuat);  /// slerp to 4/10 the angle we need to have.
+      mEnemy->setRot(finalQuat); 
+         
+      mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
+      gmtl::slerp(finalQuat, 1.0f, finalQuat, mQuat);
+      gmtl::Vec3f offset(0,0,3);
+      mEnemy->getGun()->setRot(finalQuat);
+      mEnemy->getGun()->setPos(mEnemy->getPos()+(mEnemy->getRot()*offset));
+      mEnemy->getGun()->trigger(true);
+   }
+      
+      
+   
+   
    void turretCommand::execute()
    {
-      gmtl::Vec3f upVec(0.0, 0.0, 1.0);
-      gmtl::Vec3f downVec(0.0,0.0,-1.0);
+      std::cout << "in execute of Turret" << std::endl;
+      
+      gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
+      gmtl::Vec3f downVec(0.0f,0.0f,-1.0f);
       gmtl::Quatf currentQuat = mTurret->getRot(); /// Turret's current orientation
       gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mTurret->getPos();
       gmtl::normalize(vecToPlayer);
@@ -77,18 +108,24 @@ namespace mw
 
       
          
-      std::cout << "TimeDelta: " << mTurret->getTimeDelta() << std::endl;
-      gmtl::slerp(finalQuat, 0.04f, currentQuat, mQuat);  /// slerp to 7/10 the angle we need to have.
+      gmtl::slerp(finalQuat, 0.04f, currentQuat, mQuat);  /// slerp to 4/10 the angle we need to have.
       mTurret->setRot(finalQuat); 
          
       mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
       gmtl::slerp(finalQuat, 1.0f, finalQuat, mQuat);
       gmtl::Vec3f offset(0,0,6);
       mTurret->getGun()->setRot(finalQuat);
+      std::cout << mTurret->getGun()->getPos()[0] << std::endl;
       mTurret->getGun()->setPos(mTurret->getPos()+(mTurret->getRot()*offset));
+      std::cout << mTurret->getGun()->getPos()[0] << std::endl << std::endl << std::endl;
       mTurret->shoot();
     
    }  
+
+
+
+
+   
    GameState::GameState( Application* a )
       : State( a )
       , mSpeed(10)
@@ -358,7 +395,7 @@ namespace mw
 
          drawEntities();
 
-//         drawBounds();
+         drawBounds();
       glPopMatrix();
 
       mHUD.draw(application().getWidth(), application().getHeight(),
@@ -716,10 +753,12 @@ namespace mw
 
       Enemy* enemy = EntityFactory::instance().create<Enemy>();
       node2sCommand = new lm::simpleCommand<Enemy>(enemy, &Enemy::walkRandom);
-      myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
+      myTestCommand = new droidTesting(enemy, &mPlayer);
+      shootCommand = new droidCommand(enemy, &mPlayer);
       
       second = new lm::behavior;
       second->addCommand(node2sCommand);
+      second->addCommand(shootCommand);
 
       node2Instinct = new lm::reflex(node1, second, myTestCommand);
       AI.registerNode(node1);

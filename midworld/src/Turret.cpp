@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-10-31 08:36:01 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-11-01 12:14:51 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -75,13 +75,13 @@ namespace mw
       gun->trigger(false);
    }
    
-   Weapon* Turret::getGun()
-   {
-      return gun;
-   }
-
    void Turret::shoot()
    {
       gun->trigger(true);
+   }
+
+   Weapon* Turret::getGun()
+   {
+      return gun;
    }
 }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-31 08:36:00 $
- * Version:       $Revision: 1.58 $
+ * Date modified: $Date: 2002-11-01 12:14:51 $
+ * Version:       $Revision: 1.59 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,6 +43,7 @@
 #include <gmtl/Point.h>
 #include <gmtl/LineSeg.h>
 #include <gmtl/Generate.h>
+#include <gmtl/QuatOps.h>
 
 #include <SDL.h>
 #include "Camera.h"
@@ -70,6 +71,76 @@ namespace mw
 
    class Application;
 
+   class droidTesting : public lm::testing
+   {
+   public:
+      droidTesting(Enemy* e, Player* p)
+      {
+         mEnemy = e;
+         mPlayer = p;
+      }
+
+      virtual bool test()
+      {
+         gmtl::Vec3f drd, pA, pB, plyr;
+
+
+         gmtl::Vec3f reach(0.0f, 0.0f, 30.0f);
+         
+         gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(
+            gmtl::AxisAnglef(45, 0, 1, 0));
+         gmtl::Quatf mRot = gmtl::makeRot<gmtl::Quatf>(
+            gmtl::AxisAnglef(-45, 0, 1, 0));
+
+         
+         drd = mEnemy->getPos();
+         plyr = mPlayer->getPos();
+         pA = mEnemy->getPos()+(mEnemy->getRot()*nRot)*reach;
+         pB = mEnemy->getPos()+(mEnemy->getRot()*mRot)*reach;
+
+      //   std::cout << "plyr:" << plyr[0] << "," << plyr[2] << "  drd:" << drd[0] << "," << drd[2] << "  pA:" << pA[0] << "," << pA[2] << "  pB:" << pB[0] << "," << pB[2] << std::endl << std::endl;
+
+
+         // this big chunk checks to see if a point is inside a triangle given
+         // the 3 triangles vertices. ugh!
+         if(((((plyr[2]-drd[2])*(pA[0]-drd[0])) - ((plyr[0]-drd[0])*(pA[2]-drd[2]))) *
+                  (((plyr[2]-pA[2])*(pB[0]-pA[0])) - ((plyr[0]-pA[0])*(pB[2]-pA[2]))) > 0) &&
+               ((((plyr[2]-pA[2])*(pB[0]-pA[0])) - ((plyr[0]-pA[0])*(pB[2]-pA[2]))) *
+                (((plyr[2]-pB[2])*(drd[0]-pB[0])) - ((plyr[0]-pB[0])*(drd[2]-pB[2]))) > 0))
+
+        {
+            // we are in the droids sights now so we would return true
+            return true;
+         }
+         else
+         {
+            return false;
+         }
+      }
+   private:
+      Enemy* mEnemy;
+      Player* mPlayer;
+   };
+
+   class droidCommand : public lm::command
+   {
+   public:
+      droidCommand(Enemy* e, Player* p)
+      {
+         mPlayer = p;
+         mEnemy = e;
+      }
+
+      virtual void execute();
+
+   private:
+      Enemy* mEnemy;
+      Player* mPlayer;
+   };
+   
+         
+   
+
    class turretTesting : public lm::testing
    {
    public:
@@ -86,6 +157,7 @@ namespace mw
          pos1 = mTurret->getPos();
          pos2 = mPlayer->getPos();
          gmtl::LineSegf dist(pos1, pos2);
+         std::cout << "hi in TurretTesting Turret: " << dist.getLength() << std::endl << std::endl;
          if(dist.getLength() < 20)
             return true;
          else
@@ -242,6 +314,7 @@ namespace mw
       lm::command* node1sCommand;
       lm::command* node2sCommand;
       lm::command* aimCommand;
+      lm::command* shootCommand;
       lm::behavior* first;
       lm::behavior* second;
       lm::testing* myTestCommand;

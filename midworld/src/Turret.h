@@ -2,7 +2,6 @@
 #define MW_TURRET_H
 
 #include "Enemy.h"
-#include "Weapon.h"
 
 namespace mw
 {
@@ -31,9 +30,9 @@ public:
     */
    void shoot();
 
-   Weapon* getGun();
-
    float getTimeDelta();
+   
+   virtual Weapon* getGun();
    
 private:
    float timeDelta;

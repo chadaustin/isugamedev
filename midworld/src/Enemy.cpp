@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-10-31 19:17:32 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-01 12:14:51 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,6 +38,7 @@
 #include "Enemy.h"
 #include "EntityFactory.h"
 #include "ParticleEngine.h"
+#include "Pistol.h"
 
 namespace mw
 {
@@ -46,6 +47,7 @@ namespace mw
       : AbstractEntity(gameState)
       , mHealth(100)
    {
+      gun = new Pistol;
    }
    
    Enemy::~Enemy()
@@ -86,11 +88,15 @@ namespace mw
          setRot(nRot);
       }
 */
+      gun->update(*getGameState(), timeDelta);
       RigidBody::update(timeDelta);
+ //     gun->trigger(false);
    }
 
    void Enemy::walkRandom()
    {
+
+      std::cout << "in Walk Random" << std::endl;
       if (rand() % 100 < 5)
       {
          gmtl::Vec3f force = randomUnitVector() * 5;
@@ -99,11 +105,10 @@ namespace mw
       }
       if ((rand() % 100) == 0)
       {
-/*
+
          gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(
-            gmtl::AxisAnglef(rand() % randRange, 0, 1, 0));
+            gmtl::AxisAnglef(3.141/2.0, 0, 1, 0));
          setRot(nRot);
-*/
       }
    }
       

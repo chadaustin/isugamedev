@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-10-31 10:02:20 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-11-01 12:14:51 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 
 #include <cstdlib>
 #include "AbstractEntity.h"
+#include "Weapon.h"
 
 namespace mw
 {
@@ -90,9 +91,14 @@ namespace mw
       void walkRandom();
       void rotate();
       
-
+      virtual Weapon* getGun()
+      {
+         return gun;
+      }
+      
    protected:
       int mHealth;
+      Weapon* gun;
    };
 
 }//end of namespace mw
