@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-10-23 07:15:32 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-10-29 06:25:27 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -69,16 +69,16 @@ namespace mw
 
       for(int i=0; i<5; i++)
       {
-         mItemList[i].x = 70;
-         mItemList[i].y = 260 + 28*i;
-         mItemList[i].height = 25;
+         mItemList[i].x = 112;
+         mItemList[i].y = 416 + 45*i;
+         mItemList[i].height = 40;
       }
 
-      mItemList[MENU_NEW].width = 115;
-      mItemList[MENU_LOAD].width = 120;
-      mItemList[MENU_OPTIONS].width = 90;
-      mItemList[MENU_CREDITS].width = 83;
-      mItemList[MENU_QUIT].width = 55;
+      mItemList[MENU_NEW].width = 184;
+      mItemList[MENU_LOAD].width = 192;
+      mItemList[MENU_OPTIONS].width = 144;
+      mItemList[MENU_CREDITS].width = 133;
+      mItemList[MENU_QUIT].width = 88;
 
       mCurrentItem = 0;
 

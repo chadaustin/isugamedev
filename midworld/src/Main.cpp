@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-10-21 19:10:16 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-10-29 06:25:27 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -75,8 +75,8 @@ void run()
    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-   const int width  = 640;
-   const int height = 480;
+   const int width  = 1024;
+   const int height = 768;
    if (!SDL_SetVideoMode(width, height, info->vfmt->BitsPerPixel, SDL_OPENGL))
    {
       ThrowSDLError("Setting video mode failed");
