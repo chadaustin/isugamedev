@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-02 05:59:02 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-05-02 07:09:33 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,6 +41,7 @@
  *
  ************************************************************ brotha-cpr-end */
 #include "BrothaGame.h"
+#include "xml/Player.h"
 #include <vector>
 
 namespace server {
@@ -82,7 +83,9 @@ namespace server {
       // Do a frame in the game logic if we haven't paused the game
       if (! isPaused()) {
          mGameTime.update();
-         mLogic.update((float)mGameTime.getElapsedTime());
+         // Convert to seconds
+         float dt = mGameTime.getElapsedTime() / 1000.0f;
+         mLogic.update(dt);
       }
 
       /// @todo do a frame in the game
@@ -122,6 +125,10 @@ namespace server {
          std::cout<<"Removed player: "<<uid<<std::endl;
          // if the player actually exists in the game, remove them from it
          mPlayers.erase(delPlayer);
+
+         // remove the player (and his vehicle) from the logic too
+         mLogic.remove(player);
+         mLogic.remove(player->getVehicle());
 
          // notify everyone else that user was removed
          net::DelPlayerMessage *msg = new net::DelPlayerMessage(uid);
@@ -187,6 +194,17 @@ namespace server {
    void BrothaGame::joinPlayer( net::NetMgr::ConnID cID ) {
       std::cout<<"Player "<<getUID(cID)<<" on connection "<<cID<<" has joined the game."<<std::endl;
       mPlayers[getUID(cID)] = cID;
+
+      game::Player* player = getPlayer(cID);
+      assert(player != NULL && "Tried to join a NULL player");
+
+      // Create the game player object and his vehicle
+      game::Object* obj = new game::Object();
+      player->setVehicle(obj);
+
+      // Add player and object to the game
+      mLogic.add(obj);
+      mLogic.add(player);
 
       /// @todo notify all the other connections that a new player exists
    }
