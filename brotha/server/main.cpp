@@ -1,10 +1,10 @@
 #ifdef WIN32
 #  include <windows.h>
+#  include "resource.h"
 #endif
 
 #include <string>
 
-#include "resource.h"
 #include "BrothaServer.h"
 
 server::BrothaServer g_BrothaServer;
