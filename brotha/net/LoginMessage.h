@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginMessage.h,v $
- * Date modified: $Date: 2002-04-28 16:41:05 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 05:01:53 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -82,6 +82,11 @@ namespace net {
       const std::string& getUsername() {
          return mUsername;
       }
+
+      const std::string& getPassword() {
+         return mPassword;
+      }
+
    private:
       std::string mUsername;
       std::string mPassword;
