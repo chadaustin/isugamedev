@@ -68,6 +68,11 @@ The game will start out easy so anyone can play, and get progressivly harder.
 
 Gameplay in General
 ====================
+All realtime gameplay, like mario 64, zelda 64, blastermaster.  This game is
+not turnbased (your caharacter always has freedom of movement and actions), 
+although there could be puzzles in the game that are turnbased (like playing
+mancala against some villiager you find along the way)...
+
 Main character is 5 year old girl named Aki.  Aki is a normal girl who 
 unwittingly gets thrown into several quests which promise to lead to her
 back home.  With the help of some high tech vehicles and heavy weapons she 
