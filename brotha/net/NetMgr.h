@@ -24,6 +24,7 @@ namespace net {
 
       /// The message list type
       typedef std::vector< std::pair< net::Message*, ConnID> > MsgList;
+      typedef MsgList::iterator MsgListIter;
 
       /// The connection to ID map
       typedef std::map<ConnID, Connection*> ConnMap;
