@@ -12,6 +12,7 @@ GMTL	0.0.5		http://ggt.sourceforge.net
 Corona	0.2.0 		http://corona.sourceforge.net
 Audiere	1.0.4		http://audiere.sourceforge.net
 SDL	1.2.4		http://www.libsdl.org
+GLText	0.1.0		http://gltext.sourceforge.net
 
 -Scons-
 
@@ -37,6 +38,11 @@ http://audiere.sourceforge.net
 
 SDL is a game library for drawing to the screen, taking input, etc.  It can be
 obtained from http://www.libsdl.org
+
+-GLText-
+
+GLText is a TrueType font rendering library for OpenGL that uses FreeType2 as
+the back end. It can be obtained from http://gltext.sourceforge.net
 
 
 -Building Midworld-
