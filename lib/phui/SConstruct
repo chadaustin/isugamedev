@@ -11,7 +11,7 @@ Default('phui examples')        # build everything by default
 
 # find libraries
 execfile('glut_libs.py')
-FONT_LIBS = ['gltt', 'ttf']
+FONT_LIBS = ['gltext', 'ttf']
 Export('GLUT_LIBS FONT_LIBS')
 
 
