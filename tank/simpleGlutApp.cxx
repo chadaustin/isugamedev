@@ -2,9 +2,15 @@
 // Public domain
 //
 
-#ifdef WIN32
+#ifdef _WIN32
    #include <windows.h>  // make the app win32 friendly. :)
 #endif
+
+#ifdef _MSC_VER
+  // disable 'identifier was truncated to 255 characters in debug information' warning
+  #pragma warning(disable: 4786)
+#endif
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -380,7 +386,7 @@ static void OnApplicationInit()
 }
 
 
-void main(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
     // Initialize the application
     // initialize the state of your app here if needed...
@@ -425,5 +431,24 @@ void main(int argc, char* argv[])
     // start the application loop, your callbacks will now be called
     // time for glut to sit and spin.
     ::glutMainLoop();
+
+    // the C++ standard implicitly does 'return 0' if control reaches the
+    // end of main() but VC++, of course, doesn't support this
+    return 0;
 }
 
+
+#ifdef _WIN32
+#ifndef _CONSOLE
+
+int WINAPI WinMain(
+  HINSTANCE /*instance*/,
+  HINSTANCE /*prev_instance*/,
+  LPSTR     /*command_line*/,
+  int       /*show_command*/)
+{
+  return main(__argc, __argv);
+}
+
+#endif
+#endif
