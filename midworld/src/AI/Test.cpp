@@ -1,13 +1,14 @@
 #include <iostream>
-#include <AISystem.h>
 #include <vector>
-#include <Instinct.h>
-#include <Behavior.h>
-#include <Unit.h>
-#include <Shoot.h>
-#include <BoolBehavior.h>
+#include "AISystem.h"
+#include "Instinct.h"
+#include "Behavior.h"
+#include "Unit.h"
+#include "Shoot.h"
+#include "BoolBehavior.h"
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[])
+{
    AISystem AI;
    std::string Unit1 = "Ben";
    std::string Unit2 = "Chad";
@@ -38,8 +39,8 @@ int main(int argc, char* argv[]){
    BoolBehavior Test2;
  //  Test2.SetFalse();
   
-   Instinct* Shooting = new Instinct(Node2.InstinctMan, *First, *Third);
-   Instinct* Shooting2 = new Instinct(Node1.InstinctMan, *Second, *Fourth);
+   Instinct* Shooting = new Instinct(Node2.InstinctMan, *First, Test);
+   Instinct* Shooting2 = new Instinct(Node1.InstinctMan, *Second, Test2);
    
    AI.RegisterNode(Node1);
    AI.RegisterNode(Node2);
@@ -57,6 +58,7 @@ int main(int argc, char* argv[]){
    
 
 
-   
+   std::cout<<"Done! Press any key to continue!"<<std::endl;
+   std::cin.get();
  	return 0;
 }
