@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.3 2002-04-08 03:23:17 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 03:23:17 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.4 2002-04-08 04:26:03 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 04:26:03 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -135,15 +135,7 @@
     <section>
       <title>Input Module</title>
       <para>The Client Input module is responsible for the retrieval of input from the devices. Since the application must run at an approximately consistent frame-rate, the input is polled once every frame by the application. This module has effectively already been implemented using the external GameKernel library developed by Kevin Meinert and Ben Scott. In this library, each device's input is classified as either a digital input or an analog input. Thus inputs can be bound to application specific commands at runtime. GameKernel is also designed to be platform independent making portability as simple as recompiling the application.</para>
-      <para>The GameKernel library is broken into three parts - the input manager (<oointerface>
-          <interfacename>IGameInput</interfacename>
-        </oointerface>), the system driver (<oointerface>
-          <interfacename>ISystemDriver</interfacename>
-        </oointerface>) and the application callbacks (<oointerface>
-          <interfacename>IGameApp</interfacename>
-        </oointerface>). The <oointerface>
-          <interfacename>IGameKernel</interfacename>
-        </oointerface> interface is the facade on top of all of these subsystems through which the application is managed by the GameKernel library.</para>
+      <para>The GameKernel library is broken into three parts - the input manager (<classname>IGameInput</classname>), the system driver (<classname>ISystemDriver</classname>) and the application callbacks (<classname>IGameApp</classname>). The <classname>IGameKernel</classname> interface is the facade on top of all of these subsystems through which the application is managed by the GameKernel library.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
@@ -238,7 +230,16 @@
       </section>
       <section>
         <title>Module Interfaces</title>
-        <para>blah blah</para>
+        <methodsynopsis>
+          <modifier>public</modifier>
+          <void/>
+          <methodname>addTrack</methodname>
+          <methodparam>
+            <type>string</type>
+            <parameter>filename</parameter>
+          </methodparam>
+        </methodsynopsis>
+        <para>Jukebox:</para>
       </section>
       <section>
         <title>Design Issues</title>
