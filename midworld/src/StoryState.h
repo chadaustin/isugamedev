@@ -32,8 +32,8 @@ namespace mw
          float waitTime;
          Texture* image;
 
-         Cell()
-            : image(0)
+         Cell(float time)
+            : waitTime(time), image(0)
          {}
 
          Cell(int frame, int ax, int ay, int w, int h, float time, Texture* tex)

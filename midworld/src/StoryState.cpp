@@ -23,7 +23,7 @@ namespace mw
       mCells.push_back(Cell(0,  87, 322,  442, 379,  8.0f, new Texture("images/story1_frame1_cell3.jpg")));
       mCells.push_back(Cell(0, 529, 322,  369, 445, 12.0f, new Texture("images/story1_frame1_cell4.jpg")));
       mCells.push_back(Cell(1,   0,   0, 1024, 768, 16.0f, new Texture("images/story1_frame2_cell1.jpg")));
-      mCells.push_back(Cell());
+      mCells.push_back(Cell(20.0f));
    }
 
    StoryState::~StoryState()
