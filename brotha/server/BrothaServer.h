@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaServer.h,v $
- * Date modified: $Date: 2002-05-01 21:50:48 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 21:53:01 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -57,6 +57,8 @@ namespace server {
          m_gameThread = 0;
          m_listenServer = 0;
          m_webServer = 0;
+
+         data::DataManager::instance().refresh();
       }
 
       ~BrothaServer() {
@@ -65,8 +67,6 @@ namespace server {
       }
 
       void StartServer() {
-         data::DataManager::instance().refresh();
-
          m_netMgr = new net::NetMgr();
 
          m_gameThread   = new GameThread(m_netMgr);
