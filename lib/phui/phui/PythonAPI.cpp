@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 01:01:41 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-01-06 01:37:12 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -77,12 +77,14 @@ namespace phui
       // Tell Boost.Python that it can convert between appropriate shared_ptr types
       implicitly_convertible<ButtonPtr, WidgetPtr>();
       implicitly_convertible<WidgetContainerPtr, WidgetPtr>();
+      implicitly_convertible<RootWidgetPtr, WidgetContainerPtr>();
       implicitly_convertible<WindowPtr, WidgetContainerPtr>();
 
       // Point
       class_<Point>("Point")
          .def(init<int, int>())
          .def(init<Point>())
+         .def("set", &Point::set)
          .def(self + self)
          .def(self - self)
          .def(self += self)
@@ -98,6 +100,7 @@ namespace phui
       class_<Size>("Size")
          .def(init<int, int>())
          .def(init<Size>())
+         .def("set", &Size::set)
          .def(self == self)
          .def(self != self)
 //         .def(str(self))
@@ -123,6 +126,7 @@ namespace phui
       class_<Insets>("Insets")
          .def(init<int, int, int, int>())
          .def(init<Insets>())
+         .def("set", &Point::set)
          .def(self == self)
          .def(self != self)
 //         .def(str(self))
@@ -175,6 +179,10 @@ namespace phui
          .def("draw", &Button::draw)
          .add_property("text", make_function(&Button::getText, return_internal_reference<>()),
                                make_function(&Button::setText))
+      ;
+
+      // RootWidget
+      class_<RootWidget, bases<WidgetContainer>, RootWidgetPtr>("RootWidget", no_init)
       ;
 
       // Window
