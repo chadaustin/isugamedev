@@ -3,20 +3,12 @@ Note: orgional requirements doc at:
 http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
 
 
-
-
-
--- Title Page
-
-
+[ Title Page ]
 
 
 
      Test Plan
-
      Computer Science 309
-
- 
 
      Spring 2002 Term project
 
@@ -26,61 +18,30 @@ http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
      Document Owner 
-
      Team 6
 
-
-
      Ben Scott
-
      Chad Austin
-
      Chad Okere
-
      Jeremy Hanson
-
      Josh Carlson
 
 
 
 
-
--- p2 (table of contents)
-
-      
-
-     Table of contents.
-
-
-
--- p3/4 (system description)
+Table of Contents
+    
+    1. System Description
+    2. Major Tests
+    3. Traceability Matrix
+    4. Test Description
+    5. Test Analysis
 
 
+1.  System Description
 
-  1  System Description
-
-
-
-
-
-     1.1 System Description 
-
-
+     1.1.  Overview
 
      Warn-a-Brotha uses client-server architecture to allow for
      multiple people to play a racing game at the same time.  The
@@ -95,104 +56,52 @@ http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
      Connection Manager, Data, Game Logic, Network, Report server, and
      of course the Thread subsystems.
 
-
-
      The client/server networking will be over TCP/IP using our own
      networking object library, which will include a socket, stream,
      and serialization subsystem.  The report server will use the same
      socket libraries, but be based on HTTP, so that you'll just need
      a web browser to query against it.
 
-
-
      The client side graphics will be displayed using OpenGL 3D
-     rendering, input will be handled using GameKernel, and will be
-     converted into command requests which will be sent to the server
-     to be processed.
-
-
+     rendering, input will be handled using SDL, and will be converted
+     into command requests which will be sent to the server to be
+     processed.
 
      The Game Logic component will handle user commands sent to the
      server and apply to the game world's state.
 
-     
-
-      
-
-     1.2  Description of test environment.
-
-     
+     1.2.  Description of Test Environment
 
      The system will be tested on both windows and Linux, using a
-     combination of CppUnit and custom made testing programs.  The
+     combination of CppUnit and custom-written testing programs.  The
      tests will be conducted by individual group members on their
      personal computers.
 
+     1.3.  Test Phase Overview
 
+       1.3.1.  Test Preparation
 
+       The code will be prepared for use with CppUnit, and custom test
+       programs will be written to test parts of the system.
 
-
-     1.3 Test phase overview
-
-
-
-
-
-       1.3.1 test preparation
-
-
-
-       The code will be prepared for use with CppUnit, and custom
-       mini-programs will be written to test parts of the system.
-
-          
-
-       1.3.2 execution
-
-
+       1.3.2.  Test Execution
 
        The test programs will be run and the output may be examined
        manually or automatically.
 
-
-
-       1.3.3 in case of anomaly
-
-
+       1.3.3.  In Case of Anomaly
 
        If an anomaly is detected, the error will be recorded, and
        testing will continue. Later the bug will be tracked down and
        corrected after which testing will commence again.
 
+2.  Major Tests
 
+     2.1.  Unit Tests
 
- 
+     2.2.  Integration Tests
 
-
-
-  2  Major Tests.
-
-
-
-
-
-     2.1 Unit tests.
-
-
-
-     
-
-
-
-     2.2 integration tests
-
-
-
-
-
-     
-
-     2.3 functional tests
+     2.3.  Functional Tests
       A. Login
          Strategy:
             - Check to make sure users can log in successfully.
@@ -209,13 +118,7 @@ http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
 
 
 
--- p5 (Test Description Only TWO tests in detail)
-
-
-
-
-
-   3 Test Descriptions  
+3.  Test Descriptions  
 
 
 
