@@ -1,6 +1,6 @@
 # =============================================================================
 # Basic template makefile for libraries.
-# $Id: Makefile,v 1.13 2002-08-20 15:56:58 subatomic Exp $
+# $Id: Makefile,v 1.14 2002-08-20 16:03:59 subatomic Exp $
 #
 # *** IMPORTANT NOTES -- READ THESE FIRST ***
 #     1) This file _requires_ the use of GNU make (gmake).
@@ -67,8 +67,8 @@ include $(DZR_BASE_DIR)/mk/dzr.lib.mk
 # -----------------------------------------------------------------------------
 # Targets.
 # -----------------------------------------------------------------------------
-SHARED_LIB_FILENAME=$(SHLIB_PREFIX)$(LIB_NAME)$(SHLIB_EXT) 
-STATIC_LIB_FILENAME=$(LIB_PREFIX)$(LIB_NAME)$(LIB_EXT)
+SHARED_LIB_FILENAME=$(LIBDIR)/$(SHLIB_PREFIX)$(LIB_NAME)$(SHLIB_EXT) 
+STATIC_LIB_FILENAME=$(LIBDIR)/$(LIB_PREFIX)$(LIB_NAME)$(LIB_EXT)
 all: $(SHARED_LIB_FILENAME) $(STATIC_LIB_FILENAME)
 
 tests:
@@ -78,12 +78,12 @@ MAKE_THE_LIBDIR=	@if [ ! -d $(LIBDIR) ]; then mkdir $(LIBDIR) ; fi
 # Target for the shared library to be built.
 $(SHARED_LIB_FILENAME): $(OBJS)
 	-$(MAKE_THE_LIBDIR)
-	$(SHARED_LINK) $(SHARED_OUT)$(LIBDIR)/$@ $(OBJS)
+	$(SHARED_LINK) $(SHARED_OUT)$@ $(OBJS)
 
 # Target for the static library to be built.
 $(STATIC_LIB_FILENAME): $(OBJS)
 	-$(MAKE_THE_LIBDIR)
-	$(STATIC_LINK) $(STATIC_OUT)$(LIBDIR)/$@ $(OBJS)
+	$(STATIC_LINK) $(STATIC_OUT)$@ $(OBJS)
 
 # TODO: edit this to install your files... 
 #        - determine if you need all the dirs (bin, share, lib, include)
@@ -97,7 +97,7 @@ install: all tests
 	-$(INSTALLCMD) -d $(prefix)/share/$(LIB_NAME)
 	-$(INSTALLCMD) -d $(prefix)/bin
 	-cp $(LIB_NAME)/*.hh $(prefix)/include/$(LIB_NAME)
-	-cp $(LIBDIR)/$(SHARED_LIB_FILENAME) $(LIBDIR)/$(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
+	-cp $(SHARED_LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
 	-cp test/testregexx $(prefix)/share/$(LIB_NAME)
 
 CLOBBER_FILES += $(SHARED_LIB_FILENAME) $(STATIC_LIB_FILENAME)
