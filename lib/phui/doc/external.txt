@@ -1,0 +1,6 @@
+External Libraries
+
+
+PHUI depends on the Boost libraries for C++.  Download them at
+www.boost.org and add the include paths to your CPLUS_INCLUDE_PATH
+environmental variable.
