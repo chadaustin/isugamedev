@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.h,v $
-//    $Date: 2001-09-12 22:45:14 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-20 20:04:51 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
 
 #include "Vec3.h"
 #include "Vec4.h"
-#include <iostream.h>
+#include <iostream>
 
 //: 4x4 matrix oriented in columnar order
 class  Matrix4f
@@ -335,8 +335,8 @@ public:
 	
 //: friends
 public:
-	friend ostream&  operator<<( ostream& out, const Matrix4f& M );
-	friend istream&  operator>>( istream& in, Matrix4f& M );
+	friend std::ostream&  operator<<( std::ostream& out, const Matrix4f& M );
+	friend std::istream&  operator>>( std::istream& in, Matrix4f& M );
 	friend Vec4<float> operator/( const Vec4<float>& v, const Matrix4f& M );
 	friend Vec3<float> operator/( const Vec3<float>& v, const Matrix4f& M );
 

@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Quat.h,v $
-//    $Date: 2001-09-06 15:21:24 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-20 20:04:51 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -279,9 +279,6 @@ public:
    
    //: output method
    std::ostream& outStreamReadable( std::ostream& out ) const;
-   
-   //: output operator
-   friend std::ostream& operator<<( std::ostream& out, const Quat<dataType>& q );
    
    //: quaternion data access for external function use (like quat to matrix)
    // non-const version                                           <BR>
@@ -845,7 +842,7 @@ inline void Quat<dataType>::setXYZEuler2( const dataType &p,
 
 //: make a quat from a twist (radians) about a vector (normalized)
 template<class dataType>
-void Quat<dataType>::makeRot( const dataType& rad, const dataType& x, const dataType& y, const dataType& z )
+inline void Quat<dataType>::makeRot( const dataType& rad, const dataType& x, const dataType& y, const dataType& z )
 {
    // q = [ cos(rad/2), sin(rad/2) * [x,y,z] ]
    Vec3<dataType> vec_normalized( x, y, z );
@@ -867,7 +864,7 @@ void Quat<dataType>::makeRot( const dataType& rad, const dataType& x, const data
 
 //: get the quat's twist (radians) and vector
 template<class dataType>
-void Quat<dataType>::getRot( dataType& rad, dataType& xx, dataType& yy, dataType& zz ) const
+inline void Quat<dataType>::getRot( dataType& rad, dataType& xx, dataType& yy, dataType& zz ) const
 {
    // make sure we don't get a NaN result from acos...
    Quat<dataType> quat( *this );
@@ -905,7 +902,7 @@ void Quat<dataType>::getRot( dataType& rad, dataType& xx, dataType& yy, dataType
 // Multiply the two quaternions
 // From gdmag
 template<class dataType>
-void Quat<dataType>::mult( const Quat<dataType>& q1, const Quat<dataType>& q2 )
+inline void Quat<dataType>::mult( const Quat<dataType>& q1, const Quat<dataType>& q2 )
 {
    // Here is the easy to understand equation: (grassman product)
    // scalar_component = q1.s * q2.s - dot(q1.v, q2.v)
@@ -996,7 +993,7 @@ inline void Quat<dataType>::lerp( const dataType &t, const Quat<dataType> &from,
 
 // From Adv Anim and Rendering Tech. Pg 364
 template<class dataType>
-void Quat<dataType>::slerp( dataType t, const Quat<dataType>& p, const Quat<dataType>& q )
+inline void Quat<dataType>::slerp( dataType t, const Quat<dataType>& p, const Quat<dataType>& q )
 {
    Quat<dataType> to;
    double omega, cosom, sinom, sclp, sclq;
@@ -1045,7 +1042,7 @@ void Quat<dataType>::slerp( dataType t, const Quat<dataType>& p, const Quat<data
 }
 
 template<class dataType>
-void Quat<dataType>::squad(dataType _t, const Quat<dataType>& _q1, const Quat<dataType>& _q2, const Quat<dataType>& _a, const Quat<dataType>& _b)
+inline void Quat<dataType>::squad(dataType _t, const Quat<dataType>& _q1, const Quat<dataType>& _q2, const Quat<dataType>& _a, const Quat<dataType>& _b)
 { 
    assert( false && "not implemented" ); 
 }
@@ -1054,7 +1051,7 @@ void Quat<dataType>::squad(dataType _t, const Quat<dataType>& _q1, const Quat<da
 //!POST: sets self to the exponentiation of quat
 // NOTE: safe to pass self as argument
 template<class dataType>
-void Quat<dataType>::exp( const Quat<dataType>& quat )
+inline void Quat<dataType>::exp( const Quat<dataType>& quat )
 {
    dataType len1, len2;
 
@@ -1075,7 +1072,7 @@ void Quat<dataType>::exp( const Quat<dataType>& quat )
 //: complex logarithm
 //!POST: sets self to the log of quat
 template<class dataType>
-void Quat<dataType>::log( const Quat<dataType>& quat ) 
+inline void Quat<dataType>::log( const Quat<dataType>& quat ) 
 {
    dataType length;
 
@@ -1097,7 +1094,7 @@ void Quat<dataType>::log( const Quat<dataType>& quat )
 
 //: output method
 template<class dataType>
-std::ostream& Quat<dataType>::outStreamRaw( std::ostream& out ) const
+inline std::ostream& Quat<dataType>::outStreamRaw( std::ostream& out ) const
 {
    //out << "w: " << vec[QUAT_W] << "  x: " << vec[QUAT_X] << "  y: " << vec[QUAT_Y] << "  z: " << vec[QUAT_Z];
    out << vec[QUAT_W] << ", " << vec[QUAT_X] << ", " << vec[QUAT_Y] << ", " << vec[QUAT_Z];
@@ -1106,7 +1103,7 @@ std::ostream& Quat<dataType>::outStreamRaw( std::ostream& out ) const
 
 //: output method
 template<class dataType>
-std::ostream& Quat<dataType>::outStreamReadable( std::ostream& out ) const
+inline std::ostream& Quat<dataType>::outStreamReadable( std::ostream& out ) const
 {
    dataType rad;
    dataType x, y, z;
@@ -1118,7 +1115,7 @@ std::ostream& Quat<dataType>::outStreamReadable( std::ostream& out ) const
 
 //: output operator
 template<class dataType>
-std::ostream& operator<<( std::ostream& out, const Quat<dataType>& q )
+inline std::ostream& operator<<( std::ostream& out, const Quat<dataType>& q ) 
 {
    q.outStreamReadable( out );
    //q.outStreamRaw( out );

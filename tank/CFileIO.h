@@ -7,8 +7,8 @@
 //
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
-//    $Date: 2001-09-14 05:07:17 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-20 20:04:51 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -31,7 +31,8 @@
 #ifndef CFILEIO_INCLUDED
 #define CFILEIO_INCLUDED
 
-#include <fstream.h>
+#include <fstream>
+//#include <fstream.h>
 #include <string>
 #include <stdio.h> // for FILE
 #include "Endian.h" //needed for kev::isBigEndian/kev::isLittleEndian funcs
@@ -143,7 +144,7 @@ namespace CFileIO
       return WriteData( fileByteOrdering, fp, value );
    }
 
-   inline static void getLine( ifstream& f, std::string& text  )
+   inline static void getLine( std::fstream& f, std::string& text  )
    {
       char buffer[2049];
       f.getline( buffer, 2048, '\n' );
@@ -155,6 +156,26 @@ namespace CFileIO
       text = buffer;
    }
 
+   inline static void getAll( std::fstream& f, std::string& buffer )
+   {
+      //cout<<"Reading:["<<flush;
+      while ((f.eof() == false) && (f.fail() == 0) )
+      //while (f.gcount() >= 2048)
+      {
+         //cout<<"."<<flush;
+         char buf[2049];
+         f.read( buf, 2048 );
+         buf[2048] = '\0';
+         if (f.gcount() < 2048)
+         {
+            buf[f.gcount()] = '\0';
+         }
+         buffer += buf;
+      }
+      //cout<<"]\n"<<flush;
+      //cout << "Gcount == " << f.gcount() << "\n"<<flush;
+   }
+/*   
    inline static void getAll( ifstream& f, std::string& buffer )
    {
       //cout<<"Reading:["<<flush;
@@ -174,7 +195,7 @@ namespace CFileIO
       //cout<<"]\n"<<flush;
       //cout << "Gcount == " << f.gcount() << "\n"<<flush;
    }
-
+*/
    // returns just the .xxx part of a filename.
         // if there are no .'s in the name, then it returns a pointer to '\0' (the end)
         inline char* fileExtension( char* filename )

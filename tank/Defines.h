@@ -10,8 +10,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Defines.h,v $
-//    $Date: 2001-09-06 04:17:32 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-20 20:04:51 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -37,7 +37,7 @@
 
 #include <stdio.h>
 #include <math.h>
-#include <iostream.h>
+#include <iostream>
 
 // Put everything in the kev namespace
 namespace defines
@@ -509,7 +509,7 @@ namespace kev
    {
       if (verify == false)
       {
-         cerr<<text<<"\n"<<flush;
+         std::cerr<<text<<"\n"<<std::flush;
       }
    }
 }; // end of namespace kev

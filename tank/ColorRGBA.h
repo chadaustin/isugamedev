@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ColorRGBA.h,v $
-//    $Date: 2001-09-06 04:17:32 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-20 20:04:51 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -32,7 +32,7 @@
 #ifndef _COLORf_H_
 #define _COLORf_H_
 
-#include <iostream.h>
+#include <iostream>
 #include "Vec4.h"
 #include "Defines.h" // kev::max kev::min
 
@@ -167,8 +167,8 @@
 
    public:
 	   //: Input/output.
-	   friend  ostream &		operator<< ( ostream &out, const ColorRGBA &color );
-	   friend  istream &		operator>> ( istream &in, ColorRGBA &color );
+	   friend  std::ostream &		operator<< ( std::ostream &out, const ColorRGBA &color );
+	   friend  std::istream &		operator>> ( std::istream &in, ColorRGBA &color );
 
 	   //: Set the color values between 0.0f - 1.0f.
 	   void					set( const float& red, const float&  green, const float&  blue, const float& alpha = 1.0f);

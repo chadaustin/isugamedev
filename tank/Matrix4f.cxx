@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.cxx,v $
-//    $Date: 2001-09-18 14:58:01 $
-//    $Revision: 1.5 $
+//    $Date: 2001-09-20 20:04:51 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -397,7 +397,7 @@ bool Matrix4f::invert()
 
                 if (fabs( pivot) <= 1e-20)
                 {
-                        cerr << "*** pivot = %f in mat_inv. ***\n";
+                        std::cerr << "*** pivot = %f in mat_inv. ***\n";
                         //exit( 0);
          return false;
                 }
@@ -1184,17 +1184,17 @@ Vec3<float> Matrix4f::operator*( const Vec3<float>& b ) const
 ////////////////////////////////////
 //: Friends
 ////////////////////////////////////
-ostream&  operator<<( ostream& out, const Matrix4f& M )
+std::ostream&  operator<<( std::ostream& out, const Matrix4f& M )
 {
-   out << M[0] << " " << M[4] << " " << M[8]  << " " << M[12] << endl;
-   out << M[1] << " " << M[5] << " " << M[9]  << " " << M[13] << endl;
-   out << M[2] << " " << M[6] << " " << M[10] << " " << M[14] << endl;
+   out << M[0] << " " << M[4] << " " << M[8]  << " " << M[12] << std::endl;
+   out << M[1] << " " << M[5] << " " << M[9]  << " " << M[13] << std::endl;
+   out << M[2] << " " << M[6] << " " << M[10] << " " << M[14] << std::endl;
    out << M[3] << " " << M[7] << " " << M[11] << " " << M[15];
 
    return out;
 }
 
-istream&  operator>>( istream& in, Matrix4f& M )
+std::istream&  operator>>( std::istream& in, Matrix4f& M )
 {
    in >> M[0] >> M[4] >> M[8]  >> M[12];
    in >> M[1] >> M[5] >> M[9]  >> M[13];

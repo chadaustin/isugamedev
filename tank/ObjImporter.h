@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-20 19:25:58 $
-//    $Revision: 1.7 $
+//    $Date: 2001-09-20 20:04:51 $
+//    $Revision: 1.8 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -33,7 +33,7 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include <fstream.h>
+#include <fstream>
 
 #include "regexx/regexx.hh"
 #include "CFileIO.h"
@@ -67,8 +67,9 @@ public:
          return;
       }
 
-      ifstream dataFile;
-      dataFile.open( filename.c_str(), ios::in, filebuf::openprot );
+      std::fstream dataFile;
+      dataFile.open( filename.c_str(), std::ios::in );
+      assert( dataFile.good() && "couldn't open file" );
       CFileIO::getAll( dataFile, filetext );
       dataFile.close();
 
@@ -178,7 +179,7 @@ public:
       }
       catch (regexx::Regexx::CompileException &e)
       {
-         cerr << e.message().c_str() << endl;
+         std::cerr << e.message().c_str() << std::endl;
       }
    }
    
@@ -224,9 +225,9 @@ public:
       
       std::map<std::string, Indicies> lookup;
       
-      ifstream dataFile;
-      //dataFile.open( ".\\models\\test.obj", ios::in, filebuf::openprot );
-      dataFile.open( filename.c_str(), ios::in, filebuf::openprot );
+      std::fstream dataFile;
+      dataFile.open( filename.c_str(), std::ios::in );
+      assert( dataFile.good() && "couldn't open file" );
       CFileIO::getAll( dataFile, filetext );
       dataFile.close();
 
@@ -238,7 +239,7 @@ public:
          if (num_of_matches)
          {
             currentWorkingDir = getWorkingDir.match[0];
-            cout<<"Current dir is: "<<currentWorkingDir.c_str()<<"\n"<<flush;
+            std::cout<<"Current dir is: "<<currentWorkingDir.c_str()<<"\n"<<std::flush;
          }
 
          // parse line by line
@@ -249,7 +250,7 @@ public:
          {
             std::string oneLine = matchOneLine.match[lines].atom[0];
       
-            //cout<<"one: "<<oneLine.c_str()<<"\n"<<flush;
+            //std::cout<<"one: "<<oneLine.c_str()<<"\n"<<flush;
             regexx::Regexx removeComments;
             oneLine = removeComments.replace( oneLine, "#[^\n]*\n", "", regexx::Regexx::global | regexx::Regexx::newline);
          
@@ -285,7 +286,7 @@ public:
                float y = atof( extractAxes.match[1].atom[0].str().c_str() );
                float z = atof( extractAxes.match[2].atom[0].str().c_str() );
          
-               //cout<<"Vertex: "<<x<<" "<<y<<" "<<z<<"\n"<<flush;
+               //std::cout<<"Vertex: "<<x<<" "<<y<<" "<<z<<"\n"<<flush;
                verts.push_back( Vec3<float>( x, y, z ) );
             }
             
@@ -300,7 +301,7 @@ public:
                float x = atof( extractAxes.match[0].atom[0].str().c_str() );
                float y = atof( extractAxes.match[1].atom[0].str().c_str() );
                
-               //cout<<"TexCoord: "<<x<<" "<<y<<"\n"<<flush;
+               //std::cout<<"TexCoord: "<<x<<" "<<y<<"\n"<<flush;
                texcoords.push_back( Vec2<float>( x, y ) );
             }
             
@@ -316,7 +317,7 @@ public:
                float y = atof( extractAxes.match[1].atom[0].str().c_str() );
                float z = atof( extractAxes.match[2].atom[0].str().c_str() );
          
-               //cout<<"Normal: "<<x<<" "<<y<<" "<<z<<"\n"<<flush;
+               //std::cout<<"Normal: "<<x<<" "<<y<<" "<<z<<"\n"<<flush;
                normals.push_back( Vec3<float>( x, y, z ) );
             }
 
@@ -326,18 +327,18 @@ public:
             if (num_of_matches)
             {
                std::string match = extractFace.match[0].atom[0];
-               //cout<<"For: "<<oneLine.c_str()<<"\n"<<flush;
-               //cout<<"     matched: "<<match.c_str()<<"\n"<<flush;
+               //std::cout<<"For: "<<oneLine.c_str()<<"\n"<<flush;
+               //std::cout<<"     matched: "<<match.c_str()<<"\n"<<flush;
             
                regexx::Regexx extractIndicies;
                num_of_matches = extractIndicies.exec( match,"([0-9/]+)", regexx::Regexx::global);
                int numVerts = extractIndicies.match.size();
-               cout<<"     detected polygon with "<<numVerts<<" vertices\n"<<flush;
+               //std::cout<<"     detected polygon with "<<numVerts<<" vertices\n"<<flush;
             
                for (int x = 0; x < numVerts; ++x)
                {
                   std::string index = extractIndicies.match[x].atom[0];
-                  //cout<<"     matched: "<<index.c_str()<<"\n"<<flush;
+                  //std::cout<<"     matched: "<<index.c_str()<<"\n"<<flush;
                   regexx::Regexx extractNumber;
                   num_of_matches = extractNumber.exec( index,"([0-9]+)[/]?([0-9]*)[/]?([0-9]*)", regexx::Regexx::global);
                   int v = atoi( extractNumber.match[0].atom[0].str().c_str() );
@@ -346,7 +347,7 @@ public:
             
                   // TODO: do a sanity check like this one later (not here).
                   //assert( (v - 1) < verts.size() );
-                  //cout<<(vt - 1)<<" "<<texcoords.size()<<"\n"<<flush;
+                  //std::cout<<(vt - 1)<<" "<<texcoords.size()<<"\n"<<flush;
                   //assert( (vt - 1) < texcoords.size() );
                   //assert( (vn - 1) < normals.size() );
                   
@@ -368,7 +369,7 @@ public:
       }
       catch (regexx::Regexx::CompileException &e)
       {
-         cerr << e.message().c_str() << endl;
+         std::cerr << e.message().c_str() << std::endl;
       }
 
       // unreference the materials, ones that have been referenced by polygons, will still exist.
@@ -393,7 +394,7 @@ public:
          //std::cout<<"- texcoords == "<<lookup[(*it).first].tindex.size()<<"\n"<<std::flush;
          
          geoset->setPrimType( GeoSet::TRIS );
-         geoset->setNumPrims( lookup[(*it).first].cindex.size() / 3.0f );
+         geoset->setNumPrims( lookup[(*it).first].cindex.size() / 3 );
          geoset->allocate();
          geoset->setAttr( GeoSet::COORD3, GeoSet::PER_VERTEX, (void*)&verts[0], (unsigned int*)&lookup[(*it).first].cindex[0] );
          geoset->setAttr( GeoSet::COLOR4, GeoSet::OVERALL, (void*)&color[0], NULL );
