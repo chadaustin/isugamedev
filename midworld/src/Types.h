@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Types.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2004-02-05 19:54:42 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,7 +49,7 @@ namespace mw
 #else  // assume i386 gcc
 
    typedef   signed char      i8;
-   typedef unsigned int       u8;
+   typedef unsigned char      u8;
    typedef          short     i16;
    typedef unsigned short     u16;
    typedef          int       i32;
