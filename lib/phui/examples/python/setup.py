@@ -29,20 +29,36 @@ c.size.set(20, 20)
 c.backgroundColor = b.backgroundColor
 c.foregroundColor.set(1,1,1,1)
 
-# Add th widgets to the UI
+# Add the widgets to the UI
 wnd.add(b)
 wnd.add(c)
 ui.add(wnd)
 
 # Create a button for the window made in C++
 b2 = createButton()
-b2.text = 'Another Python Button'
-b2.position.set(50, 100)
-b2.size.set(200, 25)
+b2.text = 'Another Py Button'
+b2.position.set(5, 100)
+b2.size.set(110, 25)
 b2.backgroundColor.set(0,0,1,1)
 b2.foregroundColor.set(0,0,0,1)
 
+lbl = createLabel()
+lbl.text = 'BPL v2 is hella-cool!'
+lbl.position.set(130, 10)
+lbl.size.set(130, 25)
+lbl.backgroundColor.set(0,0,1,0.5)
+
+list = createListBox()
+list.add('Corona')
+list.add('XX')
+list.add('Michelob')
+list.add('Guinness')
+list.position.set(130, 40)
+list.size.set(70, 70)
+
 wnd2 = ui.getWidget(0)
 wnd2.add(b2)
+wnd2.add(lbl)
+wnd2.add(list)
 
 print 'Success!'

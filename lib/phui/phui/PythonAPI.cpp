@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 06:22:36 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2003-01-06 06:51:40 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -49,20 +49,34 @@ namespace phui
          PyObject* mSelf;
       };
 
-      ButtonPtr createButton()
-      {
-         return Button::create();
-      }
+#define PHUI_CREATE(Type)           \
+   Type ## Ptr create ## Type()     \
+   {                                \
+      return Type::create();        \
+   }
 
-      WindowPtr createWindow()
-      {
-         return Window::create();
-      }
+   PHUI_CREATE(Button)
+   PHUI_CREATE(CheckBox)
+   PHUI_CREATE(Label)
+   PHUI_CREATE(ListBox)
+   PHUI_CREATE(Window)
 
-      CheckBoxPtr createCheckBox()
-      {
-         return CheckBox::create();
-      }
+#undef PHUI_CREATE
+
+//      ButtonPtr createButton()
+//      {
+//         return Button::create();
+//      }
+//
+//      WindowPtr createWindow()
+//      {
+//         return Window::create();
+//      }
+//
+//      CheckBoxPtr createCheckBox()
+//      {
+//         return CheckBox::create();
+//      }
    }
 
    using namespace python;
@@ -70,6 +84,9 @@ namespace phui
    {
       // Tell Boost.Python that it can convert between appropriate shared_ptr types
       implicitly_convertible<ButtonPtr, WidgetPtr>();
+      implicitly_convertible<CheckBoxPtr, WidgetPtr>();
+      implicitly_convertible<LabelPtr, WidgetPtr>();
+      implicitly_convertible<ListBoxPtr, WidgetPtr>();
       implicitly_convertible<WidgetContainerPtr, WidgetPtr>();
       implicitly_convertible<RootWidgetPtr, WidgetContainerPtr>();
       implicitly_convertible<WindowPtr, WidgetContainerPtr>();
@@ -171,7 +188,6 @@ namespace phui
          .def("add", &WidgetContainer::add)
          .def("remove", &WidgetContainer::remove)
          .def("getWidget", &WidgetContainer::getWidget)
-         .def("draw", &WidgetContainer::draw)
          .def("setLayoutManager", &WidgetContainer::setLayoutManager)
          .add_property("numChildren", &WidgetContainer::getNumChildren)
       ;
@@ -180,7 +196,6 @@ namespace phui
       class_<Button, bases<Widget>, ButtonPtr>("Button", no_init)
          .def("addActionListener", &Button::addActionListener)
          .def("removeActionListener", &Button::removeActionListener)
-         .def("draw", &Button::draw)
          .add_property("text", make_function(&Button::getText, return_internal_reference<>()),
                                make_function(&Button::setText))
       ;
@@ -190,6 +205,23 @@ namespace phui
          .def("check", &CheckBox::check)
          .def("uncheck", &CheckBox::uncheck)
          .add_property("checked", &CheckBox::isChecked, &CheckBox::setChecked)
+      ;
+
+      // Label
+      class_<Label, bases<Widget>, LabelPtr>("Label", no_init)
+         .add_property("text", make_function(&Label::getText, return_internal_reference<>()),
+                               make_function(&Label::setText))
+      ;
+
+      // ListBox
+      class_<ListBox, bases<Widget>, ListBoxPtr>("ListBox", no_init)
+         .def("add", &ListBox::add)
+         .def("remove", &ListBox::remove)
+         .def("clear", &ListBox::clear)
+         .def("get", &ListBox::get, return_internal_reference<>())
+         .def("getSelectedIndex", &ListBox::getSelectedIndex)
+         .def("addListSelectionListener", &ListBox::addListSelectionListener)
+         .def("removeListSelectionListener", &ListBox::removeListSelectionListener)
       ;
 
       // RootWidget
@@ -205,6 +237,8 @@ namespace phui
       def("createRoot", CreateRoot);
       def("createButton", createButton);
       def("createCheckBox", createCheckBox);
+      def("createLabel", createLabel);
+      def("createListBox", createListBox);
       def("createWindow", createWindow);
    }
 }
