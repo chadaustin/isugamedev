@@ -7,7 +7,6 @@
 //////////////////////////////////////////////////////
 #include <stdlib.h>
 #include <GL/glut.h>
-#include <iostream.h>
 #include "LogObject.h"
 
 extern int WindowSizeX, WindowSizeY;
