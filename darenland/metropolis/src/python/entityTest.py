@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, cPickle
 
 sys.path.append(os.getcwd())
 from metropolis import *

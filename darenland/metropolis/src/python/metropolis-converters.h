@@ -5,6 +5,8 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/python.hpp>
+#include <boost/python/extract.hpp>
+#include <boost/python/tuple.hpp>
 #include <boost/python/borrowed.hpp>
 #include <boost/python/handle.hpp>
 #include <boost/python/lvalue_from_pytype.hpp>
@@ -17,16 +19,17 @@ using namespace boost::python;
 
 namespace metro
 {
+	namespace bp = boost::python;
 	/**
-	 * This is the gmtl::Point2i to python converter.  It will convert a
-	 * gmtl::Point2i to python.
+	 * This will convert a gmtl::Point*i to a Python tuple.
 	 */
-	struct point2i_to_tuple
+	template <unsigned SIZE>
+	struct pointi_to_tuple
 	{
-		static PyObject* convert(gmtl::Point2i const& p)
+		static PyObject* convert(gmtl::Point<int, SIZE> const& p)
 		{
 			PyObject* result = PyTuple_New(2);
-			for (int i = 0; i < 2; i++)
+			for (int i = 0; i < SIZE; i++)
 			{
 				PyTuple_SetItem(result, i, PyInt_FromLong(p[i]));
 			}
@@ -34,20 +37,36 @@ namespace metro
 		}
 	};
 
-	template <unsigned int SIZE>
-	struct tuple_to_pointi
+	/**
+	 * This takes a Python tuple and converts it to a gmtl::Point
+	 */
+	template <typename DATA_TYPE, unsigned SIZE>
+	struct tuple_to_point
 	{
-		static gmtl::Point<int, SIZE>& execute(PyObject& src)
+		static gmtl::Point<DATA_TYPE, SIZE>& execute(object& src)
 		{
-			//assert(NULL != src);
-			//std::cout << src << std::endl;
-			assert(PyTuple_Check(&src));
-			assert(SIZE == PyTuple_Size(&src));
-			boost::shared_ptr< gmtl::Point<int, SIZE> > point( new gmtl::Point<int, SIZE>());
+			bp::tuple& t = bp::extract<bp::tuple&>(src);
+			//assert(t.check());
+			boost::shared_ptr< gmtl::Point<DATA_TYPE, SIZE> > point( new gmtl::Point<DATA_TYPE, SIZE>());
 			for (unsigned int i = 0; i < SIZE; ++i)
 			{
-				long value = PyInt_AsLong(PyTuple_GET_ITEM(&src, i));
-				(*point)[i] = value;
+				(*point)[i] = t[i];
+			}
+			return *point;
+		}
+	};
+	
+	template <typename DATA_TYPE, unsigned SIZE>
+	struct tuple_to_vec
+	{
+		static gmtl::Vec<DATA_TYPE, SIZE>& execute(object& src)
+		{
+			tuple& t = extract<tuple&>(src);
+			//assert(t.check());
+			boost::shared_ptr< gmtl::Vec<DATA_TYPE, SIZE> > point( new gmtl::Vec<DATA_TYPE, SIZE>());
+			for (unsigned int i = 0; i < SIZE; ++i)
+			{
+				(*point)[i] = t[i];
 			}
 			return *point;
 		}

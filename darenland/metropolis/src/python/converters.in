@@ -1,2 +1,9 @@
-to_python_converter<gmtl::Point2i, metro::point2i_to_tuple>();
-lvalue_from_pytype<metro::tuple_to_pointi<2>, &PyTuple_Type>();
+to_python_converter<gmtl::Point2i, metro::pointi_to_tuple<2> >();
+lvalue_from_pytype<metro::tuple_to_point<int, 2>, &PyTuple_Type>();
+lvalue_from_pytype<metro::tuple_to_point<int, 3>, &PyTuple_Type>();
+lvalue_from_pytype<metro::tuple_to_point<float, 2>, &PyTuple_Type>();
+lvalue_from_pytype<metro::tuple_to_point<float, 3>, &PyTuple_Type>();
+lvalue_from_pytype<metro::tuple_to_vec<int, 2>, &PyTuple_Type>();
+lvalue_from_pytype<metro::tuple_to_vec<int, 3>, &PyTuple_Type>();
+lvalue_from_pytype<metro::tuple_to_vec<float, 2>, &PyTuple_Type>();
+lvalue_from_pytype<metro::tuple_to_vec<float, 3>, &PyTuple_Type>();

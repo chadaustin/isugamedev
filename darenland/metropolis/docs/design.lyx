@@ -35,13 +35,13 @@ Overview
 \layout Subsection
 
 The Game
-\layout Standard
+\layout Paragraph
 
 Metropolis is a mission based Action RPG.
 \layout Subsection
 
 Overview
-\layout Standard
+\layout Paragraph
 
 In Metropolis, a team of mercenaries executes vicarious missions in different
  settings.
@@ -52,7 +52,7 @@ In Metropolis, a team of mercenaries executes vicarious missions in different
 \layout Subsection
 
 Background
-\layout Standard
+\layout Paragraph
 
 Metropolis takes place in a futuristic Hawaii that features cities both
  above and below water.
@@ -74,7 +74,7 @@ quasi-legal
  This has given rise to a mercenary profession in the underworld, the shadowrunn
 er.
  
-\layout Standard
+\layout Paragraph
 
 The shadowrunner has no 
 \begin_inset Quotes eld
@@ -92,7 +92,7 @@ official
  types of runs will include sabotage, theft, assassination, transportation,
  and proliferation.
  
-\layout Standard
+\layout Paragraph
 
 Due to the covert nature of their operations, the police do not provide
  a realiable source of protection against shadowrunner attacks.
@@ -101,7 +101,7 @@ Due to the covert nature of their operations, the police do not provide
  This need has also given rise to security corporations that specialize
  in the protection of people, buildings, information networks, and technology.
  
-\layout Standard
+\layout Paragraph
 
 The shadowrunners, however, are not immune to police prosecution; they must
  keep a low profile to avoid having their crimes recorded.
@@ -111,7 +111,7 @@ The shadowrunners, however, are not immune to police prosecution; they must
 \layout Subsection
 
 The Player
-\layout Standard
+\layout Paragraph
 
 In Metropolis, the player controls a group of shadowrunners.
  They start out relatively inexperienced.
@@ -125,7 +125,7 @@ Setting
 \layout Subsection
 
 Hawaii
-\layout Standard
+\layout Paragraph
 
 The setting for Metropolis is a futuristic Hawaii.
  The city will feature sleek dome shaped cars with a 1950's spin.
