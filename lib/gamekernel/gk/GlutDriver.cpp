@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-13 08:40:43 $
-// Version:       $Revision: 1.19 $
+// Date modified: $Date: 2002-02-18 03:11:15 $
+// Version:       $Revision: 1.20 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -125,8 +125,8 @@ GlutDriver::init( GameKernel* kernel )
    ::glutIgnoreKeyRepeat( 1 );
 
    // register the our devices with the input manager
-   mMouse = new DeviceHandle<Mouse>( "Mouse" );
-   mKeyboard = new DeviceHandle<Keyboard>( "Keyboard" );
+   mMouse = new DeviceHandle<Mouse>( "Mouse", mKernel );
+   mKeyboard = new DeviceHandle<Keyboard>( "Keyboard", mKernel );
 
    // check if we've got access to a joystick
    if ( glutDeviceGet( GLUT_HAS_JOYSTICK ) )
@@ -139,7 +139,7 @@ GlutDriver::init( GameKernel* kernel )
       // add a joystick device
       int numButtons = glutGet( GLUT_JOYSTICK_BUTTONS );
       int numAxes = glutGet( GLUT_JOYSTICK_AXES );
-      mJoystick = new DeviceHandle<Joystick>( "Joystick" );
+      mJoystick = new DeviceHandle<Joystick>( "Joystick", mKernel );
       mJoystick->getDevice()->setNumButtons( numButtons );
       mJoystick->getDevice()->setNumAxes( numAxes );
    }
@@ -272,7 +272,7 @@ GlutDriver::OnIdle()
    for ( x = 0; x < kernel->applications().size(); ++x )
    {
       assert( kernel->applications()[x] != NULL && "you registered a NULL application" );
-      GameInput::instance().update();
+      kernel->getInput()->update();
       kernel->applications()[x]->OnPreFrame();
       kernel->applications()[x]->OnIntraFrame();
       kernel->applications()[x]->OnPostFrame();

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-02-11 05:26:03 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-02-18 03:11:15 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -79,7 +79,9 @@ public:
     * @see DigitalInterface
     * @see InputInterface::init( const std::string& )
     */
-   DigitalInterface() {}
+   DigitalInterface( GameKernel* kernel )
+      : InputInterface( kernel )
+   {}
 
    /**
     * Destroys this interface to a digital input.
@@ -95,7 +97,7 @@ public:
    virtual DigitalInput::EdgeTriggerState getDigitalData()
    {
       // this can surely be optimized...
-      Input* in = GameInput::instance().getInput( mAlias );
+      Input* in = mKernel->getInput()->getInput( mAlias );
       DigitalInput* dig = dynamic_cast<DigitalInput*>( in );
 
       if (dig == NULL)

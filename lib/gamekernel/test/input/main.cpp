@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-16 04:04:18 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-18 03:11:16 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -42,14 +42,19 @@
 
 GK_USING_NAMESPACE
 
-GameKernel* kernel = NULL;
-
 class InputApp : public GameApp
 {
 public:
+   InputApp( GameKernel* kernel )
+      : mMouseX( kernel ), mMouseY( kernel ),
+        mAccelerate( kernel ), mQuit( kernel ),
+        mKernel( kernel )
+   {
+   }
+
    virtual void OnAppInit()
    {
-      kernel->setName( "Input Test" );
+      mKernel->setName( "Input Test" );
       mQuit.init( "Quit" );
       mAccelerate.init( "Accelerate" );
       mMouseX.init( "MouseLookX" );
@@ -58,13 +63,13 @@ public:
 
    virtual void OnContextInit()
    {
-      kernel->setWindowSize( 640, 480 );
+      mKernel->setWindowSize( 640, 480 );
    }
 
    virtual void OnContextDraw( int context = 0 )
    {
       int width, height;
-      kernel->getWindowSize( width, height );
+      mKernel->getWindowSize( width, height );
       glViewport( 0, 0, width, height );
 
       glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
@@ -91,7 +96,7 @@ public:
    {
       if (mQuit.getDigitalData() == DigitalInput::DOWN)
       {
-         kernel->shutdown();
+         mKernel->shutdown();
       }
 
       std::cout<< "Accelerate: "
@@ -104,16 +109,18 @@ public:
    Grid grid;
    AnalogInterface mMouseX, mMouseY;
    DigitalInterface mAccelerate, mQuit;
+
+   GameKernel* mKernel;
 };
 
 int main( int argc, char *argv[] )
 {
    // create the kernel and add our app in
-   kernel = new GameKernel();
-   kernel->add( new InputApp() );
+   GameKernel* kernel = new GameKernel();
+   kernel->add( new InputApp( kernel ) );
 
    // configure our application
-   loadInputConfig( "config.xml" );
+   loadInputConfig( "config.xml", kernel );
 
    // create our system driver and let's go!
 //   SystemDriverFactory::instance().registerDriver( "GLUT", new GlutDriver() );

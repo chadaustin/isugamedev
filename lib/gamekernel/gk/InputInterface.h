@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-02-11 05:26:03 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-18 03:11:15 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,6 +34,7 @@
 
 #include "gk/gkCommon.h"
 #include <string>
+#include "gk/GameKernel.h"
 
 namespace gk {
 
@@ -55,7 +56,9 @@ public:
     *
     * @see init( const std::string& )
     */
-   InputInterface() {}
+   InputInterface( GameKernel* kernel)
+      : mKernel( kernel )
+   {}
 
    /**
     * Destroys this interface to a digital input.
@@ -74,6 +77,12 @@ public:
       mAlias = alias;
       std::cout << "Created interface to " << alias << std::endl;
    }
+
+protected:
+   /**
+    * The kernel whose input this object interfaces with.
+    */
+   GameKernel* mKernel;
 
 public:
    std::string mAlias;

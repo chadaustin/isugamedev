@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-13 08:40:42 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-02-18 03:11:15 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -40,6 +40,7 @@
 #include "gk/GameApp.h"      // the base application type
 #include "gk/GameInput.h"
 #include "gk/SystemDriver.h"
+#include "gk/GameInput.h"
 
 namespace gk 
 {
@@ -74,12 +75,11 @@ namespace gk
  * \endcode
  *
  * GameKernel is a Facade for all system driver interactions. 
- * An application should deal directly with this singleton to avoid talking 
- * directly to a SystemDriver implementation.
+ * An application should deal directly with an instance of this object to avoid
+ * talking directly to a SystemDriver implementation.
  * 
  * @see GameApp
  * @see GameKernelRegister
- * @see Singleton
  */
 class GameKernel
 {
@@ -130,6 +130,13 @@ public:
     */
    void add( GameApp* app );
 
+   /**
+    * Gets the input manager associated with this kernel.
+    *
+    * @return  the input manager for this kernel
+    */
+   GameInput* getInput();
+
    /** set the name of the running application.
     * you should call this in AppInit with your app's name, 
     * because some kernels can't set the window title after AppInit.
@@ -157,6 +164,11 @@ private:
     * This is the system driver implementation that runs our apps.
     */
    SystemDriver* mDriver;
+
+   /**
+    * The input manager associated with this kernel.
+    */
+   GameInput* mInput;
 
    /**
     * The list of applications being managed by this kernel.

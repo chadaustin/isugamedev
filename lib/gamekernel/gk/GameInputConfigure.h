@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInputConfigure.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-18 03:11:15 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,11 +38,14 @@
 #include "xml/xmlpp.h"
 
 #include "gk/GameInput.h"
+#include "gk/GameKernel.h"
 
 namespace gk {
 
-inline static bool loadInputConfig( const std::string& filename )
+inline static bool loadInputConfig( const std::string& filename,
+                                    GameKernel* kernel )
 {
+   assert( kernel != NULL );
    xmlpp::XMLContextPtr ctx( new xmlpp::XMLContext );
    xmlpp::XMLDocument doc( ctx );
 
@@ -80,7 +83,7 @@ inline static bool loadInputConfig( const std::string& filename )
          //std::cout << "attr: " << attr.get( "action" ) << "\n" << std::flush;
          //std::cout << "attr: " << attr.get( "device" ) << "\n" << std::flush;
          //std::cout << "attr: " << attr.get( "input" ) << "\n" << std::flush;
-         GameInput::instance().bind( attr.get( "action" ), attr.get( "device" ), attr.get( "input" ) );
+         kernel->getInput()->bind( attr.get( "action" ), attr.get( "device" ), attr.get( "input" ) );
       }
       catch (xmlpp::xmlerror e)
       {

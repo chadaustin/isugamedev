@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInterface.h,v $
-// Date modified: $Date: 2002-02-11 05:26:03 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-02-18 03:11:15 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -78,7 +78,9 @@ public:
     * @see AnalogInterface
     * @see InputInterface::init( const std::string& )
     */
-   AnalogInterface() {}
+   AnalogInterface( GameKernel* kernel )
+      : InputInterface( kernel )
+   {}
 
    /**
     * Destroys this interface to an analog input.
@@ -94,7 +96,7 @@ public:
    virtual float getAnalogData()
    {
       // this can surely be optimized...
-      Input* in = GameInput::instance().getInput( mAlias );
+      Input* in = mKernel->getInput()->getInput( mAlias );
       AnalogInput* ana = dynamic_cast<AnalogInput*>( in );
 
       if (ana == NULL)

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-11 13:52:24 $
-// Version:       $Revision: 1.30 $
+// Date modified: $Date: 2002-02-18 03:11:15 $
+// Version:       $Revision: 1.31 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,13 +38,15 @@
 
 #include "gk/Mouse.h"
 #include "gk/Keyboard.h"
-#include "gk/Singleton.h"
 
 #include "gk/DigitalInput.h"
 #include "gk/AnalogInput.h"
 #include "gk/EventInput.h"
 
 namespace gk {
+
+// forward declare GameKernel
+class GameKernel;
 
 /**
  * Input manager for game input.
@@ -63,26 +65,20 @@ namespace gk {
  *
  * <h3>  "Example (to configure your key bindings):" </h3>
  * \code
- *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_UPARROW" );
- *     GameInput::instance().bind( "StrafeLeft", "Keyboard", "KEY_LEFTARROW" );
- *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_RIGHTARROW" );
+ *     gameKernel->getInput()->bind( "Accelerate", "Keyboard", "KEY_UPARROW" );
+ *     gameKernel->getInput()->bind( "StrafeLeft", "Keyboard", "KEY_LEFTARROW" );
+ *     gameKernel->getInput()->bind( "Accelerate", "Keyboard", "KEY_RIGHTARROW" );
  * \endcode
  *
  * @see DigitalInterface
  * @see AnalogInterface
- * @see Singleton<GameInput>
  * @author Kevin Meinert <kevin@vrsource.org>
  */
-class GameInput : public Singleton<GameInput>
+class GameInput
 {
 public:
    /**
-    * Constructor (use Singleton::instance() instead). 
-    * GameInput is a singleton, which means you cannot directly construct 
-    * your own instance of this class.
-    * Instead, use GameInput::instance() to access the global version.
-    *
-    * @see Singleton::instance()
+    * Creates a new GameInput object with no devices or alias bindings.
     */
    GameInput()
    {
@@ -194,7 +190,7 @@ public:
     */
    void bind( const std::string& alias, const std::string& device, const std::string& input )
    {
-      Input* in_put = GameInput::instance().getInput( device, input );
+      Input* in_put = getInput( device, input );
       mBindTable[alias].add( in_put );
       mBindStrings.insert( std::pair<std::string, std::pair<std::string, std::string> >( alias, std::pair<std::string, std::string>(device, input) ) ); 
       std::cout << "Bound [" << device << ":" << input << "] to [" << alias << "]" << std::endl;
@@ -237,7 +233,7 @@ private:
       std::multimap<std::string, std::pair<std::string, std::string> >::iterator it;
       for (it = mBindStrings.begin(); it != mBindStrings.end(); ++it)
       {
-         Input* in_put = GameInput::instance().getInput( (*it).second.first, (*it).second.second );
+         Input* in_put = getInput( (*it).second.first, (*it).second.second );
          mBindTable[(*it).first].add( in_put );
          //std::cout << "   refresh: " << (*it).first << " " << (*it).second.first << " " << (*it).second.second << std::endl;
       }
@@ -268,12 +264,15 @@ public:
     * Creates and instance of the device type and adds it to the input manager.
     *
     * @param name    the name of the device
+    * @param kernel  the kernel with which to attach this device to
+    *
+    * @pre kernel != NULL
     */
-   DeviceHandle( const std::string& name )
-      : mName( name )
+   DeviceHandle( const std::string& name, GameKernel* kernel )
+      : mName( name ), mKernel( kernel )
    {
       mDevice = new Type();
-      GameInput::instance().addDevice( mDevice, name );
+      mKernel->getInput()->addDevice( mDevice, name );
    }
 
    /**
@@ -282,7 +281,7 @@ public:
     */
    ~DeviceHandle()
    {
-      GameInput::instance().removeDevice( mName );
+      mKernel->getInput()->removeDevice( mName );
       delete mDevice;
    }
 
@@ -321,6 +320,11 @@ private:
     * The name of the device.
     */
    std::string mName;
+
+   /**
+    * The kernel to which the device is attached.
+    */
+   GameKernel* mKernel;
 
    /**
     * The managed device.

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-02-13 08:40:42 $
-// Version:       $Revision: 1.19 $
+// Date modified: $Date: 2002-02-18 03:11:15 $
+// Version:       $Revision: 1.20 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,6 +36,7 @@ namespace gk {
 GameKernel::GameKernel()
    : mDriver( NULL )
 {
+   mInput = new GameInput();
 }
 
 void GameKernel::warpMouse( int x, int y )
@@ -75,6 +76,14 @@ void GameKernel::setWindowSize( int width, int height, int ctx )
 void GameKernel::add( GameApp* app )
 {
    mApps.push_back( app );
+}
+
+/*
+ * gets the input manager instance for this kernel
+ */
+GameInput* GameKernel::getInput()
+{
+   return mInput;
 }
 
 void GameKernel::setName( const std::string& name )
