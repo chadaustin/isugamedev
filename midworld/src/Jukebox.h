@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Jukebox.h,v $
- * Date modified: $Date: 2002-09-08 03:04:51 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-11 04:47:56 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -90,6 +90,12 @@ namespace mw
       void removeTrack(int index);
 
       /**
+       * Removes all tracks from the jukebox. This has the side effect of
+       * stopping the currently playing song.
+       */
+      void clear();
+
+      /**
        * Start playing tracks sequentially from the jukebox.
        */
       void play();
@@ -100,6 +106,21 @@ namespace mw
       void stop();
 
       /**
+       * Moves to the next track in the playlist.
+       */
+      void next();
+
+      /**
+       * Moves to the previous track in the playlist.
+       */
+      void prev();
+
+      /**
+       * Determines if this jukebox is currently playing sound.
+       */
+      bool isPlaying() const;
+
+      /**
        * Updates the jukebox, moving to the next song if necessary.
        *
        * Call this once every frame or so.
@@ -108,7 +129,6 @@ namespace mw
 
    private:
       void tryOpenTrack();
-      void nextTrack();
 
       adr::RefPtr<adr::AudioDevice> mDevice;
       std::vector<std::string> mTracks;

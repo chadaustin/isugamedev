@@ -24,21 +24,22 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Jukebox.cpp,v $
- * Date modified: $Date: 2002-09-08 03:04:51 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-11 04:47:56 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <iostream>
 #include "Jukebox.h"
 
 namespace mw
 {
    Jukebox::Jukebox(adr::AudioDevice* device)
-   {
-      mDevice = device;
-      mCurrentTrack = 0;
-      mIsPlaying = false;
-   }
+      : mDevice(device)
+      , mCurrentIndex(0)
+      , mCurrentTrack(0)
+      , mIsPlaying(false)
+   {}
 
    unsigned int
    Jukebox::getTrackCount() const
@@ -80,9 +81,16 @@ namespace mw
    }
 
    void
+   Jukebox::clear()
+   {
+      stop();
+      mTracks.clear();
+   }
+
+   void
    Jukebox::play()
    {
-      if (mIsPlaying || getTrackCount() == 0)
+      if (isPlaying() || getTrackCount() == 0)
       {
          return;
       }
@@ -95,32 +103,50 @@ namespace mw
    Jukebox::stop()
    {
       mCurrentTrack = 0;
-      mCurrentIndex = 0;
       mIsPlaying = false;
+   }
+
+   bool
+   Jukebox::isPlaying() const
+   {
+      return mIsPlaying;
+   }
+
+   void
+   Jukebox::next()
+   {
+      stop();
+      mCurrentIndex = (mCurrentIndex + 1) % getTrackCount();
+      play();
+   }
+
+   void
+   Jukebox::prev()
+   {
+      stop();
+      mCurrentIndex = (mCurrentIndex - 1) % getTrackCount();
+      play();
    }
 
    void
    Jukebox::update()
    {
-      if (!mIsPlaying)
+      // Nothing to do if we're not supposed to be playing anything
+      if (!isPlaying())
       {
          return;
       }
 
-      if (mCurrentTrack)
+      // If the current track is done, move to the next track
+      if (mCurrentTrack && (!mCurrentTrack->isPlaying()))
       {
-         if (!mCurrentTrack->isPlaying())
-         {
-            nextTrack();
-         }
+         next();
       }
+      // No track is actually playing, but we're supposed to be playing
+      // something. Try again.
       else
       {
-         if (getTrackCount() >= 0)
-         {
-            mCurrentIndex = 0;
-            tryOpenTrack();
-         }
+         play();
       }
    }
 
@@ -134,26 +160,10 @@ namespace mw
          mDevice.get(),
          mTracks[mCurrentIndex].c_str(),
          true);
+
       if (mCurrentTrack)
       {
          mCurrentTrack->play();
-      }
-   }
-
-   void
-   Jukebox::nextTrack()
-   {
-      if (getTrackCount() >= 0)
-      {
-         mCurrentIndex = (mCurrentIndex + 1) % getTrackCount();
-         mCurrentTrack = adr::OpenSound(
-            mDevice.get(),
-            mTracks[mCurrentIndex].c_str(),
-            true);
-      }
-      else
-      {
-         mCurrentTrack = 0;
       }
    }
 }
