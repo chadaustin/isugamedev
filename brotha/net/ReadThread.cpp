@@ -16,10 +16,13 @@ namespace net {
 
    void ReadThread::run() {
       MessageReader msgReader(m_socket->getInputStream());
-      while(PR_AtomicIncrement(&mKillMe)) {
-         m_readQueue->push(msgReader.readMessage());
-
-         PR_AtomicDecrement(&mKillMe);
+      try {
+         while(PR_AtomicIncrement(&mKillMe)) {
+            m_readQueue->push(msgReader.readMessage());
+            PR_AtomicDecrement(&mKillMe);
+         }
+      } catch (SocketException &e) {
+         int x = 3;
       }
    }
 } // namespace net

@@ -15,7 +15,7 @@ namespace net {
       ~Connection();
 
       void send(Message *message);
-      void read(std::vector<Message*> &messages);
+      bool read(std::vector<Message*> &messages);
    private:
       Socket *m_socket;
 

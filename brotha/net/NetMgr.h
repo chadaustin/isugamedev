@@ -73,14 +73,24 @@ namespace net {
        */
       void readAll( MsgList& msgs ) {
          // for each connection
-         for(ConnMapIter cIter=m_connections.begin();cIter!=m_connections.end();cIter++) {
+         ConnMapIter cIter=m_connections.begin();
+         while(cIter!=m_connections.end()) {
             // read all the messages
             std::vector<Message*> messages;
-            ((Connection*)cIter->second)->read(messages);
-            // and place each in the return
-            typedef std::vector<Message*>::iterator MsgIter;
-            for(MsgIter mIter=messages.begin();mIter!=messages.end();mIter++) {
-               msgs.push_back(std::make_pair(*mIter, cIter->first));
+            // if their was a problem reading the message (the socket messed up)
+            if(!((Connection*)cIter->second)->read(messages)) {
+               // let's close the connection and remove it from our knowledge
+               delete cIter->second;
+               m_connections.erase(cIter);
+               cIter = m_connections.begin();
+            } else {
+               // and place each in the return
+               typedef std::vector<Message*>::iterator MsgIter;
+               for(MsgIter mIter=messages.begin();mIter!=messages.end();mIter++) {
+                  msgs.push_back(std::make_pair(*mIter, cIter->first));
+               }
+               // move to the next connection
+               ++cIter;
             }
          }
       }

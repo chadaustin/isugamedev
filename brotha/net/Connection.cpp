@@ -26,7 +26,13 @@ namespace net {
       m_writeQueue->push(message);
    }
 
-   void Connection::read(std::vector<Message*> &messages) {
-      m_readQueue->read(messages);
+   bool Connection::read(std::vector<Message*> &messages) {
+      // if the thread is still running, read the messages
+      if(m_readThread->isRunning()) {
+         m_readQueue->read(messages);
+         return true;
+      } else { // if not
+         return false;
+      }
    }
 }

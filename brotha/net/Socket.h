@@ -74,8 +74,12 @@ namespace net {
       int read(void* buffer, int size) {
          int read = PR_Recv(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
          // if the peer closed the connection or we were interrupted
-         if((read == 0) || (read < 0 && PR_GetError() == PR_PENDING_INTERRUPT_ERROR)) {
-            close();
+         if(read == 0) {
+            throw SocketException("Peer closed connection");
+         } else if(read < 0 && PR_GetError() == PR_PENDING_INTERRUPT_ERROR) {
+            throw SocketException("Interrupt occurred");
+         } else if(read < 0) {
+            throw SocketException("Unknown error");
          }
          return read;
       }
@@ -84,7 +88,9 @@ namespace net {
          int sent = PR_Send(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
          // if we were interrupted
          if(sent < 0 && PR_GetError() == PR_PENDING_INTERRUPT_ERROR) {
-            close();
+            throw SocketException("Interrupt occurred");
+         } else if(sent < 0) {
+            throw SocketException("Unknown error");
          }
          return sent;
       }

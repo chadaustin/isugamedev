@@ -16,24 +16,26 @@ namespace net {
 
    void WriteThread::run() {
       OutputStream *oStream = m_socket->getOutputStream();
-      while(PR_AtomicIncrement(&mKillMe)) {
-         // read all messages
-         std::vector<Message*> messages;
-         m_writeQueue->read(messages);
+      try {
+         while(PR_AtomicIncrement(&mKillMe)) {
+            // read all messages
+            std::vector<Message*> messages;
+            m_writeQueue->read(messages);
 
-         // if we have some
-         if(!messages.empty()) {
-            // write each
-            typedef std::vector<Message*>::iterator MsgIter;
-            for(MsgIter iter=messages.begin();iter!=messages.end();iter++) {
-               (*oStream) << (*iter)->getType() << (*iter)->getSize();
-               (*iter)->serialize(*oStream);
+            // if we have some
+            if(!messages.empty()) {
+               // write each
+               typedef std::vector<Message*>::iterator MsgIter;
+               for(MsgIter iter=messages.begin();iter!=messages.end();iter++) {
+                  (*oStream) << (*iter)->getType() << (*iter)->getSize();
+                  (*iter)->serialize(*oStream);
+               }
+            } else { // if not, release CPU
+               PR_Sleep(PR_INTERVAL_MIN);
             }
-         } else { // if not, release CPU
-            PR_Sleep(PR_INTERVAL_MIN);
-         }
 
-         PR_AtomicDecrement(&mKillMe);
-      }
+            PR_AtomicDecrement(&mKillMe);
+         }
+      } catch (SocketException &e) { }
    }
 } // namespace net
