@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2003-02-21 08:48:46 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-24 00:43:33 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** barfight-cpr-end */
@@ -53,3 +53,15 @@ main(int argc, char** argv)
 
    return 0;
 }
+
+
+#ifdef WIN32
+
+#include <windows.h>
+
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+{
+   return main(__argc, __argv);
+}
+
+#endif
