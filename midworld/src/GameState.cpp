@@ -24,11 +24,12 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-03 10:47:48 $
- * Version:       $Revision: 1.46 $
+ * Date modified: $Date: 2002-10-08 02:40:51 $
+ * Version:       $Revision: 1.47 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <stdexcept>
 #include <sstream>
 #include <SDL_opengl.h>
 #include "GameState.h"
@@ -95,19 +96,7 @@ namespace mw
       /// XXX: If the player gets reaped it will segfault since mPlayer is a member
       add(&mPlayer);
 
-      // XXX: Hardcoded to add some initial enemies into the game
-      for (int i = 0; i < 10; i++)
-      {
-         Enemy* enemy = new Enemy();
-         enemy->setPos(gmtl::Point3f(5 + i * 4, 0, 0));
-         enemy->setModel("security_droid");
-         add(enemy);
-      }
-
-      AmmoCrate* crate = new AmmoCrate();
-      crate->setPos(gmtl::Point3f(10, 0, -10));
-      crate->setModel("ammo_crate");
-      add(crate);
+      loadLevel("levels/level1.txt");
 
       mFont = 0;
       mFontRenderer = 0;
@@ -588,6 +577,33 @@ namespace mw
          mSpatialIndex->remove(entity);
          mScene->remove(entity);
          delete entity;
+      }
+   }
+
+   void GameState::loadLevel(const std::string& filename) {
+      ifstream in(filename.c_str());
+      if (!in.is_open()) {
+         throw std::runtime_error("Could not open level file: " + filename);
+      }
+
+      std::string type;
+      double x, y, z;
+      double h, p, r;
+      while (in >> type >> x >> y >> z >> h >> p >> r) {
+         Entity* e;
+         if (type == "droid") {
+            e = new Enemy();
+            e->setModel("security_droid");
+         } else if (type == "crate") {
+            e = new AmmoCrate();
+            e->setModel("ammo_crate");
+         } else {
+            throw std::runtime_error("Unknown entity type: " + type);
+         }
+
+         e->setPos(gmtl::Point3f(x, y, z));
+         e->setRot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(p, h, r)));
+         add(e);
       }
    }
 
