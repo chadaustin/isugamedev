@@ -12,7 +12,7 @@ the stats we want to keep track of.  Here would be an example file
 
 <wbdata>
   <gang name="los lobos">
-     <player name="delmoi" password="pass1">
+     <player name="delmoi" password="pass1" gang="los lobos">
         <car cartype="toyota_tercel">
            <mod type="rims" level="4" />
            <mod type="nitro" level="6" />
@@ -20,11 +20,11 @@ the stats we want to keep track of.  Here would be an example file
         <car cartype="suburban" password="pass2">
            <mod type="tires" level="14" />
         </car>
-     <player name="spiffy" password="pass4">
+     <player name="spiffy" password="pass4" gang="los lobos">
         <car cartype="caddy"></car>
      </player>
    <gang name="jet ginders">
-      <player name="beat" password="pass3">
+      <player name="beat" password="pass3" gang="jet grinders">
          <car cartype="honda civic">
             <mod type="exhaust" level="200" />
           </car>
