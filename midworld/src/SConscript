@@ -89,8 +89,6 @@ buildInfo.addSources(map(lambda n: File(n + '.cpp'),  classes))
 env = baseEnv.Copy()
 
 env ['LIBS'].extend(['Loom'])
-env ['LIBPATH'].extend(['/home/users/browner/loom/src/loom/'])
-env ['CPPPATH'].extend(['/home/users/browner/loom/src'])
 env ['LIBS'].extend(['OSGSystem','OSGBase'])
 
 SetupSDL(env)
