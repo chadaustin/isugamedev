@@ -11,10 +11,15 @@
 namespace game {
    class Object {
    public:
-      /**
-      * The UID type for objects.
-      */
-      typedef UIDManager<Object,PRUint32>::UID UID;
+      /// UIDManager for objects
+      typedef UIDManager<Object,1,PRUint32> UIDMgr;
+
+      /// The UID type for objects.
+      typedef UIDMgr::UID UID;
+
+      /// The UID reserved for UNKNOWN players.
+      static const UID UNKNOWN;
+
    public:
       Object();
       virtual ~Object();

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-03-30 21:04:26 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-22 05:37:09 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,21 +41,23 @@
 #include "Player.h"
 
 namespace game {
+   const Player::UID Player::UNKNOWN = 0;
+
    Player::Player()
       : mName("Player"), mAccelerate(0), mBrake(0), mTurnAngle(0) {
-      mUID = UIDManager<Player, PRUint32>::getInstance().reserveID();
+      mUID = UIDMgr::getInstance().reserveID();
       mObject = new Object();
    }
 
    Player::Player( const std::string& name )
       : mName(name), mAccelerate(0), mBrake(0), mTurnAngle(0) {
-      mUID = UIDManager<Player, PRUint32>::getInstance().reserveID();
+      mUID = UIDMgr::getInstance().reserveID();
       mObject = new Object();
    }
 
    Player::~Player() {
       delete mObject;
-      UIDManager<Object, PRUint32>::getInstance().releaseID( mUID );
+      UIDMgr::getInstance().releaseID( mUID );
    }
 
    const Player::UID& Player::getUID() const {

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-22 04:52:38 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-22 05:37:09 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,10 +47,15 @@
 namespace game {
    class Player {
    public:
-      /**
-      * The UID type for players.
-      */
-      typedef UIDManager<Player,PRUint32>::UID UID;
+      /// UID manager for player objects.
+      typedef UIDManager<Player,1,PRUint32> UIDMgr;
+
+      /// The UID type for players.
+      typedef UIDMgr::UID UID;
+      
+      /// The UID reserved for UNKNOWN players.
+      static const UID UNKNOWN;
+
    public:
       /**
        * Creates a new player with the default name "Player".

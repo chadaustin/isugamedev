@@ -1,13 +1,15 @@
 #include "Object.h"
 
 namespace game {
+   const Object::UID Object::UNKNOWN = 0;
+
    Object::Object()
       : m_health(0) {
-      mUID = UIDManager<Object, PRUint32>::getInstance().reserveID();
+      mUID = UIDMgr::getInstance().reserveID();
    }
 
    Object::~Object() {
-      UIDManager<Object, PRUint32>::getInstance().releaseID( mUID );
+      UIDMgr::getInstance().releaseID( mUID );
    }
 
    const Object::UID& Object::getUID() const {
