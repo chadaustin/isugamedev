@@ -10,11 +10,14 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <string>
 #include <stdio.h>
 #include <stack>
 #include <time.h>
 #include "card.h"
 #include "deck.h"
+#include "text.h"
+#include <sstream>
 
 int mouseX, mouseY;
 
@@ -91,7 +94,14 @@ public:
 
    int myMeter;
 
-   
+   void drawScore(){
+      std::ostringstream ch;
+      ch << score;
+      glPrintf( "SCORE: ", 20, 325, GLUT_BITMAP_HELVETICA_18);
+      glPrintf( ch.str().c_str(), 30, 275, GLUT_BITMAP_HELVETICA_18);
+      glPrintf( "SET", 300, 440, GLUT_BITMAP_HELVETICA_18);
+
+   } 
    
    void drawMeter(){
 	   glPushMatrix();
@@ -147,7 +157,6 @@ public:
 		  }
 	   }
        if(count!=3){
-		   std::cout << "looser" << std::endl;
 		   score-=30;
 		   return false;
 	   }else{
@@ -168,13 +177,13 @@ public:
 					 if((c1_number == c2_number) && (c2_number == c3_number)) score+=5;
 					 else score+=10;
 					 
-					 std::cout << "winner" << std::endl;
-					 return true;
+					 drawScore();
+                return true;
 				  }
 			   }
 		   }
-	   	   std::cout << "looser" << std::endl;
 		   score-=30;
+         drawScore();
 		   return false;
 	   }
 	}
@@ -220,7 +229,7 @@ static void OnRedisplay()
 	glLoadIdentity();									// Reset The View
 	app.dek.draw();
 	app.drawMeter();
-   
+   app.drawScore();
    count=0;
 
    // update the last time
@@ -358,7 +367,6 @@ static void OnMouseClick( int button, int state, int x, int y )
          app.dek.selectCard(temp);
          if(app.dek.numSel()==3){
             if(app.checkForWinner()){
-               std::cout << "winner:" << app.score << std::endl;
                msleep(100);
                for(int i=0;i<12;i++){
                   if(app.dek.isSelected(i))
@@ -366,7 +374,6 @@ static void OnMouseClick( int button, int state, int x, int y )
                   app.dek.setCardAttributeRandom(i);
                }
             }else{
-               std::cout << "loser:" << app.score << std::endl;
                msleep(100);
                for(j=0;j<12;j++){
                   if(app.dek.isSelected(j))
@@ -445,7 +452,8 @@ static int OnApplicationInit()
     app.score=0;
 	app.ltime=0;
 	app.myMeter=10;
-	// !!!TODO!!!: put your initialization code here.
+   app.drawScore();
+   // !!!TODO!!!: put your initialization code here.
 
 	return 0;
 }
