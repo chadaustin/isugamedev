@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.cxx,v $
-//    $Date: 2001-09-13 23:37:16 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-18 14:58:01 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -78,24 +78,20 @@ void Matrix4f::getEulerXYZ( float& xRot, float& yRot, float& zRot ) const
 {
    float cz;
 
-   zRot = kev::ATAN2( -_m[4], _m[0] );
-   yRot = kev::ATAN2( _m[8], _m[0]/cz );
-
-   xRot = TO_DEG_F * xRot;
-   yRot = TO_DEG_F * yRot;
-   zRot = TO_DEG_F * zRot;
+   zRot = kev::ATAN2(-_m[4], _m[0]);     // -(-cy*sz)/(cy*cz) - cy falls out
+   xRot = kev::ATAN2(-_m[9], _m[10]);     // -(sx*cy)/(cx*cy) - cy falls out
+   cz   = kev::COS( zRot );
+   yRot = kev::ATAN2(_m[8], _m[0]/cz);   // (sy)/((cy*cz)/cz)
 }   
 
 void Matrix4f::getEulerZYX(  float& zRot, float& yRot, float& xRot ) const
 {
    float sx;
 
-   zRot = kev::ATAN2( _m[1], _m[0] );
-   yRot = kev::ATAN2( -_m[2], (_m[6]/sx) );
-
-   xRot = TO_DEG_F * xRot;
-   yRot = TO_DEG_F * yRot;
-   zRot = TO_DEG_F * zRot;
+   zRot = kev::ATAN2( _m[1], _m[0]);      // (cy*sz)/(cy*cz) - cy falls out
+   xRot = kev::ATAN2( _m[6], _m[10]);      // (sx*cy)/(cx*cy) - cy falls out
+   sx   = kev::SIN( xRot );
+   yRot = kev::ATAN2( -_m[2],(_m[6]/sx) );   // -(-sy)/((sx*cy)/sx)
 }  
 
 void Matrix4f::makeEulerXYZ( const float& xRot, const float& yRot, const float& zRot )
