@@ -1,10 +1,9 @@
-#ifndef BDATA_H
-#define BDATA_H
+#ifndef DATA_BROTHA_DATA_H
+#define DATA_BROTHA_DATA_H
 
 #include <iostream.h>
 #include <string.h>
 #include <vector>
-
 
 #include "Mod.h"
 #include "stat.h"
@@ -14,52 +13,51 @@
 #include "Cartype.h"
 #include "Player.h"
 
+namespace dataxml {
 
+   class Bdata {
+   private:
+      ganglist gangs;
+      cartypelist cars;
 
-namespace dataxml{
-class Bdata{
-private:
-  ganglist gangs;
-  cartypelist cars;
+   public:
+      ganglist getGangList() {
+         return gangs;
+      }
 
-public:
+      cartypelist getcartypes() {
+         return cars;
+      }
 
-  ganglist getGangList(){
-    return gangs;
-  }
+      void addCarType(Cartype* c) {
+         cars.push_back(c);
+      }
 
-  cartypelist getcartypes(){
-    return cars;
-  }
+      void addGang(Gang* g) {
+         gangs.push_back(g);
+      }
 
-  void addCarType(Cartype* c){
-    cars.push_back(c);
-  }
+      void xMLify(std::ostream& out) {
+         out << "<wbdata>" << std::endl;
+         for (unsigned int i = 0; i < gangs.size(); ++i) {
+            gangs[i]->xMLify(out);
+         }
+         for (unsigned int i = 0; i < cars.size(); ++i) {
+            cars[i]->xMLify(out);
+         }
+         out << "</wbdata>";
+      }
 
-  void addGang(Gang* g){
-    gangs.push_back(g);
-  }
-
-  void xMLify(std::ostream& out){
-	  out << "<wbdata>" << std::endl;
-    for(unsigned int i = 0; i < gangs.size(); i++){
-      gangs[i]->xMLify(out);
-    }
-    for(unsigned int i = 0; i < cars.size(); i++){
-      cars[i]->xMLify(out);
-    }
-	out << "</wbdata>";
-  }
-
-  Gang* getGangByName(std::string name){
-    for(unsigned int i = 0; i < gangs.size(); i++){
-	  if(gangs[i]->getName() == name){
-	    return gangs[i];
-	  }
-	}
-	throw "not found";
-	return gangs[0];  //should never be reached.
-  }
-};
+      Gang* getGangByName(std::string name) {
+         for (unsigned int i = 0; i < gangs.size(); ++i) {
+            if (gangs[i]->getName() == name) {
+               return gangs[i];
+            }
+         }
+         throw "not found";
+         return gangs[0];  //should never be reached.
+      }
+   };
 }
+
 #endif
