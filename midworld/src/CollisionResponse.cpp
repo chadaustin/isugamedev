@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-11-11 08:44:23 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-11-12 16:48:48 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,7 @@
 #include "Droid.h"
 #include "GunPickup.h"
 #include "Player.h"
+#include "StaticEntity.h"
 #include "Turret.h"
 #include "Utility.h"
 
@@ -83,7 +84,10 @@ namespace mw
       defineResponse<Player, AmmoCrate> (collidePlayerAmmoCrate);
       defineResponse<Player, GunPickup> (collidePlayerGunPickup);
       
-      setCollidable<BaseBullet, BaseBullet>(false);
+      setCollidable<BaseBullet, BaseBullet>    (false);
+      setCollidable<StaticEntity, StaticEntity>(false);
+      setCollidable<Turret, Turret>            (false);
+      setCollidable<Turret, StaticEntity>      (false);
    }
    
    CollisionResponse::~CollisionResponse()

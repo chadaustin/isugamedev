@@ -15,6 +15,8 @@ namespace mw
       : AbstractEntity(gameState)
       , mParticleCamera(gameState->getCamera())
    {
+      setCollidable(false);
+   
       mParticleTexture = GameManager::instance().getTextureManager()->get(filename);
 
       for(int i = 0; i < numParticles; i++)
