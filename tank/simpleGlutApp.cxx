@@ -106,7 +106,7 @@ void drawGrid()
 
    glPushAttrib( GL_ENABLE_BIT );
       glDisable( GL_LIGHTING );
-      glColor3f( 0.7, 0.3, 0.1 );
+      glColor3f( 0.1f, 0.3f, 0.7f );
       glBegin( GL_LINES );
          for ( int x = -extent; x < extent; x += 5)
          {
