@@ -24,23 +24,19 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Utility.h,v $
- * Date modified: $Date: 2002-10-08 05:39:37 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-28 07:11:48 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
 #ifndef MW_UTILITY_H
 #define MW_UTILITY_H
-
 
 #include <gmtl/Vec.h>
 #include <gmtl/Math.h>
 
-
 namespace mw
 {
-
    inline bool isPowerOfTwo(int i)
    {
       return (i & (i - 1)) == 0;
@@ -57,6 +53,17 @@ namespace mw
       return gmtl::Vec3f(x, y, z);
    }
 
+   /**
+    * A lightweight identifier you can pass to overloaded functions to typeify
+    * them.
+    *
+    * Type2Type lets you transport the type information about T to functions.
+    */
+   template< typename T >
+   struct Type2Type
+   {
+      typedef T OriginalType;
+   };
 }
 
 
