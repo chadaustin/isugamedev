@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.cpp,v $
- * Date modified: $Date: 2002-11-11 08:05:52 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-11-14 11:24:27 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -226,6 +226,7 @@ namespace mw
       bullet->setVel(gmtl::Vec3f(0,0,-30));
       bullet->setPos(getBarrelEndPos());
       bullet->setModel(model);
+      bullet->setSource(getSource());
       return bullet;
    }
 
