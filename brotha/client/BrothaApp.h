@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-05-01 19:59:06 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,10 +44,10 @@
 #define CLIENT_BROTHA_APP_H
 
 #include <SDL/SDL.h>
-#include "game/BrothaGame.h"
 #include "net/NetMgr.h"
 #include "net/JoinAsMessage.h"
 #include "sound/SoundManager.h"
+#include "game/Player.h"
 #include "ServerConnection.h"
 #include "State.h"
 
@@ -98,10 +98,6 @@ namespace client
          return mLocalPlayer;
       }
 
-      game::BrothaGame& getGame() {
-         return mGame;
-      }
-
       bool getFirstMsg(net::Message*& msg) {
          if(!mMsgList.empty()) {
             msg = mMsgList[0].first;
@@ -116,9 +112,6 @@ namespace client
       State* mCurrentState;
 
       State* mTransitionState;
-
-      /// Our lovely game instance.
-      game::BrothaGame mGame;
 
       /// The local player.
       game::Player* mLocalPlayer;

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-30 09:33:15 $
- * Version:       $Revision: 1.33 $
+ * Date modified: $Date: 2002-05-01 19:59:06 $
+ * Version:       $Revision: 1.34 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -100,10 +100,6 @@ namespace client
             mTransitionState = 0;
          }
       }
-
-      // update the state of the game
-      float dt = float(elapsedTime) / 1000.0f;
-      mGame.update(dt);
 
       // update the jukebox so we can automagically move to the next track
       if (mSoundMgr) {
