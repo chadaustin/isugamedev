@@ -23,67 +23,69 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: GameManager.cpp,v $
+ * File:          $RCSfile: TextureManager.cpp,v $
  * Date modified: $Date: 2002-10-31 07:03:37 $
- * Version:       $Revision: 1.5 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "GameManager.h"
+#include <iostream>
+#include <stdexcept>
+#include "TextureManager.h"
 
 namespace mw
 {
-   GameManager* GameManager::mInstance = 0;
+   TextureManager::TextureManager()
+   {}
 
-   GameManager::GameManager()
+   TextureManager::~TextureManager()
    {
-      mSoundMgr = new SoundManager();
-      mModelMgr = new ModelManager();
-      mResourceMgr = new ResourceManager();
-      mTextureMgr = new TextureManager();
    }
 
-   GameManager::~GameManager()
+   Texture*
+   TextureManager::get(const std::string& texture)
    {
-      delete mSoundMgr;
-      delete mModelMgr;
-      delete mResourceMgr;
-      delete mTextureMgr;
+      return getTexture(texture);
    }
 
-   GameManager& GameManager::instance()
+   bool
+   TextureManager::preload(const std::string& texture)
    {
-      if (!mInstance)
+      return (getTexture(texture) != 0);
+   }
+
+   void
+   TextureManager::emptyCache()
+   {
+      mCache.clear();
+   }
+
+   Texture*
+   TextureManager::getTexture(const std::string& texture)
+   {
+      // Check the cache first
+      TextureCache::iterator itr = mCache.find(texture);
+
+      // Cache hit.
+      if (itr != mCache.end())
       {
-         mInstance = new GameManager();
-         atexit(destroyGameManager);
+         return itr->second;
       }
-      return *mInstance;
-   }
+      // Cache miss. Open the texture and cache it
+      else
+      {
+         std::cout<<"[TextureManager] Cache miss for '"<<texture<<"'"<<std::endl;
 
-   SoundManager* GameManager::getSoundManager() const
-   {
-      return mSoundMgr;
-   }
-
-   ModelManager* GameManager::getModelManager() const
-   {
-      return mModelMgr;
-   }
-
-   ResourceManager* GameManager::getResourceManager() const
-   {
-      return mResourceMgr;
-   }
-
-   TextureManager* GameManager::getTextureManager() const
-   {
-      return mTextureMgr;
-   }
-
-   void GameManager::destroyGameManager()
-   {
-      delete mInstance;
-      mInstance = 0;
+         try
+         {
+            Texture* tex = new Texture(texture);
+            mCache[texture] = tex;
+            return tex;
+         }
+         catch (const std::runtime_error& e)
+         {
+            return 0;
+         }
+      }
    }
 }
