@@ -50,11 +50,10 @@ namespace mw
       
       //this is the path we want all the squares to take
 
-      mSquares[0].path[0]= MenuPathTarget(600,140,.1);
-      mSquares[0].path[1]= MenuPathTarget(600,240,.1);
-      mSquares[0].path[2]= MenuPathTarget(300,240,.1);
-      mSquares[0].path[3]= MenuPathTarget(300,140,.1);
-
+      mSquares[0].path[0]= MenuPathTarget(600, 140, 0.1f);
+      mSquares[0].path[1]= MenuPathTarget(600, 240, 0.1f);
+      mSquares[0].path[2]= MenuPathTarget(300, 240, 0.1f);
+      mSquares[0].path[3]= MenuPathTarget(300, 140, 0.1f);
       
       for(unsigned int i=0;i<4;i++)
       {
