@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-04-26 10:52:15 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-04-26 13:20:19 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -75,9 +75,9 @@ namespace phui {
          // only draw if the widget is visible
          if (wgt->isVisible()) {
 
-            glTranslatef(pos.x, pos.y, 0);
+            glTranslatef((float)pos.x, (float)pos.y, 0);
             wgt->draw();
-            glTranslatef(-pos.x, -pos.y, 0);
+            glTranslatef((float)-pos.x, (float)-pos.y, 0);
 
          }
       }      
