@@ -17,9 +17,9 @@ public:
    virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
       /// @actual authentication
       if(1) {
-         m_netMgr->send(new net::OKMessage(net::OKMessage::ResponseCode::OKAY), cID);
+         m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
       } else {
-         m_netMgr->send(new net::OKMessage(net::OKMessage::ResponseCode::GENERIC_ERROR), cID);
+         m_netMgr->send(new net::OKMessage(net::OKMessage::GENERIC_ERROR), cID);
       }
    };
 };
