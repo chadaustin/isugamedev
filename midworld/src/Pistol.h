@@ -30,7 +30,7 @@ namespace mw
       }
 
       /** return the Player slot number that the weapon goes in. */
-      virtual int getType() { return 0; }
+      virtual int getType() { return 1; }
       
       /// for key pressing edge events
       virtual void trigger( bool firing )   

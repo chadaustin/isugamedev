@@ -14,6 +14,7 @@ namespace mw
       , mStrafeRight(UP)
       , mStrafeLeft(UP)
       , mShoot(UP)
+      , mCycleWeapon(UP)
    {
       mPlayer.addWeapon( new Pistol );
    }
@@ -72,13 +73,18 @@ namespace mw
       if (mShoot == EDGE_DOWN)
       {
          mPlayer.weapon().trigger( true );
-         std::cout<<"Trigger Down"<<std::endl;
+         //std::cout<<"Trigger Down"<<std::endl;
       }
       else if (mShoot == EDGE_UP)
       {
          mPlayer.weapon().trigger( false );
-         std::cout<<"Trigger Up"<<std::endl;
+         //std::cout<<"Trigger Up"<<std::endl;
       }
+      
+      if (mCycleWeapon == EDGE_DOWN)
+      {
+         mPlayer.nextWeapon();
+      }      
 
       // update edge states...
       updateEdgeState(mAccelerate);
@@ -86,6 +92,7 @@ namespace mw
       updateEdgeState(mStrafeRight);
       updateEdgeState(mStrafeLeft);
       updateEdgeState(mShoot);
+      updateEdgeState(mCycleWeapon);
 
       
 
@@ -169,7 +176,12 @@ namespace mw
       if (button == SDL_BUTTON_LEFT)
       {
          updateEdgeState(mShoot, down);
-         std::cout<<"LMB "<<down<<std::endl;
+         //std::cout<<"LMB "<<down<<std::endl;
+      }
+      if (button == SDL_BUTTON_RIGHT)
+      {
+         updateEdgeState(mCycleWeapon, down);
+         //std::cout<<"LMB "<<down<<std::endl;
       }
    }
 

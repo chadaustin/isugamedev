@@ -60,7 +60,7 @@ namespace mw
       EdgeState mAccelerate;
       EdgeState mReverse;
       EdgeState mStrafeRight, mStrafeLeft;
-      EdgeState mShoot;
+      EdgeState mShoot, mCycleWeapon;
    };
 }
 
