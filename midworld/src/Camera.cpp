@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.cpp,v $
- * Date modified: $Date: 2002-10-30 15:53:03 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-11-06 06:08:45 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,7 +45,7 @@ namespace mw
       , mFollowDistanceVel(0)
       , mMaxFollowDistance(20)
       , mMinFollowDistance(2)
-      , mPitch(gmtl::Math::deg2Rad(30.0f))
+      , mPitch(gmtl::Math::deg2Rad(45.0f))
       , mPitchVel(0)
       , mMaxPitch(gmtl::Math::deg2Rad(90.0f))
       , mMinPitch(gmtl::Math::deg2Rad(0.0f))
