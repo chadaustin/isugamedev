@@ -10,11 +10,15 @@ execfile('glut_libs.py')
 
 Default('.')        # build everything by default
 
+# Setup a debug target
+if ARGUMENTS.get('debug'):
+   CXXFLAGS=['-g']
+
 # setup the environment
 env = Environment(CPPPATH = '#',
                   LIBPATH = '#phui',
                   ENV = os.environ,
-                  CXXFLAGS = ['-DDEBUG_MEMORY=1'])
+                  CXXFLAGS = CXXFLAGS + ['-DDEBUG_MEMORY=1'])
 Export('env GLUT_LIBS')
 
 
