@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-12-03 06:50:44 $
- * Version:       $Revision: 1.131 $
+ * Date modified: $Date: 2002-12-04 05:58:29 $
+ * Version:       $Revision: 1.132 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -116,35 +116,32 @@ namespace mw
 
       drawAni = true;
       // Animation initialization
-      if(!mPlayerCoreModel.create("the player"))
+      if (! mPlayerCoreModel.create("the player"))
       {
          std::cout << "failed to create mPlayerCoreModel!" << std::endl;
       }
       // load the core skeleton
-      if(!mPlayerCoreModel.loadCoreSkeleton( "/home/users/browner/midworld/build/animations/skeleton.CSF"))  // "/home/users/browner/final_attempt/walking.CSF"))
+      if (! mPlayerCoreModel.loadCoreSkeleton("animations/skeleton.csf"))
       {
          std::cout << "failed to load core skeleton!" << std::endl;
       }
       // load the material and animations
-//      startWalkingAnimationID = mPlayerCoreModel.loadCoreAnimation("/home/users/final_attempt/guy-walk.CAF");
-      walkingAnimationID = mPlayerCoreModel.loadCoreAnimation("/home/users/browner/midworld/build/animations/walk.CAF");
-      if(startWalkingAnimationID==-1 || walkingAnimationID==-1)
+      walkingAnimationID = mPlayerCoreModel.loadCoreAnimation("animations/walk.caf");
+      if (startWalkingAnimationID == -1 || walkingAnimationID == -1)
       {
          std::cout << "failed to load core animcation file!" << std::endl;
       }
 
       // load the core mesh data
-      meshID = mPlayerCoreModel.loadCoreMesh("/home/users/browner/midworld/build/animations/mesh.CMF");
-      if(meshID == -1)
+      meshID = mPlayerCoreModel.loadCoreMesh("animations/mesh.cmf");
+      if (meshID == -1)
       {
          std::cout << "failed to load core mesh file!" << std::endl;
       }
 
       //load the core material data
-//      pantsMaterialID = mPlayerCoreModel.loadCoreMaterial("/home/users/browner/final_attempt/guy-mat.CRF");
-      hatMaterialID = mPlayerCoreModel.loadCoreMaterial("/home/users/browner/midworld/build/animations/mat.CRF");
-//      coatMaterialID = mPlayerCoreModel.loadCoreMaterial("/home/users/browner/midworld/build/animations/guyCoat.CRF");
-      if(/*pantsMaterialID == -1 ||*/ hatMaterialID == -1 ) //|| coatMaterialID == -1)
+      hatMaterialID = mPlayerCoreModel.loadCoreMaterial("animations/mat.crf");
+      if (hatMaterialID == -1)
       {
          std::cout << "failed to load core material data!" << std::endl;
       }
@@ -164,12 +161,12 @@ namespace mw
 //      mPlayerCoreModel.setCoreMaterialId(BODY_MATERIAL_THREAD, PANTS_MATERIAL_SET, pantsMaterialID);
 
       
-      if(!myModel.create(&mPlayerCoreModel))
+      if (! myModel.create(&mPlayerCoreModel))
       {
          std::cout << "Error creating model instance" << std::endl;
       }
 
-      if(!myModel.attachMesh(meshID))
+      if (! myModel.attachMesh(meshID))
       {
          std::cout << "Error could not attach mesh!" << std::endl;
       }
@@ -288,6 +285,7 @@ namespace mw
       mPhysics->update(dt);
 
       // Iterate over all the entities and update them
+      Group* grp = mScene->getRoot();
       for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
          const Entity::UID& uid = itr->first;
