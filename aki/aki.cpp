@@ -2,6 +2,7 @@
 #include "GameKernel.h"
 #include "GameInput.h"
 #include "DigitalInterface.h"
+#include "GlutDriver.h"
            
 #include "Grid.h"
                   
@@ -67,7 +68,8 @@ public:
 };
 
 void main( int argc, char *argv[] )
-{   
+{
    GameKernelRegister<AkiGame> reg;
-   GameKernel::instance().startup();
+   SystemDriver* driver = new GlutDriver();
+   GameKernel::instance().startup( driver );
 }

@@ -1,5 +1,5 @@
 # objects to be included in the project....
-SRCS = aki.cpp GameKernel.cpp
+SRCS = aki.cpp GameKernel.cpp GlutDriver.cpp
 
 # project name...
 PROJECT_NAME = aki

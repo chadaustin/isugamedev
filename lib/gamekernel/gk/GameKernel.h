@@ -8,68 +8,55 @@
 #include "Singleton.h"
 #include "GameApp.h"      // the base application type
 #include "GameInput.h"
+#include "SystemDriver.h"
 
+/**
+ * Facade for all system driver interactions. The application should deal
+ * directly with this singleton to avoid talking directly to a SystemDriver
+ * implementation.
+ */
 class GameKernel : public kev::Singleton<GameKernel>
 {
 public:
    GameKernel();
 
-   virtual void startup();
-   virtual void shutdown();
+   /**
+    * Initializes and runs this kernel with the given system driver.
+    *
+    * @param driver     the driver that should underlie the kernel
+    *
+    * @return  true if successful, false otherwise
+    */
+   bool startup( SystemDriver* driver );
+   void shutdown();
    
-   virtual void warpMouse( int x, int y );
-   virtual void showMouse( bool show );
+   void warpMouse( int x, int y );
+   void showMouse( bool show );
    
    /* go fullscreen
     */
-   virtual void fullscreen( int ctx = 0 );
+   void fullscreen( int ctx = 0 );
    
    /* get the window size */
-   virtual void getWindowSize( int& width, int& height, int ctx = 0 );
+   void getWindowSize( int& width, int& height, int ctx = 0 );
 
    /* for resize of the window
     * i.e. use this to restore after a full screen
     *      use this to init the window size in OnAppInit
     */
-   virtual void setWindowSize( int width, int height, int ctx = 0 );
+   void setWindowSize( int width, int height, int ctx = 0 );
    
-   virtual void setName( const std::string& name );
-   
-   virtual const std::string& name() const;
+   void setName( const std::string& name );
+
+   const std::string& name() const;
    
    std::vector<GameApp*>& applications();
-      
-private:
-   int mWidth, mHeight;
-   std::string mName;
-   int currentContext; //only one context for now...
-   int mainWin_contextID; // ID of the main (first) window
-   int mIsStarted;
-   
-   ///////////////////////////////////////////////////////////////////
-   class DefaultFalseBool
-   {
-   private:
-      bool _flag;
-   public:
-      DefaultFalseBool() : _flag(false) {}
-      DefaultFalseBool(const bool& flag) : _flag(flag) {}
-      inline bool& truth() { return _flag; }
-      inline const bool& truth() const { return _flag; }
-   };
-   ContextData<GameKernel::DefaultFalseBool> oneTimeOnly;
 
-   static void OnIdle();
-   static void OnRedisplay();
-   static void OnReshape(int w, int h);
-   static void OnKeyboardDown(unsigned char k, int x, int y);
-   static void OnKeyboardUp(unsigned char k, int x, int y);
-   static void keyboardEvent( const bool& isdown, const int& k, Keyboard& keyboard );
-   static void OnSpecialKeyboardDown(int k, int x, int y);
-   static void OnSpecialKeyboardUp(int k, int x, int y);
-   static void OnMousePos( int x, int y );
-   static void OnMouseClick( int button, int state, int x, int y );
-   static void postredisplay();
+private:
+   /**
+    * This is the system driver implementation that runs our apps.
+    */
+   SystemDriver* mDriver;
 };
 
 // create an instance of this type to register your application
