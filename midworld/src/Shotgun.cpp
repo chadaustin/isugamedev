@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-09-09 01:00:43 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-09 01:18:03 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -71,32 +71,36 @@ namespace mw
       // add the bullet to the gamestate...
       for(unsigned int i=0; i<NUM_PELLETS; i++)
       {
-         //TODO:  seed this according to world time?
-
-
          //generate random bullet directions with the sweep of mSpreadAngle
          //degrees
-         float angle = gmtl::Math::deg2Rad((mSpreadAngle* float(rand())/RAND_MAX) - (mSpreadAngle/2));
+         float angle = gmtl::Math::deg2Rad((mSpreadAngle * float(rand())/RAND_MAX) - (mSpreadAngle/2));
 
-         gmtl::Quatf r(gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(angle, 0.0f, 1.0f, 0.0f)));
+         std::cout<<"Pellet angle: "<<gmtl::Math::rad2Deg(angle)<<std::endl;
+         gmtl::Quatf barrel_rot(gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(angle, 0.0f, 1.0f, 0.0f)));
 
-         BaseBullet* bullet = this->createBullet();
-
-         bullet->setRot(this->getRot() * r); //shoot off at a limited random angle
-         bullet->setPos(this->getPos());
-         bullet->setVel(this->getRot() * r * bullet->getVel());
-
-         g.add(bullet); // bullet is not mine anymore, belongs to GameState
-
-         // Do the sound effect
-         SoundEffectManager* sfxmgr = GameManager::instance().getSoundManager()->
-                                       getSoundEffectManager();
-         sfxmgr->playSound("sfx/shotgun.wav");
+         BaseBullet* bullet = createBullet();
+         bullet->setRot(getRot() * barrel_rot); //shoot off at a limited random angle
+         bullet->setPos(getPos());
+         bullet->setVel(getRot() * barrel_rot * bullet->getVel());
+         g.add(bullet);
       }
+
+      // Do the sound effect
+      SoundEffectManager* sfxmgr = GameManager::instance().getSoundManager()->
+                                    getSoundEffectManager();
+      sfxmgr->playSound("sfx/shotgun.wav");
    }
 
    void Shotgun::ejectCasing(GameState& g)
    {
-      /// @todo eject a casing into the game
+      gmtl::Quatf case_rot(gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
+                  0, gmtl::Math::deg2Rad(-90.0f), gmtl::Math::deg2Rad(85.0f))));
+
+      // Create the shell casing
+      BaseBullet* casing = createBullet();
+      casing->setRot(getRot() * case_rot);
+      casing->setPos(getPos() + casing->getForward() * 1.0f);
+      casing->setVel(casing->getRot() * casing->getVel() * 0.50f);
+      g.add(casing);
    }
 }
