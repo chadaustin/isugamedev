@@ -28,7 +28,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#       $Id: auto-copyright.pl,v 1.1 2002-02-24 02:03:36 nonchocoboy Exp $
+#       $Id: auto-copyright.pl,v 1.2 2002-02-24 02:06:02 nonchocoboy Exp $
 #
 
 use File::Basename;
@@ -41,7 +41,7 @@ BEGIN {
     $path = (fileparse("$0"))[1];
 }
 
-use lib($path);
+use lib($path."/..");
 use RecurseDir;
 
 # get opts:
