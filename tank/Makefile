@@ -9,9 +9,22 @@
 PROJECT_NAME = tank
 
 # objects to be included in the project....
-SRCS = ImageManager.cxx FileHandler.cxx simpleGlutApp.cxx Matrix4f.cxx Light.cxx \
-       ColorRGBA.cxx Material.cxx Texture.cxx TgaImporter.cxx Image.cxx \
-       CppImageExporter.cxx BmpImporter.cxx
+SRCS = \
+   BmpImporter.cxx \
+   ColorRGBA.cxx \
+   CppImageExporter.cxx \
+   Entity.cxx \
+   FileHandler.cxx \
+   Image.cxx \
+   ImageManager.cxx \
+   Light.cxx \
+   Material.cxx \
+   Matrix4f.cxx \
+   simpleGlutApp.cxx \
+   Texture.cxx \
+   TgaImporter.cxx \
+   World.cxx
+
 MK_DIR = ./mk
 PATH_TO_SRCS = .
 
@@ -24,6 +37,13 @@ ifeq ($(WHOAMI), kevn)
 ifneq ($(HOSTTYPE), Win32)
    INCLUDE_PATHS += -I/home/users/kevn/software/${HOSTTYPE}/include
    LIBPATHS += -L/home/users/kevn/software/${HOSTTYPE}/lib32
+endif
+endif
+
+ifeq ($(WHOAMI), bscott)
+ifneq ($(HOSTTYPE), Win32)
+   INCLUDE_PATHS += -I/usr/X11R6/include
+   LIBPATHS += -L/usr/X11R6/lib
 endif
 endif
 
@@ -47,11 +67,11 @@ default: ${OBJS}
 
 
 clobber: clean
-	rm *.d
+	rm -f *.d
 
 # the "clean" target, cleans object code and exe from the directory...
 # NOTE: SGI's CC command produces an ii_files directory.
 clean:
-	-rm -r $(OBJS) $(FILENAME) ii_files
+	rm -rf $(OBJS) $(FILENAME) ii_files
 
 include ${MK_DIR}/mk.depend
