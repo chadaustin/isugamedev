@@ -2,11 +2,11 @@
 #define SHOOT
 
 
-#include <Instinct.h>
-#include <Behavior.h>
+#include "Instinct.h"
+#include "Behavior.h"
 
 #include <iostream>
-#include <ShootingAction.h>
+#include "ShootingAction.h"
 
 class Shoot : public BehaviorFactory
 {

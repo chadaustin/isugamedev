@@ -3,10 +3,10 @@
 
 #include <queue>
 #include <vector>
-#include <Behavior.h>
+#include "Behavior.h"
 
 #include <iostream>
-#include <Observer.h>
+#include "Observer.h"
 
 
 class AiQueue : public Subject

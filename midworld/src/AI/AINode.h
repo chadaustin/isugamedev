@@ -3,20 +3,16 @@
 
 #include <queue>
 #include <vector>
-
-
 #include <iostream>
 
-#include <AiQueue.h>
-#include <InstinctManager.h>
+#include "AiQueue.h"
+#include "InstinctManager.h"
 #include <math.h>
 #include <iostream>
-#include <BehaviorMachine.h>
-#include <Instinct.h>
-#include <Action.h>
-#include <AIManager.h>
-
-
+#include "BehaviorMachine.h"
+#include "Instinct.h"
+#include "Action.h"
+#include "AIManager.h"
 
 
 /**

@@ -2,12 +2,7 @@
 #define BEHAVIOR
 
 #include <iostream>
-#include <ActionContainer.h>
-
-
-
-
-
+#include "ActionContainer.h"
 
 class Behavior 
 {

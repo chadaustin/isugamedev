@@ -5,9 +5,9 @@
 #include <list>
 #include <vector>
 
-#include <Observer.h>
-#include <AINode.h>
-#include <InstinctManager.h>
+#include "Observer.h"
+#include "AINode.h"
+#include "InstinctManager.h"
 
 
 class AISystem

@@ -1,10 +1,10 @@
 #ifndef ACTION
 #define ACTION
 
-#include <Observer.h>
+#include "Observer.h"
 #include <queue>
-#include <AiQueue.h>
-#include <AINode.h>
+#include "AiQueue.h"
+#include "AINode.h"
 
 
 class Action : public Observer

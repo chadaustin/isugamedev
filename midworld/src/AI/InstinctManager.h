@@ -6,12 +6,12 @@
 #include <queue>
 
 
-#include <Behavior.h>
+#include "Behavior.h"
 
 
-#include <AINode.h>
-#include <Observer.h>
-#include <AiQueue.h>
+#include "AINode.h"
+#include "Observer.h"
+#include "AiQueue.h"
 
 class InstinctManager : public Observer, public Subject
 {

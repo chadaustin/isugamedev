@@ -3,7 +3,7 @@
 
 #include <math.h>
 #include <iostream>
-#include "behaviorMachine.h"
+#include "BehaviorMachine.h"
 #include <vector>
 /*
 #include <gmtl/Matrix.h>

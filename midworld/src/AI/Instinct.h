@@ -2,12 +2,12 @@
 #define INSTINCT
 
 
-#include <Observer.h>
-#include <InstinctManager.h>
+#include "Observer.h"
+#include "InstinctManager.h"
 #include <vector>
-#include <Behavior.h>
+#include "Behavior.h"
 #include <queue>
-#include <BoolBehavior.h>
+#include "BoolBehavior.h"
 
 /**
  * This class is deisgned to be a single instinctive reaction.  It has 
