@@ -276,6 +276,12 @@
 				RelativePath="..\..\src\ModelManager.h">
 			</File>
 			<File
+				RelativePath="..\..\src\NavNodeTree.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\NavNodeTree.h">
+			</File>
+			<File
 				RelativePath="..\..\src\NullCollisionDetector.h">
 			</File>
 			<File
