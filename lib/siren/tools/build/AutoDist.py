@@ -27,8 +27,8 @@ Automatic distribution builder and packager for SCons.
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: AutoDist.py,v $
-# Date modified: $Date: 2003-01-02 03:32:55 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2003-02-06 06:30:38 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 ############################################################## autodist-cpr end
 
@@ -126,7 +126,7 @@ class _Assembly:
       headers will be installed to Prefix()/include/prefix. The list must come
       in as strings as they are processed through File().
       """
-      hdrs = map(lambda n: Header(n,prefix), map(File, headers))
+      hdrs = map(lambda n, prefix=prefix: Header(n,prefix), map(File, headers))
       self.data['headers'].extend(hdrs)
 
    def addIncludes(self, includes):
