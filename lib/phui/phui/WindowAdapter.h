@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WindowAdapter.h,v $
- * Date modified: $Date: 2002-04-28 20:24:55 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-28 20:37:23 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -52,6 +52,7 @@ namespace phui {
     * @see WindowListener
     */
    class WindowAdapter : public WindowListener {
+   public:
       WindowAdapter() {}
       ~WindowAdapter() {}
 
