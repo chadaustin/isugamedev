@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.cpp,v $
- * Date modified: $Date: 2002-11-05 22:35:43 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-11-08 09:40:17 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -76,7 +76,8 @@ namespace mw
          // VC++ 7 does not compile this right unless it's static
          // Internal Compiler Error
          // this is not threadsafe
-         static Entity* e = 0;
+         static Entity* e;
+         e = 0;
 
          if (type == "droid")
          {
@@ -101,8 +102,6 @@ namespace mw
                node->loc[2] = z;
                gameState->addNavNode(node);
             }
-            e = EntityFactory::instance().create<StaticEntity>();
-            e = 0;
          }
          else if (type == "navLink")
          {
@@ -111,8 +110,6 @@ namespace mw
             {
                gameState->addNavNodeLink(n1, n2);
             }
-            e = EntityFactory::instance().create<StaticEntity>();
-            e = 0;
          }  
          else if (type == "turret")
          {
@@ -123,7 +120,7 @@ namespace mw
                Entity* t;
                t = gameState->setupTurret(name, parent, maxChild, level);
                t->setModel("turret");
-               e=t;
+               e = t;
             }
          }
          else if (type == "ammo")
@@ -161,7 +158,8 @@ namespace mw
          }
 
          // Only setup the entity if it is not null
-         if(e!=0){
+         if (e != 0)
+         {
             gmtl::Point3f pos(x, y, z);
             gmtl::Quatf rot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(
                gmtl::Math::deg2Rad(p),
