@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DealerWnd.h,v $
- * Date modified: $Date: 2002-04-28 20:43:39 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-28 21:58:27 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -62,7 +62,6 @@ namespace client {
       void onListSelection(const phui::ListSelectionEvent& evt);
 
    private:
-      phui::Window* mDealerWnd;
       phui::ListBox* mCarsList;
       phui::ListBox* mCarsOwnedList;
       phui::Button* mBuyBtn;
