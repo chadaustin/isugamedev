@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.h,v $
- * Date modified: $Date: 2002-05-01 09:57:48 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-02 05:59:02 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -49,6 +49,7 @@
 #include "ObjectTypes.h"
 #include "util/UIDManager.h"
 #include <gmtl/Vec.h>
+#include <gmtl/Sphere.h>
 
 namespace game {
    class Object {
@@ -74,14 +75,14 @@ namespace game {
       /**
        * Gets the position vector associated with this object.
        */
-      const gmtl::Vec3f& getPosition() const {
+      const gmtl::Point3f& getPosition() const {
          return mPosition;
       }
 
       /**
        * Sets the position vector associated with this object.
        */
-      void setPosition(const gmtl::Vec3f& pos) {
+      void setPosition(const gmtl::Point3f& pos) {
          mPosition = pos;
       }
 
@@ -97,6 +98,20 @@ namespace game {
        */
       void setVelocity(const gmtl::Vec3f& velocity) {
          mVelocity = velocity;
+      }
+
+      /**
+       * Sets the Velocity vector associated with this object.
+       */
+      void setSphere(const gmtl::Spheref& sphere) {
+         mSphere = sphere;
+      }
+
+      /**
+       * Gets the velocity vector associated with this object.
+       */
+      const gmtl::Spheref& getSphere() const {
+         return mSphere;
       }
 
       /**
@@ -119,10 +134,13 @@ namespace game {
       UID mUID;
 
       /// This object's position vector
-      gmtl::Vec3f mPosition;
+      gmtl::Point3f mPosition;
 
       /// This object's velocity vector
       gmtl::Vec3f mVelocity;
+
+      /// This object has a sphere surrounding it
+      gmtl::Spheref mSphere;
 
       /// This object's health
       PRFloat64 mHealth;

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-02 04:17:03 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-05-02 05:59:02 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,6 +45,8 @@
 #include <gmtl/VecOps.h>
 #include <sstream>
 #include "xml/DataManager.h"
+#include <gmtl/Containment.h>
+//#include "gmtl/Sphere.h"
 
 namespace game
 {
@@ -55,17 +57,28 @@ namespace game
    }
 
    void GameLogic::update(float time){ 
-      gmtl::Vec3f oPosition;
-
+      gmtl::Point3f oPosition;
+      gmtl::Spheref oSphere;
       for (unsigned int i=0; i < mObject.size(); i++){
          // compute new position
          oPosition = mObject[i]->getPosition() + (mObject[i]->getVelocity() * time);
-
+         oSphere = mObject[i]->getSphere();
+         
          // update position
          mObject[i]->setPosition(oPosition);
+         oSphere.setCenter(oPosition);
+         mObject[i]->setSphere(oSphere);
       }
 
       GameLogic::updateStats();
+
+      for (unsigned int i=0; i < mObject.size(); i++){
+         for (unsigned int j=0; j < mObject.size(); j++){
+            if (gmtl::isInVolume(mObject[i]->getSphere(), mObject[j]->getSphere())){
+               std::cout<<"Argh... Colliding balls!!!  Is this a good thing?" << std::endl;
+            }
+         }
+      }
       /// @todo collision detection  
    }
 
