@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2002-04-24 03:57:52 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-27 19:39:53 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -111,9 +111,16 @@ namespace phui {
    }
    //@}
 
+   static const Colorf NONE (0, 0, 0, 0);
    static const Colorf WHITE(1, 1, 1, 1);
    static const Colorf BLACK(0, 0, 0, 1);
-   static const Colorf NONE (0, 0, 0, 0);
+
+   static const Colorf RED    (1, 0,    0, 1);
+   static const Colorf ORANGE (1, 0.5,  0, 1);
+   static const Colorf YELLOW (1, 1,    0, 1);
+   static const Colorf GREEN  (0, 1,    0, 1);
+   static const Colorf BLUE   (0, 0,    1, 1);
+   static const Colorf PURPLE (1, 0,    1, 1);
 
 } // namespace phui
 
