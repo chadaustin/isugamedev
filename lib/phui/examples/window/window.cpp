@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-04-22 05:07:20 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-22 05:10:31 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -145,6 +145,13 @@ int main( int argc, char** argv )
       btn->setVisible( true );
       btn->setBackgroundColor( phui::Colorf(0,0,1,0.7) );
       gWnd->add( btn );
+
+      phui::Label* lbl( new phui::Label("Label me!") );
+      lbl->setPosition( 75, 10 );
+      lbl->setSize( 100, 45 );
+      lbl->setVisible( true );
+      lbl->setBackgroundColor( phui::Colorf(0,1,1,0.7) );
+      gWnd->add( lbl );
 
       gUI->add( gWnd );
       gUI->add( window );
