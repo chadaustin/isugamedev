@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-02-20 04:01:15 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-20 05:08:11 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,7 +38,7 @@
 #include "gk/Keyboard.h"
 #include "gk/Mouse.h"
 #include "gk/ContextData.h"
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include <string>
 #include <iostream>
 
