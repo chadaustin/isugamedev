@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DealerWnd.cpp,v $
- * Date modified: $Date: 2002-05-02 00:40:58 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-05-03 07:33:52 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,6 +41,7 @@
  *
  ************************************************************ brotha-cpr-end */
 #include "DealerWnd.h"
+#include "BrothaApp.h"
 
 namespace client {
    DealerWnd::DealerWnd()
@@ -74,6 +75,7 @@ namespace client {
       mBuyBtn->setPosition(185, 320);
       mBuyBtn->setBackgroundColor(phui::BLACK);
       mBuyBtn->setForegroundColor(phui::WHITE);
+      mBuyBtn->addActionListener(this);
       add(mBuyBtn);
 
       mSellBtn = new phui::Button("Sell");
@@ -81,6 +83,7 @@ namespace client {
       mSellBtn->setPosition(455, 320);
       mSellBtn->setBackgroundColor(phui::BLACK);
       mSellBtn->setForegroundColor(phui::WHITE);
+      mSellBtn->addActionListener(this);
       add(mSellBtn);
 
       mDoneBtn = new phui::Button("Done");
@@ -90,6 +93,8 @@ namespace client {
       mDoneBtn->setForegroundColor(phui::WHITE);
       mDoneBtn->addActionListener(this);
       add(mDoneBtn);
+
+      mSubState = User_Input;
    }
 
    DealerWnd::~DealerWnd()
@@ -99,23 +104,127 @@ namespace client {
       phui::Widget* src = evt.getSource();
       if (src == mDoneBtn) {
          hide();
-      }
-   }
-
-   void DealerWnd::onListSelection(const phui::ListSelectionEvent& evt) {
-      phui::Widget* src = evt.getSource();
-      if (src == mCarsList) {
-         std::cout<<"Selected "<<mCarsList->get(evt.getSelectedIndex())<<std::endl;
+      } else if (src == mBuyBtn) {
+         mSubState = Send_Buy_Request;
+      } else if (src == mSellBtn) {
+         mSubState = Send_Sell_Request;
       }
    }
 
    void DealerWnd::updateData(data::CarList* playerList, data::CarTypeList* allCars) {
+      mCarsList->clear();
       for(unsigned int x=0;x<allCars->size();++x) {
-         mCarsList->add((*allCars)[x]->getName());
+         bool addIt = true;
+         for(unsigned int y=0;y<playerList->size();++y) {
+            if((*playerList)[y]->getName().compare((*allCars)[x]->getName()) == 0) {
+               addIt = false;
+            }
+         }
+
+         if(addIt) {
+            mCarsList->add((*allCars)[x]->getName());
+         }
       }
 
+      mCarsOwnedList->clear();
       for(unsigned int x=0;x<playerList->size();++x) {
          mCarsOwnedList->add((*playerList)[x]->getName());
+      }
+   }
+
+   void DealerWnd::update(BrothaApp* app, int elapsedTime) {
+      if(mSubState == Send_Buy_Request) {
+         int selectedItem = mCarsList->getSelectedIndex();
+
+         // if an item is selected
+         if(selectedItem != -1) {
+            // disable the window till further notice
+            this->setEnabled(false);
+
+            // request to buy it
+            app->sendMessage(new net::BuyCarMessage(mCarsList->get(selectedItem)));
+            mSubState = Wait_For_Buy_Response;
+         } else {
+            // go back to waiting
+            mSubState = User_Input;
+         }
+      } else if(mSubState == Send_Sell_Request) {
+         int selectedItem = mCarsOwnedList->getSelectedIndex();
+
+         // if an item is selected
+         if(selectedItem != -1) {
+            // disable the window till further notice
+            this->setEnabled(false);
+
+            // request to sell it
+            app->sendMessage(new net::SellCarMessage(mCarsOwnedList->get(selectedItem)));
+            mSubState = Wait_For_Sell_Response;
+         } else {
+            // go back to waiting
+            mSubState = User_Input;
+         }
+      } else if(mSubState == Wait_For_Buy_Response) {
+         int selectedItem = mCarsList->getSelectedIndex();
+
+         net::Message* msg = NULL;
+         if(app->getFirstMsg(msg)) {
+            // make sure we got the right message type
+            if(msg->getType() == net::OK) {
+               net::OKMessage* okMsg = (net::OKMessage*)msg;
+
+               if(okMsg->getCode() == net::OKMessage::OKAY) {
+                  // if the purchase was successful
+
+                  // add it to the list of owned cars
+                  mCarsOwnedList->add(mCarsList->get(selectedItem));
+                  // remove it from the list we can buy from
+                  mCarsList->remove(selectedItem);
+               } else {
+                  // if the purchace wasn't successful
+                  /// @todo tell user: we need a MessageBox type phui thing
+               }
+            } else {
+               std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               /// @todo raise an error
+            }
+            // enable input again
+            this->setEnabled(true);
+
+            // go back to waiting
+            mSubState = User_Input;
+         }
+      } else if(mSubState == Wait_For_Sell_Response) {
+         int selectedItem = mCarsOwnedList->getSelectedIndex();
+
+         net::Message* msg = NULL;
+         if(app->getFirstMsg(msg)) {
+            // make sure we got the right message type
+            if(msg->getType() == net::OK) {
+               net::OKMessage* okMsg = (net::OKMessage*)msg;
+
+               if(okMsg->getCode() == net::OKMessage::OKAY) {
+                  // if the purchase was successful
+
+                  // add it to the list we can buy from
+                  mCarsList->add(mCarsOwnedList->get(selectedItem));
+                  // remove it from the list of owned cars
+                  mCarsOwnedList->remove(selectedItem);
+               } else {
+                  // if the purchace wasn't successful
+                  /// @todo tell user: we need a MessageBox type phui thing
+               }
+            } else {
+               std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               /// @todo raise an error
+            }
+            // enable input again
+            this->setEnabled(true);
+
+            // go back to waiting
+            mSubState = User_Input;
+         }
+      } else {
+         // do nothing :)
       }
    }
 }

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-05-02 09:12:02 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-05-03 07:33:52 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -165,7 +165,9 @@ namespace client {
             }
          }
       } else {
-         // do nothing
+         // we'll update child windows, that is all
+         mDealer->update(app, elapsedTime);
+         mChopShop->update(app, elapsedTime);
       }
    }
 

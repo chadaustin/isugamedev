@@ -12,9 +12,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: ChopShopWnd.h,v $
+ * File:          $RCSfile: BuyCarMessageHandler.h,v $
  * Date modified: $Date: 2002-05-03 07:33:52 $
- * Version:       $Revision: 1.2 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,46 +40,37 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef CLIENT_CHOP_SHOP_WND_H
-#define CLIENT_CHOP_SHOP_WND_H
 
-#include <phui/phui.h>
+#ifndef BUY_CAR_MESSAGE_HANDLER_H
+#define BUY_CAR_MESSAGE_HANDLER_H
 
-namespace client {
+#include "MessageHandler.h"
 
-   class BrothaApp;
-
-   /**
-    * Specialized window for the ChopShop.
-    */
-   class ChopShopWnd : public phui::Window
-                            , phui::ActionListener
-                            , phui::ListSelectionListener
-   {
+namespace server {
+   class BuyCarMessageHandler : public MessageHandler {
    public:
-      enum SubState {
-         Send_Request, ///< need to send data request
-         Wait_For_Data, ///< waiting for data
-         User_Input, ///< user input
-         Join_Game,  ///< join game button pressed
-         Wait_Join_Game_Ack ///< wait for ack from server
+      BuyCarMessageHandler(BrothaGame* game, net::NetMgr* netMgr)
+         : MessageHandler(game, netMgr) {
+      }
+
+      ~BuyCarMessageHandler() {}
+
+      virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
+         net::BuyCarMessage *mMsg = (net::BuyCarMessage*)msg;
+
+         // get the main data and the player the user is
+         data::BrothaData& data = data::DataManager::instance().getData();
+         data::Player* player = data.getPlayer(m_brothaGame->getPlayer(cID)->getName());
+
+         /// @todo maybe add some validation (i.e. cost)
+
+         // add the car requested to the player
+         player->addCar(new data::Car(mMsg->getName()));
+
+         // send the good response
+         m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
       };
-   public:
-      ChopShopWnd();
-      ~ChopShopWnd();
-
-      void onAction(const phui::ActionEvent& evt);
-      void onListSelection(const phui::ListSelectionEvent& evt);
-
-      void update(BrothaApp* app, int elapsedTime);
-   private:
-      phui::ListBox* mModsList;
-      phui::ListBox* mModsOwnedList;
-      phui::Button* mBuyBtn;
-      phui::Button* mSellBtn;
-      phui::Button* mDoneBtn;
    };
-
 }
 
-#endif
+#endif // BUY_CAR_MESSAGE_HANDLER_H

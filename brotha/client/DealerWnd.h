@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DealerWnd.h,v $
- * Date modified: $Date: 2002-05-02 00:40:58 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-05-03 07:33:52 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,22 +48,32 @@
 #include "xml/CarType.h"
 
 namespace client {
+
+   class BrothaApp;
+
    /**
     * Specialized window for Brotha that handles the Mini-Dealer window within
     * the garage.
     */
    class DealerWnd : public phui::Window
                           , phui::ActionListener
-                          , phui::ListSelectionListener
    {
+   public:
+      enum SubState {
+         Send_Buy_Request, ///< need to send a buy request
+         Wait_For_Buy_Response, ///< waiting for ack for the buy request
+         Send_Sell_Request, ///< need to send a sell request
+         Wait_For_Sell_Response,  ///< waiting for ack for the sell request
+         User_Input ///< user input
+      };
    public:
       DealerWnd();
       ~DealerWnd();
 
       void onAction(const phui::ActionEvent& evt);
-      void onListSelection(const phui::ListSelectionEvent& evt);
-
       void updateData(data::CarList* playerList, data::CarTypeList* allCars);
+      void update(BrothaApp* app, int elapsedTime);
+
    private:
       phui::ListBox* mCarsList;
       phui::ListBox* mCarsOwnedList;
@@ -71,6 +81,7 @@ namespace client {
       phui::Button* mSellBtn;
       phui::Button* mDoneBtn;
 
+      SubState mSubState;
    };
 }
 

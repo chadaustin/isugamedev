@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ChopShopWnd.cpp,v $
- * Date modified: $Date: 2002-04-28 22:16:46 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-03 07:33:52 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,6 +41,7 @@
  *
  ************************************************************ brotha-cpr-end */
 #include "ChopShopWnd.h"
+#include "BrothaApp.h"
 
 namespace client {
    ChopShopWnd::ChopShopWnd()
@@ -109,5 +110,8 @@ namespace client {
       if (src == mModsList) {
          std::cout<<"Selected "<<mModsList->get(evt.getSelectedIndex())<<std::endl;
       }
+   }
+
+   void ChopShopWnd::update(BrothaApp* app, int elapsedTime) {
    }
 }

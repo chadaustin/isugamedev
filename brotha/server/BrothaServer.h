@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaServer.h,v $
- * Date modified: $Date: 2002-05-01 21:53:01 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-03 07:33:52 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -62,6 +62,8 @@ namespace server {
       }
 
       ~BrothaServer() {
+         data::DataManager::instance().flush();
+
          StopServer();
          StopWebServer();
       }
