@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Device.h,v $
-// Date modified: $Date: 2002-02-08 05:03:16 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-09 21:13:38 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -59,6 +59,16 @@ public:
    void setNumInputs( int n )
    {
       mInput.resize( n );
+   }
+
+   /**
+    * Get the number of inputs for this device.
+    *
+    * @return  the number of inputs
+    */
+   int numInputs() const
+   {
+      return mInput.size();
    }
 
    virtual Input* getInput( const std::string& input_name )
