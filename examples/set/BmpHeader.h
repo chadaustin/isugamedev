@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: BmpHeader.h,v $
-//    $Date: 2002-04-24 07:20:05 $
-//    $Revision: 1.1 $
+//    $Date: 2002-05-04 11:34:08 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //    This library is free software; you can redistribute it and/or
@@ -37,7 +37,8 @@ namespace pixmi
 namespace bmpheader
 {
 
-   const short BMP_MAGIC = 'MB';
+   // XXX little-endian constant, fix it to be big-endian sometime
+   const short BMP_MAGIC = 'M' * 256 + 'B';
 
    // Bitmap Header Definition 
    // 32 bit

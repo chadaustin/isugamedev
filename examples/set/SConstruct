@@ -1,0 +1,14 @@
+import os
+execfile('glut_libs.py')
+
+Default('.')  # build everything by default
+
+sources = Split("""
+  BmpImporter.cpp
+  Image.cpp
+  simpleGlutApp.cpp
+  textures.cpp
+""")
+
+env = Environment(ENV = os.environ, LIBS = GLUT_LIBS)
+env.Program(target = 'set', source = sources)
