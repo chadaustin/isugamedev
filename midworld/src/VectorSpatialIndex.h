@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: VectorSpatialIndex.h,v $
- * Date modified: $Date: 2002-07-29 04:51:05 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-17 10:33:09 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -105,7 +105,14 @@ namespace mw
       {
          std::vector<RigidBody*>::iterator itr;
          itr = std::find(mBodies.begin(), mBodies.end(), body);
-         mBodies.erase(itr);
+         if (itr != mBodies.end())
+         {
+            mBodies.erase(itr);
+         }
+         else
+         {
+            std::cerr<<"ERROR: Tried to remove an invalid body from the VectorSpatialIndex"<<std::endl;
+         }
       }
 
    private:

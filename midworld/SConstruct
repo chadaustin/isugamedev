@@ -183,13 +183,17 @@ def SetupGLText(env):
    if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
    env['LIBS'].extend(['gltext'])
 
+def SetupOpenSG(env):
+   "Sets up the given environment for OpenSG"
+   ParseConfig(env, 'osg-config', ['--cflags --libs Base System'])
+
 def SetupOpenGL(env):
    "Sets up the given environment for OpenGL"
    if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
-   env['LIBS'].extend(['GL', 'GLU'])
+   env['LIBS'].extend(['GLU', 'GL'])
 
 Export('ParseConfig')
-Export('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenGL')
+Export('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenSG SetupOpenGL')
 
 #------------------------------------------------------------------------------
 # The BuildInfo data structure allows subdirectories of a recursive build to

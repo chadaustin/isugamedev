@@ -23,42 +23,44 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: AbstractEntity.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * File:          $RCSfile: SceneEvent.h,v $
+ * Date modified: $Date: 2002-09-17 10:33:09 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "AbstractEntity.h"
+#ifndef MW_SCENE_EVENT_H
+#define MW_SCENE_EVENT_H
+
+#include "Scene.h"
 
 namespace mw
 {
-   AbstractEntity::AbstractEntity()
-      : mModel("")
+   class SceneEvent
    {
-      mUID = UIDManager<AbstractEntity, Entity::UID>::getInstance().reserveID();
-   }
+   public:
+      /**
+       * Creates a new scene event for the given scene and entity.
+       *
+       * @param scene       the scene that fired the event
+       * @param entity      the entity about which this event revolves
+       */
+      SceneEvent(Scene* scene, Entity* entity);
 
-   AbstractEntity::~AbstractEntity()
-   {
-      UIDManager<AbstractEntity, Entity::UID>::getInstance().releaseID(mUID);
-   }
+      /**
+       * Gets the scene that fired off the event.
+       */
+      Scene* getScene() const;
 
-   const std::string&
-   AbstractEntity::getModel() const
-   {
-      return mModel;
-   }
+      /**
+       * Gets the entity associated with this event.
+       */
+      Entity* getEntity() const;
 
-   void
-   AbstractEntity::setModel(const std::string& model)
-   {
-      mModel = model;
-   }
-
-   const
-   Entity::UID& AbstractEntity::getUID() const
-   {
-      return mUID;
-   }
+   private:
+      Scene* mScene;
+      Entity* mEntity;
+   };
 }
+
+#endif

@@ -23,42 +23,27 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: AbstractEntity.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * File:          $RCSfile: SceneEvent.cpp,v $
+ * Date modified: $Date: 2002-09-17 10:33:09 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "AbstractEntity.h"
+#include "SceneEvent.h"
 
 namespace mw
 {
-   AbstractEntity::AbstractEntity()
-      : mModel("")
+   SceneEvent::SceneEvent(Scene* scene, Entity* entity)
+      : mScene(scene), mEntity(entity)
+   {}
+
+   Scene* SceneEvent::getScene() const
    {
-      mUID = UIDManager<AbstractEntity, Entity::UID>::getInstance().reserveID();
+      return mScene;
    }
 
-   AbstractEntity::~AbstractEntity()
+   Entity* SceneEvent::getEntity() const
    {
-      UIDManager<AbstractEntity, Entity::UID>::getInstance().releaseID(mUID);
-   }
-
-   const std::string&
-   AbstractEntity::getModel() const
-   {
-      return mModel;
-   }
-
-   void
-   AbstractEntity::setModel(const std::string& model)
-   {
-      mModel = model;
-   }
-
-   const
-   Entity::UID& AbstractEntity::getUID() const
-   {
-      return mUID;
+      return mEntity;
    }
 }

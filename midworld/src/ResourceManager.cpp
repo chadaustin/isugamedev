@@ -23,42 +23,65 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: AbstractEntity.cpp,v $
+ * File:          $RCSfile: ResourceManager.cpp,v $
  * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "AbstractEntity.h"
+#include <stdexcept>
+#include <iostream>
+#include "ResourceManager.h"
 
 namespace mw
 {
-   AbstractEntity::AbstractEntity()
-      : mModel("")
+   ResourceManager::ResourceManager()
    {
-      mUID = UIDManager<AbstractEntity, Entity::UID>::getInstance().reserveID();
    }
 
-   AbstractEntity::~AbstractEntity()
+   ResourceManager::~ResourceManager()
    {
-      UIDManager<AbstractEntity, Entity::UID>::getInstance().releaseID(mUID);
    }
 
    const std::string&
-   AbstractEntity::getModel() const
+   ResourceManager::get(const std::string& resid) const
    {
-      return mModel;
+      std::cout<<"Getting resource: "<<resid<<std::endl;
+      ResourceMap::const_iterator itr = mResources.find(resid);
+      if (itr != mResources.end())
+      {
+         return itr->second;
+      }
+      throw std::runtime_error("Invalid ResourceID");
    }
 
    void
-   AbstractEntity::setModel(const std::string& model)
+   ResourceManager::add(const std::string& resid, const std::string& value)
    {
-      mModel = model;
+      ResourceMap::iterator itr = mResources.find(resid);
+      if (itr == mResources.end())
+      {
+         mResources[resid] = value;
+         std::cout<<"Added Resource: "<<resid<<" -> "<<value<<std::endl;
+      }
+      else
+      {
+         throw std::runtime_error("ResourceID already in use");
+      }
    }
 
-   const
-   Entity::UID& AbstractEntity::getUID() const
+   void
+   ResourceManager::remove(const std::string& resid)
    {
-      return mUID;
+      ResourceMap::iterator itr = mResources.find(resid);
+      if (itr != mResources.end())
+      {
+         std::cout<<"Removed Resource: "<<resid<<" -> "<<(itr->second)<<std::endl;
+         mResources.erase(itr);
+      }
+      else
+      {
+         throw std::runtime_error("Invalid ResourceID");
+      }
    }
 }

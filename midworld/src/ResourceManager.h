@@ -23,67 +23,61 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: AbstractEntity.h,v $
+ * File:          $RCSfile: ResourceManager.h,v $
  * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#ifndef MW_ABSTRACT_ENTITY_H
-#define MW_ABSTRACT_ENTITY_H
-
 #include <string>
-#include "UIDManager.h"
-#include "Entity.h"
+#include <map>
 
 namespace mw
 {
    /**
-    * Provides an abstract base implementation of Entity that handles the stuff
-    * common to virtually every Entity implementation. This includes automatic
-    * unique ID management as well as model ID management.
+    * This class maps resource IDs to strings.
     */
-   class AbstractEntity : public Entity
+   class ResourceManager
    {
-   protected:
-      /**
-       * Initializes this abstract entity with a new unique ID.
-       */
-      AbstractEntity();
-
-      /**
-       * Destroys this abstract entity and releases the unique ID it had
-       * reserved.
-       */
-      virtual ~AbstractEntity();
-
    public:
-      /**
-       * Gets the ID of the model this entity requires.
-       */
-      const std::string& getModel() const;
+      ResourceManager();
+      ~ResourceManager();
 
       /**
-       * Sets the ID of the model this entity requires.
+       * Gets the string associated with the given resource identifier.
+       *
+       * @param resid   the ID of the resource to retrieve
+       *
+       * @return  the string value associated with the resource
+       *
+       * @throws  std::runtime_error if the resource ID is unknown
        */
-      void setModel(const std::string& model);
+      const std::string& get(const std::string& resid) const;
 
       /**
-       * Gets the unique ID of this entity.
+       * Adds the given resource into this manager such that the given value is
+       * associated with the given resource ID.
+       *
+       * @param resid   the ID of the resource to add
+       * @param value   the string value of the resource
+       *
+       * @throws  std::runtime_error if the resource ID is already in use
        */
-      const UID& getUID() const;
+      void add(const std::string& resid, const std::string& value);
+
+      /**
+       * Removes the resource with the given ID.
+       *
+       * @param resid   the ID of the resource to remove
+       *
+       * @throws  std::runtime_error if the resource ID is unknown
+       */
+      void remove(const std::string& resid);
 
    private:
-      /**
-       * The unique ID associated with this entity.
-       */
-      UID mUID;
+      typedef std::map<std::string, std::string> ResourceMap;
 
-      /**
-       * The model ID this entity uses.
-       */
-      std::string mModel;
+      /// The map of resource IDs to their string.
+      ResourceMap mResources;
    };
 }
-
-#endif

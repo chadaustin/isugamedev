@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Entity.h,v $
- * Date modified: $Date: 2002-09-07 06:00:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-17 10:33:08 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -63,12 +63,12 @@ namespace mw
       /**
        * Gets the ID of the model this entity requires.
        */
-      virtual int getModel() const = 0;
+      virtual const std::string& getModel() const = 0;
 
       /**
        * Sets the ID of the model this entity requires.
        */
-      virtual void setModel(int model) = 0;
+      virtual void setModel(const std::string& model) = 0;
 
       /**
        * Gets the unique ID of this entity.

@@ -23,42 +23,35 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: AbstractEntity.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * File:          $RCSfile: SceneViewer.h,v $
+ * Date modified: $Date: 2002-09-17 10:33:09 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "AbstractEntity.h"
+#ifndef MW_SCENE_VIEWER_H
+#define MW_SCENE_VIEWER_H
+
+#include "SceneListener.h"
 
 namespace mw
 {
-   AbstractEntity::AbstractEntity()
-      : mModel("")
+   /**
+    * A SceneViewer implementation is a specialized SceneListener that knows how
+    * to render the scene it is listening to.
+    *
+    * @interface
+    */
+   class SceneViewer : public SceneListener
    {
-      mUID = UIDManager<AbstractEntity, Entity::UID>::getInstance().reserveID();
-   }
+   public:
+      virtual ~SceneViewer() {}
 
-   AbstractEntity::~AbstractEntity()
-   {
-      UIDManager<AbstractEntity, Entity::UID>::getInstance().releaseID(mUID);
-   }
-
-   const std::string&
-   AbstractEntity::getModel() const
-   {
-      return mModel;
-   }
-
-   void
-   AbstractEntity::setModel(const std::string& model)
-   {
-      mModel = model;
-   }
-
-   const
-   Entity::UID& AbstractEntity::getUID() const
-   {
-      return mUID;
-   }
+      /**
+       * Draws the scene into the current OpenGL context.
+       */
+      virtual void draw() = 0;
+   };
 }
+
+#endif

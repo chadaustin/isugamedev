@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-07-29 05:48:35 $
- * Version:       $Revision: 1.29 $
+ * Date modified: $Date: 2002-09-17 10:33:08 $
+ * Version:       $Revision: 1.30 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,6 +38,8 @@
 #include <gltext.h>
 #include "State.h"
 #include "GameScene.h"
+#include "Scene.h"
+#include "SceneViewer.h"
 #include "Camera.h"
 #include "Player.h"
 #include "Entity.h"
@@ -105,17 +107,18 @@ namespace mw
    private:
       State* mNextState;
       bool mIsQuitting;
-      GameScene mScene;
+      GameScene mGameScene;
       Camera mCamera;
       float mSpeed;
       Player mPlayer;
 
-      typedef std::vector<Entity*> EntityList;
+      /// The scene in which the game is played out
+      Scene* mScene;
 
-      /**
-       * The list of all entities in the game.
-       */
-      EntityList mEntities;
+      /// The view into our scene
+      SceneViewer* mSceneViewer;
+
+      typedef std::vector<Entity*> EntityList;
 
       /// The collision detection algorithm
       CollisionDetector* mCollDet;

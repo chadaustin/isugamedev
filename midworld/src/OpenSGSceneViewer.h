@@ -23,42 +23,58 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: AbstractEntity.cpp,v $
+ * File:          $RCSfile: OpenSGSceneViewer.h,v $
  * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "AbstractEntity.h"
+#ifndef MW_OPENSG_SCENE_VIEWER_H
+#define MW_OPENSG_SCENE_VIEWER_H
+
+#include <OpenSG/OSGRenderAction.h>
+#include <OpenSG/OSGMatrixCamera.h>
+#include <OpenSG/OSGPassiveWindow.h>
+#include <OpenSG/OSGPassiveViewport.h>
+#include <OpenSG/OSGPassiveBackground.h>
+#include <OpenSG/OSGTransform.h>
+#include "SceneViewer.h"
 
 namespace mw
 {
-   AbstractEntity::AbstractEntity()
-      : mModel("")
+   /**
+    * OpenSG implementation of the SceneViewer interface.
+    */
+   class OpenSGSceneViewer : public SceneViewer
    {
-      mUID = UIDManager<AbstractEntity, Entity::UID>::getInstance().reserveID();
-   }
+   public:
+      OpenSGSceneViewer(Scene* scene);
+      ~OpenSGSceneViewer();
 
-   AbstractEntity::~AbstractEntity()
-   {
-      UIDManager<AbstractEntity, Entity::UID>::getInstance().releaseID(mUID);
-   }
+      /**
+       * Draws the scene into the current OpenGL context.
+       */
+      void draw();
 
-   const std::string&
-   AbstractEntity::getModel() const
-   {
-      return mModel;
-   }
+      void entityAdded(const SceneEvent& evt);
+      void entityRemoved(const SceneEvent& evt);
 
-   void
-   AbstractEntity::setModel(const std::string& model)
-   {
-      mModel = model;
-   }
+   private:
+      Scene* mScene;
 
-   const
-   Entity::UID& AbstractEntity::getUID() const
-   {
-      return mUID;
-   }
+      /// A mapping of entity IDs to their respective node
+      typedef std::map<Entity::UID, osg::NodePtr> EntityNodeMap;
+      EntityNodeMap mEntityNodeMap;
+
+      osg::RenderAction* mRenderAction;
+      osg::PassiveWindowPtr mWin;
+      osg::PassiveViewportPtr mViewport;
+      osg::PassiveBackgroundPtr mBackground;
+      osg::MatrixCameraPtr mCamera;
+
+      osg::NodePtr mSceneRoot;
+      osg::TransformPtr mSceneTransform;
+   };
 }
+
+#endif

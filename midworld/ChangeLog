@@ -1,5 +1,15 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-09-17 nonchocoboy  Merged in the opensg-branch to the HEAD. This completes
+                        the initial iteration of adding OpenSG into Midworld as
+                        the scene graph.
+                        NEW VERSION: 0.2.0
+2002-09-17 nonchocoboy  Added a resource manager to handle the details of
+                        mapping resource names to their file names.
+2002-09-17 nonchocoboy  Added caching semantics to the model manager.
+2002-09-16 nonchocoboy  Added a model manager to consolidate OpenSG model
+                        loading.
+2002-09-16 nonchocoboy  Added in scene management using the OpenSG scenegraph.
 2002-09-09 nonchocoboy  Removed dependency between states through the use of
                         a new StateFactory. States now invoke transitions to
                         each other by name and the factory creates the

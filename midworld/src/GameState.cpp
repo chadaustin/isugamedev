@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-09-09 07:06:03 $
- * Version:       $Revision: 1.28 $
+ * Date modified: $Date: 2002-09-17 10:33:08 $
+ * Version:       $Revision: 1.29 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,6 +39,8 @@
 #include "AssaultRifle.h"
 #include "BoundsCollisionDetector.h"
 #include "Application.h"
+#include "OpenSGSceneViewer.h"
+#include "GameManager.h"
 
 #include "Enemy.h"
 
@@ -72,10 +74,20 @@ namespace mw
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
 
+
+      // Init some of the model resources
+      ResourceManager* res_mgr = GameManager::instance().getResourceManager();
+      res_mgr->add("security_droid",   "models/security_droid.obj");
+      res_mgr->add("bullet",           "models/bullet.obj");
+
       // Init the collision detection system
       mSpatialIndex = new VectorSpatialIndex();
       mCollDet = new BoundsCollisionDetector();
       mCollDet->setSpatialIndex(mSpatialIndex);
+
+      mScene = new Scene();
+      mSceneViewer = new OpenSGSceneViewer(mScene);
+      mScene->addSceneListener(mSceneViewer);
 
       // XXX: Hardcoded to add some initial enemies into the game
       for (int i = 0; i < 10; i++)
@@ -83,6 +95,7 @@ namespace mw
          Enemy* enemy = new Enemy();
          gmtl::Point3f inPos(static_cast<float>(5 + i*4), 0, 0);
          enemy->setPos(inPos);
+         enemy->setModel("security_droid");
          add(enemy);
       }
 
@@ -103,6 +116,9 @@ namespace mw
 
    GameState::~GameState()
    {
+      ResourceManager* res_mgr = GameManager::instance().getResourceManager();
+      res_mgr->remove("security_droid");
+      res_mgr->remove("bullet");
    }
 
    void
@@ -233,9 +249,10 @@ namespace mw
       reapDeadEntities();
 
       // Iterate over all the entities and update them
-      for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); ++itr)
+      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
-         updateDynamics((*itr), dt);
+         const Entity::UID& uid = itr->first;
+         updateDynamics(mScene->get(uid), dt);
       }
 
       mCamera.update( dt );
@@ -306,25 +323,33 @@ namespace mw
 
    void GameState::reapDeadEntities()
    {
-      for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); )
+      typedef std::list<Entity::UID> UIDList;
+      UIDList dead;
+
+      // Run through the entities in the scene and mark those that are dead
+      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
-         Entity* entity = (*itr);
+         const Entity::UID& uid = itr->first;
+         const Entity* entity = itr->second;
          if (entity->isExpired())
          {
-            mSpatialIndex->remove(entity);
-            delete entity;
-            mEntities.erase(itr);
+            dead.push_back(uid);
          }
-         else
-         {
-            ++itr;
-         }
+      }
+
+      // Remove all entities marked as dead
+      for (UIDList::iterator itr = dead.begin(); itr != dead.end(); ++itr)
+      {
+         Entity* entity = mScene->get(*itr);
+         mSpatialIndex->remove(entity);
+         mScene->remove(entity);
+         delete entity;
       }
    }
 
    void GameState::add(Entity* entity)
    {
-      mEntities.push_back(entity);
+      mScene->add(entity);
       mSpatialIndex->add(entity);
    }
 
@@ -349,13 +374,8 @@ namespace mw
       glPushMatrix();
          mCamera.draw();
          mPlayer.draw();
-         mScene.draw();
-
-         // Draw all the entities in the world
-         for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); ++itr)
-         {
-            (*itr)->draw();
-         }
+         mGameScene.draw();
+         mSceneViewer->draw();
       glPopMatrix();
 
       mCursor.draw( this->application().getWidth(),

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AssaultRifle.h,v $
- * Date modified: $Date: 2002-07-07 03:50:01 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-09-17 10:33:08 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -78,17 +78,6 @@ namespace mw
       }
    protected:
       /**
-       * Creates a bullet as though fired from this weapon.
-       * @return A BaseBullet representing the bullet.
-       */
-      virtual BaseBullet* createBullet() const
-      {
-         BaseBullet* bullet = new BaseBullet();
-         bullet->setVel(gmtl::Vec3f(0, 0, -200));
-         return bullet;
-      }
-      
-      /**
        * Discharges this weapon, emitting whatever projectiles it fires.
        * @param g the current GameState.
        */
@@ -100,16 +89,19 @@ namespace mw
                      r2( gmtl::make<gmtl::Quatf>( gmtl::AxisAnglef( -angle, 0.0f, 1.0f, 0.0f) ) );
          //make a three round burst.
          BaseBullet* bullet0 = this->createBullet();
+         bullet0->setVel(gmtl::Vec3f(0, 0, -200));
          bullet0->setRot(this->getRot() * r0);
          bullet0->setPos(this->getPos());
          bullet0->setVel(this->getRot() * r0 * bullet0->getVel());
          
          BaseBullet* bullet1 = this->createBullet();
+         bullet1->setVel(gmtl::Vec3f(0, 0, -200));
          bullet1->setRot(this->getRot() * r1);
          bullet1->setPos(this->getPos());
          bullet1->setVel(this->getRot() * r1 * bullet1->getVel());
          
          BaseBullet* bullet2 = this->createBullet();
+         bullet2->setVel(gmtl::Vec3f(0, 0, -200));
          bullet2->setRot(this->getRot() * r2);
          bullet2->setPos(this->getPos());
          bullet2->setVel(this->getRot() * r2 * bullet2->getVel());

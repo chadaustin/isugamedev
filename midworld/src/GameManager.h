@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameManager.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-17 10:33:08 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,12 +33,18 @@
 #define MW_GAME_MANAGER_H
 
 #include "SoundManager.h"
+#include "ModelManager.h"
+#include "ResourceManager.h"
 
 namespace mw
 {
    /**
-    * This object manages references to the sound manager (and in some future
-    * iteration the resource manager). This is a singleton.
+    * This singleton object manages references to the sound, model, and
+    * resource managers.
+    *
+    * @see SoundManager
+    * @see ModelManager
+    * @see ResourceManager
     */
    class GameManager
    {
@@ -59,9 +65,21 @@ namespace mw
       /// Gets the sound manager.
       SoundManager* getSoundManager() const;
 
+      /// Gets the model manager.
+      ModelManager* getModelManager() const;
+
+      /// Gets the resource manager.
+      ResourceManager* getResourceManager() const;
+
    private:
       /// Music and sound effects manager.
       SoundManager* mSoundMgr;
+
+      /// Manager for loading 3D models.
+      ModelManager* mModelMgr;
+
+      /// Manager for resource mapping.
+      ResourceManager* mResourceMgr;
 
       /// The singleton instance of this class.
       static GameManager* mInstance;

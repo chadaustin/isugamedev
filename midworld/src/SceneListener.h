@@ -23,42 +23,40 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: AbstractEntity.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * File:          $RCSfile: SceneListener.h,v $
+ * Date modified: $Date: 2002-09-17 10:33:09 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "AbstractEntity.h"
+#ifndef MW_SCENE_LISTENER_H
+#define MW_SCENE_LISTENER_H
+
+#include "SceneEvent.h"
 
 namespace mw
 {
-   AbstractEntity::AbstractEntity()
-      : mModel("")
+   /** @interface */
+   class SceneListener
    {
-      mUID = UIDManager<AbstractEntity, Entity::UID>::getInstance().reserveID();
-   }
+   public:
+      virtual ~SceneListener() {}
 
-   AbstractEntity::~AbstractEntity()
-   {
-      UIDManager<AbstractEntity, Entity::UID>::getInstance().releaseID(mUID);
-   }
+      /**
+       * Notifies this listener that an entity has been addded to the scene it
+       * is observing.
+       *
+       * @param evt     the event describing the addition
+       */
+      virtual void entityAdded(const SceneEvent & evt) = 0;
 
-   const std::string&
-   AbstractEntity::getModel() const
-   {
-      return mModel;
-   }
-
-   void
-   AbstractEntity::setModel(const std::string& model)
-   {
-      mModel = model;
-   }
-
-   const
-   Entity::UID& AbstractEntity::getUID() const
-   {
-      return mUID;
-   }
+      /**
+       * Notifies this listener that an entity has been removed from the scene
+       * it is observing.
+       *
+       * @param evt     the event describing the removal
+       */
+      virtual void entityRemoved(const SceneEvent & evt) = 0;
+   };
 }
+#endif
