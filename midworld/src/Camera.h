@@ -24,43 +24,120 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-09-23 04:00:13 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#ifndef MW_CAMERA_H
+#define MW_CAMERA_H
 
-#ifndef CAMERA_H
-#define CAMERA_H
-
-#include <gmtl/Vec.h>
-#include <gmtl/VecOps.h>
+#include <gmtl/Matrix.h>
+#include <gmtl/Point.h>
+#include <gmtl/Quat.h>
 
 namespace mw
 {
+   /**
+    * This camera will "chase" a target position/orientation.
+    */
    class Camera
    {
    public:
-      Camera() : mPos() 
-      {
-      }
+      /**
+       * Creates a new Camera looking at the origin from 20 units up the y-axis.
+       */
+      Camera();
+
+      /**
+       * Sets the target position and rotation for the camera. The camera will
+       * attempt to move to the target position and orient itself to the target
+       * rotation. The camera will also take into account its added follow
+       * distance and yaw/pitch angles.
+       *
+       * @param pos     the target position
+       * @param rot     the target rotation
+       */
+      void setTarget(const gmtl::Point3f& pos, const gmtl::Quatf& rot);
+
+      /**
+       * Updates the state of this camera based on the amount of time that has
+       * passed since the last update. This camera will position itself halfway
+       * to the destination position and rotation on each call to update based
+       * on its current position and rotation.
+       *
+       * @param dt      the amount of time that passed in seconds
+       */
+      void update(float dt);
+
+      void draw();
+
+      /**
+       * Sets the distance by which this camera should follow the target
+       * position.
+       *
+       * @param distance   the follow distance
+       */
+      void setFollowDistance(float distance);
+
+      /**
+       * Sets the velocity by which the follow distance should change.
+       *
+       * @param vel        the velocity of the follow distance
+       */
+      void setFollowDistanceVel(float vel);
       
-      void setPlayerPos( const gmtl::Vec3f& pos )
-      {
-         mPos = -pos;
-      }
+      /**
+       * Sets the yaw angle this camera will add to the target rotation.
+       *
+       * @param angle      the yaw angle in radians
+       */
+      void setYaw(float angle);
+
+      /**
+       * Sets the angular velocity by which the yaw angle should change.
+       *
+       * @param vel        the angular velocity of the yaw angle
+       */
+      void setYawVel(float vel);
       
-      void update( float timeDelta )
-      {
-      }
-      
-      void draw()
-      {
-         glRotatef( 90, 1,0,0 );
-         glTranslatef( mPos[0], mPos[1] - 20, mPos[2] );
-      }
+      /**
+       * Sets the pitch angle this camera will add to the target rotation.
+       *
+       * @param angle      the pitch angle in radians
+       */
+      void setPitch(float angle);
+
+      /**
+       * Sets the angular velocity by which the pitch angle should change.
+       *
+       * @param vel        the angular velocity of the pitch angle
+       */
+      void setPitchVel(float vel);
+
+      /**
+       * Gets the position of this camera in world coordinates.
+       */
+      gmtl::Vec3f getPos() const;
+
    private:
-      gmtl::Vec3f mPos;
+      gmtl::Point3f mTargetPos;
+      gmtl::Point3f mLastTargetPos;
+
+      gmtl::Quatf mTargetRot;
+      gmtl::Quatf mLastTargetRot;
+
+      // The distance by which the camera is following the target.
+      float mFollowDistance;
+      float mFollowDistanceVel;
+
+      float mYaw;
+      float mYawVel;
+      float mPitch;
+      float mPitchVel;
+
+      // Cache of the current transform for the location of the camera.
+      gmtl::Matrix44f mTransform;
    };
 
 }

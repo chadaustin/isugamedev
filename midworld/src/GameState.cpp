@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-09-20 08:21:48 $
- * Version:       $Revision: 1.32 $
+ * Date modified: $Date: 2002-09-23 04:00:15 $
+ * Version:       $Revision: 1.33 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -60,6 +60,12 @@ namespace mw
       , mStrafeLeft(UP)
       , mShoot(UP)
       , mCycleWeapon(UP)
+      , mCameraZoomIn(UP)
+      , mCameraZoomOut(UP)
+      , mCameraPitchDown(UP)
+      , mCameraPitchUp(UP)
+      , mCameraYawLeft(UP)
+      , mCameraYawRight(UP)
       , mFPS(0)
       , mFrameCount(0)
       , mFrameTime(0)
@@ -127,12 +133,17 @@ namespace mw
       mCursor.update( this->application().getWidth(),
                       this->application().getHeight() );
 
-      mCamera.setPlayerPos(mPlayer.getPos());
+      mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
+//      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
       const gmtl::Vec3f accel(   gmtl::Vec3f(0, 0, -mSpeed)      );
       const gmtl::Vec3f reverse( gmtl::Vec3f(0, 0,  mSpeed*0.7f) );
       const gmtl::Vec3f sleft(   gmtl::Vec3f(-mSpeed*0.9f, 0, 0) );
       const gmtl::Vec3f sright(  gmtl::Vec3f( mSpeed*0.9f, 0, 0) );
+
+      const float camera_zoom_vel(10.0f);
+      const float camera_pitch_vel(gmtl::Math::deg2Rad(100.0f));
+      const float camera_yaw_vel(gmtl::Math::deg2Rad(100.0f));
 
       // Accelerate
       if (mAccelerate == EDGE_DOWN)
@@ -202,12 +213,68 @@ namespace mw
          }
       }
 
+      // Camera zoom in
+      if (mCameraZoomIn == EDGE_DOWN)
+      {
+         mCamera.setFollowDistanceVel(-camera_zoom_vel);
+      }
+      else if (mCameraZoomIn == EDGE_UP)
+      {
+         mCamera.setFollowDistanceVel(0);
+      }
+      // Camera zoom out
+      if (mCameraZoomOut == EDGE_DOWN)
+      {
+         mCamera.setFollowDistanceVel(camera_zoom_vel);
+      }
+      else if (mCameraZoomOut == EDGE_UP)
+      {
+         mCamera.setFollowDistanceVel(0);
+      }
+      // Camera pitch down
+      if (mCameraPitchDown == EDGE_DOWN)
+      {
+         mCamera.setPitchVel(camera_pitch_vel);
+      }
+      else if (mCameraPitchDown == EDGE_UP)
+      {
+         mCamera.setPitchVel(0);
+      }
+      // Camera pitch up
+      if (mCameraPitchUp == EDGE_DOWN)
+      {
+         mCamera.setPitchVel(-camera_pitch_vel);
+      }
+      else if (mCameraPitchUp == EDGE_UP)
+      {
+         mCamera.setPitchVel(0);
+      }
+      // Camera yaw left
+      if (mCameraYawLeft == EDGE_DOWN)
+      {
+         mCamera.setYawVel(camera_yaw_vel);
+      }
+      else if (mCameraYawLeft == EDGE_UP)
+      {
+         mCamera.setYawVel(0);
+      }
+      // Camera yaw right
+      if (mCameraYawRight == EDGE_DOWN)
+      {
+         mCamera.setYawVel(-camera_yaw_vel);
+      }
+      else if (mCameraYawRight == EDGE_UP)
+      {
+         mCamera.setYawVel(0);
+      }
+
       // update player transform
       {
          float screen_size_x = float(application().getWidth());
          float screen_size_y = float(application().getHeight());
          float x = mCursor.getX();
          float y = mCursor.getY();
+
          gmtl::Vec3f mid(screen_size_x / 2, screen_size_y / 2, 0);
          gmtl::Vec3f pos( x, y, 0 );
          gmtl::Vec3f dir(pos - mid);
@@ -241,6 +308,12 @@ namespace mw
       updateEdgeState(mStrafeLeft);
       updateEdgeState(mShoot);
       updateEdgeState(mCycleWeapon);
+      updateEdgeState(mCameraZoomIn);
+      updateEdgeState(mCameraZoomOut);
+      updateEdgeState(mCameraPitchDown);
+      updateEdgeState(mCameraPitchUp);
+      updateEdgeState(mCameraYawLeft);
+      updateEdgeState(mCameraYawRight);
 
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          updateEdgeState( mGunSlots[x] );
@@ -461,6 +534,24 @@ namespace mw
          {
             this->invokeTransition("Menu");
          }
+         break;
+      case SDLK_KP9:
+         updateEdgeState(mCameraZoomIn, down);
+         break;
+      case SDLK_KP3:
+         updateEdgeState(mCameraZoomOut, down);
+         break;
+      case SDLK_KP8:
+         updateEdgeState(mCameraPitchDown, down);
+         break;
+      case SDLK_KP2:
+         updateEdgeState(mCameraPitchUp, down);
+         break;
+      case SDLK_KP4:
+         updateEdgeState(mCameraYawLeft, down);
+         break;
+      case SDLK_KP6:
+         updateEdgeState(mCameraYawRight, down);
          break;
       }
    }

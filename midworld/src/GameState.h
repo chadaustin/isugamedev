@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.30 $
+ * Date modified: $Date: 2002-09-23 04:00:19 $
+ * Version:       $Revision: 1.31 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -131,6 +131,9 @@ namespace mw
       EdgeState mReverse;
       EdgeState mStrafeRight, mStrafeLeft;
       EdgeState mShoot, mCycleWeapon;
+      EdgeState mCameraZoomIn, mCameraZoomOut;
+      EdgeState mCameraPitchDown, mCameraPitchUp;
+      EdgeState mCameraYawLeft, mCameraYawRight;
 
       std::vector<EdgeState> mGunSlots;
 

@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-09-22 nonchocoboy  Made the camera a flexible chase camera.
 2002-09-20 nonchocoboy  Midworld compiles again in VisualStudio.NET
                         NEW VERSION: 0.2.1
 2002-09-17 nonchocoboy  Merged in the opensg-branch to the HEAD. This completes
