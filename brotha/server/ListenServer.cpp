@@ -3,18 +3,17 @@
 
 #include "ListenServer.h"
 
-ListenServer::ListenServer(int port)
-   : m_serverSocket(port) {
-}
-
-ListenServer::~ListenServer() {
-}
-
-void ListenServer::run() {
-   while(1) {
-      net::Socket *newClient = m_serverSocket.accept();
-      std::string hello = "Hello, how are you!!";
-      newClient->getOutputStream()->write(&hello, hello.length());
-      delete newClient;
+namespace server {
+   ListenServer::ListenServer(std::vector<Client> *clients)
+      : m_serverSocket(35791) {
+         m_clients = clients;
    }
-}
+
+   ListenServer::~ListenServer() {
+   }
+
+   void ListenServer::run() {
+      while(1) {
+      }
+   }
+} // namespace server

@@ -3,14 +3,17 @@
 
 #include "GameServer.h"
 
-GameServer::GameServer() {
-}
-
-GameServer::~GameServer() {
-}
-
-void GameServer::run() {
-   while(1) {
-//      sleep(1000L);
+namespace server {
+   GameServer::GameServer(net::MessageQueue* write, net::MessageQueue* read) {
+      m_writeQueue = write;
+      m_readQueue  = read;
    }
-}
+
+   GameServer::~GameServer() {
+   }
+
+   void GameServer::run() {
+      while(1) {
+      }
+   }
+} // namespace server

@@ -5,13 +5,19 @@
 #define GAME_SERVER_H
 
 #include "thread/Thread.h"
+#include "net/MessageQueue.h"
 
-class GameServer : public thread::Thread {
-public:
-   GameServer();
-   virtual ~GameServer();
+namespace server {
+   class GameServer : public thread::Thread {
+   public:
+      GameServer(net::MessageQueue* write, net::MessageQueue* read);
+      virtual ~GameServer();
 
-   virtual void run();
-};
+      virtual void run();
+   private:
+      net::MessageQueue* m_writeQueue;
+      net::MessageQueue* m_readQueue;
+   };
+} // namespace server
 
-#endif
+#endif // GAME_SERVER_H
