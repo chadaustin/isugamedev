@@ -27,9 +27,7 @@ C_COMPILE = cl
 C_FLAGS = $(CXX_FLAGS)
 
 EXE_LINKER = link
-
 SO_LINKER = link 
-# -lib has to come first...
 
 DEFS = $(EXTRA_DEFS)
 WARNINGS_FLAGS = /W1

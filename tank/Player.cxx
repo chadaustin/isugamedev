@@ -6,6 +6,7 @@
 Player::Player()
    : mScore( 0L )
 {
+   std::cout<<"*** Making New Player\n"<<std::flush;
    mUID = UIDManager<Player>::instance().reserveID();
    mTank = new Tank();
 

@@ -50,31 +50,8 @@ public:
       
       glPushMatrix();
          glMultMatrixf( mXForm.data() );
-         glRotatef( 90, 1,0,0 );
          kev::glRenderGeoSets( geosets );
       glPopMatrix();
-      return;
-
-//      glDisable( GL_LIGHTING );
-      glPushMatrix();
-         glMultMatrixf( mXForm.data() );
-         const float scale = 10.0f;
-         glScalef( scale, scale, scale );
-         glColor4f(1.0f, 0.7f, 0.7f, 1.0f);
-
-         glBegin( GL_TRIANGLES );
-            glNormal3f( -1.0f,  0.0f,  0.0f );
-            glVertex3f(  0.0f, -0.5f,  0.5f );
-            glVertex3f(  0.0f,  0.0f, -0.5f );
-            glVertex3f(  0.0f,  0.5f,  0.5f );
-
-            glNormal3f(  0.0f,  1.0f,  0.0f );
-            glVertex3f( -0.5f,  0.0f,  0.5f );
-            glVertex3f(  0.0f,  0.0f, -0.5f );
-            glVertex3f(  0.5f,  0.0f,  0.5f );
-         glEnd();
-      glPopMatrix();
-//      glEnable( GL_LIGHTING);
    }
 
    /**

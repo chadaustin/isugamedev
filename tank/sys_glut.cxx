@@ -170,8 +170,8 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
       Bullet *bullet = new Bullet();
       bullet->setPos( game->getPlayer( 0 )->getTank()->getBarrelEndPos() );
       bullet->setRot( game->getPlayer( 0 )->getTank()->rotation() );
-      bullet->setRotVel( 20.0f );
-      bullet->setVel( game->getPlayer( 0 )->getTank()->getForward() * 80.0f );
+      bullet->setRotVel( 5.0f );
+      bullet->setVel( game->getPlayer( 0 )->getTank()->getForward() * 50.0f );
       game->getBullets().push_back( bullet );
       break;
    }

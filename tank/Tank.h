@@ -20,27 +20,25 @@ public:
    Tank() : mRot(), mRotVel(), mSpeed( 0.0f ), mMaterial()
    {
       mXForm.makeIdent();
+      this->init();
    }
 
    void init()
    {
-      std::string filename;
+      std::string filename, weapon0;
       bool result;
       iniFile ini;
       ini.load( "tank.ini" );
       ini.getKey( "tank", "model", filename, result );
       assert( result );
-      std::cout<<"model='"<<(filename.c_str())<<"'\n"<<std::flush;
+      ini.getKey( "tank", "weapon0", weapon0, result );
+      assert( result );
 
-      result = ImageManager::instance().load( "atomic.tga", image );
-      assert( result && "cannot load image" );
-      tex.setImage( &image );
-      result = tex.imageValid();
-      assert( result && "image is not valid" );
-      
       kev::ObjImporter obj;
       obj.load( geosets, filename );
       assert( geosets.size() > 0 && "load failed" );
+      obj.load( mWeapon0GeoSets, weapon0 );
+      assert( mWeapon0GeoSets.size() > 0 && "load failed" );
    }
    
    void drawShip() const
@@ -48,54 +46,14 @@ public:
       glEnable( GL_TEXTURE_2D );
    
       // compensate for the 3DS scale and rotation...
-      glScalef( 0.2f, 0.2f, 0.2f );
-      glRotatef( 90, -1,0,0 );
-      kev::glRenderGeoSets( geosets );
+      glPushMatrix();
+      glTranslatef( 0, 2, 0 );
+      kev::glRenderGeoSets( mWeapon0GeoSets );
+      glPopMatrix();
 
-      //glColor3f( 1.0f, 0.5f, 1.0f );
-      //glScalef( 10,10,25 );
-      //drawPyramidThing()
+      kev::glRenderGeoSets( geosets );
    }
 
-   void drawPyramidThing() const
-   {
-      glEnable( GL_TEXTURE_2D );
-   
-      kev::glRenderAndBind( tex );
-
-      glPushMatrix();
-         glTranslatef( 0.0f, 0.0f, 0.25f );
-         glBegin( GL_TRIANGLES );
-            // left face
-            glNormal3f( -1.0f, 1.0f, -1.0f );
-            glTexCoord2f( 0.0f, 0.0f );
-            glVertex3f( -1.0f, 0.0f, 0.0f );
-            glTexCoord2f( 0.0f, 1.0f );
-            glVertex3f(  0.0f, 1.0f, 0.1f );
-            glTexCoord2f( 1.0f, 1.0f );
-            glVertex3f(  0.0f, 0.0f, -1.0f );
-
-            // right face
-            glNormal3f( 1.0f, 1.0f, -1.0f );
-            glTexCoord2f( 0.0f, 0.0f );
-            glVertex3f( 0.0f, 1.0f, 0.1f );
-            glTexCoord2f( 0.0f, 1.0f );
-            glVertex3f( 1.0f, 0.0f, 0.0f );
-            glTexCoord2f( 1.0f, 1.0f );
-            glVertex3f( 0.0f, 0.0f, -1.0f );
-
-            // back face
-            glNormal3f(  0.0f, 0.0f, 1.0f );
-            glTexCoord2f( 0.0f, 0.0f );
-            glVertex3f(  0.0f, 1.0f, 0.1f );
-            glTexCoord2f( 0.0f, 1.0f );
-            glVertex3f( -1.0f, 0.0f, 0.0f );
-            glTexCoord2f( 1.0f, 1.0f );
-            glVertex3f(  1.0f, 0.0f, 0.0f );
-         glEnd();
-      glPopMatrix();
-   }   
-   
    void draw() const
    {
       kev::glRender( mMaterial );
@@ -107,14 +65,6 @@ public:
             drawShip();
          glPopMatrix();
          
-         // gun
-         glPushMatrix();
-            glScalef( 1,1,17 );
-            glTranslatef( 0,8,0 );
-            glColor3f( 0.7f ,0.7f, 0.8f );
-            drawPyramidThing();
-         glPopMatrix();
-         
       glPopMatrix();
    }
   
@@ -123,7 +73,7 @@ public:
     */
    Vec3<float> getBarrelEndPos() const
    {
-      Vec3<float> barrelEndPos = Vec3<float>( 0, 8, -17 );
+      Vec3<float> barrelEndPos = Vec3<float>( 0, 2, -3 );
       return (mRot * barrelEndPos) + mPos;
    }
    
@@ -150,11 +100,6 @@ public:
       
    void update( float timeDelta )
    {
-      if (tex.imageValid() == false)
-      {
-         this->init();
-      }
-
       // POS
       // x' = v = vel in tank local coord system
       Vec3<float> pos_delta = mRot * mVel;
@@ -233,10 +178,9 @@ private:
    Quat<float> mRot, mRotVel;
    Material mMaterial;
    float mSpeed;
-   Texture tex;
-   Image image;
    
    std::vector< safe_ptr<GeoSet> > geosets;
+   std::vector< safe_ptr<GeoSet> > mWeapon0GeoSets;
 };
 
 #endif

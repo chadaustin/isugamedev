@@ -13,7 +13,7 @@ public:
               mYawVel(0.0f), 
               mPitch( 70.0f ), 
               mPitchVel( 0.0f ),
-              mFollowDist( 30.0f ), 
+              mFollowDist( 10.0f ), 
               mFollowDistVel( 0.0f )
    {
       mXform.makeIdent();
