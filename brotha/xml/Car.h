@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-05-01 07:16:59 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-01 07:22:26 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,42 +48,48 @@
 #include <vector>
 
 #include "CarType.h"
-#include "BrothaData.h"
 #include "Mod.h"
 
 namespace data {
    class Car {
-   private:
-      ModList mods;
-
    public:
-      std::string name;
-      Car(std::string iname) {
-         name = iname;
+      /// Creates a new car with the given name.
+      Car(const std::string& name) {
+         mName = name;
       }
 
-      std::string getName() {
-         return name;
+      /// Gets the name of this car.
+      const std::string& getName() const {
+         return mName;
       }
 
-      ModList getMods() {
-         return mods;
+      /// Gets a list of the mods on this car
+      ModList getMods() const {
+         return mMods;
       }
 
+      /// Adds the given mod to this car.
       void addMod(Mod* m) {
-         mods.push_back(m);
+         mMods.push_back(m);
       }
 
       void xMLify(std::ostream& out) {
-         out << "      <car cartype=\"" << name << "\">" << std::endl;
-         for(unsigned int i = 0; i < mods.size(); ++i) {
-            mods[i]->xMLify(out);
+         out << "      <car cartype=\"" << mName << "\">" << std::endl;
+         for(unsigned int i = 0; i < mMods.size(); ++i) {
+            mMods[i]->xMLify(out);
          }
          out << "      </car>" << std::endl;
       }
+
+   private:
+      /// The name of this car.
+      std::string mName;
+
+      /// The mods on this car.
+      ModList mMods;
    };
 
-   typedef std::vector<Car*> carlist;
+   typedef std::vector<Car*> CarList;
 }
 
 #endif
