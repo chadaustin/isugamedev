@@ -36,14 +36,15 @@ INCLUDE_PATHS = -I. -Iexample -Ipixmi -Izlib
 include ${MK_DIR}/mk.platform
 include ${MK_DIR}/mk.hosttype
 # IRIX
-ifeq ($(HOSTTYPE), IRIX)
+ifeq ($(HOSTTYPE), irix)
    LIBS = -lm 
    include ${MK_DIR}/mk.irix
 endif
 
 #LiNUX
-ifeq ($(HOSTTYPE), Linux)
-   LIBS = -lm 
+ifeq ($(HOSTTYPE), linux)
+   INCLUDE_PATHS =  -I. -Iexample -Imanager -IUtils -Izlib
+   LIBS = -lm
    include ${MK_DIR}/mk.gnu
 endif
 
@@ -55,12 +56,6 @@ ifeq ($(HOSTTYPE), Win32)
    # Normal definitions
 endif
 
-# gnu2
-ifeq ($(HOSTTYPE), GNU)
-   INCLUDE_PATHS =  -I. -Iexample -Imanager -IUtils -Izlib
-   LIBS = -lm
-   include ${MK_DIR}/mk.gnu
-endif
 ########################################################################
 
 include ${MK_DIR}/mk.objs
