@@ -12,7 +12,5 @@ sources = [
 headers = map(lambda fn: fn + '.h', headers)
 sources = map(lambda fn: fn + '.cpp', sources)
 
-env2 = env.Copy(
-         LIBS=['phui'] + GLUT_LIBS + FONT_LIBS
-)
+env2 = env.Copy(LIBS = ['phui'] + FONT_LIBS + GLUT_LIBS)
 env2.Program(target = 'window', source = headers + sources)
