@@ -32,13 +32,13 @@
       delete mFontRenderer;
    }
 
-   void HUD::draw(float x, float y)
+   void HUD::draw(float x, float y, float width, float height)
    {
    
       glMatrixMode(GL_PROJECTION);
       glPushMatrix();
       glLoadIdentity();
-      gluOrtho2D(0, 640, 640, 0);
+      gluOrtho2D(0, width, height, 0);
 
       glMatrixMode(GL_MODELVIEW);
       glPushMatrix();

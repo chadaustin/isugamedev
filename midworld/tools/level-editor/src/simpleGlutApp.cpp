@@ -351,7 +351,7 @@ static void OnRedisplay()
    
    float tempx, tempy;
    getWorldCoords(tempx, tempy);
-   app.cursor.draw(tempx,tempy);
+   app.cursor.draw(tempx,tempy, app.width, app.height);
    glLoadIdentity();
 
    if(drawOnMouse!=0)

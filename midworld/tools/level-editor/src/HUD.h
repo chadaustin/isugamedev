@@ -12,7 +12,7 @@
       HUD();
       ~HUD();
 
-      void draw(float x, float y);
+      void draw(float x, float y, float width, float height);
 
    private:
       gltext::Font* mFont;
