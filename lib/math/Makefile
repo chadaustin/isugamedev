@@ -60,7 +60,7 @@ build: $(OBJS)
 	-@echo "$(FILENAME) done"
 	-@echo "-------------------------------------------"
 
-prefix ?= build
+prefix ?= installed
 
 
 install: build
