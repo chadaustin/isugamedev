@@ -10,8 +10,13 @@ classes = [
 ]
 
 headers = [
+   'AddObjMessage',
+   'AddPlayerMessage',
    'ByteBuffer',
+   'DelObjMessage',
+   'DelPlayerMessage',
    'DisconnectMessage',
+   'EnterMessage',
    'InputStream',
    'LoginMessage',
    'Message',
@@ -20,11 +25,15 @@ headers = [
    'NetMgr',
    'OKMessage',
    'OutputStream',
+   'ResyncMessage',
    'Serialize',
    'ServerSocket',
    'SocketException',
    'Socket',
    'StreamException',
+   'UpdateObjMessage',
+   'UpdatePlayerInfoMessage',
+   'UpdatePlayerMessage',
 ]
 
 sources = [

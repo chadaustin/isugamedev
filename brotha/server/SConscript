@@ -9,6 +9,8 @@ classes = [
 
 headers = [
    'BrothaServer',
+   'LoginMessageHandler',
+   'MessageHandler',
 ]
 
 sources = [
