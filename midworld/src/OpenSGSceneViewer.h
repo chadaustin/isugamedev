@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.h,v $
- * Date modified: $Date: 2002-10-30 06:52:07 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-11 04:39:47 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,13 +43,16 @@
 #include <OpenSG/OSGTransform.h>
 #include "SceneViewer.h"
 #include "SpatialIndex.h"
+#include "BodyChangeListener.h"
 
 namespace mw
 {
    /**
     * OpenSG implementation of the SceneViewer interface.
     */
-   class OpenSGSceneViewer : public SceneViewer, public SpatialIndex
+   class OpenSGSceneViewer : public SceneViewer
+                           , public SpatialIndex
+                           , public BodyChangeListener
    {
    public:
       OpenSGSceneViewer(Scene* scene);
@@ -71,6 +74,14 @@ namespace mw
 
       void entityAdded(const SceneEvent& evt);
       void entityRemoved(const SceneEvent& evt);
+
+      void bodyChanged(const BodyChangeEvent& evt);
+
+      /// Updates the nodes that refer to the given entity
+      void updateEntity(Entity* entity);
+
+      /// Gets the bounds for the given body
+      gmtl::AABoxf getBounds(const Entity::UID& uid);
 
    private:
       void drawBounds();

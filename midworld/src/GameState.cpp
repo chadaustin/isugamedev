@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-06 06:35:17 $
- * Version:       $Revision: 1.112 $
+ * Date modified: $Date: 2002-11-11 04:39:47 $
+ * Version:       $Revision: 1.113 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -119,6 +119,7 @@ namespace mw
    void
    GameState::update(float dt)
    {
+//      std::cout<<"[GameState] update()"<<std::endl;
       AI.update();
       mInputManager.update(dt);
 
@@ -251,6 +252,8 @@ namespace mw
 
    void GameState::draw()
    {
+//      std::cout<<"[GameState] draw()"<<std::endl;
+
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
       glEnable(GL_DEPTH_TEST);

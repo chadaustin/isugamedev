@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-10-10 09:09:32 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-11-11 04:39:47 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -83,5 +83,31 @@ namespace mw
       mCurrentState = mNextState;
       mForce.set(0,0,0);
       mTorque.set(0,0,0);
+      fireBodyChange();
+   }
+
+   void RigidBody::addBodyChangeListener(BodyChangeListener* listener)
+   {
+      mListeners.push_back(listener);
+   }
+
+   void RigidBody::removeBodyChangeListener(BodyChangeListener* listener)
+   {
+      std::list<BodyChangeListener*>::iterator itr =
+                  std::find(mListeners.begin(), mListeners.end(), listener);
+      if (itr != mListeners.end())
+      {
+         mListeners.erase(itr);
+      }
+   }
+
+   void RigidBody::fireBodyChange()
+   {
+      BodyChangeEvent evt(this);
+      for (std::list<BodyChangeListener*>::iterator itr = mListeners.begin();
+           itr != mListeners.end(); ++itr)
+      {
+         (*itr)->bodyChanged(evt);
+      }
    }
 }

@@ -24,13 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-06 01:40:14 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-11 04:39:47 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
 #include <gmtl/Generate.h>
+#include <gmtl/Intersection.h> // for debugging only
 #include "PhysicsEngine.h"
 
 namespace mw
@@ -124,12 +125,17 @@ namespace mw
          
          // Check if the body collided with anything
          gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
-         CollisionDetector::CollisionList collisions =
-                  mCollisionDetector->checkCollisions(body, path);
+         std::auto_ptr<CollisionDesc> desc(mCollisionDetector->checkCollision(body, path));
 
          // No collisions, let the body update for the remaining distance
-         if (collisions.empty())
+         if (!desc.get())
          {
+            // Make sure entities never go below the ground.
+            // XXX: This is such a hack. We need to get ground collision
+            // detection to be done in the collision detector.
+            float& y = body->getNextState().getPos()[1];
+            y = std::max(y, 0.0f);
+
             body->moveToNextState();
          }
          // There was a collision!
@@ -138,22 +144,39 @@ namespace mw
             // Figure out how much time passed to get to the collision. We do this
             // by scaling back the remaining dt by the % of the distance that was
             // travelled.
-            float time_to_collision = dt * collisions[0]->getDistance();
+            float time_to_collision = dt * desc->getDistance();
 
             // Update the body to the point of the collision
             PhysicsEngine::update(body, time_to_collision);
+
+            // Make sure entities never go below the ground.
+            // XXX: This is such a hack. We need to get ground collision
+            // detection to be done in the collision detector.
+            float& y = body->getNextState().getPos()[1];
+            y = std::max(y, 0.0f);
+
             body->moveToNextState();
 
             // body                == collider
             // desc->getCollidee() == collidee
-            mCollisionResponse->collide(body, collisions[0]->getCollidee());
+            mCollisionResponse->collide(body, desc->getCollidee());
          }
          
+         // Check if we just put the body in a bad state
+         {
+            const gmtl::AABoxf& postColliderBounds = mScene->get(0)->getBounds();
+            const gmtl::AABoxf& postCollideeBounds = mScene->get(1)->getBounds();
+            if (gmtl::intersect(postColliderBounds, postCollideeBounds))
+            {
+               assert(false && "We left the body in a bad state");
+            }
+         }
+
          // Make sure entities never go below the ground.
          // XXX: This is such a hack. We need to get ground collision
          // detection to be done in the collision detector.
-         float& y = body->getPos()[1];
-         y = std::max(y, 0.0f);
+//         float& y = body->getPos()[1];
+//         y = std::max(y, 0.0f);
       }
    }
 

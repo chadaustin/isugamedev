@@ -137,6 +137,15 @@
 				RelativePath="..\..\src\Application.h">
 			</File>
 			<File
+				RelativePath="..\..\src\BodyChangeEvent.h">
+			</File>
+			<File
+				RelativePath="..\..\src\BodyChangeEvent.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\BodyChangeListener.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\BodyState.h">
 			</File>
 			<File

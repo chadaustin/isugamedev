@@ -24,14 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-03 08:02:44 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-11-11 04:39:47 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <SDL_opengl.h>
 #include <gmtl/External/OpenSGConvert.h>
 #include <gmtl/Containment.h>
+#include <gmtl/Output.h>
 #ifdef WIN32  // OpenSG needs Winsock  :(:(:(
 #include <winsock.h>
 #endif
@@ -113,45 +114,45 @@ namespace mw
    void
    OpenSGSceneViewer::draw()
    {
-      // XXX: Refactor this update into an event-based system
-      for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
-           itr != mEntityNodeMap.end(); ++itr)
-      {
-         const Entity::UID& uid = itr->first;
-         Entity* entity = mScene->get(uid);
-         if (entity != 0)
-         {
-            // Compute the xform matrix for the entity
-            const gmtl::Point3f& pos = entity->getPos();
-            const gmtl::Quatf& rot = entity->getRot();
-            gmtl::Matrix44f xform = gmtl::makeTrans<gmtl::Matrix44f>(static_cast<gmtl::Vec3f>(pos));
-            xform *= gmtl::make<gmtl::Matrix44f>(rot);
-
-            gmtl::Matrix44f scaleMat;
-            gmtl::setScale(scaleMat, entity->getScale());
-            xform *= scaleMat;
-
-            // Convert the matrix to OpenSG matrix
-            osg::Matrix osg_mat;
-            gmtl::set(osg_mat, xform);
-
-            // Update the node for the entity
-            osg::NodePtr node = itr->second;
-            osg::TransformPtr trans = osg::TransformPtr::dcast(node->getCore());
-            osg::beginEditCP(trans, osg::Transform::MatrixFieldMask);
-            {
-               trans->setMatrix(osg_mat);
-            }
-            osg::endEditCP(trans, osg::Transform::MatrixFieldMask);
-
-            // Update the entity's bounds
-            osg::Pnt3f min, max;
-            node->getVolume().getBounds(min, max);
-            gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
-            gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
-            entity->setBounds(gmtl::AABoxf(gmtl_min, gmtl_max));
-         }
-      }
+//      // XXX: Refactor this update into an event-based system
+//      for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
+//           itr != mEntityNodeMap.end(); ++itr)
+//      {
+//         const Entity::UID& uid = itr->first;
+//         Entity* entity = mScene->get(uid);
+//         if (entity != 0)
+//         {
+//            // Compute the xform matrix for the entity
+//            const gmtl::Point3f& pos = entity->getPos();
+//            const gmtl::Quatf& rot = entity->getRot();
+//            gmtl::Matrix44f xform = gmtl::makeTrans<gmtl::Matrix44f>(static_cast<gmtl::Vec3f>(pos));
+//            xform *= gmtl::make<gmtl::Matrix44f>(rot);
+//
+//            gmtl::Matrix44f scaleMat;
+//            gmtl::setScale(scaleMat, entity->getScale());
+//            xform *= scaleMat;
+//
+//            // Convert the matrix to OpenSG matrix
+//            osg::Matrix osg_mat;
+//            gmtl::set(osg_mat, xform);
+//
+//            // Update the node for the entity
+//            osg::NodePtr node = itr->second;
+//            osg::TransformPtr trans = osg::TransformPtr::dcast(node->getCore());
+//            osg::beginEditCP(trans, osg::Transform::MatrixFieldMask);
+//            {
+//               trans->setMatrix(osg_mat);
+//            }
+//            osg::endEditCP(trans, osg::Transform::MatrixFieldMask);
+//
+//            // Update the entity's bounds
+//            osg::Pnt3f min, max;
+//            node->getVolume().getBounds(min, max);
+//            gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
+//            gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
+//            entity->setBounds(gmtl::AABoxf(gmtl_min, gmtl_max));
+//         }
+//      }
 
       // OpenSG likes to modify the viewport and not change it back :(
       glPushAttrib(GL_VIEWPORT_BIT);
@@ -232,6 +233,7 @@ namespace mw
    OpenSGSceneViewer::entityAdded(const SceneEvent& evt)
    {
       Entity* entity = evt.getEntity();
+      std::cout << "[OpenSGSceneViewer] Adding entity: " << entity->getUID() << std::endl;
 
       ResourceManager* res_mgr = GameManager::instance().getResourceManager();
       const std::string& model = res_mgr->get(entity->getModel());
@@ -254,6 +256,12 @@ namespace mw
 
       // Cache a mapping of the entity UID to its transform node
       mEntityNodeMap[entity->getUID()] = trans_node;
+      entity->addBodyChangeListener(this);
+
+      updateEntity(entity);
+
+      // Setup the entity's bounds
+      entity->setBounds(getBounds(entity->getUID()));
 
 //      std::cout<<"Added entity: uid="<<entity->getUID()<<std::endl;
    }
@@ -276,12 +284,76 @@ namespace mw
          // Remove the entity UID to node ptr mapping
          mEntityNodeMap.erase(itr);
 
+         // Stop listening to the entity
+         evt.getEntity()->removeBodyChangeListener(this);
+
 //         std::cout<<"Removed entity: uid="<<uid<<std::endl;
       }
       else
       {
          std::cerr<<"Couldn't remove unknown entity: uid="<<uid<<std::endl;
       }
+   }
+
+   void
+   OpenSGSceneViewer::bodyChanged(const BodyChangeEvent& evt)
+   {
+      Entity* entity = dynamic_cast<Entity*>(evt.getSource());
+
+      if (!entity)
+      {
+         return;
+      }
+
+      updateEntity(entity);
+   }
+
+   void
+   OpenSGSceneViewer::updateEntity(Entity* entity)
+   {
+      // Update the scene graph to reflect the change in the entity
+
+      // Compute the xform matrix for the entity
+      const gmtl::Point3f& pos = entity->getPos();
+//      std::cout<<"Pos = "<<pos<<std::endl;
+      const gmtl::Quatf& rot = entity->getRot();
+      gmtl::Matrix44f xform = gmtl::makeTrans<gmtl::Matrix44f>(static_cast<gmtl::Vec3f>(pos));
+      xform *= gmtl::make<gmtl::Matrix44f>(rot);
+
+      gmtl::Matrix44f scaleMat;
+      gmtl::setScale(scaleMat, entity->getScale());
+      xform *= scaleMat;
+
+      // Convert the matrix to OpenSG matrix
+      osg::Matrix osg_mat;
+      gmtl::set(osg_mat, xform);
+
+      // Update the node for the entity
+      osg::NodePtr node = mEntityNodeMap[entity->getUID()];
+      osg::TransformPtr trans = osg::TransformPtr::dcast(node->getCore());
+      osg::beginEditCP(trans, osg::Transform::MatrixFieldMask);
+      {
+         trans->setMatrix(osg_mat);
+      }
+      osg::endEditCP(trans, osg::Transform::MatrixFieldMask);
+
+      // Make sure OpenSG's volume for this entity is valid for further
+      // processing this frame.
+      node->updateVolume();
+
+      // Update the entity's bounds
+      entity->setBounds(getBounds(entity->getUID()));
+   }
+
+   gmtl::AABoxf
+   OpenSGSceneViewer::getBounds(const Entity::UID& uid)
+   {
+      osg::Pnt3f min, max;
+      mEntityNodeMap[uid]->getVolume().getBounds(min, max);
+      gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
+      gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
+//      std::cout<<"Getting bounds for "<<uid<<": "<<gmtl_min<<", "<<gmtl_max<<std::endl;
+      return gmtl::AABoxf(gmtl_min, gmtl_max);
    }
 
    void

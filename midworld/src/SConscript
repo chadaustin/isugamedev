@@ -5,6 +5,7 @@ Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenSG SetupOpenGL')
 
 # Listed here are interfaces that only have a .h associated with them
 interfaces = Split("""
+   BodyChangeListener
    CollisionDetector
    CollisionListener
    Entity
@@ -22,7 +23,7 @@ classes = Split("""
    Application
    BaseBullet
    BaseProjectileWeapon
-   BoundsCollisionDetector
+   BodyChangeEvent
    BoundsSweepCollisionDetector
    Camera
    CollisionDesc
@@ -81,7 +82,6 @@ buildInfo.addHeaders(map(File, Split("""
    BodyState.h
    CollisionEvent.h
    LokiTypeInfo.h
-   NullCollisionDetector.h
    UIDManager.h
    VectorSpatialIndex.h
    Version.h

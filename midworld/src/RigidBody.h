@@ -24,20 +24,22 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-11-06 01:40:14 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-11-11 04:39:47 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_RIGID_BODY_H
 #define MW_RIGID_BODY_H
 
+#include <list>
 #include <gmtl/AABox.h>
 #include <gmtl/Point.h>
 #include <gmtl/VecOps.h>
 #include <gmtl/Quat.h>
 #include <gmtl/Matrix.h>
 #include "BodyState.h"
+#include "BodyChangeListener.h"
 
 namespace mw
 {
@@ -177,6 +179,15 @@ namespace mw
 
       /// Makes the next state the current state.
       void moveToNextState();
+
+      /// Registers a listener to be notified when the state changes.
+      void addBodyChangeListener(BodyChangeListener* listener);
+
+      /// Unregisters a listener to no longer receive state change events.
+      void removeBodyChangeListener(BodyChangeListener* listener);
+
+   protected:
+      void fireBodyChange();
    
    private:
       gmtl::Vec3f mForce;	
@@ -197,6 +208,9 @@ namespace mw
       gmtl::AABoxf mBounds;
       
       bool mIsCollidable;
+
+      /// Our list of state change listeners
+      std::list<BodyChangeListener*> mListeners;
    };
 }
 
