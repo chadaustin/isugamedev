@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-21 05:13:43 $
-# Version:       $Revision: 1.3 $
+# Date modified: $Date: 2002-02-21 18:52:40 $
+# Version:       $Revision: 1.4 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -102,7 +102,7 @@ include ${MK_DIR}/mk.objs
 # default targets
 default: all
 all:
-	$(top_srcdir)/tools/makever.sh --version-file="$(top_srcdir)/VERSION" gkVersion.h.in
+	$(top_srcdir)/tools/makever.sh --version-file="$(top_srcdir)/VERSION" $(top_srcdir)/gk/gkVersion.h.in
 	$(MAKE) DO_DEPEND=Y all-redirect
 
 all-redirect: $(LIB_FILENAME) $(STATIC_LIB_FILENAME)
