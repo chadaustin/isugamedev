@@ -19,11 +19,11 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../nspr/include"
+				AdditionalIncludeDirectories="../../nspr/include;../"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="5"
+				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="TRUE"
@@ -59,7 +59,7 @@
 				OmitFramePointers="TRUE"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
-				RuntimeLibrary="4"
+				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -89,29 +89,41 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="..\game\Player.cpp">
+				RelativePath="..\game\BrothaGame.cpp">
 			</File>
 			<File
 				RelativePath="..\net\MessageQueue.cpp">
+			</File>
+			<File
+				RelativePath="..\game\Player.cpp">
+			</File>
+			<File
+				RelativePath="..\net\SocketInputStream.cpp">
+			</File>
+			<File
+				RelativePath="..\net\SocketOutputStream.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc">
 			<File
-				RelativePath="..\game\GameTimer.h">
-			</File>
-			<File
-				RelativePath="..\game\Player.h">
-			</File>
-			<File
-				RelativePath="..\game\UIDManager.h">
+				RelativePath="..\game\BrothaGame.h">
 			</File>
 			<File
 				RelativePath="..\net\ByteBuffer.h">
 			</File>
 			<File
+				RelativePath="..\game\GameTimer.h">
+			</File>
+			<File
 				RelativePath="..\net\InputStream.h">
+			</File>
+			<File
+				RelativePath="..\thread\Lock.h">
+			</File>
+			<File
+				RelativePath="..\thread\Lockable.h">
 			</File>
 			<File
 				RelativePath="..\net\LoginMessage.h">
@@ -129,10 +141,16 @@
 				RelativePath="..\net\MessageTypes.h">
 			</File>
 			<File
+				RelativePath="..\thread\Mutex.h">
+			</File>
+			<File
 				RelativePath="..\net\OKMessage.h">
 			</File>
 			<File
 				RelativePath="..\net\OutputStream.h">
+			</File>
+			<File
+				RelativePath="..\game\Player.h">
 			</File>
 			<File
 				RelativePath="..\net\Serialize.h">
@@ -144,16 +162,13 @@
 				RelativePath="..\net\Socket.h">
 			</File>
 			<File
+				RelativePath="..\net\SocketInputStream.h">
+			</File>
+			<File
+				RelativePath="..\net\SocketOutputStream.h">
+			</File>
+			<File
 				RelativePath="..\net\StreamException.h">
-			</File>
-			<File
-				RelativePath="..\thread\Lock.h">
-			</File>
-			<File
-				RelativePath="..\thread\Lockable.h">
-			</File>
-			<File
-				RelativePath="..\thread\Mutex.h">
 			</File>
 			<File
 				RelativePath="..\thread\Synchronized.h">
@@ -163,6 +178,9 @@
 			</File>
 			<File
 				RelativePath="..\thread\ThreadException.h">
+			</File>
+			<File
+				RelativePath="..\game\UIDManager.h">
 			</File>
 		</Filter>
 		<Filter

@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../external"
+				AdditionalIncludeDirectories="../external;../;../../nspr/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -32,7 +32,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../external/GK/gk.lib OpenGL32.Lib GlU32.Lib"
+				AdditionalDependencies="../external/GK/gk.lib OpenGL32.Lib GlU32.Lib ../../nspr/lib/nspr4.lib"
 				OutputFile="../bin/win32/client-dbg.exe"
 				LinkIncremental="2"
 				IgnoreAllDefaultLibraries="FALSE"
@@ -106,12 +106,18 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
+				RelativePath="..\client\BrothaApp.cpp">
+			</File>
+			<File
 				RelativePath="..\client\main.cpp">
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc">
+			<File
+				RelativePath="..\client\BrothaApp.h">
+			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
