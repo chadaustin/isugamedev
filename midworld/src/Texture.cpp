@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2002-10-17 10:33:24 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-11 05:24:47 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,6 +42,7 @@ using namespace corona;
 
 namespace mw
 {
+   static GLuint gHighID = 10000;
 
    int GetNextPowerOf2(int n)
    {
@@ -54,7 +55,7 @@ namespace mw
    }
 
 
-   inline void ThrowTextureError(const std::string error)
+   inline void ThrowTextureError(const std::string& error)
    {
       throw std::runtime_error(error.c_str());
    }
@@ -96,7 +97,11 @@ namespace mw
       mRealWidth  = float(real_width)  / tex_width;
       mRealHeight = float(real_height) / tex_height;
 
-      glGenTextures(1, &mTexture);
+      // XXX THIS SUCKS ASS!
+      // Use our own high integers for texture IDs so that we can play friendly
+      // with OpenSG' textures.
+//      glGenTextures(1, &mTexture);
+      mTexture = gHighID++;
       glBindTexture(GL_TEXTURE_2D, mTexture);
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,
                    tex_width, tex_height,
