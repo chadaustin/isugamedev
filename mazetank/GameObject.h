@@ -91,7 +91,7 @@ public:
 	}
    void GetObjectZAngle(float& Angle)
    {
-      Angle = ObjectAngle;
+      Angle = ObjectZAngle;
    }
    void GetVelocityZ(float& Velocity)
    {

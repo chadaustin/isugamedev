@@ -129,7 +129,7 @@ void PhysicsEngine::BulletUpdate(GameObject* &BulletObject)
    
    
 	float AngleInRadians = (ObjectAngle * PI)/180;
-   float AngleZInRadians = (ObjectAngleZ * PI)/180;
+   float AngleZInRadians = ((ObjectAngleZ-180) * PI)/180;
 
    float MoveX = ObjectVelocity*cos(AngleInRadians);
 	float MoveY = ObjectVelocity*sin(AngleInRadians);
@@ -137,7 +137,7 @@ void PhysicsEngine::BulletUpdate(GameObject* &BulletObject)
    //////////////////////////////////////////////////////
    // Calculate the Z position
    //////////////////////////////////////////////////////
-   float NewVelocity = ObjectVelocityZ + GRAVITY*dt;
+   float NewVelocity = ObjectVelocityZ * sin(AngleZInRadians) + GRAVITY*dt;
    float MoveZ = NewVelocity*dt;
    
    float NewPosition[3];

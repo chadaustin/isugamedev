@@ -99,6 +99,8 @@ void Input::ShootBullet()
 
    Player1->GetPosition(Position);
 
+   Position[2] = 1.5;
+
    Bullet->SetPosition(Position);
    Bullet->SetObjectAngle(TankRotation+TurretRotations[2]);
    Bullet->SetObjectZAngle(TurretRotations[0]);
