@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-20 04:01:14 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-03-20 20:16:52 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -40,6 +40,16 @@ docs:
 	-@echo "Generating Doxygen docs ..."
 	-@echo "-------------------------------------------"
 	doxygen gk.doxy
+
+# Tarballs documentation
+dist:
+	-@echo ""
+	-@echo "-------------------------------------------"
+	-@echo "Packaging Doxygen docs ..."
+	-@echo "-------------------------------------------"
+	tar czf gamekernel_api.html.tgz gamekernel_api.html
+	tar czf gamekernel_api.latex.tgz gamekernel_api.latex
+	tar czf gamekernel_api.man.tgz gamekernel_api.man
 
 # Remove the docs from the system
 clean:
