@@ -231,12 +231,7 @@ static void OnMouseClick( int button, int state, int x, int y )
    //             you may have to get this from the glut website 
    //             (use www.google.com to search for it)
    if (button==GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-      for(i=0;i<12;i++){
-         dek.getCardPos(i,tempx,tempy);
-         if(mouseX>tempx && mouseX<tempx+50 && mouseY>tempy && mouseY<tempy+120){
-            std::cout << "Card: " << i << std::endl;
-         }
-      }
+      std::cout << dek.isACard(mouseX, mouseY) << std::endl;
    }
 }
 
