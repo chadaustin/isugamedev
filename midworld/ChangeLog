@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-10-09 browner      made midworld use loom for the ai system
+                        NEW VERSION 0.2.4
 2002-10-08 nonchocoboy  Added a loading state for filling up the resource
                         caches.
 2002-10-08 nonchocoboy  Added cache preloading abilities to the model manager.
