@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-10-02 19:02:46 $
-//    $Revision: 1.12 $
+//    $Date: 2001-10-03 18:01:34 $
+//    $Revision: 1.13 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -171,7 +171,7 @@ public:
                   else
                   {
                      gstate->texture.setImage( image );
-                  }                  
+                  }
                }
             }
             //gstate->setName( filename );
@@ -213,7 +213,7 @@ public:
       GState* mat;
    };
 
-   void load( safe_ptr<Geode> geode, const std::string& filename, bool flat = false )
+   void load( safe_ptr<Geode>& geode, const std::string& filename, bool flat = false )
    {
       std::vector< Vec3<float> > verts;
       std::vector< Vec2<float> > texcoords;
@@ -229,6 +229,8 @@ public:
       std::string filetext, temptext, currentWorkingDir;
       
       std::map<std::string, Indicies> lookup;
+
+      geode->setName( filename );
       
       std::cout<<"Loading: \""<<filename<<"\"\n"<<std::flush;
       std::fstream dataFile;
@@ -236,6 +238,7 @@ public:
       assert( dataFile.good() && "couldn't open .obj file" );
       CFileIO::getAll( dataFile, filetext );
       dataFile.close();
+
 
       try 
       {
@@ -368,7 +371,7 @@ public:
                      lookup["notex"].cindex.push_back( v - 1 );
                      lookup["notex"].tindex.push_back( vt - 1 );
                      lookup["notex"].nindex.push_back( vn - 1 );
-                  }               
+                  }
                }
             }
          }
@@ -377,6 +380,8 @@ public:
       {
          std::cerr << e.message().c_str() << std::endl;
       }
+
+
 
       // dump the info into geosets...
       std::map< std::string, Indicies >::iterator it;
@@ -412,16 +417,10 @@ public:
             std::cout<<"  - Setting texture: "<<(*it).first<<" to new geoset\n"<<std::flush;
             geoset->setGstate( lookup[(*it).first].mat );
          }
-         
-         geode->add( geoset );
-      }            
-   }
-   
-   void buildGeoSet()
-   {
-      
-   }
 
+         geode->add( geoset );
+      }
+   }
 };
 
 }// end namespace
