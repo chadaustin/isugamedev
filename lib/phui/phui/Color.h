@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2003-01-05 08:22:08 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2005-01-24 18:46:44 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -93,6 +93,7 @@ namespace phui
    inline std::ostream& operator<<(std::ostream& out, const Color<T>& clr)
    {
       out<<"("<<clr.r<<", "<<clr.g<<", "<<clr.b<<", "<<clr.a<<")";
+      return out;
    }
 
    template< typename T >
