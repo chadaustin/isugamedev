@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginMessageHandler.h,v $
- * Date modified: $Date: 2002-05-01 18:43:09 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-01 19:05:47 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -67,6 +67,9 @@ namespace server {
             m_brothaGame->addPlayer(new game::Player(mMsg->getUsername()), cID);
             // send the connection an OK message saying they are authenticated
             m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
+
+            // let them know who they are
+            m_netMgr->send(new net::AddPlayerMessage(m_brothaGame->getPlayer(cID)), cID);
          } else {
             m_netMgr->send(new net::OKMessage(net::OKMessage::GENERIC_ERROR), cID);
          }

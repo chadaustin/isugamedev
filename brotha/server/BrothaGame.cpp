@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-01 18:42:30 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-05-01 19:05:47 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -198,8 +198,7 @@ namespace server {
       std::cout<<"resync"<<std::endl;
       // send players
       for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
-         bool isYou = (cID == iter->second);
-         net::AddPlayerMessage *msgP = new net::AddPlayerMessage(getPlayer(iter->second), isYou);
+         net::AddPlayerMessage *msgP = new net::AddPlayerMessage(getPlayer(iter->second));
          m_netMgr->send(msgP, cID);
       }
       // send objects

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginState.h,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-05-01 19:05:47 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -58,6 +58,7 @@ namespace client {
          User_Input, ///< waiting for user to click connect
          Send_Login, ///< need to send login
          Wait_For_Login_Ack, ///< wait for login ack
+         Wait_For_Player_Info, ///< wait for player info for who we are
          Wait_For_Join_Ack, ///< wait for join ack
          Wait_For_EnterAs, ///< wait for enter msg
       };

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AddPlayerMessage.h,v $
- * Date modified: $Date: 2002-04-28 16:41:05 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 19:05:47 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -59,9 +59,8 @@ namespace net {
     */
    class AddPlayerMessage : public Message {
    public:
-      AddPlayerMessage(game::Player* player = NULL, bool isYou = false) {
+      AddPlayerMessage(game::Player* player = NULL) {
          m_player = player;
-         m_isYou = isYou;
       }
 
       PRUint32 getType() const {
@@ -70,7 +69,7 @@ namespace net {
 
       PRUint32 getSize() {
          if(m_player != NULL) {
-            return m_player->getSize() + net::sizes::getVarSize(m_isYou);
+            return m_player->getSize();
          } else {
             return 0;
          }
@@ -80,15 +79,10 @@ namespace net {
          return m_player;
       }
 
-      bool isYou() {
-         return m_isYou;
-      }
-
       void serialize(OutputStream& os) {
          if(m_player != NULL) {
             m_player->serialize(os);
          }
-         os << (PRUint32)m_isYou;
       }
 
       void deserialize(InputStream& is) {
@@ -96,11 +90,9 @@ namespace net {
             m_player = new game::Player();
          }
          m_player->deserialize(is);
-         is >> m_isYou;
       }
    private:
       game::Player *m_player;
-      bool m_isYou;
    };
 
 }

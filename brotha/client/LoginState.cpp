@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginState.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-01 19:05:47 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -192,13 +192,33 @@ namespace client {
                   }
 
                   // go to next state
-                  mSubState = Wait_For_Join_Ack;
+                  mSubState = Wait_For_Player_Info;
                } else {
                   std::cout<<"Login failed"<<std::endl;
+                  mSubState = User_Input;
                   /// @todo raise an error
                }
             } else {
                std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               mSubState = User_Input;
+               /// @todo raise an error
+            }
+         }
+      } else if(mSubState == Wait_For_Player_Info) {
+         net::Message* msg = NULL;
+         if(app->getFirstMsg(msg)) {
+            // make sure we got the right message type
+            if(msg->getType() == net::AddPlayer) {
+               net::AddPlayerMessage* pMsg = (net::AddPlayerMessage*)msg;
+
+               // let app know which player we are
+               app->setLocalPlayer(pMsg->getPlayer());
+
+               // go to next state
+               mSubState = Wait_For_Join_Ack;
+            } else {
+               std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               mSubState = User_Input;
                /// @todo raise an error
             }
          }
@@ -217,10 +237,12 @@ namespace client {
                   mSubState = Wait_For_EnterAs;
                } else {
                   std::cout<<"Join As failed"<<std::endl;
+                  mSubState = User_Input;
                   /// @todo raise an error
                }
             } else {
                std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               mSubState = User_Input;
                /// @todo raise an error
             }
          }
@@ -242,10 +264,12 @@ namespace client {
                   app->invokeStateTransition(new GarageState());
                } else {
                   std::cout<<"Enter As failed"<<std::endl;
+                  mSubState = User_Input;
                   /// @todo raise an error
                }
             } else {
                std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               mSubState = User_Input;
                /// @todo raise an error
             }
          }
