@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 04:17:04 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-24 05:04:54 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,23 +38,118 @@
 #define PHUI_WIDGET_H
 
 namespace phui {
-  
-  class Widget {
-  public:
-    virtual void draw() = 0;
 
-    virtual void getSize(int& width, int& height) { }
-    virtual void getPosition(int& x, int& y) { }
+   class Widget {
+   protected:
+      /**
+       * Creates a new widget with width and height 0 and size (0,0).
+       */
+      Widget()
+         : mX(0), mY(0), mWidth(0), mHeight(0), mEnabled(true)
+      {}
 
-    virtual bool hasFocus() { return false; }
+   public:
+      /**
+       * Draws this widget.
+       */
+      virtual void draw() = 0;
 
-    // property size
-    // property position
-    // enabled/disabled
+      /**
+       * Gets the position of this widget relative to its parent.
+       *
+       * @param x    [out]    the x position of this widget
+       * @param y    [out]    the y position of this widget
+       */
+      virtual void getPosition(int& x, int& y) const
+      {
+         x = mX;
+         y = mY;
+      }
 
-  private:
-    
-  };
+      /**
+       * Sets the position of this widget relative to its parent.
+       *
+       * @param x    the x position of this widget
+       * @param y    the y position of this widget
+       */
+      virtual void setPosition(int x, int y)
+      {
+         x = mX;
+         y = mY;
+      }
+
+      /**
+       * Gets the size of this widget relative to its parent.
+       *
+       * @param width   [out]    the width of this widget
+       * @param height  [out]    the height of this widget
+       */
+      virtual void getSize(int& width, int& height) const
+      {
+         width = mWidth;
+         height = mHeight;
+      }
+
+      /**
+       * Sets the position of this widget relative to its parent.
+       *
+       * @param width   the width of this widget
+       * @param height  the height of this widget
+       */
+      virtual void setSize(int width, int height)
+      {
+         mWidth = width;
+         mHeight = height;
+      }
+
+      /**
+       * Tests if this widget is enabled.
+       *
+       * @return  true if the widget is enabled, false if disabled
+       */
+      virtual bool isEnabled() const
+      {
+         return mEnabled;
+      }
+
+      /**
+       * Sets the enabled status of this widget.
+       *
+       * @param enabled    true to enabled the widget, false to disable it
+       */
+      virtual void setEnabled( bool enabled )
+      {
+         mEnabled = enabled;
+      }
+
+      virtual bool hasFocus() { return false; }
+
+   protected:
+      /**
+       * The x position of the widget in pixels relative to its parent.
+       */
+      int mX;
+
+      /**
+       * The y position of the widget in pixels relative to its parent.
+       */
+      int mY;
+
+      /**
+       * The width of the widget in pixels.
+       */
+      int mWidth;
+
+      /**
+       * The height of the widget in pixels.
+       */
+      int mHeight;
+
+      /**
+       * Whether this widget is enabled or disabled.
+       */
+      bool mEnabled;
+   };
 
 } // namespace phui
 
