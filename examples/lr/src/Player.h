@@ -79,6 +79,10 @@ namespace lr
       bool brickUnder();
       bool onWire();
       bool onLadder();
+      bool brickRight();
+      bool brickLeft();
+      bool ladderUnder();
+      
    protected:
       float realPos;    // players real position on the screen from 0 to 1024
       float realHeight; // players real height on the screen from 0 to 768
@@ -91,6 +95,15 @@ namespace lr
        * need to draw 
        */
       Texture* currentTexture;
+      
+
+      /**
+       * fall just drops the player a certain amount everyframe (divisible by 2)
+       */
+      void fall()
+      {
+         realHeight--;
+      }
       
       
       textureState mTextureState;		

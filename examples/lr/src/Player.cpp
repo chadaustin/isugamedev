@@ -16,7 +16,7 @@ namespace lr
    Player::Player(Level& theLevel){
       mLevel = &theLevel;
       realHeight = 32;
-      realPos = 0;
+      realPos = 32;
       mTextureState = run1;
 
       keyup = keydown = keyleft = keyright = false;
@@ -33,16 +33,63 @@ namespace lr
       initTime = 0.0;
    }
 
+   
 
    void Player::update(float dt)
    {
-      if(keyright==true && realPos<1008)
+      if((!brickUnder() && !ladderUnder() && !onWire() && !onLadder()))
       {
-         realPos++;
+         fall();
+         std::cout << "1" << std::endl;
       }
-      if(keyleft==true && realPos>0)
+      else if(keyup && onLadder())
+      {
+         realHeight++;
+         std::cout << "2" << std::endl;
+      }
+      else if(keydown && (onLadder() || ladderUnder()))
+      {
+         if((int)realHeight%32==0 && brickUnder())
+         {
+            // special case when for when we hit the bottom of the ladder - do
+            // nothing
+         }else
+         {
+            realHeight--;
+         }
+   
+         std::cout << "3" << std::endl;
+      }
+      else if(keydown && onLadder() && brickUnder())  // special case if we're on the ladder just above some brick then we need to only go as far as the brick.
+      {
+         if((int)realPos%32!=0)
+            realHeight--;
+         
+      }
+      else if(keydown && onWire() && !brickUnder() && !ladderUnder() && !onLadder())
+      {
+         fall();
+         std::cout << "4" << std::endl;
+      }
+      else if(keyleft && (brickUnder() || ladderUnder()) && !brickLeft() && realPos>0)
       {
          realPos--;
+         std::cout << "5" << std::endl;
+      }
+      else if(keyright && (brickUnder() || ladderUnder()) && !brickRight() && realPos<1008)
+      { 
+         realPos++;
+         std::cout << "6" << std::endl;
+      }
+      else if(keyleft && onWire() && !brickLeft() && realPos>0)
+      {
+         realPos--;
+         std::cout << "7" << std::endl;
+      }
+      else if(keyright && onWire() && !brickRight() && realPos<1008)
+      {
+         realPos++;
+         std::cout << "8" << std::endl;
       }
       if((initTime+dt)>.08)
       {
@@ -61,10 +108,17 @@ namespace lr
    {
    }
 
+   bool Player::ladderUnder()
+   {
+      if(mLevel->getEntityType(getGridPos(), getGridHeight()-1)==ladder)
+         return true;
+      return false;
+   }
+      
+   
    bool Player::brickUnder()
    {
-      
-      if(mLevel->getEntityType(getGridPos(), getGridHeight()-1)==brick)
+      if(mLevel->getEntityType(getGridPos(), getGridHeight()-1)==brick) 
          return true;
       return false;
    }
@@ -79,6 +133,20 @@ namespace lr
    bool Player::onLadder()
    {
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==ladder)
+         return true;
+      return false;
+   }
+
+   bool Player::brickRight()
+   {
+      if((mLevel->getEntityType(getGridPos()+1, getGridHeight())==brick) && (int)realPos%32<16)
+         return true;
+      return false;
+   }
+
+   bool Player::brickLeft()
+   {
+      if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
          return true;
       return false;
    }
