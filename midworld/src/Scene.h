@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.h,v $
- * Date modified: $Date: 2002-11-03 01:15:59 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,7 +33,7 @@
 #define MW_SCENE_H
 
 #include <vector>
-#include <map>
+#include <set>
 #include "Entity.h"
 
 namespace mw
@@ -47,9 +47,9 @@ namespace mw
    class Scene
    {
    public:
-      typedef std::map<Entity::UID, Entity*> EntityMap;
-      typedef EntityMap::iterator            EntityMapItr;
-      typedef EntityMap::const_iterator      EntityMapCItr;
+      typedef std::set<Entity*>         EntitySet;
+      typedef EntitySet::iterator       EntitySetItr;
+      typedef EntitySet::const_iterator EntitySetCItr;
 
    public:
       ~Scene();
@@ -78,7 +78,7 @@ namespace mw
        *
        * @return  the matching entity; NULL if no entities have the given UID
        */
-      Entity* get(const Entity::UID& uid);
+      //Entity* get(const Entity::UID& uid);
 
       ///@{
       /**
@@ -87,8 +87,8 @@ namespace mw
        *
        * @return  an iterator at the beginning of this scene
        */
-      EntityMapItr begin();
-      EntityMapCItr begin() const;
+      EntitySetItr begin();
+      EntitySetCItr begin() const;
       ///@}
 
       ///@{
@@ -98,8 +98,8 @@ namespace mw
        *
        * @return  an iterator at the end of this scene
        */
-      EntityMapItr end();
-      EntityMapCItr end() const;
+      EntitySetItr end();
+      EntitySetCItr end() const;
       ///@}
 
       /**
@@ -137,9 +137,9 @@ namespace mw
       typedef std::vector<SceneListener*> SceneListenerList;
 
       /**
-       * Map of entity IDs to the Entity object it represents.
+       * Set of entities in scene.
        */
-      EntityMap mEntities;
+      EntitySet mEntities;
 
       /**
        * The list of listeners interested in this scene.

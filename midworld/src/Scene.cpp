@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.cpp,v $
- * Date modified: $Date: 2002-12-03 06:50:44 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,10 +46,10 @@ namespace mw
    Scene::add(Entity* entity)
    {
 
-      std::cout << mEntities.count(entity->getUID()) << std::endl << std::endl;
+      std::cout << mEntities.count(entity) << std::endl << std::endl;
       assert(entity != 0);
-      assert(mEntities.count(entity->getUID()) == 0);
-      mEntities[entity->getUID()] = entity;
+      assert(mEntities.count(entity) == 0);
+      mEntities.insert(entity);
       fireEntityAdded(entity);
    }
 
@@ -57,44 +57,31 @@ namespace mw
    Scene::remove(Entity* entity)
    {
       assert(entity != 0);
-      EntityMap::iterator itr = mEntities.find(entity->getUID());
+      EntitySet::iterator itr = mEntities.find(entity);
       assert(itr != mEntities.end());
       mEntities.erase(itr);
       fireEntityRemoved(entity);
    }
 
-   Entity*
-   Scene::get(const Entity::UID& uid)
-   {
-      EntityMap::iterator itr = mEntities.find(uid);
-      if (itr != mEntities.end())
-      {
-         return itr->second;
-      }
-
-      std::cerr<<"ERROR: Unable to retrieve entity from UID: "<<uid<<std::endl;
-      return 0;
-   }
-
-   Scene::EntityMapItr
+   Scene::EntitySetItr
    Scene::begin()
    {
       return mEntities.begin();
    }
 
-   Scene::EntityMapCItr
+   Scene::EntitySetCItr
    Scene::begin() const
    {
       return mEntities.begin();
    }
 
-   Scene::EntityMapItr
+   Scene::EntitySetItr
    Scene::end()
    {
       return mEntities.end();
    }
 
-   Scene::EntityMapCItr
+   Scene::EntitySetCItr
    Scene::end() const
    {
       return mEntities.end();

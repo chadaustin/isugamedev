@@ -24,14 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-12-04 07:26:01 $
- * Version:       $Revision: 1.77 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.78 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_GAME_STATE_H
 #define MW_GAME_STATE_H
 
+#include <map>
 #include <vector>
 
 #include "cal3d/cal3d.h"
@@ -173,7 +174,7 @@ namespace mw
 
       //XXX hack for testing AIsystem
 
-      typedef std::map<Entity::UID, lm::aiNode*> NodeMap;
+      typedef std::map<Entity*, lm::aiNode*> NodeMap;
       NodeMap mMap;
 
       // declare an instance of a loom aiSystem - the ai system for the game.

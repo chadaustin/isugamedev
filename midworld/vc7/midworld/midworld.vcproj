@@ -392,9 +392,6 @@
 				RelativePath="..\..\src\Types.h">
 			</File>
 			<File
-				RelativePath="..\..\src\UIDManager.h">
-			</File>
-			<File
 				RelativePath="..\..\src\Utility.h">
 			</File>
 			<File

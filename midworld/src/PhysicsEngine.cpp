@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-14 11:34:41 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -114,9 +114,9 @@ namespace mw
    void
    PhysicsEngine::update(float dt)
    {
-      for (Scene::EntityMapItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      for (Scene::EntitySetItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
-         RigidBody* body = itr->second;
+         RigidBody* body = *itr;
 
          // Apply gravity to every body
          if (0 == dynamic_cast<BaseBullet*>(body))

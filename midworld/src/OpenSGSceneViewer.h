@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.h,v $
- * Date modified: $Date: 2002-11-14 10:24:31 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -81,7 +81,7 @@ namespace mw
       void updateEntity(Entity* entity);
 
       /// Gets the bounds for the given body
-      gmtl::AABoxf getBounds(const Entity::UID& uid);
+      gmtl::AABoxf getBounds(Entity* uid);
 
    private:
       void drawBounds();
@@ -90,11 +90,8 @@ namespace mw
       Scene* mScene;
 
       /// A mapping of entity IDs to their respective node
-      typedef std::map<Entity::UID, osg::NodePtr> EntityNodeMap;
+      typedef std::map<Entity*, osg::NodePtr> EntityNodeMap;
       EntityNodeMap mEntityNodeMap;
-
-      typedef std::map<Entity::UID, Entity*> EntityEntityMap;
-      EntityEntityMap mEntityEntityMap;
 
       osg::RenderAction* mRenderAction;
       osg::PassiveWindowPtr mWin;

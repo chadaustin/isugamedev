@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Entity.h,v $
- * Date modified: $Date: 2002-10-31 08:35:59 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,11 +44,6 @@ namespace mw
    class Entity : public RigidBody
    {
    public:
-      /**
-       * The UID data type.
-       */
-      typedef unsigned long UID;
-
       virtual ~Entity() {}
       
       virtual void draw() const = 0;
@@ -72,11 +67,6 @@ namespace mw
        * Sets the ID of the model this entity requires.
        */
       virtual void setModel(const std::string& model) = 0;
-
-      /**
-       * Gets the unique ID of this entity.
-       */
-      virtual const UID& getUID() const = 0;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AbstractEntity.h,v $
- * Date modified: $Date: 2002-11-11 08:05:52 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,7 +33,6 @@
 #define MW_ABSTRACT_ENTITY_H
 
 #include <string>
-#include "UIDManager.h"
 #include "Entity.h"
 
 namespace mw
@@ -76,21 +75,11 @@ namespace mw
        */
       void setModel(const std::string& model);
 
-      /**
-       * Gets the unique ID of this entity.
-       */
-      const UID& getUID() const;
-
    protected:
       /// Gets the game state this entity is associated with.
       GameState* getGameState() const;
 
    private:
-      /**
-       * The unique ID associated with this entity.
-       */
-      UID mUID;
-
       /**
        * The model ID this entity uses.
        */

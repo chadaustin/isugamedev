@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-25 12:39:13 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -230,9 +230,9 @@ namespace mw
          */
 
          // Compare this node's bounds to the search bounds
-         if (gmtl::isInVolume(region, mEntityEntityMap[itr->first]->getBounds()))
+         if (gmtl::isInVolume(region, itr->first->getBounds()))
          {
-            matches.push_back(mScene->get(itr->first));
+            matches.push_back(itr->first);
          }
       }
 
@@ -243,7 +243,7 @@ namespace mw
    OpenSGSceneViewer::entityAdded(const SceneEvent& evt)
    {
       Entity* entity = evt.getEntity();
-      std::cout << "[OpenSGSceneViewer] Adding entity: " << entity->getUID() << std::endl;
+      std::cout << "[OpenSGSceneViewer] Adding entity: " << entity << std::endl;
 
       ResourceManager& resmgr = ResourceManagerSingleton::instance();
       osg::NodePtr model_node = resmgr.get<osg::NodePtr>(entity->getModel());
@@ -264,15 +264,14 @@ namespace mw
       osg::endEditCP(mSceneRoot);
 
       // Cache a mapping of the entity UID to its transform node
-      mEntityNodeMap[entity->getUID()] = trans_node;
-      mEntityEntityMap[entity->getUID()] = entity;
+      mEntityNodeMap[entity] = trans_node;
       entity->addBodyChangeListener(this);
 
       updateEntity(entity);
 
       // Setup the entity's bounds
       trans_node->updateVolume();
-      gmtl::AABoxf bounds(getBounds(entity->getUID()));
+      gmtl::AABoxf bounds(getBounds(entity));
       entity->setBoundsSize(bounds.getMax() - bounds.getMin());
 
 
@@ -283,9 +282,9 @@ namespace mw
    void
    OpenSGSceneViewer::entityRemoved(const SceneEvent& evt)
    {
-      const Entity::UID& uid = evt.getEntity()->getUID();
+      Entity* entity = evt.getEntity();
 
-      EntityNodeMap::iterator itr = mEntityNodeMap.find(uid);
+      EntityNodeMap::iterator itr = mEntityNodeMap.find(entity);
       if (itr != mEntityNodeMap.end())
       {
          // Remove the entity node from its parent
@@ -297,7 +296,6 @@ namespace mw
 
          // Remove the entity UID to node ptr mapping
          mEntityNodeMap.erase(itr);
-         mEntityEntityMap.erase(uid);
 
          // Stop listening to the entity
          evt.getEntity()->removeBodyChangeListener(this);
@@ -306,7 +304,7 @@ namespace mw
       }
       else
       {
-         std::cerr<<"Couldn't remove unknown entity: uid="<<uid<<std::endl;
+         std::cerr << "Couldn't remove unknown entity: entity=" << entity << std::endl;
       }
    }
 
@@ -343,7 +341,7 @@ namespace mw
       gmtl::set(osg_mat, xform);
 
       // Update the node for the entity
-      osg::NodePtr node = mEntityNodeMap[entity->getUID()];
+      osg::NodePtr node = mEntityNodeMap[entity];
       osg::TransformPtr trans = osg::TransformPtr::dcast(node->getCore());
       osg::beginEditCP(trans, osg::Transform::MatrixFieldMask);
       {
@@ -358,7 +356,7 @@ namespace mw
       // Update the entity's bounds
 
       // bounds from OpenSG
-      gmtl::AABoxf bounds(getBounds(entity->getUID()));
+      gmtl::AABoxf bounds(getBounds(entity));
       gmtl::Vec3f midpoint = (bounds.getMin() + bounds.getMax()) / 2;
 
       // entity bounds
@@ -370,10 +368,10 @@ namespace mw
    }
 
    gmtl::AABoxf
-   OpenSGSceneViewer::getBounds(const Entity::UID& uid)
+   OpenSGSceneViewer::getBounds(Entity* entity)
    {
       osg::Pnt3f min, max;
-      mEntityNodeMap[uid]->getVolume().getBounds(min, max);
+      mEntityNodeMap[entity]->getVolume().getBounds(min, max);
       gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
       gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
       return gmtl::AABoxf(gmtl_min, gmtl_max);

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-12-04 07:26:00 $
- * Version:       $Revision: 1.133 $
+ * Date modified: $Date: 2002-12-21 19:25:49 $
+ * Version:       $Revision: 1.134 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -296,13 +296,10 @@ namespace mw
 
       // Iterate over all the entities and update them
 //      Group* grp = mScene->getRoot();
-      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      for (Scene::EntitySetCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
-         const Entity::UID& uid = itr->first;
-         Entity* entity = mScene->get(uid);
-
          // Allow the entity to update itself
-         entity->update(dt);
+         (*itr)->update(dt);
       }
 
       // Update the player and the camera
@@ -387,9 +384,9 @@ namespace mw
    GameState::drawEntities()
    {
       // Run through the entities in the scene and mark those that are dead
-      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      for (Scene::EntitySetCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
-         const Entity* entity = itr->second;
+         const Entity* entity = *itr;
          glTranslate(entity->getPos());
          if(entity == &mPlayer)
          {
@@ -565,9 +562,9 @@ namespace mw
    {
       // Draw the bounds
       glColor4f(1,0,0,1);
-      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      for (Scene::EntitySetCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
-         const Entity* entity = itr->second;
+         const Entity* entity = *itr;
          const gmtl::AABoxf& bounds = entity->getBounds();
          const gmtl::Point3f& min = bounds.getMin();
          const gmtl::Point3f& max = bounds.getMax();
@@ -640,30 +637,29 @@ namespace mw
 
    void GameState::reapDeadEntities()
    {
-      typedef std::list<Entity::UID> UIDList;
-      UIDList dead;
+      typedef std::list<Entity*> DeadList;
+      DeadList dead;
 
       // Run through the entities in the scene and mark those that are dead
-      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      for (Scene::EntitySetItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
-         const Entity::UID& uid = itr->first;
-         const Entity* entity = itr->second;
+         Entity* entity = *itr;
          if (entity->isExpired())
          {
-            dead.push_back(uid);
+            dead.push_back(entity);
          }
       }
 
       // Remove all entities marked as dead
-      for (UIDList::iterator itr = dead.begin(); itr != dead.end(); ++itr)
+      for (DeadList::iterator itr = dead.begin(); itr != dead.end(); ++itr)
       {
-         Entity* entity = mScene->get(*itr);
+         Entity* entity = *itr;
          mScene->remove(entity);
-         NodeMap::iterator itr=mMap.find(entity->getUID());
+         NodeMap::iterator i=mMap.find(entity);
          // if it's an ai node remove it from the ai system
-         if(itr!=mMap.end())
+         if(i!=mMap.end())
          {
-            AI.unregisterNode(itr->second->getName());
+            AI.unregisterNode(i->second->getName());
          }
 
 
@@ -696,7 +692,7 @@ namespace mw
    {
       add(entity);
       AI.registerNode(node);
-      mMap[entity->getUID()] = node;
+      mMap[entity] = node;
    }
 
    void
@@ -782,7 +778,7 @@ namespace mw
       
       AI.registerNode(node1);
 
-      mMap[droid->getUID()] = node1;
+      mMap[droid] = node1;
 
       return droid;
    }
@@ -816,7 +812,7 @@ namespace mw
       node1Instinct = new lm::reflex(node1, first, aimTestCommand);
       AI.registerNode(node1);
 
-      mMap[turret->getUID()] = node1;
+      mMap[turret] = node1;
       return turret;
    }
 }
