@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Keyboard.h,v $
-// Date modified: $Date: 2002-01-30 18:02:20 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef KEYBOARD_H
+#define KEYBOARD_H
 
-#ifndef KEYBOARD_INCLUDED
-#define KEYBOARD_INCLUDED
-
+#include "akiCommon.h"
 #include <vector>
 #include <iostream>
 #include <string>

@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-01-30 18:13:43 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef GAMEINPUT_H
+#define GAMEINPUT_H
 
-#ifndef GAMEINPUT
-#define GAMEINPUT
-
+#include "akiCommon.h"
 #include <string>
 #include <utility> // for pair
 

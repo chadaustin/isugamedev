@@ -30,14 +30,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-01-30 18:14:02 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef MOUSE_INCLUDED
-#define MOUSE_INCLUDED
+#ifndef MOUSE_H
+#define MOUSE_H
 
+#include "akiCommon.h"
 #include <map>
 #include <assert.h>
 

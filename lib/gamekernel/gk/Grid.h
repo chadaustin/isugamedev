@@ -24,14 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Grid.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef GRID_H
+#define GRID_H
 
-#ifndef GRID_INCLUDED
-#define GRID_INCLUDED
+#include "akiCommon.h"
 
 class Grid
 {

@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalDevice.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef DIGITALDEVICE_H
+#define DIGITALDEVICE_H
 
-#ifndef DIGITAL_DEVICE
-#define DIGITAL_DEVICE
-
+#include "akiCommon.h"
 #include "Device.h"
 #include "DigitalInput.h"
 

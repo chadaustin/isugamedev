@@ -24,12 +24,11 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: aki.cpp,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-
 #include "GameApp.h"      // the base application type
 #include "GameKernel.h"
 #include "GameInput.h"
@@ -106,9 +105,26 @@ public:
    DigitalInterface mAccelerate, mQuit;
 };
 
-void main( int argc, char *argv[] )
+int main( int argc, char *argv[] )
 {
    GameKernelRegister<AkiGame> reg;
    SystemDriver* driver = new GlutDriver();
    GameKernel::instance().startup( driver );
+   return 0;
 }
+
+// Support people who create Win32 application projects in VC6
+#ifdef _WIN32
+#ifndef _CONSOLE
+
+int WINAPI WinMain(
+      HINSTANCE /*instance*/,
+      HINSTANCE /*prevInstance*/,
+      LPSTR /*commandLine*/,
+      int /*showCommand*/ )
+{
+   return main( __argc, __argv );
+}
+
+#endif // ! _CONSOLE
+#endif // _WIN32

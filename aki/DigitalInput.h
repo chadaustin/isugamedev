@@ -24,16 +24,17 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInput.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef DIGITALINPUT_H
+#define DIGITALINPUT_H
 
-#ifndef DIGITAL_INPUT
-#define DIGITAL_INPUT
-
+#include "akiCommon.h"
 #include "Input.h"
+#include <assert.h>
 
 class DigitalInput : virtual public Input
 {

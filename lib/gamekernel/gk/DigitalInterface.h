@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-01-30 17:42:56 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef DIGITALINTERFACE_H
+#define DIGITALINTERFACE_H
 
-#ifndef DIGITAL_INTERFACE
-#define DIGITAL_INTERFACE
-
+#include "akiCommon.h"
 #include "InputInterface.h"
 #include "DigitalInput.h"
 

@@ -24,19 +24,19 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameApp.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef GAMEAPP_H
+#define GAMEAPP_H
 
-#ifndef BASE_GAME_APP_INCLUDED
-#define BASE_GAME_APP_INCLUDED
-
+#include "akiCommon.h"
 #include <string>
 #include <vector>
-#include <Mouse.h>
-#include <Keyboard.h>
+#include "Mouse.h"
+#include "Keyboard.h"
 
 /* Base game application class.  for use with the "GameKernel"
  * don't modify this class... instead derive a class "MyApp" from this,

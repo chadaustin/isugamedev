@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: EventInput.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef EVENTINPUT_H
+#define EVENTINPUT_H
 
-#ifndef EVENT_INPUT
-#define EVENT_INPUT
-
+#include "akiCommon.h"
 #include "DigitalInput.h"
 #include "AnalogInput.h"
 
@@ -73,12 +73,12 @@ public:
          }
          else if (mDigitalBindings[x]->edgeState() == DigitalInput::DOWN)
          {
-            state == DigitalInput::DOWN;
+            state = DigitalInput::DOWN;
          }
          else if (mDigitalBindings[x]->edgeState() == DigitalInput::EDGE_DOWN &&
                   state != DigitalInput::DOWN)
          {
-            state == DigitalInput::EDGE_DOWN;
+            state = DigitalInput::EDGE_DOWN;
          }
       }
       return state;

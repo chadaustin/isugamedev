@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef INPUTINTERFACE_H
+#define INPUTINTERFACE_H
 
-#ifndef ABSTRACT_INPUT_INTERFACE
-#define ABSTRACT_INPUT_INTERFACE
-
+#include "akiCommon.h"
 #include <string>
 
 class InputInterface

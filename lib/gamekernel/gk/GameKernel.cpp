@@ -24,12 +24,11 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-
 #include "GameKernel.h"
 
 GameKernel::GameKernel()
@@ -49,13 +48,13 @@ void GameKernel::showMouse( bool show )
 
 /* go fullscreen
  */
-void GameKernel::fullscreen( int ctx = 0 )
+void GameKernel::fullscreen( int ctx )
 {
    mDriver->fullscreen();
 }
 
 /* get the window size */
-void GameKernel::getWindowSize( int& width, int& height, int ctx = 0 )
+void GameKernel::getWindowSize( int& width, int& height, int ctx )
 {
    mDriver->getWindowSize( width, height, ctx );
 }
@@ -63,7 +62,7 @@ void GameKernel::getWindowSize( int& width, int& height, int ctx = 0 )
  * i.e. use this to restore after a full screen
  *      use this to init the window size in OnAppInit
  */
-void GameKernel::setWindowSize( int width, int height, int ctx = 0 )
+void GameKernel::setWindowSize( int width, int height, int ctx )
 {
    mDriver->setWindowSize( width, height, ctx );
 }

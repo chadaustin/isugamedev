@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef GAMEKERNEL_H
+#define GAMEKERNEL_H
 
-#ifndef GAME_KERNEL
-#define GAME_KERNEL
-
+#include "akiCommon.h"
 #include <vector>
 #include <GL/glut.h>                   // gl utility library
 

@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Device.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef DEVICE_H
+#define DEVICE_H
 
-#ifndef DEVICE
-#define DEVICE
-
+#include "akiCommon.h"
 #include <string>
 #include "Input.h"
 class Device

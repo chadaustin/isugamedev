@@ -24,14 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Input.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef INPUT_H
+#define INPUT_H
 
-#ifndef INPUT
-#define INPUT
+#include "akiCommon.h"
 
 class Input
 {

@@ -24,15 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-01-31 06:13:17 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
+#ifndef ANALOGDEVICE_H
+#define ANALOGDEVICE_H
 
-#ifndef ANALOG_DEVICE
-#define ANALOG_DEVICE
-
+#include "akiCommon.h"
 #include "Device.h"
 #include "AnalogInput.h"
 
