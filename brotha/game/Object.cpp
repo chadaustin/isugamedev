@@ -1,7 +1,8 @@
 #include "Object.h"
 
 namespace game {
-   Object::Object() {
+   Object::Object()
+      : m_health(0) {
       mUID = UIDManager<Object, PRUint32>::getInstance().reserveID();
    }
 
