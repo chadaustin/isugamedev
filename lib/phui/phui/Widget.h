@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-26 06:44:13 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-04-26 06:53:23 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -70,10 +70,9 @@ namespace phui
       /**
        * Gets the position of this widget relative to its parent.
        *
-       * @param x    [out]    the x position of this widget
-       * @param y    [out]    the y position of this widget
+       * @return  the position of this widget
        */
-      virtual Point getPosition() const;
+      virtual const Point& getPosition() const;
 
       /**
        * Sets the position of this widget relative to its parent.
@@ -166,7 +165,7 @@ namespace phui
        *
        * @return  the background color
        */
-      virtual Colorf getBackgroundColor() const;
+      virtual const Colorf& getBackgroundColor() const;
 
       /**
        * Sets the foreground color of this widget.
@@ -180,7 +179,7 @@ namespace phui
        *
        * @return  the foreground color
        */
-      virtual Colorf getForegroundColor() const;
+      virtual const Colorf& getForegroundColor() const;
 
       /**
        * Sets the font to use for rendering text in this widget.

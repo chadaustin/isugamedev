@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-26 06:44:13 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-26 06:53:23 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -54,7 +54,7 @@ namespace phui
    Widget::~Widget() {
    }
 
-   Point Widget::getPosition() const {
+   const Point& Widget::getPosition() const {
       return mPosition;
    }
 
@@ -99,7 +99,7 @@ namespace phui
       mBackgroundColor = clr;
    }
 
-   Colorf Widget::getBackgroundColor() const {
+   const Colorf& Widget::getBackgroundColor() const {
       return mBackgroundColor;
    }
 
@@ -107,7 +107,7 @@ namespace phui
       mForegroundColor = clr;
    }
 
-   Colorf Widget::getForegroundColor() const {
+   const Colorf& Widget::getForegroundColor() const {
       return mForegroundColor;
    }
 
