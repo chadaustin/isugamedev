@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-27 02:39:32 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-03-18 03:47:30 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -268,16 +268,14 @@ GlutDriver::OnIdle()
    postRedisplay();
 
    GameKernel* kernel = sDriver->mKernel;
+   GameApp* app = kernel->getApp();
 
-   unsigned int x;
-   for ( x = 0; x < kernel->applications().size(); ++x )
-   {
-      assert( kernel->applications()[x] != NULL && "you registered a NULL application" );
-      kernel->getInput()->update();
-      kernel->applications()[x]->OnPreFrame();
-      kernel->applications()[x]->OnIntraFrame();
-      kernel->applications()[x]->OnPostFrame();
-   }
+   // do an app frame
+   assert( app != NULL && "you can't run a NULL application" );
+   kernel->getInput()->update();
+   app->OnPreFrame();
+   app->OnIntraFrame();
+   app->OnPostFrame();
 
    // force a poll on the joystick
    if ( sDriver->mJoystick != NULL )
@@ -297,13 +295,9 @@ GlutDriver::initCurrentContext()
    {
       oneTimeOnly( mCurrentContext ).truth() = true;
 
-      // init each application
-      unsigned int x;
-      for ( x = 0; x < mKernel->applications().size(); ++x )
-      {
-         assert( mKernel->applications()[x] != NULL && "you registered a NULL application" );
-         mKernel->applications()[x]->OnContextInit( );
-      }
+      // init the app
+      assert( mKernel->getApp() != NULL && "you can't run a NULL application" );
+      mKernel->getApp()->OnContextInit();
    }
 }
 
@@ -315,15 +309,10 @@ GlutDriver::OnRedisplay()
 {
    sDriver->initCurrentContext();
 
+   // draw the app
    GameKernel* kernel = sDriver->mKernel;
-
-   // draw each application
-   unsigned int x;
-   for ( x = 0; x < kernel->applications().size(); ++x )
-   {
-      assert( kernel->applications()[x] != NULL && "you registered a NULL application" );
-      kernel->applications()[x]->OnContextDraw( sDriver->mCurrentContext );
-   }
+   assert( kernel->getApp() != NULL && "you can't run a NULL application" );
+   kernel->getApp()->OnContextDraw( sDriver->mCurrentContext );
 
    glutSwapBuffers();
 }

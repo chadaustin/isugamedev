@@ -18,7 +18,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "glut"=.\DRIVERS\glut\glut.dsp - Package Owner=<4>
+Project: "glut"=.\drivers\glut\glut.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

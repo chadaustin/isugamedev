@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-20 04:01:16 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-03-18 03:47:31 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -47,13 +47,14 @@ GK_USING_NAMESPACE
 class InputApp : public GameApp
 {
 public:
-   InputApp( GameKernel* kernel )
-      : mKernel( kernel )
+   InputApp()
+      : mKernel( NULL )
    {
    }
 
-   virtual void OnAppInit()
+   virtual void OnAppInit( GameKernel* kernel )
    {
+      mKernel = kernel;
       mKernel->setName( "Input Test" );
       mQuit.init( "Quit", mKernel );
       mAccelerate.init( "Accelerate", mKernel );
@@ -116,14 +117,13 @@ public:
 int main( int argc, char *argv[] )
 {
    // create the kernel and add our app in
-   GameKernel* kernel = new GameKernel();
-   kernel->add( new InputApp( kernel ) );
+   GameKernel* kernel = new GameKernel( new InputApp() );
 
    // configure the system
    loadInputConfig( "config.xml", kernel );
 
    // create our system driver and let's go!
-   SystemDriverFactory::instance().probe( "gkglut", "GLUT" );
+   SystemDriverFactory::instance().probe( "glut", "GLUT" );
    SystemDriver* driver = SystemDriverFactory::instance().getDriver( "GLUT" );
    kernel->startup( driver );
 

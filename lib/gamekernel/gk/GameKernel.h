@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-20 04:01:15 $
-// Version:       $Revision: 1.18 $
+// Date modified: $Date: 2002-03-18 03:47:31 $
+// Version:       $Revision: 1.19 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -51,12 +51,11 @@ namespace gk
  *
  * <h3> "Example (to start your application using GLUT):" </h3>
  * \code
- *    class MyApplicationType : public gk::GameApp {};
+ *    class MyAppType : public gk::GameApp {};
  *    int main()
  *    {
- *       gk::GameKernel* kernel = new GameKernel();
- *       kernel->add( new MyApplicationType() );
- *       gk::SystemDriverFactory::instance().probe( "gkglut", "GLUT" );
+ *       gk::GameKernel* kernel = new gk::GameKernel( new MyAppType() );
+ *       gk::SystemDriverFactory::instance().probe( "glut", "GLUT" );
  *       gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
  *       kernel->startup( driver );
  *       return 1;
@@ -65,12 +64,11 @@ namespace gk
  *
  * <h3> "Example (to start your application using SDL):" </h3>
  * \code
- *    class MyApplicationType : public gk::GameApp {};
+ *    class MyAppType : public gk::GameApp {};
  *    int main()
  *    {
- *       gk::GameKernel* kernel = new GameKernel();
- *       kernel->add( new MyApplicationType() );
- *       gk::SystemDriverFactory::instance().probe( "gksdl", "SDL" );
+ *       gk::GameKernel* kernel = new gk::GameKernel( new MyAppType() );
+ *       gk::SystemDriverFactory::instance().probe( "sdl", "SDL" );
  *       gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "SDL" );
  *       kernel->startup( driver );
  *       return 1;
@@ -82,13 +80,17 @@ namespace gk
  * talking directly to a SystemDriver implementation.
  *
  * @see GameApp
- * @see GameKernelRegister
  */
 class GameKernel
 {
 public:
-   /** constructor */
-   GameKernel();
+   /**
+    * Creates a new GameKernel to manage the given application. The kernel will
+    * own the memory associated with the app object.
+    *
+    * @param app  the app to manage with this kernel
+    */
+   GameKernel( GameApp* app );
 
    /**
     * Initializes and runs this kernel with the given system driver.
@@ -156,11 +158,10 @@ public:
     */
    const std::string& name() const;
 
-   /** what applications are registered. */
-   std::vector<GameApp*>& applications()
-   {
-      return mApps;
-   }
+   /**
+    * Gets the application managed by this kernel.
+    */
+   GameApp* getApp();
 
 private:
    /**
@@ -174,9 +175,9 @@ private:
    GameInput* mInput;
 
    /**
-    * The list of applications being managed by this kernel.
+    * The application being managed by this kernel.
     */
-   std::vector<GameApp*> mApps;
+   GameApp* mApp;
 };
 
 } // namespace gk

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameApp.h,v $
-// Date modified: $Date: 2002-02-22 05:14:09 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-03-18 03:47:31 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -39,6 +39,7 @@
 #include "gk/Keyboard.h"
 
 namespace gk {
+   class GameKernel;
 
 /**
  * Base game application class for use with the GameKernel. Application writers
@@ -104,8 +105,12 @@ public:
     * This is called by the GameKernel after the system driver is initialized
     * but before it is started. This function is called before any windows are
     * opened, thus it is NOT safe to make any OpenGL calls within this function.
+    * For convenience a pointer to the GameKernel managing this app is passed
+    * through this function.
+    *
+    * @param kernel     the GameKernel instance running this ap
     */
-   virtual void OnAppInit() {}
+   virtual void OnAppInit( GameKernel* kernel) {}
 
    /**
     * This is called once for each context (window) after the window has been

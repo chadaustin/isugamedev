@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-02-21 05:13:43 $
-// Version:       $Revision: 1.21 $
+// Date modified: $Date: 2002-03-18 03:47:31 $
+// Version:       $Revision: 1.22 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,9 +34,10 @@
 
 namespace gk {
 
-GameKernel::GameKernel()
-   : mDriver( NULL )
+GameKernel::GameKernel( GameApp* app )
+   : mDriver( NULL ), mApp( app )
 {
+   assert( app != NULL && "You must pass in a valid application" );
    std::cout<<"GameKernel v"<<getVersionString()<<std::endl;
    mInput = new GameInput();
 }
@@ -73,14 +74,6 @@ void GameKernel::setWindowSize( int width, int height, int ctx )
 }
 
 /*
- * adds the given app to the end of the vector
- */
-void GameKernel::add( GameApp* app )
-{
-   mApps.push_back( app );
-}
-
-/*
  * gets the input manager instance for this kernel
  */
 GameInput* GameKernel::getInput()
@@ -101,7 +94,6 @@ const std::string& GameKernel::name() const
 bool GameKernel::startup( SystemDriver* driver )
 {
    assert( (driver != NULL) && "you must pass in a valid system driver!" );
-   assert( applications().size() > 0 && "you must register at least one application" );
 
    // keep a copy of our system driver
    mDriver = driver;
@@ -112,14 +104,9 @@ bool GameKernel::startup( SystemDriver* driver )
       return false;
    }
 
-   //Initialize all registered applications, do this before initing glut, in case app
-   // needs to set window position and name.
-   unsigned int x;
-   for (x = 0; x < applications().size(); ++x)
-   {
-      assert( applications()[x] != NULL && "you registered a NULL application" );
-      applications()[x]->OnAppInit();
-   }
+   // Initialize the registered app before starting the driver in case the app
+   // needs to set the window position and name.
+   mApp->OnAppInit( this );
 
    // tell the driver to get moving!
    return mDriver->run();
@@ -130,6 +117,11 @@ void GameKernel::shutdown()
    mDriver->shutdown();
    delete mDriver;
    mDriver = NULL;
+}
+
+GameApp* GameKernel::getApp()
+{
+   return mApp;
 }
 
 } // namespace gk
