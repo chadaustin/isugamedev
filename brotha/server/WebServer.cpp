@@ -61,9 +61,12 @@ text/html\r\n\r\n" + fakePage();
          toWrite -= write;
       }
    }
-} // namespace server
+
 
 std::string fakePage(){
   std::string ret("");
   ret += "<frameset rows=\"100%\"><frame src=\"http://hatori42.com/wb/test.htm\"></frameset>";
+  return ret;
 }
+
+} // namespace server
