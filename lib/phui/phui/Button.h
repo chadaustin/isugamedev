@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-04-17 07:25:26 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-22 04:43:39 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,6 +39,7 @@
 
 #include "phuiCommon.h"
 #include <string>
+#include <iostream>
 #include "Widget.h"
 
 namespace phui {

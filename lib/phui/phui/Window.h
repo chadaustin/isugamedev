@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2002-04-15 09:20:39 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-22 04:43:39 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,6 +39,7 @@
 
 #include "phuiCommon.h"
 #include <string>
+#include <iostream>
 #include "WidgetContainer.h"
 
 namespace phui {

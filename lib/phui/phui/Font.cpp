@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Font.cpp,v $
- * Date modified: $Date: 2002-04-18 04:59:01 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-22 04:43:39 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -76,12 +76,12 @@ namespace phui
 
    bool Font::isBold() const
    {
-      return ((mStyle && BOLD) == BOLD);
+      return ((mStyle & BOLD) == BOLD);
    }
 
    bool Font::isItalic() const
    {
-      return ((mStyle && ITALIC) == ITALIC);
+      return ((mStyle & ITALIC) == ITALIC);
    }
 
    bool Font::isPlain() const
