@@ -422,12 +422,12 @@ int main(int argc, char* argv[])
     ::glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     
     // Set the window title
-    app.mainWin_contextID = ::glutCreateWindow( "GLUT application" );
+    app.mainWin_contextID = ::glutCreateWindow( "SpaceTank" );
     
     std::cout<<"\n"<<std::flush;
-    std::cout<<"YourApp - by YourName - you@your.address.com\n"<<std::flush;
-    std::cout<<"       usage:  some params\n"<<std::flush;
-    std::cout<<"               some more params\n"<<std::flush;
+    std::cout<<"SpaceTank - by isugamedev - gamedev@iastate.edu\n"<<std::flush;
+    std::cout<<"       usage:  \n"<<std::flush;
+    std::cout<<"               \n"<<std::flush;
     std::cout<<"\n"<<std::flush;
     
    // display callbacks.
