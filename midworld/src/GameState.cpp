@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-19 15:27:51 $
- * Version:       $Revision: 1.62 $
+ * Date modified: $Date: 2002-10-19 15:30:06 $
+ * Version:       $Revision: 1.63 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -121,54 +121,37 @@ namespace mw
       //Set Up
       std::cerr << "Creating actions" << std::endl;
       mActionUp = manager->createAction();
-      //Try out the new parser.
       parser->bindAction("MOVE UP", mActionUp);
-      //binder->bindAction(mActionUp, KEY_W);
-      //binder->bindAction(mActionUp, KEY_UP);
       //Set Down
       mActionDown = manager->createAction();
       parser->bindAction("MOVE DOWN", mActionDown);
-      //binder->bindAction(mActionDown, KEY_S);
-      //binder->bindAction(mActionDown, KEY_DOWN);
       //Set Right
       mActionRight = manager->createAction();
       parser->bindAction("MOVE RIGHT", mActionRight);
-      //binder->bindAction(mActionRight, KEY_D);
-      //binder->bindAction(mActionRight, KEY_RIGHT);
       //Set Left
       mActionLeft = manager->createAction();
       parser->bindAction("MOVE LEFT", mActionLeft);
-      //binder->bindAction(mActionLeft, KEY_A);
-      //binder->bindAction(mActionLeft, KEY_LEFT);
       //Set Quit
       mActionQuit = manager->createAction();
       parser->bindAction("QUIT", mActionQuit);
-      //binder->bindAction(mActionQuit, KEY_Q);
-      //binder->bindAction(mActionQuit, KEY_ESCAPE);
       //Set Zoom In
       mActionZoomIn = manager->createAction();
       parser->bindAction("ZOOM IN", mActionZoomIn);
-      //binder->bindAction(mActionZoomIn, KEY_KP9);
       //Set Zoom Out
       mActionZoomOut = manager->createAction();
       parser->bindAction("ZOOM OUT", mActionZoomOut);
-      //binder->bindAction(mActionZoomOut, KEY_KP3);
       //Set Pitch Up
       mActionPitchUp = manager->createAction();
       parser->bindAction("PITCH UP", mActionPitchUp);
-      //binder->bindAction(mActionPitchUp, KEY_KP2);
       //Set Pitch Down
       mActionPitchDown = manager->createAction();
       parser->bindAction("PITCH DOWN", mActionPitchDown);
-      //binder->bindAction(mActionPitchDown, KEY_KP8);
       //Set Yaw Left
       mActionYawLeft = manager->createAction();
       parser->bindAction("YAW LEFT", mActionYawLeft);
-      //binder->bindAction(mActionYawLeft, KEY_KP4);
       //Set Yaw Right
       mActionYawRight = manager->createAction();
       parser->bindAction("YAW RIGHT", mActionYawRight);
-      //binder->bindAction(mActionYawRight, KEY_KP6);
       std::cerr << "Finished creating actions." << std::endl;
       // XXX hack for testing aisystem
       appTest = new testing;
