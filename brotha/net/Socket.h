@@ -6,6 +6,7 @@
 
 #include <prio.h>
 #include <prnetdb.h>
+#include <prerror.h>
 #include <string.h>
 #include "SocketOutputStream.h"
 #include "SocketInputStream.h"
@@ -24,10 +25,7 @@ namespace net {
       }
 
       ~Socket() {
-         PRStatus status = PR_Close(mSocket);
-         if( status != PR_SUCCESS) {
-            throw SocketException("Close failed");
-         }
+         close();
 
          delete mOutputStream;
          delete mInputStream;
@@ -74,11 +72,28 @@ namespace net {
       }
 
       int read(void* buffer, int size) {
-         return PR_Recv(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
+         int read = PR_Recv(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
+         // if the peer closed the connection or we were interrupted
+         if((read == 0) || (read < 0 && PR_GetError() == PR_PENDING_INTERRUPT_ERROR)) {
+            close();
+         }
+         return read;
       }
 
       int write(void* buffer, int size) {
-         return PR_Send(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
+         int sent = PR_Send(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
+         // if we were interrupted
+         if(sent < 0 && PR_GetError() == PR_PENDING_INTERRUPT_ERROR) {
+            close();
+         }
+         return sent;
+      }
+
+      void close() {
+         PRStatus status = PR_Close(mSocket);
+         if( status != PR_SUCCESS) {
+            throw SocketException("Close failed");
+         }
       }
    private:
       PRFileDesc* mSocket;

@@ -6,9 +6,16 @@
 namespace net {
 
    void SocketInputStream::read(void* buffer, int size) {
+      int totalRead = 0;
       int read = 0;
-      while(size != read) {
-         read += m_socket->read((char*)buffer+read, size);
+      while(size != totalRead) {
+         read = m_socket->read((char*)buffer+totalRead, size);
+         // if we read some bytes
+         if(read > 0) {
+            totalRead += read;
+         } else { // if we didn't read any (0) or got an error (-1)
+            return;
+         }
       }
    }
 

@@ -12,6 +12,9 @@ namespace net {
    }
 
    Connection::~Connection() {
+      m_readThread->stop();
+      m_writeThread->stop();
+
       delete m_readQueue;
       delete m_writeQueue;
 

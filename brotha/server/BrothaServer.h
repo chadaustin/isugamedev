@@ -36,9 +36,11 @@ namespace server {
       void StopServer() {
          if(m_gameThread != 0) {
             m_gameThread->stop();
+            delete m_gameThread;
          }
          if(m_listenServer != 0) {
             m_listenServer->stop();
+            delete m_listenServer;
          }
 
          delete m_netMgr;

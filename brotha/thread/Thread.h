@@ -75,7 +75,7 @@ namespace thread {
    private:
       static void PR_CALLBACK routine(void* arg) {
          // destroy the thread object when it's done running
-         std::auto_ptr<Thread> thread((Thread*)arg);
+         Thread* thread = (Thread*)arg;
 
          thread->mMutex.lock();
          thread->run();

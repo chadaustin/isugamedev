@@ -24,12 +24,18 @@ namespace net {
       /// The message list type
       typedef std::vector< std::pair< net::Message*, ConnID> > MsgList;
 
+      /// The connection to ID map
+      typedef std::map<ConnID, Connection*> ConnMap;
+      typedef ConnMap::iterator             ConnMapIter;
+
    public:
       NetMgr() {
       }
 
       ~NetMgr() {
-         /// @todo terminate each connection that has been opened
+         for(ConnMapIter cIter=m_connections.begin();cIter!=m_connections.end();cIter++) {
+            delete cIter->second;
+         }
       }
 
       /**
@@ -67,8 +73,7 @@ namespace net {
        */
       void readAll( MsgList& msgs ) {
          // for each connection
-         typedef std::map<ConnID, Connection*>::iterator ConnIter;
-         for(ConnIter cIter=m_connections.begin();cIter!=m_connections.end();cIter++) {
+         for(ConnMapIter cIter=m_connections.begin();cIter!=m_connections.end();cIter++) {
             // read all the messages
             std::vector<Message*> messages;
             ((Connection*)cIter->second)->read(messages);
@@ -80,7 +85,7 @@ namespace net {
          }
       }
    private:
-      std::map<ConnID, Connection*> m_connections; // maps IDs to Connections
+      ConnMap m_connections; // maps IDs to Connections
    };
 }
 
