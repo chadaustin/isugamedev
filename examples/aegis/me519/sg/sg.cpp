@@ -4,6 +4,7 @@
 #include <vector>
 #include <GL/glut.h>
 #include "glui.h"
+using namespace std;
 
 
 struct Vector3f {
