@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-04-27 21:03:41 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-27 21:11:20 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -125,8 +125,12 @@ namespace phui {
    void ListBox::onMouseDown(InputButton button, const Point& p) {
       if (button == BUTTON_LEFT) {
          FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
-         mSelectedItem = (p.y-(p.y%renderer->getHeight()))/renderer->getHeight();
-         std::cout<<"Selected index "<<mSelectedItem<<"/"<<mItems.size()<<std::endl;
+         unsigned int selectedIdx = (p.y-(p.y%renderer->getHeight()))/renderer->getHeight();
+         // Check that the computed index isn't outside our list of values
+         if (selectedIdx <= mItems.size()) {
+            mSelectedItem = selectedIdx;
+            std::cout<<"Selected index "<<mSelectedItem<<"/"<<mItems.size()<<std::endl;
+         }
       }
    }
 
