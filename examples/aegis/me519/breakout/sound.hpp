@@ -14,17 +14,13 @@
 
 
 struct SoundEngine {
-  SoundEngine();
-  ~SoundEngine();
-
   void playSound(const char* filename);
 
 private:
-  typedef std::map<std::string, audiere::Stream*> StreamMap;
+  typedef std::map<std::string, audiere::SoundEffectPtr> StreamMap;
 
-  audiere::Context* m_context;
+  audiere::AudioDevicePtr m_device;
   StreamMap m_streams;
-  int m_next_sound;
 };
 
 
