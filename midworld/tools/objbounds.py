@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: objbounds.py,v $
-# Date modified: $Date: 2003-03-11 05:21:59 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2003-06-12 20:42:26 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 ############################################################## midworld-cpr end
 import os, re, sys
@@ -69,11 +69,11 @@ def calcBounds(file):
    # Write out the corresponding XML
    xml = """   <model>
       <size xlo="%.1f" xhi="%.1f" ylo="%.1f" yhi="%.1f"/>
-      <color r="1.0" g="0.0", b="0.0"/>
+      <color r="1.0" g="0.0" b="0.0"/>
       <type name="%s"/>
    </model>
 """
-   sys.stdout.write(xml % (xmin, xmax, ymin, ymax,
+   sys.stdout.write(xml % (xmin, xmax, zmin, zmax,
                            os.path.splitext(os.path.basename(file))[0]))
 
 # Run through each file and calculate its bounds
