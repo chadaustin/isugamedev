@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.cpp,v $
- * Date modified: $Date: 2002-10-10 06:40:42 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-28 04:32:45 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -85,7 +85,7 @@ namespace mw
       mTransform *= gmtl::makeRot<gmtl::Matrix44f>(gmtl::AxisAnglef(-mYaw, gmtl::Vec3f(0,1,0)));
       mTransform *= gmtl::makeRot<gmtl::Matrix44f>(gmtl::AxisAnglef(-mPitch, gmtl::Vec3f(1,0,0)));
       mTransform *= gmtl::makeTrans<gmtl::Matrix44f>(gmtl::Vec3f(0,0,mFollowDistance));
-      
+
 //      gmtl::makeTrans<gmtl::Matrix44f>(target_mat, new_pos);
 //      target_mat *= gmtl::makeRot<gmtl::Matrix44f>(
 
@@ -117,6 +117,12 @@ namespace mw
       mFollowDistanceVel = vel;
    }
 
+   float
+   Camera::getYaw() const
+   {
+      return mYaw;
+   }
+
    void
    Camera::setYaw(float angle)
    {
@@ -127,6 +133,12 @@ namespace mw
    Camera::setYawVel(float vel)
    {
       mYawVel = vel;
+   }
+
+   float
+   Camera::getPitch() const
+   {
+      return mPitch;
    }
 
    void
