@@ -117,6 +117,18 @@
 				RelativePath="..\..\src\AbstractEntity.h">
 			</File>
 			<File
+				RelativePath="..\..\src\AmmoBag.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\AmmoBag.h">
+			</File>
+			<File
+				RelativePath="..\..\src\AmmoCrate.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\AmmoCrate.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Application.cpp">
 			</File>
 			<File
