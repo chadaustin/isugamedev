@@ -36,7 +36,7 @@
 #include "Bullet.h"
 #include "World.h"
 #include "ObjImporter.h"
-
+#include "HUD.h"
 
 // Provide functionality to automatically use different lights.
 // Leave the first light (0) alone.
@@ -53,6 +53,10 @@ class App
 public:
    App() : width( 0 ), height( 0 ), mainWin_contextID( -1 )
    {
+      
+   }
+   void init()
+   {
       Vec3<float> initial_tank_pos( 0, 0, -30 );
       tank.setPos( initial_tank_pos );
       
@@ -65,10 +69,6 @@ public:
       light.setColor( Light::diffuse, 1.0f, 1.0f, 1.0f );
       light.on();
       
-      stopWatch.pulse();
-   }
-   void init()
-   {
       kev::ObjImporter importer;
       std::vector< GeoSet* > gset;
       
@@ -83,6 +83,11 @@ public:
 
       //Put the tank in the world
       world.add( entity );
+      
+      hud.init();
+      
+      // call this last to minimize integrator instability
+      stopWatch.pulse();
    }
       
    float width, height;
@@ -93,12 +98,9 @@ public:
    Light light;
    StopWatch stopWatch;
    World world;
+   HUD hud;
 };
-App app;
-
-
-
-
+App& app( *(new App) );
 
 void drawGrid()
 {
@@ -157,16 +159,18 @@ static void OnRedisplay()
   
       app.tank.draw();
       app.world.draw();
-
+      
       // draw all of the bullets
       std::vector<Bullet *>::const_iterator citr;
-      for (citr = app.bullets.begin(); citr != app.bullets.end(); citr++) {
+      for (citr = app.bullets.begin(); citr != app.bullets.end(); citr++) 
+      {
          (*citr)->draw();
       }
       // remove bullets outside our world
       std::vector<Bullet *>::iterator itr;
       itr = app.bullets.begin();
-      while (itr != app.bullets.end()) {
+      while (itr != app.bullets.end()) 
+      {
          const Vec3<float> pos = (*itr)->position();
          if (fabs(pos[0]) > 1000.0f || fabs(pos[1]) > 1000.0f ||
              fabs(pos[2]) > 1000.0f)
@@ -180,6 +184,9 @@ static void OnRedisplay()
       
       drawGrid();
    
+      // draw last so we get alpha effects correctly./..
+      app.hud.draw();
+      
    // swaps the front and back frame buffers.
    // hint: you've been drawing on the back, offscreen, buffer.  
    // This command then brings that framebuffer onscreen.
@@ -192,7 +199,16 @@ static void OnRedisplay()
 static void OnIdle()
 {
    app.stopWatch.pulse();
+   
+   // keep it stable (we're using a shitty integrator)
+   float min_fps = 1.0f;
+   if (app.stopWatch.timeInstant() > 1.0f/min_fps)
+   {
+      std::cout<<"WARNING: time < "<<min_fps<<" fps, dropping update loop to keep integrators stable...\n"<<std::flush;
+      return;
+   }   
 
+   // update the world
    app.world.update( app.stopWatch.timeInstant() );
 
    // the next 3 commands are dependent upon each other...
@@ -200,6 +216,8 @@ static void OnIdle()
    app.camera.setTargetPos( app.tank.matrix() );
    app.camera.update( app.stopWatch.timeInstant() );
    
+   // update the hud
+   app.hud.setPlayerPos( app.tank.position()[0], app.tank.position()[1], app.tank.position()[2] );
    
    //Update the bullets
    std::vector<Bullet *>::iterator itr;
@@ -251,6 +269,7 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
    // this is really ungraceful, but necessary since GLUT does a while(1)
    // as it's control loop.  There is no GLUT method to exit, unfortunately.
    case 27:
+      delete &app;
       exit( 0 );
       break;
 
