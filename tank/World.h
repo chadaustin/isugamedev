@@ -2,7 +2,9 @@
 #define WORLD_H_INCLUDED
 
 #include <vector>
+#include <map>
 #include "Entity.h"
+#include "Light.h"
 
 //: Container class for entities. Eventually the world will control all aspects
 //  of the rendered environment including lights, particle engines, etc.
@@ -32,8 +34,16 @@ public:
    //  world, this method will fail silently.
    void remove( Entity *entity );
 
+   //: Sets the lighting properties for the light with ID matching the given
+   //  light. This can also be used to disable lights.
+   void setLight( const Light &light );
+
+   //: Gets the light with the given light ID.
+   Light& getLight( int lightID );
+
 private:
    std::vector< safe_ptr<Entity> > mEntities;
+   std::map< int, Light > mLights;
 };
 
 #endif // ! WORLD_H_INCLUDED
