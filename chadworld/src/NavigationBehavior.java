@@ -13,8 +13,8 @@ public class NavigationBehavior extends Behavior {
   private NavigationListener m_listener;
   private WakeupOnAWTEvent m_key_criterion;
 
-  boolean[] m_pressed     = new boolean[512];
-  boolean[] m_old_pressed = new boolean[512];
+  //boolean[] m_pressed     = new boolean[512];
+  //boolean[] m_old_pressed = new boolean[512];
 
   public NavigationBehavior(NavigationListener nl) {
     m_listener = nl;
@@ -30,14 +30,16 @@ public class NavigationBehavior extends Behavior {
     try {
 
       // store the current keypress states
-      for (int i = 0; i < 512; ++i) {
-        m_old_pressed[i] = m_pressed[i];
-      }
+      //for (int i = 0; i < 512; ++i) {
+      //  m_old_pressed[i] = m_pressed[i];
+      //}
 
       // update the keypress states
       AWTEvent[] events = m_key_criterion.getAWTEvent();
       for (int i = 0; i < events.length; ++i) {
         KeyEvent e = (KeyEvent)events[i];
+        m_listener.onKeyEvent(e);
+        /*
         int kc = e.getKeyCode();
         if (kc >= 0 && kc < 512) {
           if (e.getID() == KeyEvent.KEY_PRESSED) {
@@ -46,8 +48,9 @@ public class NavigationBehavior extends Behavior {
             m_pressed[kc] = false;
           }
         }
+        */
       }
-
+      /*
       // notify listener of key changes
       for (int i = 0; i < 512; ++i) {
         if (m_old_pressed[i] != m_pressed[i]) {
@@ -58,7 +61,7 @@ public class NavigationBehavior extends Behavior {
           }
         }
       }
-
+      */
     }
     catch (Exception e) {
       // do nothing!

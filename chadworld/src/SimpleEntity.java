@@ -18,4 +18,7 @@ public class SimpleEntity implements Entity {
   public Node getSceneGraphNode() {
     return m_node;
   }
+
+  public void update(int timeElapsed) {
+  }
 }

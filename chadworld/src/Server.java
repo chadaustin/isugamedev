@@ -1,5 +1,7 @@
 package chadworld;
 
+import java.awt.event.*;
+import java.util.*;
 import java.rmi.*;
 import java.rmi.server.*;
 
@@ -15,13 +17,11 @@ public class Server
 {
   private static final String NAME = "//localhost/ChadWorld/Server";
 
-  private World m_world = new World();
-  private List m_clients = new ArrayList();
+  private IDGenerator m_generator = new IDGenerator(100);
+  private World m_world = new World(m_generator);
+  private Map m_clients = new HashMap();  // clients -> entity ids
 
-  ConnectionList m_connection_list = new ConnectionList();
-  WorldThread m_world_thread;
-
-  private Server() {
+  private Server() throws RemoteException {
 
     // create a thread that calls update() periodically
     new Thread(new Runnable() {
@@ -29,8 +29,13 @@ public class Server
         long lastUpdate = System.currentTimeMillis();
         while (true) {
           long now = System.currentTimeMillis();
-          update(now - lastUpdate);
-          Thread.sleep(100);
+          update((int)(now - lastUpdate));
+          try {
+            Thread.sleep(100);
+          }
+          catch (Exception e) {
+            // ignore thread interrupted exceptions
+          }
           lastUpdate = now;
         }
       }
@@ -44,9 +49,10 @@ public class Server
     String password)
   {
     if (isAuthorized(username, password)) {
-      m_world.add(
-      m_clients.add(This);
-      return m_clients.size() - 1;
+      int id = m_generator.getNext();
+      m_world.add(new PlayerEntity(m_generator.getNext()));
+      m_clients.put(This, new Integer(id));
+      return id;
     } else {
       return -1;
     }
@@ -56,16 +62,27 @@ public class Server
     return true;
   }
 
-  public synchronized void unregister(int id) {
-    m_clients.remove(id);
+  public synchronized void unregister(RemoteClient This) {
+    Integer id = (Integer)m_clients.get(This);
+    if (id != null) {
+      m_world.remove(id.intValue());
+    }
+    m_clients.remove(This);
   }
 
-  public synchronized void processKey(int id, KeyEvent key) {
-    RemoteClient rc = (RemoteClient)m_clients.get(id);
-    
-    switch (key) {
-      case KeyEvent.VK_UP:
-        
+  public synchronized void processKey(RemoteClient This, KeyEvent key) {
+    Integer id = (Integer)m_clients.get(This);
+    if (id != null) {
+      PlayerEntity pe = (PlayerEntity)m_world.get(id.intValue());
+      pe.processKey(key);
+    }
+  }
+
+  public void setText(RemoteClient This, String text) {
+    Integer id = (Integer)m_clients.get(This);
+    if (id != null) {
+      PlayerEntity pe = (PlayerEntity)m_world.get(id.intValue());
+      pe.setText(text);
     }
   }
 
@@ -73,16 +90,15 @@ public class Server
     // update the objects in the world
     m_world.update(timeElapsed);
 
-    // for each client, send the new entities
-    for (int i = 0; i < m_clients.size(); ++i) {
-      RemoteClient rc = (RemoteClient)m_clients.get(i);
+    Iterator clients = m_clients.keySet().iterator();
+    while (clients.hasNext()) {
+      RemoteClient rc = (RemoteClient)clients.next();
       try {
         rc.updateEntities(m_world.getEntities());
       }
-      catch (RemoteException re) {
-        // if we couldn't operate on the client, remove it from the list
-        m_clients.remove(i);
-        --i;
+      catch (RemoteException e) {
+        // network error?  remove the offending connection!
+        clients.remove();
       }
     }
   }
@@ -103,11 +119,11 @@ public class Server
     // make sure the user passed in the correct arguments
     if (args.length != 1) {
       System.out.println(
-        "Usage:" +
-        "    java chadworld.Server <command>" +
-        "where <command> is one of:" +
-        "    run  - creates server object and waits for connections" +
-        "    stop - halts server");
+        "Usage:\n" +
+        "    java chadworld.Server <command>\n" +
+        "where <command> is one of:\n" +
+        "    run  - creates server object and waits for connections\n" +
+        "    stop - halts server\n");
       return;
     }
 
@@ -139,13 +155,13 @@ public class Server
 
   private static void stopServer() {
     try {
-      remoteserver rs = (remoteserver)naming.lookup(name);
-      rs.shutdown();
-      system.out.println("server stopped successfully");
+      RemoteServer rs = (RemoteServer)Naming.lookup(NAME);
+      rs.stop();
+      System.out.println("server stopped successfully");
     }
-    catch (exception e) {
-      system.err.println("error stopping server\n---" + e);
-      e.printstacktrace();
+    catch (Exception e) {
+      System.err.println("error stopping server\n---" + e);
+      e.printStackTrace();
     }
   }
 }

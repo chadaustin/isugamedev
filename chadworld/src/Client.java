@@ -1,98 +1,80 @@
 package chadworld;
 
-import javax.swing.*;
+import java.rmi.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
 
 public class Client {
 
-  private JFrame m_frame;
-  private JTextField m_server;
-  private JTextField m_port;
-
   public static void main(String[] args) {
-    new Client().run(args);
-  }
+    if (System.getSecurityManager() == null) {
+      System.setSecurityManager(new RMISecurityManager());
+    }
 
-  void run(String[] args) {
-    switch (args.length) {
-      // open Swing dialog and ask user for server and port
-      case 0:
+    try {
+      if (args.length == 1) {
+        connectToServer(args[0]);
+      } else {
         startUI();
-        break;
-
-      // use specified server but default port
-      case 1:
-        start(args[0], Configuration.port);
-        break;
-
-      // use specified server and port
-      case 2:
-        start(args[0], Integer.parseInt(args[1]));
-        break;
-
-      // print usage information
-      default:
-        System.out.println(
-          "Usage: java chadworld.Client <server> <port>" +
-          "  <server> and <port> are optional");
-        break;
-
+      }
+    }
+    catch (Exception e) {
+      System.err.println("Exception: " + e);
+      e.printStackTrace();
     }
   }
 
-  private void startUI() {
-    m_frame = new JFrame("Connect to ChadWorld Server");
-    m_frame.getContentPane().add(createComponents());
+  private static class ConnectionFrame extends JFrame {
+    private JTextField m_server;
 
-    m_frame.addWindowListener(new WindowAdapter() {
-      public void windowClosing(WindowEvent e) {
-        System.exit(0);
-      }
-    });
+    public ConnectionFrame() {
+      super("Connect to ChadWorld Server");
+      getContentPane().add(createComponents());
+      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      pack();
+    }
 
-    m_frame.pack();
-    centerWindow();
-    m_frame.setVisible(true);
+    public void center() {
+      int w = Toolkit.getDefaultToolkit().getScreenSize().width;
+      int h = Toolkit.getDefaultToolkit().getScreenSize().height;
+
+      setLocation(new Point((w - getSize().width) / 2,
+                            (h - getSize().height) / 2));
+    }
+
+    private Component createComponents() {
+      JPanel pane = new JPanel();
+      pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+      pane.setLayout(new FlowLayout());
+
+      m_server = new JTextField("localhost", 30);
+
+      JButton button = new JButton("Connect");
+      button.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          dispose();  // close the current frame
+
+          // start the chadworld client frame
+          connectToServer(m_server.getText());
+        }
+      });
+
+      pane.add(new JLabel("Enter server"));
+      pane.add(m_server);
+      pane.add(button);
+      return pane;
+    }
   }
 
-  private Component createComponents() {
-    JPanel pane = new JPanel();
-    pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-    pane.setLayout(new FlowLayout());
-
-    m_server = new JTextField(30);
-    m_port   = new JTextField("" + Configuration.port, 30);
-
-    JButton button = new JButton("Connect");
-    button.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        // close the window
-        m_frame.dispose();
-
-        // start the chadworld client frame
-        start(m_server.getText(), Integer.parseInt(m_port.getText()));
-      }
-    });
-
-    pane.add(new JLabel("Enter server"));
-    pane.add(m_server);
-    pane.add(m_port);
-    pane.add(button);
-    return pane;
+  private static void startUI() {
+    ConnectionFrame frame = new ConnectionFrame();
+    frame.center();
+    frame.setVisible(true);
   }
 
-  void centerWindow() {
-    int w = Toolkit.getDefaultToolkit().getScreenSize().width;
-    int h = Toolkit.getDefaultToolkit().getScreenSize().height;
-
-    m_frame.setLocation(new Point((w - m_frame.getSize().width) / 2,
-                                  (h - m_frame.getSize().height) / 2));
-                        
-  }
-
-  static void start(String server, int port) {
-    ClientFrame.createFrame(server, port, 640, 480);
+  private static void connectToServer(String server) {
+    ClientFrame.createFrame(server, 640, 480);
   }
 }

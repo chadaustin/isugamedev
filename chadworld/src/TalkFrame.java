@@ -7,13 +7,12 @@ import javax.swing.*;
 
 public class TalkFrame extends JFrame {
 
-  private ServerConnection m_connection;
+  private ClientFrame m_client;
   private JTextField m_text;
 
-  public TalkFrame(ServerConnection connection) {
+  public TalkFrame(ClientFrame client) {
     super("Talk");
-
-    m_connection = connection;
+    m_client = client;
 
     getContentPane().add(createComponents());
     setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -30,18 +29,8 @@ public class TalkFrame extends JFrame {
     JButton talk = new JButton("Talk");
     talk.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-	String text = m_text.getText();
-	
-        // send TalkPacket to server
-	try {
-	  m_connection.writePacket(new TalkPacket(text));
-	  m_text.setText("");
-	}
-	catch (Exception ex) {
-	  System.out.println("Error sending talk packet!");
-	  System.out.println(ex);
-	  System.exit(0);
-	}
+        m_client.talk(m_text.getText());
+        m_text.setText("");
       }
     });
 

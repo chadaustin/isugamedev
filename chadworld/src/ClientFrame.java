@@ -2,6 +2,8 @@ package chadworld;
 
 import java.io.*;
 import java.net.*;
+import java.rmi.*;
+import java.util.*;
 
 import java.awt.*;
 import javax.swing.*;
@@ -17,59 +19,47 @@ import java.awt.AWTEvent;
 import com.sun.j3d.utils.behaviors.keyboard.*;
 
 
-public class ClientFrame extends Applet {
+public class ClientFrame extends Applet implements RemoteClient {
 
-  private ServerConnection m_connection;
   private Vector3f m_orientation = new Vector3f();
   private SimpleUniverse m_universe;
+  private RemoteServer m_server;
   private int m_self;  // entity ID
 
-
-  public static MainFrame createFrame(
-    String server, int port,
-    int width, int height)
-  {
-    ServerConnection connection = connect(server, port);
-    return new MainFrame(new ClientFrame(connection), width, height);
+  public static MainFrame createFrame(String server, int width, int height) {
+    return new MainFrame(new ClientFrame(server), width, height);
   }
 
-  public static ServerConnection connect(String server, int port) {
+  public void talk(String text) {
     try {
-      return new ServerConnection(server, port);
+      m_server.setText(this, text);
     }
     catch (Exception e) {
-      System.out.println("Could not connect to server");
-      System.out.println(e);
-      System.exit(0);
-      return null;
+      System.err.println("setText() exception: " + e);
     }
   }
-  
-  public ClientFrame(ServerConnection connection) {
 
-    m_connection = connection;
-
-    new TalkFrame(m_connection);
+  private ClientFrame(String server) {
 
     try {
-      // send login
-      LoginPacket lp = new LoginPacket("username", "password");
-      connection.writePacket(lp);
-
-      // read response
-      ResponsePacket response = (ResponsePacket)m_connection.readPacket();
-      m_self = response.entity_id;
+      String name = "//" + server + "/ChadWorldServer";
+      m_server = (RemoteServer)Naming.lookup(name);
+      m_self = m_server.register(this, "username", "password");
+      if (m_self == -1) {
+        throw new RuntimeException("Could not log into to ChadWorld server");
+      }
     }
     catch (Exception e) {
-      System.out.println("Could not log in");
-      System.out.println(e);
-      System.exit(0);
+      throw new RuntimeException("Could not connect to ChadWorld server " + e);
     }
+
+    new TalkFrame(this);
 
     // create view
     setLayout(new BorderLayout());
     Canvas3D canvas3D = new Canvas3D(
       SimpleUniverse.getPreferredConfiguration());
+    add(new JLabel("hello"), BorderLayout.NORTH);
     add("Center", canvas3D);
 
     m_universe = new SimpleUniverse(canvas3D);
@@ -77,7 +67,12 @@ public class ClientFrame extends Applet {
     m_universe.addBranchGraph(scene);
   }
 
-  BranchGroup createSceneGraph(SimpleUniverse su) {
+  // this is dumb...  needed for anonymous inner class
+  private ClientFrame getThis() {
+    return this;
+  }
+
+  private BranchGroup createSceneGraph(SimpleUniverse su) {
 
     BoundingSphere bigSphere = new BoundingSphere(new Point3d(), 100000);
 
@@ -85,37 +80,25 @@ public class ClientFrame extends Applet {
 
     // create world synchronization behavior
     Group world = new Group();
+
+    /*
     SynchronizationBehavior sync = new SynchronizationBehavior(
-      m_connection,
       world,
       su.getViewingPlatform().getViewPlatformTransform(),
       m_self);
     sync.setSchedulingBounds(bigSphere);
     root.addChild(sync);
+    */
 
     // create custom navigation behavior and insert it into the scene graph
     NavigationBehavior nav = new NavigationBehavior(
       new NavigationListener() {
-        public void press(int key) {
+        public void onKeyEvent(KeyEvent e) {
           try {
-            m_connection.writePacket(
-              new InputPacket(InputPacket.KEY_DOWN, key));
+            m_server.processKey(getThis(), e);
           }
-          catch (Exception e) {
-            System.out.println("Networking error sending input packet");
-            System.out.println(e);
-            System.exit(0);
-          }
-        }
-
-        public void release(int key) {
-          try {
-            m_connection.writePacket(
-              new InputPacket(InputPacket.KEY_UP, key));
-          }
-          catch (Exception e) {
-            System.out.println("Networking error sending input packet");
-            System.out.println(e);
+          catch (Exception ex) {
+            System.err.println("processKey() exception: " + ex);
             System.exit(0);
           }
         }
@@ -136,6 +119,14 @@ public class ClientFrame extends Applet {
     // optimize the scene graph and finish
     root.compile();
     return root;
+  }
+
+  public void updateEntities(Iterator i) throws RemoteException {
+    while (i.hasNext()) {
+      Entity e = (Entity)i.next();
+      // get the scene graph node and add it to the world
+      // e.getSceneGraphNode()?
+    }
   }
 
 }

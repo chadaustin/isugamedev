@@ -1,7 +1,8 @@
 package chadworld;
 
+import java.awt.event.*;
+
 
 public interface NavigationListener {
-  public void press(int key);
-  public void release(int key);
+  public void onKeyEvent(KeyEvent e);
 }
