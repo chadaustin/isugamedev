@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -44,6 +44,8 @@
 
 #include "gk/DigitalDevice.h"
 #include "gk/AnalogDevice.h"
+
+GK_BEGIN_NAMESPACE
 
 /** Mouse device driver for the GameInput system.
  *
@@ -141,5 +143,7 @@ private:
       assert( DigitalDevice::mMap.count( "MOUSEAXIS_Y" ) == 0 );
    }
 };
+
+GK_END_NAMESPACE
 
 #endif

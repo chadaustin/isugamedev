@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Keyboard.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,6 +38,8 @@
 #include <string>
 #include <map>
 #include "gk/DigitalDevice.h"
+
+GK_BEGIN_NAMESPACE
 
 /** Keyboard device driver for the GameInput system.
  *
@@ -254,5 +256,6 @@ private:
    }
 };
 
+GK_END_NAMESPACE
 
 #endif

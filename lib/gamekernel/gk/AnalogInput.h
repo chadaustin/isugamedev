@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInput.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,6 +34,8 @@
 
 #include "gk/gkCommon.h"
 #include "gk/Input.h"
+
+GK_BEGIN_NAMESPACE
 
 class AnalogInput : virtual public Input
 {
@@ -112,5 +114,7 @@ inline void AnalogInput::update()
    // save the new current position
    mCurrent = mFuture;
 }
+
+GK_END_NAMESPACE
 
 #endif

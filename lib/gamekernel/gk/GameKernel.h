@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -42,12 +42,14 @@
 #include "gk/GameInput.h"
 #include "gk/SystemDriver.h"
 
+GK_BEGIN_NAMESPACE
+
 /**
  * Facade for all system driver interactions. The application should deal
  * directly with this singleton to avoid talking directly to a SystemDriver
  * implementation.
  */
-class GameKernel : public kev::Singleton<GameKernel>
+class GameKernel : public Singleton<GameKernel>
 {
 public:
    GameKernel();
@@ -124,5 +126,7 @@ public:
 
    applicationType mApplication;
 };
+
+GK_END_NAMESPACE
 
 #endif

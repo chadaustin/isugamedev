@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Input.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,6 +33,8 @@
 #define INPUT_H
 
 #include "gk/gkCommon.h"
+
+GK_BEGIN_NAMESPACE
 
 class Input
 {
@@ -44,5 +46,7 @@ public:
 
    virtual void update() {}
 };
+
+GK_END_NAMESPACE
 
 #endif

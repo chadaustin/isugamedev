@@ -24,17 +24,19 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef DIGITALINTERFACE_H
 #define DIGITALINTERFACE_H
 
-#include "akiCommon.h"
+#include "gk/gkCommon.h"
 #include "InputInterface.h"
 #include "DigitalInput.h"
+
+GK_BEGIN_NAMESPACE
 
 /** 
  * DigitalInterface: Your Interface to all digital inputs.
@@ -89,5 +91,7 @@ public:
       return dig->edgeState();
    }
 };
+
+GK_END_NAMESPACE
 
 #endif

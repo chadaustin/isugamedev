@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,6 +36,8 @@
 #include "gk/SystemDriver.h"
 #include "gk/Keyboard.h"
 #include "gk/ContextData.h"
+
+GK_BEGIN_NAMESPACE
 
 /**
  * GLUT implementation of the system driver interface.
@@ -191,5 +193,7 @@ private:
    };
    ContextData<DefaultFalseBool> oneTimeOnly;
 };
+
+GK_END_NAMESPACE
 
 #endif // ! GLUTDRIVER_H

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -35,6 +35,8 @@
 #include "gk/gkCommon.h"
 #include "gk/Device.h"
 #include "gk/AnalogInput.h"
+
+GK_BEGIN_NAMESPACE
 
 /* an analog device
  * a mouse, or joystick (for example) may be an analog device
@@ -55,5 +57,7 @@ public:
       return dynamic_cast<AnalogInput*>( in );
    }
 };
+
+GK_END_NAMESPACE
 
 #endif

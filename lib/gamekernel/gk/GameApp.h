@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameApp.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,6 +37,8 @@
 #include <vector>
 #include "gk/Mouse.h"
 #include "gk/Keyboard.h"
+
+GK_BEGIN_NAMESPACE
 
 /* Base game application class.  for use with the "GameKernel"
  * don't modify this class... instead derive a class "MyApp" from this,
@@ -75,5 +77,6 @@ public:
    virtual void OnContextExit() {};
 };
 
+GK_END_NAMESPACE
 
 #endif

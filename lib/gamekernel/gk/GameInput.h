@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -43,6 +43,8 @@
 #include "gk/DigitalInput.h"
 #include "gk/AnalogInput.h"
 #include "gk/EventInput.h"
+
+GK_BEGIN_NAMESPACE
 
 /** 
  * Input manager for game input. 
@@ -72,7 +74,7 @@
  * @author Kevin Meinert <kevin@vrsource.org>
  * @author other happy people...
  */
-class GameInput : public kev::Singleton<GameInput>
+class GameInput : public Singleton<GameInput>
 {
 public:
    GameInput()
@@ -163,5 +165,7 @@ private:
    Keyboard*         mKeyboard;
    char              mKeyboardModifier;
 };
+
+GK_END_NAMESPACE
 
 #endif

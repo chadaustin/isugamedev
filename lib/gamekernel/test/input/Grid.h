@@ -1,10 +1,4 @@
 
-//////////////////////////////////////////////////////////////////
-//
-//                         -=     Singleton     =-
-//
-// Definition: "restrict access to a class to one instance only."
-//
 /////////////////// <GK heading BEGIN do not edit this line> /////////////////
 //
 // gamekernel - a platform for running games
@@ -29,58 +23,55 @@
 // Boston, MA 02111-1307, USA.
 //
 // -----------------------------------------------------------------
-// File:          $RCSfile: Singleton.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.6 $
+// File:          $RCSfile: Grid.h,v $
+// Date modified: $Date: 2002-02-06 22:47:06 $
+// Version:       $Revision: 1.1 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef SINGLETON_H
-#define SINGLETON_H
+#ifndef GRID_H
+#define GRID_H
 
-#include "gk/gkCommon.h"
-
-GK_BEGIN_NAMESPACE
-
-// you can use this coolio class to make a singleton,
-// just inherit like so...
-//
-// class myClass : public kev::Singleton<myClass>
-//
-template< class singleClass >
-class Singleton
+class Grid
 {
 public:
-   // access your class with myClass::instance().
-   inline static singleClass& instance( void )
+   Grid()
    {
-
-      static singleClass* the_instance1 = NULL;
-
-      if (the_instance1 == NULL)
-      {
-         if (the_instance1 == NULL)
-         { the_instance1 = new singleClass; }
-      }
-      return *the_instance1;
-
-      //static singleClass the_instance1;
-      //return the_instance1;
+      size = 10;
+      this->setPos( 0.0f, 0.0f, 0.0f );
+      this->setColor( 0.3f, 0.2f, 0.6f );
    }
-
-protected:
-   // dont create a singleton with new!
-   // use instance()
-   Singleton()
+   void draw()
    {
+      glColor3f( color[0], color[1], color[2] );
+      glPushMatrix();
+      glTranslatef( position[0], position[1], position[2] );
+      glBegin( GL_LINES );
+         for ( float x = -size; x < size; ++x)
+         {
+            glVertex3f( -size, 0, x );
+            glVertex3f(  size, 0, x );
+            glVertex3f( x, 0, -size );
+            glVertex3f( x, 0,  size );
+         }
+      glEnd();
+      glPopMatrix();
    }
-
-   // don't delete a singleton!
-   virtual ~Singleton()
+   float size;
+   void setPos( float x, float y, float z )
    {
+      position[0] = x;
+      position[1] = y;
+      position[2] = z;
    }
+   void setColor( float r, float g, float b )
+   {
+      color[0] = r;
+      color[1] = g;
+      color[2] = b;
+   }
+   float position[3];
+   float color[3];
 };
-
-GK_END_NAMESPACE
 
 #endif

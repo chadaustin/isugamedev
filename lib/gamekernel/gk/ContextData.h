@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: ContextData.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-02-06 22:47:05 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -40,6 +40,8 @@
 
 #include "gk/gkCommon.h"
 #include <vector>
+
+GK_BEGIN_NAMESPACE
 
 //-----------------------------------------------------------------------
 //: map: int --> <Type>
@@ -99,5 +101,7 @@ inline ContextDataType& ContextData<ContextDataType>::operator() ( const int& co
 {
     return this->getItem( contextId );
 }
+
+GK_END_NAMESPACE
 
 #endif
