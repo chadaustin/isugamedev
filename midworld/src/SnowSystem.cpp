@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SnowSystem.cpp,v $
- * Date modified: $Date: 2002-11-12 09:09:58 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-14 09:31:47 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,7 +44,7 @@ namespace mw
       {
          p->x = gmtl::Math::rangeRandom(-100, 100);
          p->y = gmtl::Math::unitRandom() * BASE_HEIGHT;
-         p->z = gmtl::Math::rangeRandom(-100, 100);
+         p->z = gmtl::Math::rangeRandom(-100, 300);
          p->velocity = gmtl::Math::unitRandom() * 2 + 2;
          ++p;
       }
