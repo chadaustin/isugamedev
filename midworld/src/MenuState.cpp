@@ -32,14 +32,15 @@ namespace mw
    void
    MenuState::update(u64 elapsedTime)
    {
-      
    }
 
    void
    MenuState::draw()
    {
       glEnable(GL_TEXTURE_2D);
-      glDisable( GL_DEPTH_TEST );
+      glDisable(GL_DEPTH_TEST);
+      glEnable(GL_BLEND);
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
       glClear(GL_COLOR_BUFFER_BIT);
 
