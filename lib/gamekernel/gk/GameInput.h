@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-09 17:32:35 $
-// Version:       $Revision: 1.24 $
+// Date modified: $Date: 2002-02-09 17:36:47 $
+// Version:       $Revision: 1.25 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -168,7 +168,7 @@ public:
       if ( itr != mDevices.end() )
       {
          mDevices.erase( itr );
-         std::cout<<"Removed device: "<<name<<std::endl;
+         std::cout << "Removed device: " << name << std::endl;
       }
    }
 
@@ -179,7 +179,7 @@ public:
    {
       Input* in_put = GameInput::instance().getInput( device, input );
       mBindTable[alias].bind( in_put );
-      std::cout<<"Bound \""<<device<<"\":\""<<input<<"\" to \""<<alias<<"\""<<std::endl;
+      std::cout << "Bound [" << device << ":" << input << "] to [" << alias << "]" << std::endl;
    }
 
 public:
