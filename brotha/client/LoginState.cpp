@@ -82,9 +82,12 @@ namespace client {
 
       mScene.getCamera().setFollowDist(5);
       mScene.getCamera().setPitch(deg2rad(15.0f));
+
+      std::cout<<"Entered Login state"<<std::endl;
    }
 
    LoginState::~LoginState() {
+      std::cout<<"Left Login state"<<std::endl;
    }
 
    void
@@ -115,7 +118,14 @@ namespace client {
       if(mSubState == Send_Login) {
          // connect to server
          int port = atoi(mPort->getText().c_str());
-         app->connectToServer(mServer->getText(), port);
+
+         try {
+            app->connectToServer(mServer->getText(), port);
+         } catch (net::SocketException& e) {
+            std::cout<<"Connection to "<<mServer->getText()<<":"<<port<<" failed!"<<std::endl;
+            mSubState = User_Input;
+            return;
+         }
 
          // send login packet
          app->sendMessage(new net::LoginMessage(mUsername->getText(), mPassword->getText()));
