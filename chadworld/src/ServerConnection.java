@@ -8,15 +8,15 @@ class ServerConnection {
   private Socket m_socket;
   private OutputStream m_output_stream;
   private InputStream m_input_stream;
-  private ObjectOutputStream m_object_output_stream;
-  private ObjectInputStream m_object_input_stream;
+  private PacketOutputStream m_packet_output_stream;
+  private PacketInputStream m_packet_input_stream;
 
   ServerConnection(String server, int port) throws IOException {
     m_socket = new Socket(server, port);
     m_output_stream = m_socket.getOutputStream();
     m_input_stream = m_socket.getInputStream();
-    m_object_output_stream = new ObjectOutputStream(m_output_stream);
-    m_object_input_stream = new ObjectInputStream(m_input_stream);
+    m_packet_output_stream = new PacketOutputStream(m_output_stream);
+    m_packet_input_stream = new PacketInputStream(m_input_stream);
   }
 
   boolean hasPacket() throws IOException {
@@ -25,7 +25,7 @@ class ServerConnection {
 
   Packet readPacket() throws IOException {
     try {
-      return (Packet)m_object_input_stream.readObject();
+      return (Packet)m_packet_input_stream.readPacket();
     } catch (ClassNotFoundException e) {
       System.err.println(e);
       return null;
@@ -33,6 +33,6 @@ class ServerConnection {
   }
 
   void writePacket(Packet p) throws IOException {
-    m_object_output_stream.writeObject(p);
+    m_packet_output_stream.writePacket(p);
   }
 }

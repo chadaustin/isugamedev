@@ -1,5 +1,8 @@
 package chadworld;
 
+import java.awt.event.*;
+import javax.vecmath.*;
+
 
 /**
  * The world thread is responsible for handling messages from clients
@@ -37,13 +40,7 @@ public class WorldThread extends Thread {
     long time = System.currentTimeMillis();
     long dt = time - m_last_update;
 
-    /*
-    m_connection_list.updateAll(new EntityUpdater() {
-      public void update(Entity e) {
-        
-      }
-    });
-    */
+    m_entities.updateAll(new WorldEntityUpdater(dt));
 
     m_last_update = time;
 
@@ -53,9 +50,17 @@ public class WorldThread extends Thread {
 
   void processInputEvent(Entity e, InputPacket ip) {
     if (ip.type == InputPacket.KEY_DOWN) {
-      e.position.x += 1;
+      if (ip.key == KeyEvent.VK_UP) {
+        e.velocity.z -= 1;
+      } else if (ip.key == KeyEvent.VK_DOWN) {
+        e.velocity.z += 1;
+      }
     } else {
-      e.position.x -= 1;
+      if (ip.key == KeyEvent.VK_UP) {
+        e.velocity.z += 1;
+      } else if (ip.key == KeyEvent.VK_DOWN) {
+        e.velocity.z -= 1;
+      }
     }
   }
 
@@ -72,7 +77,9 @@ public class WorldThread extends Thread {
 
     public void update(Entity e) {
       // update position of entity
-      
+      Vector3f dp = new Vector3f();
+      dp.scale(m_dt / 100.0f, e.velocity);
+      e.position.add(dp);
     }
   }
 }

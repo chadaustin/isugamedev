@@ -28,7 +28,13 @@ public class EntityDatabase {
 
   synchronized void remove(Entity e) {
     m_database.remove(e);
-    System.out.println("Removing entity from database");
+  }
+
+  synchronized void updateAll(EntityUpdater e) {
+    for (int i = 0; i < m_database.size(); ++i) {
+      Entity en = (Entity)m_database.get(i);
+      e.update(en);
+    }
   }
 
   synchronized void update(int id, Entity e) {
@@ -49,8 +55,11 @@ public class EntityDatabase {
   }
 
   synchronized Packet getUpdatePacket() {
-    // XXXaegis fill this packet
-    return new EntityUpdatePacket();
+    Entity[] entities = new Entity[m_database.size()];
+    for (int i = 0; i < m_database.size(); ++i) {
+      entities[i] = (Entity)m_database.get(i);
+    }
+    return new EntityUpdatePacket(entities);
   }
   
 }

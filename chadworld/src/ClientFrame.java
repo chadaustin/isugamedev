@@ -44,7 +44,7 @@ public class ClientFrame extends Applet {
       return null;
     }
   }
-
+  
   public ClientFrame(ServerConnection connection) {
 
     m_connection = connection;
@@ -53,7 +53,10 @@ public class ClientFrame extends Applet {
 
     try {
       // send login
-      m_connection.writePacket(new LoginPacket("username", "password"));
+      LoginPacket lp = new LoginPacket("username", "password");
+      connection.writePacket(lp);
+
+      // read response
       ResponsePacket response = (ResponsePacket)m_connection.readPacket();
       m_self = response.entity_id;
     }
@@ -83,7 +86,10 @@ public class ClientFrame extends Applet {
     // create world synchronization behavior
     Group world = new Group();
     SynchronizationBehavior sync = new SynchronizationBehavior(
-      m_connection, world);
+      m_connection,
+      world,
+      su.getViewingPlatform().getViewPlatformTransform(),
+      m_self);
     sync.setSchedulingBounds(bigSphere);
     root.addChild(sync);
 
@@ -91,7 +97,6 @@ public class ClientFrame extends Applet {
     NavigationBehavior nav = new NavigationBehavior(
       new NavigationListener() {
         public void press(int key) {
-          System.out.println("pressed " + key);
           try {
             m_connection.writePacket(
               new InputPacket(InputPacket.KEY_DOWN, key));
@@ -104,7 +109,6 @@ public class ClientFrame extends Applet {
         }
 
         public void release(int key) {
-          System.out.println("unpressed " + key);
           try {
             m_connection.writePacket(
               new InputPacket(InputPacket.KEY_UP, key));

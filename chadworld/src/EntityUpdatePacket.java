@@ -6,5 +6,10 @@ package chadworld;
  * dynamic entities within the world.
  */
 public class EntityUpdatePacket extends Packet {
-  Entity[] entities;
+
+  public EntityUpdatePacket(Entity[] ents) {
+    entities = ents;
+  }
+
+  public Entity[] entities;
 }

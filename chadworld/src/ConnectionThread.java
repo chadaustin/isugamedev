@@ -2,11 +2,15 @@ package chadworld;
 
 import java.io.*;
 import java.net.*;
+import javax.vecmath.*;
 
 
 class ConnectionThread extends Thread {
   private Socket m_socket;
   private Server m_server;
+
+  private PacketInputStream  m_is;
+  private PacketOutputStream m_os;
 
   private static int s_connection = 1;
 
@@ -21,43 +25,40 @@ class ConnectionThread extends Thread {
 
   public void run() {
 
-    m_server.m_connection_list.add(this);
-
     int connection = getConnection();
     System.out.println("Client " + connection + " connected...");
 
     Entity ent = null;
 
     try {
-      ObjectOutputStream os =
-        new ObjectOutputStream(m_socket.getOutputStream());
-      ObjectInputStream  is =
-        new ObjectInputStream (m_socket.getInputStream());
+      m_os = new PacketOutputStream(m_socket.getOutputStream());
+      m_is = new PacketInputStream (m_socket.getInputStream());
 
       // get the user's login
-      LoginPacket lp = (LoginPacket)is.readObject();
+      LoginPacket lp = (LoginPacket)m_is.readPacket();
 
       // acknowledge
       ent = m_server.m_entities.getEntity(lp.username);
-      os.writeObject(new ResponsePacket(ent.id));
+      m_os.writePacket(new ResponsePacket(ent.id));
 
       // send the world to the user
-      os.writeObject(new WorldPacket(m_server.m_world));
+      m_os.writePacket(new WorldPacket(m_server.m_world));
+
+      // begin sending world updates to this client
+      m_server.m_connection_list.add(this);
 
       while (true) {
         // read a packet
-        Packet p = (Packet)is.readObject();
+        Packet p = (Packet)m_is.readPacket();
 
         if (p instanceof InputPacket) {
 
           InputPacket ip = (InputPacket)p;
-          System.out.println("Key event!");
 	  m_server.m_world_thread.processInputEvent(ent, ip);
 
         } else if (p instanceof TalkPacket) {
 
 	  TalkPacket tp = (TalkPacket)p;
-	  System.out.println("Got a talk packet!");
 	  m_server.m_world_thread.processTalkEvent(ent, tp);
 
         } else {
@@ -80,5 +81,15 @@ class ConnectionThread extends Thread {
     m_server.m_entities.remove(ent);
 
     System.out.println("Closed connection with client " + connection);
+  }
+
+  public void sendPacket(Packet p) {
+    try {
+      m_os.writePacket(p);
+    }
+    catch (Exception e) {
+      System.out.println("ERROR! " + e);
+      System.exit(0);
+    }
   }
 }
