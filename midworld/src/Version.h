@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Version.h,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-11-01 12:28:47 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,7 +48,7 @@
 // The major/minor/patch version (up to 3 digits each).
 #define MW_VERSION_MAJOR    0
 #define MW_VERSION_MINOR    3
-#define MW_VERSION_PATCH    0 
+#define MW_VERSION_PATCH    1 
 
 //--------------------------------------------------------------------------
 //--------------------------------------------------------------------------
