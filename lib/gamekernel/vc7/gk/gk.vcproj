@@ -142,6 +142,9 @@
 				RelativePath="..\..\gk\GameInput.cpp">
 			</File>
 			<File
+				RelativePath="..\..\gk\GameInputConfigure.cpp">
+			</File>
+			<File
 				RelativePath="..\..\gk\GameKernel.cpp">
 			</File>
 			<File
