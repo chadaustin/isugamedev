@@ -4,6 +4,7 @@
 #include "GameState.h"
 #include "ParticleEngine.h"
 #include "Utility.h"
+#include "GameManager.h"
 
 namespace mw
 {
@@ -13,7 +14,7 @@ namespace mw
       : AbstractEntity(gameState)
       , mParticleCamera(gameState->getCamera())
    {
-      mParticleTexture = new Texture(filename);
+      mParticleTexture = GameManager::instance().getTextureManager()->get(filename);
 
       for(int i = 0; i < numParticles; i++)
       {
@@ -26,9 +27,7 @@ namespace mw
    }
 
    ParticleEngine::~ParticleEngine()
-   {
-      delete mParticleTexture;
-   }
+   {}
 
    bool ParticleEngine::isExpired() const
    {
