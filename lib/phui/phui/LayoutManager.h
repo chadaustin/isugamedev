@@ -9,10 +9,11 @@
 #include "LayoutConstraint.h"
 #include "Size.h"
 #include "Point.h"
-#include "WidgetContainer.h"
 
 namespace phui
 {
+   class WidgetContainer;
+   
    /**
     * Represents a Layout Manager for graphical components.  A Layout Manager
     * will automatically resize and move widgets to meet the constraints of the

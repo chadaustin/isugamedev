@@ -3,6 +3,7 @@
 
 #include "LayoutManager.h"
 #include "Point.h"
+#include "WidgetContainer.h"
 
 namespace phui
 {

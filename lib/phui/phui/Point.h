@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Point.h,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2003-01-04 00:08:32 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -72,12 +72,16 @@ namespace phui {
    inline Point operator+(const Point& lhs, const Point& rhs) {
       return Point(lhs.x + rhs.x, lhs.y + rhs.y);
    }
+   
+   inline bool operator==(const Point& lhs, const Point& rhs)
+   {
+      return (lhs.x == rhs.x && lhs.y == rhs.y);
+   }
 
    inline std::ostream& operator<<(std::ostream& os, const Point& p) {
       os << "(" << p.x << ", " << p.y << ")";
       return os;
    }
-
 
    inline void glVertex(const Point& p) {
       glVertex2i(p.x, p.y);
