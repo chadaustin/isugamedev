@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SnowSystem.cpp,v $
- * Date modified: $Date: 2002-11-11 08:05:54 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-11-12 09:09:58 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -56,7 +56,8 @@ namespace mw
    void
    SnowSystem::draw()
    {
-      glPointSize(1);
+      glEnable(GL_POINT_SMOOTH);
+      glPointSize(4);
       glDepthMask(GL_FALSE);
 
       glColor3f(1.0f, 1.0f, 1.0f);

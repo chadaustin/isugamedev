@@ -15,6 +15,7 @@ Global
 		{363AF707-F551-4033-ACCE-FD92A78900D8}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		DPBuild = 6
 	EndGlobalSection
 	GlobalSection(ExtensibilityAddIns) = postSolution
 	EndGlobalSection
