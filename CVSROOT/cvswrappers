@@ -59,3 +59,6 @@
 *.xls   -k 'b' -m 'COPY'
 *.xcf   -k 'b' -m 'COPY'
 *.zip   -k 'b' -m 'COPY'
+*.dsp   -k 'b' -m 'COPY'
+*.dsw   -k 'b' -m 'COPY'
+
