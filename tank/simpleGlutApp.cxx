@@ -37,7 +37,7 @@ public:
       light.on();
       stopWatch.pulse();
    }
-   int width, height;
+   float width, height;
    int mainWin_contextID;
    Tank tank;
    Camera camera;
@@ -114,22 +114,23 @@ static void OnRedisplay()
 static void OnIdle()
 {
    app.stopWatch.pulse();
+
+   app.camera.setTargetPos( app.tank.matrix() );
+   app.tank.update( app.stopWatch.timeInstant() );
+   app.camera.update( app.stopWatch.timeInstant() );
    
+   Vec3<float> lightOffset( -10.0f, 0.0f, 0.0f );
+   lightOffset = app.camera.position() + lightOffset;
+   app.light.setPos( lightOffset[0], lightOffset[1], lightOffset[2], 1.0f );
+
+   
+      
    // According to the GLUT specification, the current window is
    // undefined during an idle callback.  So we need to explicitly change
    // it if necessary
    if ( glutGetWindow() != app.mainWin_contextID )
            glutSetWindow( app.mainWin_contextID );
 
-   app.camera.setTargetPos( app.tank.matrix() );
-   app.tank.update( app.stopWatch.timeInstant() );
-   app.camera.update( app.stopWatch.timeInstant() );
-   
-   Vec3<float> lightOffset(-10.0f, 0.0f, 0.0f);
-   lightOffset = app.camera.position() + lightOffset;
-   app.light.setPos(lightOffset[0], lightOffset[1], lightOffset[2], 1.0f);
-
-   
    // tell glut to call redisplay (which then calls OnRedisplay)
    glutPostRedisplay();
 }
@@ -140,8 +141,8 @@ static void OnIdle()
 static void OnReshape( int width, int height ) 
 {
    // save these params in case your app needs them
-   app.width = width;
-   app.height = height;
+   app.width = static_cast<float>( width );
+   app.height = static_cast<float>( height );
    
    // set your viewport to the extents of the window
    glViewport( 0, 0, width, height );
