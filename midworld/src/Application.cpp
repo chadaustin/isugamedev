@@ -24,23 +24,25 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-11-08 09:30:23 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <SDL_opengl.h>
 #include "Application.h"
 #include "GameManager.h"
-#include "IntroState.h"
+#include "StateFactory.h"
 
 namespace mw {
 
    Application::Application()
+      : mWidth(0)
+      , mHeight(0)
+      , mState(0)
+      , mNextState(0)
    {
-      mWidth  = 0;
-      mHeight = 0;
-      mState  = new IntroState(this);
+      mState  = StateFactory::getInstance().create("Intro", this);
    }
 
    Application::~Application()
@@ -54,6 +56,13 @@ namespace mw {
    void
    Application::update(u64 elapsedTime)
    {
+      // Check if we need to transition to the next state
+      if (mNextState)
+      {
+         delete mState;
+         mState = mNextState;
+      }
+
       // Convert change in time to seconds
       float dt = static_cast<float>(elapsedTime) / 1000000.0f;
 
@@ -63,13 +72,8 @@ namespace mw {
       // Let the current state do its update
       mState->update(dt);
 
-      // Check if we need to transition to the next state
-      State* next = mState->getNext();
-      if (next)
-      {
-         delete mState;
-         mState = next;
-      }
+      // Store the transition to the next state
+      mNextState = mState->getNext();
    }
 
    void

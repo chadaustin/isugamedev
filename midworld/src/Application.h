@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.h,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-08 09:30:23 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -62,6 +62,9 @@ namespace mw
       int mWidth;
       int mHeight;
       State* mState;
+
+      /// The state to switch to the next time the app is updated
+      State* mNextState;
    };
 }
 
