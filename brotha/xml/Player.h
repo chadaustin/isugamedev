@@ -51,10 +51,10 @@ public:
 
   void xMLify(std::ostream& out){
     out << "    <player name=\"" << name << "\" password=\"" << password << "\">" << std::endl;
-    for(int i = 0; i < cars.size(); i++){
+    for(unsigned int i = 0; i < cars.size(); i++){
       cars[i]->xMLify(out);
     }
-    for(int i = 0; i < stats.size(); i++){
+    for(unsigned int i = 0; i < stats.size(); i++){
       stats[i]->xMLify(out);
     }
 	out << "   </player>" << std::endl;

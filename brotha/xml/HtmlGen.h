@@ -26,7 +26,7 @@ namespace reports{
 			std::string cpath;
 			int state = 0;
 			std::string tem = "";
-			for(int i = 0; i < brothaPath.size(); i++){
+			for(unsigned int i = 0; i < brothaPath.size(); i++){
 				if(brothaPath[i] != '/')
 					tem += brothaPath[i];
 				else{
@@ -68,7 +68,7 @@ namespace reports{
 	std::string renderCarList(dataxml::carlist cl){
 		std::string html = "";
 		html += "<table><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
-		for(int i = 0; i < cl.size(); i++){
+		for(unsigned int i = 0; i < cl.size(); i++){
 			dataxml::Car* c = cl[i];
 			html += "<tr><td><img src=car.jpg></td><td>" + c->getName() + "</td><td>" + std::string(itoa(c->getMods().size(),new char[30],30)) + "</td></tr>";
 		}
@@ -78,7 +78,7 @@ namespace reports{
 
 	std::string renderGangList(dataxml::ganglist gl, reports::request schema){
 		std::string html = "";
-		for(int i = 0; i < gl.size(); i++){
+		for(unsigned int i = 0; i < gl.size(); i++){
 			if(schema.gangD == 0){
 				dataxml::Gang* g = gl[i];
 				html += "<h1>" + g->getName() + "</h1>";
@@ -91,7 +91,7 @@ namespace reports{
 
 	std::string renderCarTypeList(dataxml::cartypelist ctl){
 		std::string html = "";
-		for(int i = 0; i < ctl.size(); i++){
+		for(unsigned int i = 0; i < ctl.size(); i++){
 			dataxml::Cartype* ct = ctl[i];
 			html += "<div class=\"cartype\"> <img src=\""+ ct->getName() + ".jpg\"><br>" + ct->getName() + "<br><br>";
 		}
@@ -101,7 +101,7 @@ namespace reports{
 	std::string renderPlayerList(dataxml::playerlist pl){
 		std::string html = "";
 		html += "<table><th>Name</th><th># of cars</th>";
-		for(int i = 0; i < pl.size(); i++){
+		for(unsigned int i = 0; i < pl.size(); i++){
 			dataxml::Player* p = pl[i];
 			html +="<tr><td>" + p->getName() + "</td><td>" + std::string(itoa(p->getCars().size(),new char[30],30)) + "</td></tr>";
 		}
@@ -112,7 +112,7 @@ namespace reports{
 	std::string renderModList(dataxml::modlist ml){
 		std::string html = "";
 		html += "<table>tr><th>mod</th><th>level</th></tr>";
-		for(int i = 0; i < ml.size(); i++){
+		for(unsigned int i = 0; i < ml.size(); i++){
 			dataxml::Mod* m = ml[i];
 			html += "<tr><td>" + m->getType() + "</td><td>" + std::string(itoa(m->getLevel(),new char[30],30)) + "</td></tr>";
 		}
@@ -123,7 +123,7 @@ namespace reports{
 	std::string renderStatList(dataxml::statlist sl){
 		std::string html = "";
 		html += "<table>";
-		for(int i = 0; i < sl.size(); i++){
+		for(unsigned int i = 0; i < sl.size(); i++){
 			dataxml::Stat* m = sl[i];
 			html += "<tr><td>" + m->getName()+ "</td><td>" + m->getVal() + "</td></tr>";
 		}

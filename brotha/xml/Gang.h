@@ -43,7 +43,7 @@ public:
   void xMLify(std::ostream& out){
    out << "  <gang name=\"" << name << "\">" << std::endl;
    out << "    <info>" << info << "</info>" <<std::endl;
-   for(int i = 0; i < players.size(); i++){
+   for(unsigned int i = 0; i < players.size(); i++){
       players[i]->xMLify(out);
     }
    out << "  </gang>" <<std::endl;

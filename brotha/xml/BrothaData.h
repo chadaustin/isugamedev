@@ -42,17 +42,17 @@ public:
 
   void xMLify(std::ostream& out){
 	  out << "<wbdata>" << std::endl;
-    for(int i = 0; i < gangs.size(); i++){
+    for(unsigned int i = 0; i < gangs.size(); i++){
       gangs[i]->xMLify(out);
     }
-    for(int i = 0; i < cars.size(); i++){
+    for(unsigned int i = 0; i < cars.size(); i++){
       cars[i]->xMLify(out);
     }
 	out << "</wbdata>";
   }
 
   Gang* getGangByName(std::string name){
-    for(int i = 0; i < gangs.size(); i++){
+    for(unsigned int i = 0; i < gangs.size(); i++){
 	  if(gangs[i]->getName() == name){
 	    return gangs[i];
 	  }

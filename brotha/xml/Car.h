@@ -34,7 +34,7 @@ public:
 
   void xMLify(std::ostream& out){
 	  out << "      <car cartype=\"" << name << "\">" << std::endl;
-    for(int i = 0; i < mods.size(); i++){
+    for(unsigned int i = 0; i < mods.size(); i++){
       mods[i]->xMLify(out);
     }
 	out << "      </car>" << std::endl;
