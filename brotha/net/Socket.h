@@ -19,12 +19,16 @@ namespace net {
       // XXXaegis this should probably be private
       Socket(PRFileDesc* fd) {
          mOutputStream = 0;
+         mInputStream = 0;
          mSocket = fd;
       }
 
       ~Socket() {
          if(mOutputStream == 0) {
             delete mOutputStream;
+         }
+         if(mInputStream == 0) {
+            delete mInputStream;
          }
       }
 
