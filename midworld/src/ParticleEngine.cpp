@@ -18,7 +18,7 @@ namespace mw
       for(int i = 0; i < numParticles; i++)
       {
          Particle* p = new Particle(gmtl::Math::rangeRandom(1.0, 2.0));
-         p->size(0.2);
+         p->size(0.5);
          p->setMass(0.10);
          p->setVel(randomUnitVector() * gmtl::Math::rangeRandom(5, 15));
          mParticleGroup.push_back(p);
