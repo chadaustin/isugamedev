@@ -75,6 +75,17 @@ namespace mw
             mFontRenderer->render(player.weapon().getName().c_str());
             glPopMatrix();
          }
+         
+         // player health
+         glPushMatrix();
+         glTranslatef(300, 20 + mFont->getAscent(), 0);
+         glColor4f(0, 1, 0, 1);
+         {
+            std::stringstream str;
+            str << "Health: " << player.getHealth();
+            mFontRenderer->render(str.str().c_str());
+         }
+         glPopMatrix();
 
          // FPS
          glPushMatrix();

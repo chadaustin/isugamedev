@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-10-31 08:36:01 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-10-31 10:02:21 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -94,7 +94,22 @@ namespace mw
 
       bool isExpired() const
       {
-         return false;
+         return mHealth <= 0;
+      }
+      
+      void setHealth(int health)
+      {
+         mHealth = health;
+      }
+      
+      int getHealth()
+      {
+         return mHealth;
+      }
+      
+      void damage(int damage)
+      {
+         setHealth(std::max(0, getHealth() - damage));
       }
 
    private:
@@ -102,6 +117,8 @@ namespace mw
       std::map<int, int> mLastWeapon;
       std::multimap<int, Weapon*>::iterator mCurrentWeapon;
       int mLastSlot;
+      
+      int mHealth;
 
       /// This player's ammo bag.
       AmmoBag mAmmoBag;

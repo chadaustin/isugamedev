@@ -24,26 +24,39 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-10-31 08:35:57 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-31 10:02:20 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include "CollisionResponse.h"
+#include "BaseBullet.h"
 #include "Player.h"
 #include "Turret.h"
 
 namespace mw
 {
-   void collidePlayerTurret(Player* p, Turret* t)
+   void collideBulletPlayer(BaseBullet* b, Player* p)
    {
-      t->setHealth(t->getHealth() - 1);
+      p->damage(b->getDamage());
+   }
+   
+   void collideBulletEnemy(BaseBullet* b, Enemy* e)
+   {
+      e->damage(b->getDamage());
+   }
+   
+   void collideBulletTurret(BaseBullet* b, Turret* t)
+   {
+      t->damage(b->getDamage());
    }
 
 
    CollisionResponse::CollisionResponse()
    {
-      defineResponse<Player, Turret>(collidePlayerTurret);
+      defineResponse<BaseBullet, Player>(collideBulletPlayer);
+      defineResponse<BaseBullet, Enemy>(collideBulletEnemy);
+      defineResponse<BaseBullet, Turret>(collideBulletTurret);
    }
    
    CollisionResponse::~CollisionResponse()

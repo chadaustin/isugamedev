@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-10-29 06:27:34 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-10-31 10:02:21 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -52,6 +52,7 @@ namespace mw
       , mCurrentWeapon(mWeapons.end())
    {
       mLastSlot = 0;
+      mHealth = 100;
       setModel("player");
    }
 

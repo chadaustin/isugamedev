@@ -213,6 +213,12 @@
 				RelativePath="..\..\src\GameManager.h">
 			</File>
 			<File
+				RelativePath="..\..\src\GameOverState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\GameOverState.h">
+			</File>
+			<File
 				RelativePath="..\..\src\GameScene.cpp">
 			</File>
 			<File
@@ -427,6 +433,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\Texture.h">
+			</File>
+			<File
+				RelativePath="..\..\src\TextureManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\TextureManager.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Turret.cpp">

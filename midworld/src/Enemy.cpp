@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-10-29 19:52:01 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-31 10:02:20 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,7 +44,7 @@ namespace mw
 
    Enemy::Enemy(GameState* gameState)
       : AbstractEntity(gameState)
-      , mHealth(10)
+      , mHealth(100)
    {
    }
    
@@ -54,7 +54,7 @@ namespace mw
       ParticleEngine* engine = new ParticleEngine(
          factory.getGameState(),
          "images/explosive_particle.png",
-         2000);
+         500);
       factory.add(engine);
       
       engine->setPos(getPos());
@@ -92,28 +92,19 @@ namespace mw
 
    void Enemy::walkRandom()
    {
-
-      unsigned int randRange = 5;
-      gmtl::Vec3f force;
-      if (rand() % 100 < 10)
+      if (rand() % 100 < 5)
       {
-         int x = rand() % randRange;
-         int y = rand() % randRange;
-
-         switch (rand() % 4)
-         {
-            case 0: force.set( x, 0,  y); break;
-            case 1: force.set(-x, 0,  y); break;
-            case 2: force.set( x, 0, -y); break;
-            case 3: force.set(-x, 0, -y); break;
-         }
+         gmtl::Vec3f force = randomUnitVector() * 5;
+         force[1] = 0;  // no vertical forces
          addForce(force);
       }
       if ((rand() % 100) == 0)
       {
+/*
          gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(
             gmtl::AxisAnglef(rand() % randRange, 0, 1, 0));
          setRot(nRot);
+*/
       }
    }
       

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-31 08:35:59 $
- * Version:       $Revision: 1.96 $
+ * Date modified: $Date: 2002-10-31 10:02:20 $
+ * Version:       $Revision: 1.97 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -133,8 +133,6 @@ namespace mw
       mCollDet = new BoundsCollisionDetector();
       mCollDet->setSpatialIndex(viewer);
 
-      // Add the player into the game
-      /// XXX: If the player gets reaped it will segfault since mPlayer is a member
       add(&mPlayer);
 
 
@@ -566,7 +564,17 @@ namespace mw
          {
             AI.unregisterNode(itr->second->getName());
          }
-         delete entity;
+         
+         
+         if (entity == &mPlayer)
+         {
+            // if the player is dead, it's Game Over
+            invokeTransition("GameOver");
+         }
+         else
+         {
+            delete entity;
+         }
       }
    }
 
@@ -582,7 +590,7 @@ namespace mw
       double x, y, z;
       double h, p, r;
 
-	  while (in >> type >> x >> y >> z >> h >> p >> r)
+      while (in >> type >> x >> y >> z >> h >> p >> r)
       {
          // THIS SUCKS ASS
          // VC++ 7 does not compile this right unless it's static

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-10-31 08:35:58 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-10-31 10:02:20 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,13 +51,24 @@ namespace mw
        * Gets the current health value of this enemy.
        * @return the amount of health this enemy has left.
        */
-      long int getHealth() { return mHealth; }
+      int getHealth()
+      {
+         return mHealth;
+      }
 
       /**
        * Sets the current health value of this enemy.
        * @param health the amount of health to set this enemy at.
        */
-      void setHealth(long int health) { mHealth = health; }
+      void setHealth(int health)
+      {
+         mHealth = health;
+      }
+      
+      void damage(int damage)
+      {
+         setHealth(std::max(0, getHealth() - damage));
+      }
 
       /**
        * Updates the internal state of this enemy taking into account
@@ -81,7 +92,7 @@ namespace mw
       
 
    protected:
-      long int mHealth;
+      int mHealth;
    };
 
 }//end of namespace mw
