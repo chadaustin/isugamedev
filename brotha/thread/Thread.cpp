@@ -1,4 +1,6 @@
-#include "thread.h"
+#include "Thread.h"
+
+namespace thread {
 
 Thread::Thread() {
 }
@@ -39,3 +41,5 @@ DWORD WINAPI Thread::process(LPVOID parameter) {
 long Thread::run() {
    return -1;
 }
+
+} // namespace thread

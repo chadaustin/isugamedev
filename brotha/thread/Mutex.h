@@ -1,6 +1,9 @@
-#pragma once
+#if !defined(Mutex_H)
+#define Mutex_H
 
 #include <windows.h>
+
+namespace thread {
 
 class Mutex {
 public:
@@ -13,3 +16,7 @@ public:
 private:
    HANDLE m_mutex;
 };
+
+} // namespace thread
+
+#endif

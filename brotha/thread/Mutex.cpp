@@ -1,4 +1,6 @@
-#include "mutex.h"
+#include "Mutex.h"
+
+namespace thread {
 
 Mutex::Mutex(char *name) : m_mutex(NULL) {
    m_mutex = ::CreateMutex(NULL, false, name);
@@ -25,3 +27,5 @@ bool Mutex::lock(DWORD waitfor) {
 void Mutex::unlock() {
    ReleaseMutex(m_mutex);
 }
+
+} // namespace thread

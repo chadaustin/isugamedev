@@ -1,9 +1,11 @@
-#pragma once
+#if !defined(Thread_H)
+#define Thread_H
 
 #include <windows.h>
 
-class Thread
-{
+namespace thread {
+
+class Thread {
 public:
    Thread();
    virtual ~Thread();
@@ -18,3 +20,7 @@ private:
    HANDLE m_thread;
    DWORD m_id;
 };
+
+} // namespace thread
+
+#endif
