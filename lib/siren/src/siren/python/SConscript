@@ -1,0 +1,25 @@
+import os
+pj = os.path.join
+
+Import('baseEnv pkg')
+Import('SetupSDL SetupPython SetupBoostPython')
+
+sources = Split("""
+   PythonAPI.cpp
+   PyKernel.cpp
+   PyState.cpp
+   PyStateFactory.cpp
+""")
+
+
+# Define the Python module
+env = baseEnv.Copy()
+env.Append(CPPPATH   = ['#'+pj('src')],
+           LIBPATH   = ['#'+pj('src', 'siren')],
+           LIBS      = ['siren'])
+SetupPython(env, '2.2')
+SetupBoostPython(env)
+SetupSDL(env)
+env.Append(CPPPATH = ['#external/Loki'])
+env.SharedLibrary('siren', sources, SHLIBPREFIX='')
+#env.SharedLibrary('simple', ['test.cpp'], SHLIBPREFIX='')

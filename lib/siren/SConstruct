@@ -15,6 +15,23 @@ if ARGUMENTS.get('prefix', 0):
    Prefix(ARGUMENTS['prefix'])
 
 
+#------------------------------------------------------------------------------
+# Define some generally useful functions
+#------------------------------------------------------------------------------
+def GetPlatform():
+   "Determines what platform this build is being run on."
+   if string.find(sys.platform, 'irix') != -1:
+      return 'irix'
+   elif string.find(sys.platform, 'linux') != -1:
+      return 'linux'
+   elif string.find(sys.platform, 'cygwin') != -1:
+      return 'win32'
+   elif string.find(os.name, 'win32') != -1:
+      return 'win32'
+   else:
+      return sys.platform
+Export('GetPlatform')
+
 def BuildBaseEnvironment():
    "Builds a base environment for other modules to build on."
    global optimize, profile
@@ -111,8 +128,39 @@ def SetupOpenGL(env):
    # Add in the OpenGL libs to the environment
    env.Append(LIBS = OPENGL_LIBS)
 
+def SetupPython(env, requiredVersion):
+   "Sets up the environment for Python"
+   print 'Looking for python 2.2 ...'
+   python = WhereIs('python')
+   if not python:
+      print 'WARNING: Can\'t find python executable'
+      return
+
+   py_cmd = python + ' -c \'import sys; print sys.prefix; print sys.version[:3]\''
+   (prefix, py_ver) = string.split(os.popen(py_cmd).read())
+
+   # Version must match
+   if py_ver != requiredVersion:
+      print 'WARNING: Python version ' + py_ver + ' != ' + requiredVersion
+      return
+
+   # Build up the env information
+   py_cpppath = pj(prefix, 'include', 'python'+py_ver)
+   py_libpath = pj(prefix, 'lib', 'python'+py_ver, 'config')
+   py_lib = 'python'+py_ver
+
+   # Setup the env
+   env.Append(CPPPATH   = [py_cpppath],
+              LIBPATH   = [py_libpath],
+              LIBS      = [py_lib, 'pthread', 'util'])
+
+def SetupBoostPython(env):
+   "Sets up the env for Boost Python"
+   env.Append(LIBS = ['boost_python'])
+
 Export('ParseConfig')
 Export('SetupSDL SetupAudiere SetupCal3D SetupCorona SetupCppUnit SetupOpenGL')
+Export('SetupPython SetupBoostPython')
 
 
 def GetSirenVersion():
@@ -128,7 +176,7 @@ def GetSirenVersion():
 #------------------------------------------------------------------------------
 # Grok the arguments to this build
 #------------------------------------------------------------------------------
-EnsureSConsVersion(0,9)
+EnsureSConsVersion(0,11)
 baseEnv = BuildBaseEnvironment()
 Export('baseEnv')
 
@@ -148,9 +196,15 @@ pkg.addExtraDist(Split("""
 """))
 Export('pkg')
 
+builddir = pj('build', GetPlatform())
+Export('builddir')
+BuildDir(builddir, '.')
+
 # Recurse
 subdirs = Split('src test')
 SConscript(dirs = subdirs)
+#for dir in subdirs:
+#   SConscript(dirs = pj(builddir, dir))
 
 pkg.build()
 

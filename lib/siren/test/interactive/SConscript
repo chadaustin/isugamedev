@@ -1,1 +1,1 @@
-SConscript(dirs = Split('avatar window'))
+SConscript(dirs = Split('avatar pyavatar window'))
