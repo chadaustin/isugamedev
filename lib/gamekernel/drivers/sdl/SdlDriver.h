@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-04-06 22:25:34 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-06-14 10:24:54 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -165,8 +165,7 @@ private:
 	std::string getKeyID(SDL_keysym &key);
 	
 	/* TODO:
-	   1.	Fix Event Handling.
-	   2.	Implement Joystick Control.
+	   1.	Implement Joystick Control.
 	*/
 };
 

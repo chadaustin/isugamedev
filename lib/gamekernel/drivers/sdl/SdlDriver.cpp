@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-04-08 02:21:28 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-06-14 10:24:54 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -49,9 +49,6 @@ SdlDriver::SdlDriver() : mHeight(240), mWidth(320), mBpp(16), mvideoFlags(0), mK
 	misRunning = false;
 	mName = "SDL with OpenGL";	
 	//We really don't need to do anything other than initialize variables.
-	//FIXME:  This hack should be removed once unnecessary.
-	//mPress = false;
-	//mPressDown = false;
 }
 
 SdlDriver::~SdlDriver()
@@ -148,8 +145,6 @@ bool SdlDriver::run()
 #ifdef SDLDRIVER_DEBUG
 	std::cerr << "##SDL Driver Debug: Inside run()" << std::endl;
 #endif
-	//FIXME:  Should be initialized to 0 when using SDL_WaitEvent.
-	//int error = 1;
 	do
 	{
 #ifdef SDLDRIVER_DEBUG
@@ -177,12 +172,6 @@ bool SdlDriver::run()
 			SDL_GL_SwapBuffers();
 			while (SDL_PollEvent(&mEvent) && (misRunning))
 			{
-			/*error = SDL_WaitEvent(&mEvent);
-			if (error == 0)
-			{
-				std::cerr << "SDL Driver Error:  Error while waiting for events\nSDL Error:  " << SDL_GetError()
-					<< std::endl;
-			}*/
 				handleEvent();
 #ifdef SDLDRIVER_DEBUG
 				std::cerr << "##SDL Driver Debug: handleEvent() exited.  misRunning: " << misRunning<<std::endl;
@@ -310,12 +299,6 @@ void SdlDriver::handleEvent()
 			//unhandled event; we pretty much ignore it.
 	}
 	mKernel->getInput()->update();	
-	//FIXME:  This hack is for working with a key being held down in DigitalInput
-	//	  Basically it goes back to a pseudo idle mode on a single button press.
-	/*if (mPressDown == false && mPress == true)
-	{
-		mKernel->getInput()->update();
-	}*/
 }
 
 void SdlDriver::onKeyUp()
@@ -336,11 +319,6 @@ void SdlDriver::onKeyDown()
 #ifdef SDLDRIVER_DEBUG
 	std::cerr<<"SDL Driver Debug:  Inside onKeyDown" << std::endl;
 #endif
-	//FIXME:  This hack is for working with DigitalInput handling a button being pressed down
-//	if (mPress == true)
-//		mPressDown = true;
-//	if (mPress == false)
-//		mPress = true;
 	SDL_keysym key = mEvent.key.keysym;
 	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::ON;
