@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-15 09:29:58 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-15 09:42:33 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -54,15 +54,9 @@ namespace phui
       /**
        * Creates a new widget with width and height 0 and size (0,0).
        */
-      Widget()
-         : mX(0), mY(0), mWidth(0), mHeight(0), mInsetX(0), mInsetY(0),
-           mEnabled(true), mVisible(true), mBackgroundColor(0,0,0,0),
-           mForegroundColor(1,1,1,1), mFont("arial", Font::PLAIN, 12),
-           mParent(NULL)
-      {}
+      Widget();
 
-      virtual ~Widget()
-      {}
+      virtual ~Widget();
 
    public:
       /**
@@ -76,11 +70,7 @@ namespace phui
        * @param x    [out]    the x position of this widget
        * @param y    [out]    the y position of this widget
        */
-      virtual void getPosition(int& x, int& y) const
-      {
-         x = mX;
-         y = mY;
-      }
+      virtual void getPosition(int& x, int& y) const;
 
       /**
        * Sets the position of this widget relative to its parent.
@@ -88,11 +78,7 @@ namespace phui
        * @param x    the x position of this widget
        * @param y    the y position of this widget
        */
-      virtual void setPosition(int x, int y)
-      {
-         mX = x;
-         mY = y;
-      }
+      virtual void setPosition(int x, int y);
 
       /**
        * Gets the size of this widget relative to its parent.
@@ -100,11 +86,7 @@ namespace phui
        * @param width   [out]    the width of this widget
        * @param height  [out]    the height of this widget
        */
-      virtual void getSize(int& width, int& height) const
-      {
-         width = mWidth;
-         height = mHeight;
-      }
+      virtual void getSize(int& width, int& height) const;
 
       /**
        * Sets the position of this widget relative to its parent.
@@ -112,11 +94,7 @@ namespace phui
        * @param width   the width of this widget
        * @param height  the height of this widget
        */
-      virtual void setSize(int width, int height)
-      {
-         mWidth = width;
-         mHeight = height;
-      }
+      virtual void setSize(int width, int height);
 
       /**
        * Gets the insets for this widget.
@@ -124,11 +102,7 @@ namespace phui
        * @param insetX  [out]    the horizontal inset
        * @param insetY  [out]    the vertical inset
        */
-      virtual void getInsets(int insetX, int insetY)
-      {
-         insetX = mInsetX;
-         insetY = mInsetY;
-      }
+      virtual void getInsets(int insetX, int insetY);
 
       /**
        * Sets the insets for the widget.
@@ -136,123 +110,82 @@ namespace phui
        * @param insetX     the horizonal inset
        * @param insetY     the vertical inset
        */
-      virtual void setInsets(int insetX, int insetY)
-      {
-         mInsetX = insetX;
-         mInsetY = insetY;
-      }
+      virtual void setInsets(int insetX, int insetY);
 
       /**
        * Tests if this widget is enabled.
        *
        * @return  true if the widget is enabled, false if disabled
        */
-      virtual bool isEnabled() const
-      {
-         return mEnabled;
-      }
+      virtual bool isEnabled() const;
 
       /**
        * Sets the enabled status of this widget.
        *
        * @param enabled    true to enabled the widget, false to disable it
        */
-      virtual void setEnabled( bool enabled )
-      {
-         mEnabled = enabled;
-      }
+      virtual void setEnabled( bool enabled );
 
       /**
        * Tests if this widget is visible.
        *
        * @return  true if the widget is visible, false otherwise
        */
-      virtual bool isVisible() const
-      {
-         return mVisible;
-      }
+      virtual bool isVisible() const;
 
       /**
        * Shows or hides this component depending on the parameter visible.
        *
        * @param visible    true to show this component, false to hide it
        */
-      virtual void setVisible( bool visible )
-      {
-         mVisible = visible;
-      }
+      virtual void setVisible( bool visible );
 
       /**
        * Sets the background color of this widget.
        *
        * @param clr     the new background color
        */
-      virtual void setBackgroundColor( const Colorf& clr )
-      {
-         mBackgroundColor = clr;
-      }
+      virtual void setBackgroundColor( const Colorf& clr );
 
       /**
        * Gets the background color of this widget.
        *
        * @return  the background color
        */
-      virtual const Colorf& getBackgroundColor() const
-      {
-         return mBackgroundColor;
-      }
+      virtual const Colorf& getBackgroundColor() const;
 
       /**
        * Sets the foreground color of this widget.
        *
        * @param clr     the new foreground color
        */
-      virtual void setForegroundColor( const Colorf& clr )
-      {
-         mForegroundColor = clr;
-      }
+      virtual void setForegroundColor( const Colorf& clr );
 
       /**
        * Gets the foreground color of this widget.
        *
        * @return  the foreground color
        */
-      virtual const Colorf& getForegroundColor() const
-      {
-         return mForegroundColor;
-      }
+      virtual const Colorf& getForegroundColor() const;
 
       /**
        * Sets the font to use for rendering text in this widget.
        *
        * @param font    the new font
        */
-      virtual void setFont( const Font& font )
-      {
-         mFont = font;
-      }
+      virtual void setFont( const Font& font );
 
       /**
        * Gets the font for this widget.
        */
-      virtual const Font& getFont() const
-      {
-         return mFont;
-      }
+      virtual const Font& getFont() const;
 
       /**
        * Gets the parent container for this widget or NULL if this widget has no
        * container.
        */
-      virtual const WidgetContainer* getParent() const
-      {
-         return mParent;
-      }
-
-      virtual WidgetContainer* getParent()
-      {
-         return mParent;
-      }
+      virtual const WidgetContainer* getParent() const;
+      virtual WidgetContainer* getParent();
 
       virtual bool hasFocus() { return false; }
 
