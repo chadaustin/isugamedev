@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-22 04:16:20 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-22 12:08:40 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,8 +46,8 @@
 #include "net/NetMgr.h"
 #include "net/JoinAsMessage.h"
 #include "sound/SoundManager.h"
-#include "AppState.h"
-#include "Scene.h"
+#include "ServerConnection.h"
+#include "State.h"
 
 namespace client
 {
@@ -57,21 +57,23 @@ namespace client
    class BrothaApp
    {
    public:
-      /// Creates a new brotha app.
       BrothaApp();
-
-      /// Cleans up resources used by this app.
       ~BrothaApp();
 
+      // called externally by the driving loop
       void update(int elapsedTime);
       void draw();
       void resize(int width, int height);
-      
       void processInput(SDLKey sym, bool keyDown);
 
+      // switch the current state object with another
+      void invokeStateTransition(State* state);
+
+      void sendMessage(net::Message* msg);
+
       /**
-       * Sets which player is on the local machine. If player is NULL, then it is
-       * assumed that there is no local player and this is a dedicated server.
+       * Sets which player is on the local machine. If player is NULL,
+       * don't draw anything.
        *
        * @param player     the player corresponding to the local player
        */
@@ -80,8 +82,8 @@ namespace client
       }
 
       /**
-       * Gets the player on the local machine. If there is no local player, as
-       * could be the case on a dedicated server, this method will return NULL.
+       * Gets the player on the local machine. If there is no local
+       * player, this method will return NULL.
        *
        * @return  the local player or NULL if there is no player on the local
        *          machine
@@ -90,57 +92,34 @@ namespace client
          return mLocalPlayer;
       }
 
-      /**
-       * Gets the network manager for this app.
-       */
-      net::NetMgr* getNetMgr() {
-         return mNetMgr;
+      game::BrothaGame& getGame() {
+         return mGame;
       }
 
-      const std::string& getLoginName() const {return mName; }
-      const std::string& getLoginPass() const { return mPass; }
+   private:
+      /// Current state of the game.
+      State* mCurrentState;
 
-      void setServerConn( net::NetMgr::ConnID id ) { mConnID = id; }
-      bool setIsConnected( bool val ) { return mIsConnected; }
-      net::NetMgr::ConnID getConnID() { return mConnID; }
+      State* mTransitionState;
 
-      bool doConnect() { return true; }
-      std::string getServerIP() { return "127.0.0.1"; }
-      int getServerPort() { return 35791; }
-
-      bool isInGame() { return mInGame; }
-      void setInGame( bool val ) { mInGame = val; }
-
-      game::BrothaGame& getGame() { return mGame; }
-
-   public:
-      /// Our lovely game instance
+      /// Our lovely game instance.
       game::BrothaGame mGame;
 
-      /// Our gateway to the network interface
-      net::NetMgr* mNetMgr;
+      /// The local player.
+      game::Player* mLocalPlayer;
 
-      /// The connection to the server
-      net::NetMgr::ConnID mConnID;
+      /// Facade for connection with server.
+      ServerConnection mServerConnection;
+      
 
-      /// The application state
-      std::auto_ptr<AppState> mAppState;
-
-      std::string mName, mPass;
-      bool mIsConnected;
-      bool mInGame;
+      /// Current dimensions of the window.
+      ///@{
+      int mWidth;
+      int mHeight;
+      ///@}
 
       /// Sound music and effects manager.
       sound::SoundManager* mSoundMgr;
-      
-      int mWidth;
-      int mHeight;
-
-      /// The local player
-      game::Player* mLocalPlayer;
-
-      /// The scene with which the game is represented.
-      Scene mScene;
    };
 }
 

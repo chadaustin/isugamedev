@@ -1,14 +1,15 @@
+# build with 'scons'
+
 import os
 import string
 
-# build with 'scons'
+# build everything by default
+Default('.')
 
-Default('.')        # build everything by default
-
-# Deterine the external libraries
+# Determine the external libraries
 execfile('opengl.py')
-SDL_LIBS = ['SDL']
-OSG_LIBS = ['osg', 'osgDB', 'osgUtil']
+SDL_LIBS  = ['SDL']
+OSG_LIBS  = ['osg', 'osgDB', 'osgUtil']
 Export('OPENGL_LIBS SDL_LIBS OSG_LIBS')
 
 CPPPATH=['#']

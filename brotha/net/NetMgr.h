@@ -35,7 +35,9 @@ namespace net {
       }
 
       ~NetMgr() {
-         for(ConnMapIter cIter=m_connections.begin();cIter!=m_connections.end();cIter++) {
+         for (ConnMapIter cIter = m_connections.begin();
+              cIter != m_connections.end();
+              ++cIter) {
             delete cIter->second;
          }
       }
@@ -50,6 +52,8 @@ namespace net {
        */
       ConnID handleSocket(std::auto_ptr<Socket> socket) {
          // create a new connection and return the ID
+
+         /// @todo static state bad!  this isn't threadsafe
          static ConnID uniqueID = 0;
          Connection *newConnection = new Connection(socket);
          m_connections[uniqueID] = newConnection;
@@ -66,8 +70,7 @@ namespace net {
        */
       bool send(Message* msg, ConnID dest) {
          // simply pass the message to the approprate client
-         ConnMapIter iter = m_connections.find(dest);
-         if ( iter != m_connections.end() ) {
+         if (m_connections.count(dest)) {
             m_connections[dest]->send(msg);
             return true;
          } else {

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-22 09:00:48 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-04-22 12:08:40 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -38,27 +38,25 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#include "BrothaApp.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdexcept>
 #include <memory>
+#include "BrothaApp.h"
+#include "LoginState.h"
 
 namespace client
 {
    BrothaApp::BrothaApp()
-      : mNetMgr(NULL)
-      , mConnID(-1)
-      , mAppState(new NotConnectedState())
-      , mName("yourname")
-      , mPass("yourpassword")
-      , mIsConnected(false)
-      , mInGame(false)
-      , mSoundMgr(NULL)
+      : mCurrentState(0)
+      , mTransitionState(0)
+      , mLocalPlayer(NULL)
       , mWidth(0)
       , mHeight(0)
-      , mLocalPlayer(NULL)
+      , mSoundMgr(0)
    {
+      mCurrentState = new LoginState();
+
       // init the sound subsystem
       try {
          mSoundMgr = new sound::SoundManager();
@@ -70,9 +68,6 @@ namespace client
          std::cerr << "Caught exception " << e.what() << std::endl;
          std::cerr << "Disabling sound!" << std::endl;
       }
-      
-      // init the network layer
-      mNetMgr = new net::NetMgr();
    }
 
    BrothaApp::~BrothaApp() {
@@ -80,32 +75,33 @@ namespace client
    }
 
    void BrothaApp::update(int elapsedTime) {
-      // get all messages from the server
-      net::NetMgr::MsgList msgs;
-      mNetMgr->readAll( msgs );
-      for( net::NetMgr::MsgListIter iter = msgs.begin(); iter != msgs.end(); ++iter ) {
-         net::Message* msg = (*iter).first;
-         // tell the current state to handle the message
-         std::auto_ptr<AppState> newState = mAppState->handleMessage( msg, this );
-         if ( newState.get() != NULL ) {
-            mAppState = newState;
+
+      if (mCurrentState) {
+
+         // read all messages from server, and stick them in a field
+         // of the application so the state object can read them.
+         net::NetMgr::MsgList msgs;
+         mServerConnection.readAll(msgs);
+
+         mCurrentState->update(this, elapsedTime);
+
+         // if the state invoked a transition, do the switch now
+         if (mTransitionState) {
+            delete mCurrentState;
+            mCurrentState = mTransitionState;
+            mTransitionState = 0;
          }
-         /// @todo delete msg?
       }
-
-      std::auto_ptr<AppState> newState = mAppState->update( this );
-      if ( newState.get() != NULL ) {
-         mAppState = newState;
-      }
-
-      // Process input from the user
-//handled by main()      processInput();
 
       // update the state of the game
       mGame.update();
    }
    
    void BrothaApp::draw() {
+      if (mCurrentState) {
+         mCurrentState->draw();
+      }
+/*
       glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
       glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
       glEnable( GL_DEPTH_TEST );
@@ -147,6 +143,7 @@ namespace client
 
          mScene.draw();
       }
+*/
    }
    
    void BrothaApp::resize(int width, int height) {
@@ -159,14 +156,12 @@ namespace client
    {
 //      game::Player* player = getLocalPlayer();
       net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
-      PRFloat64 to;
+      PRFloat64 to = 0;
 
       if(sym == SDLK_w) {
          what = net::UpdatePlayerInfoMessage::ACCELERATION;
          if(keyDown) {
             to = 1;
-         } else {
-            to = 0;
          }
       } else if(sym == SDLK_s) {
          what = net::UpdatePlayerInfoMessage::BRAKE;
@@ -199,8 +194,7 @@ namespace client
       }
 
       if(what != net::UpdatePlayerInfoMessage::NOTHING) {
-         net::UpdatePlayerInfoMessage* msg = new net::UpdatePlayerInfoMessage(what, to);
-         getNetMgr()->send(msg, getConnID());
+         sendMessage(new net::UpdatePlayerInfoMessage(what, to));
       }
 
       /*
@@ -263,5 +257,14 @@ namespace client
          }
       }
 */
+   }
+
+   void BrothaApp::invokeStateTransition(State* state) {
+      delete mTransitionState;
+      mTransitionState = state;
+   }
+
+   void BrothaApp::sendMessage(net::Message* msg) {
+      mServerConnection.send(msg);
    }
 }
