@@ -6,11 +6,11 @@
 #
 
 # project name...
+PROJECT_NAME = pixmi
 PROJECT_NAME1 = exSimple
 PROJECT_NAME2 = exAdvanced
 PROJECT_NAME3 = iconvert
 PROJECT_NAME4 = iproperties
-PROJECT_NAME5 = png
 
 # objects to be included in the project....
 zlib =  inflate.c deflate.c adler32.c trees.c zutil.c infblock.c inftrees.c infcodes.c infutil.c inffast.c
@@ -20,10 +20,7 @@ IMPORT_SRCS = BmpImporter.cpp SgiImporter.cpp PcxImporter.cpp TgaImporter.cpp
 IMAGEIO_SRCS = FileHandler.cpp Image.cpp
 IMAGE_MANAGER_SRCS = ImageManager.cpp
 IMAGE_SRCS = ${IMPORT_SRCS} $(EXPORT_SRCS) ${IMAGEIO_SRCS} ${IMAGE_MANAGER_SRCS} $(PNG_SRCS)
-SRCS1 = exSimple.cpp ${IMAGE_SRCS}
-SRCS2 = exAdvanced.cpp ${IMAGE_SRCS}
-SRCS3 = iconvert.cpp ${IMAGE_SRCS}
-SRCS4 = iproperties.cpp ${IMAGE_SRCS}
+SRCS =  ${IMAGE_SRCS}
 
 OBJDIR = .
 DEPDIR = 
@@ -68,25 +65,20 @@ endif
 
 include ${MK_DIR}/mk.objs
 
-# add a directory prefix to each source file
-# OBJS := ${addprefix ${OBJDIR}/,$(SRCS)}
-# Construct $(OBJS) from $(SRCS) using the makeobjs function.
-OBJS1 = $(call makeobjs, $(SRCS1))
-OBJS2 = $(call makeobjs, $(SRCS2))
-OBJS3 = $(call makeobjs, $(SRCS3))
-OBJS4 = $(call makeobjs, $(SRCS4))
-OBJS = $(OBJS1) $(OBJS2) $(OBJS3) $(OBJS4)
+default: build
 
 # Compile then Link
-build: $(OBJS)
+build: $(PROJECT_NAME1)$(OBJ_FILE_SUFFIX) $(PROJECT_NAME2)$(OBJ_FILE_SUFFIX) $(PROJECT_NAME3)$(OBJ_FILE_SUFFIX) $(PROJECT_NAME4)$(OBJ_FILE_SUFFIX) $(OBJS) 
 	-@echo ""
 	-@echo "-------------------------------------------"
 	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .so)"
 	-@echo "-------------------------------------------"
-	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS1) $(OUTPUT_EXE_FLAG)$(PROJECT_NAME1)$(EXE_FILE_SUFFIX) $(LIBS)
-	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS2) $(OUTPUT_EXE_FLAG)$(PROJECT_NAME2)$(EXE_FILE_SUFFIX) $(LIBS)
-	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS3) $(OUTPUT_EXE_FLAG)$(PROJECT_NAME3)$(EXE_FILE_SUFFIX) $(LIBS)
-	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS4) $(OUTPUT_EXE_FLAG)$(PROJECT_NAME4)$(EXE_FILE_SUFFIX) $(LIBS)
+	$(SO_LINKER) $(SO_FLAGS) $(OBJS) $(OUTPUT_LIB_FLAG)$(LIB_FILENAME) $(LIBS)
+	$(STATIC_LINKER) $(STATIC_FLAGS) $(OUTPUT_STATIC_LIB_FLAG)$(STATIC_LIB_FILENAME) $(OBJS)
+	$(EXE_LINKER) $(EXE_FLAGS) $(PROJECT_NAME1)$(OBJ_FILE_SUFFIX) $(OUTPUT_EXE_FLAG)$(PROJECT_NAME1)$(EXE_FILE_SUFFIX) $(LIBS) -L. -lpixmi
+	$(EXE_LINKER) $(EXE_FLAGS) $(PROJECT_NAME2)$(OBJ_FILE_SUFFIX) $(OUTPUT_EXE_FLAG)$(PROJECT_NAME2)$(EXE_FILE_SUFFIX) $(LIBS) -L. -lpixmi
+	$(EXE_LINKER) $(EXE_FLAGS) $(PROJECT_NAME3)$(OBJ_FILE_SUFFIX) $(OUTPUT_EXE_FLAG)$(PROJECT_NAME3)$(EXE_FILE_SUFFIX) $(LIBS) -L. -lpixmi
+	$(EXE_LINKER) $(EXE_FLAGS) $(PROJECT_NAME4)$(OBJ_FILE_SUFFIX) $(OUTPUT_EXE_FLAG)$(PROJECT_NAME4)$(EXE_FILE_SUFFIX) $(LIBS) -L. -lpixmi
 	-@echo ""
 	-@echo "-------------------------------------------"
 	-@echo "$(FILENAME) done"
@@ -99,10 +91,15 @@ clean:
 	-@echo "Removing compiled stuff from the system	 "
 	-@echo "-------------------------------------------"
 	-rm -r $(OBJS) \
+	$(LIB_FILENAME) $(STATIC_LIB_FILENAME) \
 	$(PROJECT_NAME1)$(EXE_FILE_SUFFIX)\
 	$(PROJECT_NAME2)$(EXE_FILE_SUFFIX)\
 	$(PROJECT_NAME3)$(EXE_FILE_SUFFIX)\
 	$(PROJECT_NAME4)$(EXE_FILE_SUFFIX)\
+	$(PROJECT_NAME1)$(OBJ_FILE_SUFFIX)\
+	$(PROJECT_NAME2)$(OBJ_FILE_SUFFIX)\
+	$(PROJECT_NAME3)$(OBJ_FILE_SUFFIX)\
+	$(PROJECT_NAME4)$(OBJ_FILE_SUFFIX)\
 	 *.ncb *.opt *.plg *.pch *.idb *.pdb *.ilk Debug/ Release/ ii_files/
 
 
