@@ -61,4 +61,8 @@
 *.zip   -k 'b' -m 'COPY'
 *.dsp   -k 'b' -m 'COPY'
 *.dsw   -k 'b' -m 'COPY'
+*.DSP   -k 'b' -m 'COPY'
+*.DSW   -k 'b' -m 'COPY'
+*.mid   -k 'b' -m 'COPY'
+*.MID   -k 'b' -m 'COPY'
 
