@@ -1,6 +1,8 @@
 Brotha TODO list:
 
-Module  Description   
-------  ----------------------------------------------------------------
-Net     ReadThread never actually exits when the peer closes the connection
-Net     Memory leaks related to Messages never being deleted
+Module   Description   
+------   ----------------------------------------------------------------
+Net      ReadThread never actually exits when the peer closes the connection
+Net      Memory leaks related to Messages never being deleted
+Net/Game Move subclassed message to game module
+Server   Perform user authentication on the login message handler
