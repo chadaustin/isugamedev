@@ -1,0 +1,95 @@
+Design Patterns within ChadWorld Design Discussion
+From meeting with Neeraj Khanolkar on 2002.04.08
+2002.04.11
+
+
+Based on some exploration and discussion about ChadWorld's overall
+structure, we found a few places where the design could be improved by
+applying a few design patterns.  We also discussed how usage of RMI
+instead of ObjectStreams would make the design clearer, easier to
+document, and easier to implement.
+
+We discussed how we're effectively reproducing RMI by using Socket
+objects with ObjectOutputStreams and ObjectInputStreams in Java.  The
+current system incorporates these 'Packet' objects which are
+transferred across the network, reconstructed on the other end, and
+interpreted as asynchronous method calls.  Therefore, the first step
+to understand the system in a new way was to decompose the ideas
+behind the messages sent into asynchronous method calls.  Since the
+client connects to the server, and then waits for packets of
+information in return, we realized that a variant of the Observer
+pattern was in effect.  Neeraj actually called it Remote Observer.
+The client registers itself as a listener with the server.  The client
+sends movement commands to the server and the server sends world
+update information back to each client.  Using RMI, we plan to make
+this pattern more obvious.  We will create Client and Server
+interfaces that look similar to the following:
+
+interface Server {
+  /*
+   * Register a client with the server.  If authentication fails,
+   * return false.  Otherwise, return true;
+   */
+  boolean connect(String username, String password, Client This);
+
+  /*
+   * Disconnect the current client from the server.
+   */
+  void disconnect();
+
+  /*
+   * The server is responsible for taking key press events and handling
+   * semantic actions.  This method informs the server that a key has
+   * been pressed or unpressed.
+   */
+  void processKey(KeyEvent key);
+}
+
+interface Client {
+  /*
+   * Replace the client's world (or set it if it doesn't already exist) with
+   * the specified one.
+   */
+  void updateWorld(World w);
+
+  /*
+   * This client is called when the server wants to notify the client that
+   * entities have updated state.  The single parameter is an iterator that
+   * walks through a collection of Entity objects that have new state.
+   *
+   * In this implementation, every Entity is passed into this function.
+   * updateEntities() is called at a fixed rate, approximately 20 frames
+   * per second, depending on the network latency.
+   */
+  void updateEntities(Iterator i);
+}
+
+After describing the interfaces this way, we realized that since the
+world is conceptually a collection of objects, they could all be
+specific subclasses of the Entity class.  When we convert the world
+representation to this format, the client will need to traverse the
+list of entities and draw each one in a certain way.  Originally, one
+may think each entity subclass could be responsible for drawing
+itself.  However, this means the server would know about entity
+rendering through the Entity subclasses, and I want to keep graphics
+code separate from the server.
+
+The solution we decided upon was to use the visitor pattern to
+traverse the entity list and have each entity call a specific method
+within a SceneGraphBuilder object which would create the correct scene
+graph node type.
+
+I am not sure we will implement this for the next iteration, but in
+the completed system, the Composite pattern is required.
+Conceptually, the world is a heirarchical collection of objects.
+Objects need to be grouped and manipulated in identical ways.  For
+example, a house is composed of a roof, walls, a door, and some
+windows.  Each subobject would be represented as a distinct object (or
+composite object) combined with a group object.  The child objects
+would be positioned and oriented within the world relative to the
+center of the group object.
+
+For this iteration, we plan to convert the communication architecture
+over to RMI and implement the visitor pattern for generating scene
+graph nodes on the client.  We will also add functionality for
+creating new objects within the world.
