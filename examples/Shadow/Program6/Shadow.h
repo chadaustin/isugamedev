@@ -7,6 +7,11 @@
 
 using namespace std;
 
+struct LightPosition
+{
+	GLfloat ThePosition[4];
+};
+
 class Shadow
 {
 public:
@@ -16,20 +21,23 @@ public:
 
 	void AddAObject(GameObject* TheObject);
 
+	int AddLight(GLfloat TheLightPosition[4]);
+
 	void SetFloorObject(GameObject* TheObject);
 
 	void SetTheGroundPlane(GLfloat TheGroundPlane[4]);
 
-	void SetTheLightPosition(GLfloat TheLightPosition[4]);
+	void SetLightPosition(int Handle, GLfloat TheLightPosition[4]);
 
 	void DrawShadows();
 
 private:
 
 	GLfloat GroundPlane[4];
-	GLfloat LightPosition[4];
+	vector<LightPosition> MyLights;
 	vector<GameObject*> TheShadowObjects;
 	GameObject* TheFloor;
+	int NumLights;
 	void ComputeShadowMatrix(GLfloat shadowMat[4][4], 
 							GLfloat groundplane[4],
 							GLfloat lightpos[4]);

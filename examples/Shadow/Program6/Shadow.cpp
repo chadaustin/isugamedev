@@ -8,8 +8,8 @@ Shadow::Shadow()
 	for(int i = 0; i < 4; i++)
 	{
 		GroundPlane[i] = 0.0;
-		LightPosition[i] = 0.0;
 	}
+	NumLights = 0;
 }
 
 Shadow::~Shadow()
@@ -20,6 +20,28 @@ Shadow::~Shadow()
 void Shadow::AddAObject(GameObject* TheObject)
 {
 	TheShadowObjects.push_back(TheObject);
+}
+
+int Shadow::AddLight(GLfloat TheLightPosition[4])
+{
+	LightPosition Temp;
+	for(int i = 0; i < 4; i++)
+	{
+		Temp.ThePosition[i] = TheLightPosition[i];
+	}
+
+	MyLights.push_back(Temp);
+	NumLights++;
+	return NumLights-1;
+}
+
+void Shadow::SetLightPosition(int Handle, GLfloat TheLightPosition[4])
+{
+	for(int i = 0; i < 4; i++)
+	{
+		MyLights[Handle].ThePosition[i] = TheLightPosition[i];
+	}
+
 }
 
 void Shadow::SetFloorObject(GameObject* TheObject)
@@ -35,25 +57,9 @@ void Shadow::SetTheGroundPlane(GLfloat TheGroundPlane[4])
 	}
 }
 
-
-void Shadow::SetTheLightPosition(GLfloat TheLightPosition[4])
-{
-	for(int i = 0; i < 4; i++)
-	{
-		LightPosition[i] = TheLightPosition[i];
-	}
-}
-
-
 void Shadow::DrawShadows()
 {
 	GLfloat floorShadow[4][4];
-
-//	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
-
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHTING);
-
 
 	glEnable(GL_BLEND);
 
@@ -62,7 +68,6 @@ void Shadow::DrawShadows()
 	glStencilFunc(GL_ALWAYS, 2, ~0);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//	glColor4f(0.6, 1.0, 0.3, 0.5);
 	glColor4f(1.0, 1.0, 1.0, 0.5);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, grass[0]);
@@ -77,13 +82,17 @@ void Shadow::DrawShadows()
 	glStencilOp(GL_KEEP, GL_KEEP, GL_ZERO);
     glBlendFunc(GL_DST_COLOR, GL_ZERO);
 
-	glPushMatrix();
-		ComputeShadowMatrix(floorShadow, GroundPlane, LightPosition);
-		glMultMatrixf((GLfloat *) floorShadow);
-		glColor4f(0.5, 0.5, 0.5, 0.5);
-		for(int i = 0; i < TheShadowObjects.size(); i++)
-			TheShadowObjects[i]->Draw();
-	glPopMatrix();
+
+	for(int index = 0; index < NumLights; index++)
+	{
+		glPushMatrix();
+			ComputeShadowMatrix(floorShadow, GroundPlane, MyLights[index].ThePosition);
+			glMultMatrixf((GLfloat *) floorShadow);
+			glColor4f(0.5, 0.5, 0.5, 0.5);
+			for(int i = 0; i < TheShadowObjects.size(); i++)
+				TheShadowObjects[i]->Draw();
+		glPopMatrix();
+	}
 
 	glEnable(GL_LIGHTING);
 	glDisable(GL_BLEND);

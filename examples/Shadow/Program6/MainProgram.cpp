@@ -12,6 +12,8 @@
 
 using namespace std;
 
+int const NUMBERLIGHTS = 2;
+
 Camera* MyCamera = new Camera;
 
 //The Floor is a special case
@@ -26,12 +28,24 @@ CarPhysics TheTruckPhysics;
 GLuint clouds[1];
 GLuint grass[1];
 
-GLfloat light_position[] = {0.0, 10.0, 10.0, 1.0};
+LightPosition MyLights[NUMBERLIGHTS];
+
+//GLfloat light_position[] = {0.0, 10.0, 10.0, 1.0};
+//GLfloat light_position2 [] = {0.0, -10.0, 10.0, 1.0};
 GLfloat mat_diffuse[4] = {1.0, 0.5, 0.5, 1.0};
 GLfloat floorPlane[4] = {0.0, 0.0, 1.0, 0.0};
 
 void init()
 {
+	MyLights[0].ThePosition[0] = 0.0;
+	MyLights[0].ThePosition[1] = 10.0;
+	MyLights[0].ThePosition[2] = 10.0;
+	MyLights[0].ThePosition[3] = 1.0;
+
+	MyLights[1].ThePosition[0] = 0.0;
+	MyLights[1].ThePosition[1] = -10.0;
+	MyLights[1].ThePosition[2] = 10.0;
+	MyLights[1].ThePosition[3] = 1.0;
 	///////////////////////////////////////////////////////////
 	//Initialize all of the lights
 	////////////////////////////////////////////////////////////
@@ -45,15 +59,21 @@ void init()
 	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
 
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_POSITION, MyLights[0].ThePosition);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, white_light);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
+
+	glLightfv(GL_LIGHT1, GL_POSITION, MyLights[1].ThePosition);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, white_light);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, lmodel_ambient);
 
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glShadeModel(GL_SMOOTH);
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
 
@@ -86,7 +106,10 @@ void init()
 	//that the shadow needs setup
 	///////////////////////////////////////
 	MyShadows.SetTheGroundPlane(floorPlane);
-	MyShadows.SetTheLightPosition(light_position);
+	for(int j = 0; j < NUMBERLIGHTS; j++)
+	{
+		MyShadows.AddLight(MyLights[j].ThePosition);
+	}
 	MyShadows.SetFloorObject(TheFloor);
 
 	for(int i = 0; i < TheObjects.size(); i++)
@@ -98,21 +121,21 @@ void init()
 	//Initialize Camera parameteres
 	/////////////////////////////////////////
 	MyCamera->YRotate(-2.0);
-	MyCamera->XTrans(-9.0);
+	MyCamera->XTrans(-7.0);
 	/////////////////////////////////////////
 
+	///////////////////////////////////
 	//Load textures
+	//////////////////////////////////
 	glEnable(GL_TEXTURE_2D);
-	//Load in all textures
 	loadOpenGL2DTextureBMP("nebula.bmp", &clouds[0],  GL_RGB);
 	loadOpenGL2DTextureBMP("marbteal.bmp", &grass[0],  GL_RGB);
+	//////////////////////////////////
 
 	GenerateDome(300.0f, 5.0f, 5.0f, 1.0f, 1.0f);
 
     glMatrixMode( GL_PROJECTION );
 	glLoadIdentity();
-
-//	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
 }
 
@@ -172,19 +195,19 @@ void MyKeyboard(unsigned char key, int x, int y)
 		break;
 
 	case 'f':
-		light_position[0] += 1.0;
+		MyLights[0].ThePosition[0] += 1.0;
 		break;
 
 	case 't':
-		light_position[1] += 1.0;
+		MyLights[0].ThePosition[1] += 1.0;
 		break;
 
 	case 'g':
-		light_position[1] -= 1.0;
+		MyLights[0].ThePosition[1] -= 1.0;
 		break;
 		
 	case 'h':
-		light_position[0] -= 1.0;
+		MyLights[0].ThePosition[0] -= 1.0;
 		break;
 	}
 }
@@ -201,24 +224,28 @@ void mydisplay()
 
 
 	MyCamera->Process();
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_POSITION, MyLights[0].ThePosition);
+	glLightfv(GL_LIGHT1, GL_POSITION, MyLights[1].ThePosition);
 
 	///////////////////////////////////////////
 	// Draw sphere to represent light position
 	///////////////////////////////////////////
-	glPushMatrix();
-	glDisable(GL_LIGHTING);
-	glTranslatef(light_position[0], light_position[1], light_position[2]);
-	glColor3f(1.0, 1.0, 0.0);
-	glutSolidSphere(.5, 10, 10);
-	glPopMatrix();
+	for(i = 0; i < NUMBERLIGHTS; i++)
+	{
+		glPushMatrix();
+		glDisable(GL_LIGHTING);
+		glTranslatef(MyLights[i].ThePosition[0], MyLights[i].ThePosition[1], MyLights[i].ThePosition[2]);
+		glColor3f(1.0, 1.0, 0.0);
+		glutSolidSphere(.5, 10, 10);
+		glPopMatrix();
+	}
 	///////////////////////////////////////////
-
 
 	////////////////////////////
 	//Draw reflection
 	////////////////////////////
 	glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHT1);
 	glEnable(GL_LIGHTING);
 
 	glPushMatrix();
@@ -236,7 +263,10 @@ void mydisplay()
 	///////////////////////////////
 	//Draw Shadows here
 	///////////////////////////////
-	MyShadows.SetTheLightPosition(light_position);
+	for(i = 0; i < NUMBERLIGHTS; i++)
+	{
+		MyShadows.SetLightPosition(i, MyLights[i].ThePosition);
+	}
 	MyShadows.DrawShadows();
 	///////////////////////////////
 	
