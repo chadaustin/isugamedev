@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-04-22 02:26:18 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-22 03:11:17 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -64,14 +64,14 @@ namespace game
        * @param player     the player to add
        * @pre  player != NULL
        */
-     void addPlayer(Player* player);
+     void add(Player* player);
         
      /**
       * Removes a player from the current game
       * 
       * @param player      the player to remove
       */
-     void removePlayer(game::Player* player);
+     void remove(game::Player* player);
 
 	  /**
 	   * Adds a given object in the game
@@ -79,14 +79,14 @@ namespace game
 	   * @param object     the object to add
 	   * @pre object != NULL
 	   */
-	  void addObject(game::Object* object);
+	  void add(game::Object* object);
 
      /**
       * Removes the given object
       *
       * @param object     the object to remove
       */
-	  void removeObject(game::Object* object);
+	  void remove(game::Object* object);
 
      void outputList();
 

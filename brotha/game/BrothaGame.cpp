@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-04-22 02:26:18 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-22 03:11:17 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,11 +43,11 @@
 
 namespace game
 {
-   void BrothaGame::update(){
+   void BrothaGame::update() {
       
    }
 
-   void BrothaGame::addPlayer(Player* player){
+   void BrothaGame::add(Player* player) {
       assert (player != NULL && "Cannot add a NULL player!");
 
       std::cout << "About to add player!" << std::endl;
@@ -55,7 +55,7 @@ namespace game
       std::cout << "Player added." << std::endl;
    }
 
-   void BrothaGame::removePlayer(Player* player){
+   void BrothaGame::remove(Player* player) {
       PlayerListItr Itr;
       Itr = std::find(mPlayer.begin(),mPlayer.end(),player);
       if (Itr != mPlayer.end()){
@@ -63,20 +63,20 @@ namespace game
       }
    }
 
-   void BrothaGame::addObject(Object* object){
+   void BrothaGame::add(Object* object) {
       assert ( object != NULL && "Cannot add a Null object!" );
       mObject.push_back(object);
    }
 
-   void BrothaGame::removeObject(Object* object){
+   void BrothaGame::remove(Object* object) {
       ObjectListItr Itr;
       Itr = std::find(mObject.begin(), mObject.end(), object);
       if(Itr != mObject.end()){
          mObject.erase(Itr);
       }
    }
-   
-   void BrothaGame::outputList(){
+
+   void BrothaGame::outputList() {
       for (int i=0; i < mPlayer.size(); i++){
          std::cout << mPlayer[i]->getName() << std::endl;
       }
