@@ -24,11 +24,12 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-08 02:40:51 $
- * Version:       $Revision: 1.47 $
+ * Date modified: $Date: 2002-10-08 03:20:17 $
+ * Version:       $Revision: 1.48 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <fstream>
 #include <stdexcept>
 #include <sstream>
 #include <SDL_opengl.h>
@@ -97,20 +98,6 @@ namespace mw
       add(&mPlayer);
 
       loadLevel("levels/level1.txt");
-
-      mFont = 0;
-      mFontRenderer = 0;
-      mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
-      if (mFont)
-      {
-         std::cout<<"Font font"<<std::endl;
-         mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
-         if (mFontRenderer)
-         {
-            std::cout<<"Created renderer"<<std::endl;
-            mFontRenderer->setFont(mFont);
-         }
-      }
    }
 
    void
@@ -364,64 +351,9 @@ namespace mw
       glPopMatrix();
 
       mCursor.draw(application().getWidth(), application().getHeight());
-
-      // Draw the HUD
-      if (mFontRenderer)
-      {
-         glMatrixMode(GL_PROJECTION);
-         glPushMatrix();
-         glLoadIdentity();
-         glOrtho(0, application().getWidth(), application().getHeight(), 0, 1, -1);
-
-         glMatrixMode(GL_MODELVIEW);
-         glPushMatrix();
-         glLoadIdentity();
-
-         glPushMatrix();
-            glTranslatef(20, 20.0f+mFont->getAscent(), 0);
-            glColor4f(1,0,0,0.8f);
-            mFontRenderer->render("Midworld");
-         glPopMatrix();
-
-         if (!mPlayer.weapon().isNull())
-         {
-            glPushMatrix();
-            glTranslatef(550, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
-            glColor4f(1,0,0,1);
-            {
-               std::stringstream str;
-               str << mPlayer.weapon().getAmmoInClip();
-               mFontRenderer->render(str.str().c_str());
-            }
-            glTranslatef(40, 0, 0);
-            {
-               std::stringstream str;
-               str << mPlayer.weapon().getAmmoInBag();
-               mFontRenderer->render(str.str().c_str());
-            }
-            glPopMatrix();
-
-            glPushMatrix();
-            glTranslatef(20, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
-            glColor4f(1,0,0,1);
-            mFontRenderer->render(mPlayer.weapon().getName().c_str());
-            glPopMatrix();
-         }
-
-         // FPS
-         glPushMatrix();
-         glTranslatef(550, 20.0f+mFont->getAscent(), 0);
-         glColor4f(1,1,1,1);
-         {
-            std::stringstream str;
-            str << (int)mFPS;
-            mFontRenderer->render(str.str().c_str());
-         }
-         glPopMatrix();
-
-         glPopMatrix();
-         glPopMatrix();
-      }
+      mHUD.draw(
+         application().getWidth(), application().getHeight(),
+         mPlayer, mFPS);
    }
 
    void
@@ -581,7 +513,7 @@ namespace mw
    }
 
    void GameState::loadLevel(const std::string& filename) {
-      ifstream in(filename.c_str());
+      std::ifstream in(filename.c_str());
       if (!in.is_open()) {
          throw std::runtime_error("Could not open level file: " + filename);
       }

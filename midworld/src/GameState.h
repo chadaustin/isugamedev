@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-02 07:49:04 $
- * Version:       $Revision: 1.33 $
+ * Date modified: $Date: 2002-10-08 03:20:17 $
+ * Version:       $Revision: 1.34 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,17 +35,17 @@
 #include <vector>
 
 #include <SDL.h>
-#include <gltext.h>
-#include "State.h"
-#include "PhysicsEngine.h"
+#include "Camera.h"
+#include "CollisionDetector.h"
+#include "Cursor.h"
+#include "Entity.h"
 #include "GameScene.h"
+#include "HUD.h"
+#include "PhysicsEngine.h"
+#include "Player.h"
 #include "Scene.h"
 #include "SceneViewer.h"
-#include "Camera.h"
-#include "Player.h"
-#include "Entity.h"
-#include "Cursor.h"
-#include "CollisionDetector.h"
+#include "State.h"
 #include "VectorSpatialIndex.h"
 
 namespace mw
@@ -141,15 +141,13 @@ namespace mw
        */
       gmtl::Vec3f mPlayerVel;
 
-      gltext::Font* mFont;
-      gltext::FontRenderer* mFontRenderer;
-
       /// This state's FPS
       float mFPS;
       float mFrameCount;
       float mFrameTime;
 
       Cursor mCursor;
+      HUD mHUD;
 
       PhysicsEngine mPhysics;
    };

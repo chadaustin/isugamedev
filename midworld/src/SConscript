@@ -29,6 +29,7 @@ classes = Split("""
    GameManager
    GameScene
    GameState
+   HUD
    IntroState
    Jukebox
    MenuState
