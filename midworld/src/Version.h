@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Version.h,v $
- * Date modified: $Date: 2002-11-15 14:44:26 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-26 02:54:02 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -65,14 +65,6 @@
 #define MW_GLUE(a,b)        a ## b
 #define MW_XGLUE(a,b)       MW_GLUE(a,b)
 
-// These helper macros are used to stringify a given macro
-#define MW_STR(s)             # s
-#define MW_XSTR(s)            MW_STR(s)
-
-// These helper macros are used to build up the MW_VERSION_STRING macro.
-#define MW_DOT(a,b)           a ## . ## b
-#define MW_XDOT(a,b)          MW_DOT(a,b)
-
 // These helpr macros are used to facilitate a zero left fill
 #define MW_ZEROFILL(a)        0 ## a
 #define MW_XZEROFILL(a)       MW_ZEROFILL(a)
@@ -108,7 +100,7 @@
 #endif
 
 //--------------------------------------------------------------------------
-// Define the MW_VERSION and MW_VERSION_STRING macros
+// Define the MW_VERSION macro
 //--------------------------------------------------------------------------
 
 // Build up the MW_VERSION macro by pasting the individual parts together
@@ -122,19 +114,12 @@
       MW_VERSION_PATCH_FILLED \
    )
 
-// Create the MW_VERSION_STRING macro
-#define MW_VERSION_STRING \
-   MW_XDOT( \
-      MW_XDOT(MW_VERSION_MAJOR, MW_VERSION_MINOR), \
-      MW_VERSION_PATCH \
-   )
-
 //--------------------------------------------------------------------------
 // Declare a version string constant that can be used at runtime.
 //--------------------------------------------------------------------------
 namespace mw
 {
-   const char* version = MW_XSTR(MW_VERSION_STRING);
+   extern const char* version;
 }
 
 //--------------------------------------------------------------------------
@@ -144,15 +129,8 @@ namespace mw
 // Undef the all helper macros
 #undef MW_XGLUE
 #undef MW_GLUE
-#undef MW_XSTR
-#undef MW_STR
 #undef MW_ZEROFILL
 #undef MW_XZEROFILL
-#undef MW_XDOT
-#undef MW_DOT
-
-// Undef the MW_VERSION_STRING temporary macro
-#undef MW_VERSION_STRING
 
 // Undef the XXX_FILLED temporary macros
 #undef MW_VERSION_MAJOR_FILLED
@@ -160,8 +138,8 @@ namespace mw
 #undef MW_VERSION_PATCH_FILLED
 
 // Undef the macro for each version part
-#undef MW_VERSION_MAJOR
-#undef MW_VERSION_MINOR
-#undef MW_VERSION_PATCH
+//#undef MW_VERSION_MAJOR
+//#undef MW_VERSION_MINOR
+//#undef MW_VERSION_PATCH
 
 #endif

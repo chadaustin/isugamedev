@@ -92,6 +92,7 @@ buildInfo.addHeaders(map(File, Split("""
 # Listed here are sources that have no associated .h file
 buildInfo.addSources(map(File, Split("""
    Main.cpp
+   Version.cpp
 """)))
 
 buildInfo.addExtraDist(map(File, Split("""
