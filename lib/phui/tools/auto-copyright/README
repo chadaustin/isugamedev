@@ -1,0 +1,4 @@
+read the makefile for ideas of how auto-copyright works.
+
+it should be setup for you already, so that it will automatically add/replace 
+the (c) on  all the gk files.

@@ -1,0 +1,13 @@
+#
+# phui - flexible user interface subsystem
+#
+# Original Authors:
+#    Chad Austin <aegis@aegisknight.org>
+#    Ben Scott <bscott@iastate.edu>
+#
+# -----------------------------------------------------------------
+# File:          $RCSfile: phui-heading.hash.txt,v $
+# Date modified: $Date: 2002-02-24 02:03:37 $
+# Version:       $Revision: 1.1 $
+# -----------------------------------------------------------------
+#
