@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-08 20:06:45 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-15 07:08:46 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -34,14 +34,13 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
-
 #ifndef PHUI_WIDGET_H
 #define PHUI_WIDGET_H
 
 #include "phuiCommon.h"
 #include "Color.h"
 #include "Input.h"
-
+#include "Font.h"
 
 namespace phui {
 
@@ -52,8 +51,9 @@ namespace phui {
        * Creates a new widget with width and height 0 and size (0,0).
        */
       Widget()
-         : mX(0), mY(0), mWidth(0), mHeight(0), mEnabled(true), mVisible(true),
-           mBackgroundColor(0,0,0,0), mForegroundColor(1,1,1,1)
+         : mX(0), mY(0), mWidth(0), mHeight(0), mInsetX(0), mInsetY(0),
+           mEnabled(true), mVisible(true), mBackgroundColor(0,0,0,0),
+           mForegroundColor(1,1,1,1), mFont("arial", Font::PLAIN, 12)
       {}
 
       virtual ~Widget() {
@@ -111,6 +111,30 @@ namespace phui {
       {
          mWidth = width;
          mHeight = height;
+      }
+
+      /**
+       * Gets the insets for this widget.
+       *
+       * @param insetX  [out]    the horizontal inset
+       * @param insetY  [out]    the vertical inset
+       */
+      virtual void getInsets(int insetX, int insetY)
+      {
+         insetX = mInsetX;
+         insetY = mInsetY;
+      }
+
+      /**
+       * Sets the insets for the widget.
+       *
+       * @param insetX     the horizonal inset
+       * @param insetY     the vertical inset
+       */
+      virtual void setInsets(int insetX, int insetY)
+      {
+         mInsetX = insetX;
+         mInsetY = insetY;
       }
 
       /**
@@ -193,8 +217,25 @@ namespace phui {
          return mForegroundColor;
       }
 
-      virtual bool hasFocus() { return false; }
+      /**
+       * Sets the font to use for rendering text in this widget.
+       *
+       * @param font    the new font
+       */
+      virtual void setFont( const Font& font )
+      {
+         mFont = font;
+      }
 
+      /**
+       * Gets the font for this widget.
+       */
+      virtual const Font& getFont() const
+      {
+         return mFont;
+      }
+
+      virtual bool hasFocus() { return false; }
 
       // external events
       virtual void onKeyDown(InputKey key) { }
@@ -226,6 +267,16 @@ namespace phui {
       int mHeight;
 
       /**
+       * The horizontal inset.
+       */
+      int mInsetX;
+
+      /**
+       * The vertical inset.
+       */
+      int mInsetY;
+
+      /**
        * Whether this widget is enabled or disabled.
        */
       bool mEnabled;
@@ -244,6 +295,11 @@ namespace phui {
        * The foreground color.
        */
       Colorf mForegroundColor;
+
+      /**
+       * The foreground font.
+       */
+      Font mFont;
    };
 
    typedef boost::shared_ptr<Widget> WidgetPtr;
