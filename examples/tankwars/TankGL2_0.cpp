@@ -1,5 +1,7 @@
-// This program is mostly writen by ViperScum,
+// This program is mostly writen by ViperScum, Jason Schneekloth,
 // with stupid remarks by Zorloch
+// Most of this code for getting a window up and running in windows was learned from
+//	the web site nehe.gamedev.net  that place rocks for beginners!
 
 
 #include <windows.h>
