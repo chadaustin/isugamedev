@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-22 22:06:02 $
-// Version:       $Revision: 1.21 $
+// Date modified: $Date: 2003-03-10 14:30:51 $
+// Version:       $Revision: 1.22 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -99,7 +99,7 @@ bool SdlDriver::init(IGameKernel *kernel)
 	//Pointer to the screen.  We don't need to store this because we can always ask SDL to tell us where it is.
 	SDL_Surface *screen;
 	//Try and setup the screen...
-	screen = SDL_SetVideoMode(mWidth, mHeight, mBpp, mvideoFlags);
+	screen = SDL_SetVideoMode(mWidth, mHeight, 0, mvideoFlags);
 	if (!screen)
 	{
 		//Oh boy...
@@ -296,7 +296,7 @@ void SdlDriver::showMouse( bool show )
 void SdlDriver::fullscreen(int ctx )
 {
 	mvideoFlags |= SDL_FULLSCREEN;
-	SDL_SetVideoMode(mWidth, mHeight, mBpp, mvideoFlags);
+	SDL_SetVideoMode(mWidth, mHeight, 0, mvideoFlags);
 }
 
 void SdlDriver::getWindowSize(int& width, int& height, int ctx)
