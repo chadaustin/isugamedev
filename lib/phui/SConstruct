@@ -5,34 +5,47 @@ import sys
 import os
 import string
 
-execfile('glut_libs.py')
-
 
 Default('.')        # build everything by default
 
-# Setup a debug target
-CXXFLAGS = '-Wall'
-if ARGUMENTS.get('debug'):
-   CXXFLAGS.extend(['-g', '-DDEBUG_MEMORY=1'])
 
+# find libraries
+execfile('glut_libs.py')
+FONT_LIBS = ['gltt', 'ttf']
+Export('GLUT_LIBS FONT_LIBS')
+
+
+# get install prefix for install target
 PREFIX = '/usr/local'
 if ARGUMENTS.get('prefix'):
    PREFIX = ARGUMENTS['prefix']
-
-# setup the environment
-env = Environment(CPPPATH = '#',
-                  LIBPATH = '#phui',
-                  ENV = os.environ,
-                  CXXFLAGS = CXXFLAGS)
-Export('env GLUT_LIBS PREFIX')
+Export('PREFIX')
 
 
-# Determine the font libraries
-FONT_LIBS = ['gltt', 'ttf']
-Export('env FONT_LIBS')
+# create the base environment
+base_env = Environment(CPPPATH = ['#', '#phui'],
+                       ENV = os.environ,
+                       CXXFLAGS = ['-Wall'])
 
-# process subdirectories
-SConscript('phui/SConscript')
-SConscript('examples/SConscript')
 
+BuildDir('build/release', '.', 0)
+BuildDir('build/debug',   '.', 0)
+
+# RELEASE BUILD
+env = base_env.Copy(LIBPATH = '#build/release/phui')
+Export('env')
+
+SConscript('build/release/phui/SConscript')
+SConscript('build/release/examples/SConscript')
+
+# DEBUG BUILD
+env = base_env.Copy(LIBPATH = '#build/debug/phui',
+                    CXXFLAGS = base_env['CXXFLAGS'] + ['-g'])
+Export('env')
+
+SConscript('build/debug/phui/SConscript')
+SConscript('build/debug/phui/SConscript')
+
+
+# install target
 env.Alias('install', PREFIX)
