@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec4.h,v $
-//    $Date: 2002-01-11 00:59:29 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:37 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -195,10 +195,10 @@ inline void Vec4<Type>::set( Type v0, Type v1, Type v2, Type v3 )
 template <class Type>
 inline void Vec4<Type>::absolute( Vec4<Type>& absVec )
 {
-   absVec._v[0] = ABS ( _v[0] );
-   absVec._v[1] = ABS ( _v[1] );
-   absVec._v[2] = ABS ( _v[2] );
-   absVec._v[3] = ABS ( _v[3] );
+   absVec._v[0] = abs ( _v[0] );
+   absVec._v[1] = abs ( _v[1] );
+   absVec._v[2] = abs ( _v[2] );
+   absVec._v[3] = abs ( _v[3] );
 }
 
 
@@ -217,10 +217,10 @@ inline Type Vec4<Type>::dot( const Vec4<Type>& vec ) const
 template <class Type>
 inline bool Vec4<Type>::equals( const Vec4<Type>& vec, Type tolerance ) const
 {
-   return ( ABS ( _v[0] - vec._v[0] ) <= tolerance &&
-        ABS ( _v[1] - vec._v[1] ) <= tolerance &&
-        ABS ( _v[2] - vec._v[2] ) <= tolerance &&
-        ABS ( _v[3] - vec._v[3] ) <= tolerance );
+   return ( abs ( _v[0] - vec._v[0] ) <= tolerance &&
+        abs ( _v[1] - vec._v[1] ) <= tolerance &&
+        abs ( _v[2] - vec._v[2] ) <= tolerance &&
+        abs ( _v[3] - vec._v[3] ) <= tolerance );
 }
       
 
@@ -238,7 +238,7 @@ inline void Vec4<Type>::get( Type &v0, Type &v1, Type &v2, Type &v3 ) const
 template <class Type>
 inline Type Vec4<Type>::getDistance( const Vec4<Type>& vec ) const
 {
-   return SQRT( ( _v[0] - vec[0] )* ( _v[0] - vec[0] ) +
+   return sqrt( ( _v[0] - vec[0] )* ( _v[0] - vec[0] ) +
                ( _v[1] - vec[1] )* ( _v[1] - vec[1] ) +
                ( _v[2] - vec[2] )* ( _v[2] - vec[2] ) +
                ( _v[3] - vec[3] )* ( _v[3] - vec[3] ) );
@@ -300,7 +300,7 @@ inline Type Vec4<Type>::getRealDistance( const Vec4<Type>& vec ) const
 
    // Return the distance between them.
 
-   return SQRT( ( vA[0] - vB[0] )* ( vA[0] - vB[0] ) +
+   return sqrt( ( vA[0] - vB[0] )* ( vA[0] - vB[0] ) +
                ( vA[1] - vB[1] )* ( vA[1] - vB[1] ) +
                ( vA[2] - vB[2] )* ( vA[2] - vB[2] ) );
 }
@@ -320,7 +320,7 @@ inline Type Vec4<Type>::getRealDistance( const Vec3<Type>& vec ) const
 
    // Return the distance between them.
 
-   return SQRT( ( v[0] - vec[0] ) * ( v[0] - vec[0] ) +
+   return sqrt( ( v[0] - vec[0] ) * ( v[0] - vec[0] ) +
                ( v[1] - vec[1] ) * ( v[1] - vec[1] ) +
                ( v[2] - vec[2] ) * ( v[2] - vec[2] ) );
 }
@@ -329,7 +329,7 @@ inline Type Vec4<Type>::getRealDistance( const Vec3<Type>& vec ) const
 template <class Type>
 inline Type Vec4<Type>::length() const
 {
-   return SQRT( _v[0]* _v[0] + 
+   return sqrt( _v[0]* _v[0] + 
                _v[1]* _v[1] + 
                _v[2]* _v[2] + 
                _v[3]* _v[3] );
@@ -339,7 +339,7 @@ inline Type Vec4<Type>::length() const
 template <class Type>
 inline Type Vec4<Type>::normalize()
 {
-   Type length = SQRT( _v[0]* _v[0] + 
+   Type length = sqrt( _v[0]* _v[0] + 
                      _v[1]* _v[1] +
                      _v[2]* _v[2] +
                      _v[3]* _v[3] );
@@ -650,7 +650,7 @@ inline istream &operator>>( istream &in, Vec4<Type>& vec )
 template <class Type>
 inline void Vec4<Type>::setLength( Type newLength )
 {
-   Type oldLength = SQRT( _v[0]* _v[0] + 
+   Type oldLength = sqrt( _v[0]* _v[0] + 
             _v[1]* _v[1] + 
             _v[2]* _v[2] + 
             _v[3]* _v[3] );

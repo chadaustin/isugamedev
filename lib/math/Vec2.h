@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec2.h,v $
-//    $Date: 2002-01-11 00:59:28 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:37 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -158,8 +158,8 @@ inline void Vec2<_dataType>::set( const _dataType& v0, const _dataType& v1, cons
 template<class _dataType>
 inline void Vec2<_dataType>::absolute()
 {
-	_v[0] = ABS( _v[0] );
-	_v[1] = ABS( _v[1] );
+	_v[0] = abs( _v[0] );
+	_v[1] = abs( _v[1] );
 }
 
 
@@ -183,24 +183,24 @@ inline _dataType Vec2<_dataType>::dot ( const Vec2<_dataType>& vec ) const
 template<class _dataType>
 inline bool Vec2<_dataType>::equals ( const Vec2<_dataType>& vec, const _dataType& tolerance ) const
 {
-	return ( ABS ( _v[0] - vec._v[0] ) <= tolerance &&
-		  ABS ( _v[1] - vec._v[1] ) <= tolerance );
+	return ( abs ( _v[0] - vec._v[0] ) <= tolerance &&
+		  abs ( _v[1] - vec._v[1] ) <= tolerance );
 }
 
 //  Return the absolute value.
 template<class _dataType>
 inline Vec2<_dataType> Vec2<_dataType>::getAbs() const
 {
-	return Vec2<_dataType>(	ABS ( _v[0] ),
-				ABS ( _v[1] ) );
+	return Vec2<_dataType>(	abs ( _v[0] ),
+				abs ( _v[1] ) );
 }
 
 //  Return the absolute value.
 template<class _dataType>
 inline void Vec2<_dataType>::getAbs ( Vec2<_dataType>& vec ) const
 {
-	vec.set( ABS ( _v[0] ),
-		ABS ( _v[1] ) );
+	vec.set( abs ( _v[0] ),
+		abs ( _v[1] ) );
 }
 
 //  Get the value.
@@ -218,15 +218,15 @@ inline _dataType Vec2<_dataType>::getAngle ( const Vec2<_dataType>& vec ) const
     // This is: theta = acosf ( A dot B / |A||B| ).
 
     return acosf( ( _v[0] * vec[0] + _v[1] * vec[1] ) / 
-		( SQRT ( _v[0] * _v[0] + _v[1] * _v[1] ) * 
-		  SQRT ( vec[0] * vec[0] + vec[1] * vec[1] ) ) );
+		( sqrt ( _v[0] * _v[0] + _v[1] * _v[1] ) * 
+		  sqrt ( vec[0] * vec[0] + vec[1] * vec[1] ) ) );
 }
 
 //  Get the distance.
 template<class _dataType>
 inline _dataType Vec2<_dataType>::getDistance ( const Vec2<_dataType>& vec ) const
 {
-	return SQRT ( ( _v[0] - vec[0] ) * ( _v[0] - vec[0] ) +
+	return sqrt ( ( _v[0] - vec[0] ) * ( _v[0] - vec[0] ) +
 				   ( _v[1] - vec[1] ) * ( _v[1] - vec[1] ) );
 }
 
@@ -242,7 +242,7 @@ inline _dataType Vec2<_dataType>::getDistanceSquared ( const Vec2<_dataType>& ve
 template<class _dataType>
 inline _dataType Vec2<_dataType>::length() const
 {
-	return SQRT ( _v[0] * _v[0] + 
+	return sqrt ( _v[0] * _v[0] + 
 				   _v[1] * _v[1] );
 }
 
@@ -257,7 +257,7 @@ inline _dataType Vec2<_dataType>::lengthSquared() const
 template<class _dataType>
 inline _dataType Vec2<_dataType>::normalize()
 {
-	_dataType length = SQRT ( _v[0] * _v[0] + 
+	_dataType length = sqrt ( _v[0] * _v[0] + 
 				_v[1] * _v[1] );
 
 	_dataType invLength = 1.0f / length;
@@ -409,7 +409,7 @@ inline istream &operator>>( istream &in, Vec2<_dataType>& vec )
 template<class _dataType>
 inline void Vec2<_dataType>::setLength( const _dataType& newLength )
 {
-	_dataType oldLength = SQRT( _v[0] * _v[0] + 
+	_dataType oldLength = sqrt( _v[0] * _v[0] + 
 				_v[1] * _v[1] );
 	
 	_dataType factor = newLength / oldLength;

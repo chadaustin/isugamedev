@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: extend.h,v $
-//    $Date: 2002-01-11 00:59:29 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:38 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or

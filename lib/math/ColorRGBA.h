@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ColorRGBA.h,v $
-//    $Date: 2002-01-11 00:59:31 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:37 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or

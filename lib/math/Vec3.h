@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec3.h,v $
-//    $Date: 2002-01-11 00:59:28 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:37 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -166,9 +166,9 @@ inline void Vec3<DataType>::set( const DataType& v0, const DataType& v1, const D
 template<class DataType>
 inline void Vec3<DataType>::makeAbsolute()
 {
-   _v[0] = ABS ( _v[0] );
-   _v[1] = ABS ( _v[1] );
-   _v[2] = ABS ( _v[2] );
+   _v[0] = abs ( _v[0] );
+   _v[1] = abs ( _v[1] );
+   _v[2] = abs ( _v[2] );
 }
 
 //  Return the cross product.
@@ -202,14 +202,14 @@ inline bool Vec3<DataType>::isEqual( const Vec3<DataType>& vec, const DataType& 
 template<class DataType>
 inline Vec3<DataType> Vec3<DataType>::getAbs() const
 {
-   return Vec3<DataType>( ABS(_v[0]), ABS(_v[1]), ABS(_v[2]) );
+   return Vec3<DataType>( abs(_v[0]), abs(_v[1]), abs(_v[2]) );
 }
 
 //  Return the absolute value.
 template<class DataType>
 inline void Vec3<DataType>::getAbs ( Vec3<DataType>& vec ) const
 {
-   vec.set( ABS( _v[0] ), ABS( _v[1] ), ABS( _v[2] ) );
+   vec.set( abs( _v[0] ), abs( _v[1] ), abs( _v[2] ) );
 }
 
 //  Get the value.
@@ -228,8 +228,8 @@ inline DataType Vec3<DataType>::getAngle ( const Vec3<DataType>& vec ) const
     // This is: theta = acosf ( A dot B / |A||B| ).
     return acosf( 
        ( _v[0] * vec[0] + _v[1] * vec[1] + _v[2] * vec[2] ) / 
-       ( kev::SQRT ( _v[0] * _v[0] + _v[1] * _v[1] + _v[2] * _v[2] ) * 
-         kev::SQRT ( vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2] ) ) 
+       ( kev::sqrt ( _v[0] * _v[0] + _v[1] * _v[1] + _v[2] * _v[2] ) * 
+         kev::sqrt ( vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2] ) ) 
     );
 }
 
@@ -237,7 +237,7 @@ inline DataType Vec3<DataType>::getAngle ( const Vec3<DataType>& vec ) const
 template<class DataType>
 inline DataType Vec3<DataType>::getDistance ( const Vec3<DataType>& vec ) const
 {
-   return kev::SQRT( ( _v[0] - vec[0] ) * ( _v[0] - vec[0] ) +
+   return kev::sqrt( ( _v[0] - vec[0] ) * ( _v[0] - vec[0] ) +
                 ( _v[1] - vec[1] ) * ( _v[1] - vec[1] ) +
                 ( _v[2] - vec[2] ) * ( _v[2] - vec[2] )   );
 }
@@ -273,15 +273,15 @@ inline DataType Vec3<DataType>::getRealDistance ( const Vec3<DataType>& vec ) co
 
    // Return the distance between them.
 
-   return kev::SQRT ( ( vA[0] - vB[0] ) * ( vA[0] - vB[0] ) +
+   return kev::sqrt ( ( vA[0] - vB[0] ) * ( vA[0] - vB[0] ) +
                ( vA[1] - vB[1] ) * ( vA[1] - vB[1] ) );
 }
 
-//  Return the length. (kev::SQRT of dot product)
+//  Return the length. (kev::sqrt of dot product)
 template<class DataType>
 inline DataType Vec3<DataType>::length() const
 {
-   return kev::SQRT ( _v[0] * _v[0] + 
+   return kev::sqrt ( _v[0] * _v[0] + 
                  _v[1] * _v[1] + 
                  _v[2] * _v[2] );
 }
@@ -299,7 +299,7 @@ inline DataType Vec3<DataType>::lengthSquared() const
 template<class DataType>
 inline DataType Vec3<DataType>::normalize()
 {
-   DataType length = kev::SQRT ( _v[0] * _v[0] + 
+   DataType length = kev::sqrt ( _v[0] * _v[0] + 
             _v[1] * _v[1] +
             _v[2] * _v[2] );
 
@@ -468,7 +468,7 @@ inline istream& operator>>( istream &in, Vec3<DataType>& vec )
 template<class DataType>
 inline void Vec3<DataType>::setLength( const DataType& newLength )
 {
-   DataType oldLength = kev::SQRT( _v[0] * _v[0] + 
+   DataType oldLength = kev::sqrt( _v[0] * _v[0] + 
             _v[1] * _v[1] + 
             _v[2] * _v[2] );
    

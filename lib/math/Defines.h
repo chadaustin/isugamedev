@@ -10,8 +10,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Defines.h,v $
-//    $Date: 2002-01-11 00:59:26 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:37 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -174,10 +174,10 @@ namespace defines
    const float     TWO_OVER_PI_F   = 0.63661977236758134308f;
 
    // 2 / sqrt(PI) - 64 bit precision
-   const double    TWO_OVER_SQRT_PI_D = 1.12837916709551257390;
+   const double    TWO_OVER_sqrt_PI_D = 1.12837916709551257390;
 
    // 2 / sqrtf(PI) - 32 bit precision
-   const float     TWO_OVER_SQRT_PI_F = 1.12837916709551257390f;
+   const float     TWO_OVER_sqrt_PI_F = 1.12837916709551257390f;
 
    // (2 * PI) / 3 - 64 bit precision
    const double    TWO_PI_OVER_THREE_D = 2.0943951023933334;
@@ -192,28 +192,28 @@ namespace defines
    /**********/
 
    // Same as sqrt(2.0)
-   const double    SQRT_TWO_D      = 1.41421356237309504880;
+   const double    sqrt_TWO_D      = 1.41421356237309504880;
 
    // Same as sqrtf(2.0f)
-   const float     SQRT_TWO_F      = 1.41421356237309504880f;
+   const float     sqrt_TWO_F      = 1.41421356237309504880f;
 
    // Same as 1.0 / sqrt(2.0)
-   const double    INV_SQRT_TWO_D  = 0.70710678118654752440;
+   const double    INV_sqrt_TWO_D  = 0.70710678118654752440;
 
    // Same as 1.0f / sqrtf(2.0f)
-   const float     INV_SQRT_TWO_F  = 0.70710678118654752440f;
+   const float     INV_sqrt_TWO_F  = 0.70710678118654752440f;
 
    // Same as sqrt(3.0)
-   const double    SQRT_THREE_D      = 1.73205080757;
+   const double    sqrt_THREE_D      = 1.73205080757;
 
    // Same as sqrtf(3.0f)
-   const float     SQRT_THREE_F      = 1.73205080757f;
+   const float     sqrt_THREE_F      = 1.73205080757f;
 
    // Same as 1.0 / sqrt(3.0)
-   const double    INV_SQRT_THREE_D    = 0.577350269189;
+   const double    INV_sqrt_THREE_D    = 0.577350269189;
 
    // Same as 1.0f / sqrtf(3.0f)
-   const float     INV_SQRT_THREE_F    = 0.577350269189f;
+   const float     INV_sqrt_THREE_F    = 0.577350269189f;
 
    /********/
    /* Bool */
@@ -319,82 +319,82 @@ namespace kev
    /*******************************/
    /* math and assorted functions */
    /*******************************/
-   inline double SIN( const double& arg )
+   inline double sin( const double& arg )
    {
       return ::sin( arg );
    }
    
-   inline float SIN( const float& arg )
+   inline float sin( const float& arg )
    {
       return ::sinf( arg );
    }
    
-   inline double SQRT( const double& arg )
+   inline double sqrt( const double& arg )
    {
       return ::sqrt( arg );
    }
    
-   inline float SQRT( const float& arg )
+   inline float sqrt( const float& arg )
    {
       return ::sqrtf( arg );
    }
    
-   inline double COS( const double& arg)
+   inline double cos( const double& arg)
    {
       return ::cos( arg );
    }
    
-   inline float COS( const float& arg )
+   inline float cos( const float& arg )
    {
       return ::cosf( arg );
    }
 
-   inline double TAN( const double& arg )
+   inline double tan( const double& arg )
    {
       return ::tan( arg );
    }
    
-   inline float TAN( const float& arg )
+   inline float tan( const float& arg )
    {
       return ::tanf( arg );
    }
    
-   inline double ATAN( const double& arg )
+   inline double atan( const double& arg )
    {
       return ::atan( arg );
    }
    
-   inline float ATAN( const float& arg )
+   inline float atan( const float& arg )
    {
       return ::atanf( arg );
    }
    
-   inline double ATAN2( const double& arg1, const double& arg2 )
+   inline double atan2( const double& arg1, const double& arg2 )
    {
       return ::atan2( arg1, arg2 );
    }
    
-   inline float ATAN2( const float& arg1, const float& arg2 )
+   inline float atan2( const float& arg1, const float& arg2 )
    {
       return ::atan2f( arg1, arg2 );
    }
    
-   inline double ACOS( const double& arg )
+   inline double acos( const double& arg )
    {
       return ::acos( arg );
    }
    
-   inline float ACOS( const float& arg )
+   inline float acos( const float& arg )
    {
       return ::acosf( arg );
    }
    
-   inline double ASIN( const double& arg )
+   inline double asin( const double& arg )
    {
       return ::asin( arg );
    }
    
-   inline float ASIN( const float& arg )
+   inline float asin( const float& arg )
    {
       return ::asinf( arg );
    }
@@ -406,7 +406,7 @@ namespace kev
    //        it should be a single valued scalar type such as an int, float, double etc....
    // NOTE: This could be faster with a lookup table, but then wouldn't work templated : kevin
    template<class T>
-   inline T FACTORIAL(T rhs)
+   inline T factorial(T rhs)
    {
       T lhs = 1;
     
@@ -423,7 +423,7 @@ namespace kev
    //        compared to a scalar such as int, float, double, complex, short, etc...
    // i.e: 1, 1.0, or 1.0f are all valid
    template<class T>
-   inline T ABS(const T& num)
+   inline T abs(const T& num)
        { return (num < 0) ? -num : num; }
        
 
@@ -431,7 +431,7 @@ namespace kev
    template <class dataType>
    inline bool isEqual( const dataType& a, const dataType& b, const dataType& tolerance )
    {
-      return ABS( a - b ) <= tolerance;
+      return abs( a - b ) <= tolerance;
    }
 
    /*************/
@@ -440,43 +440,43 @@ namespace kev
 
    // returns the maximum of a, b, and c.
    template<class T> 
-   inline const T& MAX(const T& a, const T& b, const T& c)
+   inline const T& Max(const T& a, const T& b, const T& c)
        { return (a>=b) ? ((a>=c)?a:c) : ((b>=c)?b:c); }
 
    // returns the minimum of a, b, and c.
    template<class T> 
-   inline const T& MIN(const T& a, const T& b, const T& c)
+   inline const T& Min(const T& a, const T& b, const T& c)
        { return (a<=b) ? ((a<=c)?a:c) : ((b<=c)?b:c); }
 
    // returns the maximum of a, b
    template<class T> 
-   inline const T& MAX(const T& a, const T& b)
+   inline const T& Max(const T& a, const T& b)
        { return (a > b) ? a : b; }
 
    // returns the minimum of a, b
    template<class T> 
-   inline const T& MIN(const T& a, const T& b)
+   inline const T& Min(const T& a, const T& b)
        { return (a < b) ? a : b; }
 
    //: [something] to the power of 2
    template<class T> 
-   inline const T& POW2(const T& num)
+   inline const T& pow2(const T& num)
       { return num * num; }
 
    //: [something] to the power of 3
    template<class T> 
-   inline T POW3(const T& num)
-      { return POW2(num) * num; }
+   inline T pow3(const T& num)
+      { return pow2(num) * num; }
 
    //: [something] to the power of 4
    template<class T> 
-   inline T POW4(const T& num)
-      { return POW3(num) * num; }
+   inline T pow4(const T& num)
+      { return pow3(num) * num; }
 
    //: [something] to the power of 5
    template<class T> 
-   inline T POW5(const T& num) 
-      { return POW4(num) * num; }
+   inline T pow5(const T& num) 
+      { return pow4(num) * num; }
 
    // Round the floating point value up or down 
    // result - rounds up if value is >= x.5
@@ -514,17 +514,6 @@ namespace kev
       return deg * TO_RAD_D;
    }   
    
-   //: Alert
-   //  basically pops an informational message to the user if "verify" is false
-   //  if expression "verify" is false, then "text" is logged
-   inline void Alert( const bool& verify, const char* const text )
-   {
-      if (verify == false)
-      {
-         std::cerr<<text<<"\n"<<std::flush;
-      }
-   }
-
    inline void string2int( const std::string& s, int& i )
    {
       i = ::atoi( s.c_str() );

@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: convert.h,v $
-//    $Date: 2002-01-11 00:59:29 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:38 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -91,7 +91,7 @@ namespace kev
       // check the diagonal
       if (tr > 0.0f) 
       {
-         s = kev::SQRT( tr + 1.0f );
+         s = kev::sqrt( tr + 1.0f );
          quat[Quat<float>::QUAT_W] = s * 0.5f;
          s = 0.5f / s;
 
@@ -110,7 +110,7 @@ namespace kev
          j = nxt[i];
          k = nxt[j];
 
-         s = kev::SQRT(( m(i, i) - (m(j, j)+m(k, k)) ) + 1.0f );
+         s = kev::sqrt(( m(i, i) - (m(j, j)+m(k, k)) ) + 1.0f );
 
          q[i] = s * 0.5f;
 
@@ -126,6 +126,12 @@ namespace kev
          quat[Quat<float>::QUAT_Z] = q[2];
          quat[Quat<float>::QUAT_W] = q[3];
       }
+   }
+
+   inline void mat2quat( const Matrix4f& m, Quat<float>& quat )
+   {
+      Vec3<float> vec;
+      mat2quat( m, vec, quat );
    }
 };
 

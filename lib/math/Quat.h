@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Quat.h,v $
-//    $Date: 2002-01-11 00:59:27 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:37 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -408,7 +408,7 @@ inline dataType Quat<dataType>::norm() const
 //: returns the quaternion's magnitude (also called absolute)
 // defined as the norm of all four quaternion components
 template<class dataType>
-inline dataType Quat<dataType>::length() const { return kev::SQRT( this->norm() ); }
+inline dataType Quat<dataType>::length() const { return kev::sqrt( this->norm() ); }
 
 //: set self to the complex conjugate of self.
 template<class dataType>
@@ -737,13 +737,13 @@ inline void Quat<dataType>::setXYZEuler( const dataType &pitch,
     yOver2 = yaw * 0.5f;
     rOver2 = roll * 0.5f;
     
-    cosp = kev::COS( pOver2 );
-    cosy = kev::COS( yOver2 );
-    cosr = kev::COS( rOver2 );
+    cosp = kev::cos( pOver2 );
+    cosy = kev::cos( yOver2 );
+    cosr = kev::cos( rOver2 );
     
-    sinp = kev::SIN( pOver2 );
-    siny = kev::SIN( yOver2 );
-    sinr = kev::SIN( rOver2 );
+    sinp = kev::sin( pOver2 );
+    siny = kev::sin( yOver2 );
+    sinr = kev::sin( rOver2 );
 
     cc = cosp * cosr;
     cs = cosp * sinr;
@@ -775,13 +775,13 @@ inline void Quat<dataType>::setYXZEuler( const dataType &y,
              sinr, sinp, siny, 
              cosp_cosy, sinp_siny;
     
-    cosr = kev::COS(r * 0.5f);
-    cosp = kev::COS(p * 0.5f);
-    cosy = kev::COS(y * 0.5f);
+    cosr = kev::cos(r * 0.5f);
+    cosp = kev::cos(p * 0.5f);
+    cosy = kev::cos(y * 0.5f);
     
-    sinr = kev::SIN(r * 0.5f);
-    sinp = kev::SIN(p * 0.5f);
-    siny = kev::SIN(y * 0.5f);
+    sinr = kev::sin(r * 0.5f);
+    sinp = kev::sin(p * 0.5f);
+    siny = kev::sin(y * 0.5f);
     
     cosp_cosy = cosp * cosy;
     sinp_siny = sinp * siny;
@@ -816,22 +816,22 @@ inline void Quat<dataType>::setXYZEuler2( const dataType &p,
     rOver2 = r * 0.5f;
 
     //make the pitch quat
-    qx.vec[QUAT_W] = kev::COS(pOver2);
-    qx.vec[QUAT_X] = kev::SIN(pOver2); 
+    qx.vec[QUAT_W] = kev::cos(pOver2);
+    qx.vec[QUAT_X] = kev::sin(pOver2); 
     qx.vec[QUAT_Y] = 0.0f; 
     qx.vec[QUAT_Z] = 0.0f; 
     
     //make the yaw quat
-    qy.vec[QUAT_W] = kev::COS(yOver2);
+    qy.vec[QUAT_W] = kev::cos(yOver2);
     qy.vec[QUAT_X] = 0.0f; 
-    qy.vec[QUAT_Y] = kev::SIN(yOver2); 
+    qy.vec[QUAT_Y] = kev::sin(yOver2); 
     qy.vec[QUAT_Z] = 0.0f; 
     
     //make the roll quat
-    qz.vec[QUAT_W] = kev::COS(rOver2);
+    qz.vec[QUAT_W] = kev::cos(rOver2);
     qz.vec[QUAT_X] = 0.0f; 
     qz.vec[QUAT_Y] = 0.0f; 
-    qz.vec[QUAT_Z] = kev::SIN(rOver2); 
+    qz.vec[QUAT_Z] = kev::sin(rOver2); 
     
     //compose the three in pyr order...
     (*this) = qx * qy * qz;
@@ -852,9 +852,9 @@ inline void Quat<dataType>::makeRot( const dataType& rad, const dataType& x, con
    }
    
    dataType half_angle = rad * 0.5f;
-   dataType sin_half_angle = kev::SIN( half_angle );
+   dataType sin_half_angle = kev::sin( half_angle );
    
-   vec[QUAT_W] = kev::COS( half_angle );
+   vec[QUAT_W] = kev::cos( half_angle );
    vec[QUAT_X] = sin_half_angle * vec_normalized[0];
    vec[QUAT_Y] = sin_half_angle * vec_normalized[1];
    vec[QUAT_Z] = sin_half_angle * vec_normalized[2];
@@ -868,20 +868,20 @@ inline void Quat<dataType>::getRot( dataType& rad, dataType& xx, dataType& yy, d
 {
    // make sure we don't get a NaN result from acos...
    Quat<dataType> quat( *this );
-   if (kev::ABS( quat.vec[QUAT_W] ) > 1.0f)
+   if (kev::abs( quat.vec[QUAT_W] ) > 1.0f)
    {
       quat.normalize();
    }
-   assert( kev::ABS( quat.vec[QUAT_W] ) <= 1.0f && "acos returns NaN when |arg| > 1" );
+   assert( kev::abs( quat.vec[QUAT_W] ) <= 1.0f && "acos returns NaN when |arg| > 1" );
    
    
    // [acos( w ) * 2.0, v / (asin( w ) * 2.0)]
    
    // get the rotation:
-   rad = kev::ACOS( quat.vec[QUAT_W] ) * 2.0f;
+   rad = kev::acos( quat.vec[QUAT_W] ) * 2.0f;
    
    // get the axis: (use sin(rad) instead of asin(w))
-   dataType sin_half_angle = kev::SIN( rad * 0.5f );
+   dataType sin_half_angle = kev::sin( rad * 0.5f );
    if (sin_half_angle >= 0.0001f)
    {
       dataType sin_half_angle_inv = 1.0f / sin_half_angle;
@@ -1023,10 +1023,10 @@ inline void Quat<dataType>::slerp( dataType t, const Quat<dataType>& p, const Qu
    if ((1.0f - cosom) > 0.0001f)
    {
       // Standard case (slerp)
-      omega = kev::ACOS(cosom);
-      sinom = kev::SIN(omega);
-      sclp  = kev::SIN((1.0f - t)*omega)/sinom;
-      sclq  = kev::SIN(t*omega)/sinom;
+      omega = kev::acos(cosom);
+      sinom = kev::sin(omega);
+      sclp  = kev::sin((1.0f - t)*omega)/sinom;
+      sclq  = kev::sin(t*omega)/sinom;
    }
    else
    {
@@ -1055,18 +1055,18 @@ inline void Quat<dataType>::exp( const Quat<dataType>& quat )
 {
    dataType len1, len2;
 
-   len1 = kev::SQRT( quat.vec[QUAT_X] * quat.vec[QUAT_X] + 
+   len1 = kev::sqrt( quat.vec[QUAT_X] * quat.vec[QUAT_X] + 
                           quat.vec[QUAT_Y] * quat.vec[QUAT_Y] + 
                           quat.vec[QUAT_Z] * quat.vec[QUAT_Z] );
    if (len1 > 0.0f)
-      len2 = kev::SIN( len1 ) / len1;
+      len2 = kev::sin( len1 ) / len1;
    else
       len2 = 1.0f;
 
    vec[QUAT_X] = quat.vec[QUAT_X] * len2;
    vec[QUAT_Y] = quat.vec[QUAT_Y] * len2;
    vec[QUAT_Z] = quat.vec[QUAT_Z] * len2;
-   vec[QUAT_W] = kev::COS( len1 );
+   vec[QUAT_W] = kev::cos( len1 );
 }
 
 //: complex logarithm
@@ -1076,7 +1076,7 @@ inline void Quat<dataType>::log( const Quat<dataType>& quat )
 {
    dataType length;
 
-   length = kev::SQRT( quat.vec[QUAT_X] * quat.vec[QUAT_X] + 
+   length = kev::sqrt( quat.vec[QUAT_X] * quat.vec[QUAT_X] + 
                        quat.vec[QUAT_Y] * quat.vec[QUAT_Y] + 
                        quat.vec[QUAT_Z] * quat.vec[QUAT_Z] );
 
@@ -1125,10 +1125,10 @@ inline std::ostream& operator<<( std::ostream& out, const Quat<dataType>& q )
 template<class dataType>
 bool Quat<dataType>::isEqual( const Quat<dataType>& quat, float tol ) const
 {
-   if ( (kev::ABS(this->vec[0] - quat[0]) <= tol) &&
-         (kev::ABS(this->vec[1] - quat[1]) <= tol) &&
-         (kev::ABS(this->vec[2] - quat[2]) <= tol) &&
-         (kev::ABS(this->vec[3] - quat[3]) <= tol) )
+   if ( (kev::abs(this->vec[0] - quat[0]) <= tol) &&
+         (kev::abs(this->vec[1] - quat[1]) <= tol) &&
+         (kev::abs(this->vec[2] - quat[2]) <= tol) &&
+         (kev::abs(this->vec[3] - quat[3]) <= tol) )
    {
       return true;
    }

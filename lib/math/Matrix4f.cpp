@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.cpp,v $
-//    $Date: 2002-01-11 00:59:31 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-01-11 16:13:37 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -80,7 +80,7 @@ void Matrix4f::getEulerXYZ( float& xRot, float& yRot, float& zRot ) const
 
    zRot = kev::ATAN2(-_m[4], _m[0]);     // -(-cy*sz)/(cy*cz) - cy falls out
    xRot = kev::ATAN2(-_m[9], _m[10]);     // -(sx*cy)/(cx*cy) - cy falls out
-   cz   = kev::COS( zRot );
+   cz   = kev::cos( zRot );
    yRot = kev::ATAN2(_m[8], _m[0]/cz);   // (sy)/((cy*cz)/cz)
 }   
 
@@ -90,15 +90,15 @@ void Matrix4f::getEulerZYX(  float& zRot, float& yRot, float& xRot ) const
 
    zRot = kev::ATAN2( _m[1], _m[0]);      // (cy*sz)/(cy*cz) - cy falls out
    xRot = kev::ATAN2( _m[6], _m[10]);      // (sx*cy)/(cx*cy) - cy falls out
-   sx   = kev::SIN( xRot );
+   sx   = kev::sin( xRot );
    yRot = kev::ATAN2( -_m[2],(_m[6]/sx) );   // -(-sy)/((sx*cy)/sx)
 }  
 
 void Matrix4f::makeEulerXYZ( const float& xRot, const float& yRot, const float& zRot )
 {
-   float sx = kev::SIN(TO_RAD_F * xRot);  float cx = kev::COS(TO_RAD_F * xRot);
-   float sy = kev::SIN(TO_RAD_F * yRot);  float cy = kev::COS(TO_RAD_F * yRot);
-   float sz = kev::SIN(TO_RAD_F * zRot);  float cz = kev::COS(TO_RAD_F * zRot);
+   float sx = kev::sin(TO_RAD_F * xRot);  float cx = kev::cos(TO_RAD_F * xRot);
+   float sy = kev::sin(TO_RAD_F * yRot);  float cy = kev::cos(TO_RAD_F * yRot);
+   float sz = kev::sin(TO_RAD_F * zRot);  float cz = kev::cos(TO_RAD_F * zRot);
 
    // Derived by simply multiplying out the matrices by hand
    // X*Y*Z
@@ -109,9 +109,9 @@ void Matrix4f::makeEulerXYZ( const float& xRot, const float& yRot, const float& 
 }   
 void Matrix4f::makeEulerZYX( const float& xRot, const float& yRot, const float& zRot )
 {
-   float sx = kev::SIN(TO_RAD_F * xRot);  float cx = kev::COS(TO_RAD_F * xRot);
-   float sy = kev::SIN(TO_RAD_F * yRot);  float cy = kev::COS(TO_RAD_F * yRot);
-   float sz = kev::SIN(TO_RAD_F * zRot);  float cz = kev::COS(TO_RAD_F * zRot);
+   float sx = kev::sin(TO_RAD_F * xRot);  float cx = kev::cos(TO_RAD_F * xRot);
+   float sy = kev::sin(TO_RAD_F * yRot);  float cy = kev::cos(TO_RAD_F * yRot);
+   float sz = kev::sin(TO_RAD_F * zRot);  float cz = kev::cos(TO_RAD_F * zRot);
 
    // Z*Y*Z
    _m[0] = cy*cz;      _m[4] = -cx*sz + sx*sy*cz;   _m[8] = sx*sz + cx*sy*cz;    _m[12] = 0.0f;
@@ -123,25 +123,25 @@ void Matrix4f::makeEulerZYX( const float& xRot, const float& yRot, const float& 
 //: perform an abs (absolute value) function to each matrix cell
 void Matrix4f::absolute()
 {
-   kev::ABS( _m[0] );
-   kev::ABS( _m[1] );
-   kev::ABS( _m[2] );
-   kev::ABS( _m[3] );
+   kev::abs( _m[0] );
+   kev::abs( _m[1] );
+   kev::abs( _m[2] );
+   kev::abs( _m[3] );
    
-   kev::ABS( _m[4] );
-   kev::ABS( _m[5] );
-   kev::ABS( _m[6] );
-   kev::ABS( _m[7] );
+   kev::abs( _m[4] );
+   kev::abs( _m[5] );
+   kev::abs( _m[6] );
+   kev::abs( _m[7] );
    
-   kev::ABS( _m[8] );
-   kev::ABS( _m[9] );
-   kev::ABS( _m[10] );
-   kev::ABS( _m[11] );
+   kev::abs( _m[8] );
+   kev::abs( _m[9] );
+   kev::abs( _m[10] );
+   kev::abs( _m[11] );
    
-   kev::ABS( _m[12] );
-   kev::ABS( _m[13] );
-   kev::ABS( _m[14] );
-   kev::ABS( _m[15] );
+   kev::abs( _m[12] );
+   kev::abs( _m[13] );
+   kev::abs( _m[14] );
+   kev::abs( _m[15] );
 }
 
 //: copy translation from a matrix
@@ -301,7 +301,7 @@ void Matrix4f::getRotationXYZ( float& xRot, float& yRot, float& zRot ) const
     
     zRot = atan2f(mat(0, 1), mat(0, 0));      //(cy*sz)/(cy*cz) - cy falls out
     xRot = atan2f(mat(1, 2), mat(2, 2));      //(sx*cy)/(cx*cy) - cy falls out
-    sx   = kev::SIN( xRot );
+    sx   = kev::sin( xRot );
     yRot = atan2f(-mat(0, 2),(mat(1, 2)/sx) );   // -(-sy)/((sx*cy)/sx)
     
     xRot = TO_DEG_F * xRot;
@@ -382,7 +382,7 @@ bool Matrix4f::invert()
                         for (j = 0; j < n; j++ )
                         {
                                 if (col[ j] )          continue;
-                                tmp_m = kev::ABS( m[ i][ j]);
+                                tmp_m = kev::abs( m[ i][ j]);
                                 if (tmp_m > max_m)
                                 {
                                         max_m = tmp_m;
@@ -492,22 +492,22 @@ bool Matrix4f::isIdentity() const
 //: is the matrix an identity matrix within some tolerence?
 bool Matrix4f::isIdentity( float tol ) const
 {
-   return( kev::ABS( _m[0] - 1.0f ) < tol && 
-          kev::ABS( _m[1] ) < tol && 
-          kev::ABS( _m[2] ) < tol && 
-          kev::ABS( _m[3] ) < tol && 
-          kev::ABS( _m[4] ) < tol && 
-          kev::ABS( _m[5] - 1.0f ) < tol && 
-          kev::ABS( _m[6] ) < tol && 
-          kev::ABS( _m[7] ) < tol && 
-          kev::ABS( _m[8] ) < tol && 
-          kev::ABS( _m[9] ) < tol && 
-          kev::ABS( _m[10] - 1.0f ) < tol && 
-          kev::ABS( _m[11] ) < tol && 
-          kev::ABS( _m[12] ) < tol && 
-          kev::ABS( _m[13] ) < tol && 
-          kev::ABS( _m[14] ) < tol && 
-          kev::ABS( _m[15] - 1.0f ) < tol );
+   return( kev::abs( _m[0] - 1.0f ) < tol && 
+          kev::abs( _m[1] ) < tol && 
+          kev::abs( _m[2] ) < tol && 
+          kev::abs( _m[3] ) < tol && 
+          kev::abs( _m[4] ) < tol && 
+          kev::abs( _m[5] - 1.0f ) < tol && 
+          kev::abs( _m[6] ) < tol && 
+          kev::abs( _m[7] ) < tol && 
+          kev::abs( _m[8] ) < tol && 
+          kev::abs( _m[9] ) < tol && 
+          kev::abs( _m[10] - 1.0f ) < tol && 
+          kev::abs( _m[11] ) < tol && 
+          kev::abs( _m[12] ) < tol && 
+          kev::abs( _m[13] ) < tol && 
+          kev::abs( _m[14] ) < tol && 
+          kev::abs( _m[15] - 1.0f ) < tol );
 }
 
 
@@ -984,14 +984,14 @@ void Matrix4f::makeRotXYZ( const float& xRot, const float& yRot, const float& zR
 {
     Matrix4f& mat = *this;
     
-    float sx = kev::SIN( TO_RAD_F * xRot );  
-    float cx = kev::SIN( TO_RAD_F * xRot );
+    float sx = kev::sin( TO_RAD_F * xRot );  
+    float cx = kev::sin( TO_RAD_F * xRot );
     
-    float sy = kev::SIN( TO_RAD_F * yRot );  
-    float cy = kev::SIN( TO_RAD_F * yRot );
+    float sy = kev::sin( TO_RAD_F * yRot );  
+    float cy = kev::sin( TO_RAD_F * yRot );
     
-    float sz = kev::SIN( TO_RAD_F * zRot );  
-    float cz = kev::SIN( TO_RAD_F * zRot );
+    float sz = kev::sin( TO_RAD_F * zRot );  
+    float cz = kev::sin( TO_RAD_F * zRot );
 
    // Derived by multiplying the matrices by hand
    // Z*X*Y
