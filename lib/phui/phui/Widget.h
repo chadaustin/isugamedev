@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-15 09:20:39 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-15 09:29:58 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,10 +42,14 @@
 #include "Input.h"
 #include "Font.h"
 
-namespace phui {
+namespace phui
+{
+   // forward declare so we can point to our parent
+   class WidgetContainer;
 
    class Widget
    {
+      friend WidgetContainer;
    protected:
       /**
        * Creates a new widget with width and height 0 and size (0,0).
@@ -53,11 +57,12 @@ namespace phui {
       Widget()
          : mX(0), mY(0), mWidth(0), mHeight(0), mInsetX(0), mInsetY(0),
            mEnabled(true), mVisible(true), mBackgroundColor(0,0,0,0),
-           mForegroundColor(1,1,1,1), mFont("arial", Font::PLAIN, 12)
+           mForegroundColor(1,1,1,1), mFont("arial", Font::PLAIN, 12),
+           mParent(NULL)
       {}
 
-      virtual ~Widget() {
-      }
+      virtual ~Widget()
+      {}
 
    public:
       /**
@@ -235,6 +240,20 @@ namespace phui {
          return mFont;
       }
 
+      /**
+       * Gets the parent container for this widget or NULL if this widget has no
+       * container.
+       */
+      virtual const WidgetContainer* getParent() const
+      {
+         return mParent;
+      }
+
+      virtual WidgetContainer* getParent()
+      {
+         return mParent;
+      }
+
       virtual bool hasFocus() { return false; }
 
       // external events
@@ -300,6 +319,11 @@ namespace phui {
        * The foreground font.
        */
       Font mFont;
+
+      /**
+       * The parent container for this widget.
+       */
+      WidgetContainer* mParent;
    };
 
 } // namespace phui

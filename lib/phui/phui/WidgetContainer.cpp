@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-04-15 09:20:39 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-15 09:29:58 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -48,11 +48,16 @@ namespace phui {
    }
 
    void WidgetContainer::add(Widget* widget) {
+      if (widget->getParent()) {
+         widget->getParent()->remove(widget);
+      }
       mWidgets.push_back(widget);
+      widget->mParent = this;
    }
 
    void WidgetContainer::remove(Widget* widget) {
       mWidgets.remove(widget);
+      widget->mParent = NULL;
    }
 
    void WidgetContainer::draw() {
