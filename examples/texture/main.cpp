@@ -20,6 +20,9 @@ int gRot[] = {0,0,0};
 // Array of texture object pointers
 Texture* gTextures[6];
 
+// Flag so we can toggle the drawing of the texture
+bool gTexturesEnabled = true;
+
 //-----------------------------------------------------------------------------
 
 void
@@ -91,7 +94,7 @@ drawCube()
 //////////////////////////////////////////////////
 void onRedisplay()
 {
-   glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
+   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
    glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
    glEnable(GL_DEPTH_TEST);
 
@@ -112,9 +115,17 @@ void onRedisplay()
       glRotatef(gRot[0], 1,0,0);  // rotate on the x axis
       glRotatef(gRot[1], 0,1,0);  // rotate on the y axis
       glRotatef(gRot[2], 0,0,1);  // rotate on the z axis
-      glEnable(GL_TEXTURE_2D);
+
+      if (gTexturesEnabled)
+      {
+         glEnable(GL_TEXTURE_2D);
+      }
       drawCube();
-      glDisable(GL_TEXTURE_2D);
+
+      if (gTexturesEnabled)
+      {
+         glDisable(GL_TEXTURE_2D);
+      }
    glPopMatrix();
 
    // swaps the front and back frame buffers.
@@ -171,6 +182,9 @@ void onKeyboardDown(unsigned char key, int x, int y)
    case 27:
       exit(0);
       break;
+   case 't':
+      gTexturesEnabled = ! gTexturesEnabled;
+      break;
    default:
       // do nothing if no key is pressed
       break;
@@ -218,6 +232,9 @@ void main(int argc, char** argv)
 
    // keyboard callback functions.
    glutKeyboardFunc(onKeyboardDown);
+
+   // disable key repeating.
+   glutIgnoreKeyRepeat(1);
 
    glutMouseFunc(onMouse);
    glutMotionFunc(onMouseMove);
