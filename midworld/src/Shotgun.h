@@ -24,20 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.h,v $
- * Date modified: $Date: 2002-08-14 20:27:26 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-09-09 00:56:25 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_SHOTGUN_H
 #define MW_SHOTGUN_H
 
-#include <gmtl/Math.h>
-#include <stdlib.h>
 #include "BaseProjectileWeapon.h"
-#include "BaseBullet.h"
-
-const unsigned int NUM_PELLETS = 10;
 
 namespace mw
 {
@@ -45,67 +40,15 @@ namespace mw
    class  Shotgun: public BaseProjectileWeapon
    {
    public:
-      Shotgun()
-         : BaseProjectileWeapon( Weapon::RIFLE, "Shotgun" )
-      {
-         mSpreadAngle=10.f;
-         srand(SDL_GetTicks());
-         mMaxAmmoInBag = 1200;
-         mClipSize = 6;
-         mFiring = false;
-         mReloading = false;
-
-         mReloadRate = 2.0f;
-         mCockRate = 0.7f;
-
-         mAmmoInClip = mClipSize;
-         mAmmoInBag = 100;
-
-         // init to no waiting time
-         mReloadCounter = 0.0f;
-      }
+      Shotgun();
 
       /** render the weapon using opengl calls. */
-      virtual void draw() const
-      {
-         glPushMatrix();
-            glMultMatrixf(this->matrix().getData());
-            glScalef(0.15f, 0.15f, 0.8f);
-            cubeGeometry().render();
-         glPopMatrix();
-      }
+      virtual void draw() const;
 
-      // some of these will change to public...
    protected:
-      void discharge(GameState& g)
-      {
-         // add the bullet to the gamestate...
-         for(unsigned int i=0; i<NUM_PELLETS; i++)
-         {
-            //TODO:  seed this according to world time?
+      void discharge(GameState& g);
 
-
-            //generate random bullet directions with the sweep of mSpreadAngle
-            //degrees
-            float angle = gmtl::Math::deg2Rad((mSpreadAngle* float(rand())/RAND_MAX) - (mSpreadAngle/2));
-
-            gmtl::Quatf r(gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(angle, 0.0f, 1.0f, 0.0f)));
-
-            BaseBullet* bullet = this->createBullet();
-
-            bullet->setRot(this->getRot() * r); //shoot off at a limited random angle
-            bullet->setPos(this->getPos());
-            bullet->setVel(this->getRot() * r * bullet->getVel());
-
-            g.add(bullet); // bullet is not mine anymore, belongs to GameState
-
-         }
-      }
-
-      void ejectCasing(GameState& g)
-      {
-         /// @todo eject a casing into the game
-      }
+      void ejectCasing(GameState& g);
 
    private:
       float mSpreadAngle;
