@@ -1,0 +1,12 @@
+
+=========================================================================
+2002/01/11  subatomic    lib name is now pixmi
+2000/10/06  subatomic    PNG support added (added dependency on zlib)
+2000/08/14  subatomic    TGA, PCX support added
+2000/08/10  subatomic    lib name is now ImageIO
+2000/07/23  subatomic    Added byte alignment support.  This fixes 
+                         loaded/saved images that had a skewed effect due 
+                         to their width equaling values that were not 
+                         aligned on memory boundaries
+1998/03/08  subatomic    Initial effort of f-lib included 24/32bit SGI, 
+                         24bit BMP support
