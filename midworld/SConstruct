@@ -185,7 +185,10 @@ def SetupGLText(env):
 
 def SetupOpenSG(env):
    "Sets up the given environment for OpenSG"
-   ParseConfig(env, 'osg-config', ['--cflags --libs Base System'])
+   if optimize:
+      ParseConfig(env, 'osg-config', ['--dbg --cflags --libs Base System'])
+   else:
+      ParseConfig(env, 'osg-config', ['--opt --cflags --libs Base System'])
 
 def SetupOpenGL(env):
    "Sets up the given environment for OpenGL"
