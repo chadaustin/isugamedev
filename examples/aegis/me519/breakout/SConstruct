@@ -1,0 +1,14 @@
+Default('.')
+
+sources = [
+    'breakout.cpp',
+    'game_state.cpp',
+    'null_state.cpp',
+    'string_state.cpp',
+    'text.cpp',
+    ]
+
+env = Environment(
+    LIBS = ['glut32', 'opengl32'],
+    CCFLAGS = '-Wall')
+env.Program(target = 'breakout', source = sources)

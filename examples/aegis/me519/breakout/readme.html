@@ -1,0 +1,83 @@
+<html>
+
+<head>
+<title>Chad Austin's Breakout</title>
+</head>
+
+<body>
+
+<h1>Chad Austin's Breakout</h1>
+
+<p>
+Since I've been really busy, I couldn't spend as much time as I would have
+liked on this project.  It has a few bugs in the collision detection
+routines...  Sometimes the ball may get stuck in the walls or travel up through
+the crack between two blocks.  I did add sound effects using my
+<a href="http://aegisknight.org/audiere">audio library</a>, however (and
+thereby found a few issues with the performance of the library in interactive
+situations).
+</p>
+
+<p>
+I think the assignment took me three hours.
+</p>
+
+<table>
+<tr><th>File</th><th>Description</th></tr>
+<tr>
+ <td>breakout.zip</td>
+ <td>Win32 binaries, including Audiere DLL and sound files</td>
+</tr>
+<tr>
+ <td>breakout.cpp</td>
+ <td>Main GLUT interface, game state machine</td>
+</tr>
+<tr>
+ <td>color.hpp</td>
+ <td>Simple color struct</td>
+</tr>
+<tr>
+ <td>game_state.{c,h}pp</td>
+ <td>Implementation of State interface, actual Breakout logic</td>
+</tr>
+<tr>
+ <td>null_state.{c,h}pp</td>
+ <td>Implementation of a state which does nothing</td>
+</tr>
+<tr>
+ <td>point.hpp</td>
+ <td>Simple point struct, related operations</td>
+</tr>
+<tr>
+ <td>rectangle.hpp</td>
+ <td>Simple rectangle struct</td>
+</tr>
+<tr>
+ <td>sound.{c,h}pp</td>
+ <td>Sound effect engine</td>
+</tr>
+<tr>
+ <td>state.hpp</td>
+ <td>Definition of State interface</td>
+</tr>
+<tr>
+ <td>string_state.{c,h}pp</td>
+ <td>State implementation that draws a string to the screen</td>
+</tr>
+<tr>
+ <td>text.{c,h}pp</td>
+ <td>Utility functions to draw text using GLUT fonts</td>
+</tr>
+<tr>
+ <td>tuple.hpp</td>
+ <td>Both vectors and points are tuples</td>
+</tr>
+<tr>
+ <td>vector.hpp</td>
+ <td>Simple vector struct, related operations</td>
+</tr>
+</table>
+
+</body>
+
+</html>
