@@ -73,6 +73,7 @@ classes = Split("""
    Texture
    TextureManager
    Turret
+   UnsupportedState
    cubeGeometry
 """)
 

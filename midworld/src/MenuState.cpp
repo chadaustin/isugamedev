@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-11-13 15:42:56 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-11-14 12:33:42 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -241,6 +241,9 @@ namespace mw
                      break;
                   case 4:
                      quit();
+                     break;
+                  default:
+                     invokeTransition("Unsupported");
                      break;
                }
                break;
