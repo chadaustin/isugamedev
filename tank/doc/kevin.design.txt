@@ -54,7 +54,8 @@ Why this game is fun
 player needs to be clever (puzzles!), lots of weapons, powerups, character 
 building, RPG, puzzle, and arcade action combined
 
-ancient civilization + magic + technology 
+ancient civilization + lots of technology + a little magic
+(tech = mechanical, electricity, atomic)
 
 
 Target audience
@@ -194,6 +195,28 @@ I want at least 3 of the levels themed to each of the fillowing,
 - nile river valley
 - ancient crete
 
+
+
+Enumerate Game Objects
+========================
+
+personal items
+---------------
+- invisible power up, mad visible by some external trigger
+- bullet shooting box triggered by some external trigger
+- box that catches gunfire and redirects to one direction (world aligned)
+  (only certain bullet types though.)
+- triggerbox that when "use"d generated a trigger event
+  this will be hooked up to an item that receives external events.
+
+
+world items (can't pick them up)
+----------------
+- box that emits a personal item. (usually out its top)
+  triggered when you try to "use" this item.
+  (triggered when you bump it too?)
+- Panel that when "use"d generates a trigger event.  
+  This can be hooked up to a receiving (personal or world) item.
 
 Timeline (milestones)
 ====================
