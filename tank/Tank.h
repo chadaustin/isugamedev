@@ -5,7 +5,9 @@
 #include "glRenderTexture.h"
 #include "ImageManager.h"
 
-//#include "ObjImporter.h"
+#include "ObjImporter.h"
+#include "GeoSet.h"
+#include "glRenderGeoSet.h"
 
 class Tank
 {
@@ -22,9 +24,26 @@ public:
       tex.setImage( &image );
       result = tex.imageValid();
       assert( result && "image is not valid" );
+      
+      kev::ObjImporter obj;
+      obj.load( geosets, "models/ship.obj" );
+      assert( geosets.size() > 0 && "load failed" );
    }
    
-   void drawPyramidThing() const
+   void drawShip()
+   {
+      glEnable( GL_TEXTURE_2D );
+   
+      // compensate for the 3DS scale and rotation...
+      glScalef( .2,.2,.2 );
+      glRotatef( 90, -1,0,0 );
+      kev::glRenderGeoSets( geosets );
+      
+      //glColor3f( 1.0f, 0.5f, 1.0f );
+      //glScalef( 10,10,25 );
+      //drawPyramidThing()
+   }
+   void drawPyramidThing()
    {
       glEnable( GL_TEXTURE_2D );
    
@@ -66,7 +85,7 @@ public:
       glPopMatrix();
    }   
    
-   void draw() const
+   void draw()
    {
       kev::glRender( mMaterial );
       glPushMatrix();
@@ -74,9 +93,7 @@ public:
 
          // vehicle (tank)
          glPushMatrix();
-            glColor3f( 1.0f, 0.5f, 1.0f );
-            glScalef( 10,10,25 );
-            drawPyramidThing();
+            drawShip();
          glPopMatrix();
          
          // gun
@@ -207,6 +224,8 @@ private:
    float mSpeed;
    Texture tex;
    Image image;
+   
+   std::vector<GeoSet*> geosets;
 };
 
 #endif
