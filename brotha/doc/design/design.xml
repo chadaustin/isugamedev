@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="../../../../../../aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
+<?xml-stylesheet href="file://localhost/home9/users/aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.7 2002-04-08 05:19:34 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 05:19:34 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.8 2002-04-08 05:45:17 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 05:45:17 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -330,7 +330,7 @@
     </section>
     <section>
       <title>Thread Module</title>
-      <para>Description of what this module does here ...</para>
+      <para>The thread module provides a suite of utility classes for creating threads and synchronizing them. It is built on top of NSPR (Netscape Portable Runtime) which is a portable system abstraction layer for C provided by mozilla.org. It consists of several classes: a base Thread class, a Lockable interface, a Mutex implementation of the Lockable interface, a ConditionVariable class, and a Synchronized mix-in class which provides functionality similar to Java's synchronized method semantics.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
