@@ -87,13 +87,18 @@ def SetupAudiere(env):
    if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
    env['LIBS'].extend(['audiere'])
 
+def SetupGLText(env):
+   "Sets up the given enviroment for GLText"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['gltext'])
+
 def SetupOpenGL(env):
    "Sets up the given environment for OpenGL"
    if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
    env['LIBS'].extend(['GL', 'GLU'])
 
 Export('ParseConfig')
-Export('SetupSDL SetupCorona SetupAudiere SetupOpenGL')
+Export('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenGL')
 
 # create the base environment
 baseEnv = BuildBaseEnvironment()

@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <SDL.h>
+#include <gltext.h>
 #include "State.h"
 #include "GameScene.h"
 #include "Camera.h"
@@ -65,6 +66,9 @@ namespace mw
       // input data for the Player object.
       // note: in local screen space, not actual player vel
       gmtl::Vec3f mPlayerVel;
+
+      gltext::Font* mFont;
+      gltext::FontRenderer* mFontRenderer;
    };
 }
 

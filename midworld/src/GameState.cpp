@@ -1,5 +1,6 @@
 /* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil c-basic-offset: 3 -*- */
 // vim:cindent:ts=3:sw=3:et:tw=80:sta:
+#include <sstream>
 #include "GameState.h"
 #include "IntroState.h"
 #include "MenuState.h"
@@ -21,6 +22,20 @@ namespace mw
       mPlayer.addWeapon( new Pistol );
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
+
+      mFont = 0;
+      mFontRenderer = 0;
+      mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
+      if (mFont)
+      {
+         std::cout<<"Font font"<<std::endl;
+         mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
+         if (mFontRenderer)
+         {
+            std::cout<<"Created renderer"<<std::endl;
+            mFontRenderer->setFont(mFont);
+         }
+      }
    }
 
    GameState::~GameState()
@@ -152,6 +167,44 @@ namespace mw
             (*itr)->draw();
          }
       glPopMatrix();
+
+      // Draw the HUD
+      if (mFontRenderer)
+      {
+         glMatrixMode(GL_PROJECTION);
+         glPushMatrix();
+         glLoadIdentity();
+         glOrtho(0, 640, 480, 0, 1, -1);
+
+         glMatrixMode(GL_MODELVIEW);
+         glPushMatrix();
+         glLoadIdentity();
+
+         glPushMatrix();
+            glTranslatef(20, 20+mFont->getAscent(), 0);
+            glColor4f(1,0,0,0.8f);
+            mFontRenderer->render("Midworld");
+         glPopMatrix();
+
+         glPushMatrix();
+            glTranslatef(550, 480 - mFont->getAscent() - mFont->getDescent(), 0);
+            glColor4f(1,0,0,1);
+            {
+               std::stringstream str;
+               str << mPlayer.weapon().getAmmoInClip();
+               mFontRenderer->render(str.str().c_str());
+            }
+            glTranslatef(40, 0, 0);
+            {
+               std::stringstream str;
+               str << mPlayer.weapon().getAmmoInBag();
+               mFontRenderer->render(str.str().c_str());
+            }
+         glPopMatrix();
+
+         glPopMatrix();
+         glPopMatrix();
+      }
    }
 
    void

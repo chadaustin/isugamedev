@@ -1,7 +1,7 @@
 from os import path
 
 Import('baseEnv PREFIX')
-Import('SetupSDL SetupCorona SetupAudiere SetupOpenGL')
+Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenGL')
 
 classes = Split("""
    Application
@@ -43,6 +43,7 @@ env['LIBS'].extend(['ai'])
 SetupSDL(env)
 SetupCorona(env)
 SetupAudiere(env)
+SetupGLText(env)
 SetupOpenGL(env)
 
 programs = [
