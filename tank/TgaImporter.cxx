@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: TgaImporter.cxx,v $
-//    $Date: 2001-09-10 15:40:56 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-10 15:50:17 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -101,7 +101,7 @@ int TgaImporter::ReadRLERow( unsigned char* data, const int& bufferSize, const i
 
 //: Save the image as "filename"
 //  returns true or false for successful or unsuccessful
-bool TgaImporter::import( const char* const filename, Image& image )
+bool TgaImporter::import( const char* const filename, Image& image ) const
 {
    if (!CFileIO::fileExists( filename ))
    {

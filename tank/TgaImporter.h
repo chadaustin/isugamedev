@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: TgaImporter.h,v $
-//    $Date: 2001-09-10 15:40:56 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-10 15:50:17 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -58,7 +58,7 @@ public:
       
    //: Load the image "filename", loads into the Image data
    //  returns true or false for successful or unsuccessful
-   virtual bool import( const char* const filename, Image& image );   
+   virtual bool import( const char* const filename, Image& image ) const;   
    
    //: a string that describes the files supported by this importer
    virtual const char* const description() const;
