@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-17 07:19:36 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-17 07:25:26 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,11 +42,11 @@
 namespace phui {
 
    Button::Button()
-      : mLabel(""), mButtonDown(false)
+      : mText(""), mButtonDown(false)
    {}
 
-   Button::Button( const std::string& label )
-      : mLabel(label), mButtonDown(false)
+   Button::Button(const std::string& text)
+      : mText(text), mButtonDown(false)
    {}
 
    Button::~Button()
@@ -60,34 +60,34 @@ namespace phui {
       // draw the button background
       if (mButtonDown)
       {
-         glColor( mForegroundColor );
+         glColor(mForegroundColor);
       }
       else
       {
-         glColor( mBackgroundColor );
+         glColor(mBackgroundColor);
       }
       glBegin(GL_TRIANGLE_FAN);
-         glVertex2i(0,      0       );
-         glVertex2i(mWidth, 0       );
-         glVertex2i(mWidth, mHeight );
-         glVertex2i(0,      mHeight );
+         glVertex2i(0,      0      );
+         glVertex2i(mWidth, 0      );
+         glVertex2i(mWidth, mHeight);
+         glVertex2i(0,      mHeight);
       glEnd();
 
-      // draw label text
+      // draw text
       if (mButtonDown)
       {
-         glColor( mBackgroundColor );
+         glColor(mBackgroundColor);
       }
       else
       {
-         glColor( mForegroundColor );
+         glColor(mForegroundColor);
       }
-      FontRenderer renderer( mFont );
+      FontRenderer renderer(mFont);
 
       int w = mWidth - (2*mInsetX);
       int h = mHeight - (2*mInsetY);
       unsigned int fontHeight = renderer.getHeight();
-      unsigned int fontWidth = renderer.getWidth(mLabel);
+      unsigned int fontWidth = renderer.getWidth(mText);
       unsigned int fontAscent = fontHeight - renderer.getDescent();
 
       int textRectX = mInsetX + (w/2) - (fontWidth/2);
@@ -98,19 +98,19 @@ namespace phui {
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;
 
-      renderer.draw( mLabel, fontX, fontY );
+      renderer.draw(mText, fontX, fontY);
 
       glPopMatrix();
    }
 
-   void Button::setLabel( const std::string& label )
+   void Button::setText(const std::string& text)
    {
-      mLabel = label;
+      mText = text;
    }
 
-   const std::string& Button::getLabel() const
+   const std::string& Button::getText() const
    {
-      return mLabel;
+      return mText;
    }
 
    void Button::onMouseDown(InputButton button, int x, int y)

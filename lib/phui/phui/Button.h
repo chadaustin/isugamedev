@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-04-17 07:19:36 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-17 07:25:26 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -49,16 +49,16 @@ namespace phui {
    class Button : public Widget {
    public:
       /**
-       * Creates a new button with no label at (0,0) with size (0,0).
+       * Creates a new button with no text at (0,0) with size (0,0).
        */
       Button();
 
       /**
-       * Creates a new button with the given label at (0,0) with size (0,0).
+       * Creates a new button with the given text at (0,0) with size (0,0).
        *
-       * @param label      the label for the button
+       * @param text      the text for the button
        */
-      Button( const std::string& label );
+      Button( const std::string& text );
 
       /**
        * Destroys this button.
@@ -66,23 +66,23 @@ namespace phui {
       virtual ~Button();
 
       /**
-       * Draws this button with its label.
+       * Draws this button with its text.
        */
       virtual void draw();
 
       /**
-       * Sets the label on this button to the given value.
+       * Sets the text on this button to the given value.
        *
-       * @param label      the label for this button
+       * @param text      the text for this button
        */
-      void setLabel( const std::string& label );
+      void setText( const std::string& text );
 
       /**
-       * Gets the label on this button.
+       * Gets the text on this button.
        *
-       * @return  the label for this button
+       * @return  the text for this button
        */
-      const std::string& getLabel() const;
+      const std::string& getText() const;
 
       /**
        * Called whenever a mouse button has been pressed inside this button. In
@@ -102,9 +102,9 @@ namespace phui {
 
    private:
       /**
-       * The label on this button.
+       * The text on this button.
        */
-      std::string mLabel;
+      std::string mText;
 
       /**
        * Button down state. True if the button is down.
