@@ -28,7 +28,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#       $Id: auto-copyright.pl,v 1.2 2002-02-24 02:06:02 nonchocoboy Exp $
+#       $Id: auto-copyright.pl,v 1.3 2002-02-24 02:18:27 nonchocoboy Exp $
 #
 
 use File::Basename;
@@ -193,7 +193,7 @@ sub recurseFunc {
             elsif ($opt_a)
             {
         	      print "Adding copyright to $filename ...\n";
-               print OUTPUT "\n$copyrights_plus_delimiters";
+               print OUTPUT "$copyrights_plus_delimiters";
             }
 
             else
