@@ -1,0 +1,39 @@
+import os
+pj = os.path.join
+
+Import('baseEnv pkg')
+Import('SetupAudiere SetupOpenGL SetupSDL')
+
+# Define the sources
+classes = Split("""
+   Kernel
+   ResourceManager
+   State
+   StateFactory
+   Version
+""")
+
+headers = Split("""
+   siren.h
+   Singleton.h
+   Types.h
+""")
+sources = []
+
+headers.extend(map(lambda n: n + '.h',   classes))
+sources.extend(map(lambda n: n + '.cpp', classes))
+
+# Clone the environment
+env = baseEnv.Copy()
+SetupAudiere(env)
+SetupSDL(env)
+env.Append(CPPPATH = ['#external/Loki'])
+lib = pkg.createSharedLibrary('siren', env)
+lib.addSources(sources)
+lib.addHeaders(headers, 'siren')
+
+Export('lib')
+
+# Recurse
+subdirs = Split('input sound')
+SConscript(dirs = subdirs)

@@ -22,60 +22,55 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: State.cpp,v $
- * Date modified: $Date: 2003-01-16 06:44:54 $
- * Version:       $Revision: 1.2 $
+ * File:          $RCSfile: Singleton.h,v $
+ * Date modified: $Date: 2003-02-03 02:54:35 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
-#include <assert.h>
-#include "State.h"
-#include "StateFactory.h"
+#ifndef SIREN_SINGLETON_H
+#define SIREN_SINGELTON_H
 
 namespace siren
 {
-   State::State()
-      : mIsQuitting(false)
-   {}
-
-   State::~State()
-   {}
-
-   void
-   State::onKeyPress(SDLKey sym, bool down)
-   {}
-
-   void
-   State::onMousePress(Uint8 button, bool down, int x, int y)
-   {}
-
-   void
-   State::onMouseMove(int x, int y)
-   {}
-
-   void
-   State::invokeTransition(const std::string& name)
+   /**
+    * Templated singleton holder. This class will make any object a singleton.
+    */
+   template<class T>
+   class Singleton
    {
-      mNextState = StateFactory::getInstance().create(name);
-   }
+   public:
+      /**
+       * Gets the singleton instance of the contained class.
+       */
+      static T& instance()
+      {
+         if (! mInstance)
+         {
+            mInstance = new T();
+            atexit(destroySingleton);
+         }
+         return *mInstance;
+      }
 
-   StatePtr
-   State::getNext()
-   {
-      StatePtr state = mNextState;
-      mNextState.reset();
-      return state;
-   }
+   private:
+      /**
+       * Destroys this singleton. This is called when the application is
+       * terminated.
+       */
+      static void destroySingleton()
+      {
+         delete mInstance;
+         mInstance = 0;
+      }
 
-   void
-   State::quit()
-   {
-      mIsQuitting = true;
-   }
+   private:
+      /// The singleton instance
+      static T* mInstance;
+   };
 
-   bool
-   State::isQuitting() const
-   {
-      return mIsQuitting;
-   }
+   template<class T>
+   T* Singleton<T>::mInstance = 0;
 }
+
+#endif

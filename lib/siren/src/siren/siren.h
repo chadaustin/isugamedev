@@ -22,53 +22,20 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: InputManager.h,v $
- * Date modified: $Date: 2003-01-02 11:22:09 $
- * Version:       $Revision: 1.2 $
+ * File:          $RCSfile: siren.h,v $
+ * Date modified: $Date: 2003-02-03 02:54:35 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
-#ifndef SIREN_INPUT_MANAGER_H
-#define SIREN_INPUT_MANAGER_H
+#ifndef SIREN_SIREN_H
+#define SIREN_SIREN_H
 
-#include <SDL.h>
-#include <string>
-#include <map>
-#include "InputAction.h"
-
-namespace siren
-{
-   class InputManager
-   {
-   public:
-      ~InputManager();
-   
-      void loadMappings(const std::string& filename);
-      InputAction* getAction(const std::string& name);
-      InputAction* getAction(SDLKey key);
-      InputAction* getAction(Uint8 button);
-
-      SDLKey getKey(const std::string& name);
-      Uint8 getButton(const std::string& name);
-      
-      /// called once every frame
-      void update(float dt);
-      void onKeyPress(SDLKey key, bool down);
-      void onMousePress(Uint8 button, bool down);
-   
-   private:
-      // action name -> InputAction
-      typedef std::map<std::string, InputAction*> ActionMap;
-      ActionMap mActions;
-      
-      // key -> action name
-      typedef std::map<SDLKey, std::string> KeyMap;
-      KeyMap mKeys;
-      
-      // button -> action name
-      typedef std::map<Uint8, std::string> ButtonMap;
-      ButtonMap mButtons;
-   };
-}
+#include "Kernel.h"
+#include "State.h"
+#include "StateFactory.h"
+#include "input/InputManager.h"
+#include "sound/SoundManager.h"
+#include "ResourceManager.h"
 
 #endif

@@ -22,43 +22,68 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: InputAction.cpp,v $
- * Date modified: $Date: 2003-01-02 08:04:50 $
+ * File:          $RCSfile: SoundEffectManager.cpp,v $
+ * Date modified: $Date: 2003-02-03 02:54:35 $
  * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
-#include "InputAction.h"
+#include <iostream>
+#include <stdexcept>
+#include "SoundEffectManager.h"
 
 namespace siren
 {
-   InputAction::InputAction()
+   SoundEffectManager::SoundEffectManager(audiere::AudioDevice* device)
    {
-      mPressCount = 0;
-      mLastPressCount = 0;
-      mEdgeState = 0;
-   }
-   
-   void InputAction::onPress(bool down)
-   {
-      down ?
-         ++mPressCount :
-         --mPressCount;
-   }
-   
-   void InputAction::update(float /*dt*/)
-   {
-      mEdgeState = (mPressCount != 0) - (mLastPressCount != 0);
-      mLastPressCount = mPressCount;
-   }
-   
-   bool InputAction::isActive()
-   {
-      return (mPressCount != 0);
+      mDevice = device;
    }
 
-   int InputAction::getEdgeState()
+   void
+   SoundEffectManager::playSound(const std::string& sound)
    {
-      return mEdgeState;
+      getEffect(sound)->play();
+   }
+
+   bool
+   SoundEffectManager::preload(const std::string& sound)
+   {
+      return (getEffect(sound) != 0);
+   }
+
+   void
+   SoundEffectManager::emptyCache()
+   {
+      mCache.clear();
+   }
+
+   audiere::SoundEffect*
+   SoundEffectManager::getEffect(const std::string& sound)
+   {
+      // Check the cache first
+      EffectMap::iterator itr = mCache.find(sound);
+
+      // Cache hit. Return a new stream for the cached buffer
+      if (itr != mCache.end())
+      {
+         return itr->second.get();
+      }
+      // Cache miss. Open the sound into a buffer and cache it
+      else
+      {
+         std::cout << "SoundEffectManager: Cache miss for '"
+                   << sound << "'" << std::endl;
+         audiere::SoundEffectPtr effect = audiere::OpenSoundEffect(
+            mDevice.get(),
+            sound.c_str(),
+            audiere::SINGLE);
+         if (!effect)
+         {
+            throw std::runtime_error("Could not load sound: " + sound);
+         }
+         
+         mCache[sound] = effect;
+         return effect.get();
+      }
    }
 }

@@ -22,48 +22,44 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: SoundManager.cpp,v $
- * Date modified: $Date: 2003-01-02 04:18:18 $
- * Version:       $Revision: 1.2 $
+ * File:          $RCSfile: Version.cpp,v $
+ * Date modified: $Date: 2003-02-03 02:54:35 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
-#include <stdexcept>
-#include "SoundManager.h"
+#include "Version.h"
+
+// These helper macros are used to stringify a given macro
+#define SIREN_STR(s)             # s
+#define SIREN_XSTR(s)            SIREN_STR(s)
+
+// These helper macros are used to build up the SIREN_VERSION_STRING macro.
+#define SIREN_DOT(a,b)           a ## . ## b
+#define SIREN_XDOT(a,b)          SIREN_DOT(a,b)
+
+//--------------------------------------------------------------------------
+// Define the SIREN_VERSION_STRING macros
+//--------------------------------------------------------------------------
+
+// Create the SIREN_VERSION_STRING macro
+#define SIREN_VERSION_STRING \
+   SIREN_XDOT( \
+      SIREN_XDOT(SIREN_VERSION_MAJOR, SIREN_VERSION_MINOR), \
+      SIREN_VERSION_PATCH \
+   )
 
 namespace siren
 {
-   SoundManager::SoundManager()
-   {
-      adr::AudioDevicePtr device(adr::OpenDevice());
-      if (!device)
-      {
-         device = adr::OpenDevice("null");
-         if (!device)
-         {
-            throw std::runtime_error("Error opening Audiere device");
-         }
-      }
-
-      mJukebox            = new Jukebox(device.get());
-      mSoundEffectManager = new SoundEffectManager(device.get());
-   }
-
-   SoundManager::~SoundManager()
-   {
-      delete mJukebox;
-      delete mSoundEffectManager;
-   }
-
-   Jukebox*
-   SoundManager::getJukebox()
-   {
-      return mJukebox;
-   }
-
-   SoundEffectManager*
-   SoundManager::getSoundEffectManager()
-   {
-      return mSoundEffectManager;
-   }
+   const char* version = SIREN_XSTR(SIREN_VERSION_STRING);
 }
+
+// Undef all the helper macros
+#undef SIREN_XSTR
+#undef SIREN_STR
+#undef SIREN_DOT
+#undef SIREN_XDOT
+
+// Undef the SIREN_VERSION_STRING temporary macro
+#undef SIREN_VERSION_STRING
+
