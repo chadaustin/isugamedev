@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-01 07:54:16 $
- * Version:       $Revision: 1.40 $
+ * Date modified: $Date: 2002-10-01 08:38:11 $
+ * Version:       $Revision: 1.41 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -86,6 +86,7 @@ namespace mw
       res_mgr->add("security_droid", "models/security_droid.obj");
       res_mgr->add("bullet",         "models/bullet.obj");
       res_mgr->add("casing",         "models/casing.obj");
+      res_mgr->add("player",         "models/player.obj");
 
       // Init the collision detection system
       mSpatialIndex = new VectorSpatialIndex();
@@ -95,6 +96,9 @@ namespace mw
       mScene = new Scene();
       mSceneViewer = new OpenSGSceneViewer(mScene);
       mScene->addSceneListener(mSceneViewer);
+
+      // Add the player into the game
+      add(&mPlayer);
 
       // XXX: Hardcoded to add some initial enemies into the game
       for (int i = 0; i < 10; i++)
@@ -127,6 +131,7 @@ namespace mw
       res_mgr->remove("security_droid");
       res_mgr->remove("bullet");
       res_mgr->remove("casing");
+      res_mgr->remove("player");
    }
 
    void
@@ -328,10 +333,8 @@ namespace mw
          updateDynamics(mScene->get(uid), dt);
       }
 
-      mCamera.update( dt );
-      mPhysics.update(&mPlayer, dt);
-      mPlayer.moveToNextState();
-      mPlayer.update( *this, dt);
+      mCamera.update(dt);
+      mPlayer.update(*this, dt);
 
       ++mFrameCount;
       mFrameTime += dt;

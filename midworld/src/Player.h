@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-10-01 06:06:13 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-10-01 08:38:12 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,7 @@
 #include <map>
 #include <gmtl/Vec.h>
 
+#include "AbstractEntity.h"
 #include "Weapon.h"
 #include "cubeGeometry.h"
 #include "NullWeapon.h"
@@ -43,7 +44,7 @@ namespace mw
 {
 class GameState;
 
-class Player : public RigidBody
+class Player : public AbstractEntity
 {
 public:
    Player();
@@ -86,6 +87,23 @@ public:
    gmtl::Vec3f getBarrelEndPos() const;
    
    void update( GameState& gs, float timeDelta );
+
+   bool isExpired() const
+   {
+      return false;
+   }
+
+   void onCollisionEntry(const CollisionEvent& evt)
+   {
+   }
+
+   void onCollisionMovement(const CollisionEvent& evt)
+   {
+   }
+
+   void onCollisionExit(const CollisionEvent& evt)
+   {
+   }
 
 private:
    std::multimap<int, Weapon*> mWeapons;

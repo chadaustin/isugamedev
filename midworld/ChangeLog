@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-10-01 nonchocoboy  The player is now an entity in full.
 2002-10-01 nonchocoboy  RigidBody now aggregates its state so that it keeps
                         track of its state for the current frame as well as the
                         next frame.
