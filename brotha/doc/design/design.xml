@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.59 2002-04-12 03:19:22 jjhnsn Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 03:19:22 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.60 2002-04-12 03:48:48 jjhnsn Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 03:48:48 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -407,8 +407,69 @@
         <para>The GameLogic module needs an efficient way to update player statistics.  To do this we decided to use the capabilities of the Connection Manager and its message queues.</para>
         <section>
           <title>Update</title>
-          <para>Q: How can the update procedure be simplified in order that empty messages do not flood the network?</para>  
-          <para>A: The update() procedure will send a predefined message with variables representing player statics whenever a statistic is updated in the game.  In this way the game is not sending useless information to update player statistics unless there is something to update, so the network will not be hammered with empty messages that do nothing.</para>
+          <question>
+           <para>How can the update procedure be simplified in order that empty messages do not flood the network?</para>  
+          </question>
+          <answer>
+           <para>The update procedure needs to be quick and painless while not causing too much network traffic.</para>
+              <formalpara>
+                <title>Alternative 1 - <emphasis>Sending messages out after a certain time has passed.</emphasis></title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Easy to implement.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Just send out information in a loop.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>May cause unneccesary network traffic.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Alternative 2 - <emphasis>Send a message whenever a statistic is updated</emphasis></title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Network is not flooded with unneccesary messages.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Must be able to test to see when a statistic has been updated.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Conclusion</title>
+                <para>We decided to send a message whenever a statistic is updated.  It is not to hard to check and see if a stat has been updated, and the network traffic should be much less.</para>
+              </formalpara>
+          </answer>        
         </section>
       </section>
     </section>
