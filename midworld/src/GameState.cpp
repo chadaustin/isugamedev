@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-09 02:20:57 $
- * Version:       $Revision: 1.49 $
+ * Date modified: $Date: 2002-10-09 09:20:41 $
+ * Version:       $Revision: 1.50 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,7 +46,6 @@
 
 #include "Enemy.h"
 #include "AmmoCrate.h"
-
 
 namespace mw
 {
@@ -93,17 +92,81 @@ namespace mw
       // Init the collision detection system
       mCollDet = new BoundsCollisionDetector();
       mCollDet->setSpatialIndex(viewer);
-
+      
       // Add the player into the game
       /// XXX: If the player gets reaped it will segfault since mPlayer is a member
       add(&mPlayer);
+      
+      // XXX hack for testing aisystem
+      appTest = new testing;
 
+      
+      
+      //XXX hack for testing aiNodes for the aiSystem 
+      node1 = new lm::aiNode("Ben", NULL, -1, 1);
+      node2 = new lm::aiNode("Chad", node1, -1, 1);
+     
+      
+  
+      Enemy* enemy1 = new Enemy();
+      Enemy* enemy2 = new Enemy();
+      gmtl::Point3f inPos1(5.0,0.0,-5.0);
+      enemy1->setPos(inPos1);
+      gmtl::Point3f inPos2(0.0,0.0,-10.0);
+      enemy2->setPos(inPos2);
+      
+      
+
+      enemy1->setModel("turret");
+      enemy2->setModel("security_droid");
+      
+      add(enemy1);
+      add(enemy2);
+      
+
+      node1sCommand = new lm::simpleCommand<Enemy>(enemy1, &Enemy::walkRandom);
+      node2sCommand = new lm::simpleCommand<Enemy>(enemy2, &Enemy::walkRandom);
+
+      
+      
+      first = new lm::behavior;
+      second = new lm::behavior;
+      
+
+      first->addCommand(node1sCommand);
+      second->addCommand(node2sCommand);
+
+
+      //TODO: FOR LOOM: change instincts to take nodes as param1 not
+      //instinctMans.
+      myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
+
+ //     node1Instinct = new lm::instinct(node1->mInstinctManager, first, myTestCommand);
+
+      node2Instinct = new lm::reflex(node2->reflexManager, second, myTestCommand);
+
+      AI.registerNode(node1);
+      AI.registerNode(node2);
+      
+      mMap[enemy1->getUID()] = node1;
+      mMap[enemy2->getUID()] = node2;
+
+
+      
+      AmmoCrate* crate = new AmmoCrate();
+      crate->setPos(gmtl::Point3f(10, 0, -10));
+      crate->setModel("ammo_crate");
+      add(crate);
+      
+      
       loadLevel("levels/level1.txt");
    }
 
    void
    GameState::update(float dt)
    {
+      AI.update();
+      
       mCursor.update(application().getWidth(),
                      application().getHeight());
 
@@ -500,6 +563,7 @@ namespace mw
          if (entity->isExpired())
          {
             dead.push_back(uid);
+            
          }
       }
 
@@ -508,6 +572,12 @@ namespace mw
       {
          Entity* entity = mScene->get(*itr);
          mScene->remove(entity);
+         NodeMap::iterator itr=mMap.find(entity->getUID());
+         // if it's an ai node remove it from the ai system
+         if(itr!=mMap.end())
+         {
+            AI.unregisterNode(itr->second->getName());
+         }
          delete entity;
       }
    }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.cpp,v $
- * Date modified: $Date: 2002-10-02 07:49:04 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-09 09:20:41 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,6 +58,7 @@ namespace mw
       {
          return itr->second;
       }
+      std::cout << resid << std::endl;
       throw std::runtime_error("Invalid ResourceID");
    }
 

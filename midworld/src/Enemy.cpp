@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-09 09:20:41 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,6 +44,34 @@ namespace mw
    //@TODO:  Do something other than randomly change velocity and rotation :P
    void Enemy::update(float timeDelta)
    {
+  /*    unsigned int randRange = 5;
+      gmtl::Vec3f force;
+      if (rand() % 100 < 10)
+      {
+         int x = rand() % randRange;
+         int y = rand() % randRange;
+
+         switch (rand() % 4)
+         {
+            case 0: force.set( x, 0,  y); break;
+            case 1: force.set(-x, 0,  y); break;
+            case 2: force.set( x, 0, -y); break;
+            case 3: force.set(-x, 0, -y); break;
+         }
+         addForce(force);
+      }
+      if ((rand() % 100) == 0)
+      {
+         gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(
+            gmtl::AxisAnglef(rand() % randRange, 0, 1, 0));
+         setRot(nRot);
+      }
+    */  RigidBody::update(timeDelta);
+   }
+
+   void Enemy::walkRandom()
+   {
+
       unsigned int randRange = 5;
       gmtl::Vec3f force;
       if (rand() % 100 < 10)
@@ -66,6 +94,7 @@ namespace mw
             gmtl::AxisAnglef(rand() % randRange, 0, 1, 0));
          setRot(nRot);
       }
-      RigidBody::update(timeDelta);
    }
+      
+   
 }

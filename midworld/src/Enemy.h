@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-09 09:20:41 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -101,6 +101,11 @@ namespace mw
       void onCollisionExit(const CollisionEvent& evt)
       {
       }
+
+      void walkRandom();
+
+      void rotate();
+      
 
    private:
       long int mHealth;

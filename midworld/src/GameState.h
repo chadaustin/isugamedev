@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-09 02:20:57 $
- * Version:       $Revision: 1.35 $
+ * Date modified: $Date: 2002-10-09 09:20:41 $
+ * Version:       $Revision: 1.36 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,9 +47,34 @@
 #include "SceneViewer.h"
 #include "State.h"
 
+
+#include <loom/aiSystem.h>
+#include <loom/reflex.h>
+#include <loom/behavior.h>
+#include <loom/unit.h>
+#include <loom/command.h>
+
+
 namespace mw
 {
    class Application;
+
+
+
+   class testing
+   {
+   public:
+      testing() {}
+
+      bool alwaysTrue()
+      {
+         return true;
+      }
+      bool alwaysFalse()
+      {
+         return false;
+      }
+   };
 
    /**
     * The state in which the game is played.
@@ -77,6 +102,11 @@ namespace mw
        */
       void add(Entity* entity);
 
+      /** 
+       * Get the player 
+       */
+      Player getPlayer(){return mPlayer;}
+
    private:
       /// Called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);
@@ -102,13 +132,36 @@ namespace mw
       void loadLevel(const std::string& filename);
 
    private:
-      State* mNextState;
+      State* mNextState; 
       bool mIsQuitting;
       GameScene mGameScene;
       Camera mCamera;
       float mSpeed;
       Player mPlayer;
 
+      
+      
+      //XXX hack for testing AIsystem
+      
+      typedef std::map<Entity::UID, lm::aiNode*> NodeMap;
+      NodeMap mMap;
+      
+      lm::aiSystem AI;
+      // the following was test related stuff
+      
+      testing* appTest;
+      lm::aiNode* node1;
+      lm::aiNode* node2;
+      lm::command* node1sCommand;
+      lm::command* node2sCommand;
+      lm::behavior* first;
+      lm::behavior* second;
+      lm::testing* myTestCommand;
+
+      lm::reflex* node1Instinct;
+      lm::reflex* node2Instinct;
+
+         
       /// The scene in which the game is played out
       Scene* mScene;
 
@@ -144,6 +197,11 @@ namespace mw
 
       Cursor mCursor;
       HUD mHUD;
+
+      /// AI stuff
+      
+
+      
 
       PhysicsEngine mPhysics;
    };
