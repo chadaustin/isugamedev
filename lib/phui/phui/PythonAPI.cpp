@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 02:52:00 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-06 03:30:00 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -150,17 +150,25 @@ namespace phui
       ;
 
       // Widget
-//      class_<Widget, boost::shared_ptr<PyWidget>, boost::noncopyable>("Widget", no_init)
       class_<Widget, WidgetPtr, boost::noncopyable>("Widget", no_init)
          .def("draw", &Widget::draw)
          .def("show", &Widget::show)
          .def("hide", &Widget::hide)
+         .def("contains", &Widget::contains)
+         .def("getScreenPosition", &Widget::getScreenPosition)
+         .def("hasFocus", &Widget::hasFocus)
          .add_property("position", make_function(&Widget::getPosition, return_internal_reference<>()),
                                    make_function(&Widget::setPosition))
          .add_property("size", make_function(&Widget::getSize, return_internal_reference<>()),
                                make_function(&Widget::setSize))
          .add_property("enabled", &Widget::isEnabled, &Widget::setEnabled)
          .add_property("visible", &Widget::isVisible, &Widget::setVisible)
+         .add_property("backgroundColor", make_function(&Widget::getBackgroundColor, return_internal_reference<>()),
+                                          make_function(&Widget::setBackgroundColor))
+         .add_property("foregroundColor", make_function(&Widget::getForegroundColor, return_internal_reference<>()),
+                                          make_function(&Widget::setForegroundColor))
+//         .add_property("font", make_function(&Widget::getFont, return_internal_reference<>()),
+//                               make_function(&Widget::setFont))
          .add_property("parent", &Widget::getParent)
       ;
 
