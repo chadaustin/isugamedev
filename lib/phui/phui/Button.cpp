@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-26 06:44:13 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-26 10:11:36 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -121,9 +121,16 @@ namespace phui {
          // inside this button.
          if (contains(p)) {
             std::cout<<"FIRE button pressed"<<std::endl;
-            /// @todo fire ButtonPressed event
+            for(ListenerIter iter=mListeners.begin();iter!=mListeners.end();++iter) {
+               ActionEvent evt(this);
+               (*iter)->onAction(evt);
+            }
          }
       }
+   }
+
+   void Button::addActionListener(ActionListener* listener) {
+      mListeners.push_back(listener);
    }
 
 } // namespace phui

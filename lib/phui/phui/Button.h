@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-04-22 06:15:26 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-26 10:11:36 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -40,7 +40,10 @@
 #include "phuiCommon.h"
 #include <string>
 #include <iostream>
+#include <list>
 #include "Widget.h"
+#include "ActionListener.h"
+
 
 namespace phui {
 
@@ -101,6 +104,12 @@ namespace phui {
        */
       void onMouseUp(InputButton button, const Point& p);
 
+
+      /**
+       * Called to add listeners for button events
+       */
+      void addActionListener(ActionListener* listener);
+
    private:
       /**
        * The text on this button.
@@ -111,6 +120,13 @@ namespace phui {
        * Button down state. True if the button is down.
        */
       bool mButtonDown;
+
+      /**
+       * All listeners for this button
+       */
+      typedef std::list<ActionListener*> ListenerList;
+      typedef ListenerList::iterator ListenerIter;
+      std::list<ActionListener*> mListeners;
    };
 
 } // namespace phui
