@@ -1,3 +1,109 @@
+methodsynopsis > void    {
+	font-family: monospace;
+}
+
+classsynopsis > oointerface:after    {
+	content: " {";
+	font-family: monospace;
+}
+
+classsynopsis > oointerface:before    {
+	content: "interface ";
+	font-family: monospace;
+}
+
+classsynopsis > oointerface    {
+	display: inline;
+}
+
+classsynopsis > ooclass:before    {
+	content: "class ";
+	font-family: monospace;
+}
+
+classsynopsis > ooclass:after    {
+	content: " {";
+	font-family: monospace;
+}
+
+classsynopsis > ooclass    {
+	display: inline;
+}
+
+classsynopsis > oointerface > interfacename    {
+}
+
+methodname + void:before    {
+	content: "";
+}
+
+varname    {
+	display: inline;
+	font-family: CourierNew;
+}
+
+constructorsynopsis > methodparam    {
+	display: inline;
+}
+
+methodparam + methodparam:before    {
+	content: ", ";
+}
+
+methodparam + methodparam    {
+	display: inline;
+}
+
+methodsynopsis > methodparam    {
+	display: inline;
+}
+
+methodsynopsis > methodname:after    {
+	content: "( ";
+	color: black;
+	font-family: monospace;
+}
+
+methodsynopsis > methodname    {
+	color: maroon;
+}
+
+classsynopsis > constructorsynopsis:after    {
+	content: " );";
+	font-family: monospace;
+}
+
+classsynopsis > constructorsynopsis:before    {
+	color: maroon;
+	content: "<init>( ";
+	font-family: monospace;
+}
+
+classsynopsis > constructorsynopsis    {
+	display: block;
+	text-indent: 14pt;
+}
+
+methodsynopsis > type:after    {
+	content: " ";
+}
+
+methodsynopsis > type    {
+	color: blue;
+}
+
+methodsynopsis > modifier:after    {
+	content: " ";
+}
+
+methodsynopsis > modifier    {
+	color: green;
+}
+
+void:before    {
+	content: "void ";
+}
+
 fieldsynopsis > type:after    {
 	content: " ";
 }
@@ -10,24 +116,26 @@ fieldsynopsis > varnam    {
 	display: inline;
 	font-family: monospace;
 	font-style: bold;
+	color: maroon;
 }
 
 fieldsynopsis > type    {
 	display: inline;
 	font-family: monospace;
 	font-style: oblique;
+	color: blue;
 }
 
 methodparam > type    {
 	display: inline;
 	font-style: oblique;
 	font-family: monospace;
+	color: purple;
 }
 
 fieldsynopsis    {
 	display: block;
 	font-family: monospace;
-	font-size: 14;
 	text-indent: 14pt;
 }
 
@@ -39,31 +147,7 @@ methodparam > type:after    {
 	content: " ";
 }
 
-methodsynopsis > methodparam:first-child:before    {
-	content: ", ";
-}
-
-methodsynopsis > methodparam:first-child    {
-	display: inline;
-}
-
-methodsynopsis > methodparam:before    {
-	content: "( ";
-}
-
-methodsynopsis > methodparam    {
-	display: inline;
-}
-
-methodparam:before    {
-	content: ", ";
-}
-
 methodname    {
-	display: inline;
-}
-
-methodparam    {
 	display: inline;
 }
 
@@ -98,9 +182,8 @@ modifier    {
 }
 
 void    {
-	display: inline;
 	color: blue;
-	content: "void";
+	display: inline;
 }
 
 constant    {
@@ -115,16 +198,8 @@ exceptionname    {
 	display: inline;
 }
 
-ooclass:before    {
-	content: "class ";
-}
-
 ooclass    {
 	display: inline;
-}
-
-ooclass:after    {
-	content: " {";
 }
 
 oointerface    {
@@ -206,11 +281,6 @@ methodparam > parameter    {
 	display: inline;
 	font-family: monospace;
 	font-weight: bold;
-}
-
-varname    {
-	font-family: CourierNew;
-	display: inline;
 }
 
 para > xref    {
