@@ -1,3 +1,6 @@
+#ifndef GLRENDERGEOSET_H_INCLUDED
+#define GLRENDERGEOSET_H_INCLUDED
+
 #include "GeoSet.h"
 #include "glRenderTexture.h"
 
@@ -38,3 +41,5 @@ void glRenderGeoSets( std::vector<GeoSet*>& gsets )
       glRenderGeoSet( *(gsets[x]) );
    }   
 }
+
+#endif // ! GLRENDERGEOSET_H_INCLUDED
