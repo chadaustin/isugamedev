@@ -24,16 +24,16 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-19 01:37:27 $
-// Version:       $Revision: 1.25 $
+// Date modified: $Date: 2002-03-21 04:54:59 $
+// Version:       $Revision: 1.26 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_GAMEKERNEL_H
 #define GK_GAMEKERNEL_H
 
-#include "gk/gkCommon.h"
-#include "gk/IGameKernel.h"
+#include <gk/gkCommon.h>
+#include <gk/IGameKernel.h>
 
 namespace gk
 {
@@ -117,7 +117,7 @@ public:
     *
     * @return  the input manager for this kernel
     */
-   GameInput* getInput();
+   IGameInput* getInput();
 
    /** set the name of the running application.
     * you should call this in AppInit with your app's name,

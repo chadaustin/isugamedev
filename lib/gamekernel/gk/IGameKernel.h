@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameKernel.h,v $
-// Date modified: $Date: 2002-03-19 01:37:27 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-03-21 04:54:59 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -35,7 +35,7 @@
 #include <gk/gkCommon.h>
 #include <gk/DLLInterface.h>
 #include <gk/IGameApp.h>
-#include <gk/GameInput.h>
+#include <gk/IGameInput.h>
 #include <gk/ISystemDriver.h>
 
 namespace gk {
@@ -142,7 +142,7 @@ public:
     *
     * @return  the input manager for this kernel
     */
-   virtual GameInput* getInput() = 0;
+   virtual IGameInput* getInput() = 0;
 
    /**
     * Gets the application managed by this kernel.

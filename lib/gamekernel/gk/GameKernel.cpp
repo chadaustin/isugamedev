@@ -24,14 +24,14 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-03-19 01:37:27 $
-// Version:       $Revision: 1.27 $
+// Date modified: $Date: 2002-03-21 04:54:59 $
+// Version:       $Revision: 1.28 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#include "gk/GameKernel.h"
-#include "gk/SystemDriverFactory.h"
-#include "gk/GameInputConfigure.h"
+#include "GameKernel.h"
+#include "SystemDriverFactory.h"
+#include "GameInputConfigure.h"
 
 namespace gk {
 
@@ -93,7 +93,7 @@ void GameKernel::setWindowSize( int width, int height, int ctx )
 /*
  * gets the input manager instance for this kernel
  */
-GameInput* GameKernel::getInput()
+IGameInput* GameKernel::getInput()
 {
    return mInput;
 }
