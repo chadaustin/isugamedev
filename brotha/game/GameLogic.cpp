@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-03 04:56:51 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-05-03 06:09:27 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -86,8 +86,10 @@ namespace game
                mObject[j]->setHealth(mObject[j]->getHealth() - 15);
             }
          }
+         if (mObject[i]->isDestroyed()){
+            std::cout<< "YOU ARE DEAD" << std::endl;
+         }
       }
-      /// @todo collision detection
    }
 
    void GameLogic::updateStats(){
@@ -110,6 +112,7 @@ namespace game
             dPlayer = dGang->getPlayer(gangPlayers[j]->getName());
             currPlayer = GameLogic::getPlayer(dPlayer->getName());
 
+            // make sure the player exists
             if (currPlayer != NULL){
                std::ostringstream out1;
                std::ostringstream out2;

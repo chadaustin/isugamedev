@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.h,v $
- * Date modified: $Date: 2002-05-03 02:15:00 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-05-03 06:09:27 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -137,6 +137,18 @@ namespace game {
        */
       void setHealth(PRUint32 health){
          mHealth = health;
+      }
+
+      /**
+       * determines if the object is dead
+       */
+      bool isDestroyed(){
+         if (mHealth <= 0){
+            return true;
+         }
+         else{
+            return false;
+         }
       }
 
       virtual PRUint32 getType();

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-05-02 05:27:08 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-05-03 06:09:27 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -49,6 +49,9 @@ namespace game {
    Player::Player(const std::string& name)
       : mName(name)
       , mHealth(0)
+      , mKills(0)
+      , mDeaths(0)
+      , mCoins(0)
       , mVehicle(NULL)
       , mIsAccelerating(false)
       , mIsBraking(false)

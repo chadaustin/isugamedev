@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-05-02 09:12:02 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-05-03 06:09:27 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -108,6 +108,9 @@ namespace game
       */
      Player* getPlayer(const std::string& name);
 
+     /**
+      * outputs list of players.. for debugging
+      */
      void outputList();
 
      /**
