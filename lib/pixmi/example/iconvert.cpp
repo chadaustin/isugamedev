@@ -29,6 +29,7 @@ void main(int argc, char* argv[])
 {
 if (argc < 5)
 { 
+   cout<<"iconvert extfrom extto filefrom fileto\n"<<flush;
    exit(1);
 }
 
