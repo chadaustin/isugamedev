@@ -24,14 +24,16 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: configure.in,v $
-# Date modified: $Date: 2002-02-20 05:28:19 $
-# Version:       $Revision: 1.4 $
+# Date modified: $Date: 2002-02-20 14:07:02 $
+# Version:       $Revision: 1.5 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
-AC_REVISION($Revision: 1.4 $)
+AC_REVISION($Revision: 1.5 $)
 AC_INIT(gk/gkCommon.h)
 AC_CONFIG_AUX_DIR(config)
+
+GK_GEN_RECONFIG
 
 AC_CANONICAL_HOST
 
