@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriver.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-02-08 05:39:46 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -50,11 +50,21 @@ public:
    virtual ~SystemDriver() {}
 
    /**
-    * Initializes this driver and starts it through its main loop.
+    * Initializes this driver. At the very least, implementations should
+    * register their drivers with the input manager.
+    *
+    * @return  true if successful, false otherwise
+    *
+    * @see GameInput::addDevice( Device*, const std::string& )
+    */
+   virtual bool init() = 0;
+
+   /**
+    * Starts the driver through its main loop.
     *
     * @return  true if successful, false otherwise
     */
-   virtual bool startup() = 0;
+   virtual bool run() = 0;
 
    /**
     * Destroys this driver and cleans up all memory allocated to it.

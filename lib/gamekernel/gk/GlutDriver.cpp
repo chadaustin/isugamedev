@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-08 03:53:13 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-08 05:39:46 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -41,8 +41,9 @@ GlutDriver* GlutDriver::sDriver = NULL;
 //------------------------------------------------------------------------------
 
 GlutDriver::GlutDriver()
-   : mCurrentContext( 0 ), mMainWin_ContextID( 0 ), mIsStarted( false ),
-      mWidth( 320 ), mHeight( 240 )
+   : mWidth( 320 ), mHeight( 240 ), mCurrentContext( 0 ),
+     mMainWin_ContextID( 0 ), mIsStarted( false ), mMouse( NULL ),
+     mKeyboard( NULL ) 
 {
    // because of glut's callback scheme we need to be able to get a pointer to
    // the current GLUTDriver instance.
@@ -57,7 +58,7 @@ GlutDriver::~GlutDriver()
 //------------------------------------------------------------------------------
 
 bool
-GlutDriver::startup()
+GlutDriver::init()
 {
    // Set the window title
    if ( name() == "" )
@@ -95,6 +96,20 @@ GlutDriver::startup()
    // (use edge triggering, like the mouse)
    ::glutIgnoreKeyRepeat( 1 );
 
+   // register the our devices with the input manager
+   mMouse = new Mouse();
+   GameInput::instance().addDevice( mMouse, "Mouse" );
+   mKeyboard = new Keyboard();
+   GameInput::instance().addDevice( mKeyboard, "Keyboard" );
+
+   return true;
+}
+
+//----------------------------------------------------------------------------//
+
+bool
+GlutDriver::run()
+{
    mIsStarted = true;
 
    // Sit and spin.
@@ -109,6 +124,12 @@ void
 GlutDriver::shutdown()
 {
    mIsStarted = false;
+
+   // remove our devices from the input manager
+   GameInput::instance().removeDevice( "Keyboard" );
+   GameInput::instance().removeDevice( "Mouse" );
+
+   // glut can be so stupid sometimes ...
    exit( 0 );
 }
 
@@ -186,7 +207,7 @@ GlutDriver::OnIdle()
 {
    postRedisplay();
 
-   int x;
+   unsigned int x;
    for ( x = 0; x < GameKernel::instance().applications().size(); ++x )
    {
       assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );
@@ -209,7 +230,7 @@ GlutDriver::initCurrentContext()
       oneTimeOnly( mCurrentContext ).truth() = true;
 
       // init each application
-      int x;
+      unsigned int x;
       for ( x = 0; x < GameKernel::instance().applications().size(); ++x )
       {
          assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );
@@ -227,7 +248,7 @@ GlutDriver::OnRedisplay()
    sDriver->initCurrentContext();
 
    // draw each application
-   int x;
+   unsigned int x;
    for ( x = 0; x < GameKernel::instance().applications().size(); ++x )
    {
       assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );
@@ -255,7 +276,7 @@ GlutDriver::OnReshape( int w, int h )
 void
 GlutDriver::OnKeyboardDown( unsigned char k, int x, int y )
 {
-   GameInput::instance().keyboard().queue().push_back( (Keyboard::Key)(int)k );
+   sDriver->mKeyboard->queue().push_back( (Keyboard::Key)(int)k );
 
    // ignore case
    if ('a' <= k && k <= 'z')
@@ -264,7 +285,7 @@ GlutDriver::OnKeyboardDown( unsigned char k, int x, int y )
    }
 
    const DigitalInput::BinaryState state = DigitalInput::ON;
-   GameInput::instance().keyboard().button( k ).setBinaryState( state );
+   sDriver->mKeyboard->button( k ).setBinaryState( state );
 }
 
 //------------------------------------------------------------------------------
@@ -283,7 +304,7 @@ GlutDriver::OnKeyboardUp( unsigned char k, int x, int y )
    }
 
    const DigitalInput::BinaryState state = DigitalInput::OFF;
-   GameInput::instance().keyboard().button( k ).setBinaryState( state );
+   sDriver->mKeyboard->button( k ).setBinaryState( state );
 }
 
 //------------------------------------------------------------------------------
@@ -341,7 +362,7 @@ GlutDriver::keyboardEvent( const bool& isdown, const int& k, Keyboard& keyboard 
 void
 GlutDriver::OnSpecialKeyboardDown( int k, int x, int y )
 {
-   keyboardEvent( true, k, GameInput::instance().keyboard() );
+   keyboardEvent( true, k, *(sDriver->mKeyboard) );
 }
 
 //------------------------------------------------------------------------------
@@ -352,7 +373,7 @@ GlutDriver::OnSpecialKeyboardDown( int k, int x, int y )
 void
 GlutDriver::OnSpecialKeyboardUp( int k, int x, int y )
 {
-   keyboardEvent( false, k, GameInput::instance().keyboard() );
+   keyboardEvent( false, k, *(sDriver->mKeyboard) );
 }
 
 
@@ -364,8 +385,8 @@ GlutDriver::OnSpecialKeyboardUp( int k, int x, int y )
 void
 GlutDriver::OnMousePos( int x, int y )
 {
-   GameInput::instance().mouse().axis( 0 ).setData( x );
-   GameInput::instance().mouse().axis( 1 ).setData( y );
+   sDriver->mMouse->axis( 0 ).setData( x );
+   sDriver->mMouse->axis( 1 ).setData( y );
 }
 
 //------------------------------------------------------------------------------
@@ -376,7 +397,7 @@ GlutDriver::OnMousePos( int x, int y )
 void
 GlutDriver::OnMouseClick( int button, int state, int x, int y )
 {
-   int keyboardModifier = glutGetModifiers();
+//   int keyboardModifier = glutGetModifiers();
 
    Mouse::Button b;
    DigitalInput::BinaryState binaryState;
@@ -397,9 +418,9 @@ GlutDriver::OnMouseClick( int button, int state, int x, int y )
    }
 
    // Set the mousebutton state and the mouse position
-   GameInput::instance().mouse().button( b ).setBinaryState( binaryState );
-   GameInput::instance().mouse().axis( 0 ).setData( x );
-   GameInput::instance().mouse().axis( 1 ).setData( y );
+   sDriver->mMouse->button( b ).setBinaryState( binaryState );
+   sDriver->mMouse->axis( 0 ).setData( x );
+   sDriver->mMouse->axis( 1 ).setData( y );
 }
 
 //------------------------------------------------------------------------------

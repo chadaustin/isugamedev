@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-02-08 05:03:16 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2002-02-08 05:39:46 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -88,21 +88,28 @@ std::vector<GameApp*>& GameKernel::applications()
 bool GameKernel::startup( SystemDriver* driver )
 {
    assert( (driver != NULL) && "you must pass in a valid system driver!" );
-   assert( GameKernel::instance().applications().size() > 0 && "you must register at least one application" );
+   assert( applications().size() > 0 && "you must register at least one application" );
 
    // keep a copy of our system driver
    mDriver = driver;
 
+   // initialize the driver
+   if ( ! mDriver->init() ) {
+      std::cout<<"Failed to initialize the system driver."<<std::endl;
+      return false;
+   }
+
    //Initialize all registered applications, do this before initing glut, in case app
    // needs to set window position and name.
    unsigned int x;
-   for (x = 0; x < GameKernel::instance().applications().size(); ++x)
+   for (x = 0; x < applications().size(); ++x)
    {
-      assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );
-      GameKernel::instance().applications()[x]->OnAppInit();
+      assert( applications()[x] != NULL && "you registered a NULL application" );
+      applications()[x]->OnAppInit();
    }
 
-   return mDriver->startup();
+   // tell the driver to get moving!
+   return mDriver->run();
 }
 
 void GameKernel::shutdown()

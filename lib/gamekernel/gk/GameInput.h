@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-08 03:53:13 $
-// Version:       $Revision: 1.19 $
+// Date modified: $Date: 2002-02-08 05:39:46 $
+// Version:       $Revision: 1.20 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -79,10 +79,6 @@ class GameInput : public Singleton<GameInput>
 public:
    GameInput()
    {
-      mKeyboard = new Keyboard();
-      mMouse = new Mouse();
-      addDevice( mKeyboard, "Keyboard" );
-      addDevice( mMouse, "Mouse" );
    }
 
    /** return an Input ptr
@@ -183,43 +179,26 @@ public:
    {
       Input* in_put = GameInput::instance().getInput( device, input );
       mBindTable[alias].bind( in_put );
+      std::cout<<"Bound "<<device<<":"<<input<<" to "<<alias<<std::endl;
    }
 
-// NOTE: the preferred
 public:
-   /** get the mouse device directly */
-   inline const Mouse&        mouse() const { return *mMouse; }
-
-   /** get the mouse device directly */
-   inline Mouse&              mouse() { return *mMouse; }
-
-   /** get the keyboard device directly */
-   inline const Keyboard&     keyboard() const { return *mKeyboard; }
-
-   /** get the keyboard device directly */
-   inline Keyboard&           keyboard() { return *mKeyboard; }
-
-   /** keyboard modifier key.
-    * uh, how to deal with this? you might not want to use ...
-    */
-   inline char         modifier() const { return mKeyboardModifier; }
-
    /** update function.
-    * if useing the GameInput manager without GameKernel, you will need to
+    * if using the GameInput manager without GameKernel, you will need to
     * call this function every frame to ensure valid input
     */
    inline void update()
    {
-      keyboard().update();
-      mouse().update();
+      std::map<std::string, Device*>::iterator itr;
+      for( itr = mDevices.begin(); itr != mDevices.end(); ++itr )
+      {
+         itr->second->update();
+      }
    }
 
 private:
    std::map<std::string, EventInput> mBindTable;
    std::map<std::string, Device*> mDevices;
-   Mouse*            mMouse;
-   Keyboard*         mKeyboard;
-   char              mKeyboardModifier;
 };
 
 GK_END_NAMESPACE

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-02-08 05:39:46 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,6 +34,7 @@
 
 #include "gk/gkCommon.h"
 #include "gk/SystemDriver.h"
+#include "gk/Mouse.h"
 #include "gk/Keyboard.h"
 #include "gk/ContextData.h"
 
@@ -51,11 +52,21 @@ public:
    virtual ~GlutDriver();
 
    /**
-    * Initializes this driver and starts it through its main loop.
+    * Initializes this driver. Glut specific drivers are added to the input
+    * manager.
+    *
+    * @return  true if successful, false otherwise
+    *
+    * @see GameInput::addDevice( Device*, const std::string& )
+    */
+   virtual bool init();
+
+   /**
+    * Starts the driver through its main loop.
     *
     * @return  true if successful, false otherwise
     */
-   virtual bool startup();
+   virtual bool run();
 
    /**
     * Destroys this driver and cleans up all memory allocated to it.
@@ -171,6 +182,16 @@ private:
     * Flag for whether the application has started.
     */
    bool mIsStarted;
+
+   /**
+    * Our mouse device.
+    */
+   Mouse* mMouse;
+
+   /**
+    * Our keyboard device.
+    */
+   Keyboard* mKeyboard;
 
    /**
     * There should only be 1 GLUT driver at any given time, but we don't want
