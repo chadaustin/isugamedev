@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-01-16 nonchocoboy  Kernel is now a singleton.
 2003-01-15 nonchocoboy  Added basic type definitions.
 2003-01-15 nonchocoboy  Use Loki as an external library rather than copying the
                         headers in piecemeal.
