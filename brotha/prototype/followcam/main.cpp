@@ -33,27 +33,28 @@ T rad2deg(const T& rad)
 
 void processInput(float dt)
 {
+   float speed = 3.7;
    if (input["accel"])
    {
-      osg::Vec3 forward(0,0,500);
+      osg::Vec3 forward(0,0,speed);
       osg::Transform* tankTrans = gScene->getObject("tank");
       tankTrans->preMult(osg::Matrix::translate(forward * dt));
    }
    if (input["brake"])
    {
-      osg::Vec3 backward(0,0,-500);
+      osg::Vec3 backward(0,0,-speed);
       osg::Transform* tankTrans = gScene->getObject("tank");
       tankTrans->preMult(osg::Matrix::translate(backward * dt));
    }
    if (input["turnleft"])
    {
-      float ang = deg2rad(60.0f);
+      float ang = deg2rad(-30.0f);
       osg::Transform* tankTrans = gScene->getObject("tank");
       tankTrans->preMult(osg::Matrix::rotate(ang * dt, 0,1,0));
    }
    if (input["turnright"])
    {
-      float ang = deg2rad(-60.0f);
+      float ang = deg2rad(30.0f);
       osg::Transform* tankTrans = gScene->getObject("tank");
       tankTrans->preMult(osg::Matrix::rotate(ang * dt, 0,1,0));
    }
@@ -81,10 +82,11 @@ void display()
    gScene->draw();
 
    glDisable(GL_LIGHTING);
-   int extent = 100000;
+   float extent = 100.0f;
+   float inc = 0.1f;
    glColor3f(0,0,1);
    glBegin(GL_LINES);
-      for (int i=-extent; i<extent; i+=100)
+      for (float i=-extent; i<extent; i+=inc)
       {
          glVertex3f(-extent, 0, i);
          glVertex3f( extent, 0, i);
@@ -105,7 +107,7 @@ void reshape(int width, int height)
 
    glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
-      gluPerspective(80.0f, (GLfloat)gWidth/(GLfloat)gHeight, 0.01f, 1000.0f);
+      gluPerspective(80.0f, (GLfloat)gWidth/(GLfloat)gHeight, 0.01f, 100.0f);
 }
 
 void idle()
@@ -261,8 +263,8 @@ int main(int argc, char** argv)
    gScene->addObject("tank", "HoverTankBody.obj");
 //   gScene->getObject("tank")->preMult(osg::Matrix::rotate(deg2rad(180.0f), 0,0,1));
    gScene->addObject("tank2", "HoverTankBody.obj");
-   gScene->getObject("tank2")->preMult(osg::Matrix::rotate(deg2rad(180.0f), 0,0,1));
-   gScene->getObject("tank2")->preMult(osg::Matrix::translate(300,0,-500));
+//   gScene->getObject("tank2")->preMult(osg::Matrix::rotate(deg2rad(180.0f), 0,0,1));
+   gScene->getObject("tank2")->preMult(osg::Matrix::translate(3,0,-5));
 
 //   gCam.setFollowDist(1000.0f);
 //   gCam.setPitch(deg2rad(15.0f));
