@@ -46,6 +46,7 @@ issues
   every possible data item (color, age, texture, etc...), but yet we need
   the capability to do this at will... template metaprogramming, data fields?
   inheritance? (see previous).
+  - solution, inheritance doesn't impact performance that much (see metrics)
   
 - collision.  non existant.  need some way to do this.  
   1.) need generic hooks for collision in the dynengine
