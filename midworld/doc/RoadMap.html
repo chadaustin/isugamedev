@@ -1,0 +1,79 @@
+<!-- $Id: RoadMap.html,v 1.1 2002-06-21 04:46:47 nonchocoboy Exp $ -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+ <head>
+  <title>Midworld Development Roadmap</title>
+ </head>
+
+ <body bgcolor="#ffffff" text="#000000">
+  <h1>Midworld Development Roadmap</h1>
+  <p>Welcome to the Midworld development roadmap. This document briefly
+  describes where the Midworld project has been and where it's going.</p>
+  <table border=0 cellspacing=2 cellpadding=3>
+   <tr>
+    <td><b>Last Modified:</b></td>
+    <td>$Date: 2002-06-21 04:46:47 $</td>
+   </tr>
+   <tr>
+    <td><b>Revision:</b></td>
+    <td>$Revision: 1.1 $</td>
+   </tr>
+  </table>
+
+  <h2>Iteration 1 (28 June 2002)</h2>
+  <ul>
+   <li><b>Moveable Main Character</b><br>
+    The main character should be moveable by the player. The player should
+    always face the mouse cursor. The player should be able to rotate using the
+    mouse, move forward, move backward, strafe left, and strafe right using the
+    keyboard.
+   </li>
+   <li><b>AI Framework</b><br>
+    The framework for the AI system should be defined, but not yet integrated
+    into the game.
+   </li>
+   <li><b>Collision Detection Framework</b><br>
+    The framework for the Collision Detection system should be defined, but not
+    yet integrated into the game.
+   </li>
+   <li><b>Random Enemies</b><br>
+    A set number of enemies will begin the game that will walk about in random
+    directions. They shall be represented as cubes.
+   </li>
+   <li><b>Physics Engine (Linear)</b><br>
+    A basic physics engine should be implemented that at least handles linear
+    movement and forces.
+   </li>
+   <li><b>Basic Weapon Functionality</b><br>
+    The player should be able to fire off shots of cubical bullets in the
+    direction he/she is facing.
+   </li>
+   <li><b>Visible Terrain</b><br>
+    There should be some type of terrain that is visible so that the player is
+    not moving along a dark (or bright) mass.
+   </li>
+   <li><b>Integration with GameKernel</b><br>
+    Midworld should be run as a GameKernel application.
+   </li>
+  </ul>
+
+  <h2>Iteration 2 (5 July 2002)</h2>
+  <ul>
+   <li><b>Model Loading</b><br>
+    Cubes should be replaced with models loaded from disk, using a scenegraph
+    such as OpenSG or OpenSceneGraph.
+   </li>
+   <li><b>Collision Detection (Basic)</b><br>
+    Basic collision detection should be integrated so that we can do some
+    initial bounds collision tests.
+   </li>
+   <li><b>Physics Engine (Torque)</b><br>
+    The physics engine should support torque forces.
+   </li>
+   <li><b>Maps Loaded From Disk</b><br>
+    Maps should be loaded from disk from some sort of file format.
+   </li>
+  </ul>
+  
+ </body>
+</html>
