@@ -47,7 +47,7 @@ namespace net {
        *
        * @return  the ID for the created connection
        */
-      ConnID handleSocket(auto_ptr<Socket> socket) {
+      ConnID handleSocket(std::auto_ptr<Socket> socket) {
          // create a new connection and return the ID
          static ConnID uniqueID = 0;
          Connection *newConnection = new Connection(socket);

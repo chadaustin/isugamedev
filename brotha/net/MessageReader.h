@@ -12,7 +12,17 @@
 #include "DisconnectMessage.h"
 #include "LoginMessage.h"
 #include "OKMessage.h"
-
+#include "JoinAsMessage.h"
+#include "EnterMessage.h"
+#include "ResyncMessage.h"
+#include "AddObjMessage.h"
+#include "UpdateObjMessage.h"
+#include "DelObjMessage.h"
+#include "AddPlayerMessage.h"
+#include "UpdatePlayerMessage.h"
+#include "DelPlayerMessage.h"
+#include "UpdatePlayerInfoMessage.h"
+#include <iostream>
 
 namespace net {
 
@@ -45,6 +55,46 @@ namespace net {
 
             case MSG_OK:
                msg = new OKMessage();
+               break;
+
+            case MSG_JOIN_AS:
+               msg = new JoinAsMessage();
+               break;
+
+            case MSG_ENTER:
+               msg = new EnterMessage();
+               break;
+
+            case MSG_RESYNC:
+               msg = new ResyncMessage();
+               break;
+
+            case MSG_ADD_OBJ:
+               msg = new AddObjMessage();
+               break;
+
+            case MSG_UPDATE_OBJ:
+               msg = new UpdateObjMessage();
+               break;
+
+            case MSG_DEL_OBJ:
+               msg = new DelObjMessage();
+               break;
+
+            case MSG_ADD_PLAYER:
+               msg = new AddPlayerMessage();
+               break;
+
+            case MSG_UPDATE_PLAYER:
+               msg = new UpdatePlayerMessage();
+               break;
+
+            case MSG_DEL_PLAYER:
+               msg = new DelPlayerMessage();
+               break;
+
+            case MSG_UPDATE_PLAYER_INFO:
+               msg = new UpdatePlayerInfoMessage();
                break;
 
             default:

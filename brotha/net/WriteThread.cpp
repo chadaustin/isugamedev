@@ -3,6 +3,7 @@
 
 #include "WriteThread.h"
 #include "SocketException.h"
+#include <iostream>
 
 namespace net {
    WriteThread::WriteThread(OutputStream *oStream, MessageQueue *writeQueue)

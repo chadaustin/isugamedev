@@ -7,17 +7,18 @@
 #include "ReadThread.h"
 #include "WriteThread.h"
 #include "Socket.h"
+#include <memory>
 
 namespace net {
    class Connection {
    public:
-      Connection(auto_ptr<Socket> socket);
+      Connection(std::auto_ptr<Socket> socket);
       ~Connection();
 
       void send(Message *message);
       bool read(std::vector<Message*> &messages);
    private:
-      auto_ptr<Socket> m_socket;
+      std::auto_ptr<Socket> m_socket;
 
       MessageQueue *m_writeQueue;
       MessageQueue *m_readQueue;

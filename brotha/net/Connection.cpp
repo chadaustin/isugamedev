@@ -1,7 +1,7 @@
 #include "Connection.h"
 
 namespace net {
-   Connection::Connection(auto_ptr<Socket> socket) {
+   Connection::Connection(std::auto_ptr<Socket> socket) {
       m_socket = socket;
 
       m_readQueue = new MessageQueue();

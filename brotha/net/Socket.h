@@ -11,7 +11,7 @@
 #include "SocketOutputStream.h"
 #include "SocketInputStream.h"
 #include "SocketException.h"
-
+#include <iostream>
 
 namespace net {
 
