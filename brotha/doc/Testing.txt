@@ -99,7 +99,14 @@ Table of Contents
 
      2.1.  Unit Tests
 
+         We will test the message object serialization and
+         deserialization.  We will also test XML loading and saving,
+         along with the database layer.
+
      2.2.  Integration Tests
+
+         We will verify that the networking, threading, and message
+         subsystems work properly together in the high-level network manager.
 
      2.3.  Functional Tests
       A. Login
