@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "regexx" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
@@ -67,7 +67,7 @@ LINK32=link.exe
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "regexx" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -94,7 +94,19 @@ SOURCE=.\ColorRGBA.cxx
 # End Source File
 # Begin Source File
 
+SOURCE=.\Entity.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=.\FileHandler.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=.\Image.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=.\ImageManager.cxx
 # End Source File
 # Begin Source File
 
@@ -110,7 +122,19 @@ SOURCE=.\Matrix4f.cxx
 # End Source File
 # Begin Source File
 
+SOURCE=.\regexx\pcre.c
+# End Source File
+# Begin Source File
+
+SOURCE=.\regexx\regexx.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\simpleGlutApp.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=.\regexx\study.c
 # End Source File
 # Begin Source File
 
@@ -119,6 +143,10 @@ SOURCE=.\Texture.cxx
 # Begin Source File
 
 SOURCE=.\TgaImporter.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=.\World.cxx
 # End Source File
 # End Group
 # End Target
