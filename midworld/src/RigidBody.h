@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-07-29 00:35:12 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 
 #include <gmtl/AABox.h>
 #include <gmtl/Point.h>
+#include <gmtl/VecOps.h>
 #include <gmtl/Quat.h>
 #include <gmtl/Matrix.h>
 
@@ -48,16 +49,23 @@ namespace mw
    {
    public:
 
-      RigidBody() : mMass( 1.0f )
-      {
-      }
+      RigidBody()
+         : mMass( 1.0f )
+         , mBounds(gmtl::Point3f(0,0,0), gmtl::Point3f(1,1,1))
+      {}
       
       virtual ~RigidBody() {}
 
       /**
        * Sets the position of this rigid body relative to the world's origin.
        */
-      void setPos(const gmtl::Point3f& pos) { mPos = pos; }
+      void setPos(const gmtl::Point3f& pos)
+      {
+         mPos = pos;
+         gmtl::Vec3f extents = (mBounds.getMax() - mBounds.getMin()) * 0.5f;
+         mBounds.setMin(mPos - extents);
+         mBounds.setMax(mPos + extents);
+      }
 
       /**
        * Gets the position of this rigid body relative to the world's origin.

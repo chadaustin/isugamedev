@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-07-29 00:35:12 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -71,6 +71,11 @@ namespace mw
       // zero out the force, and torque accumulators.
       mForce.set( 0.0f, 0.0f, 0.0f );
       mTorque.set( 0.0f, 0.0f, 0.0f );
+
+      // Move the bounds along with the body
+      gmtl::Vec3f extents = (mBounds.getMax() - mBounds.getMin()) * 0.5f;
+      mBounds.setMin(mPos - extents);
+      mBounds.setMax(mPos + extents);
    }
 
    void RigidBody::addForce(const gmtl::Vec3f& force)
