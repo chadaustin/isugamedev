@@ -1,15 +1,15 @@
 # gnu compiler defines 
 CC = g++
+WARNINGS_FLAGS = 
 CXX_COMPILE = g++
-CXX_FLAGS = 
+CXX_FLAGS = $(WARNINGS_FLAGS)
 C_COMPILE = gcc
 C_FLAGS = $(CXX_FLAGS)
 EXE_LINKER = $(CXX_COMPILE)
-EXE_FLAGS = $(CXX_FLAGS) 
+EXE_FLAGS = $(CXX_FLAGS) $(WARNINGS_FLAGS)
 SO_LINKER = $(CXX_COMPILE)
-SO_FLAGS = -dynamic -fPIC
+SO_FLAGS = -dynamic -fPIC $(WARNINGS_FLAGS)
 DEFS =
-WARNINGS_FLAGS = 
 
 LINKALL_ON = -Wl,--whole-archive
 LINKALL_OFF = -Wl,--no-whole-archive

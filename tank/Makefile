@@ -1,8 +1,9 @@
+
 #!gmake
 # How to build?  Use gnu-make (type gmake)
 
 # You'll need to edit this file .
-# fill in the glut search paths, and uncomment the appropriate compiler.
+# fill in the glut search paths
 
 # project name...
 PROJECT_NAME = tank
