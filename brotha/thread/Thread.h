@@ -79,7 +79,7 @@ namespace thread {
 
          thread->mMutex.lock();
          thread->run();
-         mRunning = false;
+         thread->mRunning = false;
       }
 
    private:
