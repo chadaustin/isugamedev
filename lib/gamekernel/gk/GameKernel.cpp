@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2003-02-09 08:45:24 $
-// Version:       $Revision: 1.33 $
+// Date modified: $Date: 2003-08-23 04:33:36 $
+// Version:       $Revision: 1.34 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -46,7 +46,10 @@ GameKernel::GameKernel( IGameApp* app )
 GameKernel::~GameKernel()
 {
    // shutdown the driver and release its memory
-   mDriver->shutdown();
+   if (mDriver)
+   {
+      mDriver->shutdown();
+   }
 
    //free memory
    delete mApp;
