@@ -1,8 +1,13 @@
 The GameKernel system abstraction for games
 
-Authors
+Authors:
  - Kevin Meinert <kevin@vrsource.org>
  - Ben Scott <bscott@vrac.iastate.edu>
+
+Contributors:
+ - Johnathan Gurley <daren@users.sourceforge.net>
+   - SDL system driver
+ 
 
 features:
  - game system abstraction
