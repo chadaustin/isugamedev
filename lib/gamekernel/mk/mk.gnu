@@ -24,8 +24,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: mk.gnu,v $
-# Date modified: $Date: 2002-01-30 06:47:59 $
-# Version:       $Revision: 1.2 $
+# Date modified: $Date: 2002-02-08 04:46:23 $
+# Version:       $Revision: 1.3 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -36,7 +36,7 @@ endif
 
 # gnu compiler defines 
 CC = g++
-WARNINGS_FLAGS = 
+WARNINGS_FLAGS = -Wall
 CXX_COMPILE = g++
 CXX_STATIC_FLAGS = $(DEBUG_FLAGS) $(WARNINGS_FLAGS)
 CXX_SHARED_FLAGS = $(DEBUG_FLAGS) -fPIC $(WARNINGS_FLAGS)
