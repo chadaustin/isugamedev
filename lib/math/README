@@ -1,7 +1,8 @@
-kevin's math library (very original name, yes, i know.)
+kevmath: kevin's math library (very original name, yes, i know.)
 (c) 1996-2002 Kevin Meinert
 
 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Usage:
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
@@ -26,13 +27,39 @@ extend.h
 adds funcs that don't nessesarily belong in the classes...
 
 
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Build:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+you should be able to simply type:
+
+  gmake
+  
+If this doesn't work, try to find out why, or copy the entire output to the
+author of this project so they may debug it.  Describe your system and
+compilers installed.
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Install:
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+use the Makefile's install target.  
+this target defaults to "./build" in the the current directory.  
+you can set it to something different with the following:
+
+   gmake install prefix=/mydir/whatever/blah
+
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 history:
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 originally started 1996 as f-lib (everything was prefixed by an f, no reason)
 progressed rapidly in Iowa State Univiersity's computer graphics class (ME519)
 progressed from there in various little prototype projects Ive done for amusement
 
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 LEGAL:
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 LGPL (see file COPYING)
