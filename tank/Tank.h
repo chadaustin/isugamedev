@@ -13,6 +13,10 @@ public:
    Tank() : mRot(), mRotVel(), mSpeed( 0.0f ), mMaterial()
    {
       mXForm.makeIdent();
+   }
+
+   void init()
+   {
       bool result = ImageManager::instance().load( "atomic.tga", image );
       assert( result && "cannot load image" );
       tex.setImage( &image );
@@ -118,6 +122,11 @@ public:
       
    void update( float timeDelta = 1.0f )
    {
+      if (tex.imageValid() == false)
+      {
+         this->init();
+      }
+
       // POS
       // x' = v = vel in tank local coord system
       Vec3<float> pos_delta = mRot * mVel;
