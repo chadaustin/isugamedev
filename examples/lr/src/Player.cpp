@@ -16,7 +16,7 @@ namespace lr
       currentTexture->drawRectangle(realPos, realHeight+32, realPos+16, realHeight);
       if(die)
       {
-         dieTexture->drawRectangle(0,756,1024,0);
+         dieTexture->drawRectangle(256,512,768,256);
       }
    }
 
@@ -151,7 +151,7 @@ namespace lr
          
       }
       
-      else if(keyup && onLadder()) // we want to go up and we're on a ladder
+      else if(keyup && onLadder() && !brickAbove()) // we want to go up and we're on a ladder
       {
          realHeight+=((128*dt));
          tempState=climb;
@@ -360,6 +360,13 @@ namespace lr
       return false;
    }
          
+   bool Player::brickAbove()
+   {
+      if(mLevel->getEntityType(getGridPos(), getGridHeight()+1)==brick)
+         return true;
+      return false;
+   }
+   
 
    bool Player::brickRight()
    {

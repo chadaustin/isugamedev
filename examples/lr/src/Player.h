@@ -100,6 +100,7 @@ namespace lr
       bool onLadder();     // returns true if we are on a ladder 
       bool brickRight();   // returns true if there are bricks directly to our right
       bool brickLeft();    // returns true if there are bricks directly to our left
+      bool brickAbove();   // returns true if there are bricks directly above
       bool ladderUnder();  // returns true if there is a ladder under us
       bool brickUnder();   // returns true if there is bricks under us
       bool isMoney();      // returns true if we are touching a money bag.
