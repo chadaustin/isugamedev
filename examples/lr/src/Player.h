@@ -210,6 +210,8 @@ namespace lr
       bool gameOver;
       float gameOverTime;
       bool changeState;
+      bool nextLevel;
+      float nextLevelTime;
       
       /** players score */
       int score;

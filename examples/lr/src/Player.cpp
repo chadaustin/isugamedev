@@ -64,6 +64,8 @@ namespace lr
       die=false;
       dieTime=3.3;
 
+      nextLevelTime=0.0;
+
       changeState=false;
       gameOver=false;
       gameOverTime=0.0;
@@ -155,6 +157,17 @@ namespace lr
          gameOverTime+=dt;
          return;
       }
+
+
+      if(nextLevelTime>3)
+      {
+         mLevel->nextLevel=false;
+      }
+      if(mLevel->nextLevel==true)
+      {
+         nextLevelTime+=dt;
+         return;
+      }
       
       
       if(dt>(1.0/128.0))
@@ -173,8 +186,6 @@ namespace lr
       else if(burnright)
       {
          burnOutRightBrick(dt);
-         
-
       }
       //if we are supposed to burn the left bricks out then do it
       else if(burnleft)
@@ -241,6 +252,10 @@ namespace lr
          mLevel->setEmpty(getGridPos(), getGridHeight());
          score+=100;
          mLevel->numBagsDecr();
+         if(mLevel->getNumBags()==0)
+         {
+            mLevel->nextLevel=true;
+         }
       }
 
       if((initTime+=dt)>.08 && updateTex==true)

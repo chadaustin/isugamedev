@@ -215,11 +215,11 @@ namespace lr
 
       }
       
-      mPlayer->update(dt);
+      mLevel->update(dt);
       mScoreBoard->update(mPlayer->getScore(), mPlayer->getLives());
       
-      mLevel->update(dt);
       mBadGuy->update(dt);
+      mPlayer->update(dt);
       AI.update();
    }
 

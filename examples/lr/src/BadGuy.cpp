@@ -279,6 +279,9 @@ namespace lr
 
    void BadGuy::update(float dt)
    {
+      if(mLevel->nextLevel==true)
+         return;
+      
       // the first thing we always check is if we are in bricks, if we are then
       // we need to be reset
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
@@ -363,6 +366,7 @@ namespace lr
       {
          mLevel->setEmpty(getGridPos(), getGridHeight());
          mLevel->numBagsDecr();
+         mLevel->nextLevel=true;
       }
 
       if((initTime+=dt)>.08 && updateTex==true)

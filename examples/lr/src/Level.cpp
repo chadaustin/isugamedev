@@ -124,6 +124,7 @@ namespace lr
       numBags = 0;
       burnTime = 0.0;
       burnTextureNum=0;
+      nextLevel=false;
    }
 
 

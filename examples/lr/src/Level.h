@@ -106,6 +106,12 @@ namespace lr
       {
          return numBags;
       }
+
+      /**
+       * boolean for all guys in teh game to look at for if we are finished 
+       * with this level.
+       */
+      bool nextLevel;
          
    private:
       /**
@@ -154,6 +160,8 @@ namespace lr
        * this is a pointer to the current levelFile
        */
       std::string currentLevelFile;
+
+      
       
    };
 
