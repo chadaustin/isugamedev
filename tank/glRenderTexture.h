@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: glRenderTexture.h,v $
-//    $Date: 2001-09-10 19:20:57 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-13 23:35:01 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -31,6 +31,11 @@
 #ifndef TEXTURE_BINDER
 #define TEXTURE_BINDER
 
+#ifdef _WIN32
+#  include <windows.h>
+#endif
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "Texture.h"
 #include "Defines.h" // for kev::MAX
 #include "ContextManager.h"
