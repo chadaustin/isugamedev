@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2005-01-25 01:42:09 $
- * Version:       $Revision: 1.31 $
+ * Date modified: $Date: 2005-01-25 05:17:38 $
+ * Version:       $Revision: 1.32 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -47,8 +47,6 @@ namespace phui
       LayoutConstraintPtr constraint(new EmptyConstraint());
       //This doesn't work w/ MSVC .Net 2003
       //Loki::Reset(mLayoutManager, new LayoutManager(this, constraint));
-      LayoutManagerPtr new_ptr( new LayoutManager(this, constraint) );
-      mLayoutManager = new_ptr;
    }
 
    WidgetContainer::WidgetContainer(LayoutManagerPtr manager)
@@ -70,7 +68,7 @@ namespace phui
       widget->setParent(this);
       //XXX:  Fix this.
       //widget->setParent(boost::shared_dynamic_cast<WidgetContainer>(getSelf()));
-      mLayoutManager->add(widget->getPosition(), widget->getSize());
+      //mLayoutManager->add(widget->getPosition(), widget->getSize());
    }
 
    void WidgetContainer::remove(WidgetPtr widget)
@@ -81,7 +79,7 @@ namespace phui
          {
             mWidgets.erase(mWidgets.begin() + i);
             widget->mParent = 0;
-            mLayoutManager->remove(widget->getPosition());
+            //mLayoutManager->remove(widget->getPosition());
          }
       }
    }
@@ -106,10 +104,10 @@ namespace phui
    void WidgetContainer::draw()
    {
       // Check to see if the current setup is valid
-      if (!mLayoutManager->isValid())
+      /*if (!mLayoutManager->isValid())
       {
          mLayoutManager->resize();
-      }
+      }*/
       // draw all children to this widget
       // draw them backwards so it's from the back to the front, visually
       for (int i = int(mWidgets.size()) - 1; i >= 0; --i)

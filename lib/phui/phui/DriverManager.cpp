@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DriverManager.cpp,v $
- * Date modified: $Date: 2005-01-25 01:41:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2005-01-25 05:17:38 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -56,7 +56,7 @@ namespace phui
       std::vector<std::string>::iterator itr;
       for (itr = mDriverNames.begin(); itr != mDriverNames.end(); ++itr)
       {
-         names += (*itr);
+         names += (*itr) + " ";
       }
       return names;
    }
