@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-02-24 06:47:01 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-02-24 08:52:12 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -36,8 +36,8 @@
  ************************************************************** phui-cpr-end */
 #include <algorithm>
 #include <functional>
-#include <GL/gl.h>
 #include "WidgetContainer.h"
+#include <GL/gl.h>
 
 namespace phui {
 

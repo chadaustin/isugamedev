@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-02-24 07:26:19 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-02-24 08:52:12 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,8 +41,8 @@
 static int gWidth  = 640;
 static int gHeight = 480;
 static int mainWin_contextID;
-static phui::RootWidget* gUI(NULL);
-static phui::Window* gWnd(NULL);
+static phui::RootWidget* gUI = NULL;
+static phui::Window* gWnd = NULL;
 
 //-----------------------------------------------------------------------------
 
@@ -142,4 +142,6 @@ int main( int argc, char** argv )
 
 
    glutMainLoop();
+	
+   return 0;
 }
