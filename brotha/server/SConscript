@@ -15,7 +15,7 @@ headers = [
 ]
 
 sources = [
-   'main',
+   'ConsoleServer',
 ]
 
 # add proper extensions to filenames
