@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputManager.cpp,v $
- * Date modified: $Date: 2003-02-22 23:53:34 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-23 02:40:32 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -51,7 +51,7 @@ namespace siren
          std::string buffer;
          std::getline(in, buffer);
          size_t index = buffer.find('=');
-         if (index != -1)
+         if (index != std::string::npos)
          {
             std::string key = buffer.substr(0, index);
             std::string action = buffer.substr(index + 1);
