@@ -24,7 +24,7 @@
  *  recompiling isym.
  *
  *  @section Extendability Extendability
- *  Using the getUID() function you can extend isym with your own unique IDs.
+ *  Using the isym::getUID() function you can extend isym with your own unique IDs.
  */
  
 /** @defgroup IsymAPI The Isym API
