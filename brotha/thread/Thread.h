@@ -5,6 +5,7 @@
 #define THREAD_THREAD_H
 
 
+#include <memory>
 #include <prthread.h>
 #include "Synchronized.h"
 #include "ThreadException.h"
@@ -13,6 +14,7 @@
 namespace thread {
 
    class Thread {
+   public:
       Thread() {
 
          mRunning = false;

@@ -16,8 +16,10 @@ namespace thread {
    public:
       Mutex() {
          mLock = PR_NewLock();
-         
-         throw ThreadException("Mutex creation failed");
+
+         if(mLock == NULL) {
+            throw ThreadException("Mutex creation failed");
+         }
       }
 
       ~Mutex() {
