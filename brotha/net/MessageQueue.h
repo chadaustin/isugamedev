@@ -17,7 +17,7 @@ namespace net {
    class MessageQueue : private thread::Synchronized {
    public:
       void push(Message* message);
-      void read(std::vector<Message*> messages);
+      void read(std::vector<Message*> &messages);
 
    private:
       std::queue<Message*> mQueue;

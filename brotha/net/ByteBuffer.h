@@ -19,6 +19,7 @@ namespace net {
    public:
       ByteBuffer() {
          mBuffer = 0;
+         mSize = 0;
       }
 
       ~ByteBuffer() {

@@ -7,6 +7,8 @@ namespace net {
    ReadThread::ReadThread(Socket *socket, MessageQueue *readQueue) {
       m_socket = socket;
       m_readQueue = readQueue;
+
+      start();
    }
 
    ReadThread::~ReadThread() {

@@ -23,8 +23,12 @@ namespace net {
          mPassword = password;
       }
 
-      int getType() {
+      PRUint32 getType() {
          return MSG_LOGIN;
+      }
+
+      PRUint32 getSize() {
+         return getVarSize(mUsername) + getVarSize(mPassword);
       }
 
       void serialize(OutputStream& os) {

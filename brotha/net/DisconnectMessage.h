@@ -15,8 +15,12 @@ namespace net {
 
    class DisconnectMessage : public Message {
    public:
-      int getType() {
+      PRUint32 getType() {
          return MSG_DISCONNECT;
+      }
+
+      PRUint32 getSize() {
+         return 0;//getVarSize(mUsername) + getVarSize(mPassword);
       }
 
       void serialize(OutputStream& os) {

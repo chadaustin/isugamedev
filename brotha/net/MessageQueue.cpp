@@ -15,7 +15,7 @@ namespace net {
 
 
    void
-   MessageQueue::read(std::vector<Message*> messages) {
+   MessageQueue::read(std::vector<Message*> &messages) {
       thread::Lock l__(this);
 
       messages.clear();

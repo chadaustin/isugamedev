@@ -15,8 +15,12 @@ namespace net {
 
    class OKMessage : public Message {
    public:
-      int getType() {
+      PRUint32 getType() {
          return MSG_OK;
+      }
+
+      PRUint32 getSize() {
+         return getVarSize(std::string("OK"));
       }
 
       void serialize(OutputStream& os) {

@@ -7,6 +7,7 @@
 #include "thread/Thread.h"
 #include "MessageQueue.h"
 #include "Socket.h"
+#include "Serialize.h"
 
 namespace net {
    class WriteThread : public thread::Thread {

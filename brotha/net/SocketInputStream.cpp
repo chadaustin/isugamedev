@@ -6,7 +6,9 @@
 namespace net {
 
    void SocketInputStream::read(void* buffer, int size) {
-      m_socket->read(buffer, size);
+      while(size != 0) {
+         size -= m_socket->read(buffer, size);
+      }
    }
 
 } // namespace net

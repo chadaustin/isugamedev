@@ -34,6 +34,9 @@ namespace net {
       }
 
       Socket(const char* hostname, int port) {
+         mOutputStream = 0;
+         mInputStream = 0;
+
          mSocket = PR_NewTCPSocket();
          if (!mSocket) {
             throw SocketException("Socket creation failed");
@@ -70,12 +73,12 @@ namespace net {
          return mOutputStream;
       }
 
-      void read(void* buffer, int size) {
-         PR_Recv(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
+      int read(void* buffer, int size) {
+         return PR_Recv(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
       }
 
-      void write(void* buffer, int size) {
-         PR_Send(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
+      int write(void* buffer, int size) {
+         return PR_Send(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
       }
    private:
       PRFileDesc* mSocket;

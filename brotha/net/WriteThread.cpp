@@ -7,6 +7,8 @@ namespace net {
    WriteThread::WriteThread(Socket *socket, MessageQueue *writeQueue) {
       m_socket = socket;
       m_writeQueue = writeQueue;
+
+      start();
    }
 
    WriteThread::~WriteThread() {
@@ -24,6 +26,7 @@ namespace net {
             // write each
             typedef std::vector<Message*>::iterator MsgIter;
             for(MsgIter iter=messages.begin();iter!=messages.end();iter++) {
+               (*oStream) << (*iter)->getType() << (*iter)->getSize();
                (*iter)->serialize(*oStream);
             }
          } else { // if not, release CPU

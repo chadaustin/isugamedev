@@ -23,7 +23,7 @@ namespace net {
       m_writeQueue->push(message);
    }
 
-   void Connection::read(std::vector<Message*> messages) {
+   void Connection::read(std::vector<Message*> &messages) {
       m_readQueue->read(messages);
    }
 }

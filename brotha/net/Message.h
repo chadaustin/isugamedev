@@ -13,9 +13,18 @@ namespace net {
    class Message {
    public:
       virtual ~Message() { }
-      virtual int getType() = 0;
+      virtual PRUint32 getType() = 0;
+      virtual PRUint32 getSize() = 0;
       virtual void serialize(OutputStream& os) = 0;
       virtual void deserialize(InputStream& os) = 0;
+   protected:
+      PRUint32 getVarSize(PRUint32 &var) {
+         return PRUint32(sizeof(PRUint32));
+      }
+
+      PRUint32 getVarSize(std::string &var) {
+         return PRUint32(sizeof(PRUint32) + var.length());
+      }
    };
 
 }
