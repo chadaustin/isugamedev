@@ -31,5 +31,5 @@ env.Append(LIBPATH = [str(Dir('#src/siren'))],
            LIBS = ['siren'])
 SetupSDL(env)
 SetupBoostPython(env)
-SetupPython(env, '2.2')
+#SetupPython(env, '2.2')
 env.SharedLibrary('siren', 'siren.cpp', SHLIBPREFIX='')
