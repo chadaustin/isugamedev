@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.h,v $
- * Date modified: $Date: 2002-05-02 09:12:02 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-03 07:03:01 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -86,7 +86,7 @@ namespace client {
 
       /// The mini-dealer window.
       DealerWnd* mDealer;
-      phui::Window* mChopShop;
+      ChopShopWnd* mChopShop;
 
       data::Player* mPlayer;
       data::CarTypeList* mCarTypes;
