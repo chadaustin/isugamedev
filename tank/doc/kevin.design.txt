@@ -1,17 +1,21 @@
+Author(s) and Contributors(s)
+=============================
+Kevin Meinert - (inititial design concept)
 
 Name
 =========
-SpaceTank (better name to be decided)
-
+dreamgame (better name to be decided)
 
 Genre
 =========
-cross genre - (RPG, puzzle, and arcade action combined)
+highlevel description: hard core action adventure
+detail description: cross genre - (RPG, puzzle, and
+                                   arcade action combined)
 
 
 Similar to other games?
 ========================
-SpaceTank takes ideas from many places:
+DreamGame takes ideas from many places:
 - ankh (triggerable objects, puzzles, remote control room)
 - zelda (market places you can buy and sell at)
 - blaster master (tank, and person that can get out, weapons powerup)
@@ -22,6 +26,9 @@ SpaceTank takes ideas from many places:
 - duke nukem (tripwire, pipebomb)
 - all rpg games (player stats)
 
+basically zelda adventure, blastermaster action, and ankh puzzles.
+(note: for ankh, go check out an appleIIe emulator and get ankh.bin      
+       file for it :)
 
 Objective
 ==========
@@ -132,11 +139,26 @@ brainstorm features (sorry no time to write this up! :)
   - some can be buried, some jumpsquashed.  most can be shot, but not some. :)
   
 
+TODO: break all this stuff out into chapters.  should make a nice 50
+page doc when done. :)
+
+
+Levels
+============
+describe some levels here.  going into details about the puzzles and
+strategy in each part.  describe items and enemies too.  give sketches
+or pictures of the map for each level (concept or fully planned)...   
+
+- nile river valley
+- ancient crete
+- india
+
+
 Timeline (milestones)
 ====================
-hmmm...
+hmmm...  probably will take a while.
 
 
 Budget
 ====================
-just time cause we're all free!
+$0 (just time cause we're all free!)
