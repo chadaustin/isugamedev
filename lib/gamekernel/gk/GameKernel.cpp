@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-03-22 02:04:27 $
-// Version:       $Revision: 1.30 $
+// Date modified: $Date: 2003-02-09 07:42:35 $
+// Version:       $Revision: 1.31 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -107,6 +107,16 @@ void GameKernel::setName( const std::string& name )
 const std::string& GameKernel::name() const
 {
    return mDriver->name();
+}
+
+/**
+ * give a driver name (sdl, glut).  kernel will load the plugin and call it the regName you give.
+ */
+bool GameKernel::run( const std::string& driverName, const std::string& regName )
+{
+   gk::SystemDriverFactory::instance().probe( driverName, regName );
+   gk::ISystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "SDL" );
+   return this->run( driver );
 }
 
 bool GameKernel::run( ISystemDriver* driver )
