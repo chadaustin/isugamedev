@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-01 22:12:45 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-05-01 22:24:24 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,6 +46,7 @@
 namespace server {
    BrothaGame::BrothaGame(net::NetMgr *netMgr) {
       m_netMgr = netMgr;
+      mGameTime.start();
    }
 
    BrothaGame::~BrothaGame() {
@@ -76,6 +77,12 @@ namespace server {
       // remove players for connections that have closed
       for(ClosedConnectionMapIter iter=mClosedConnections.begin();iter!=mClosedConnections.end();++iter) {
          removeConnection(*iter);
+      }
+
+      // Do a frame in the game logic if we haven't paused the game
+      if (! isPaused()) {
+         mGameTime.update();
+         mLogic.update((float)mGameTime.getElapsedTime());
       }
 
       /// @todo do a frame in the game
