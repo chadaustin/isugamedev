@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-03-20 03:32:44 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-03-25 21:23:11 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -127,7 +127,7 @@ int main( int argc, char *argv[] )
    // create the kernel and add our app in
    gk::IGameKernel* kernel = gk::createGameKernel(new BrothaApp());
    kernel->config( "config.xml" );
-   kernel->startup();
+   kernel->run();
 
    return 0;
 }
