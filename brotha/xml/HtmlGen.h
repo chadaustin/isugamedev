@@ -15,11 +15,13 @@ namespace reports{
 		int carD;
 		int playerD;
 		int gangD;
+		bool valid;
 		std::string gang;
 		std::string player;
 		std::string car;
 
 		request(std::string brothaPath){
+			valid = false;
 			brothaPath += "/";
 			std::string gpath;
 			std::string ppath;
@@ -31,21 +33,34 @@ namespace reports{
 					tem += brothaPath[i];
 				else{
 					if(state == 0){
+						if(tem.size() < 2)
+							break;
 						gangD = tem[0] - '0';
+						if(tem[0] < 0 || tem[0] > 3)
+							break;
 						gang = tem.substr(1,tem.size()-1);
 						state++;
 						tem = "";
 					}
 					else if(state == 1){
+						if(tem.size() < 2)
+							break;
 						playerD = tem[0] - '0';
+						if(tem[0] < 0 || tem[0] > 3)
+							break;
 						player = tem.substr(1,tem.size()-1);
 						state++;
 						tem = "";
 					}
 					else if(state == 2){
+						if(tem.size() < 2)
+							break;
 						carD = tem[0] - '0';
+						if(tem[0] < 0 || tem[0] > 3)
+							break;
 						car = tem.substr(1,tem.size()-1);
 						state++;
+						valid = true;
 					}
 
 				}
@@ -76,8 +91,12 @@ namespace reports{
 
 	std::string GenerateReport(std::string query){
 		reports::request r(query);
-		dataxml::ganglist gl = dataxml::b.getGangList();
-		return renderGangList(gl,r);
+		if(r.valid){
+			dataxml::ganglist gl = dataxml::b.getGangList();
+		    return renderGangList(gl,r);
+		}
+		return "error";
+
 	}
 
 	std::string GenerateReportFromHTTP(std::string httpR){
@@ -94,14 +113,14 @@ namespace reports{
 		  dataxml::Car* c = cl[i];
 		  if(schema.car.find(c->getName()) !=  std::string::npos || schema.car == "*"){
 			  if(schema.carD == 1){
-				  out << "<tr><td><img src=car.jpg></td><td>name:" << c->getName() << "</td><td>";
+				  out << "<tr><td><img src=" + urlBase + "car.jpg></td><td>name:" << c->getName() << "</td><td>";
 				  out << c->getMods().size() << "</td></tr>";
 			  }
 			  if(schema.carD == 2){
 				  out << "<div class=\"car2\">";
 				  out << "<font size=+2>" << c->getName() << "<font>";
 				  out << "<table><tr><td valign=top>";
-				  out << "<div><img src=" << c->getName() << ".jpg></div>";
+				  out << "<div><img src=" << urlBase << c->getName() << ".jpg></div>";
 				  out << "</td><td valign=top>";
 				  out << "<div>" << renderModList(c->getMods()) << "</div>";
 				  out << "</td></tr></table>";
@@ -140,7 +159,7 @@ namespace reports{
 		std::string html = "";
 		for(unsigned int i = 0; i < ctl.size(); i++){
 			dataxml::Cartype* ct = ctl[i];
-			html += "<div class=\"cartype\"> <img src=\""+ ct->getName() + ".jpg\"><br>" + ct->getName() + "<br><br>";
+			html += "<div class=\"cartype\"> <img src=\"" + urlBase + ct->getName() + ".jpg\"><br>" + ct->getName() + "<br><br>";
 		}
 		return html;
 	}
@@ -159,7 +178,7 @@ namespace reports{
 				if(schema.playerD == 2){
 					html << "<div class=\"playerinfo\">";
 					html << "<table><tr><td valign=top>";
-					html << "<img src=\"" << p->getName() << ".jpg\"></td>";
+					html << "<img src=\"" << urlBase << p->getName() << ".jpg\"></td>";
 					html << "<td><h2>" << p->getName() << "</h2>";
 					html << "stats:<br>";
 					html << renderStatList(p->getStats());
