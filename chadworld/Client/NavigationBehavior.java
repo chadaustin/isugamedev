@@ -13,78 +13,59 @@ public class NavigationBehavior extends Behavior {
 
   private NavigationListener m_listener;
   private WakeupOnAWTEvent m_key_criterion;
-  private WakeupCriterion m_frame_criterion;
 
-  private float m_forward_velocity;
-  private long m_last_time;
+  boolean[] m_pressed     = new boolean[512];
+  boolean[] m_old_pressed = new boolean[512];
 
   public NavigationBehavior(NavigationListener nl) {
     m_listener = nl;
-    m_key_criterion = new WakeupOnAWTEvent(KeyEvent.KEY_PRESSED);
-    m_frame_criterion = new WakeupOnElapsedFrames(1);
+    m_key_criterion = new WakeupOnAWTEvent(AWTEvent.KEY_EVENT_MASK);
   }
 
   public void initialize() {
-    setWakeUp();
-
-    m_last_time = System.currentTimeMillis();
-  }
-
-  public void setWakeUp() {
-    WakeupCriterion[] cond = { m_key_criterion, m_frame_criterion };
-    wakeupOn(new WakeupOr(cond));
+    wakeupOn(m_key_criterion);
   }
 
   public void processStimulus(Enumeration criteria) {
-    while (criteria.hasMoreElements()) {
-      Object element = criteria.nextElement();
-      System.out.println(element.getClass());
-      if (element.equals(m_key_criterion)) {
 
-        try {
+    try {
 
-          // get the key
-          AWTEvent[] events = m_key_criterion.getAWTEvent();
-          KeyEvent e = (KeyEvent)events[0];
-          if (e.getID() == KeyEvent.KEY_PRESSED) {
-          
-            switch (e.getKeyCode()) {
-              case KeyEvent.VK_UP:   m_forward_velocity += 1; break;
-              case KeyEvent.VK_DOWN: m_forward_velocity -= 1; break;
-            }
-
-          } else if (e.getID() == KeyEvent.KEY_RELEASED) {
-
-            switch (e.getKeyCode()) {
-              case KeyEvent.VK_UP:   m_forward_velocity -= 1; break;
-              case KeyEvent.VK_DOWN: m_forward_velocity += 1; break;
-            }
-
-          }
-
-        }
-        catch (Exception e) {
-          // do nothing!
-        }
-
+      // store the current keypress states
+      for (int i = 0; i < 512; ++i) {
+        m_old_pressed[i] = m_pressed[i];
       }
-      if (element.equals(m_frame_criterion)) {
 
-        System.out.println(m_forward_velocity);
-
-        // update position or something
-        if (m_forward_velocity != 0) {
-          long time = System.currentTimeMillis();
-          m_listener.update(
-            new Vector3f((time - m_last_time) * m_forward_velocity, 0, 0));
-          m_last_time = time;
+      // update the keypress states
+      AWTEvent[] events = m_key_criterion.getAWTEvent();
+      for (int i = 0; i < events.length; ++i) {
+        KeyEvent e = (KeyEvent)events[i];
+        int kc = e.getKeyCode();
+        if (kc >= 0 && kc < 512) {
+          if (e.getID() == KeyEvent.KEY_PRESSED) {
+            m_pressed[kc] = true;
+          } else if (e.getID() == KeyEvent.KEY_RELEASED) {
+            m_pressed[kc] = false;
+          }
         }
+      }
 
+      // notify listener of key changes
+      for (int i = 0; i < 512; ++i) {
+        if (m_old_pressed[i] != m_pressed[i]) {
+          if (m_pressed[i]) {  // PRESS
+            m_listener.press(i);
+          } else {             // RELEASE
+            m_listener.release(i);
+          }
+        }
       }
 
     }
+    catch (Exception e) {
+      // do nothing!
+    }
 
-    setWakeUp();
+    initialize();
   }
 
 }

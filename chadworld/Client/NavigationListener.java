@@ -3,5 +3,6 @@ import javax.vecmath.*;
 
 
 public interface NavigationListener {
-  public void update(Vector3f orientation);
+  public void press(int key);
+  public void release(int key);
 }

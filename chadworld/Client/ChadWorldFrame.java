@@ -22,11 +22,13 @@ public class ChadWorldFrame extends Applet {
 
   private ServerConnection m_connection;
   private Vector3f m_orientation = new Vector3f();
+  private SimpleUniverse m_universe;
 
 
   public static MainFrame createFrame(String server, int width, int height) {
     return new MainFrame(new ChadWorldFrame(server), width, height);
   }
+
 
   public ChadWorldFrame(String server) {
 
@@ -42,41 +44,13 @@ public class ChadWorldFrame extends Applet {
     }
 
     setLayout(new BorderLayout());
-    Canvas3D canvas3D = new Canvas3D(null);
+    Canvas3D canvas3D = new Canvas3D(
+      SimpleUniverse.getPreferredConfiguration());
     add("Center", canvas3D);
 
-    SimpleUniverse simpleU = new SimpleUniverse(canvas3D);
-    BranchGroup scene = createSceneGraph(simpleU);
-    simpleU.addBranchGraph(scene);
-  }
-
-  BranchGroup createCubes() {
-    BranchGroup root = new BranchGroup();
-    SharedGroup share = new SharedGroup();
-    share.addChild(new ColorCube());
-    
-    for (int i = 0; i < 20; ++i) {
-
-      float px = (float)Math.random() * 20 - 10;
-      float py = (float)Math.random() * 20 - 10;
-      float pz = (float)Math.random() * 20 - 10;
-
-      // create position transform node
-      Transform3D T3D = new Transform3D();
-      Transform3D rot = new Transform3D();
-      T3D.setTranslation(new Vector3f(px, py, pz));
-      rot.rotX(Math.random() * Math.PI * 2);
-      T3D.mul(rot);
-      rot.rotY(Math.random() * Math.PI * 2);
-      T3D.mul(rot);
-      rot.rotZ(Math.random() * Math.PI * 2);
-      T3D.mul(rot);
-      TransformGroup TGT = new TransformGroup(T3D);
-      TGT.addChild(new Link(share));
-      root.addChild(TGT);
-
-    }
-    return root;
+    m_universe = new SimpleUniverse(canvas3D);
+    BranchGroup scene = createSceneGraph(m_universe);
+    m_universe.addBranchGraph(scene);
   }
 
   BranchGroup createSceneGraph(SimpleUniverse su) {
@@ -86,7 +60,6 @@ public class ChadWorldFrame extends Applet {
     BranchGroup root = new BranchGroup();
 
     Group world = new Group();
-    //    root.addChild(createCubes());
     SynchronizationBehavior sync = new SynchronizationBehavior(
       m_connection, world);
     sync.setSchedulingBounds(bigSphere);
@@ -94,9 +67,12 @@ public class ChadWorldFrame extends Applet {
 
     NavigationBehavior nav = new NavigationBehavior(
       new NavigationListener() {
-        public void update(Vector3f orientation) {
-          m_orientation.add(orientation);
-          System.out.println(m_orientation);
+        public void press(int key) {
+          System.out.println("pressed " + key);
+        }
+
+        public void release(int key) {
+          System.out.println("unpressed " + key);
         }
       }
     );
@@ -108,16 +84,7 @@ public class ChadWorldFrame extends Applet {
     ViewingPlatform vp = su.getViewingPlatform();
     TransformGroup vpTrans = vp.getViewPlatformTransform();
 
-    // we don't need an eye-level view
-    // Transform3D T3D = new Transform3D();
-    // T3D.setTranslation(new Vector3f(0, 0.3f, 0));
-    // vpTrans.setTransform(T3D);
-
     su.getViewer().getView().setBackClipDistance(100);
-
-    KeyNavigatorBehavior keyNav = new KeyNavigatorBehavior(vpTrans);
-    keyNav.setSchedulingBounds(bigSphere);
-    root.addChild(keyNav);
 
     root.compile();
     return root;
