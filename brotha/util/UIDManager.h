@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: UIDManager.h,v $
- * Date modified: $Date: 2002-05-01 06:48:23 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-01 06:50:12 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,7 +48,7 @@
 #include "thread/Synchronized.h"
 #include "thread/Lock.h"
 
-namespace game
+namespace util
 {
    /**
     * A singleton class that manages unique ids for a particular object class.
