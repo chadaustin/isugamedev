@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-12-31 daren        Added layout manager framework.
+2002-12-30 lvanoort     Switched from gltt to GLText for font rendering.
 2002-06-02 nonchocoboy  Added test suite.
 2002-04-27 nonchocoboy  ListBox supports ListSelectionListeners.
 2002-04-26 aegis        Added input mapping utilities for GLUT and SDL.
