@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.h,v $
- * Date modified: $Date: 2002-05-03 01:39:35 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-05-03 01:50:49 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -73,6 +73,11 @@ namespace game {
       const UID& getUID() const;
 
       /**
+       * Gets the unique name of this object.
+       */
+      const std::string& getName() const;
+
+      /**
        * Gets the position vector associated with this object.
        */
       const gmtl::Point3f& getPosition() const {
@@ -119,6 +124,12 @@ namespace game {
        */
       const PRUint32 getHealth() const;
 
+      /// Gets the name of the model for this object.
+      const std::string& getModel() const;
+
+      /// Sets the name of the model for this object.
+      void setModel(const std::string& model);
+
       /**
        * Sets the position vector associated with this object.
        */
@@ -133,6 +144,9 @@ namespace game {
       /// This object's UID
       UID mUID;
 
+      /// The name of this object
+      std::string mName;
+
       /// This object's position vector
       gmtl::Point3f mPosition;
 
@@ -144,6 +158,9 @@ namespace game {
 
       /// This object's health
       PRUint32 mHealth;
+
+      /// The name of the model for this object.
+      std::string mModel;
    };
 }
 

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:04 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-03 01:50:49 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,6 +41,7 @@
  *
  ************************************************************ brotha-cpr-end */
 #include "Object.h"
+#include <sstream>
 
 namespace game {
    const Object::UID Object::UNKNOWN = 0;
@@ -48,6 +49,9 @@ namespace game {
    Object::Object()
       : mHealth(0) {
       mUID = UIDMgr::getInstance().reserveID();
+      ostringstream out;
+      out << mUID;
+      mName = out.str();
    }
 
    Object::~Object() {
@@ -58,22 +62,52 @@ namespace game {
       return mUID;
    }
 
+   const std::string& Object::getName() const {
+      return mName;
+   }
+
+   const std::string& Object::getModel() const {
+      return mModel;
+   }
+
+   void Object::setModel(const std::string& model) {
+      mModel = model;
+   }
+
    PRUint32 Object::getType() {
       return NoObject;
    }
 
    PRUint32 Object::getSize() {
       return net::sizes::getVarSize((PRUint32)mUID)
-           + net::sizes::getVarSize(mHealth);
+           + net::sizes::getVarSize(mHealth)
+           + net::sizes::getVarSize(mName)
+           + net::sizes::getVarSize(mModel)
+           + net::sizes::getVarSize((PRFloat64)mPosition[0]) * 3
+           + net::sizes::getVarSize((PRFloat64)mVelocity[0]) * 3;
    }
 
    void Object::serialize(net::OutputStream& os) {
-      os << mUID;
-      os << mHealth;
+      os << mUID << mHealth << mName << mModel;
+      for (unsigned int i=0; i<mPosition.Size; ++i) {
+         os << (PRFloat64)mPosition[i];
+      }
+      for (unsigned int i=0; i<mVelocity.Size; ++i) {
+         os << (PRFloat64)mVelocity[i];
+      }
    }
 
    void Object::deserialize(net::InputStream& is) {
-      is >> mUID;
-      is >> mHealth;
+      is >> mUID >> mHealth >> mName >> mModel;
+      for (int i=0; i<mPosition.Size; ++i) {
+         PRFloat64 v;
+         is >> v;
+         mPosition[i] = v;
+      }
+      for (int i=0; i<mVelocity.Size; ++i) {
+         PRFloat64 v;
+         is >> v;
+         mVelocity[i] = v;
+      }
    }
 }
