@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-10-03 03:59:56 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-10-11 04:49:57 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,8 +51,8 @@ namespace mw
       mLeavingState = 0;
 
       // Start playing the theme song.
-      /// @todo Stop. Clear all tracks. Then play the new track.
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
+      jukebox->clear();
       jukebox->addTrack("music/theme.ogg");
       jukebox->play();
    }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-10 09:01:15 $
- * Version:       $Revision: 1.53 $
+ * Date modified: $Date: 2002-10-11 04:49:57 $
+ * Version:       $Revision: 1.54 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -82,6 +82,15 @@ namespace mw
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
+
+
+      // Change the music as appropriate for gaming. :)
+      Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
+      jukebox->clear();
+      jukebox->addTrack("music/Theme001.ogg");
+      jukebox->addTrack("music/Level001.ogg");
+      jukebox->addTrack("music/Level002.ogg");
+      jukebox->play();
 
       mScene = new Scene();
       OpenSGSceneViewer* viewer = new OpenSGSceneViewer(mScene);
