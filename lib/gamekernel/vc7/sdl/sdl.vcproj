@@ -27,11 +27,11 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Debug/glut.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\Debug\sdl.pch"
+				AssemblerListingLocation=".\Debug\"
+				ObjectFile=".\Debug\"
+				ProgramDataBaseFileName=".\Debug\"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="4"
@@ -46,7 +46,7 @@
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Debug/glut.pdb"
+				ProgramDatabaseFile=".\Debug\sdl.pdb"
 				ImportLibrary=".\Debug/glut.lib"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -54,7 +54,7 @@
 				MkTypLibCompatible="TRUE"
 				SuppressStartupBanner="TRUE"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/glut.tlb"/>
+				TypeLibraryName=".\Debug\sdl.tlb"/>
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="copy ..\..\test\input\config.xml ."
@@ -89,11 +89,11 @@
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Release/glut.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
+				UsePrecompiledHeader="0"
+				PrecompiledHeaderFile=".\Release\sdl.pch"
+				AssemblerListingLocation=".\Release\"
+				ObjectFile=".\Release\"
+				ProgramDataBaseFileName=".\Release\"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				CompileAs="0"/>
@@ -106,7 +106,7 @@
 				OutputFile="../../dist/opt/sdl.gkd"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				ProgramDatabaseFile=".\Release/glut.pdb"
+				ProgramDatabaseFile=".\Release\sdl.pdb"
 				ImportLibrary=".\Release/glut.lib"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -114,7 +114,7 @@
 				MkTypLibCompatible="TRUE"
 				SuppressStartupBanner="TRUE"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Release/glut.tlb"/>
+				TypeLibraryName=".\Release\sdl.tlb"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
