@@ -82,7 +82,7 @@ using namespace cppdom;
 void processObjNode(XMLNode &node)
 {
    model* mModel = new model();
-   XMLString name = node.getName();
+   std::string name = node.getName();
       
    std::cout << "This Node is a: " << name << std::endl;
 
@@ -108,7 +108,7 @@ void processObjNode(XMLNode &node)
 
 void dumpObjectNode(XMLNode &node)
 {
-   XMLString name = node.getName();
+   std::string name = node.getName();
    XMLNodeList& nlist = node.getChildren();
    XMLNodeList::const_iterator itr, stop;
    itr = nlist.begin();
@@ -157,7 +157,7 @@ void parceobjectsfile(std::string filename)
    catch (XMLError e)
    {
       XMLLocation where( context->getLocation() );
-      XMLString errmsg;
+      std::string errmsg;
       e.getStrError(errmsg);
       // print out where the error occured
       std::cout << filename << ":" << std::cout << filename << ":" << where.getLine() << " ";

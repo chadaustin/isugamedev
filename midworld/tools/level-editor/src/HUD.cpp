@@ -8,10 +8,8 @@
 
    HUD::HUD()
    {
-      mFont = 0;
-      mFontRenderer = 0;
       mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
-      if (mFont==0)
+      if (!mFont)
       {
          throw std::runtime_error("Could not create gltext font: fonts/arial.ttf");
       }
@@ -19,18 +17,13 @@
       mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
       if (!mFontRenderer)
       {
-         delete mFont;
-         mFont = 0;
          throw std::runtime_error("Could not create gltext renderer");
       }
-      mFontRenderer->setFont(mFont);
+      mFontRenderer->setFont(mFont.get());
    }
 
    HUD::~HUD()
-   {
-      delete mFont;
-      delete mFontRenderer;
-   }
+   {}
 
    void HUD::draw(float x, float y, float width, float height)
    {

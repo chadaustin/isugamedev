@@ -15,8 +15,8 @@
       void draw(float x, float y, float width, float height);
 
    private:
-      gltext::Font* mFont;
-      gltext::FontRenderer* mFontRenderer;
+      gltext::FontPtr mFont;
+      gltext::FontRendererPtr mFontRenderer;
    };
 
 #endif
