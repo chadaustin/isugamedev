@@ -8,12 +8,17 @@
 class Camera
 {
 public:
-   Camera() : mTargetPos(0,0,0), mShouldFollow( false ), mYaw(0.0f),
-              mYawVel(0.0f), mPitch( 70.0f ), mPitchVel( 0.0f ),
-              mFollowDist( 30.0f ), mFollowDistVel( 0.0f )
+   Camera() : mTargetPos(0,0,0), mTargetPosOld( 0,0,100 ), mShouldFollow( false ), 
+              mYaw(0.0f),
+              mYawVel(0.0f), 
+              mPitch( 70.0f ), 
+              mPitchVel( 0.0f ),
+              mFollowDist( 30.0f ), 
+              mFollowDistVel( 0.0f )
    {
       mXform.makeIdent();
       mTargetRot.makeIdent();
+      mTargetRotOld.makeIdent();
    }
 
    void setTargetPos( const Matrix4f& mat )
