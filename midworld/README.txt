@@ -16,7 +16,13 @@ OpenSG	1.1.0		http://www.opensg.org
 SCons	0.08		http://www.scons.org
 SDL	1.2.4		http://www.libsdl.org
 
--Audiere-
+For VC7 on Windows, download third-party dependencies from the files
+section on http://sourceforge.net/projects/isugamedev/.  The file is
+named third-party-YYYYMMDD.zip.  Grab the latest one and put its
+contents inside of the third-party directory in your source tree.
+
+
+ -Audiere-
 
 Audiere is a sound library which can be obtained at
 http://audiere.sourceforge.net

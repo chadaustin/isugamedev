@@ -15,6 +15,7 @@ need to get the game resources.
 cd midworld
 ./get-resources.sh
 
+Make sure you have third-party libraries and headers.  See README.txt
+for those.
+
 Open the solution in the midworld/vc7 directory and compile Midworld.
-Copy the resource directories from build/ to vc7/midworld/Release/ and
-vc7/midworld/Debug/
