@@ -23,74 +23,69 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: PickupItem.h,v $
+ * File:          $RCSfile: BaseBullet.cpp,v $
  * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.2 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#ifndef MW_PICKUP_ITEM_H
-#define MW_PICKUP_ITEM_H
-
-#include "AbstractEntity.h"
-#include "Player.h"
+#include "BaseBullet.h"
 
 namespace mw
 {
-   /**
-    * Defines a pickup item containing a bunch of ammo.
-    */
-   class PickupItem : public AbstractEntity
+   BaseBullet::BaseBullet(GameState* gameState)
+      : AbstractEntity(gameState)
+      , mExistCount(0)
+      , mTimeOut(5)
    {
-   public:
-      PickupItem(GameState* gameState)
-         : AbstractEntity(gameState)
-      {}
+      mBounds = gmtl::AABoxf(gmtl::Point3f(0,0,0), gmtl::Point3f(0.150f, 0.150f, 0.350f));
+   }
 
-      ~PickupItem() {}
+   BaseBullet::~BaseBullet()
+   {}
 
-      /**
-       * This pickup item only cares when a player collides with it. If such a
-       * situation occurs, then the object is told that it has been picked up by
-       * the given player.
-       */
-      void onCollisionEntry(const CollisionEvent& evt)
+   void
+   BaseBullet::update(float dt)
+   {
+      mExistCount += dt;
+      Entity::update(dt);
+   }
+
+   bool
+   BaseBullet::isExpired() const
+   {
+      return (mExistCount >= mTimeOut);
+   }
+
+   void
+   BaseBullet::onCollisionEntry(const CollisionEvent& evt)
+   {
+      if (evt.getSource() == this)
       {
-         RigidBody* body = 0;
-         if (evt.getSource() == this)
+         // Don't collide with other bullets
+         if (dynamic_cast<BaseBullet*>(evt.getDesc()->getCollidee()))
          {
-            body = evt.getDesc()->getCollidee();
+            return;
          }
-         else
+      }
+      else
+      {
+         // Don't collide with other bullets
+         if (dynamic_cast<BaseBullet*>(evt.getSource()))
          {
-            body = evt.getSource();
-         }
-
-         // Check if the body is a player
-         Player* player = dynamic_cast<Player*>(body);
-         if (player != 0)
-         {
-            pickedUp(player);
+            return;
          }
       }
 
-      void onCollisionMovement(const CollisionEvent& evt)
-      {
-      }
+      // Make sure we die next frame
+      mExistCount = mTimeOut;
+   }
 
-      void onCollisionExit(const CollisionEvent& evt)
-      {
-      }
+   void
+   BaseBullet::onCollisionMovement(const CollisionEvent& evt)
+   {}
 
-   protected:
-      /**
-       * Notifies this pickup item that it has been picked up by the given
-       * player.
-       *
-       * @param player     the player that picked up the item
-       */
-      virtual void pickedUp(Player* player) = 0;
-   };
+   void
+   BaseBullet::onCollisionExit(const CollisionEvent& evt)
+   {}
 }
-
-#endif

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-10-16 08:35:10 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-10-28 07:41:20 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,8 +47,9 @@ namespace mw
       /**
        * Constructor
        */
-      Enemy()
-         : mHealth(10)
+      Enemy(GameState* gameState)
+         : AbstractEntity(gameState)
+         , mHealth(10)
       {
          srand(5);
       }

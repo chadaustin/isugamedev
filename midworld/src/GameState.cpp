@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-26 06:15:08 $
- * Version:       $Revision: 1.75 $
+ * Date modified: $Date: 2002-10-28 07:41:20 $
+ * Version:       $Revision: 1.76 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,7 @@
 #include <SDL_opengl.h>
 #include "GameState.h"
 #include "StateFactory.h"
+#include "EntityFactory.h"
 #include "Pistol.h"
 #include "MissileLauncher.h"
 #include "SpreadGun.h"
@@ -62,12 +63,17 @@ namespace mw
    GameState::GameState( Application* a )
       : State( a )
       , mSpeed(10)
+      , mPlayer(this)
       , mFPS(0)
       , mFrameCount(0)
       , mFrameTime(0)
       , mShoot(UP)
       , mCycleWeapon(UP)
    {
+      // DO THIS FIRST!!!
+      // Tell the EntityFactory to use this as the GameState
+      EntityFactory::instance().setGameState(this);
+
       mGunSlots.resize( 10 );
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          mGunSlots[x] = UP;
@@ -152,11 +158,11 @@ namespace mw
       node1 = new lm::aiNode("Ben", NULL, -1, 1);
       node2 = new lm::aiNode("Chad", node1, -1, 1);
 
-      Turret* enemy1 = new Turret();
+      Turret* enemy1 = EntityFactory::instance().create<Turret>();
 
 
 
-      Enemy* enemy2 = new Enemy();
+      Enemy* enemy2 = EntityFactory::instance().create<Enemy>();
       gmtl::Point3f inPos1(15.0,0.0,-10.0);
       enemy1->setPos(inPos1);
       gmtl::Point3f inPos2(0.0,0.0,-5.0);
@@ -204,7 +210,7 @@ namespace mw
 
 
 
-      AmmoCrate* crate = new AmmoCrate();
+      AmmoCrate* crate = EntityFactory::instance().create<AmmoCrate>();
       crate->setPos(gmtl::Point3f(10, 0, -10));
       crate->setModel("ammo_crate");
       add(crate);
@@ -677,22 +683,22 @@ namespace mw
          Entity* e;
          if (type == "droid")
          {
-            e = new Enemy();
+            e = EntityFactory::instance().create<Enemy>();
             e->setModel("security_droid");
          }
          else if (type == "crate")
          {
-            e = new AmmoCrate();
+            e = EntityFactory::instance().create<AmmoCrate>();
             e->setModel("ammo_crate");
          }
          else if (type == "wall_straight")
          {
-            e = new Enemy();
+            e = EntityFactory::instance().create<Enemy>();
             e->setModel("wall_straight");
          }
          else if (type == "tent")
          {
-            e = new Enemy();
+            e = EntityFactory::instance().create<Enemy>();
             e->setModel("tent");
          }
          else

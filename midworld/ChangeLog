@@ -1,9 +1,12 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
-2002-10-23 browner      made midworld use loom 0.0.4.
-2002-10-19 daren        Added in a file parser for input bindings
-                        midworld now can use InputSymbol for input bindings
-2002-10-09 browner      made midworld use loom for the ai system
+2002-10-28 nonchocoboy  Added EntityFactory for the creation of new Entity
+                        types.
+                        NEW VERSION: 0.3.0
+2002-10-23 browner      Made Midworld use loom 0.0.4.
+2002-10-19 daren        Added in a file parser for input bindings.
+                        Midworld now can use InputSymbol for input bindings.
+2002-10-09 browner      Made Midworld use loom for the ai system
                         NEW VERSION 0.2.4
 2002-10-08 nonchocoboy  Added a loading state for filling up the resource
                         caches.

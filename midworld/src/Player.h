@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-10-28 07:41:20 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,7 +38,6 @@
 #include "AmmoBag.h"
 #include "AbstractEntity.h"
 #include "Weapon.h"
-#include "cubeGeometry.h"
 #include "NullWeapon.h"
 
 namespace mw
@@ -48,7 +47,7 @@ namespace mw
    class Player : public AbstractEntity
    {
    public:
-      Player();
+      Player(GameState* gameState);
 
       bool isWeaponSlotEmpty(int slot);
 

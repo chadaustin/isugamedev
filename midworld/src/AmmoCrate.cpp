@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AmmoCrate.cpp,v $
- * Date modified: $Date: 2002-10-03 10:47:48 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-28 07:41:20 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,8 +34,9 @@
 
 namespace mw
 {
-   AmmoCrate::AmmoCrate()
-      : mExpired(false)
+   AmmoCrate::AmmoCrate(GameState* gameState)
+      : PickupItem(gameState)
+      , mExpired(false)
    {}
 
    void

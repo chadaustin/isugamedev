@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-10-28 07:41:20 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,8 +47,9 @@
 namespace mw
 {
 
-   Player::Player()
-      : mCurrentWeapon(mWeapons.end())
+   Player::Player(GameState* gameState)
+      : AbstractEntity(gameState)
+      , mCurrentWeapon(mWeapons.end())
    {
       mLastSlot = 0;
       setModel("player");

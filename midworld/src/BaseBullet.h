@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.h,v $
- * Date modified: $Date: 2002-09-07 06:00:11 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-28 07:41:20 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,63 +46,24 @@ namespace mw
       /**
        * Constructor
        */
-      BaseBullet()
-         : mExistCount(0)
-         , mTimeOut(5)
-      {
-         mBounds = gmtl::AABoxf(gmtl::Point3f(0,0,0), gmtl::Point3f(0.150f, 0.150f, 0.350f));
-      }
+      BaseBullet(GameState* gameState);
+
       /**
        * Destructor
        */
-      ~BaseBullet()
-      {
-      }
+      ~BaseBullet();
+
       /**
        * Update this bullet based on the time that has passed.
        * @param dt the amount of time in seconds that has passed
        */
-      virtual void update(float dt)
-      {
-         mExistCount += dt;
-         Entity::update(dt);
-      }
+      virtual void update(float dt);
 
-      bool isExpired() const
-      {
-         return (mExistCount >= mTimeOut);
-      }
+      bool isExpired() const;
 
-      void onCollisionEntry(const CollisionEvent& evt)
-      {
-         if (evt.getSource() == this)
-         {
-            // Don't collide with other bullets
-            if (dynamic_cast<BaseBullet*>(evt.getDesc()->getCollidee()))
-            {
-               return;
-            }
-         }
-         else
-         {
-            // Don't collide with other bullets
-            if (dynamic_cast<BaseBullet*>(evt.getSource()))
-            {
-               return;
-            }
-         }
-
-         // Make sure we die next frame
-         mExistCount = mTimeOut;
-      }
-
-      void onCollisionMovement(const CollisionEvent& evt)
-      {
-      }
-
-      void onCollisionExit(const CollisionEvent& evt)
-      {
-      }
+      void onCollisionEntry(const CollisionEvent& evt);
+      void onCollisionMovement(const CollisionEvent& evt);
+      void onCollisionExit(const CollisionEvent& evt);
 
    protected:
       /// The amount of time that this bullet has existed in the GameState

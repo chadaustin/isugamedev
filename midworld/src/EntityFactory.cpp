@@ -23,28 +23,39 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: Turret.cpp,v $
+ * File:          $RCSfile: EntityFactory.cpp,v $
  * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.4 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include <iostream>
-#include "Turret.h"
+#include "EntityFactory.h"
 
 namespace mw
 {
-   Turret::Turret(GameState* gameState)
-      : Enemy(gameState)
+   EntityFactory* EntityFactory::mInstance = 0;
+
+   void
+   EntityFactory::setGameState(GameState* gameState)
    {
+      mGameState = gameState;
    }
 
-   void Turret::aim()
+   EntityFactory&
+   EntityFactory::instance()
    {
-      //std::cout << "aiming" << std::endl;
+      if (! mInstance)
+      {
+         mInstance = new EntityFactory();
+      }
+
+      return *mInstance;
    }
 
-   void Turret::shoot()
-   {
-   }
+   EntityFactory::EntityFactory()
+      : mGameState(0)
+   {}
+
+   EntityFactory::~EntityFactory()
+   {}
 }

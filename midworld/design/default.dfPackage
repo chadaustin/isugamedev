@@ -77,12 +77,6 @@ class reference12 {
 */
 class reference13 {
 }/**
-@__ref <oiref:design#Class#id3jj4kd5rsq03md5rssg8x.diagram:oiref><oihard>
-@__modelType reference
-@__fqn <oiref:#Package#AI:oiref> 
-*/
-class reference14 {
-}/**
 @__ref <oiref:cpp#Class#mw::BoundsCollisionDetector:oiref><oihard>
 @__modelType reference 
 */
@@ -138,22 +132,10 @@ class reference24 {
 */
 class reference25 {
 }/**
-@__ref <oiref:design#Class#id4equsd5rsq03md5rssgb7.diagram:oiref><oihard>
-@__modelType reference
-@__fqn <oiref:#Package#music:oiref> 
-*/
-class reference26 {
-}/**
 @__ref <oiref:cpp#Class#mw::SpatialIndex:oiref><oihard>
 @__modelType reference 
 */
 class reference27 {
-}/**
-@__ref <oiref:design#Class#id2pte3d5rsq03md5rssga4.diagram:oiref><oihard>
-@__modelType reference
-@__fqn <oiref:#Package#fonts:oiref> 
-*/
-class reference28 {
 }/**
 @__ref <oiref:cpp#Class#mw::SpreadGun:oiref><oihard>
 @__modelType reference 
@@ -220,16 +202,6 @@ class reference40 {
 */
 class reference41 {
 }/**
-@__ref <oiref:cpp#Class#SceneEncoder:oiref><oihard>
-@__modelType reference 
-*/
-class reference123 {
-}/**
-@__ref <oiref:cpp#Class#SceneDecoder:oiref><oihard>
-@__modelType reference 
-*/
-class reference125 {
-}/**
 @__ref <oiref:cpp#Class#mw::Scene:oiref><oihard>
 @__modelType reference 
 */
@@ -264,6 +236,151 @@ class reference46 {
 @__modelType reference 
 */
 class reference42 {
+}/**
+@__ref <oiref:cpp#Class#mw::HomingCommand:oiref><oihard>
+@__modelType reference 
+*/
+class reference14 {
+}/**
+@__ref <oiref:cpp#Class#mw::ModelManager:oiref><oihard>
+@__modelType reference 
+*/
+class reference26 {
+}/**
+@__ref <oiref:cpp#Class#mw::InputParser:oiref><oihard>
+@__modelType reference 
+*/
+class reference28 {
+}/**
+@__ref <oiref:cpp#Class#mw::AmmoCrate:oiref><oihard>
+@__modelType reference 
+*/
+class reference44 {
+}/**
+@__ref <oiref:cpp#Class#mw::InputKey:oiref><oihard>
+@__modelType reference 
+*/
+class reference45 {
+}/**
+@__ref <oiref:cpp#Class#mw::InputAction:oiref><oihard>
+@__modelType reference 
+*/
+class reference47 {
+}/**
+@__ref <oiref:cpp#Class#mw::AmmoBag:oiref><oihard>
+@__modelType reference 
+*/
+class reference48 {
+}/**
+@__ref <oiref:cpp#Class#mw::turretTesting:oiref><oihard>
+@__modelType reference 
+*/
+class reference49 {
+}/**
+@__ref <oiref:cpp#Class#mw::StateCreator:oiref><oihard>
+@__modelType reference 
+*/
+class reference50 {
+}/**
+@__ref <oiref:cpp#Class#mw::ParticleEngine:oiref><oihard>
+@__modelType reference 
+*/
+class reference51 {
+}/**
+@__ref <oiref:cpp#Class#mw::MissileLauncher:oiref><oihard>
+@__modelType reference 
+*/
+class reference52 {
+}/**
+@__ref <oiref:cpp#Class#mw::HomingTesting:oiref><oihard>
+@__modelType reference 
+*/
+class reference53 {
+}/**
+@__ref <oiref:cpp#Class#mw::InputBinder:oiref><oihard>
+@__modelType reference 
+*/
+class reference54 {
+}/**
+@__ref <oiref:cpp#Class#mw::HUD:oiref><oihard>
+@__modelType reference 
+*/
+class reference55 {
+}/**
+@__ref <oiref:cpp#Class#mw::PhysicsEngine:oiref><oihard>
+@__modelType reference 
+*/
+class reference56 {
+}/**
+@__ref <oiref:cpp#Class#mw::StateCreatorImpl:oiref><oihard>
+@__modelType reference 
+*/
+class reference57 {
+}/**
+@__ref <oiref:cpp#Class#mw::StoryState:oiref><oihard>
+@__modelType reference 
+*/
+class reference58 {
+}/**
+@__ref <oiref:cpp#Class#mw::StateFactory:oiref><oihard>
+@__modelType reference 
+*/
+class reference59 {
+}/**
+@__ref <oiref:cpp#Class#mw::Turret:oiref><oihard>
+@__modelType reference 
+*/
+class reference60 {
+}/**
+@__ref <oiref:cpp#Class#mw::HomingMissile:oiref><oihard>
+@__modelType reference 
+*/
+class reference61 {
+}/**
+@__ref <oiref:cpp#Class#mw::turretCommand:oiref><oihard>
+@__modelType reference 
+*/
+class reference62 {
+}/**
+@__ref <oiref:cpp#Class#mw::EdgeState:oiref><oihard>
+@__modelType reference 
+*/
+class reference63 {
+}/**
+@__ref <oiref:cpp#Class#mw::testing:oiref><oihard>
+@__modelType reference 
+*/
+class reference64 {
+}/**
+@__ref <oiref:cpp#Class#mw::Particle:oiref><oihard>
+@__modelType reference 
+*/
+class reference65 {
+}/**
+@__ref <oiref:cpp#Class#mw::PickupItem:oiref><oihard>
+@__modelType reference 
+*/
+class reference66 {
+}/**
+@__ref <oiref:cpp#Class#mw::ResourceManager:oiref><oihard>
+@__modelType reference 
+*/
+class reference67 {
+}/**
+@__ref <oiref:cpp#Class#mw::BodyState:oiref><oihard>
+@__modelType reference 
+*/
+class reference68 {
+}/**
+@__ref <oiref:cpp#Class#mw::Testing:oiref><oihard>
+@__modelType reference 
+*/
+class reference69 {
+}/**
+@__ref <oiref:cpp#Class#mw::LoadState:oiref><oihard>
+@__modelType reference 
+*/
+class reference70 {
 }}/**
 @__tags
 @shapeType ClassDiagram 
@@ -274,145 +391,259 @@ class __tags {
 */
 class __options {
 }/**
-@__positions <oigroup:<oiref:cpp#Class#mw::Entity:oiref>=1917,711,130,121,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::SceneEvent:oiref>=1678,1341,139,140,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::SceneEvent#mScene:oiref>=1751,1481,1751,2093:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::Application#mState:oiref>=825,344,575,344:oigroup>
-<oigroup:<oiref:cpp#Class#mw::GameState:oiref>=927,711,200,556,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::CreditsState#mImages:oiref>=76,711,248,413:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mScene:oiref>=1090,1267,1701,2093:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Camera:oiref>=1018,1341,200,140,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::CollisionDesc#mCollidee:oiref>=2109,189,2228,263:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuSquare#path:oiref>=452,1422,344,1422:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::BaseProjectileWeapon#mw::Weapon:oiref>=2503,1341,2503,978:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Jukebox:oiref>=2658,267,200,296,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::IntroState:oiref>=233,711,172,176,1:oigroup>
-<oigroup:<oiref:cpp#Class#util::UIDManager:oiref>=594,5,200,258,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::NullCollisionDetector#mSpatialIndex:oiref>=1432,355,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Class#SceneDecoder:oiref>=2863,790,149,92,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::State#mNextState:oiref>=579,489,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Class#mw::SceneViewer:oiref>=2878,175,131,105,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::State#mApp:oiref>=575,425,825,425:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::CollisionEvent#mDesc:oiref>=1983,189,32,13,0:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MenuSquare#path:oiref>=348,1405,30,13,0:oigroup>
-<oigroup:<oiref:cpp#Class#mw::_enum_45:oiref>=2537,610,142,150,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mNextState:oiref>=490,546,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::BoundsCollisionDetector#mw::CollisionDetector:oiref>=1479,711,1340,384:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mSpatialIndex:oiref>=1127,901,1572,901,1697,811:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::SpreadGun#mw::BaseProjectileWeapon:oiref>=2562,1899,2562,1829:oigroup>
-<oigroup:<oiref:cpp#Class#SceneEvent:oiref>=1791,1491,91,79,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuState#mItemList:oiref>=652,779,760,779:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameManager#mSoundMgr:oiref>=2379,250,32,13,0:oigroup>
-<oigroup:<oiref:design#Class#id2pte3d5rsq03md5rssga4.diagram:oiref>=2959,310,57,52,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::BaseProjectileWeapon:oiref>=2489,1341,200,488,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::SoundManager#mSoundEffectManager:oiref>=2529,267,2529,176:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameManager#mInstance:oiref>=2412,113,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::MenuState#mw::State:oiref>=474,711,474,546:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuState#mSquares:oiref>=552,926,552,1341:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::CollisionDesc#mCollidee:oiref>=2165,246,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::SceneViewer#mw::SceneListener:oiref>=2943,175,2943,128:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::VectorSpatialIndex#mBodies:oiref>=1830,711,2167,624:oigroup>
-<oigroup:<oiref:cpp#Class#SceneViewer:oiref>=1600,1530,99,92,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::OpenSGSceneViewer:oiref>=585,352,200,163,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::VectorSpatialIndex#mw::SpatialIndex:oiref>=1763,711,1574,355:oigroup>
-<oigroup:<oiref:cpp#Class#mw::CreditsState:oiref>=10,711,200,163,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::NullCollisionDetector:oiref>=1197,711,200,127,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::BaseBullet:oiref>=2057,1341,192,176,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::Pistol#mw::BaseProjectileWeapon:oiref>=2646,1899,2646,1829:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mSpatialIndex:oiref>=1661,794,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::Entity#mw::CollisionListener:oiref>=1960,711,1723,368:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::GameState#mw::State:oiref>=966,711,484,612,484,546:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::BaseBullet#mw::Entity:oiref>=2153,1341,2015,832:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameManager#mSoundMgr:oiref>=2293,160,2438,267:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::CollisionEvent#mDesc:oiref>=1928,263,2045,189:oigroup>
-<oigroup:<oiref:cpp#Class#mw::SceneListener:oiref>=2870,10,148,118,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameManager#mInstance:oiref>=2378,160,2378,200,2448,200,2448,130,2408,130:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::AbstractEntity#mw::Entity:oiref>=440,322,1938,711:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SoundManager#mJukebox:oiref>=2622,333,32,13,0:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mScene:oiref>=1653,2076,32,13,0:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SoundManager#mSoundEffectManager:oiref>=2493,176,32,13,0:oigroup>
+@__positions <oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mExplosion:oiref>=2474,1743,32,13,0:oigroup>
 <oigroup:<oiref:cpp#Class#SceneBuilder:oiref>=2878,410,102,79,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Pistol:oiref>=2604,1899,126,118,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::AssaultRifle#mw::BaseProjectileWeapon:oiref>=2352,1899,2525,1829:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Texture:oiref>=209,263,146,150,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::Weapon#mw::RigidBody:oiref>=2417,711,2270,624:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Enemy:oiref>=1837,1341,200,205,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::Scene#mEntities:oiref>=1890,1690,2425,819:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mNextState:oiref>=1005,711,526,607,526,546:oigroup>
-<oigroup:<oiref:cpp#Class#mw::MenuSquare:oiref>=452,1341,200,176,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::Player#mw::RigidBody:oiref>=2212,711,2212,624:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::BaseBullet#mw::AbstractEntity:oiref>=2153,1341,403,322:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::VectorSpatialIndex#mBodies:oiref>=2084,619,30,13,0:oigroup>
-<oigroup:<oiref:cpp#Class#mw::CollisionListener:oiref>=1627,263,192,105,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::SoundEffectManager:oiref>=2488,10,200,166,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::MenuPathTarget:oiref>=185,1341,159,163,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::NullCollisionDetector#mw::CollisionDetector:oiref>=1294,711,1294,384:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Application:oiref>=825,263,161,257,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::NullCollisionDetector#mSpatialIndex:oiref>=1345,711,1474,355:oigroup>
-<oigroup:<oiref:cpp#Class#mw::MenuState:oiref>=452,711,200,215,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::IntroState#mw::State:oiref>=347,711,441,546:oigroup>
-<oigroup:<oiref:cpp#Class#mw::CollisionEvent:oiref>=1839,263,179,140,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Scene:oiref>=1652,2093,200,176,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::OpenSGSceneViewer#mw::SceneViewer:oiref>=685,352,2943,280:oigroup>
-<oigroup:<oiref:cpp#Class#mw::GameManager:oiref>=2208,10,200,150,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::AssaultRifle:oiref>=2266,1899,172,131,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mCursor:oiref>=1044,711,1044,481:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::Entity#mw::RigidBody:oiref>=2003,711,2189,624:oigroup>
-<oigroup:<oiref:cpp#Class#mw::SoundManager:oiref>=2348,267,200,166,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::AbstractEntity:oiref>=331,172,146,150,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::RigidBody:oiref>=2128,263,200,361,1:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::NullWeapon#mw::Weapon:oiref>=2367,1341,2367,978:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::BoundsCollisionDetector#mSpatialIndex:oiref>=1505,355,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Class#SceneListener:oiref>=1600,1640,110,92,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::SoundManager#mJukebox:oiref>=2548,350,2658,350:oigroup>
-<oigroup:<oiref:cpp#Class#mw::GameScene:oiref>=875,1341,123,79,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::BoundsCollisionDetector:oiref>=1417,711,200,140,1:oigroup>
-<oigroup:<oiref:design#Class#id3jj4kd5rsq03md5rssg8x.diagram:oiref>=2699,790,144,257,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mPlayer:oiref>=1127,957,2097,957:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuState#mCursor:oiref>=563,711,1025,519,1025,481:oigroup>
-<oigroup:<oiref:cpp#Class#mw::CollisionDesc:oiref>=1981,10,193,179,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mCollDet:oiref>=1196,384,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Class#AbstractEntity:oiref>=333,174,114,79,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SceneEvent#mEntity:oiref>=1915,832,32,13,0:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::IntroState#mIntroImage:oiref>=254,413,32,13,0:oigroup>
-<oigroup:<oiref:cpp#Class#SceneEncoder:oiref>=2899,530,108,92,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::UIDManager:oiref>=594,5,200,258,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Player:oiref>=2097,711,200,270,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::IntroState#mIntroImage:oiref>=290,711,290,413:oigroup>
-<oigroup:<oiref:cpp#Class#mw::NullWeapon:oiref>=2269,1341,200,244,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Cursor:oiref>=1006,263,161,218,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::Application#mState:oiref>=579,327,32,13,0:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::CollisionEvent#mSource:oiref>=2018,333,2128,333:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::Scene#listeners:oiref>=1790,1743,1779,1743:oigroup>
-<oigroup:<oiref:design#Class#id4equsd5rsq03md5rssgb7.diagram:oiref>=2878,310,61,52,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::State#mNextState:oiref>=536,546,536,596,624,596,624,506,575,506:oigroup>
-<oigroup:<oiref:cpp#Class#mw::SpreadGun:oiref>=2458,1899,126,137,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mGameScene:oiref>=962,1267,962,1341:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::CreditsState#mImages:oiref>=205,413,30,13,0:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mCamera:oiref>=1054,1267,1054,1341:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::CollisionEvent#mSource:oiref>=2092,316,32,13,0:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::State#mApp:oiref>=789,408,32,13,0:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuState#mImages:oiref>=463,711,330,502,330,413:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Shotgun:oiref>=2750,1899,144,124,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MenuState#mImages:oiref>=296,413,30,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Turret:oiref>=1430,2747,91,118,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::StoryState#mw::State:oiref>=4011,802,3583,616,3583,549:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::RigidBody#mCurrentState:oiref>=1062,478,1182,478:oigroup>
+<oigroup:<oiref:cpp#Class#mw::UIDManager:oiref>=5663,470,200,258,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::CreditsState:oiref>=3505,802,200,163,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::InputBinder:oiref>=5501,10,200,137,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MissileLauncher#mAITest:oiref>=1694,2370,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Enemy#mw::AbstractEntity:oiref>=843,2328,843,1910:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuSquare#path:oiref>=4212,1841,4320,1841:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::CreditsState#mImages:oiref>=3856,1743,30,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::PickupItem#mw::AbstractEntity:oiref>=106,2328,786,1910:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mGunSlots:oiref>=2728,403,30,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::SoundManager#mJukebox:oiref>=4740,686,4740,805:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mScene:oiref>=2834,802,2088,481:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SceneViewer:oiref>=2158,266,131,105,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::HomingTesting#mEnemy:oiref>=697,2373,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MenuState#mItemList:oiref>=4532,1743,30,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::AmmoBag:oiref>=2186,2747,200,163,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::BaseProjectileWeapon:oiref>=1162,1760,200,488,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionYawLeft:oiref>=2980,802,3005,432:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mSpatialIndex:oiref>=1127,901,1572,901,1697,811:oigroup>
 <oigroup:MemberLink#<oiref:cpp#Member#mw::Scene#entities:oiref>=1840,1690,2425,819:oigroup>
-<oigroup:<oiref:cpp#Class#mw::SpatialIndex:oiref>=1407,263,200,92,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::MenuItem:oiref>=760,711,147,137,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SceneEvent#mScene:oiref>=1715,2076,32,13,0:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MenuState#mSquares:oiref>=518,1324,30,13,0:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::Shotgun#mw::BaseProjectileWeapon:oiref>=2822,1899,2667,1829:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionZoomOut:oiref>=2872,432,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::CollisionListener:oiref>=560,266,192,105,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::BaseBullet#mw::Entity:oiref>=2153,1341,2015,832:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::VectorSpatialIndex#mBodies:oiref>=1018,705,30,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::GameState#mw::State:oiref>=3002,802,3481,549:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionZoomIn:oiref>=2884,432,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::turretTesting:oiref>=2436,2747,139,124,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::GameState:oiref>=2824,802,200,881,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mPhysics:oiref>=2824,877,2724,877:oigroup>
+<oigroup:<oiref:cpp#Class#mw::VectorSpatialIndex:oiref>=1212,802,200,124,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameManager#mSoundMgr:oiref>=4704,516,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionRight:oiref>=2920,432,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Pistol:oiref>=1414,2328,126,105,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::AmmoCrate:oiref>=32,2747,168,150,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::NullWeapon:oiref>=1382,1760,200,257,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Pistol#mw::BaseProjectileWeapon:oiref>=1477,2328,1306,2248:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::CollisionEvent#mDesc:oiref>=914,63,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::VectorSpatialIndex#mw::SpatialIndex:oiref>=1345,802,1715,358:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Shotgun#mw::BaseProjectileWeapon:oiref>=1278,2328,1278,2248:oigroup>
+<oigroup:<oiref:cpp#Class#mw::turretCommand:oiref>=2020,2328,155,124,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::ResourceManager:oiref>=4648,10,184,124,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionPitchDown:oiref>=2981,432,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::AssaultRifle#mw::BaseProjectileWeapon:oiref>=1018,2328,1184,2248:oigroup>
+<oigroup:<oiref:cpp#Class#mw::IntroState:oiref>=3725,802,163,202,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mCollDet:oiref>=2854,802,2459,387:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mCursor:oiref>=1044,711,1044,481:oigroup>
+<oigroup:<oiref:cpp#Class#mw::AssaultRifle:oiref>=953,2328,131,105,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::ParticleEngine#mParticleTexture:oiref>=2556,1949,3198,1949,3841,1894:oigroup>
+<oigroup:<oiref:cpp#Class#mw::GameScene:oiref>=2996,1760,200,166,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::RigidBody:oiref>=862,266,200,439,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::State#mNextState:oiref>=3619,549,3619,599,3709,599,3709,509,3659,509:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionQuit:oiref>=2896,432,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionUp:oiref>=2958,802,2980,432:oigroup>
+<oigroup:<oiref:cpp#Class#mw::ParticleEngine:oiref>=2356,1760,200,244,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::MissileLauncher#mAITest:oiref>=1800,2387,1690,2387:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mCollDet:oiref>=2423,387,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::Scene#listeners:oiref>=1790,1743,1779,1743:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SpreadGun:oiref>=1104,2328,126,137,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::BaseProjectileWeapon#mw::Weapon:oiref>=1172,1760,1172,1069:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionRight:oiref>=2936,802,2956,432:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::ParticleEngine#mParticlePhysics:oiref>=2588,913,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::turretTesting#mPlayer:oiref>=2426,2663,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::InputBinder#_Instance:oiref>=5674,147,5674,184,5738,184,5738,120,5701,120:oigroup>
+<oigroup:<oiref:cpp#Class#mw::StateFactory:oiref>=5778,10,191,189,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::BoundsCollisionDetector#mw::CollisionDetector:oiref>=1974,802,2359,387:oigroup>
+<oigroup:<oiref:cpp#Class#util::UIDManager:oiref>=594,5,200,258,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mShoot:oiref>=2864,802,2721,403:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::turretTesting#mTurret:oiref>=1525,2830,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mNextState:oiref>=3013,802,3523,549:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Player#mw::AbstractEntity:oiref>=2351,2328,2351,2318,900,2247,900,1910:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SoundEffectManager:oiref>=4950,533,200,205,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::CollisionDesc#mCollidee:oiref>=885,249,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::HUD:oiref>=2756,1760,200,124,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionLeft:oiref>=2908,432,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::InputParser#mInstance:oiref>=5229,124,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#cubeGeometry:oiref>=5663,290,180,137,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionYawLeft:oiref>=2968,432,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::BaseBullet#mw::AbstractEntity:oiref>=318,2328,814,1910:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::SpreadGun#mw::BaseProjectileWeapon:oiref>=1207,2328,1207,2248:oigroup>
+<oigroup:<oiref:cpp#Class#mw::MenuState:oiref>=4140,802,200,202,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::NullCollisionDetector#mw::CollisionDetector:oiref>=2194,802,2409,387:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuState#mSquares:oiref>=4198,1004,4198,1760:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Entity:oiref>=566,802,181,121,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::OpenSGSceneViewer:oiref>=1621,802,200,267,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mGunSlots:oiref>=2874,802,2762,403:oigroup>
+<oigroup:<oiref:cpp#Class#mw::NullCollisionDetector:oiref>=2061,802,200,127,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionZoomIn:oiref>=2904,802,2920,432:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::ParticleEngine#mParticleCamera:oiref>=2398,1163,16,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mCamera:oiref>=2824,842,2735,792,2520,792,2481,842:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::turretCommand#mPlayer:oiref>=2249,2373,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuState#mItemList:oiref>=4269,1004,4572,1760:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MenuState#mSquares:oiref>=4164,1743,30,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionDown:oiref>=2932,432,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::turretCommand#mTurret:oiref>=1465,2730,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Entity#mw::RigidBody:oiref>=701,802,891,705:oigroup>
+<oigroup:<oiref:cpp#Class#mw::InputAction:oiref>=2883,266,145,166,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::OpenSGSceneViewer#mw::SceneViewer:oiref>=1796,802,2201,446,2201,371:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::BoundsCollisionDetector#mSpatialIndex:oiref>=1756,358,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::HomingTesting#mMissile:oiref>=438,2730,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::testing:oiref>=2606,1760,130,118,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mNextState:oiref>=3453,549,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SoundManager#mJukebox:oiref>=4704,788,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::CreditsState#mw::State:oiref>=3549,802,3549,549:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::SceneViewer#mw::SceneListener:oiref>=2223,266,2223,128:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::CollisionEvent#mSource:oiref>=1005,249,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::MenuState#mw::State:oiref>=4240,802,3601,608,3601,549:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Player#mw::RigidBody:oiref>=2212,711,2212,624:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionYawRight:oiref>=2969,802,2992,432:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameManager#mInstance:oiref>=4800,416,4800,466,4890,466,4890,376,4840,376:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Entity#mw::CollisionListener:oiref>=656,802,656,371:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Weapon:oiref>=992,802,200,267,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::IntroState#mw::State:oiref>=3806,802,3566,622,3566,549:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::StoryState#mStoryImage:oiref>=3914,1743,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameManager#mModelMgr:oiref>=4840,276,5010,276:oigroup>
+<oigroup:<oiref:cpp#Class#mw::MenuSquare:oiref>=4012,1760,200,176,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::State#mApp:oiref>=3873,411,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::LoadState#mLoadImage:oiref>=3397,952,3868,1760:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Texture:oiref>=3841,1760,146,163,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::VectorSpatialIndex#mBodies:oiref>=1278,802,1052,705:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Particle:oiref>=827,802,145,189,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::CollisionDesc#mCollidee:oiref>=813,189,951,266:oigroup>
+<oigroup:<oiref:cpp#Class#mw::PickupItem:oiref>=10,2328,192,131,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::LoadState:oiref>=3309,802,176,150,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mHUD:oiref>=2905,1683,2905,1760:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::HomingCommand#mEnemy:oiref>=812,2747,812,2546:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::State#mApp:oiref>=3659,428,3909,428:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::AbstractEntity#mw::Entity:oiref>=858,1760,656,923:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mSceneViewer:oiref>=2209,371,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#SceneListener:oiref>=1600,1640,110,92,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SceneListener:oiref>=2149,10,148,118,1:oigroup>
+<oigroup:<oiref:cpp#Class#SceneEvent:oiref>=1791,1491,91,79,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::OpenSGSceneViewer#mScene:oiref>=1771,802,2038,481:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::StateFactory#mSingleton:oiref>=5973,145,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::HomingMissile#mw::BaseBullet:oiref>=389,2747,389,2504:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Jukebox:oiref>=4640,805,200,322,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Weapon#mw::RigidBody:oiref>=1012,802,1012,705:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Cursor:oiref>=4420,802,200,218,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::Scene#mEntities:oiref>=1890,1690,2425,819:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::CollisionEvent#mSource:oiref>=1041,150,1041,266:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionPitchDown:oiref>=2991,802,3018,432:oigroup>
+<oigroup:<oiref:cpp#Class#mw::HomingMissile:oiref>=359,2747,150,105,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::NullCollisionDetector#mSpatialIndex:oiref>=1801,358,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::IntroState#mIntroImage:oiref>=3885,1743,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::MissileLauncher#mw::BaseProjectileWeapon:oiref>=1900,2328,1334,2248:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Testing:oiref>=1560,2328,130,118,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::StoryState#mStoryImage:oiref>=3950,991,3950,1760:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::StateCreatorImpl#mw::StateCreator:oiref>=5394,162,5394,102:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::HomingTesting#mMissile:oiref>=474,2452,474,2747:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameManager#mSoundMgr:oiref>=4740,416,4740,533:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::Player#mAmmoBag:oiref>=2320,2663,2320,2747:oigroup>
+<oigroup:<oiref:cpp#Class#mw::GameManager:oiref>=4640,201,200,215,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MenuSquare#path:oiref>=4286,1824,30,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::ParticleEngine#mParticleTexture:oiref>=3805,1877,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameManager#mResourceMgr:oiref>=4740,201,4740,134:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionYawRight:oiref>=2955,432,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mPlayer:oiref>=2976,1683,2976,2004,2418,2328:oigroup>
+<oigroup:<oiref:cpp#Class#mw::EdgeState:oiref>=2681,266,122,137,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::PhysicsEngine:oiref>=2531,802,193,111,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::CollisionDesc:oiref>=717,10,193,179,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::HomingCommand#mEnemy:oiref>=776,2546,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mSceneViewer:oiref>=2844,802,2245,371:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::SceneEvent#mEntity:oiref>=1462,915,1204,1089,876,1089,747,899:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::AmmoCrate#mAmmoBag:oiref>=200,2887,2186,2887:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::HomingCommand#mMissile:oiref>=513,2782,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::HomingTesting:oiref>=439,2328,184,124,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::NullWeapon#mw::Weapon:oiref>=1482,1760,1182,1069:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mGameScene:oiref>=3009,1683,3009,1760:oigroup>
+<oigroup:<oiref:cpp#Class#mw::CollisionDetector:oiref>=2309,266,200,121,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::_enum_45:oiref>=5501,290,142,150,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionPitchUp:oiref>=2884,802,2896,432:oigroup>
+<oigroup:<oiref:cpp#Class#mw::MissileLauncher:oiref>=1800,2328,200,176,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Camera:oiref>=2281,802,200,361,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameScene#mGroundTexture:oiref>=3196,1827,3841,1827:oigroup>
+<oigroup:<oiref:cpp#Class#mw::StoryState:oiref>=3911,802,200,189,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::SoundManager#mSoundEffectManager:oiref>=4840,609,4950,609:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mScene:oiref>=2052,481,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::AbstractEntity:oiref>=758,1760,200,150,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::BaseBullet:oiref>=222,2328,192,176,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::LoadState#mLoadImage:oiref>=3823,1743,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::ParticleEngine#mParticleCamera:oiref>=2418,1760,2418,1163:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::LoadState#mw::State:oiref>=3397,802,3536,549:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Shotgun:oiref>=1250,2328,144,124,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::BoundsCollisionDetector#mSpatialIndex:oiref>=1907,802,1792,358:oigroup>
+<oigroup:<oiref:cpp#Class#mw::ModelManager:oiref>=5010,201,163,150,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SceneEvent#mScene:oiref>=1928,481,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::InputBinder#_Instance:oiref>=5705,103,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SceneEvent#mEntity:oiref>=751,882,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::MenuItem:oiref>=4499,1760,147,137,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SpatialIndex:oiref>=1683,266,200,92,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Application:oiref>=3909,266,161,257,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::StateCreatorImpl:oiref>=5307,162,174,119,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuState#mCursor:oiref>=4340,903,4420,903:oigroup>
+<oigroup:<oiref:cpp#Class#mw::HomingCommand:oiref>=751,2747,184,124,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::CreditsState#mImages:oiref>=3605,965,3896,1760:oigroup>
+<oigroup:<oiref:cpp#Class#SceneViewer:oiref>=1600,1530,99,92,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::turretTesting#mPlayer:oiref>=2462,2747,2462,2663:oigroup>
+<oigroup:<oiref:cpp#Class#mw::InputKey:oiref>=4860,770,156,1268,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::BoundsCollisionDetector:oiref>=1841,802,200,140,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::OpenSGSceneViewer#mScene:oiref>=1988,481,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::MenuPathTarget:oiref>=4320,1760,159,163,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::turretTesting#mTurret:oiref>=2436,2847,2397,2920,2175,2920,1521,2847:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Turret#mw::Enemy:oiref>=1460,2747,872,2546:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::StateFactory#mSingleton:oiref>=5932,199,5932,246,6016,246,6016,162,5969,162:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionLeft:oiref>=2925,802,2944,432:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::InputParser#mInstance:oiref>=5193,173,5193,215,5267,215,5267,141,5225,141:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mExplosion:oiref>=2851,1683,2510,1760:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionQuit:oiref>=2914,802,2932,432:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::SceneEvent#mScene:oiref>=1531,802,1988,481:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::IntroState#mIntroImage:oiref>=3806,1004,3923,1760:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SceneEvent:oiref>=1462,802,139,140,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::Application#mState:oiref>=3909,347,3659,347:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::NullCollisionDetector#mSpatialIndex:oiref>=2127,802,1837,358:oigroup>
+<oigroup:<oiref:cpp#Class#mw::State:oiref>=3459,266,200,283,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::HomingCommand#mMissile:oiref>=751,2799,509,2799:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionZoomOut:oiref>=2894,802,2908,432:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SoundManager#mSoundEffectManager:oiref>=4914,592,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::Particle#mw::RigidBody:oiref>=920,802,920,705:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::RigidBody#mNextState:oiref>=1062,372,1182,372:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SoundManager:oiref>=4640,533,200,153,1:oigroup>
+<oigroup:<oiref:cpp#Class#AbstractEntity:oiref>=333,174,114,79,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MenuState#mImages:oiref>=3943,1743,30,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::MenuState#mImages:oiref>=4169,1004,3977,1760:oigroup>
 <oigroup:<oiref:cpp#Extends#mw::Enemy#mw::Entity:oiref>=1984,1341,1984,832:oigroup>
-<oigroup:<oiref:cpp#Class#mw::State:oiref>=375,263,200,283,1:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::BoundsCollisionDetector#mSpatialIndex:oiref>=1541,711,1541,355:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mCollDet:oiref>=1085,711,1240,384:oigroup>
-<oigroup:MemberLink#<oiref:cpp#Member#mw::SceneEvent#mEntity:oiref>=1747,1341,1958,832:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::Enemy#mw::AbstractEntity:oiref>=1937,1341,367,322:oigroup>
-<oigroup:<oiref:cpp#Class#mw::VectorSpatialIndex:oiref>=1697,711,200,124,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::CollisionDetector:oiref>=1187,263,200,121,1:oigroup>
-<oigroup:<oiref:cpp#Class#mw::Weapon:oiref>=2317,711,200,267,1:oigroup>
-<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::MenuState#mItemList:oiref>=726,762,30,13,0:oigroup>
-<oigroup:<oiref:cpp#Extends#mw::CreditsState#mw::State:oiref>=143,711,408,546:oigroup>
-<oigroup:<oiref:cpp#Class#cubeGeometry:oiref>=2699,610,180,137,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameManager#mResourceMgr:oiref>=4704,134,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::Application#mState:oiref>=3663,330,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::AmmoCrate#mw::PickupItem:oiref>=113,2747,113,2459:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::CollisionEvent#mDesc:oiref>=1020,80,910,80:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::HomingTesting#mEnemy:oiref>=623,2390,733,2390:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::ParticleEngine#mParticlePhysics:oiref>=2464,1760,2627,913:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::State#mNextState:oiref>=3663,492,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::BodyState:oiref>=1182,266,200,319,1:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::OpenSGSceneViewer#mw::SpatialIndex:oiref>=1747,802,1747,358:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::InputAction#mState:oiref>=2883,334,2803,334:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionUp:oiref>=2943,432,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameManager#mInstance:oiref>=4844,359,32,13,0:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#appTest:oiref>=2878,1683,2671,1760:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#appTest:oiref>=2635,1743,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Enemy:oiref>=733,2328,200,218,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameState#mActionPitchUp:oiref>=2860,432,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameScene#mGroundTexture:oiref>=3805,1810,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::InputParser:oiref>=5025,10,200,163,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::turretCommand#mPlayer:oiref>=2175,2390,2285,2390:oigroup>
+<oigroup:<oiref:cpp#Class#mw::CollisionEvent:oiref>=1020,10,179,140,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Scene:oiref>=1938,266,200,215,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::GameManager#mModelMgr:oiref>=4974,259,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::StateCreator:oiref>=5328,10,132,92,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Player:oiref>=2285,2328,200,335,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::GameState#mActionDown:oiref>=2947,802,2968,432:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::turretCommand#mTurret:oiref>=2097,2452,2097,2476,1501,2747:oigroup>
 */
 class __positions {
 }

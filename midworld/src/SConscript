@@ -20,12 +20,14 @@ classes = Split("""
    AmmoBag
    AmmoCrate
    Application
+   BaseBullet
    BaseProjectileWeapon
    BoundsCollisionDetector
    Camera
    CollisionDesc
    CreditsState
    Enemy
+   EntityFactory
    GameManager
    GameScene
    GameState
@@ -67,9 +69,9 @@ buildInfo = BuildInfo()
 # Listed here are headers that have no associated .cpp file
 buildInfo.addHeaders(map(File, Split("""
    AssaultRifle.h
-   BaseBullet.h
    BodyState.h
    CollisionEvent.h
+   LokiTypeInfo.h
    NullCollisionDetector.h
    UIDManager.h
    VectorSpatialIndex.h

@@ -12,12 +12,8 @@ namespace mw
 class Turret : public Enemy
 {
 public:
-   /**
-    *  Empty constructor
-    */
-   Turret() 
-   {
-   }
+   /// Creates a new Turret
+   Turret(GameState* gameState);
 
    /**
     * destructor

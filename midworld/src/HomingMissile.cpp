@@ -6,8 +6,8 @@
 
 namespace mw
 {
-   HomingMissile::HomingMissile()
-      : BaseBullet()
+   HomingMissile::HomingMissile(GameState* gameState)
+      : BaseBullet(gameState)
    {
    }
 

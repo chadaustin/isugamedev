@@ -23,73 +23,66 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: AbstractEntity.h,v $
+ * File:          $RCSfile: EntityFactory.h,v $
  * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.4 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#ifndef MW_ABSTRACT_ENTITY_H
-#define MW_ABSTRACT_ENTITY_H
+#ifndef MW_ENTITY_FACTORY_H
+#define MW_ENTITY_FACTORY_H
 
-#include <string>
-#include "UIDManager.h"
+#include <map>
+#include <iostream>
 #include "Entity.h"
+#include "GameState.h"
+#include "Utility.h"
 
 namespace mw
 {
-   class GameState;
-
    /**
-    * Provides an abstract base implementation of Entity that handles the stuff
-    * common to virtually every Entity implementation. This includes automatic
-    * unique ID management as well as model ID management.
+    * This factory knows how to create Entities based on a string type.
+    *
+    * This object implements the Singleton pattern.
     */
-   class AbstractEntity : public Entity
+   class EntityFactory
    {
+   public:
+      /// Creates a new Entity of the given type.
+      template< class T >
+      T* create(Type2Type<T> t = Type2Type<T>())
+      {
+         // Create the typeinfo object to search with
+         return new T(mGameState);
+      }
+
+      /// Sets the game state this factory uses.
+      void setGameState(GameState* gameState);
+
+      /// Gets the singleton instance of this class.
+      static EntityFactory& instance();
+
    protected:
       /**
-       * Initializes this abstract entity with a new unique ID.
+       * This object is a singleton. Use EntityFactory::instance() instead.
        */
-      AbstractEntity(GameState* gameState);
+      EntityFactory();
 
-      /**
-       * Destroys this abstract entity and releases the unique ID it had
-       * reserved.
-       */
-      virtual ~AbstractEntity();
+      /// Not implemented on purpose to cause a compile-time error on usage.
+      EntityFactory(const EntityFactory& factory);
 
-   public:
-      /**
-       * Gets the ID of the model this entity requires.
-       */
-      const std::string& getModel() const;
-
-      /**
-       * Sets the ID of the model this entity requires.
-       */
-      void setModel(const std::string& model);
-
-      /**
-       * Gets the unique ID of this entity.
-       */
-      const UID& getUID() const;
+      /// Destroys this factory.
+      ~EntityFactory();
 
    private:
       /**
-       * The unique ID associated with this entity.
-       */
-      UID mUID;
-
-      /**
-       * The model ID this entity uses.
-       */
-      std::string mModel;
-
-      /**
-       * The game state this entity is associated with.
+       * The game state this factory is associated with. This factory does NOT
+       * own the memory to this object.
        */
       GameState* mGameState;
+
+      /// The singleton instance of this class.
+      static EntityFactory* mInstance;
    };
 }
 
