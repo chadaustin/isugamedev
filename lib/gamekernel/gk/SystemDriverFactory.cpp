@@ -24,13 +24,14 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.cpp,v $
-// Date modified: $Date: 2002-03-22 04:55:10 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2003-02-08 21:27:45 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "SystemDriverFactory.h"
 #include <iostream>
+#include <fstream>
 
 namespace gk {
 
@@ -135,9 +136,13 @@ SystemDriverFactory::probe( const std::string& library,
    xdl::Library* lib = new xdl::Library();
    if ( ! lib->open( libFile.c_str() ) )
    {
-      std::cout<<"library open failed!"<<std::endl;
+      std::cout<<" - library open failed!"<<std::endl;
       // oops ... the file probably doesn't exist
-      std::cout << "failed" << std::endl;
+      std::fstream test_exist( libFile.c_str() );
+      if (test_exist.is_open())
+         std::cout << " - file named " << libFile << " exists, but isn't a library" << std::endl;
+      else
+         std::cout << " - file named " << libFile << " doesn't exist " << std::endl;
       delete lib;
       return false;
    }
