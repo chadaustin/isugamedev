@@ -18,4 +18,4 @@ sources.extend(map(lambda n: n + '.cpp', classes))
 
 # Clone the environment
 lib.addSources(sources)
-lib.addHeaders(headers, pj('siren', 'sound'))
+lib.addHeaders(headers, pj('siren', 'input'))
