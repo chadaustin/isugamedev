@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-31 10:02:20 $
- * Version:       $Revision: 1.97 $
+ * Date modified: $Date: 2002-10-31 18:10:14 $
+ * Version:       $Revision: 1.98 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -490,44 +490,33 @@ namespace mw
       // Apply gravity to every body
       body->addForce(PhysicsEngine::GRAVITY * body->getMass());
 
-      float remaining_dt = dt;
+      // Update the body for the remaining time differential
+      PhysicsEngine::update(body, dt);
 
-      // Keep moving the object until
-      while (remaining_dt >= PhysicsEngine::TIME_EPSILON)
+      // Check if the body collided with anything
+      gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
+      std::auto_ptr<CollisionDesc> desc(mCollDet->checkCollision(body, path));
+
+      // No collisions, let the body update for the remaining distance
+      if (!desc.get())
       {
-         // Update the body for the remaining time differential
-         PhysicsEngine::update(body, remaining_dt);
+         body->moveToNextState();
+      }
+      // There was a collision!
+      else
+      {
+         // Figure out how much time passed to get to the collision. We do this
+         // by scaling back the remaining dt by the % of the distance that was
+         // travelled.
+         float time_to_collision = dt * desc->getDistance();
 
-         // Check if the body collided with anything
-         gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
-         std::auto_ptr<CollisionDesc> desc(
-            mCollDet->checkCollision(body, path));
+         // Update the body to the point of the collision
+         PhysicsEngine::update(body, time_to_collision);
+         body->moveToNextState();
 
-         // No more collisions, let the body update for the remaining distance
-         if (!desc.get())
-         {
-            body->moveToNextState();
-            remaining_dt = 0.0f;
-         }
-         // There was a collision!
-         else
-         {
-            // Figure out how much time passed to get to the collision. We do this
-            // by scaling back the remaining dt by the % of the distance that was
-            // travelled.
-            float time_to_collision = remaining_dt * desc->getDistance();
-
-            // Update the body to the point of the collision
-            PhysicsEngine::update(body, time_to_collision);
-            body->moveToNextState();
-
-            // body                == collider
-            // desc->getCollidee() == collidee
-            mCollisionResponse.collide(body, desc->getCollidee());
-
-            // Update the remaining time differential
-            remaining_dt -= time_to_collision;
-         }
+         // body                == collider
+         // desc->getCollidee() == collidee
+         mCollisionResponse.collide(body, desc->getCollidee());
       }
       
       // Make sure entities never go below the ground.

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-07-29 00:38:26 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-31 18:10:10 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,33 +44,40 @@ namespace mw
    }
 
    CollisionDesc* BoundsCollisionDetector::checkCollision(
-                                 const RigidBody* body,
-                                 const gmtl::Vec3f& path)
+      const RigidBody* body,
+      const gmtl::Vec3f& path)
    {
-      // Calculate a bounding box at the end of the path
-      gmtl::AABoxf bounds = body->getBounds();
-      bounds.setMin(bounds.getMin() + path);
-      bounds.setMax(bounds.getMax() + path);
+      static const float delta = 1.0f / 16;
+      
+      // try 16 steps along the path
+      for (float i = 0; i < 1; i += delta) {
+      
+         // Calculate a bounding box at the end of the path
+         gmtl::AABoxf bounds = body->getBounds();
+         bounds.setMin(bounds.getMin() + path * i);
+         bounds.setMax(bounds.getMax() + path * i);
 
-      // Find all objects whose bounds intersect with this body's bounds
-      std::list<RigidBody*> pcs = mSpatialIndex->intersect(bounds);
+         // Find all objects whose bounds intersect with this body's bounds
+         std::list<RigidBody*> pcs = mSpatialIndex->intersect(bounds);
 
-      for (std::list<RigidBody*>::iterator itr = pcs.begin(); itr != pcs.end(); ++itr)
-      {
-         RigidBody* collidee = *itr;
-
-         // Don't collide against ourself
-         if (body == collidee)
+         for (std::list<RigidBody*>::iterator itr = pcs.begin(); itr != pcs.end(); ++itr)
          {
-            continue;
+            RigidBody* collidee = *itr;
+
+            // Don't collide against ourself
+            if (body == collidee)
+            {
+               continue;
+            }
+
+            // This algorithm collides with the first body found with the normal in
+            // the opposite direction of the path travelled.
+            gmtl::Vec3f normal = gmtl::makeNormal(-path);
+
+            // In this simple algorithm, we return the first collidee found
+            return new CollisionDesc(collidee, normal, std::max(i - delta, 0.0f));
          }
-
-         // This algorithm collides with the first body found with the normal in
-         // the opposite direction of the path travelled.
-         gmtl::Vec3f normal = gmtl::makeNormal(-path);
-
-         // In this simple algorithm, we return the first collidee found
-         return new CollisionDesc(collidee, normal, 1.0f);
+         
       }
 
       // No collisions, return null

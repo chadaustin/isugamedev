@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextureManager.cpp,v $
- * Date modified: $Date: 2002-10-31 07:03:37 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-31 18:10:21 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -82,7 +82,7 @@ namespace mw
             mCache[texture] = tex;
             return tex;
          }
-         catch (const std::runtime_error& e)
+         catch (const std::runtime_error&)
          {
             return 0;
          }

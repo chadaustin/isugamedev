@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.h,v $
- * Date modified: $Date: 2002-10-31 10:02:20 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-31 18:10:07 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -60,6 +60,11 @@ namespace mw
       virtual void update(float dt);
 
       bool isExpired() const;
+      
+      void expire()
+      {
+         mExistCount = mTimeOut;
+      }
       
       int getDamage()
       {
