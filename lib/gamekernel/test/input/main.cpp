@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-06 23:05:17 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-02-09 17:02:47 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -103,10 +103,11 @@ public:
    DigitalInterface mAccelerate, mQuit;
 };
 
-void main( int argc, char *argv[] )
+int main( int argc, char *argv[] )
 {
    loadInputConfig( "config.xml" );
    GameKernelRegister<InputApp> reg;
    SystemDriver* driver = new GlutDriver();
    GameKernel::instance().startup( driver );
+   return 1;
 }
