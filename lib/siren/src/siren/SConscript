@@ -40,5 +40,5 @@ lib.addHeaders(headers, 'siren')
 Export('lib')
 
 # Recurse
-subdirs = Split('avatar input sound python')
+subdirs = Split('avatar input loki sound python')
 SConscript(dirs = subdirs)

@@ -1,0 +1,113 @@
+import os
+pj = os.path.join
+
+Import('lib')
+
+# Base headers
+headers = Split("""
+   AbstractFactory.h
+   AssocVector.h
+   EmptyType.h
+   Factory.h
+   Functor.h
+   HierarchyGenerators.h
+   LokiTypeInfo.h
+   MultiMethods.h
+   NullType.h
+   Singleton.h
+   SmallObj.h
+   SmartPtr.h
+   static_check.h
+   Threads.h
+   Tuple.h
+   Typelist.h
+   TypeManip.h
+   TypeTraits.h
+   Visitor.h
+""")
+lib.addHeaders(headers, pj('siren', 'loki'))
+
+# Borland
+headers = Split("""
+   Borland/AbstractFactory.h
+   Borland/AssocVector.h
+   Borland/EmptyType.h
+   Borland/Factory.h
+   Borland/Functor.h
+   Borland/HierarchyGenerators.h
+   Borland/loki_typeinfo.h
+   Borland/MultiMethods.h
+   Borland/NullType.h
+   Borland/Singleton.h
+   Borland/SmallObj.h
+   Borland/SmartPtr.h
+   Borland/Threads.h
+   Borland/Tuple.h
+   Borland/TypeInfo.h
+   Borland/Typelist.h
+   Borland/TypeManip.h
+   Borland/TypeTraits.h
+   Borland/Visitor.h
+""")
+lib.addHeaders(headers, pj('siren', 'loki', 'Borland'))
+
+# VC6
+headers = Split("""
+   MSVC/1200/EmptyType.h
+   MSVC/1200/NullType.h
+   MSVC/1200/TypeList.h
+   MSVC/1200/TypeManip.h
+   MSVC/1200/TypeTraits.h
+""")
+lib.addHeaders(headers, pj('siren', 'loki', 'MSVC', '1200'))
+
+# VC7
+headers = Split("""
+   MSVC/1300/AbstractFactory.h
+   MSVC/1300/AssocVector.h
+   MSVC/1300/EmptyType.h
+   MSVC/1300/Factory.h
+   MSVC/1300/Functor.h
+   MSVC/1300/HierarchyGenerators.h
+   MSVC/1300/LokiTypeInfo.h
+   MSVC/1300/MinMax.h
+   MSVC/1300/MultiMethods.h
+   MSVC/1300/NullType.h
+   MSVC/1300/Singleton.h
+   MSVC/1300/SmallObj.h
+   MSVC/1300/SmartPtr.h
+   MSVC/1300/static_check.h
+   MSVC/1300/Threads.h
+   MSVC/1300/TypeList.h
+   MSVC/1300/TypeManip.h
+   MSVC/1300/TypeTraits.h
+   MSVC/1300/Variant.h
+   MSVC/1300/VC_Alignment.h
+   MSVC/1300/Visitor.h
+""")
+lib.addHeaders(headers, pj('siren', 'loki', 'MSVC', '1300'))
+
+# Reference
+headers = Split("""
+   Reference/AbstractFactory.h
+   Reference/AssocVector.h
+   Reference/EmptyType.h
+   Reference/Factory.h
+   Reference/Functor.h
+   Reference/HierarchyGenerators.h
+   Reference/MultiMethods.h
+   Reference/NullType.h
+   Reference/Singleton.h
+   Reference/SmallObj.h
+   Reference/SmartPtr.h
+   Reference/static_check.h
+   Reference/Threads.h
+   Reference/Tuple.h
+   Reference/TypeInfo.h
+   Reference/Typelist.h
+   Reference/TypeManip.h
+   Reference/TypeTraits.h
+   Reference/Visitor.h
+""")
+lib.addHeaders(headers, pj('siren', 'loki', 'Reference'))
+
