@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-05-03 07:46:22 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -115,25 +115,18 @@ namespace phui {
    }
 
    void Button::onMouseDown(InputButton button, const Point& p) {
-      std::cout << "Button::onMouseDown " << p << std::endl;
-      /// @todo capture the mouse so we can receive the MouseUp event even if
-      //        the mouse is no longer inside the button.
       if (button == BUTTON_LEFT) {
-         std::cout<<"\tLMB"<<std::endl;
          mButtonDown = true;
       }
    }
 
    void Button::onMouseUp(InputButton button, const Point& p) {
-      std::cout << "Button::onMouseUp " << p << std::endl;
       if (button == BUTTON_LEFT) {
-         std::cout<<"\tLMB"<<std::endl;
          mButtonDown = false;
 
          // Only fire button pressed event if the mouse was released
          // inside this button.
          if (contains(p)) {
-            std::cout<<"FIRE button pressed"<<std::endl;
             fireActionEvent();
          }
       }
