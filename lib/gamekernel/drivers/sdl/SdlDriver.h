@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-03-19 01:37:27 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-03-28 09:51:29 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -139,6 +139,7 @@ private:
 	Uint32 mvideoFlags;					//Video Flags of the screen.
 	bool misRunning;					//Is the SdlDriver running?
 	IGameKernel *mKernel;				//The GameKernel that is running this driver.
+	IGameApp *mApp;
 	DeviceHandle<Mouse>* mMouse;			//Mouse Device
 	DeviceHandle<Keyboard>* mKeyboard;		//Keyboard Device
 	//DeviceHandle<Joystick>* mJoystick;		//Joystick Device

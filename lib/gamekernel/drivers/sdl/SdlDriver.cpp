@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-03-19 01:59:21 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-03-28 09:51:29 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -32,7 +32,7 @@
 #include "SdlDriver.h"
 #include <xdl.h>
 #include <string>
-
+//#define SDLDRIVER_DEBUG 1
 //Create the drivers that can be probed by the SystemDriverFactory
 #ifdef XDL_BUILD_DLL
 extern "C" XDL_FUNC gk::ISystemDriver*
@@ -63,6 +63,7 @@ bool SdlDriver::init(IGameKernel *kernel)
 		return false;
 	}
 	mKernel = kernel;
+	mApp = kernel->getApp();
 	//Initialize SDL.
 	#ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug:  Callling SDL_Init()" << std::endl;
@@ -132,10 +133,29 @@ bool SdlDriver::init(IGameKernel *kernel)
 bool SdlDriver::run()
 {
 	misRunning = true;
+#ifdef SDLDRIVER_DEBUG
+	std::cerr << "##SDL Driver Debug: Right before onContextInit" << std::endl;
+#endif
+	mApp->onContextInit();
+#ifdef SDLDRIVER_DEBUG
+	std::cerr << "##SDL Driver Debug: After onContextInit" << std::endl;
+#endif
+	
 	//SDL does event polling, so we're just going to have to fake an idle loop.
+#ifdef SDLDRIVER_DEBUG
+	std::cerr << "##SDL Driver Debug: Inside run()" << std::endl;
+#endif
 	int error = 0;
 	do
 	{
+#ifdef SDLDRIVER_DEBUG
+		std::cerr << "##SD Driver Debug: Inside event loop" << std::endl;
+#endif
+		//TODO:  Support Multiple Windows
+		mApp->onPreFrame();
+		mApp->onContextDraw(0);
+		SDL_GL_SwapBuffers();
+		mApp->onPostFrame();	
 		error = SDL_WaitEvent(&mEvent);
 		if (error == 0)
 		{
@@ -143,6 +163,7 @@ bool SdlDriver::run()
 					<< std::endl;
 		}
 		handleEvent();
+		mKernel->getInput()->update();
 	}while((error != 0) && (misRunning));
 	return true;
 }	
@@ -224,6 +245,9 @@ const std::string& SdlDriver::name() const
 
 void SdlDriver::handleEvent()
 {
+#ifdef SDLDRIVER_DEBUG
+	std::cerr << "SDL Driver Debug:  Inside handleEvent" << std::endl;
+#endif
 	switch (mEvent.type)
 	{
 		case SDL_QUIT:
@@ -255,6 +279,9 @@ void SdlDriver::handleEvent()
 
 void SdlDriver::onKeyUp()
 {
+#ifdef SDLDRIVER_DEBUG
+	std::cerr << "SDL Driver Debug:  Inside onKeyUp" << std::endl;
+#endif
 	SDL_keysym key = mEvent.key.keysym;
 	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::OFF;
@@ -264,6 +291,9 @@ void SdlDriver::onKeyUp()
 
 void SdlDriver::onKeyDown()
 {
+#ifdef SDLDRIVER_DEBUG
+	std::cerr<<"SDL Driver Debug:  Inside onKeyDown" << std::endl;
+#endif
 	SDL_keysym key = mEvent.key.keysym;
 	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::ON;
@@ -274,8 +304,10 @@ void SdlDriver::onKeyDown()
 void SdlDriver::onMouseMove()
 {
 	Mouse *mouse = mMouse->getDevice();
-	mouse->axis(0).setData(mEvent.motion.x);
-	mouse->axis(1).setData(mEvent.motion.y);
+	float x = static_cast<float>(mEvent.motion.x) / static_cast<float>(mWidth) * 2.0f - 1.0f;
+	mouse->axis(0).setData(x);
+	float y = static_cast<float>(mEvent.motion.y) / static_cast<float>(mHeight) * 2.0f - 1.0f;
+	mouse->axis(1).setData(y);
 	mouse = NULL;
 }
 void SdlDriver::onMouseDown()
