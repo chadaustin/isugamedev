@@ -24,12 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StateFactory.cpp,v $
- * Date modified: $Date: 2002-10-01 01:00:29 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-01 02:12:11 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
+#include <stdexcept>
 #include "StateFactory.h"
 #include "State.h"
 
@@ -100,6 +101,6 @@ namespace mw
    void
    StateFactory::destroyInstance()
    {
-      delete mInstance;
+      delete mSingleton;
    }
 }
