@@ -3,11 +3,11 @@
 
 
 #include <gltext.h>
+#include "Player.h"
 
 
 namespace mw
 {
-   class GameState;
 
    class HUD
    {
@@ -15,7 +15,7 @@ namespace mw
       HUD();
       ~HUD();
 
-      void draw(GameState& gs);
+      void draw(float width, float height, Player& player, float fps);
 
    private:
       gltext::Font* mFont;
