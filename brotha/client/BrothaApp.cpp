@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 19:27:52 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-03-29 19:56:48 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -109,7 +109,7 @@ namespace client
       // set up the projection matrix
       glMatrixMode( GL_PROJECTION );
          glLoadIdentity();
-         gluPerspective( 100.0f, width / height, 0.01f, 1000.0f );
+         gluPerspective( 100.0f, float(width) / float(height), 0.01f, 1000.0f );
 
       // initialize your matrix stack used for transforming your models
       glMatrixMode( GL_MODELVIEW );
