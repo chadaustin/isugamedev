@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: phui.h,v $
- * Date modified: $Date: 2003-01-04 03:47:43 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2003-01-04 06:40:57 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -38,8 +38,6 @@
 #include "EmptyConstraint.h"
 #include "FlowLayout.h"
 #include "FlowVerticalConstraint.h"
-#include "Font.h"
-#include "FontRenderer.h"
 #include "Input.h"
 #include "Insets.h"
 #include "Label.h"
