@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: siren.h,v $
- * Date modified: $Date: 2003-02-21 08:19:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-02-25 06:41:56 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -36,6 +36,7 @@
 #include "State.h"
 #include "StateFactory.h"
 #include "Texture.h"
+#include "Camera.h"
 #include "avatar/Avatar.h"
 #include "input/InputManager.h"
 #include "sound/SoundManager.h"

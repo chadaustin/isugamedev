@@ -42,7 +42,7 @@ namespace siren
        */
       void update(float dt);
 
-      void draw();
+      void draw() const;
 
       /**
        * Sets the distance by which this camera should follow the target

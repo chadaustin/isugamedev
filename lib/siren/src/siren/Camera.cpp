@@ -86,7 +86,7 @@ namespace siren
    }
 
    void
-   Camera::draw()
+   Camera::draw() const
    {
       gmtl::Matrix44f cam_inv = gmtl::makeInverse(mTransform);
       glMultMatrixf(cam_inv.getData());
