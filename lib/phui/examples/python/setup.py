@@ -26,4 +26,15 @@ b.foregroundColor.set(0,0,0,1)
 wnd.add(b)
 ui.add(wnd)
 
+# Create a button for the window made in C++
+b2 = createButton()
+b2.text = 'Another Python Button'
+b2.position.set(50, 100)
+b2.size.set(200, 25)
+b2.backgroundColor.set(0,0,1,1)
+b2.foregroundColor.set(0,0,0,1)
+
+wnd2 = ui.getWidget(0)
+wnd2.add(b2)
+
 print 'Success!'
