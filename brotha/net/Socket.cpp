@@ -20,7 +20,18 @@ int Socket::getLastError() {
    return WSAGetLastError();
 }
 
-bool Socket::open(string host, long port) {
+bool Socket::create(SOCKET &sock, SOCKADDR &addr) {
+		if ( sock == INVALID_SOCKET )
+			return false;
+
+		// get new socket
+		memcpy(&m_addrIn, (SOCKADDR *) &addr, sizeof(addr));
+		memcpy(&m_socket, &sock, sizeof(m_socket));
+
+		return true;
+}
+
+bool Socket::open(std::string host, long port) {
    // get the socket
    m_socket = socket(PF_INET,SOCK_STREAM,0);
    if (m_socket == INVALID_SOCKET ) {
@@ -40,7 +51,7 @@ bool Socket::open(string host, long port) {
    return true;
 }
 
-bool Socket::initSockAddrIn(string &host, long port, SOCKADDR_IN &addrIn) {
+bool Socket::initSockAddrIn(std::string &host, long port, SOCKADDR_IN &addrIn) {
    // initialize socket in struct
    memset(&addrIn,0,sizeof(addrIn));
 

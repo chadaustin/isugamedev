@@ -3,7 +3,6 @@
 
 #include <winsock2.h>
 #include <string>
-using namespace std;
 
 #if defined(_WIN32)
    #if !defined(errno)
@@ -26,8 +25,9 @@ public:
 
    static int getLastError();
    
-   bool open(string host, long port);
-   static bool initSockAddrIn(string &host, long port, SOCKADDR_IN &addrIn);
+   bool create(SOCKET &sock, SOCKADDR &addr);
+   bool open(std::string host, long port);
+   static bool initSockAddrIn(std::string &host, long port, SOCKADDR_IN &addrIn);
    void close();
 
    long getRecieveSize();
