@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:03 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2003-01-04 03:47:43 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -39,7 +39,7 @@ namespace phui {
    {
       init("", false);
    }
-
+     
    Window::Window(const std::string& title)
       : mTitle(title)
    {

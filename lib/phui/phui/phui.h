@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: phui.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2003-01-04 03:47:43 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -35,11 +35,16 @@
 #include "Button.h"
 #include "CheckBox.h"
 #include "Color.h"
+#include "EmptyConstraint.h"
+#include "FlowLayout.h"
+#include "FlowVerticalConstraint.h"
 #include "Font.h"
 #include "FontRenderer.h"
 #include "Input.h"
 #include "Insets.h"
 #include "Label.h"
+#include "LayoutConstraint.h"
+#include "LayoutManager.h"
 #include "ListBox.h"
 #include "Point.h"
 #include "RootFactory.h"

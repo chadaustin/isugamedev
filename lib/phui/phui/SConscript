@@ -7,6 +7,7 @@ Import('SetupCppDom SetupGLText SetupGLUT SetupSDL')
 classes = Split("""
    Button
    CheckBox
+   FlowLayout
    Insets
    Label
    LayoutManager
@@ -27,6 +28,7 @@ headers = Split("""
    ActionListener.h
    Color.h
    EmptyConstraint.h
+   FlowVerticalConstraint.h
    Input.h
    LayoutConstraint.h
    ListSelectionListener.h

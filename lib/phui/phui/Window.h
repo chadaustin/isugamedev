@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2003-01-04 03:47:43 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -37,6 +37,7 @@
 #include <iostream>
 #include <list>
 #include <algorithm>
+#include "LayoutManager.h"
 #include "WidgetContainer.h"
 #include "WindowListener.h"
 
@@ -48,11 +49,11 @@ namespace phui {
        * Creates a window with an empty title.
        */
       Window();
-
+      
       /**
        * Creates a window with the given title.
        *
-       * @param title      the title for the window
+       * @param   title          the title for the window
        */
       Window( const std::string& title );
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:03 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2003-01-04 03:47:43 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -91,6 +91,11 @@ namespace phui {
 
          }
       }      
+   }
+
+   void WidgetContainer::setLayoutManager(LayoutManager* manager)
+   {
+      mLayoutManager = manager;
    }
 
    void WidgetContainer::onKeyDown(InputKey key) {
