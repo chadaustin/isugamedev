@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Thread.h,v $
- * Date modified: $Date: 2002-04-28 16:41:07 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-05-03 16:15:45 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -56,7 +56,7 @@ namespace thread {
 
    class Thread {
    public:
-      Thread() {
+      Thread(PRThreadPriority prior = PR_PRIORITY_NORMAL) {
 
          PR_AtomicSet(&mKillMe, 0);
          mRunning = false;
@@ -67,7 +67,7 @@ namespace thread {
             PR_USER_THREAD,
             routine,
             this,
-            PR_PRIORITY_NORMAL,
+            prior,
             PR_GLOBAL_THREAD,
             PR_JOINABLE_THREAD,
             0);

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ReadThread.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:05 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-05-03 16:15:44 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,7 +46,7 @@
 
 namespace net {
    ReadThread::ReadThread(InputStream *in, MessageQueue *readQueue)
-      : m_msgReader(in)
+      : thread::Thread(PR_PRIORITY_URGENT), m_msgReader(in)
    {
       m_readQueue = readQueue;
 

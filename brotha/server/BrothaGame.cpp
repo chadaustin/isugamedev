@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-03 15:49:56 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-05-03 16:15:45 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -90,7 +90,7 @@ namespace server {
          mLogic.update(dt);
       }
 
-      if(timePassed > 1.0f) {
+      if(timePassed > 1.0f / 20.0f) {
          timePassed = 0;
 
          // Run through all objects in game and broadcast their updated data

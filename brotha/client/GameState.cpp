@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-05-03 15:49:55 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-03 16:15:44 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -81,7 +81,24 @@ namespace client {
 
    void
    GameState::update(BrothaApp* app, int elapsedTime) {
+      static int numFrames = 0;
+      static float frameTimeTotal = 0.0f;
       float dt = (float)elapsedTime / 1000.0f;
+
+      ++numFrames;
+      frameTimeTotal += dt;
+
+      if (frameTimeTotal > 0.5f) {
+         float fps = (float)numFrames / frameTimeTotal;
+         fps *= 2.0f;
+         std::cout<<std::endl;
+         std::cout<<"FPS: "<<fps<<std::endl;
+         std::cout<<std::endl;
+
+         numFrames = 0;
+         frameTimeTotal = 0.0f;
+      }
+
       if (mSubState == Resync) {
          std::cout<<">>>>>Syncing<<<<<"<<std::endl;
          net::Message* msg = NULL;

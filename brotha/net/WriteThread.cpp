@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WriteThread.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:05 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-03 16:15:45 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,7 +48,7 @@
 
 namespace net {
    WriteThread::WriteThread(OutputStream *oStream, MessageQueue *writeQueue)
-      : m_oStream(oStream), m_writeQueue(writeQueue)
+      : thread::Thread(PR_PRIORITY_URGENT), m_oStream(oStream), m_writeQueue(writeQueue)
    {
       start();
    }
