@@ -1,10 +1,13 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-10-01 nonchocoboy  Fixed OpenSG rendering woes. Everythin now has the
+                        right color and texture.
+                        NEW VERSION: 0.2.2
 2002-09-30 aegis        bullet casings with random rotations
-	                story state
-	                bullet casings with different models than bullets
-	                added Lou's music
-	                draw a background image in the story state
+                        story state
+                        bullet casings with different models than bullets
+                        added Lou's music
+                        draw a background image in the story state
 2002-09-23 aegis        Gravity!
 2002-09-22 nonchocoboy  Made the camera a flexible chase camera.
 2002-09-20 nonchocoboy  Midworld compiles again in VisualStudio.NET
