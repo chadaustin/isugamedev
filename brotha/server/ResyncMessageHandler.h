@@ -9,7 +9,7 @@
 namespace server {
    class ResyncMessageHandler : public MessageHandler {
    public:
-      ResyncMessageHandler(game::BrothaGame* game, net::NetMgr* netMgr)
+      ResyncMessageHandler(BrothaGame* game, net::NetMgr* netMgr)
          : MessageHandler(game, netMgr) {
       }
 

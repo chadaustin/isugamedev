@@ -25,7 +25,7 @@ LRESULT CALLBACK WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
          EnableMenuItem(menu, ID_SERVER_STOP, MF_GRAYED);
          EnableMenuItem(menu, ID_WEBSERVER_STOP, MF_GRAYED);
 
-         util::log = new util::HWNDostream(wndLog);
+//         util::log = new util::HWNDostream(wndLog);
       } return 0;
       case WM_SIZE:
          MoveWindow(wndLog, 0, 0, LOWORD(lParam), HIWORD(lParam), true);

@@ -1,15 +1,16 @@
 #ifndef HWND_STREAM_H
 #define HWND_STREAM_H
 
-#ifdef WIN32
-#  include <iostream>
+#include <iostream>
+
+/*#ifdef WIN32
 #  include <windows.h>
 #  define LOG (*util::log)
 #  define ENDL "\r\n"
-#else
+#else*/
 #  define LOG std::cout
 #  define ENDL std::endl
-#endif
+/*#endif
 
 namespace util {
 #ifdef WIN32
@@ -38,5 +39,5 @@ namespace util {
    extern HWNDostream *log;
 #endif
 }
-
+*/
 #endif // HWND_STREAM_H

@@ -1,7 +1,7 @@
 #include "HWNDstream.h"
 
 namespace util {
-
+#undef WIN32
 #ifdef WIN32
    HWNDostream *log = NULL;
 

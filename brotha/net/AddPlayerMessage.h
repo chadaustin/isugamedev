@@ -6,6 +6,7 @@
 
 
 #include <string>
+#include "game/Player.h"
 #include "Message.h"
 #include "MessageTypes.h"
 #include "Serialize.h"
@@ -18,7 +19,8 @@ namespace net {
     */
    class AddPlayerMessage : public Message {
    public:
-      AddPlayerMessage() {
+      AddPlayerMessage(game::Player* player = NULL) {
+         m_player = player;
       }
 
       PRUint32 getType() const {
@@ -26,18 +28,26 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return getVarSize(mCode);
+         if(m_player != NULL) {
+            return m_player->getSize();
+         } else {
+            return 0;
+         }
       }
 
       void serialize(OutputStream& os) {
-         os << mCode;
+         if(m_player != NULL) {
+            m_player->serialize(os);
+         }
       }
 
       void deserialize(InputStream& is) {
-         is >> mCode;
+         if(m_player != NULL) {
+            m_player->deserialize(is);
+         }
       }
    private:
-      PRUint32 mCode;
+      game::Player *m_player;
    };
 
 }

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-29 12:23:42 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-29 15:35:11 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -56,7 +56,7 @@ namespace server {
       /**
        * Creates a new game with no players.
        */
-      BrothaGame();
+      BrothaGame(net::NetMgr *netMgr);
 
       /**
        * Updates the state of all objects in the game.
@@ -119,6 +119,9 @@ namespace server {
 
       /// All players that have may a connection
       PlayerConnectionMap mConnectedPlayers;
+
+      /// The network manager
+      net::NetMgr *m_netMgr;
    };
 }
 

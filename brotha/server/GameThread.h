@@ -10,6 +10,7 @@
 #include "BrothaGame.h"
 #include "LoginMessageHandler.h"
 #include "JoinAsMessageHandler.h"
+#include "ResyncMessageHandler.h"
 #include "MessageHandler.h"
 
 namespace server {

@@ -90,6 +90,9 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
+				RelativePath="..\game\BrothaGame.cpp">
+			</File>
+			<File
 				RelativePath="..\net\Connection.cpp">
 			</File>
 			<File
@@ -97,6 +100,21 @@
 			</File>
 			<File
 				RelativePath="..\net\MessageQueue.cpp">
+			</File>
+			<File
+				RelativePath="..\game\Object.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\game\Player.cpp">
@@ -122,6 +140,9 @@
 			</File>
 			<File
 				RelativePath="..\net\AddPlayerMessage.h">
+			</File>
+			<File
+				RelativePath="..\game\BrothaGame.h">
 			</File>
 			<File
 				RelativePath="..\net\ByteBuffer.h">
@@ -182,6 +203,12 @@
 			</File>
 			<File
 				RelativePath="..\net\OKMessage.h">
+			</File>
+			<File
+				RelativePath="..\game\Object.h">
+			</File>
+			<File
+				RelativePath="..\game\ObjectTypes.h">
 			</File>
 			<File
 				RelativePath="..\net\OutputStream.h">

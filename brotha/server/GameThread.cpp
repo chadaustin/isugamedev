@@ -8,11 +8,12 @@ namespace server {
    GameThread::GameThread(net::NetMgr *netMgr) {
       m_netMgr = netMgr;
 
-      m_brothaGame = new BrothaGame();
+      m_brothaGame = new BrothaGame(netMgr);
 
       #define reg(a) m_messageHandlers[net::a] = new a##MessageHandler(m_brothaGame, netMgr)
       reg(Login);
       reg(JoinAs);
+      reg(Resync);
       #undef reg
    }
 
