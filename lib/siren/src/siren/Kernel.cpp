@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.cpp,v $
- * Date modified: $Date: 2003-02-07 04:35:29 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-02-11 05:01:41 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -230,6 +230,11 @@ namespace siren
    {
       mWidth  = width;
       mHeight = height;
+
+      if (mState)
+      {
+         mState->resize(width, height);
+      }
    }
 
    void

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.cpp,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-11 05:01:41 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -54,6 +54,13 @@ namespace siren
    {}
 
    void
+   State::resize(int width, int height)
+   {
+      mWidth = width;
+      mHeight = height;
+   }
+
+   void
    State::invokeTransition(const std::string& name)
    {
       mNextState = StateFactory::getInstance().create(name);
@@ -65,6 +72,18 @@ namespace siren
       StatePtr state = mNextState;
       mNextState.reset();
       return state;
+   }
+
+   int
+   State::getWidth() const
+   {
+      return mWidth;
+   }
+
+   int
+   State::getHeight() const
+   {
+      return mHeight;
    }
 
    void

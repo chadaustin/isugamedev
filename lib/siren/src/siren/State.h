@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-11 05:01:41 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -44,9 +44,7 @@ namespace siren
    class State
    {
    public:
-      /**
-       * Creates a new state that will be run in the kernel.
-       */
+      /// Creates a new state that will be run in the kernel.
       State();
 
       /// Destroys (and exits) this state.
@@ -63,9 +61,42 @@ namespace siren
       /// Renders this state to the screen.
       virtual void draw() const = 0;
 
+      /**
+       * Notifies this state that a key has been pressed or released.
+       *
+       * @param sym              the ID of the key that was pressed
+       * @param down             true if the key is down, false if it is up
+       */
       virtual void onKeyPress(SDLKey sym, bool down);
+
+      /**
+       * Notifies this state that a mouse button has been pressed or released at
+       * the given location relative to the upper left corner of the window.
+       *
+       * @param button           the ID of the button that was pressed
+       * @param down             true if the button is down, false if it is up
+       * @param x                the x coordinate of the event
+       * @param y                the y coordinate of the event
+       */
       virtual void onMousePress(Uint8 button, bool down, int x, int y);
+
+      /**
+       * Notifies this state that the mouse has moved to the given location
+       * relative to the upper left corner of the window.
+       *
+       * @param x             the new x coordinate
+       * @param y             the new y coordinate
+       */
       virtual void onMouseMove(int x, int y);
+
+      /**
+       * Notifies this state that the screen size has been changed to the given
+       * resolution.
+       *
+       * @param width         the new width of the window
+       * @param height        the new height of the window
+       */
+      virtual void resize(int width, int height);
 
       /**
        * Invokes a transition to the state of the given name. The transition
@@ -80,6 +111,12 @@ namespace siren
        * the next state is.
        */
       boost::shared_ptr<State> getNext();
+
+      /// Gets the width of the window this state is running in.
+      int getWidth() const;
+
+      /// Gets the height of the window this state is running in.
+      int getHeight() const;
 
       /**
        * Tells this state that it should quit the application. The next pass
@@ -96,6 +133,12 @@ namespace siren
 
       /// True if this state is requesting that the application exits.
       bool mIsQuitting;
+
+      /// The width of the window this state is running in.
+      int mWidth;
+
+      /// The height of the window this state is running in.
+      int mHeight;
    };
 
    typedef boost::shared_ptr<State> StatePtr;
