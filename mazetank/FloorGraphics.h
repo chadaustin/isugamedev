@@ -49,8 +49,41 @@ public:
 
 	}
 private:
-	void DrawFloor(float SizeX, float SizeY, float Spacing);
+	void DrawFloor(float SizeX, float SizeY, float Spacing)
+   {
+	   glNormal3f(0.0, 0.0, 1.0);
+	   bool first = false;
+	   float x,y,LastX;
 
+	   for(x = -SizeX; x <= SizeX; x+= Spacing)
+	   {	
+		   glBegin(GL_QUAD_STRIP);
+		   bool Toggle = true;
+
+		   for(y = -SizeY; y <= SizeY; y+= Spacing)
+		   {
+			   
+			   if(!(x == -SizeX))
+			   {
+				   if(Toggle)
+				   {
+					   glTexCoord2f(0,0); glVertex3f(LastX, y, 0.0);
+					   glTexCoord2f(0,1); glVertex3f(x, y, 0.0);
+					   Toggle = false;
+				   }
+				   else
+				   {
+					   glTexCoord2f(1,0); glVertex3f(LastX, y, 0.0);
+					   glTexCoord2f(1,1); glVertex3f(x, y, 0.0);
+					   Toggle = true;
+				   }
+			   }
+			   
+		   }
+		   glEnd();
+		   LastX = x;
+	   }
+   }
     GLfloat ambient[4];
     GLfloat diffuse[4];
     GLfloat specular[4];
@@ -58,39 +91,3 @@ private:
 
 };
 #endif
-
-void FloorGraphics::DrawFloor(float SizeX, float SizeY, float Spacing)
-{
-	glNormal3f(0.0, 0.0, 1.0);
-	bool first = false;
-	float x,y,LastX;
-
-	for(x = -SizeX; x <= SizeX; x+= Spacing)
-	{	
-		glBegin(GL_QUAD_STRIP);
-		bool Toggle = true;
-
-		for(y = -SizeY; y <= SizeY; y+= Spacing)
-		{
-			
-			if(!(x == -SizeX))
-			{
-				if(Toggle)
-				{
-					glTexCoord2f(0,0); glVertex3f(LastX, y, 0.0);
-					glTexCoord2f(0,1); glVertex3f(x, y, 0.0);
-					Toggle = false;
-				}
-				else
-				{
-					glTexCoord2f(1,0); glVertex3f(LastX, y, 0.0);
-					glTexCoord2f(1,1); glVertex3f(x, y, 0.0);
-					Toggle = true;
-				}
-			}
-			
-		}
-		glEnd();
-		LastX = x;
-	}
-}

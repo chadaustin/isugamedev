@@ -1,43 +1,13 @@
 #include <gl/glut.h>
+#include "GameWorld.h"
 
-
-#include "FloorGraphics.h"
-#include "GraphicsObject.h"
-#include "TankGraphics.h"
-#include "TurretGraphics.h"
-#include "GameObject.h"
-#include "TankObject.h"
-#include "Camera.h"
-#include "PhysicsEngine.h"
-
-vector<GameObject*> TheObjects;
-
-Camera* MyCamera = new Camera;
-GraphicsObject* MyFloor = new FloorGraphics;
-GameObject* MyTank = new TankObject;
-
-PhysicsEngine MyPhysics;
-
-int OldX = -1;
-int OldY = -1;
-
-float ZRotate = 0.0;
-
+GameWorld MazeTank;
 
 ///////////////////////////////
 
 void Initialize()
 {
-	float dist[3] = {10.0, 0.0, -6.0};
-
-	float temp[3] = {0.0, 0.0, 2.0};
-
-	MyTank->Init();
-	MyTank->SetObjectAngle(0.0);
-	MyTank->SetPosition(temp);
-	MyTank->SetVelocity(0.0);
-
-	TheObjects.push_back(MyTank);
+   MazeTank.Init();
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
@@ -47,15 +17,11 @@ void Initialize()
 
     glEnable(GL_CULL_FACE);
 
-	MyCamera->SetDistanceFromObjectCenter(dist);
-	MyCamera->SetPitch(-2.0);
-
-	MyPhysics.SetCamera(MyCamera);
 }
 
 void MyKeyBoard(unsigned char key,int x, int y)
 {
-	float temp;
+/*	float temp;
 	switch(key)
 	{
 	case 'a':
@@ -91,73 +57,29 @@ void MyKeyBoard(unsigned char key,int x, int y)
 		break;
 		
 	}
-
+*/
 }
 
 void MouseMotion(int x, int y)
 {
-	if(OldX != -1)
+/*	if(OldX != -1)
 		MyCamera->LookAround(OldY-y, -1*(OldX-x));
 
 	OldX = x;
-	OldY = y;
+	OldY = y;*/
 }
 
 
 
 void update()
 {
-	MyPhysics.Update(TheObjects);
+   MazeTank.Update();
 	glutPostRedisplay();
 }
 
 void display()
 {
-
-	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	MyCamera->Apply();
-
-
-	glPushMatrix();
-	glTranslatef(-30.0, -30.0, 2.0);
-	glutSolidCube(3.0);
-	glPopMatrix();
-
-	for(int i = 0; i < TheObjects.size(); i++)
-		TheObjects[i]->Draw();
-
-	MyFloor->Draw();
-
-
-   glPushMatrix();
-   glLineWidth(10);
-   glScalef(10,10,10);
-   glDisable(GL_DEPTH);
-   glDisable(GL_LIGHTING);
-	glBegin(GL_LINES);
-		glColor3f(1.0, 0.0, 0.0);
-		glVertex3f(0.0, 0.0, 0.0);
-		glVertex3f(0.0, 0.0, 1.0);
-
-		glColor3f(0.0, 1.0, 0.0);
-		glVertex3f(0.0, 0.0, 0.0);
-		glVertex3f(0.0, 1.0, 0.0);
-
-		glColor3f(0.0, 0.0, 1.0);
-		glVertex3f(0.0, 0.0, 0.0);
-		glVertex3f(1.0, 0.0, 0.0);
-	glEnd();
-   glEnable(GL_LIGHTING);
-   glEnable(GL_DEPTH);
-   glLineWidth(1);
-   glPopMatrix();
-
-	glutSwapBuffers();
-
+   MazeTank.Draw();
 }
 
 void reshape(int w, int h)
