@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-11-04 19:17:59 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-11-06 01:40:14 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,7 +53,9 @@ namespace mw
       RigidBody()
          : mMass( 1.0f )
          , mBounds(gmtl::Point3f(0,0,0), gmtl::Point3f(1,1,1))
-      {}
+      {
+         mIsCollidable = true;
+      }
       
       virtual ~RigidBody() {}
 
@@ -169,6 +171,9 @@ namespace mw
       /// Gets the next state of this body.
       BodyState& getNextState() { return mNextState; }
       const BodyState& getNextState() const { return mNextState; }
+      
+      bool isCollidable() const { return mIsCollidable; }
+      void setCollidable(bool c) { mIsCollidable = c; }
 
       /// Makes the next state the current state.
       void moveToNextState();
@@ -185,14 +190,13 @@ namespace mw
        */
       BodyState mCurrentState;
 
-      /**
-       * The next state of this rigid body.
-       */
+      /// The next state of this rigid body.
       BodyState mNextState;
 
-   protected:
       /// The bounding volume for this body
       gmtl::AABoxf mBounds;
+      
+      bool mIsCollidable;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Utility.h,v $
- * Date modified: $Date: 2002-11-05 08:31:50 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-11-06 01:40:14 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,9 +41,13 @@ namespace mw
 {
    // this should go into Debug.h someday
    #ifdef _MSC_VER
-   #define DBG_BREAK() do { __asm int 3 } while (false)
+      #ifdef _DEBUG
+         #define DBG_BREAK() do { __asm int 3 } while (false)
+      #else
+         #define DBG_BREAK() do { ; } while (false)
+      #endif
    #else
-   #define DBG_BREAK() assert(false && "Breakpoint reached")
+      #define DBG_BREAK() assert(false && "Breakpoint reached")
    #endif
 
 

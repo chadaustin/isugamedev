@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.cpp,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-11-06 01:40:14 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -178,7 +178,7 @@ namespace mw
 
    gmtl::Point3f BaseProjectileWeapon::getBarrelEndPos() const
    {
-      gmtl::Vec3f extents = (mBounds.getMax() - mBounds.getMin()) * 0.5f;
+      gmtl::Vec3f extents = (getBounds().getMax() - getBounds().getMin()) * 0.5f;
       return getPos() + getRot() * (gmtl::Vec3f(0,0,-1) * gmtl::length(extents));
    }
 

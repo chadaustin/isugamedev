@@ -28,11 +28,6 @@ namespace mw
    {
    public:   
       /**
-       * constructor
-       */
-      NavNodeTree();
-      
-      /**
        * adds a node to the tree
        * returns true if successfully added node
        */

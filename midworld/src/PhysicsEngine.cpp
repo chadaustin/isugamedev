@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-04 19:17:58 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-06 01:40:14 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -121,8 +121,8 @@ namespace mw
 
          // Update the body for the remaining time differential
          update(body, dt);
-
-         // Check if the body collided aith anything
+         
+         // Check if the body collided with anything
          gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
          CollisionDetector::CollisionList collisions =
                   mCollisionDetector->checkCollisions(body, path);

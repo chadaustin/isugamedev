@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsSweepCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-11-03 08:04:46 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-11-06 01:40:14 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -67,13 +67,18 @@ namespace mw
 
       // Init the list of detected collisions to empty
       CollisionList collisions;
+      
+      if (!body->isCollidable())
+      {
+         return collisions;
+      }
 
       for (std::list<RigidBody*>::iterator itr = pcs.begin(); itr != pcs.end(); ++itr)
       {
          RigidBody* collidee = *itr;
 
-         // Don't collide against ourself
-         if (body == collidee)
+         // Don't collide against ourself or against non-collidables
+         if (body == collidee || !collidee->isCollidable())
          {
             continue;
          }

@@ -15,6 +15,7 @@ namespace mw
       BulletCasing(GameState* gameState)
          : Base(gameState)
       {
+         setCollidable(false);
          mExistCount = 0;
          mTimeOut = 5;
       }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-11-03 08:04:46 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-06 01:40:14 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,6 +51,11 @@ namespace mw
 
       CollisionList collisions;
       
+      if (!body->isCollidable())
+      {
+         return collisions;
+      }
+      
       // try 16 steps along the path
       for (float i = 0; i < 1; i += delta) {
       
@@ -66,8 +71,8 @@ namespace mw
          {
             RigidBody* collidee = *itr;
 
-            // Don't collide against ourself
-            if (body == collidee)
+            // Don't collide against ourself or against noncollidables
+            if (body == collidee || !collidee->isCollidable())
             {
                continue;
             }
