@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-15 14:48:50 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,7 +39,7 @@
 #include "GameManager.h"
 #include "GameState.h"
 
-const static unsigned int NUM_PELLETS = 10;
+const static unsigned int NUM_PELLETS = 6;
 
 namespace mw
 {
@@ -48,13 +48,13 @@ namespace mw
    {
       mSpreadAngle = 10.0f;
       mMaxAmmoInBag = 1200;
-      mClipSize = 6;
+      mClipSize = 5;
 
       mReloadRate = 2.0f;
       mCockRate = 0.7f;
 
       mAmmoInClip = mClipSize;
-      mAmmoInBag = 100;
+      mAmmoInBag = 20;
    }
 
    void Shotgun::draw() const
