@@ -142,7 +142,7 @@
    void GameKernel::OnKeyboardDown(unsigned char k, int x, int y) 
    { 
       const DigitalInput::BinaryState state = DigitalInput::ON;
-      GameInput::instance().keyboard().button( k ).binaryState() = state;
+      GameInput::instance().keyboard().button( k ).setBinaryState( state );
       GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
    }
 
@@ -152,7 +152,7 @@
    void GameKernel::OnKeyboardUp(unsigned char k, int x, int y) 
    { 
       const DigitalInput::BinaryState state = DigitalInput::OFF;
-      GameInput::instance().keyboard().button( k ).binaryState() = state;
+      GameInput::instance().keyboard().button( k ).setBinaryState( state );
       GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
    }
 
@@ -169,28 +169,28 @@
       Keyboard::Key key;
       switch (k)
       {
-         case GLUT_KEY_UP: keyboard.button( key = Keyboard::UPARROW ).binaryState() = state; break;
-         case GLUT_KEY_LEFT: keyboard.button( key = Keyboard::LEFTARROW ).binaryState() = state; break;
-         case GLUT_KEY_DOWN: keyboard.button( key = Keyboard::DOWNARROW ).binaryState() = state; break;
-         case GLUT_KEY_RIGHT: keyboard.button( key = Keyboard::RIGHTARROW ).binaryState() = state; break;
-         case GLUT_KEY_F1: keyboard.button( key = Keyboard::F1 ).binaryState() = state; break;
-         case GLUT_KEY_F2: keyboard.button( key = Keyboard::F2 ).binaryState() = state; break;
-         case GLUT_KEY_F3: keyboard.button( key = Keyboard::F3 ).binaryState() = state; break;
-         case GLUT_KEY_F4: keyboard.button( key = Keyboard::F4 ).binaryState() = state; break;
-         case GLUT_KEY_F5: keyboard.button( key = Keyboard::F5 ).binaryState() = state; break;
-         case GLUT_KEY_F6: keyboard.button( key = Keyboard::F6 ).binaryState() = state; break;
-         case GLUT_KEY_F7: keyboard.button( key = Keyboard::F7 ).binaryState() = state; break;
-         case GLUT_KEY_F8: keyboard.button( key = Keyboard::F8 ).binaryState() = state; break;
-         case GLUT_KEY_F9: keyboard.button( key = key = Keyboard::F9 ).binaryState() = state; break;
-         case GLUT_KEY_F10: keyboard.button( key = Keyboard::F10 ).binaryState() = state; break;
-         case GLUT_KEY_F11: keyboard.button( key = Keyboard::F11 ).binaryState() = state; break;
-         case GLUT_KEY_F12: keyboard.button( key = Keyboard::F12 ).binaryState() = state; break;
+         case GLUT_KEY_UP: keyboard.button( key = Keyboard::UPARROW ).setBinaryState( state ); break;
+         case GLUT_KEY_LEFT: keyboard.button( key = Keyboard::LEFTARROW ).setBinaryState( state ); break;
+         case GLUT_KEY_DOWN: keyboard.button( key = Keyboard::DOWNARROW ).setBinaryState( state ); break;
+         case GLUT_KEY_RIGHT: keyboard.button( key = Keyboard::RIGHTARROW ).setBinaryState( state ); break;
+         case GLUT_KEY_F1: keyboard.button( key = Keyboard::F1 ).setBinaryState( state ); break;
+         case GLUT_KEY_F2: keyboard.button( key = Keyboard::F2 ).setBinaryState( state ); break;
+         case GLUT_KEY_F3: keyboard.button( key = Keyboard::F3 ).setBinaryState( state ); break;
+         case GLUT_KEY_F4: keyboard.button( key = Keyboard::F4 ).setBinaryState( state ); break;
+         case GLUT_KEY_F5: keyboard.button( key = Keyboard::F5 ).setBinaryState( state ); break;
+         case GLUT_KEY_F6: keyboard.button( key = Keyboard::F6 ).setBinaryState( state ); break;
+         case GLUT_KEY_F7: keyboard.button( key = Keyboard::F7 ).setBinaryState( state ); break;
+         case GLUT_KEY_F8: keyboard.button( key = Keyboard::F8 ).setBinaryState( state ); break;
+         case GLUT_KEY_F9: keyboard.button( key = key = Keyboard::F9 ).setBinaryState( state ); break;
+         case GLUT_KEY_F10: keyboard.button( key = Keyboard::F10 ).setBinaryState( state ); break;
+         case GLUT_KEY_F11: keyboard.button( key = Keyboard::F11 ).setBinaryState( state ); break;
+         case GLUT_KEY_F12: keyboard.button( key = Keyboard::F12 ).setBinaryState( state ); break;
 
-         case GLUT_KEY_PAGE_UP: keyboard.button( key = Keyboard::PAGEUP ).binaryState() = state; break;
-         case GLUT_KEY_PAGE_DOWN: keyboard.button( key = Keyboard::PAGEDOWN ).binaryState() = state; break;
-         case GLUT_KEY_HOME: keyboard.button( key = Keyboard::HOME ).binaryState() = state; break;
-         case GLUT_KEY_END: keyboard.button( key = Keyboard::END ).binaryState() = state; break;
-         case GLUT_KEY_INSERT: keyboard.button( key = Keyboard::INSERT ).binaryState() = state; break;
+         case GLUT_KEY_PAGE_UP: keyboard.button( key = Keyboard::PAGEUP ).setBinaryState( state ); break;
+         case GLUT_KEY_PAGE_DOWN: keyboard.button( key = Keyboard::PAGEDOWN ).setBinaryState( state ); break;
+         case GLUT_KEY_HOME: keyboard.button( key = Keyboard::HOME ).setBinaryState( state ); break;
+         case GLUT_KEY_END: keyboard.button( key = Keyboard::END ).setBinaryState( state ); break;
+         case GLUT_KEY_INSERT: keyboard.button( key = Keyboard::INSERT ).setBinaryState( state ); break;
          default:
             std::cout<<"unrecognized key = "<<(int)k<<"\n"<<std::flush;
             return;
@@ -249,7 +249,7 @@
        }
 
        // Set the mousebutton state and the mouse position
-       GameInput::instance().mouse().button( b ).binaryState() = binaryState;
+       GameInput::instance().mouse().button( b ).setBinaryState( binaryState );
        GameInput::instance().mouse().setPosition( x, y );
    }
 

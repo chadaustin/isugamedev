@@ -10,7 +10,7 @@
 
 #include "DigitalInput.h"
 #include "AnalogInput.h"
-
+#include "EventInput.h"
 
 /* input manager for game input
  * try to use the Interface classes instead of this class directly
@@ -35,9 +35,9 @@ public:
       if (mBindTable.count( alias ) == 0)
          return NULL;
       
-      std::pair<std::string, std::string>& p = mBindTable[alias];
-      return this->getInput( p.first, p.second );
-   }   
+      EventInput& event_input = mBindTable[alias];
+      return &event_input;
+   }
 
    /* Return an Input ptr
     * give the real Device name (i.e. Keyboard) and 
@@ -64,7 +64,8 @@ public:
    
    void bind( const std::string& alias, const std::string& device, const std::string& input )
    {
-      mBindTable[alias] = std::pair<std::string, std::string>( device, input );
+      Input* in_put = GameInput::instance().getInput( device, input );
+      mBindTable[alias].bind( in_put );
    }   
    
 public:
@@ -81,11 +82,10 @@ public:
    inline Keyboard&           keyboard() { return *mKeyboard; }
    
    /* uh... how to deal with this? */
-   inline const char&         modifier() const { return mKeyboardModifier; }
-   inline char&               modifier() { return mKeyboardModifier; }
+   inline char         modifier() const { return mKeyboardModifier; }
 
 private:
-   std::map<std::string, std::pair<std::string, std::string> > mBindTable;
+   std::map<std::string, EventInput> mBindTable;
    std::map<std::string, Device*> mDevices;
    Mouse*            mMouse;
    Keyboard*         mKeyboard;

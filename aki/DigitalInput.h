@@ -21,12 +21,7 @@ public:
    {
    }
    
-   EdgeTriggerState& edgeState()
-   {
-      return mEdge;
-   }
-   
-   const EdgeTriggerState& edgeState() const
+   virtual EdgeTriggerState edgeState() const
    {
       return mEdge;
    }
@@ -36,9 +31,9 @@ public:
       return mBinary;
    }
    
-   BinaryState& binaryState()
+   void setBinaryState( const BinaryState& bs )
    {
-      return mBinary;
+      mBinary = bs;
    }
    
    virtual void update()
