@@ -7,16 +7,16 @@ Congratulations on downloaded the latest (probably broken) source to Midworld!
 The following contains instructions on how to attempt to build our source code.
 You will need the following external libraries:
 
-Audiere	1.9.1		http://audiere.sourceforge.net
-Cal3d    0.8.0    http://cal3d.sourceforge.net
-Corona	0.2.0 		http://corona.sourceforge.net
-cppdom            http://sourceforge.net/projects/xml-cppdom/
-GLText	0.1.0		http://gltext.sourceforge.net
-GMTL	0.1.12		http://ggt.sourceforge.net
-Loom	0.0.4		http://ailoom.sourceforge.net
-OpenSG	1.1.0		http://www.opensg.org
-SCons	0.08		http://www.scons.org
-SDL	1.2.4		http://www.libsdl.org
+Audiere  1.9.1          http://audiere.sourceforge.net
+Cal3d    0.8.0          http://cal3d.sourceforge.net
+Corona   0.2.0          http://corona.sourceforge.net
+cppdom                  http://sourceforge.net/projects/xml-cppdom/
+GLText   0.1.0          http://gltext.sourceforge.net
+GMTL     0.1.12         http://ggt.sourceforge.net
+Loom     0.0.4          http://ailoom.sourceforge.net
+OpenSG   1.1.0          http://www.opensg.org
+SCons    0.08           http://www.scons.org
+SDL      1.2.4          http://www.libsdl.org
 
 For VC7 on Windows, download third-party dependencies from the files
 section on http://sourceforge.net/projects/isugamedev/.  The file is
