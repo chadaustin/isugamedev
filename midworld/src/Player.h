@@ -1,6 +1,7 @@
 #ifndef PLAYER_DEFINED
 #define PLAYER_DEFINED
 
+#include <map>
 #include <gmtl/Matrix.h>
 #include <gmtl/Quat.h>
 #include <gmtl/MatrixOps.h>
@@ -10,167 +11,93 @@
 
 #include "Weapon.h"
 #include "cubeGeometry.h"
+#include "NullWeapon.h"
 
 namespace mw
 {
+class GameState;
 
 class Player
 {
 public:
-   Player()
-      : mPos(), mVel(), mRot(), mWeapon( NULL )
-   {
-      this->init();
-   }
+   Player();
 
-   void init()
-   {
-   }
+   void init();
 
-   void draw() const
-   {
-      //glEnable( GL_TEXTURE_2D );
+   void draw() const;
+
+   bool isWeaponSlotEmpty( int slot );
    
-      glPushMatrix();
-         glMultMatrixf( mXForm.getData() );
-         glTranslatef( 0, 1, 0 );
-         glPushMatrix();
-            glScalef( 0.5f, 0.3f, 0.4f );
-            cubeGeometry().render();
-         glPopMatrix();
-         glTranslatef( 0, 0, -0.5f );
-         glScalef( 0.15f, 0.15f, 0.3f );
-         cubeGeometry().render();
-      glPopMatrix();
-   }
-
    /**
-    * Gets this player's weapon.
+    * Gets this player's current weapon.
     */
-   Weapon* getWeapon() const
-   {
-      return mWeapon;
-   }
-
+   Weapon& weapon();
+   
    /**
-    * Sets the player's weapon.
+    * Gets this player's current weapon.
     */
-   void setWeapon(Weapon* weapon)
-   {
-      mWeapon = weapon;
-   }
+   const Weapon& weapon() const;
+   
+   /**
+    * Sets the player's current in-use weapon.
+    */
+   void setWeapon( int slot );
+   
+   /** adds weapon to player's inventory.
+    *  each added weapon may cause that weapon to immediately become active
+    *  depending on the player's game preferences.
+    */
+   void addWeapon( Weapon* w );
+   
+   /** make the next weapon active.
+    *  this will either iterate round-robin through the list
+    *  of weapons that the player has, or it may iterate in an 
+    *  alternate order specified by player's game preferences.
+    */
+   void nextWeapon();
 
    /**
     * Gets the position at the end of the barrel.
     */
-   gmtl::Vec3f getBarrelEndPos() const
-   {
-      gmtl::Vec3f barrelEndPos = gmtl::Vec3f( 0, 2, -3 );
-      return (mRot * barrelEndPos) + mPos;
-   }
+   gmtl::Vec3f getBarrelEndPos() const;
    
-   gmtl::Vec3f getForward() const
-   {
-      gmtl::Vec3f forward( 0,0,-1 );
-      return mRot * forward;
-   }
+   gmtl::Vec3f getForward() const;
    
-   const gmtl::Matrix44f& matrix() const 
-   {
-      return mXForm;
-   }
+   const gmtl::Matrix44f& matrix() const;
       
-   void setPos( const gmtl::Vec3f& pos )
-   {
-      mPos = pos;
-   }
+   void setPos( const gmtl::Vec3f& pos );
       
-   void update( float timeDelta )
-   {
-      // POS
-      // x' = v = vel in tank local coord system
-      gmtl::Vec3f pos_delta = mRot * mVel;
-      pos_delta *= timeDelta; // scale by time...
-      
-      // add the derivative onto the tank's position
-      this->setPos( this->position() + pos_delta );
-      
-      /*
-      // ROT
-      // update ang velocity.
-      // change in rotation is 1/2 angvel times current rotation or...
-      // q' = 1/2 w * q, where w is a Vec3 who's magnitude is amount of angvel
-      // and who's axis defines the axis of rotation.
-      gmtl::Quatf rot_delta, temp;
-      temp.mult( mRotVel * 0.5f, mRot );
-      rot_delta.mult( temp, timeDelta );  // scale by time...
-      
-      // add the derivative onto the tank's rotation
-      mRot.add( mRot, rot_delta );
-      mRot.normalize();
-      */
-            
-      // XFORM
-      // store the matrix from the pos/rot data...
-      gmtl::set( mXForm, mRot );
-      gmtl::setTrans( mXForm, mPos );
+   void update( GameState& gs, float timeDelta );
 
-      // update the current weapon
-      mWeapon->update(timeDelta);
-   }
-
-   const gmtl::Vec3f& velocity() const
-   {
-      return mVel;
-   }
+   const gmtl::Vec3f& velocity() const;
    
    // with repect to tank local coordinate system.
    // i.e. if tank is rotated, then 0,0,-1 is always "forward" for the tank.
-   void setVelocity( const gmtl::Vec3f& vel )
-   {
-      mVel = vel;
-   }
+   void setVelocity( const gmtl::Vec3f& vel );
    
    // with repect to tank local coordinate system.
    // i.e. if tank is rotated, then 0,0,-1 is always "forward" for the tank.
-   void setVelocity( float x, float y, float z )
-   {
-      mVel.set( x, y, z );
-   }
+   void setVelocity( float x, float y, float z );
    
-   void translate( const gmtl::Vec3f& offset )
-   {
-      mPos += offset;
-   }
-     
-   void setRot( float rad )
-   {
-      mRot = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( rad, 0.0f, 1.0f, 0.0f ) );
-   }
+   void translate( const gmtl::Vec3f& offset );
+
+   void setRot( gmtl::Quatf );
 
    // true ang velocity vector
    // w = [0, mag, 0]
-   void setAngVel( float magnitude )
-   {
-      //mRotVel = gmtl::makePure<gmtl::Quatf>( gmtl::Vec3f( 0.0f, 1.0f, 0.0f ) * magnitude );
-   }
+   void setAngVel( float magnitude );
 
-   const gmtl::Vec3f& position() const
-   {
-      return mPos;
-   }
+   const gmtl::Vec3f& position() const;
 
-   const gmtl::Quatf& rotation() const
-   {
-      return mRot;
-   }
+   const gmtl::Quatf& rotation() const;
 
 private:
    gmtl::Matrix44f mXForm;
    gmtl::Vec3f mPos, mVel;
    gmtl::Quatf mRot;
 
-   Weapon* mWeapon;
+   std::map<int, Weapon*> mWeapons;
+   std::map<int, Weapon*>::iterator mCurrentWeapon;
 };
 }
 

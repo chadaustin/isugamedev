@@ -36,6 +36,8 @@ namespace mw
 
       void onMouseMove(int x, int y);
 
+      void add( RigidBody* );
+
    private:
       // called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);

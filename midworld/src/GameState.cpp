@@ -15,11 +15,12 @@ namespace mw
       , mStrafeLeft(UP)
       , mShoot(UP)
    {
-      mPlayer.setWeapon(new Pistol());
+      mPlayer.addWeapon( new Pistol );
    }
 
    GameState::~GameState()
-   {}
+   {
+   }
 
    void
    GameState::update(u64 elapsedTime)
@@ -70,12 +71,12 @@ namespace mw
       // Shoot
       if (mShoot == EDGE_DOWN)
       {
-         mPlayer.getWeapon()->setFiring(true);
+         mPlayer.weapon().trigger( true );
          std::cout<<"Trigger Down"<<std::endl;
       }
       else if (mShoot == EDGE_UP)
       {
-         mPlayer.getWeapon()->setFiring(false);
+         mPlayer.weapon().trigger( false );
          std::cout<<"Trigger Up"<<std::endl;
       }
 
@@ -86,14 +87,7 @@ namespace mw
       updateEdgeState(mStrafeLeft);
       updateEdgeState(mShoot);
 
-      // Fire the player's weapon if necessary
-      if (mShoot == DOWN && mPlayer.getWeapon()->canFire())
-      {
-         RigidBody* bullet = mPlayer.getWeapon()->createBullet();
-         bullet->setPos(mPlayer.position());
-         bullet->setVel(mPlayer.rotation() * bullet->getVel());
-         mBodies.push_back(bullet);
-      }
+      
 
       // Iterate over all the rigid bodies and update them
       for (RigidBodyList::iterator itr = mBodies.begin(); itr != mBodies.end(); ++itr)
@@ -101,12 +95,16 @@ namespace mw
          (*itr)->update(elapsedTime);
       }
 
-      mCamera.update(dt);
-      mPlayer.update(dt);
+      mCamera.update( dt );
+      mPlayer.update( *this, dt);
    }
 
-   void
-   GameState::draw()
+   void GameState::add( RigidBody* b )
+   {
+      mBodies.push_back( b );
+   }
+   
+   void GameState::draw()
    {
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
@@ -194,11 +192,15 @@ namespace mw
       // map the dot (angle) and cross (side) to the player
       if (side[2] >= 0.0f)
       {
-         mPlayer.setRot(rad + gmtl::Math::deg2Rad(180.0f));
+         float t = rad + gmtl::Math::deg2Rad(180.0f);
+         gmtl::Quatf q = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( t, 0.0f, 1.0f, 0.0f ) );
+         mPlayer.setRot( q );
       }
       else
       {
-         mPlayer.setRot(-rad);
+         float t = -rad;
+         gmtl::Quatf q = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( t, 0.0f, 1.0f, 0.0f ) );
+         mPlayer.setRot( q );
       }
    }
 
