@@ -305,7 +305,7 @@ void onMouseMove(int x, int y)
    gLastMouse[1] = y;
 }
 
-void main(int argc, char** argv)
+int main(int argc, char** argv)
 {
    // Set the window's initial size
    glutInitWindowSize(640, 480);
@@ -352,4 +352,5 @@ void main(int argc, char** argv)
 
    // here we go. wheee ....
    glutMainLoop();
+   return 0;
 }
