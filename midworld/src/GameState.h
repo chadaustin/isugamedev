@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-03 03:49:59 $
- * Version:       $Revision: 1.63 $
+ * Date modified: $Date: 2002-11-03 05:18:54 $
+ * Version:       $Revision: 1.64 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -243,6 +243,12 @@ namespace mw
       virtual void addSmart(Entity* entity, lm::aiNode *node);
 
       /**
+       * Adds in a new navigation node to be used by the AI system for efficient
+       * pathfinding.
+       */
+      void addNavNode(const gmtl::Vec3f& node);
+
+      /**
        * Get the player
        */
       Player& getPlayer()
@@ -255,11 +261,13 @@ namespace mw
          return mCamera;
       }
 
+      Turret* setupTurret(const std::string& name, const std::string& parent,
+                          int maxChild, int level);
+      Droid* setupDroid(const std::string& name, const std::string& parent,
+                        int maxChild, int level);
+
    private:
       void initializeInput();
-
-      Turret* setupTurret(std::string name, std::string parent, int maxChild, int level);
-      Enemy* setupDroid(std::string name, std::string parent, int maxChild, int level);
       
       void drawEntities();
 
@@ -279,8 +287,6 @@ namespace mw
        * themselves as being expired and thus want to be removed from the game.
        */
       void reapDeadEntities();
-
-      void loadLevel(const std::string& filename);
 
    private:
       State* mNextState;

@@ -43,6 +43,7 @@ classes = Split("""
    InputParser
    InputSymbol
    Jukebox
+   LevelLoader
    LoadState
    MenuState
    MissileLauncher

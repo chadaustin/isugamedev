@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-03 03:49:59 $
- * Version:       $Revision: 1.104 $
+ * Date modified: $Date: 2002-11-03 05:18:54 $
+ * Version:       $Revision: 1.105 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,6 +49,7 @@
 #include "InputBinder.h"
 #include "InputParser.h"
 #include "InputSymbol.h"
+#include "LevelLoader.h"
 #include "MissileLauncher.h"
 #include "OpenSGSceneViewer.h"
 #include "Pistol.h"
@@ -176,7 +177,8 @@ namespace mw
       // Initialize the various game subsystems
       initializeInput();
 
-      loadLevel("levels/level1.txt");
+      LevelLoader levelLoader;
+      levelLoader.load("levels/level1.txt", this);
 
       mCamera.setMaxFollowDistance(50.0f);
       mCamera.setMinFollowDistance(2.0f);
@@ -563,98 +565,6 @@ namespace mw
       }
    }
 
-   void GameState::loadLevel(const std::string& filename)
-   {
-      std::ifstream in(filename.c_str());
-      if (!in.is_open())
-      {
-         throw std::runtime_error("Could not open level file: " + filename);
-      }
-
-      std::string type;
-      double x, y, z;
-      double h, p, r;
-
-      while (in >> type >> x >> y >> z >> h >> p >> r)
-      {
-         // THIS SUCKS ASS
-         // VC++ 7 does not compile this right unless it's static
-         // Internal Compiler Error
-         // this is not threadsafe
-         static Entity* e;
-
-         if (type == "droid")
-         {
-            std::string name, parent;
-            int maxChild, level;
-            if(in >> name >> parent >> maxChild >> level)
-            {
-               Enemy* en;
-               en = setupDroid(name, parent, maxChild, level);
-               en->setModel("security_droid");
-               e = en;
-            }
-         }
-         else if (type == "navNode")
-         {
-            gmtl::Vec3f node;
-            if(in >> node[0] >> node[1] >> node[2])
-            {
-               navNodeIndex.push_back(node);
-            }
-         }
-         else if (type == "turret")
-         {
-            std::string name, parent;
-            int maxChild, level;
-            if (in >> name >> parent >> maxChild >> level)
-            {
-               Turret* t;
-               t = setupTurret(name, parent, maxChild, level);
-               t->setModel("turret");
-               e=t;
-            }
-         }
-         else if (type == "ammo")
-         {
-            e = EntityFactory::instance().create<AmmoCrate>();
-            e->setModel("ammo_crate");
-         }
-         else if (type == "static")
-         {
-            std::string model;
-            if (in >> model)
-            {
-               e = EntityFactory::instance().create<StaticEntity>();
-               e->setModel(model);
-            }
-
-            float sx, sy, sz;
-            if (in >> sx >> sy >> sz)
-            {
-               e->setScale(gmtl::Vec3f(sx, sy, sz));
-            }
-         }
-         else if (type == "#")
-         {
-            // read the rest of the line
-            std::string dummy;
-            std::getline(in, dummy);
-         }
-         else
-         {
-            throw std::runtime_error("Unknown entity type: " + type);
-         }
-
-         e->setPos(gmtl::Point3f(x, y, z));
-         e->setRot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(
-            gmtl::Math::deg2Rad(p),
-            gmtl::Math::deg2Rad(h),
-            gmtl::Math::deg2Rad(r))));
-         add(e);
-      }
-   }
-
    void GameState::add(Entity* entity)
    {
       mScene->add(entity);
@@ -667,6 +577,11 @@ namespace mw
       mMap[entity->getUID()] = node;
    }
 
+   void
+   GameState::addNavNode(const gmtl::Vec3f& node)
+   {
+      navNodeIndex.push_back(node);
+   }
 
    void GameState::initializeInput()
    {
@@ -712,8 +627,9 @@ namespace mw
     * ai related stuff that it needs and returns a reference to the droid.
     * TODO: figure out how to handle the parent case.
     */
-   Enemy*
-   GameState::setupDroid(std::string name, std::string parent, int maxChild, int level)
+   Droid*
+   GameState::setupDroid(const std::string& name, const std::string& parent,
+                         int maxChild, int level)
    {
       lm::aiNode* node1 = new lm::aiNode(name, NULL, maxChild, level);
       mAInodes.push_back(node1);
@@ -742,7 +658,8 @@ namespace mw
     * TODO: figure out how to handle the parent case.
     */
    Turret* 
-   GameState::setupTurret(std::string name, std::string parent, int maxChild, int level)
+   GameState::setupTurret(const std::string& name, const std::string& parent,
+                          int maxChild, int level)
    {
       lm::aiNode* node1 = new lm::aiNode(name, NULL, maxChild, level);
       mAInodes.push_back(node1);
