@@ -22,20 +22,69 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: siren.h,v $
+ * File:          $RCSfile: State.cpp,v $
  * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.4 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
-#ifndef SIREN_SIREN_H
-#define SIREN_SIREN_H
-
-#include "Kernel.h"
-#include "State.h"
+#include <assert.h>
 #include "StateFactory.h"
-#include "input/InputManager.h"
-#include "sound/SoundManager.h"
-#include "ResourceManager.h"
+#include "State.h"
 
-#endif
+namespace siren
+{
+   State::State(KernelPtr kernel)
+      : mIsQuitting(false)
+      , mKernel(kernel)
+   {}
+
+   State::~State()
+   {}
+
+   void
+   State::onKeyPress(SDLKey sym, bool down)
+   {}
+
+   void
+   State::onMousePress(Uint8 button, bool down, int x, int y)
+   {}
+
+   void
+   State::onMouseMove(int x, int y)
+   {}
+
+   KernelPtr
+   State::getKernel() const
+   {
+      KernelPtr kernel = boost::make_shared(mKernel);
+      assert(kernel.get());
+      return kernel;
+   }
+
+   void
+   State::invokeTransition(const std::string& name)
+   {
+      mNextState = StateFactory::getInstance().create(name, getKernel());
+   }
+
+   StatePtr
+   State::getNext()
+   {
+      StatePtr state = mNextState;
+      mNextState.reset();
+      return state;
+   }
+
+   void
+   State::quit()
+   {
+      mIsQuitting = true;
+   }
+
+   bool
+   State::isQuitting() const
+   {
+      return mIsQuitting;
+   }
+}

@@ -22,20 +22,87 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: siren.h,v $
+ * File:          $RCSfile: Kernel.cpp,v $
  * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.4 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
-#ifndef SIREN_SIREN_H
-#define SIREN_SIREN_H
-
 #include "Kernel.h"
 #include "State.h"
-#include "StateFactory.h"
-#include "input/InputManager.h"
-#include "sound/SoundManager.h"
-#include "ResourceManager.h"
 
-#endif
+namespace siren
+{
+   Kernel::Kernel()
+      : mWidth(0)
+      , mHeight(0)
+   {}
+
+   Kernel::~Kernel()
+   {}
+
+   void
+   Kernel::update(float dt)
+   {
+      // Check if we need to transition to the next state
+      if (mNextState)
+      {
+         mState = mNextState;
+      }
+
+      // Let the current state do its update
+      mState->update(dt);
+
+      // Store the transition to the next state
+      mNextState = mState->getNext();
+   }
+
+   void
+   Kernel::draw()
+   {
+      mState->draw();
+   }
+
+   void
+   Kernel::resize(int width, int height)
+   {
+      mWidth  = width;
+      mHeight = height;
+   }
+
+   void
+   Kernel::onKeyPress(SDLKey sym, bool down)
+   {
+      mState->onKeyPress(sym, down);
+   }
+
+   void
+   Kernel::onMousePress(Uint8 button, bool down, int x, int y)
+   {
+      mState->onMousePress(button, down, x, y);
+   }
+
+   void
+   Kernel::onMouseMove(int x, int y)
+   {
+      mState->onMouseMove(x, y);
+   }
+
+   bool
+   Kernel::shouldQuit()
+   {
+      return mState->isQuitting();
+   }
+
+   int
+   Kernel::getWidth() const
+   {
+      return mWidth;
+   }
+
+   int
+   Kernel::getHeight() const
+   {
+      return mHeight;
+   }
+}

@@ -6,7 +6,10 @@ Import('SetupAudiere SetupOpenGL SetupSDL')
 
 # Define the sources
 classes = Split("""
+   Kernel
    ResourceManager
+   State
+   StateFactory
    Version
 """)
 

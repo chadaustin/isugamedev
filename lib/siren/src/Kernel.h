@@ -22,20 +22,63 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: siren.h,v $
+ * File:          $RCSfile: Kernel.h,v $
  * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.4 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
-#ifndef SIREN_SIREN_H
-#define SIREN_SIREN_H
+#ifndef SIREN_KERNEL_H
+#define SIREN_KERNEL_H
 
-#include "Kernel.h"
-#include "State.h"
-#include "StateFactory.h"
-#include "input/InputManager.h"
-#include "sound/SoundManager.h"
-#include "ResourceManager.h"
+#include <boost/shared_ptr.hpp>
+#include <SDL.h>
+
+namespace siren
+{
+   class State;
+   typedef boost::shared_ptr<State> StatePtr;
+
+   /**
+    * The kernel drives the application. It manages the current game state.
+    */
+   class Kernel
+   {
+   public:
+      Kernel();
+      ~Kernel();
+
+      /**
+       * Updates this kernel based on the amount of time that has passed since
+       * the last frame.
+       *
+       * @param dt   the differential in time for this frame in seconds
+       */
+      void update(float dt);
+
+      void draw();
+      void resize(int width, int height);
+      void onKeyPress(SDLKey sym, bool down);
+      void onMousePress(Uint8 button, bool down, int x, int y);
+      void onMouseMove(int x, int y);
+
+      bool shouldQuit();
+
+      int getWidth() const;
+      int getHeight() const;
+
+   private:
+      int mWidth;
+      int mHeight;
+
+      /// The current state that the kernel is driving.
+      StatePtr mState;
+
+      /// The state to switch to the next time the app is updated.
+      StatePtr mNextState;
+   };
+
+   typedef boost::shared_ptr<Kernel> KernelPtr;
+}
 
 #endif
