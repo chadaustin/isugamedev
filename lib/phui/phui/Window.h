@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2002-02-24 08:48:18 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-02-24 11:11:13 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,19 +38,34 @@
 #define PHUI_WINDOW_H
 
 #include "phuiCommon.h"
+#include <string>
 #include "WidgetContainer.h"
 
 namespace phui {
 
    class Window : public WidgetContainer {
    public:
+      /**
+       * Creates a window with an empty title.
+       */
       Window();
+
+      /**
+       * Creates a window with the given title.
+       *
+       * @param title      the title for the window
+       */
+      Window( const std::string& title );
+
       ~Window();
 
       void draw();
 
    private:
-
+      /**
+       * The title of the window.
+       */
+      std::string mTitle;
   };
 
 } // namespace phui
