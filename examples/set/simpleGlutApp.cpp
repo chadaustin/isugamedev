@@ -283,7 +283,7 @@ static void OnMouseClick( int button, int state, int x, int y )
    //             you may have to get this from the glut website 
    //             (use www.google.com to search for it)
    if (button==GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-      if((temp=dek.isACard(mouseX, mouseY))!=-1){
+      if(((temp=dek.isACard(mouseX, mouseY))!=-1) && (!dek.isSelected(temp))){
          dek.selectCard(temp);
          if(dek.numSel()==3){
             if(checkForWinner()){
