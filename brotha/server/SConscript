@@ -27,7 +27,7 @@ headers.extend( map(lambda fn: fn + '.h', classes) )
 sources.extend( map(lambda fn: fn + '.cpp', classes) )
 
 
-LIBS = ['net', 'game', 'nspr4', 'xmlpp']
+LIBS = ['net', 'game', 'nspr4', 'data', 'xmlpp']
 
-env2 = env.Copy( LIBPATH=['#net', '#game'], LIBS=LIBS );
+env2 = env.Copy( LIBPATH=['#net', '#game', '#xml'], LIBS=LIBS );
 env2.Program(target = 'server', source = sources)
