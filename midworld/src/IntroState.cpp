@@ -3,6 +3,7 @@
 
 #include "IntroState.h"
 #include "GameState.h"
+#include "GameManager.h"
 
 namespace mw
 {
@@ -11,6 +12,12 @@ namespace mw
    {
       mIntroImage = new Texture("intro.jpeg");
       mShouldTransition = false;
+
+      // Start playing the theme song.
+      /// @todo Stop. Clear all tracks. Then play the new track.
+      Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
+      jukebox->addTrack("music/theme.ogg");
+      jukebox->play();
    }
 
    IntroState::~IntroState()

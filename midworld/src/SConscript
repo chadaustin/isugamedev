@@ -6,6 +6,7 @@ classes = Split("""
    Application
    BoundsCollisionDetector
    CollisionDesc
+   GameManager
    IntroState
    Jukebox
    RigidBody
