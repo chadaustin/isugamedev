@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-17 07:40:02 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-17 08:02:52 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,7 +41,7 @@ namespace phui
 {
 
    Widget::Widget()
-      : mX(0), mY(0), mWidth(0), mHeight(0), mInsetX(0), mInsetY(0),
+      : mX(0), mY(0), mWidth(0), mHeight(0),
         mEnabled(true), mVisible(true), mBackgroundColor(0,0,0,0),
         mForegroundColor(1,1,1,1), mFont("arial", Font::PLAIN, 12),
         mParent(NULL)
@@ -73,16 +73,14 @@ namespace phui
       mHeight = height;
    }
 
-   void Widget::getInsets(int insetX, int insetY)
+   const Insets& Widget::getInsets() const
    {
-      insetX = mInsetX;
-      insetY = mInsetY;
+      return mInsets;
    }
 
-   void Widget::setInsets(int insetX, int insetY)
+   void Widget::setInsets(const Insets& insets)
    {
-      mInsetX = insetX;
-      mInsetY = insetY;
+      mInsets = insets;
    }
 
    bool Widget::isEnabled() const
@@ -147,7 +145,7 @@ namespace phui
 
    bool Widget::contains(int x, int y) const
    {
-      return ((x >= 0) && (y >= 0) && (x < mWidth) && (y < mHeight))
+      return ((x >= 0) && (y >= 0) && (x < mWidth) && (y < mHeight));
    }
 
    void Widget::getScreenPosition(int& x, int& y) const

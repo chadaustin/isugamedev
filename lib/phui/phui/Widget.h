@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-17 07:16:44 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-04-17 08:02:52 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,6 +41,7 @@
 #include "Color.h"
 #include "Input.h"
 #include "Font.h"
+#include "Insets.h"
 
 namespace phui
 {
@@ -99,18 +100,16 @@ namespace phui
       /**
        * Gets the insets for this widget.
        *
-       * @param insetX  [out]    the horizontal inset
-       * @param insetY  [out]    the vertical inset
+       * @return  the insets
        */
-      virtual void getInsets(int insetX, int insetY);
+      virtual const Insets& getInsets() const;
 
       /**
        * Sets the insets for the widget.
        *
-       * @param insetX     the horizonal inset
-       * @param insetY     the vertical inset
+       * @param insets     the insets
        */
-      virtual void setInsets(int insetX, int insetY);
+      virtual void setInsets(const Insets& insets);
 
       /**
        * Tests if this widget is enabled.
@@ -236,14 +235,9 @@ namespace phui
       int mHeight;
 
       /**
-       * The horizontal inset.
+       * The insets for this widget.
        */
-      int mInsetX;
-
-      /**
-       * The vertical inset.
-       */
-      int mInsetY;
+      Insets mInsets;
 
       /**
        * Whether this widget is enabled or disabled.
