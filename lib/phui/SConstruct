@@ -1,0 +1,5 @@
+Default('.')        # build everything by default
+env = Environment() # default environment
+Export('env')
+SConscript('phui/SConscript')
+SConscript('examples/SConscript')
