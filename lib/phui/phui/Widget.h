@@ -12,8 +12,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.27 $
+ * Date modified: $Date: 2002-05-04 11:56:19 $
+ * Version:       $Revision: 1.28 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -56,7 +56,7 @@ namespace phui
 
    class Widget
    {
-      friend WidgetContainer;
+      friend class WidgetContainer;
    protected:
       /**
        * Creates a new widget with width and height 0 and size (0,0).

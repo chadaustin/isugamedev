@@ -1,3 +1,1 @@
-SConscript('event/SConscript')
-SConscript('sdl/SConscript')
-SConscript('window/SConscript')
+SConscript(dirs = Split('event sdl window'))

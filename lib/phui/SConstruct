@@ -34,10 +34,8 @@ env = Environment(LIBPATH = '#phui',
                   ENV = os.environ,
                   CXXFLAGS = CXXFLAGS)
 
-
 Export('env')
-SConscript('phui/SConscript')
-SConscript('examples/SConscript')
+SConscript(dirs = Split('phui examples'))
 
 
 # install target

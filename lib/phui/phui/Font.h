@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Font.h,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-05-04 11:56:19 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -56,7 +56,7 @@ namespace phui
     */
    class Font
    {
-      friend FontRenderer;
+      friend class FontRenderer;
    public:
       /// The font style. Italic and bold may be or'd together.
       enum STYLE
