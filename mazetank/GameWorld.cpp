@@ -1,3 +1,11 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-19-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// GameWorld.cpp
+/////////////////////////////////////
+
 #include "GameWorld.h"
 #include "GameObject.h"
 #include "TankObject.h"

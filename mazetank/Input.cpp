@@ -1,3 +1,11 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-19-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// Input.h
+/////////////////////////////////////
+
 #include "Input.h"
 #include "GraphicsObject.h"
 #include "GameObject.h"

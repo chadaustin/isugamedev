@@ -1,3 +1,11 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-21-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// TurretGraphics.cpp
+/////////////////////////////////////
+
 #include "TurretGraphics.h"
 
 TurretGraphics::TurretGraphics()

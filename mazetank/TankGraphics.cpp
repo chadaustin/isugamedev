@@ -1,3 +1,11 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-19-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// TankGraphics.cpp
+/////////////////////////////////////
+
 #include "TankGraphics.h"
 
 TankGraphics::TankGraphics()

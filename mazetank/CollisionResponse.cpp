@@ -1,3 +1,10 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-28-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// CollisionResponse.cpp
+/////////////////////////////////////
 #include "CollisionResponse.h"
 
 void CollisionResponse::ResponseToCollisions(vector<GameObject*> &TheGameObjects)
@@ -24,7 +31,7 @@ void CollisionResponse::ResponseToCollisions(vector<GameObject*> &TheGameObjects
                      break;
 
                case CAMTANK:
-                     PlayerResponse(Collisions[j]);
+                     PlayerResponse(TheGameObjects[i], Collisions[j]);
                      break;
 
                case NPCTANK:
@@ -90,9 +97,10 @@ void CollisionResponse::BulletResponse(GameObject* &TheGameObject)
    }
 }
 
-void CollisionResponse::PlayerResponse(GameObject* &TheGameObject)
+void CollisionResponse::PlayerResponse(GameObject* MainObject, GameObject* &TheGameObject)
 {
    ObjectType ResponseObjectName;
+   float Position[3];
 
    TheGameObject->GetCurrentObjectType(ResponseObjectName);
 
@@ -102,6 +110,8 @@ void CollisionResponse::PlayerResponse(GameObject* &TheGameObject)
       break;
 
    case NPCTANK:
+      MainObject->GetOldPosition(Position);
+      MainObject->SetPosition(Position);
       break;
 
    case CAMTANK:

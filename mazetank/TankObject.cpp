@@ -1,3 +1,11 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-19-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// TankObject.cpp
+/////////////////////////////////////
+
 #include "TankObject.h"
 
 TankObject::TankObject()

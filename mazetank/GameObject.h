@@ -27,7 +27,10 @@ public:
 	void SetPosition(float Position[3])
 	{
 		for(int i = 0; i < 3; i++)
+      {
+         ObjectOldPosition[i] = ObjectPosition[i];
 			ObjectPosition[i] = Position[i];
+      }
 	}
 	void SetCurrentObjectType(ObjectType TheType)
 	{
@@ -96,6 +99,11 @@ public:
    {
       Radius = ObjectSphere;
    }
+   void GetOldPosition(float OldPosition[3])
+   {
+      for(int i = 0; i < 3; i++)
+         OldPosition[i] = ObjectOldPosition[i];
+   }
 	/////////////////////////////////////////
 
    ////////////////////////////////////////////////
@@ -131,11 +139,12 @@ public:
    //////////////////////////////////////////////////
 protected:
 	float ObjectPosition[3];
+   float ObjectOldPosition[3];
 	float ObjectVelocity;
 	float ObjectAngle;
 	float ObjectAngleVelocity;
-    float ObjectZAngle;
-    float ObjectVelocityZ;
+   float ObjectZAngle;
+   float ObjectVelocityZ;
 	float ObjectBox[3];
    float ObjectSphere;
 	ObjectType ObjectName;

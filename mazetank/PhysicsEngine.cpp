@@ -1,3 +1,11 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-21-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// PhysicsEngine.cpp
+/////////////////////////////////////
+
 #include "PhysicsEngine.h"
 #include <math.h>
 #include <GL/glut.h>

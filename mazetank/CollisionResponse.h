@@ -1,3 +1,11 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-28-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// CollisionResponse.h
+/////////////////////////////////////
+
 #ifndef __COLLISIONRESPONSE_H
 #define __COLLISIONRESPONSE_H
 
@@ -18,7 +26,7 @@ private:
    vector<GameObject*> ToRemove;
 
    void BulletResponse(GameObject* &TheGameObject);
-   void PlayerResponse(GameObject* &TheGameObject);
+   void PlayerResponse(GameObject* MainObject, GameObject* &TheGameObject);
    void NPCResponse(GameObject* &TheGameObject);
    void AddToRemoveQueue(GameObject* &TheGameObject);
 };
