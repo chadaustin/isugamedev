@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameKernel.h,v $
-// Date modified: $Date: 2002-03-18 06:34:55 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-18 07:23:33 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -53,7 +53,7 @@ namespace gk {
  *    class MyAppType : public gk::AbstractGameApp() {};
  *    int main() {
  *       gk::IGameKernel* kernel = gk::CreateGameKernel( new MyAppType() );
- *       gk::loadInputConfig( "config.xml", kernel );
+ *       kernel->config( "config.xml" );
  *       kernel->startup();
  *       return 0;
  *    }
@@ -80,6 +80,15 @@ public:
     * the startup() call will return. Call this to terminate your application.
     */
    virtual void shutdown() = 0;
+
+   /**
+    * Configures this kernel based on the given configuration file.
+    *
+    * @param file    the name of the configuration file to parse
+    *
+    * @return  true if successful, false otherwise
+    */
+   virtual bool config( const char* file ) = 0;
 
    /**
     * Warps the mouse pointer to the given (x,y) position in your app's window.

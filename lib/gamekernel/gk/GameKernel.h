@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-18 06:34:55 $
-// Version:       $Revision: 1.22 $
+// Date modified: $Date: 2002-03-18 07:23:33 $
+// Version:       $Revision: 1.23 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -55,6 +55,12 @@ public:
    GameKernel( IGameApp* app );
 
    /**
+    * Destroys this GameKernel. This will destroy the application, the system
+    * driver and the input manager.
+    */
+   virtual ~GameKernel();
+
+   /**
     * Initializes and runs this kernel with the given system driver.
     *
     * @param driver     the driver that should underlie the kernel
@@ -62,6 +68,15 @@ public:
     * @return  true if successful, false otherwise
     */
    bool startup( SystemDriver* driver );
+
+   /**
+    * Configures this kernel based on the given configuration file.
+    *
+    * @param file    the name of the configuration file to parse
+    *
+    * @return  true if successful, false otherwise
+    */
+   bool config( const char* file );
 
    /** system shutdown.
     *  exits the system.

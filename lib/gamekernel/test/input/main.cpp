@@ -24,15 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-18 06:34:56 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2002-03-18 07:23:34 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 
 #include <gk/gk.h>
-#include <GlutDriver.h>
-#include <gk/SystemDriverFactory.h>
 #include "Grid.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -113,14 +111,8 @@ int main( int argc, char *argv[] )
 {
    // create the kernel and add our app in
    IGameKernel* kernel = gk::createGameKernel( new InputApp() );
+   kernel->config( "config.xml" );
+   kernel->startup();
 
-   // configure the system
-   loadInputConfig( "config.xml", kernel );
-
-   // create our system driver and let's go!
-   SystemDriverFactory::instance().probe( "glut", "GLUT" );
-   SystemDriver* driver = SystemDriverFactory::instance().getDriver( "GLUT" );
-   kernel->startup( driver );
-
-   return 1;
+   return 0;
 }

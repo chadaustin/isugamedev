@@ -24,13 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-03-18 06:34:55 $
-// Version:       $Revision: 1.24 $
+// Date modified: $Date: 2002-03-18 07:23:33 $
+// Version:       $Revision: 1.25 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "gk/GameKernel.h"
+#include "gk/SystemDriverFactory.h"
 #include "gk/Version.h"
+#include "gk/GameInputConfigure.h"
 
 namespace gk {
 
@@ -40,6 +42,23 @@ GameKernel::GameKernel( IGameApp* app )
    assert( app != NULL && "You must pass in a valid application" );
    std::cout<<"GameKernel v"<<getVersionString()<<std::endl;
    mInput = new GameInput();
+}
+
+GameKernel::~GameKernel()
+{
+   // shutdown the driver and release its memory
+   mDriver->shutdown();
+
+   //free memory
+   delete mApp;
+   delete mInput;
+   mApp = NULL;
+   mInput = NULL;
+}
+
+bool GameKernel::config( const char* file )
+{
+   return gk::loadInputConfig( std::string(file), this );
 }
 
 void GameKernel::warpMouse( int x, int y )
@@ -93,10 +112,13 @@ const std::string& GameKernel::name() const
 
 bool GameKernel::startup( SystemDriver* driver )
 {
-   assert( (driver != NULL) && "you must pass in a valid system driver!" );
-
-   // keep a copy of our system driver
    mDriver = driver;
+   if ( mDriver == NULL )
+   {
+      /** @todo pick the best driver for the application */
+      SystemDriverFactory::instance().probe( "glut", "GLUT" );
+      mDriver = SystemDriverFactory::instance().getDriver( "GLUT" );
+   }
 
    // initialize the driver
    if ( ! mDriver->init( this ) ) {
@@ -114,9 +136,11 @@ bool GameKernel::startup( SystemDriver* driver )
 
 void GameKernel::shutdown()
 {
-   mDriver->shutdown();
-   delete mDriver;
-   mDriver = NULL;
+   if ( mDriver ) {
+      mDriver->shutdown();
+      delete mDriver;
+      mDriver = NULL;
+   }
 }
 
 IGameApp* GameKernel::getApp()

@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /W3 /GR /GX /O2 /I "." /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "USE_WIN32" /YX /FD /c
+# ADD CPP /nologo /W3 /GR /GX /O2 /I "." /I "external/xdl" /D "NDEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "USE_WIN32" /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -64,7 +64,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "." /D "_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "USE_WIN32" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "." /I "external/xdl" /D "_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "USE_WIN32" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -89,6 +89,10 @@ SOURCE=.\gk\GameKernel.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\gk\gk.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\gk\SystemDriverFactory.cpp
 # End Source File
 # Begin Source File
@@ -99,6 +103,10 @@ SOURCE=.\gk\Version.cpp
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\gk\AbstractGameApp.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\gk\AnalogDevice.h
@@ -141,10 +149,6 @@ SOURCE=.\gk\EventInput.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\gk\GameApp.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\gk\GameInput.h
 # End Source File
 # Begin Source File
@@ -162,6 +166,10 @@ SOURCE=.\gk\gk.h
 # Begin Source File
 
 SOURCE=.\gk\gkCommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\gk\IGameApp.h
 # End Source File
 # Begin Source File
 
