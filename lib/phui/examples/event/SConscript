@@ -1,0 +1,4 @@
+Import('env GLUT_LIBS')
+
+env2 = env.Copy(LIBS = ['phui'] + GLUT_LIBS)
+env2.Program(target = 'event', source = 'event.cpp')
