@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2002-04-28 18:55:09 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-28 19:45:00 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -68,6 +68,9 @@ namespace phui {
 
       void draw();
 
+      /// Overloaded to fire window events.
+      virtual void setVisible(bool visible);
+
       /**
        * Adds the given window listener that wishes to receive window events.
        */
@@ -79,9 +82,17 @@ namespace phui {
       void removeWindowListener(WindowListener* listener);
 
    private:
-      /**
-       * The title of the window.
-       */
+      /// Helper initializing method called by constructors.
+      void init(const std::string& title, bool visible);
+
+      /// Helper to fire a window opened event to all listeners.
+      void fireWindowOpenedEvent();
+
+      /// Helper to fire a window closed event to all listeners.
+      void fireWindowClosedEvent();
+
+   private:
+      /// The title of the window.
       std::string mTitle;
 
       /// All listeners for this window.

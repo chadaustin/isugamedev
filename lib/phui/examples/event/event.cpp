@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:58 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-04-28 19:44:59 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -49,22 +49,41 @@ namespace {
    int gContext; /// GLUT context
 }
 
-class BtnListener : public phui::ActionListener
+class WidgetHider : public phui::ActionListener
 {
 public:
-   BtnListener(phui::Widget* widget)
-      : mWidget(widget)
+   WidgetHider(phui::Widget* wgt)
+      : mWidget(wgt)
    {}
 
-   virtual ~BtnListener() {}
+   ~WidgetHider() {}
 
-   virtual void onAction(const phui::ActionEvent& evt)
+   void onAction(const phui::ActionEvent& evt)
    {
-      mWidget->setVisible(!mWidget->isVisible());
+      mWidget->setVisible(! mWidget->isVisible());
    }
 
 private:
    phui::Widget* mWidget;
+};
+
+class WndListener : public phui::WindowListener
+{
+public:
+   ~WndListener() {}
+
+   void onWindowOpened(const phui::WindowEvent& evt)
+   {
+      std::cout<<"Opened a window"<<std::endl;
+   }
+
+   void onWindowClosed(const phui::WindowEvent& evt)
+   {
+      std::cout<<"Closed a window"<<std::endl;
+   }
+
+   void onWindowFocused(const phui::WindowEvent& evt) {}
+   void onWindowUnfocused(const phui::WindowEvent& evt) {}
 };
 
 void idle() {
@@ -151,6 +170,7 @@ int main(int argc, char** argv) {
       wnd->setSize(300, 250);
       wnd->show();
       wnd->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
+      wnd->addWindowListener(new WndListener());
 
       phui::Window* w(new phui::Window());
       w->setPosition(100, 100);
@@ -172,9 +192,8 @@ int main(int argc, char** argv) {
       button->setSize(100,50);
       button->show();
       button->setBackgroundColor(phui::Colorf(0,0,1,0.5f));
+      button->addActionListener(new WidgetHider(wnd));
       window->add(button);
-      BtnListener* btnLstr(new BtnListener(cb));
-      button->addActionListener(btnLstr);
 
       phui::TextField* txt(new phui::TextField());
       txt->setPosition(20,100);

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2002-04-28 18:55:09 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-28 19:45:00 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -45,15 +45,13 @@ namespace phui {
    Window::Window()
       : mTitle("")
    {
-      setVisible(false);
+      init("", false);
    }
 
    Window::Window(const std::string& title)
       : mTitle(title)
    {
-      // XXXaegis - why is this different from Window() ?  Shouldn't
-      // they be the same?
-      setVisible(true);
+      init(title, false);
    }
 
    Window::~Window() {
@@ -86,6 +84,25 @@ namespace phui {
       WidgetContainer::draw();
    }
 
+   void Window::setVisible(bool visible) {
+      bool wasVisible = isVisible();
+
+      Widget::setVisible(visible);
+
+      // Let our listeners know about us.
+      if (visible) {
+         // Fire a window opened event if the window is not already visible
+         if (! wasVisible) {
+            fireWindowOpenedEvent();
+         }
+      } else {
+         // Fire a window closed event if this call closed the window
+         if (wasVisible) {
+            fireWindowClosedEvent();
+         }
+      }
+   }
+
    void Window::addWindowListener(WindowListener* listener) {
       mListeners.push_back(listener);
    }
@@ -95,6 +112,27 @@ namespace phui {
       itr = std::find(mListeners.begin(), mListeners.end(), listener);
       if (itr != mListeners.end()) {
          mListeners.erase(itr);
+      }
+   }
+
+   void Window::init(const std::string& title, bool visible) {
+      mTitle = title;
+      Widget::setVisible(visible);
+   }
+
+   void Window::fireWindowOpenedEvent() {
+      WindowEvent evt(this);
+
+      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); ++itr) {
+         (*itr)->onWindowOpened(evt);
+      }
+   }
+
+   void Window::fireWindowClosedEvent() {
+      WindowEvent evt(this);
+
+      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); ++itr) {
+         (*itr)->onWindowClosed(evt);
       }
    }
 
