@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-01 07:22:26 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-01 07:37:38 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -55,7 +55,7 @@ namespace data {
       std::string name;
       std::string password;
       CarList cars;
-      statlist stats;
+      StatList stats;
 
    public:
       Player(std::string iname, std::string ipasswd) {
@@ -79,7 +79,7 @@ namespace data {
          return cars;
       }
 
-      statlist getStats() {
+      StatList getStats() {
          return stats;
       }
 

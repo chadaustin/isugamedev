@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Stat.h,v $
- * Date modified: $Date: 2002-04-30 04:26:11 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-05-01 07:37:38 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,41 +44,47 @@
 #define DATA_STAT_H
 
 #include <iostream>
-#include <string.h>
+#include <string>
 #include <vector>
 
 namespace data {
 
-   //modifications to the car.
+   ///A generalized statistic.
    class Stat {
-   private:
-      std::string name;
-      std::string value;
-
    public:
-      Stat(std::string iname, std::string ival) {
-         name=iname;
-         value=ival;
-      }
+      /// Creates a new stat with the given name/value.
+      Stat(const std::string& name, const std::string& value)
+         : mName(name), mValue(value)
+      {}
 
-      std::string getName() {
-         return name;
+      /// Gets the name of this stat.
+      const std::string& getName() const {
+         return mName;
       }
   
-      std::string getVal() {
-         return value;
+      /// Gets the value of this stat.
+      const std::string& getVal() const {
+         return mValue;
       }
 
-      void setVal(std::string in) {
-         value = in;
+      /// Sets the value of this stat.
+      void setVal(const std::string& value) {
+         mValue = value;
       }
   
       void xMLify(std::ostream& out) {
-         out <<"        <stat name=\"" << name << "\" value=\"" << value << "\" />" << std::endl;
+         out <<"        <stat name=\"" << mName << "\" value=\"" << mValue << "\" />" << std::endl;
       }
+
+   private:
+      /// The name of this stat.
+      std::string mName;
+
+      /// The value of this stat.
+      std::string mValue;
    };
 
-   typedef std::vector<Stat*> statlist;
+   typedef std::vector<Stat*> StatList;
 
 }
 
