@@ -28,7 +28,7 @@ namespace mw
 
       virtual void update( u64 elapsedTime )
       {
-         double time_delta = ((double)elapsedTime) / 1000.0;
+         double time_delta = ((double)elapsedTime) / 1000000.0;
          mCamera.setPlayerPos( mPlayer.position() );
          
          // process input events:
@@ -94,7 +94,8 @@ namespace mw
             
       virtual void onMousePress( Uint8 button, bool down, int x, int y )
       {
-         
+         int screen_size_x = 640;
+         int screen_size_y = 480;
       }
       
       virtual void onMouseMove( int x, int y )
