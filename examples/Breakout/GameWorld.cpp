@@ -43,7 +43,7 @@ GameWorld::~GameWorld()
 ////////////////////////////////////////////
 void GameWorld::Destroy()
 {
-	int i;
+	unsigned int i;
 
 	for(i = 0; i < GameObjects.size(); i++)
 	{
@@ -58,7 +58,7 @@ void GameWorld::Destroy()
 
 void GameWorld::Update()
 {
-	int i;
+	unsigned int i;
 	float x,y;
 	State PaddleState;
 
@@ -180,7 +180,7 @@ void GameWorld::Update()
 
 void GameWorld::Draw()
 {
-	int i;
+	unsigned int i;
 
 	/////////////////////////////////////////
 	// Go through each object and tell it to 
@@ -280,7 +280,7 @@ void GameWorld::GameRemoveObject(MyObject*& TheObject)
 {
 		TheGame.RemoveObject(TheObject);
 
-      int i;
+      		unsigned int i;
 		for(i = 0; (GameObjects[i] != TheObject) && (i < GameObjects.size()); i++);
 
 		if(i < GameObjects.size())
@@ -302,7 +302,7 @@ void GameWorld::GameRemoveObject(MyObject*& TheObject)
 //////////////////////////////////
 void GameWorld::AddToRemoveQueue(MyObject*& TheObject)
 {
-	int index;
+	unsigned int index;
 
 	for(index = 0; (index < RemoveObjectsQueue.size()) &&
 		(TheObject != RemoveObjectsQueue[index]); index++);

@@ -9,7 +9,7 @@ class PowerupObject: public MyObject
 public:
 
 	PowerupObject();
-	~PowerupObject();
+	virtual ~PowerupObject();
 
 	void SetGameCoordinates(float x, float y);
 	void SetSize(float x, float y);

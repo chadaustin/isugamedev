@@ -8,7 +8,7 @@ class BallObject: public MyObject
 public:
 
 	BallObject();
-	~BallObject();
+	virtual ~BallObject();
 
 	void SetGameCoordinates(float x, float y);
 	void SetSize(float x, float y);

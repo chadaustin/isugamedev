@@ -9,7 +9,7 @@ class BlockObject: public MyObject
 public:
 
 	BlockObject();
-	~BlockObject();
+	virtual ~BlockObject();
 
 	void SetGameCoordinates(float x, float y);
 	void SetSize(float x, float y);

@@ -9,7 +9,7 @@ class WallObject: public MyObject
 public:
 
 	WallObject();
-	~WallObject();
+	virtual ~WallObject();
 
 	void SetGameCoordinates(float x, float y);
 	void SetSize(float x, float y);

@@ -8,7 +8,7 @@ class PaddleObject: public MyObject
 public:
 
 	PaddleObject();
-	~PaddleObject();
+	virtual ~PaddleObject();
 
 	void SetGameCoordinates(float x, float y);
 	void SetSize(float x, float y);

@@ -93,9 +93,13 @@ void BallObject::CollisionResponse(MyObject* CollisionObject)
 			if(Myrand == 3)
 			{
 				if(VelocityY < 0)
+				{
 					VelocityY = VelocityY - .05;
+				}
 				else
+				{
 					VelocityY = VelocityY + .05;
+				}
 			}
 			break;
 		}

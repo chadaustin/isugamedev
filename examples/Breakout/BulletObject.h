@@ -9,7 +9,7 @@ class BulletObject: public MyObject
 public:
 
 	BulletObject();
-	~BulletObject();
+	virtual ~BulletObject();
 
 	void SetGameCoordinates(float x, float y);
 	void SetSize(float x, float y);
