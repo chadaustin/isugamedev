@@ -44,12 +44,12 @@ namespace mw
          glColor4f(1,1,1,1);
          mGroundTexture->bind();
          glBegin(GL_QUADS);
-         glTexCoord2f(0,  0);  glVertex2f(-size, -size);
-         glTexCoord2f(0,  50); glVertex2f(-size,  size);
-         glTexCoord2f(50, 50); glVertex2f(size,   size);
-         glTexCoord2f(50, 0);  glVertex2f(size,  -size);
-         mGroundTexture->unbind();
+            glTexCoord2f(0,  0);  glVertex2f(-size, -size);
+            glTexCoord2f(0,  50); glVertex2f(-size,  size);
+            glTexCoord2f(50, 50); glVertex2f(size,   size);
+            glTexCoord2f(50, 0);  glVertex2f(size,  -size);
          glEnd();
+         mGroundTexture->unbind();
       glPopMatrix();
    }
 }
