@@ -4,6 +4,7 @@
 #include "BulletObject.h"
 #include "SoundManager.h"
 #include "GameWorld.h"
+#include <math.h>
 
 //extern sound::SoundManager* GameSound;
 extern GameWorld MazeTank;
@@ -104,7 +105,7 @@ void Input::ShootBullet()
    Bullet->SetPosition(Position);
    Bullet->SetObjectAngle(TankRotation+TurretRotations[2]);
    Bullet->SetObjectZAngle(TurretRotations[0]);
-   Bullet->SetVelocityZ(0.03);
+   Bullet->SetVelocityZ(0.04);
    /////////////////////////////////////////////////////////
    Bullet->SetVelocity(0.03);
 
