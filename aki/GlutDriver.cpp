@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-01-31 06:13:17 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-01-31 15:51:44 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -39,7 +39,8 @@ GlutDriver* GlutDriver::sDriver = NULL;
 //------------------------------------------------------------------------------
 
 GlutDriver::GlutDriver()
-   : mCurrentContext( 0 ), mMainWin_ContextID( 0 ), mIsStarted( false )
+   : mCurrentContext( 0 ), mMainWin_ContextID( 0 ), mIsStarted( false ), 
+      mWidth( 320 ), mHeight( 240 )
 {
    // because of glut's callback scheme we need to be able to get a pointer to
    // the current GLUTDriver instance.
@@ -56,13 +57,6 @@ GlutDriver::~GlutDriver()
 bool
 GlutDriver::startup()
 {
-   // Set the window position
-   int width, height;
-   getWindowSize( width, height );
-   if ( width == 0 || height == 0 )
-   {
-      width = 320; height = 240;
-   }
    // Set the window title
    if ( name() == "" )
    {
@@ -70,7 +64,7 @@ GlutDriver::startup()
    }
 
 
-   ::glutInitWindowSize( width, height );
+   ::glutInitWindowSize( mWidth, mHeight );
    int argc = 1;
    char* argv[] = { "GameKernel", NULL };
    ::glutInit( &argc, argv );
@@ -140,6 +134,7 @@ GlutDriver::showMouse( bool show )
 void
 GlutDriver::fullscreen( int ctx )
 {
+   std::cout << "Going fullscreen" << std::endl;
    ::glutFullScreen();
 }
 
@@ -157,6 +152,8 @@ GlutDriver::getWindowSize( int& width, int& height, int ctx )
 void
 GlutDriver::setWindowSize( int width, int height, int ctx )
 {
+   std::cout << "Resizing window to" << width << ", " << height << std::endl;
+
    if (mIsStarted)
       ::glutReshapeWindow( width, height );
 
