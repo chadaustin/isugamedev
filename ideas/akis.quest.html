@@ -14,10 +14,10 @@
 
 <hr>
 <small>
-Game design copyright (C) 2001  Kevin Meinert, kevin@vrsource.org       
+Game design copyright (C) 2001  Kevin Meinert, <a href="mailto:kevin@vrsource.org">kevin@vrsource.org</a>       
 This design available freely only to members of the ISU Game Developers 
 club.  For outside use, please ask permission from the authors.        
-Revisions are welcome, submit them to the club or to Kevin directly.
+Revisions are welcome, <a href="mailto:kevin@vrsource.org">submit</a> them to the club or to Kevin directly.
 </small>
 <hr>
 
@@ -270,8 +270,7 @@ etc...)
 
 <h1>WORLD DESIGNING GUIDE</h1>
 
-<p>
-World types
+<h2>World types</h2>
 <ul>
 <li>above ground
   <ul>
@@ -288,11 +287,44 @@ World types
   </ul>
 </ul>
 
-<p>
-Transitions between worlds
+<h2>Transitions between worlds</h2>
+
 <ul>
-<li>always from above-land to below-land... or vice versa.
-<li>aki will find a path to below-land in the form of:
+<h3>Always transition from above-land to below-land... or vice versa.</h3>
+For example:
+
+<pre>
+    o
+   /
+- o -- o
+   \    \
+    o-o  o
+     \
+      o
+</pre>
+
+where:<BR>
+<pre>
+ o = "above" ground
+ - = "below" ground
+</pre>
+
+
+Above-ground worlds are disconnected (just like an <i>island</i> is), the below-ground caves are what connect
+them and is how you transition from world to world.
+
+<p>
+you begin below ground, and emerge above ground in the city of Atla.  from
+there you can exit the city and explore some forest clearings/paths and
+eventually find 1 of 3 possible exits.  each of these exits go somewhere
+below ground.
+
+<p>
+The basic premise is that above leads to below, and below leads to above.
+<b>only in very rare instances does above go to above</b> (like if you found a
+secret transport device).
+
+<h3>Aki will find a paths to below-land in the form of:</h3>
   <ul>
   <li>cave
   <li>stairs
@@ -300,13 +332,46 @@ Transitions between worlds
   <li>hole (fall)
   <li>hole (ladder)
    </ul>
+
+<h3>Some notes on designing these connections between worlds...</h3>
+
+<p>
+1.) the map can loop back on itself.  
+
+<pre>
+o--o
+ \ |
+  o--o
+</pre>
+
+Some Ideas:
+ <ul>
+ it would be cool if the loopback went to an above ground place you couldn't get to before
+
+ for example, we have above-land #1, #2, #3, and #4:
+
+ <pre>
+ 1--2
+  \ |
+   3--4
+ </pre>
+
+ <p>
+ when you exit number 3 into the caves you'll have a choice of going to 2
+ or to 4.  If you go to 2, then you'll come up into 2b.  an area that you
+ saw while in 2, but couldn't quite get to before.
+
+ <p>
+ of course, you certainly are able to enter 2 from 2b, but maybe not
+ viceversa.  Maybe only after you get the high-jump powerup (just for example) found in
+ 2b...
+ </ul>
+
 </ul>
 
 <p>
-Above lands are "islands", that the below-ground caves connect.
+<b>No bosses!</b>  Just puzzles and minor creatures stand in your way of travel.
 
-<p>
-<b>No bosses!</b>  Just puzzels and minor creatures stand in your way of travel.
 
 
 <h1>OUR STORY SO FAR</h1>
