@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2002-02-11 01:35:04 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -206,7 +206,7 @@ GlutDriver::getWindowSize( int& width, int& height, int ctx )
 void
 GlutDriver::setWindowSize( int width, int height, int ctx )
 {
-   std::cout << "Resizing window to" << width << ", " << height << std::endl;
+   std::cout << "Resizing window to " << width << ", " << height << std::endl;
 
    if (mIsStarted)
       ::glutReshapeWindow( width, height );
