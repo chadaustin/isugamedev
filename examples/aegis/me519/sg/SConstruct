@@ -1,0 +1,20 @@
+import sys
+
+Default('.')
+
+
+# figure out the libraries we need to link with GLUT
+if sys.platform == 'cygwin':
+    GLUT_LIBS = ['glut32', 'opengl32', 'glu32']
+else:  # otherwise, assume UNIX
+    GLUT_LIBS = ['glut', 'GLU', 'GL']
+
+env = Environment()
+
+Export('env')
+SConscript('glui_v2_1_beta/SConscript')
+
+env2 = env.Copy(CPPPATH = 'glui_v2_1_beta',
+                LIBPATH = 'glui_v2_1_beta',
+                LIBS = ['glui'] + GLUT_LIBS)
+env2.Program(target = 'sg', source = 'sg.cpp')
