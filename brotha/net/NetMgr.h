@@ -34,7 +34,7 @@ namespace net {
        *
        * @return  the ID for the created connection
        */
-      int handleSocket(Socket *socket) {
+      ConnID handleSocket(Socket *socket) {
          return 0;
       }
 
@@ -44,7 +44,7 @@ namespace net {
        * @param msg     the message to send over the wire
        * @param dest    the destination connection ID
        */
-      void send(Message *msg, int dest) {
+      void send(Message *msg, ConnID dest) {
          /// @todo fill me
       }
 
