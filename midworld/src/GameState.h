@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-03 05:46:09 $
- * Version:       $Revision: 1.65 $
+ * Date modified: $Date: 2002-11-03 06:06:15 $
+ * Version:       $Revision: 1.66 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -205,6 +205,7 @@ namespace mw
       }
       bool aimTrue()
       {
+         return true;
       }
    private:
    };
