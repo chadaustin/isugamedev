@@ -4,7 +4,7 @@ SRCS2 = testregexx.cpp
 
 PROJECT_NAME = regexx
 USE_DEBUG=N
-MK_DIR = ../mk
+MK_DIR = mk
 include $(MK_DIR)/mk.hosttype
 include $(MK_DIR)/mk.platform
 include $(MK_DIR)/mk.objs
