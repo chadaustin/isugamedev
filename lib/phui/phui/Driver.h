@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Driver.h,v $
- * Date modified: $Date: 2005-01-25 01:41:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2005-01-25 17:28:50 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -42,7 +42,7 @@ namespace phui
 {
    /**
     * The interface that all drivers must adhere to.  This defines
-    * a bridge that connects the low level input handling/drawing 
+    * a bridge that connects the low level input handling/drawing
     * library to phui.
     * @note    Drivers should be written to operate in two modes:
     *          standalone and module.  In standalone mode, the driver
