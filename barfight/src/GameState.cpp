@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2003-02-21 09:11:27 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-21 09:43:33 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** barfight-cpr-end */
@@ -44,16 +44,26 @@
 namespace bar
 {
    GameState::GameState()
-      : mIgnoreMouseMove(true)
+      : mDrunkAmount(0.0f)
+      , mIgnoreMouseMove(true)
       , mFPS(0.0f)
       , mNumFrames(0)
       , mFrameTime(0.0f)
    {
-      mAvatar = siren::Avatar::create("John");
+      mPlayer = siren::Avatar::create("John");
 //      mAvatar->setDrawMode(siren::Avatar::DrawSkeleton);
 //      mAvatar->triggerAnimationCycle("RUN");
 //      mAvatar->triggerAnimationCycle("DANCE");
-      mAvatar->setWCS(gmtl::EulerAngleXYZf(gmtl::Math::deg2Rad(-90.0f),0,0));
+      mPlayer->setWCS(gmtl::EulerAngleXYZf(gmtl::Math::deg2Rad(-90.0f),0,0));
+      mPlayer->setRot(gmtl::makeRot<gmtl::Quatf>(gmtl::AxisAnglef(180.0f, 0,1,0)));
+
+      for (int i=0; i<4; ++i)
+      {
+         siren::Avatar* av = siren::Avatar::create("John");
+         av->setWCS(gmtl::EulerAngleXYZf(gmtl::Math::deg2Rad(-90.0f),0,0));
+         av->setPos(gmtl::Point3f(4.0f*i, 0, -10));
+         mNPCs.push_back(av);
+      }
 
       mAnim = 0;
       mAnims.push_back("WALK");
@@ -64,6 +74,7 @@ namespace bar
       mAnims.push_back("SIT");
       mAnims.push_back("WORK1");
       mAnims.push_back("WORK2");
+
 
       // Create the texture to hold the motion blur
       mBlurTexture = new siren::Texture(512, 512, 3, GL_RGB);
@@ -128,7 +139,12 @@ namespace bar
    GameState::update(float dt)
    {
       // Update the avatar
-      mAvatar->update(dt);
+      mPlayer->update(dt);
+
+      for (size_t i=0; i<mNPCs.size(); ++i)
+      {
+         mNPCs[i]->update(dt);
+      }
 
       // Calculate the FPS
       ++mNumFrames;
@@ -151,11 +167,27 @@ namespace bar
          {
             quit();
          }
-         if (sym == SDLK_SPACE)
+         else if (sym == SDLK_SPACE)
          {
-            mAvatar->stopAnimation(mAnims[mAnim]);
+            mPlayer->stopAnimation(mAnims[mAnim]);
             mAnim = (mAnim + 1) % mAnims.size();
-            mAvatar->triggerAnimationCycle(mAnims[mAnim]);
+            mPlayer->triggerAnimationCycle(mAnims[mAnim]);
+         }
+         else if (sym == SDLK_LCTRL)
+         {
+            mDrunkAmount += 0.05f;
+            if (mDrunkAmount > 1.0f)
+            {
+               mDrunkAmount = 1.0f;
+            }
+         }
+         else if (sym == SDLK_LALT)
+         {
+            mDrunkAmount -= 0.05f;
+            if (mDrunkAmount < 0.0f)
+            {
+               mDrunkAmount = 0.0f;
+            }
          }
       }
    }
@@ -191,7 +223,9 @@ namespace bar
          glEnable(GL_BLEND);
 
          // Decrease alpha value of the blend by 10% so that it will fade
-         glColor4f(1, 1, 1, 0.90f);
+//         float decay = mDrunkAmount;
+         float decay = 0.95f;
+         glColor4f(1, 1, 1, decay);
 
          // Switch to an orthograhic view
          glMatrixMode(GL_PROJECTION);
@@ -228,7 +262,12 @@ namespace bar
       glPushMatrix();
          // Draw the avatar
          glTranslatef(0, -5.0f, -5.0f);
-         mAvatar->render();
+         mPlayer->render();
+
+         for (size_t i=0; i<mNPCs.size(); ++i)
+         {
+            mNPCs[i]->render();
+         }
       glPopMatrix();
    }
 }

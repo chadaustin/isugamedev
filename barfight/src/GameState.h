@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2003-02-21 09:11:29 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-21 09:43:33 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** barfight-cpr-end */
@@ -62,9 +62,14 @@ namespace bar
       void drawScene() const;
 
    private:
-      siren::Avatar* mAvatar;
+      siren::Avatar* mPlayer;
+      std::vector<siren::Avatar*> mNPCs;
+
       unsigned int mAnim;
       std::vector<std::string> mAnims;
+
+      /// Percentage of drunkenness. Clamped [0,1].
+      float mDrunkAmount;
 
       /// The texture containg the motion blur affect.
       siren::Texture* mBlurTexture;
