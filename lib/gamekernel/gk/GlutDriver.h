@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-02-08 06:03:49 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-09 21:16:28 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,6 +37,7 @@
 #include "gk/GameInput.h"
 #include "gk/Mouse.h"
 #include "gk/Keyboard.h"
+#include "gk/Joystick.h"
 #include "gk/ContextData.h"
 
 GK_BEGIN_NAMESPACE
@@ -151,6 +152,7 @@ private:
    static void OnSpecialKeyboardUp( int k, int x, int y );
    static void OnMousePos( int x, int y );
    static void OnMouseClick( int button, int state, int x, int y );
+   static void OnJoystick( unsigned int buttonMask, int x, int y, int z );
    static void postRedisplay();
 
 private:
@@ -193,6 +195,12 @@ private:
     * Our keyboard device.
     */
    DeviceHandle<Keyboard>* mKeyboard;
+
+   /**
+    * Our joystick device. We can't use a DeviceHandle because the Joystick
+    * Device does not have a default constructor.
+    */
+   Joystick* mJoystick;
 
    /**
     * There should only be 1 GLUT driver at any given time, but we don't want

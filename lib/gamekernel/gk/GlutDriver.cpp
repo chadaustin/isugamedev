@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-09 20:11:30 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-02-09 21:16:28 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -43,7 +43,7 @@ GlutDriver* GlutDriver::sDriver = NULL;
 GlutDriver::GlutDriver()
    : mWidth( 320 ), mHeight( 240 ), mCurrentContext( 0 ),
      mMainWin_ContextID( 0 ), mIsStarted( false ), mMouse( NULL ),
-     mKeyboard( NULL ) 
+     mKeyboard( NULL ), mJoystick( NULL )
 {
    // because of glut's callback scheme we need to be able to get a pointer to
    // the current GLUTDriver instance.
@@ -100,6 +100,21 @@ GlutDriver::init()
    mMouse = new DeviceHandle<Mouse>( "Mouse" );
    mKeyboard = new DeviceHandle<Keyboard>( "Keyboard" );
 
+   // check if we've got access to a joystick
+   if ( glutDeviceGet( GLUT_HAS_JOYSTICK ) )
+   {
+      // register glut callback. a poll interval of -1 is used to tell glut that
+      // we want to manually poll the joystick using glutForceJoystickFunc()
+      // from our idle callback.
+      ::glutJoystickFunc( OnJoystick, 100 );
+
+      // add a joystick device
+      int numButtons = glutGet( GLUT_JOYSTICK_BUTTONS );
+      int numAxes = glutGet( GLUT_JOYSTICK_AXES );
+      mJoystick = new Joystick( numButtons, numAxes );
+      GameInput::instance().addDevice( mJoystick, "Joystick" );
+   }
+
    return true;
 }
 
@@ -123,18 +138,26 @@ GlutDriver::shutdown()
 {
    mIsStarted = false;
 
-   // remove our mouse driver
+   // remove our mouse device
    if ( mMouse != NULL )
    {
       delete mMouse;
       mMouse = NULL;
    }
 
-   // remove our keyboard driver
+   // remove our keyboard device
    if ( mKeyboard != NULL )
    {
       delete mKeyboard;
       mKeyboard = NULL;
+   }
+
+   // remove our joystick device
+   if ( mJoystick != NULL )
+   {
+      GameInput::instance().removeDevice( "Joystick" );
+      delete mJoystick;
+      mJoystick = NULL;
    }
 
    // glut can be so stupid sometimes ...
@@ -223,6 +246,12 @@ GlutDriver::OnIdle()
       GameKernel::instance().applications()[x]->OnPreFrame();
       GameKernel::instance().applications()[x]->OnIntraFrame();
       GameKernel::instance().applications()[x]->OnPostFrame();
+   }
+
+   // force a poll on the joystick
+   if ( sDriver->mJoystick != NULL )
+   {
+      glutForceJoystickFunc();
    }
 }
 
@@ -433,6 +462,55 @@ GlutDriver::OnMouseClick( int button, int state, int x, int y )
    mouse->button( b ).setBinaryState( binaryState );
    mouse->axis( 0 ).setData( x );
    mouse->axis( 1 ).setData( y );
+}
+
+//------------------------------------------------------------------------------
+
+/**
+ * This is called every time the joystick is polled by glut. Now why the hell
+ * did they suddenly decide to poll the joystick and have everything else event
+ * based?
+ */
+void
+GlutDriver::OnJoystick( unsigned int buttonMask, int x, int y, int z )
+{
+   // check if we actually have a joystick device. this should NEVER happen if
+   // we're in a glut joystick callback, but just in case ...
+   Joystick* joy = sDriver->mJoystick;
+   if ( joy == NULL )
+   {
+      return;
+   }
+
+   // check the buttons
+   int numButtons = joy->numButtons();
+   // glut only supports a max of 32 buttons
+   int maxButtons = ( numButtons > 32 ) ? 32 : numButtons;
+   for ( int i = 0; i < maxButtons; ++i )
+   {
+      // update the state of the current button
+      unsigned long mask = 0x00000001 << i;
+      joy->button( i ).setBinaryState(
+            ( buttonMask & mask ) ?
+               DigitalInput::ON :
+               DigitalInput::OFF
+      );
+   }
+
+   // check the axes
+   int numAxes = joy->numAxes();
+   if ( numAxes > 0 )
+   {
+      joy->axis( 0 ).setData( x );
+   }
+   if ( numAxes > 1 )
+   {
+      joy->axis( 1 ).setData( y );
+   }
+   if ( numAxes > 2 )
+   {
+      joy->axis( 2 ).setData( z );
+   }
 }
 
 //------------------------------------------------------------------------------
