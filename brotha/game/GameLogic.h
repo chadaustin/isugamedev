@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-05-01 23:01:54 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-02 00:35:11 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -104,7 +104,15 @@ namespace game
 
      void outputList();
 
+     /**
+      * Updates the xml stats for update
+      */
      void updateStats();
+
+     /**
+      * Gets the stats from data and loads them in for the player
+      */
+     void getStats(Player* player);
 
    private:
       //vector for players in the game.

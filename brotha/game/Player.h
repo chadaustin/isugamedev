@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-01 23:01:54 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-05-02 00:35:11 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -100,6 +100,27 @@ namespace game {
        */
       int getCoins() const{
          return mCoins;
+      }
+
+      /**
+       * Sets the players health
+       */
+      void setHealth(int health) {
+         mHealth = health;
+      }
+
+      /**
+       * Sets the players health
+       */
+      void setKills(int kills) {
+         mKills = kills;
+      }
+
+      /**
+       * Sets the players health
+       */
+      void setCoins(int coins){
+         mCoins = coins;
       }
 
       /**

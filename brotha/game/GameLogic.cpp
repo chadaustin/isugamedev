@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-01 23:01:54 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-05-02 00:35:11 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,6 +44,7 @@
 #include <algorithm>
 #include <gmtl/VecOps.h>
 #include <sstream>
+//#include <istringstream>
 
 namespace game
 {
@@ -65,9 +66,7 @@ namespace game
       }
 
       GameLogic::updateStats();
-
-         /// @todo collision detection
-         /// @todo update player attributes (health, kills, etc)  
+      /// @todo collision detection  
    }
 
    void GameLogic::updateStats(){
@@ -76,7 +75,7 @@ namespace game
       data::Gang* dGang;
       std::ostringstream out;
       Player* currPlayer;
-      PlayerListItr Itr;
+
       mGang = dBroth->getGangList();
 
       for (unsigned int i=0; i < mGang.size(); i++){
@@ -155,6 +154,27 @@ namespace game
    void GameLogic::outputList() {
       for (unsigned int i=0; i < mPlayer.size(); i++){
          std::cout << mPlayer[i]->getName() << std::endl;
+      }
+   }
+
+   void GameLogic::getStats(Player* player) {
+      data::BrothaData* dBroth;
+      data::Player* dPlayer;
+      int coins, kills, health;
+      
+      if (dBroth->getPlayer(player->getName()) != NULL){
+         dPlayer = dBroth->getPlayer(player->getName());
+      
+         std::istringstream iss1 (dPlayer->getStat("Coins"), std::istringstream::in);
+         std::istringstream iss2 (dPlayer->getStat("Kills"), std::istringstream::in);
+         std::istringstream iss3 (dPlayer->getStat("Health"), std::istringstream::in);
+         
+         iss1 >> coins;
+         iss2 >> kills;
+         iss3 >> health;
+         player->setCoins(coins);
+         player->setKills(kills);
+         player->setHealth(health);
       }
    }
 }
