@@ -1,0 +1,445 @@
+FINAL FANTASY CHESS VERSION 0.999b
+
+as written by Andy Juell for distribution to a site totally different
+than the one it probably ended up on, so no offense intended in case
+someone manages to pull something offensive out of this.
+
+"Look out worlds!"
+
+Yes, here it is, Final Fantasy Chess!
+
+Please excuse the toned down non-chess lingo.  I'm distributing
+this to a few people who aren't chess maniacs too.  I know you
+know what a rank is and what a file is, but I can't count on
+everyone doing that and didn't feel like rewriting it.
+
+Here's the basic opening setup.
+                
+                            Normal              Promoted           
+
+ -------------------------  Ki=King		Em=Emperor
+ |BC|DN|BM|AS|Ki|RM|Dr|Ch|  AS=AirShip          WS=WarShip
+ |-----------------------|  WC=White Chocobo	MC=Magic Chocobo
+ |Dw|Dw|Dw|Dw|Dw|Dw|Dw|Dw|  Ch=Chocobo          CB=ChocoBot
+ |-----------------------|  BC=Black Chocobo	BT=Black Talon
+ |XX|  |XX|  |XX|  |XX|  |  WM=White Mage	WW=White Wizard
+ |-----------------------|  RM=Red Mage		RW=Red Wizard
+ |  |XX|  |XX|  |XX|  |XX|  BM=Black Mage	BW=Black Wizard
+ |-----------------------|  Pa=Paladin		TP=True Paladin
+ |XX|  |XX|  |XX|  |XX|  |  Dr=Dragoon		DM=Dragon Master
+ |-----------------------|  DN=Dark kNight	BN=Black kNight
+ |  |XX|  |XX|  |XX|  |XX|  Dw=Dwarf
+ |-----------------------|  Sy=Sylph  
+ |Dw|Dw|Dw|Dw|Dw|Dw|Dw|Dw|  Mo=Moogle		
+ |-----------------------|  			DT=Dwarvish Tank
+ |Ch|Dr|RM|Ki|AS|WM|Pa|WC|                      Ca=Caller
+ -------------------------  			MN=Magitek kNight
+
+The basic idea of chess-like moves are the same, so I'll just point
+out so I won't need to retype it later that each side gets to move
+one piece each turn, etc.  Some special abilities don't require a move
+to be made to be used, such as protection.  The one significant difference
+between the setup for regular chess and FF-chess is that the Kings
+are both on white squares and the square in the lower-right corner
+from each player's perspective should be black (yes this is actually
+important this time around...:>) Plus, make sure you keep track
+of pieces you have captured (don't throw them back in the box with
+the spares). You may need them. 
+
+Given the flavors of soldiers available, en passant is an irrelevant 
+question, and castling, I'll tell you now, is flat out.  The pieces
+are QUITE spiffy enough on their own without the King having early
+access to a colored Chocobo.  Some new concepts will need to be
+explicitly defined though.
+
+First, there is "carrying."  Unless an explicit exception is made,
+"carriers" may not be used until a friendly character moves onto them,
+thus mounting or boarding them.  After this is done, subsequent moves
+are made only by the carrier piece until the rider decides to dismount
+rather than move the carrier, making it's normal move to do so.  No special
+moves from on a carrier until after a normal move has been used to dismount.
+If an enemy captures a carrier piece that is being ridden, both pieces in
+that square are removed from play: the carrier AND the rider.  
+If an enemy piece uses a normal move to capture a currently-unused
+carrier piece, that piece may either be removed from play or be converted
+to the capturer's side, at the capturer's option.
+
+Then there is the "slay from distance" special attack.  Using this ability,
+a piece may remove an enemy piece from play without actually moving to
+occupy its square.  This renders the idea of defense in need of revision
+at best, to useless at worst.
+
+Then there is the ever-popular "protection".  Using this ability, a piece
+my render a piece in its zone of protection immune to capture.  Yes, 
+completely immune.  Well, almost.  Only an explicitly protection-piercing
+attack can actually capture a piece, but a king is not removed from check
+by protection.  Note that protection is INHERENT, it does not require 
+activation, (counting as a move) as would slay-from-a-distance.
+Heck, guess I didn't say that loud enough.
+
+IMPORTANT REMINDER:  The use of a special ability only counts as a move if
+it moves a piece, causes a piece to change loyalties, or removes a piece 
+from play.  Thus, immunities and protection, etc. DO NOT REQUIRE A PLAYER 
+TO USE HIS MOVE TO TAKE ADVANTAGE OF THEM.  Sorry for those of you who
+already knew that, but not everyone is so intelligent, or so a few of my
+earlier playtesters would have me believe. :)
+
+Otherwise, read over the piece definitions, and get ready to play!
+
+King:
+  Normal:  moves and captures like a normal-chess king
+  Special: may convert any enemy piece a king's move away from it
+	     to his side.
+
+Airship:
+  Carrier: moves and captures like a normal-chess queen.  Unless
+            it just made a capture, was just boarded, or just had
+            a rider disembark on the previous turn, it is inherently
+            immune to capture by normal moves (though special moves
+            take it out just fine).  Unlike other carriers, Airships
+	    may carry more than one additional piece, though how
+	    this would be represented is beyond me. 
+  Special: may jump over any number of intervening pieces in a move,
+            but if it does so, may only land on a white square and
+            may not capture in same move.  
+
+White Chocobo:
+  Carrier:  moves and captures like a normal-chess Rook
+  Special:  riders may use special moves while riding 
+
+Chocobo (yellow):
+  Carrier:  moves and captures like a normal-chess Rook
+  Special:  may move(but not capture) as a normal-chess Rook without rider
+
+Black Chocobo:
+  Carrier:  moves and captures like a normal-chess Rook
+  Special:  may jump over any number of intervening pieces in a move,
+	     but if it does so, may only land on a black square and
+	     may not capture in same move.
+
+White Mage:
+  Normal:  moves and captures like a normal-chess Bishop
+  Special: protects all friendly pieces a Bishop-move from it.
+
+Red Mage:
+  Normal:  moves and captures like a normal-chess Bishop, may move
+            or capture 2x1 non-jumping (like non-jumping knight)
+  Special: protects all friendly and may slay from distance any enemy
+	    piece exactly two squares diagonally from it.
+
+Black Mage:
+  Normal:  moves and captures like a normal-chess Bishop
+  Special: may "slay from distance" any enemy piece a Bishop-move from it.
+
+
+Paladin:
+  Normal:  moves and captures like a normal-chess Knight
+  Special: protects all friendly pieces a King-move from it.
+
+Dragoon:
+  Normal:  moves and captures like a normal chess Knight
+  Special: may capture in a 3x1 jumping L (a normal knight move is a 2x1
+             jumping L) but may not make this move without capturing
+
+Dark Knight:
+  Normal:  moves and captures like a normal-chess Knight
+  Special: may slay from distance any enemy piece a King-move from it.
+
+Dwarf:
+  Moves as a normal chess pawn, except that it has no double starting
+  move, and a piece directly in front of a Dwarf may not use its special
+  abilities. Upon reaching the final row, it promotes to the piece that
+  began in the space it promotes in.  For example if Light's White Mage's
+  Dwarf advances straight  ahead to the square opposite it, it becomes a 
+  Red Mage upon promotion.  But what happens when you promote on the enemy
+  King's home square you ask?  You may choose to promote to any of the 
+  other pieces (other than another King, Dwarf, Sylph or Moogle) OR any 
+  of the three special pieces:  the Dwarvish Tank, the Caller, and
+  the Magitek Knight (yes I know they're from FF3 and everyone else
+  is from FF2 but I couldn't resist)  
+
+Dwarvish Tank:
+  Carrier:  moves but does not capture as a normal-chess Rook.   
+		is inherently immune to capture by normal moves 
+		(special moves still quite effective).
+  Special:  may attack-from distance any enemy piece in the same row 
+                or column if there is EXACTLY one intervening piece,
+                be it enemy or friendly.  This attack is protection-
+		piercing.  
+
+Caller:
+  Normal:  moves and captures like a normal-chess Bishop
+  Special: May assume the abilities of one captured enemy piece until
+		the next time a friendly piece is captured. The	"called"
+		piece will be placed in a prominent place apart from other
+ 		captured pieces. The next time a piece from the same side
+		as the caller is captured by any means, or as soon as the 
+		Caller wants to use the abilities of a different piece, 
+		the captured enemy piece is handed back to its original 
+		owner and may not be re-used.  Note that the act of
+		changing abilities is instantaneous and can be used
+		at any time without counting as a move.
+
+Magitek Knight:
+  Normal:  moves and captures like a normal-chess Knight
+  Special: no piece, enemy or friendly, a King-move from the Magitek
+ 		knight can use any of its special abilities, nor be the
+ 		object of another piece's special ability.
+
+ADVANCED RULES
+
+The players decide before the game begins on the number of Dwarves, 
+Sylphs, and Moogles each side is given.  Sylphs are mobile than 
+Dwarves, but make it more difficult to defend and capture. 
+Moogles are more mobile AND defensive than either of the above, but
+their special ability is rather different to partially compensate. 
+Once this has been decided, they are placed on the squares normally 
+occupied by dwarves in any way the controlling player chooses.
+
+(Note that unequal sides don't necessarily mean one player is giving
+another a handicap, because the sides are slightly imbalanced to begin
+with...)
+
+Dwarves move and capture like normal-chess pawns and promote normally
+using the rules below.  They may also prevent an enemy piece directly
+in front of them from using its special abilities.
+
+Sylphs are like Dwarves, except they move diagonally-forward and 
+capture forward, rather than the other way around.  They may also 
+prevent an enemy piece diagonally-forward from them from using its 
+special abilities. They promote in the same way as Dwarves.
+
+Moogles may move or capture either diagonally-forward or forward, 
+giving them the normal powers of both Dwarves and Sylphs.  In 
+addition, they may never be the object of a special ability, enemy
+or friendly.  They also promote in the same way as Dwarves. 
+
+Promotion now has an added twist to it, though.  There are three
+basic ways you can choose to promote:  First, and most (relatively)
+simply, You may choose to promote via the normal rules.  If you still
+have your piece that started in that column you may sacrifice the Dwarf
+to promote your piece to a new level.  (If you are playing Light and
+still have your White Mage, the pawn in the example above could either
+become a Red Mage, or sacrifice itself to promote the White Mage to a
+White Wizard.)  This means, you guessed it, MORE new pieces.  Be warned:
+some of these pieces are a little TOO powerful.  DON'T LET YOUR OPPONENT
+GET AWAY WITH THIS! :)  To mark that a piece has been promoted, put a
+checker under it (if this isn't already what you're doing to be able to
+tell them apart in the first place! :>).  Lastly, if you have already
+removed the enemy piece starting in the square you are promoting in
+from play, but no longer have your own piece which started in the same 
+column, you may opt to give the enemy back his piece (starting in the
+same square it began, the Dwarf is removed) in exchange for a special
+piece which may be placed anywhere on the friendly back rank.  If the
+promotion took place on a chocobo's square, this piece is a Dwarven
+Tank, if a Mage's square, this piece is a Caller, if a Knight's
+square, this piece is a Magitek Knight, and if the Airship's square,
+you may pick any of the three desired.
+
+Upon promotion, Kings become Emperors and extend the range of their
+special conversion ability to include both King's-move-adjacent and 
+Knight's-move-adjacent squares.  Do NOT go near this guy. 
+
+Airships become Warships and get cannons.  BIG cannons.  In addition 
+to their original abilities, they may capture-from-a-distance any piece
+in the same row, column, or diagonal as long as there is exactly one 
+intervening piece, be it enemy or friendly.  This attack is protection-
+piercing.  (A piece of advice to the side who watches his opponent
+promote to this: try to die honorably, OK?).  Also, this attack-from
+a distance does not count as a capture for the purpose of the pieces'
+natural immunity to normal attack.
+
+White Chocobos become Magic Chocobos, which in addition to their original
+abilities, may move but not capture as a normal-chess knight while ridden
+(normal).  They may never be the object of an enemy's special move, and 
+have a similar protective effect upon their rider (*normal*). This 
+includes immunity to the effects of enemy (but not friendly) Magitek
+Knights
+
+Chocobos become Chocobots.  In addition to their original abilities,
+they may move but not capture as normal-chess knights either while
+ridden (normal) or by themselves (special).  When being mounted, they
+may move onto their rider's square rather than the other way around. 
+(special)
+
+Black Chocobos become Black Talons.  In addition to their original 
+abilities, while ridden they may move (normal) or capture (special) as
+a normal-chess knight, or they may slay-from-a-distance a piece one
+square away from it diagonally (special).  They may also capture in the
+same move as they leap over interposing pieces (special), though they
+must still land on a black square. 
+
+White Mages become White Wizards.  In addition to their original normal
+move, they may move, but not capture, one square horizontally or 
+vertically.  The range of their special ability has been expanded so 
+that they now protect all friendly pieces a Queen's move away.  IN 
+ADDITION, they get a new special ability:  Any enemy piece which could
+use a normal move to capture a friendly piece exactly two squares 
+diagonally from the White Wizard on its next move may be slain from 
+a distance by the White Wizard. 
+
+Red Mages become Red Wizards.  They may move as normal-chess Bishops
+or Knights, and may move but not capture one square horizontally or 
+vertically.  The range of their special abilities have been expanded
+so that they now protect all friendly or slay from a distance any enemy
+piece a Bishop's move away.
+
+Black Mages become Black Wizards.  In addition to their original normal 
+move, they may move, but not capture, one square horizontally or vertically. 
+The range of their special ability has been expanded so that they may now 
+slay from a distance any piece a Queen's-move away.  In addition, they get
+a new special ability:  Any friendly piece exactly two squares diagonally 
+from the Black Wizard may pierce protection with its own normal capture.
+
+Paladins become True Paladins, in addition to their original moves, gain the
+special ability of sacrifical defense.  Any time a friendly piece is captured,
+the True Paladin has the option to sacrifice itself, removing both itself and 
+the capturing piece from play, while allowing the "captured" piece to remain in 
+play. This is a valid defense from check (the king is not  required to move out
+of check while there is a friendly promoted Paladin in play). 
+
+Dragoons become Dragon Knights and may move or capture as a normal-chess 
+knight (2x1 jumping L) or may move not capture in a 3x1 jumping L for a normal
+move.  For their special move, they have a protection-piercing 3x1 jumping 
+L capture.
+
+Dark Knights become Black Knights, and in addition to their original moves, 
+gain the special ability of sacrifical attack. They may capture-from-a-distance
+ANY piece they choose, but remove themselves from play at the same time.  
+This is a valid attack against even an unprotected King (if there is no True
+Paladin), and places him in check, mate if it is not possible to protect him.
+
+THE REALLY ANNOYING OPTIONAL RULES (for those of you who would actually miss
+					the touch-a-piece-move-a-piece rule
+					from regular chess and would probably
+					rather be playing "UNO" anyway) 
+
+A black mage who doesn't notice that a piece is protected by a white mage
+and attempts to capture from a distance is removed from play (Wall spell :> )
+and loses his turn.
+
+A dark knight who doesn't notice that a piece is protected by a paladin
+(rather less likely) and attempts to capture from a distance is removed
+from play and loses his turn. 
+
+Any piece which doesn't notice that a piece is protected and attempts
+to capture does not succeed (obviously) and loses his turn (appropriately)
+
+A King which moves itself into check without noticing either LOSES THE GAME
+(if the players agree to this before the game anyway) or has to take
+back the move and lose his turn.
+
+A player who checks the opponent's King without noticing it forfeits his 
+chance to "capture" the King that move, allowing the King to wait to move 
+out of check.
+
+If a piece uses a special ability when another piece would prevent it
+from doing so and is not caught gets away with it (the ability which
+allows the enemy to prevent it requires concentration and discipline,
+after all. :>)
+
+Otherwise, for those who are particuarly peeved by Dwarvish Tanks and are 
+otherwise playing by the basic rules, agree they may only be driven by 
+Dwarves. :> 
+
+
+And that's all he feels like writing (for now)!
+
+
+SECTION FOR ADDENDA/CLARIFICATIONS AND OTHER MISCELLANY
+
+This is a wierd one, but the question WAS asked, and may actually turn out
+to be important.  Protection is NOT mandatory.  If the controlling player
+chooses, the opposing player may capture a protected piece.  This is also
+true of Dwarves' and Sylphs' option to prevent pieces in positions they
+can move but not capture to from using their special abilities.  Affected
+pieces may use their special abilities IF allowed by the player controlling
+the Dwarf/Sylph.  HOWEVER Magitek Knights may NOT turn off their ability to
+stop adjacent pieces from using/being the object of special abilities, as 
+this would allow friendly pieces an unfair advantage.
+
+no, carrying is NOT a special ability...
+
+note from the descriptions that Airships'/Dwarven Tanks' immunity to 
+normal attacks is also NOT a special ability
+
+Yeesh, people...talk about a FAQ.  ANYTHING THAT IS LISTED UNDER 
+"SPECIAL:" OR I SPECIFICALLY SAY IS SPECIAL IS A SPECIAL ABILITY AND 
+NOTHING ELSE IS, OK?  
+
+OK.
+
+yes the King's special move converts carriers and their riders in one
+fell swoop (including DTs)
+
+yes protection makes you immune to attack-from-distance unless specified
+otherwise (yes I know I already told you that but someone asked)
+
+the inevitable question:  what if two Magitek Knights are a King's move 
+adjacent? They both behave exactly as normal chess Knights, and all pieces 
+a King's move adjacent to either of them (other than each other) are allowed 
+to both use and be the objects of special moves
+ 
+Even worse, what if two Magitek Knights are a King's move apart, and one
+is riding a Magic Chocobo?  Smart question, but the answer is exactly
+as the rules (technically) state.  The M. Knight on the M. Chocobo is
+unaffected by the other's field, but the other's field is nullified
+by that of the Chocobo-riding one.  Thus, all other pieces a king's
+move from the chocobo-riding Knight may not use special abilities, while
+those adjacent to the one on foot but not adjacent to the mounted one
+have full abilities.
+
+Note that if a Black Wizard is two spaces diagonally from a Black Knight, and 
+Light cannot capture either and has no True Paladin, the game is over, Dark wins.
+
+OK, if you've captured an enemy Caller and have a Caller yourself, you *could*
+call the caller, but it wouldn't do you any good, really, now would it?
+
+I've received a request for promotions to Chocobots...I suppose that could
+work.  Let me think...(guess it did, rev. 0.98, but may need reversal)
+
+Notation suggestions...?  
+It has been noted that the variety of pieces makes it desirable to
+note in the game log exactly what piece was moved, for example
+
+Light		Dark
+1.Dw(e2-e4)     1.Dw(e7-e5)
+
+etc. Some symbols have been suggested for the new move types, and are
+included here along with the old.
+
+a1-b2   move
+a1xb2   capture
+a1/b2   slay-from-distance
+a1Ob2   king's conversion move
+a1-b2+  check delivered by move
+a1-b2++ mate delivered by move
+a1 :)   piece tried to make illegal move, lost turn (see optional rules)
+a1 ;>   piece tried to make illegal move, was destroyed, lost turn
+
+For those unfortunate among you who have never played Final Fantasy games:
+  Aside from a STRONG recommendation to try them (esp. FF2 and FF3)
+  all I can offer is to point out that Chocobos are vaguely
+  ostrich-like birds used for transportation, that Dragoons are 
+  just knights with a special jump attack, and anything else confusing
+  probably has a logical reason for it in the FF series.  Otherwise...
+
+email any more questions, comments, or suggestions to 
+trekman@imsa.edu or ajuell@athena.valpo.edu, as they are
+both actually the same person, though he is no longer
+quite the Trek afficionado he once was (hence the name
+change upon arrival at his new school)
+
+The author makes no claim upon any of the characters mentioned in 
+this document, only the rules.  Quite a bit of stuff in here is
+actually related to Squaresoft's Final Fantasy series, and this
+may be, but is not necessarily, a total coincidence brought
+about by the Heisenberg Uncertaintly Principle dumping the
+contents of a top-secret directory on www.ad-spin.jp to my 
+hard drive.  Probably not, actually.  
+
+The author is not responsible for any brain damage
+incurred by attempting to actually understand these
+rules.  Wait, you mean you already READ them?  Oops...
+
+Kupo!
