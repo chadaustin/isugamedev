@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-03 08:06:55 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-05-03 09:52:06 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -94,14 +94,25 @@ namespace data {
          mCars.push_back(c);
       }
 
-	  void removeCar(std::string name){
-		  for(unsigned int i = 0; i < mCars.size(); i++){
-			  Car* c = mCars[i];
-			  if(name == c->getName()){
-				  mCars.erase(mCars.begin() + i);
-			  }
-		  }
-	  }
+      void removeCar(std::string name){
+         for(unsigned int i = 0; i < mCars.size(); i++){
+            Car* c = mCars[i];
+            if(name == c->getName()){
+               mCars.erase(mCars.begin() + i);
+            }
+         }
+      }
+
+      Car* getCar(std::string name) {
+         for(unsigned int x=0;x<mCars.size();++x) {
+            Car* c = mCars[x];
+            if(name == c->getName()) {
+               return c;
+            }
+         }
+
+         return NULL;
+      }
 
       /// Adds the given stat to this player's list of stats.
       void addStat(Stat* s) {

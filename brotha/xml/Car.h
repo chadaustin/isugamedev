@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-05-03 07:11:03 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-03 09:52:06 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -59,18 +59,9 @@ namespace data {
       /// Creates a new car with the given name.
       Car(const std::string& name) {
          mName = name;
-		 mPic = std::string("");
-		 mThumbPic = std::string("");
+         mPic = std::string("");
+         mThumbPic = std::string("");
       }
-
-	  void removeMod(std::string name){
-		  for(unsigned int i = 0; i < mMods.size(); i++){
-			  Mod* c = mMods[i];
-			  if(name == c->getName()){
-				  mMods.erase(mMods.begin() + i);
-			  }
-		  }
-	  }
 
       /// Gets the name of this car.
       const std::string& getName() const {
@@ -85,6 +76,26 @@ namespace data {
       /// Adds the given mod to this car.
       void addMod(Mod* m) {
          mMods.push_back(m);
+      }
+
+      void removeMod(std::string name){
+	      for(unsigned int i = 0; i < mMods.size(); i++){
+		      Mod* c = mMods[i];
+		      if(name == c->getName()){
+			      mMods.erase(mMods.begin() + i);
+		      }
+	      }
+      }
+
+      Mod* getMod(std::string name) {
+         for(unsigned int x=0;x<mMods.size();++x) {
+            Mod* c = mMods[x];
+            if(name == c->getName()) {
+               return c;
+            }
+         }
+
+         return NULL;
       }
 
       void xMLify(std::ostream& out) {
