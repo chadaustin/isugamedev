@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-04-22 05:10:31 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-04-22 06:15:25 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -139,7 +139,8 @@ int main( int argc, char** argv )
       window->setVisible(true);
       window->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
 
-      phui::Button* btn( new phui::Button("Push me!") );
+      phui::Button* btn( new phui::Button(
+                            "This is a really long string Push me!") );
       btn->setPosition( 10, 10 );
       btn->setSize( 75, 30 );
       btn->setVisible( true );

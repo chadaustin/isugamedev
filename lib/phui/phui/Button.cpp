@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-22 05:28:52 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-22 06:15:26 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,19 +42,20 @@
 namespace phui {
 
    Button::Button()
-      : mText(""), mButtonDown(false)
+      : mText("")
+      , mButtonDown(false)
    {}
 
    Button::Button(const std::string& text)
-      : mText(text), mButtonDown(false)
-   {}
-
-   Button::~Button()
+      : mText(text)
+      , mButtonDown(false)
    {
    }
 
-   void Button::draw()
-   {
+   Button::~Button() {
+   }
+
+   void Button::draw() {
       int width, height;
       getSize(width, height);
 
@@ -90,40 +91,33 @@ namespace phui {
       renderer.draw(mText, fontX, fontY);
    }
 
-   void Button::setText(const std::string& text)
-   {
+   void Button::setText(const std::string& text) {
       mText = text;
    }
 
-   const std::string& Button::getText() const
-   {
+   const std::string& Button::getText() const {
       return mText;
    }
 
-   void Button::onMouseDown(InputButton button, const Point& p)
-   {
+   void Button::onMouseDown(InputButton button, const Point& p) {
       std::cout << "Button::onMouseDown " << p << std::endl;
       /// @todo capture the mouse so we can receive the MouseUp event even if
       //        the mouse is no longer inside the button.
-      if (button == BUTTON_LEFT)
-      {
+      if (button == BUTTON_LEFT) {
          std::cout<<"\tLMB"<<std::endl;
          mButtonDown = true;
       }
    }
 
-   void Button::onMouseUp(InputButton button, const Point& p)
-   {
+   void Button::onMouseUp(InputButton button, const Point& p) {
       std::cout << "Button::onMouseUp " << p << std::endl;
-      if (button == BUTTON_LEFT)
-      {
+      if (button == BUTTON_LEFT) {
          std::cout<<"\tLMB"<<std::endl;
          mButtonDown = false;
 
-         // Only fire button pressed event if the mouse was released inside
-         // this button.
-         if (contains(p))
-         {
+         // Only fire button pressed event if the mouse was released
+         // inside this button.
+         if (contains(p)) {
             std::cout<<"FIRE button pressed"<<std::endl;
             /// @todo fire ButtonPressed event
          }

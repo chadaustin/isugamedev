@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.cpp,v $
- * Date modified: $Date: 2002-04-22 04:34:36 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-04-22 06:15:26 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -46,6 +46,7 @@ namespace phui {
    }
 
    void RootWidget::draw() {
+
       int width, height;
       getSize(width, height);
 
@@ -60,14 +61,20 @@ namespace phui {
       glPushMatrix();
       glLoadIdentity();
 
+      /// @todo  replace these all with the attrib stack
+      ///        who are we to specify what the client state should be?
+
       // disable depth testing since all draws occur at the same level
-      glDisable( GL_DEPTH_TEST );
+      glDisable(GL_DEPTH_TEST);
+      // we need to clip widgets
+      glEnable(GL_SCISSOR_TEST);
 
       // draw children
       WidgetContainer::draw();
 
       // re-enable depth testing
-      glEnable( GL_DEPTH_TEST );
+      glEnable(GL_DEPTH_TEST);
+      glDisable(GL_SCISSOR_TEST);
 
       glMatrixMode(GL_MODELVIEW);
       glPopMatrix(); // modelview
