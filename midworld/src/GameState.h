@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-05 22:35:43 $
- * Version:       $Revision: 1.69 $
+ * Date modified: $Date: 2002-11-11 07:22:17 $
+ * Version:       $Revision: 1.70 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -209,6 +209,9 @@ namespace mw
 
       /// The heads up display used to give the user feedback about the world.
       HUD mHUD;
+
+      // This is the skydome texture
+      Texture* mSkydomeTex;
 
       // Actions
       InputManager mInputManager;

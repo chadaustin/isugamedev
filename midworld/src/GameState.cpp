@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-11 05:24:17 $
- * Version:       $Revision: 1.115 $
+ * Date modified: $Date: 2002-11-11 07:22:16 $
+ * Version:       $Revision: 1.116 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -60,6 +60,7 @@
 #include "StaticEntity.h"
 #include "Testing.h"
 #include "Turret.h"
+#include "SkyDome.h"
 
 namespace mw
 {
@@ -113,7 +114,10 @@ namespace mw
 
       mCamera.setMaxFollowDistance(50.0f);
       mCamera.setMinFollowDistance(2.0f);
-      
+
+      //THis is the generation of the skydome
+      GenerateDome(200.0f, 5.0f, 5.0f, 1.0f, 1.0f);  
+      mSkydomeTex = new Texture("images/nebula.bmp");
    }
 
    void
@@ -271,6 +275,9 @@ namespace mw
          mCamera.draw();
          mGameScene.draw();
 
+         mSkydomeTex->bind();
+         RenderSkyDome();
+         mSkydomeTex->unbind();
          // Make sure we clean up after OpenSG until they fix their bugs
          glPushAttrib(GL_ENABLE_BIT);
          {
