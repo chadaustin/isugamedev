@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Quat.h,v $
-//    $Date: 2002-01-11 16:13:37 $
-//    $Revision: 1.2 $
+//    $Date: 2002-01-11 16:18:25 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -1082,7 +1082,7 @@ inline void Quat<dataType>::log( const Quat<dataType>& quat )
 
    // avoid divide by 0
    if (quat.vec[QUAT_W] != 0.0)
-      length = kev::ATAN( length / quat.vec[QUAT_W] );
+      length = kev::atan( length / quat.vec[QUAT_W] );
    else 
       length = kev::PI_D / 2.0f;
 

@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.cpp,v $
-//    $Date: 2002-01-11 16:13:37 $
-//    $Revision: 1.2 $
+//    $Date: 2002-01-11 16:18:25 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -78,20 +78,20 @@ void Matrix4f::getEulerXYZ( float& xRot, float& yRot, float& zRot ) const
 {
    float cz;
 
-   zRot = kev::ATAN2(-_m[4], _m[0]);     // -(-cy*sz)/(cy*cz) - cy falls out
-   xRot = kev::ATAN2(-_m[9], _m[10]);     // -(sx*cy)/(cx*cy) - cy falls out
+   zRot = kev::atan2(-_m[4], _m[0]);     // -(-cy*sz)/(cy*cz) - cy falls out
+   xRot = kev::atan2(-_m[9], _m[10]);     // -(sx*cy)/(cx*cy) - cy falls out
    cz   = kev::cos( zRot );
-   yRot = kev::ATAN2(_m[8], _m[0]/cz);   // (sy)/((cy*cz)/cz)
+   yRot = kev::atan2(_m[8], _m[0]/cz);   // (sy)/((cy*cz)/cz)
 }   
 
 void Matrix4f::getEulerZYX(  float& zRot, float& yRot, float& xRot ) const
 {
    float sx;
 
-   zRot = kev::ATAN2( _m[1], _m[0]);      // (cy*sz)/(cy*cz) - cy falls out
-   xRot = kev::ATAN2( _m[6], _m[10]);      // (sx*cy)/(cx*cy) - cy falls out
+   zRot = kev::atan2( _m[1], _m[0]);      // (cy*sz)/(cy*cz) - cy falls out
+   xRot = kev::atan2( _m[6], _m[10]);      // (sx*cy)/(cx*cy) - cy falls out
    sx   = kev::sin( xRot );
-   yRot = kev::ATAN2( -_m[2],(_m[6]/sx) );   // -(-sy)/((sx*cy)/sx)
+   yRot = kev::atan2( -_m[2],(_m[6]/sx) );   // -(-sy)/((sx*cy)/sx)
 }  
 
 void Matrix4f::makeEulerXYZ( const float& xRot, const float& yRot, const float& zRot )
@@ -843,7 +843,7 @@ void Matrix4f::makePerspective( float fovy, float aspect, float zNear, float zFa
    assert( zNear > 0 && zFar > zNear && "invalid near and far values" );
    float right, top;
    float theta = (float)(fovy * 0.5 * TO_RAD_F);
-   float tangentTheta = kev::TAN( theta );
+   float tangentTheta = kev::tan( theta );
 
    // tan(theta) = right / zNear
    // top = tan(theta) * zNear

@@ -10,8 +10,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Defines.h,v $
-//    $Date: 2002-01-11 16:13:37 $
-//    $Revision: 1.2 $
+//    $Date: 2002-01-11 16:18:25 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -32,24 +32,24 @@
 
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CONSTANTS_AND_TYPEDEFS_H__
-#define _CONSTANTS_AND_TYPEDEFS_H__
+#ifndef _CONStanTS_AND_TYPEDEFS_H__
+#define _CONStanTS_AND_TYPEDEFS_H__
 
 #include <string>
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
 
-// Undef MAX and MIN macros if they are already defined since they will cause
+// Undef Max and Min macros if they are already defined since they will cause
 // some nasty compiler errors since they're defined as functions here in the kev
 // namespace. This really only applies to builds against VRJuggler.
-// NOTE: we should really change MAX to Max and MIN to Min
-#ifdef MAX
-#undef MAX
+// NOTE: we should really change Max to Max and Min to Min
+#ifdef Max
+#undef Max
 #endif
 
-#ifdef MIN
-#undef MIN
+#ifdef Min
+#undef Min
 #endif
 
 // Put everything in the kev namespace

@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ColorRGBA.h,v $
-//    $Date: 2002-01-11 16:13:37 $
-//    $Revision: 1.2 $
+//    $Date: 2002-01-11 16:18:25 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -337,8 +337,8 @@
    inline void ColorRGBA::RGB2HSV(const float &r, const float &g, const float &b, float &h, float &s, float &v)
    {
 	   float delta = 0.0f;
-	   float max = kev::MAX(r, g, b);
-	   float min = kev::MIN(r, g, b);
+	   float max = kev::Max(r, g, b);
+	   float min = kev::Min(r, g, b);
 
 	   //get the value...
 	   v = max;
