@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-29 07:46:02 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-29 08:23:46 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,7 +46,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "stat.h"
+#include "Stat.h"
 
 namespace data {
 
@@ -97,8 +97,8 @@ namespace data {
 
       void setStat(std::string in, std::string val) {
          bool exists = false;;
-         for (int i = 0; i < stats.size(); ++i) {
-            dataxml::Stat* s = stats[i];
+         for (unsigned int i = 0; i < stats.size(); ++i) {
+            Stat* s = stats[i];
             if(s->getName() == in) {
                s->setVal(val);
                exists = true;

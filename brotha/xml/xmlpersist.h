@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.h,v $
- * Date modified: $Date: 2002-04-28 16:41:08 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-29 08:23:46 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,13 +46,13 @@
 #include <iostream>
 #include <string>
 #include <xmlpp/xmlpp.h>
-#include "brothadata.h"
+#include "BrothaData.h"
 
 
-namespace dataxml {
-   Bdata b;
+namespace data {
+   BrothaData b;
 
-   Bdata load(std::string filename) {
+   BrothaData load(std::string filename) {
       //fillWithFakeData(&b);
       xmlpp::XMLContextPtr ctx( new xmlpp::XMLContext );
       xmlpp::XMLDocument doc( ctx );
@@ -121,7 +121,7 @@ namespace dataxml {
       return b;
    }
 
-   void fillWithFakeData(Bdata* b) {
+   void fillWithFakeData(BrothaData* b) {
       Gang* g = new Gang("emigia");
       Player* p = new Player("ama","kuriyama");
       Car* c = new Car("tercel");

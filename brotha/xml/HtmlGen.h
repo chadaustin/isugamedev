@@ -143,7 +143,7 @@ namespace reports {
    std::string renderGangList(data::ganglist gl, reports::request schema) {
       std::ostringstream html;
 
-      for (int i = 0; i < gl.size(); i++) {
+      for (unsigned int i = 0; i < gl.size(); i++) {
          data::Gang* g = gl[i];
          if (schema.gang.find(g->getName())!= std::string::npos || schema.gang == "*") {
             if (schema.gangD == 2) {

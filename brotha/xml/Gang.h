@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Gang.h,v $
- * Date modified: $Date: 2002-04-29 07:34:58 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-29 08:23:46 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -80,7 +80,7 @@ namespace data {
       }
  
       Player* getPlayerByName(std::string name) {
-         for(int i = 0; i < players.size(); i++) {
+         for(unsigned int i = 0; i < players.size(); i++) {
             Player* p = players[i];
             if(p->getName() == name) {
                return p;
