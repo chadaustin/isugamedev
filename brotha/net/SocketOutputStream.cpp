@@ -6,8 +6,9 @@
 namespace net {
 
    void SocketOutputStream::write(void* buffer, int size) {
-      while(size != 0) {
-         size -= m_socket->write(buffer, size);
+      int write = 0;
+      while(size != write) {
+         write += m_socket->write((char*)buffer+write, size);
       }
    }
 
