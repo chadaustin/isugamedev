@@ -51,4 +51,4 @@ $ cd src
 $ ./midworld
 
 Please feel free to email comments, questions, suggestions, etc to 
-daren@users.sourceforge.net
+isugamedev-midworld@lists.sourceforge.net
