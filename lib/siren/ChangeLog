@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-02-22 nonchocoboy  Moved the Loki headers into the siren source tree so
+                        that it is easier to distribute.
 2003-02-14 nonchocoboy  Added bindings for Avatar. Added SDL utility bindings
                         for mousewarp and key symbols.
 2003-02-13 nonchocoboy  Initial python bindings for siren using Boost.Python.

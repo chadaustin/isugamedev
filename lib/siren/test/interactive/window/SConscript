@@ -10,7 +10,7 @@ sources = ['main.cpp']
 env = baseEnv.Copy()
 SetupOpenGL(env)
 SetupSDL(env)
-env.Append(CPPPATH = ['#external/Loki', '#src'])
+env.Append(CPPPATH = ['#src'])
 env.Append(LIBPATH = ['#src/siren'],
            LIBS = ['siren'])
 prog = pkg.createProgram('window', env)

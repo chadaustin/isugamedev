@@ -14,7 +14,7 @@ SetupCal3D(env)
 SetupCorona(env)
 SetupOpenGL(env)
 SetupSDL(env)
-env.Append(CPPPATH   = ['#'+pj('external','Loki'), '#src'])
+env.Append(CPPPATH   = ['#src'])
 env.Append(LIBPATH   = ['#'+pj('src', 'siren')],
            LIBS      = ['siren'],
            LINKFLAGS = Split('-Xlinker -export-dynamic'))

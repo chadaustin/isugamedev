@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Types.h,v $
- * Date modified: $Date: 2003-02-22 23:53:34 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-02-23 04:19:55 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -32,8 +32,6 @@
 #define SIREN_TYPES_H
 
 #include <climits>
-#include <Typelist.h>
-#include <TypeManip.h>
 
 //-----------------------------------------------------------------------------
 // Compile-time integer type selection based on bit-size based off code from

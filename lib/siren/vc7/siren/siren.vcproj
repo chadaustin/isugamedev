@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;../../third-party-vc7/include&quot;;&quot;$(ProjectDir)../../external/Loki&quot;;&quot;$(ProjectDir)../../external/boost&quot;;$(ProjectDir)../../src"
+				AdditionalIncludeDirectories="&quot;../../third-party-vc7/include&quot;;&quot;$(ProjectDir)../../external/boost&quot;;$(ProjectDir)../../src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;SIREN_EXPORTS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -67,7 +67,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="&quot;../../third-party-vc7/include&quot;;&quot;$(ProjectDir)../../external/Loki&quot;;&quot;$(ProjectDir)../../external/boost&quot;;$(ProjectDir)../../src"
+				AdditionalIncludeDirectories="&quot;../../third-party-vc7/include&quot;;&quot;$(ProjectDir)../../external/boost&quot;;$(ProjectDir)../../src"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;SIREN_EXPORTS"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"

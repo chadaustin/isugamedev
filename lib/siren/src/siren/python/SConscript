@@ -22,6 +22,5 @@ env.Append(CPPPATH   = ['#'+pj('src')],
 SetupPython(env, '2.2')
 SetupBoostPython(env)
 SetupSDL(env)
-env.Append(CPPPATH = ['#external/Loki'])
 env.SharedLibrary('siren', sources, SHLIBPREFIX='')
 #env.SharedLibrary('simple', ['test.cpp'], SHLIBPREFIX='')

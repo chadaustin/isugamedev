@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PyAvatar.cpp,v $
- * Date modified: $Date: 2003-02-14 08:25:25 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-23 04:19:55 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -44,8 +44,31 @@ void exportAvatar()
       .def("triggerAnimationCycle", (bool(Avatar::*)(const std::string&))&Avatar::triggerAnimationCycle)
       .def("stopAnimation", (bool(Avatar::*)(int))&Avatar::stopAnimation)
       .def("stopAnimation", (bool(Avatar::*)(const std::string&))&Avatar::stopAnimation)
+      .def("checkAnimation", (bool(Avatar::*)(int))&Avatar::checkAnimation)
+      .def("checkAnimation", (bool(Avatar::*)(const std::string&))&Avatar::checkAnimation)
+      .def("stopAllAnimations", &Avatar::stopAllAnimations)
+      .def("moveTo", &Avatar::moveTo)
+      .def("isMoving", &Avatar::isMoving)
       .def("update", &Avatar::update)
+      .def("updateAnimations", &Avatar::updateAnimations)
+      .def("updateMesh", &Avatar::updateMesh)
+      .def("updateMove", &Avatar::updateMove)
+//      .def("render", (bool(Avatar::*)(Avatar::DrawMode))&Avatar::render)
       .def("render", (bool(Avatar::*)())&Avatar::render)
+      .def("renderMesh", &Avatar::renderMesh)
+      .def("renderSkeleton", &Avatar::renderSkeleton)
+      .def("setTexture", &Avatar::setTexture)
+      .def("setDrawMode", &Avatar::setDrawMode)
+      .def("setLOD", &Avatar::setLOD)
+      .def("setShadowColor", &Avatar::setShadowColor)
+//      .def("getBone", &Avatar::getBone)
+      .def("getAnimID", &Avatar::getAnimID)
+//      .add_property("pos", &Avatar::getPos, &Avatar::setPos)
+//      .add_property("rot", &Avatar::getRotXYZ, (void(Avatar::*)(const gmtl::EulerAngleXYZf&))&Avatar::setRot)
+//      .add_property("rotQuat", &Avatar::getRotQuat, (void(Avatar::*)(const gmtl::Quatf&))&Avatar::setRot)
+//      .add_property("scale", &Avatar::getScale, &Avatar::setScale)
+//      .add_property("wcs", &Avatar::getWCS)
+//      .add_property("model", &Avatar::model)
    ;
 
    def("Avatar", &Avatar::create, return_value_policy<reference_existing_object>());
