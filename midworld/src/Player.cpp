@@ -89,7 +89,7 @@ namespace mw
          {
             ++mLastWeapon[slot];
             // wraparound if needed.
-            if (mLastWeapon[slot] >= mWeapons.count( slot ))
+            if (mLastWeapon[slot] >= (int)mWeapons.count( slot ))
             {
                mLastWeapon[slot] = 0;
             }
@@ -102,6 +102,10 @@ namespace mw
 
          // set current weapon to this one...
          mCurrentWeapon = mWeapons.find( slot );
+         for (int x = 0; x < mLastWeapon[slot]; ++x)
+         {
+            ++mCurrentWeapon;
+         }
       }
    }
 
@@ -112,9 +116,10 @@ namespace mw
    void Player::addWeapon( Weapon* w )
    {
       assert( NULL != w && "bad weapon ptr" );
-
+      
+      // make sure this is initialized
       mLastSlot = w->getCategory();
-
+      
       // add the weapon to the slot
       int c = mWeapons.count( w->getCategory() );
       std::multimap<int, Weapon*>::iterator f = mWeapons.find( w->getCategory() );
@@ -131,6 +136,9 @@ namespace mw
          }
       }
 
+      // make sure this is initialized
+      mLastWeapon[mLastSlot] = c - 1;
+      
       // if not already in the inventory, then add it.
       if (false == foundit)
       {
