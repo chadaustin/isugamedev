@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-29 19:17:59 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-29 21:13:10 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -68,8 +68,9 @@ namespace server {
    }
 
    void BrothaGame::resync( net::NetMgr::ConnID cID) {
-      game::Player *player = mConnectedPlayers[cID];
-      m_netMgr->send(new net::AddPlayerMessage(player), cID);
+      for(PlayerConnectionMapIter iter=mConnectedPlayers.begin();iter!=mConnectedPlayers.end();++iter) {
+         m_netMgr->send(new net::AddPlayerMessage(iter->second, iter->first == cID), cID);
+      }
       m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
    }
 

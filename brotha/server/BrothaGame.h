@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-29 19:17:58 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-29 21:13:10 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -119,6 +119,7 @@ namespace server {
    private:
       typedef std::map<game::Player::UID, game::Player*> PlayerMap;
       typedef std::map<net::NetMgr::ConnID, game::Player*> PlayerConnectionMap;
+      typedef PlayerConnectionMap::iterator PlayerConnectionMapIter;
 
       /// The game timer.
       game::GameTimer mGameTime;
