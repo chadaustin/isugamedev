@@ -12,6 +12,7 @@ public:
    virtual void OnAppInit()
    {
       GameInput::instance().bind( "MouseX", "Mouse", "MOUSEAXIS_X" );
+      GameInput::instance().bind( "MouseY", "Mouse", "MOUSEAXIS_Y" );
       GameInput::instance().bind( "Quit", "Keyboard", "KEY_Q" );
       GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_SPACE" );
       GameInput::instance().bind( "Accelerate", "Mouse", "MOUSEBUTTON_LEFT" );
@@ -20,6 +21,7 @@ public:
       mQuit.init( "Quit" );
       mAccelerate.init( "Accelerate" );
       mMouseX.init( "MouseX" );
+      mMouseY.init( "MouseY" );
    }
    
    virtual void OnContextInit()
@@ -62,12 +64,13 @@ public:
       
       std::cout<< "Accelerate: "
                << mAccelerate.getDigitalData() << " "
-               << " MouseX: " << mMouseX.getAnalogData() << std::endl;
+               << " MouseX: " << mMouseX.getAnalogData() << ","
+               << mMouseY.getAnalogData() << std::endl;
    }   
    
 public:
    Grid grid;
-   AnalogInterface mMouseX;
+   AnalogInterface mMouseX, mMouseY;
    DigitalInterface mAccelerate, mQuit;
 };
 
