@@ -49,7 +49,7 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return getVarSize(mDesc);
+         return (getVarSize(mCode) + getVarSize(mDesc));
       }
 
       void serialize(OutputStream& os) {
