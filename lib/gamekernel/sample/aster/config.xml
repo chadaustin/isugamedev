@@ -8,7 +8,7 @@
    <bind action="Backstep" device="Keyboard" input="KEY_S" />
    <bind action="StrafeLeft" device="Keyboard" input="KEY_A" />
    <bind action="StrafeRight" device="Keyboard" input="KEY_D" />
-   <bind action="Fire" device="Mouse" input="MOUSEBUTTON_LEFT" />
+   <bind action="Fire" device="Mouse" input="MOUSEBUTTON_0" />
    <bind action="Fire" device="Keyboard" input="KEY_SPACE" />
    <bind action="MouseLookYaxis" device="Mouse" input="MOUSEAXIS_X" />
    <bind action="RotateLeft" device="Keyboard" input="KEY_RIGHTARROW" />

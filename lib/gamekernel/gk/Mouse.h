@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-02-11 03:26:03 $
-// Version:       $Revision: 1.18 $
+// Date modified: $Date: 2002-02-20 03:27:38 $
+// Version:       $Revision: 1.19 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -73,13 +73,13 @@ public:
     */
    enum Button
    {
-     LEFT = 0, MIDDLE = 1, RIGHT = 2
+     LEFT = 0, MIDDLE = 2, RIGHT = 1, ROLL = 3
    };
 
    /** constructor */
    Mouse() : AnalogDevice(), DigitalDevice()
    {
-      DigitalDevice::setNumInputs( 3 ); // 3 button mouse.
+      DigitalDevice::setNumInputs( 7 ); // 4 button mouse.
       AnalogDevice::setNumInputs( 2 ); // 2 axis mouse.
       this->initialize_map();
    }
@@ -133,9 +133,14 @@ public:
 private:
    void initialize_map()
    {
-      DigitalDevice::mMap["MOUSEBUTTON_LEFT"] = Mouse::LEFT;
-      DigitalDevice::mMap["MOUSEBUTTON_MIDDLE"] = Mouse::MIDDLE;
-      DigitalDevice::mMap["MOUSEBUTTON_RIGHT"] = Mouse::RIGHT;
+      DigitalDevice::mMap["MOUSEBUTTON_0"] = Mouse::LEFT;
+      DigitalDevice::mMap["MOUSEBUTTON_1"] = Mouse::RIGHT;
+      DigitalDevice::mMap["MOUSEBUTTON_2"] = Mouse::MIDDLE;
+      DigitalDevice::mMap["MOUSEBUTTON_3"] = Mouse::ROLL;
+      DigitalDevice::mMap["MOUSEBUTTON_4"] = 4; // just for fun...
+      DigitalDevice::mMap["MOUSEBUTTON_5"] = 5; // just for fun...
+      DigitalDevice::mMap["MOUSEBUTTON_6"] = 6; // just for fun...
+      DigitalDevice::mMap["MOUSEBUTTON_7"] = 7; // just for fun...
       AnalogDevice::mMap["MOUSEAXIS_X"] = 0;
       AnalogDevice::mMap["MOUSEAXIS_Y"] = 1;
 

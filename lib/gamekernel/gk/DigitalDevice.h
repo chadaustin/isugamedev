@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalDevice.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-02-20 03:27:38 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -49,7 +49,9 @@ public:
    DigitalInput& button( int x )
    {
       Input* in = TypedDevice<DigitalInput>::getInput( x );
-      return *dynamic_cast<DigitalInput*>( in );
+      DigitalInput* din = dynamic_cast<DigitalInput*>( in );
+      assert( din != NULL );
+      return *din;
    }
    DigitalInput* button( const std::string& x )
    {

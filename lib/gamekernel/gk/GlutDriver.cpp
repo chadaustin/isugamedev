@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-18 03:11:15 $
-// Version:       $Revision: 1.20 $
+// Date modified: $Date: 2002-02-20 03:27:38 $
+// Version:       $Revision: 1.21 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -479,14 +479,14 @@ GlutDriver::OnMouseClick( int button, int state, int x, int y )
    case GLUT_LEFT_BUTTON: b = Mouse::LEFT; break;
    case GLUT_MIDDLE_BUTTON: b = Mouse::MIDDLE; break;
    case GLUT_RIGHT_BUTTON: b = Mouse::RIGHT; break;
-   default: assert(false);
+   default: b = Mouse::ROLL; break;
    }
 
    switch(state)
    {
    case GLUT_DOWN: binaryState = DigitalInput::ON; break;
    case GLUT_UP: binaryState = DigitalInput::OFF;  break;
-   default: assert(false);
+   default: break;
    }
 
    // Set the mousebutton state and the mouse position

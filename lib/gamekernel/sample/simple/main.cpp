@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-20 03:03:00 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-02-20 03:27:38 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -89,7 +89,7 @@ public:
       // set up the projection matrix in the proj stack
       ::glMatrixMode( GL_PROJECTION );
          ::glLoadIdentity();                     
-         ::gluPerspective( 100.0f, width / height, 0.01f, 1000.0f );
+         ::gluPerspective( 100.0f, (float)width / (float)height, 0.01f, 1000.0f );
 
       // initialize the other matrix stack we'll use to transform models
       ::glMatrixMode( GL_MODELVIEW );
