@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-07-07 03:50:01 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-07-07 06:21:47 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -110,7 +110,7 @@ namespace mw
       EdgeState mReverse;
       EdgeState mStrafeRight, mStrafeLeft;
       EdgeState mShoot, mCycleWeapon;
-      
+      std::vector<EdgeState> mGunSlots; 
       // input data for the Player object.
       // note: in local screen space, not actual player vel
       gmtl::Vec3f mPlayerVel;
