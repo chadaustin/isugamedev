@@ -55,7 +55,6 @@ class ConnectionThread extends Thread {
 
           InputPacket ip = (InputPacket)p;
 	  m_server.m_world_thread.processInputEvent(ent, ip);
-
         } else if (p instanceof TalkPacket) {
 
 	  TalkPacket tp = (TalkPacket)p;

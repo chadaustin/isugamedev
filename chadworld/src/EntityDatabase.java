@@ -23,10 +23,12 @@ public class EntityDatabase {
     Entity e = new Entity();
     e.id = m_id++;
     m_database.add(e);
+    System.out.println("adding entity to database");
     return e;
   }
 
   synchronized void remove(Entity e) {
+    System.out.println("removing entity from database");
     m_database.remove(e);
   }
 
