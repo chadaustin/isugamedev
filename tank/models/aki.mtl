@@ -1,0 +1,33 @@
+# Max2Mtl Version 4.0 Mar 10th, 2001
+#
+# Multi/Sub Material__23 (2) to come 
+#
+newmtl aki
+Ka  0.1922 0.1922 0.1922
+Kd  0.8353 0.7569 0.6588
+Ks  0.9000 0.9000 0.9000
+d  1.0000
+Ns  0.0000
+illum 2
+map_Kd aki.tga
+#
+newmtl eye
+Ka  0.9333 0.8941 0.8275
+Kd  0.9333 0.8941 0.8275
+Ks  0.9000 0.9000 0.9000
+d  1.0000
+Ns  0.0000
+illum 2
+#
+# Multi/Sub Material__23 done 
+#
+newmtl aki
+Ka  0.1922 0.1922 0.1922
+Kd  0.8353 0.7569 0.6588
+Ks  0.9000 0.9000 0.9000
+d  1.0000
+Ns  0.0000
+illum 2
+map_Kd aki.tga
+#
+# EOF
