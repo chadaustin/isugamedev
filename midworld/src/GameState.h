@@ -6,7 +6,6 @@
 
 #include <SDL.h>
 #include "State.h"
-#include "StopWatch.h"
 #include "GameScene.h"
 #include "Camera.h"
 #include "Player.h"
@@ -18,7 +17,12 @@ namespace mw
    class GameState : public State
    {
    public:
-      GameState() : mSpeed( 3 ), mAccelerate( UP ), mReverse( UP ), mStrafeRight( UP ), mStrafeLeft( UP )
+      GameState()
+         : mSpeed(10)
+         , mAccelerate(UP)
+         , mReverse(UP)
+         , mStrafeRight(UP)
+         , mStrafeLeft(UP)
       {
       }
       
@@ -176,7 +180,6 @@ namespace mw
       bool mIsQuitting;
       GameScene mScene;
       Camera mCamera;
-      StopWatch mStopWatch;
       float mSpeed;
       Player mPlayer;
       
