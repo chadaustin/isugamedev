@@ -124,7 +124,7 @@ public:
      
    void setRot( float rad )
    {
-      mRot = gmtl::makeRot<gmtl::Quatf>( rad, 0.0f, 1.0f, 0.0f );
+      mRot = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( rad, 0.0f, 1.0f, 0.0f ) );
    }
 
    // true ang velocity vector
