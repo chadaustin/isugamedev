@@ -1,0 +1,25 @@
+                             =-=-=-=-=-=-=-=-=-=-=
+                              simple build system
+                             =-=-=-=-=-=-=-=-=-=-=
+
+-=-=-=-=-=-=-=-=-=-=
+Author/Contributors:
+-=-=-=-=-=-=-=-=-=-=
+- Kevin Meinert <kevin@vrsource.org>
+- Patrick Hartlong <patrick@vrac.iastate.edu>
+
+-=-=-=-=-=-=-=-=-=
+Description:
+-=-=-=-=-=-=-=-=-=
+This is a very simple build system.  It uses GNU-Make to build and some common 
+UNIX commands to detect platform.  For simple projects, this utility can 
+build cross platform SO, static LIB, and EXE resources...
+
+
+For a more complex projects, check out Doozer++ (at sourceforge) by 
+Patrick Hartling.
+
+-=-=-=-=-=-=-=-=-=
+Legal:
+-=-=-=-=-=-=-=-=-=
+see COPYING file for your usage, distribution, and legal rights...
