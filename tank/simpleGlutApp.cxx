@@ -161,14 +161,21 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
       exit( 0 );
       break;
 
-   case 'a':
+   case 'w':
       app.camera.setPitchVel( 1 );
       break;
 
-   case 'z':
+   case 's':
       app.camera.setPitchVel( -1 );
       break;
 
+   case 'a':
+      app.camera.setYawVel( 1 );
+      break;
+
+   case 'd':
+      app.camera.setYawVel( -1 );
+      break;
       
    default:
       // do nothing if no key is pressed
@@ -182,14 +189,15 @@ static void OnKeyboardUp( unsigned char k, int x, int y )
 {
    switch (k)
    {
+   case 'w':
+   case 's':
+      app.camera.setPitchVel( 0 );
+      break;
    case 'a':
-      app.camera.setPitchVel( 0 );
+   case 'd':
+      app.camera.setYawVel( 0 );
       break;
-
-   case 'z':
-      app.camera.setPitchVel( 0 );
-      break;
-   
+      
    default:
       // do nothing if no key is pressed
       break;

@@ -45,7 +45,7 @@ public:
          
          // gun
          glPushMatrix();
-            glScalef( 1,1,25 );
+            glScalef( 1,1,17 );
             glTranslatef( 0,8,0 );
             glColor3f( 0,0,1 );
             drawPyramidThing();

@@ -8,7 +8,7 @@
 class Camera
 {
 public:
-   Camera() : mShouldFollow( false ), mPitch( 70.0f ), mPitchVel( 0.0f )
+   Camera() : mShouldFollow( false ), mYaw(0.0f), mYawVel(0.0f), mPitch( 70.0f ), mPitchVel( 0.0f )
    {
       mXform.makeIdentity();
       mTargetPos.makeIdentity();
@@ -31,14 +31,16 @@ public:
       
       if (mShouldFollow)
       {
-         Matrix4f rot_mat, trans, temp;
+         Matrix4f pitch_mat, yaw_mat, trans, temp;
          trans.makeTranslation( Vec3<float>( 0,0,30 ) );
-         rot_mat.makeRotation( -mPitch * TO_RAD_F, 1,0,0 );
-         Matrix4f::multiply( temp, rot_mat, trans );
+         pitch_mat.makeRotation( -mPitch * TO_RAD_F, 1,0,0 );
+         yaw_mat.makeRotation( -mYaw * TO_RAD_F, 0,1,0 );
+         Matrix4f::multiply( temp, yaw_mat * pitch_mat, trans );
          Matrix4f::multiply( mXform, mTargetPos, temp );
       }
       
       mPitch += mPitchVel;
+      mYaw += mYawVel;
    }
 
    void setPitch( float deg )
@@ -49,6 +51,16 @@ public:
    void setPitchVel( float deg )
    {
       mPitchVel = deg;
+   }   
+   
+   void setYaw( float deg )
+   {
+      mYaw = deg;
+   }   
+   
+   void setYawVel( float deg )
+   {
+      mYawVel = deg;
    }   
    
    const Matrix4f& matrix() const
@@ -78,6 +90,7 @@ private:
    Matrix4f mTargetPos;
    bool mShouldFollow;
    float mPitch, mPitchVel;
+   float mYaw, mYawVel;
    
 };
 
