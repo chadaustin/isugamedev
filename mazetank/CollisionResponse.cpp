@@ -7,8 +7,10 @@
 /////////////////////////////////////
 #include "CollisionResponse.h"
 #include "SoundManager.h"
+#include "Explosion.h"
 
 extern sound::SoundManager* GameSound;
+extern vector<Explosion> TheExplosions;
 
 void CollisionResponse::ResponseToCollisions(vector<GameObject*> &TheGameObjects)
 {
@@ -89,14 +91,21 @@ void CollisionResponse::RemoveObjects(vector<GameObject*> &TheGameObjects)
 void CollisionResponse::PlayerBulletResponse(GameObject* &TheGameObject)
 {
    ObjectType ResponseObjectName;
+   Explosion TheExplosion;
 
    TheGameObject->GetCurrentObjectType(ResponseObjectName);
 
    switch(ResponseObjectName)
    {
    case NPCTANK:
-      AddToRemoveQueue(TheGameObject);
-	  GameSound->getSoundEffectManager()->playSound("music/EXP0.WAV");
+		float Position[3];
+		TheGameObject->GetPosition(Position);
+		AddToRemoveQueue(TheGameObject);
+
+		GameSound->getSoundEffectManager()->playSound("music/EXP0.WAV");
+		TheExplosion.SetPosition(Position);
+		TheExplosions.push_back(TheExplosion);
+		
       break;
 
    case CAMTANK:

@@ -18,10 +18,12 @@
 #include "FloorObject.h"
 #include "BuildMaze.h"
 #include "SkyDome.h"
+#include "Explosion.h"
 
 extern Input GameInput;
 extern GLuint clouds[1];
 sound::SoundManager* GameSound;
+vector<Explosion> TheExplosions;
 
 GameWorld::GameWorld()
 {
@@ -184,7 +186,8 @@ void GameWorld::Update(int dt)
    //////////////////////////////////////////////
    GameSound->getJukebox()->update();
 
-   for(int i = 0; i < TheNPCAI.size(); i++)
+   int i;
+   for(i = 0; i < TheNPCAI.size(); i++)
 		TheNPCAI[i].Update(TheGameObjects,dt);
 
    GamePhysics.Update(TheGameObjects, dt);
@@ -200,6 +203,12 @@ void GameWorld::Update(int dt)
    GameCamera->SetObjectYaw(-TankAngle);
    GameCamera->Update(dt);
    //////////////////////////////////////
+
+   for(i = 0; i < TheExplosions.size(); i++)
+   {
+		if(TheExplosions[i].ToDelete())
+			TheExplosions.erase(TheExplosions.begin()+i);
+   }
 
 
 }
@@ -220,8 +229,12 @@ void GameWorld::Draw()
 	// game objects
 	//////////////////////////////////////////////
 	glEnable(GL_CULL_FACE);
-	for(int i = 0; i < TheGameObjects.size(); i++)
+	int i;
+	for(i = 0; i < TheGameObjects.size(); i++)
 		TheGameObjects[i]->Draw();
+
+	for(i = 0; i < TheExplosions.size(); i++)
+		TheExplosions[i].Draw();
 
 	////////////////////////////////////////////////////
 	// Disable Back Face culling so we can actually see

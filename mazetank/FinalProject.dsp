@@ -193,6 +193,10 @@ SOURCE=.\CollisionResponse.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\Explosion.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\FloorGraphics.h
 # End Source File
 # Begin Source File
