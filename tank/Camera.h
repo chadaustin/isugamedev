@@ -8,7 +8,7 @@
 class Camera
 {
 public:
-   Camera() : mShouldFollow( false ), mPitch( 70.0f )
+   Camera() : mShouldFollow( false ), mPitch( 70.0f ), mPitchVel( 0.0f )
    {
       mXform.makeIdentity();
       mTargetPos.makeIdentity();
@@ -37,11 +37,18 @@ public:
          Matrix4f::multiply( temp, rot_mat, trans );
          Matrix4f::multiply( mXform, mTargetPos, temp );
       }
+      
+      mPitch += mPitchVel;
    }
 
    void setPitch( float deg )
    {
       mPitch = deg;
+   }   
+   
+   void setPitchVel( float deg )
+   {
+      mPitchVel = deg;
    }   
    
    const Matrix4f& matrix() const
@@ -70,7 +77,7 @@ private:
    Matrix4f mXform;
    Matrix4f mTargetPos;
    bool mShouldFollow;
-   float mPitch;
+   float mPitch, mPitchVel;
    
 };
 

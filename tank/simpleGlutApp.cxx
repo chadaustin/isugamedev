@@ -160,11 +160,11 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
       break;
 
    case 'a':
-      // !!!TODO!!!: add handler for when UP is pressed
+      app.camera.setPitchVel( 3 );
       break;
 
    case 'z':
-      // !!!TODO!!!: add handler for when DOWN is pressed
+      app.camera.setPitchVel( -3 );
       break;
 
       
@@ -181,11 +181,11 @@ static void OnKeyboardUp( unsigned char k, int x, int y )
    switch (k)
    {
    case 'a':
-      // !!!TODO!!!: add handler for when UP is released
+      app.camera.setPitchVel( 0 );
       break;
 
    case 'z':
-      // !!!TODO!!!: add handler for when DOWN is released
+      app.camera.setPitchVel( 0 );
       break;
    
    default:
