@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-02 09:12:02 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-05-03 01:08:49 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,7 +46,6 @@
 #include <sstream>
 #include "xml/DataManager.h"
 #include <gmtl/Containment.h>
-#include <gmtl/Output.h>
 
 namespace game
 {
@@ -56,7 +55,7 @@ namespace game
    GameLogic::~GameLogic() {
    }
 
-   void GameLogic::update(float time){ 
+   void GameLogic::update(float time) {
       gmtl::Point3f oPosition;
       gmtl::Spheref oSphere;
 
@@ -71,7 +70,7 @@ namespace game
          // compute new position
          oPosition = mObject[i]->getPosition() + (mObject[i]->getVelocity() * time);
          oSphere = mObject[i]->getSphere();
-         
+
          // update position
          mObject[i]->setPosition(oPosition);
          oSphere.setCenter(oPosition);
@@ -87,17 +86,17 @@ namespace game
             }
          }
       }
-      /// @todo collision detection  
+      /// @todo collision detection
    }
 
    void GameLogic::updateStats(){
-      
+
       data::Player* dPlayer;
       data::Gang* dGang;
       std::ostringstream out;
       Player* currPlayer;
       std::string coins, kills, health;
-      
+
       data::BrothaData& dBroth = data::DataManager::instance().getData();
       data::GangList& gangs = dBroth.getGangList();
 
@@ -106,20 +105,20 @@ namespace game
          dGang = dBroth.getGang(gangs[i]->getName());
          data::PlayerList& gangPlayers = dGang->getPlayerList();
          for (unsigned int j=0; j < gangPlayers.size();j++){
-                        
+
             dPlayer = dGang->getPlayer(gangPlayers[j]->getName());
             currPlayer = GameLogic::getPlayer(dPlayer->getName());
-            
+
             if (currPlayer != NULL){
                std::ostringstream out1;
                std::ostringstream out2;
                std::ostringstream out3;
-               
+
                out1 << currPlayer->getKills();
                out2 << currPlayer->getHealth();
                out3 << currPlayer->getCoins();
-               
-               dPlayer->setStat("Kills", out1.str()); 
+
+               dPlayer->setStat("Kills", out1.str());
                dPlayer->setStat("Health", out2.str());
                dPlayer->setStat("Coins", out3.str());
             }// end if
@@ -140,9 +139,9 @@ namespace game
    void GameLogic::remove(Player* player) {
       PlayerListItr Itr;
 
-      // find the player to delete and set to iterator 
+      // find the player to delete and set to iterator
       Itr = std::find(mPlayer.begin(),mPlayer.end(),player);
-      
+
       // makes sure object exists, then removes if it does
       if (Itr != mPlayer.end()){
          mPlayer.erase(Itr);
@@ -161,7 +160,7 @@ namespace game
 
       // find the object to remove and set to iterator
       Itr = std::find(mObject.begin(), mObject.end(), object);
-      
+
       // makes sure object exists and removes if it does
       if(Itr != mObject.end()){
          mObject.erase(Itr);
@@ -197,14 +196,14 @@ namespace game
       data::BrothaData& dBroth = data::DataManager::instance().getData();
       data::Player* dPlayer;
       int coins, kills, health;
-      
+
       if (dBroth.getPlayer(player->getName()) != NULL){
          dPlayer = dBroth.getPlayer(player->getName());
-      
+
          std::istringstream iss1 (dPlayer->getStat("Coins"), std::istringstream::in);
          std::istringstream iss2 (dPlayer->getStat("Kills"), std::istringstream::in);
          std::istringstream iss3 (dPlayer->getStat("Health"), std::istringstream::in);
-         
+
          iss1 >> coins;
          iss2 >> kills;
          iss3 >> health;
@@ -228,7 +227,6 @@ namespace game
       // handle acceleration
       if (player->mIsAccelerating) {
          gmtl::Vec3f newV = vehicle->getVelocity() + (forward * (speed * dt));
-         std::cout<<"newV="<<newV<<std::endl;
          vehicle->setVelocity(newV);
       }
       if (player->mIsBraking) {
