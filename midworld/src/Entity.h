@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Entity.h,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-28 06:14:22 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,6 +49,8 @@ namespace mw
        * The UID data type.
        */
       typedef unsigned long UID;
+
+      virtual ~Entity() {}
 
       /**
        * Determines if this entity has expired and needs to be removed from the
