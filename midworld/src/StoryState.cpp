@@ -19,11 +19,11 @@ namespace mw
       mElapsedTime = 0;
 
       mCells.push_back(Cell(0,  87,  40,  373, 233,  0.0f, new Texture("images/story1_frame1_cell1.jpg")));
-      mCells.push_back(Cell(0, 460,   0,  376, 343,  4.0f, new Texture("images/story1_frame1_cell2.jpg")));
-      mCells.push_back(Cell(0,  87, 322,  442, 379,  8.0f, new Texture("images/story1_frame1_cell3.jpg")));
-      mCells.push_back(Cell(0, 529, 322,  369, 445, 12.0f, new Texture("images/story1_frame1_cell4.jpg")));
-      mCells.push_back(Cell(1,   0,   0, 1024, 768, 16.0f, new Texture("images/story1_frame2_cell1.jpg")));
-      mCells.push_back(Cell(20.0f));
+      mCells.push_back(Cell(0, 460,   0,  376, 343,  5.0f, new Texture("images/story1_frame1_cell2.jpg")));
+      mCells.push_back(Cell(0,  87, 322,  442, 379, 10.0f, new Texture("images/story1_frame1_cell3.jpg")));
+      mCells.push_back(Cell(0, 529, 322,  369, 445, 15.0f, new Texture("images/story1_frame1_cell4.jpg")));
+      mCells.push_back(Cell(1,   0,   0, 1024, 768, 20.0f, new Texture("images/story1_frame2_cell1.jpg")));
+      mCells.push_back(Cell(25.0f));
    }
 
    StoryState::~StoryState()
