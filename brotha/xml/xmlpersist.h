@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.h,v $
- * Date modified: $Date: 2002-05-03 01:02:02 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-03 07:00:59 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -50,7 +50,7 @@ namespace data {
 
    BrothaData* load(const std::string& filename);
 
-   void save(BrothaData* bx, std::string& filename);
+   void save(BrothaData* bx, const std::string& filename);
 
    void fillWithFakeData(BrothaData* b);
 }

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DataManager.cpp,v $
- * Date modified: $Date: 2002-05-01 21:50:48 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-03 07:00:58 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -74,7 +74,7 @@ namespace data {
 
    void DataManager::flush() const {
       if (mData) {
-//         data::save(dataFile);
+         data::save(mData, mFile);
       }
    }
 

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-05-03 05:50:52 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-03 07:00:59 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -139,7 +139,7 @@ namespace data {
    }
 
 
-   void save(BrothaData* bx, std::string& filename){
+   void save(BrothaData* bx, const std::string& filename){
 	   std::ofstream o;
 	   o.open(filename.c_str());
 	   bx->xMLify(o);
