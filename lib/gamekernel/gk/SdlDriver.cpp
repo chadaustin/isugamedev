@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-02-18 03:17:06 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-02-18 04:42:44 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -32,14 +32,38 @@
 #include "SdlDriver.h"
 #include "gk/GameKernel.h"
 #include "gk/GameInput.h"
+#include <xdl.h>
 #include <string>
+
+//Create the drivers that can be probed by the SystemDriverFactory
+#ifdef XDL_BUILD_DLL
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+XDL_FUNC gk::SystemDriver*
+createSystemDriver()
+{
+   return new gk::SdlDriver();
+}
+
+XDL_FUNC void
+destroySystemDriver( gk::SystemDriver* driver )
+{
+   delete driver;
+}
+
+#ifdef __cplusplus
+}
+#endif
+#endif // XDL_BUILD_DLL
 
 namespace gk {
 
-SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(16), mvideoFlags(0), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
+SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(16), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
 {
 	misRunning = false;
-	mName = "SDL with OpenGL";
+	mName = "SDL with OpenGL";	
 	//We really don't need to do anything other than initialize variables.
 }
 
@@ -47,16 +71,28 @@ SdlDriver::~SdlDriver()
 {
 }
 
-bool SdlDriver::init()
+bool SdlDriver::init(GameKernel *kernel)
 {
+	if (!kernel)
+	{
+		std::cerr << "SDL Driver Error:  Invalid Kernel" << std::endl;
+		return false;
+	}
+	mKernel = kernel;
 	//Initialize SDL.
+	#ifdef SDLDRIVER_DEBUG
+		std::cerr << "##SDL Driver Debug:  Callling SDL_Init()" << std::endl;
+	#endif
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		std::cerr << "SDL Driver Error:  Couldn't Initialize SDL.\nSDL Error: " << SDL_GetError() << endl;
+		std::cerr << "SDL Driver Error:  Couldn't Initialize SDL.\nSDL Error: " << SDL_GetError() << std::endl;
 		return false;
 	}
 	//Ask the video card what features it supports.
 	const SDL_VideoInfo *videoInfo;
+	#ifdef SDLDRIVER_DEBUG
+		std::cerr << "##SDL Driver Debug:  Callling SDLGetVideoInfo()" << std::endl;
+	#endif
 	videoInfo = SDL_GetVideoInfo();
 	//Set the features we need.
 	mvideoFlags = SDL_OPENGL | SDL_HWPALETTE | SDL_RESIZABLE | SDL_SRCALPHA;
@@ -82,7 +118,7 @@ bool SdlDriver::init()
 	if (!screen)
 	{
 		//Oh boy...
-		std::cerr << "SDL Driver Error:  Couldn't Setup the screen.\nSDL Error: " << SDL_GetError() << endl;
+		std::cerr << "SDL Driver Error:  Couldn't Setup the screen.\nSDL Error: " << SDL_GetError() << std::endl;
 		return false;
 	}
 	//Finally, set the title of the window.
@@ -96,12 +132,12 @@ bool SdlDriver::init()
 	//odds of this happening are pretty slim, but might as well check...
 	if (!mMouse)
 	{
-		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the mouse Device Handle." << endl;
+		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the mouse Device Handle." << std::endl;
 		return false;
 	}
 	if (!mKeyboard)
 	{
-		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the keyboard Device Handle." << endl;
+		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the keyboard Device Handle." << std::endl;
 		return false;
 	}
 	//This enables repeating keybaord events.  These values should be read from somewhere, not hardcoded in.
@@ -114,23 +150,23 @@ bool SdlDriver::run()
 	misRunning = true;
 	//SDL does event polling, so we're just going to have to fake an idle loop.
 	int error = 0;
-
-	error = SDL_WaitEvent(&mEvent);
-	if (error == 0)
+	do
 	{
-		std::cerr << "SDL Driver Error:  Error while waiting for events\nSDL Error:  " << SDL_GetError()
-				<< endl;
-	}
-	handleEvent();
+		error = SDL_WaitEvent(&mEvent);
+		if (error == 0)
+		{
+			std::cerr << "SDL Driver Error:  Error while waiting for events\nSDL Error:  " << SDL_GetError()
+					<< std::endl;
+		}
+		handleEvent();
+	}while((error != 0) && (misRunning));
 	return true;
-}
+}	
 
 void SdlDriver::shutdown()
 {
 	//Cleanup time...
 	misRunning = false;
-	GameInput::instance().removeDevice("Keyboard");
-	GameInput::instance().removeDevice("Mouse");
 	if (mKeyboard != NULL)
 	{
 		mKeyboard = NULL;
@@ -141,7 +177,6 @@ void SdlDriver::shutdown()
 		mKeyboard = NULL;
 		delete mKeyboard;
 	}
-	//GameInput::instance().removeDevice("Joystick");
 	SDL_Quit();
 }
 
@@ -157,7 +192,7 @@ void SdlDriver::showMouse( bool show )
 		SDL_ShowCursor(SDL_ENABLE);
 	}
 	else
-	{
+	{	
 		SDL_ShowCursor(SDL_DISABLE);
 	}
 }
@@ -182,7 +217,7 @@ void SdlDriver::setWindowSize(int width, int height, int ctx = 0)
 	if (sbpp == 0)
 	{
 		std::cerr << "SDL Driver Error:  The requested window size of " << width << " by " << height
-				<< " is not supported by this video card.  Leaving the window unchanged." << endl;
+				<< " is not supported by this video card.  Leaving the window unchanged." << std::endl;
 	}
 	else
 	{
@@ -237,7 +272,7 @@ void SdlDriver::handleEvent()
 void SdlDriver::onKeyUp()
 {
 	SDL_keysym key = mEvent.key.keysym;
-	string keyID = getKeyID(key);
+	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::OFF;
 	Keyboard *kb = mKeyboard->getDevice();
 	kb->button(keyID)->setBinaryState(state);
@@ -246,7 +281,7 @@ void SdlDriver::onKeyUp()
 void SdlDriver::onKeyDown()
 {
 	SDL_keysym key = mEvent.key.keysym;
-	string keyID = getKeyID(key);
+	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::ON;
 	Keyboard *kb = mKeyboard->getDevice();
 	kb->button(keyID)->setBinaryState(state);
@@ -281,7 +316,7 @@ void SdlDriver::onMouseDown()
 	{
 		mouse->button(button).setBinaryState(DigitalInput::ON);
 	}
-
+	
 	mouse->axis(0).setData(mEvent.button.x);
 	mouse->axis(1).setData(mEvent.button.y);
 }
@@ -561,7 +596,7 @@ std::string SdlDriver::getKeyID(SDL_keysym& key)
 		if (key.mod == KMOD_SHIFT)
 		{
 			return "KEY_CURLYLEFT";
-		}
+		}	
 		return "KEY_LEFTBRACKET";
 	}
 	else if (key.sym == SDLK_BACKSLASH)
@@ -708,6 +743,6 @@ std::string SdlDriver::getKeyID(SDL_keysym& key)
    assert( false && "SDL Driver Error: Unknown key pressed." );
    return "";
 }
-
-
+		
+	
 } // namespace gk

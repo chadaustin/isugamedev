@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-02-18 03:17:06 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-02-18 04:42:44 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,12 +33,14 @@
 
 #include "gk/gkCommon.h"
 #include "gk/SystemDriver.h"
+#include "gk/GameKernel.h"
 #include "gk/GameInput.h"
 #include "gk/Keyboard.h"
 #include "gk/Mouse.h"
 #include "gk/ContextData.h"
 #include <SDL.h>
 #include <string>
+#include <iostream>
 
 namespace gk {
 
@@ -52,21 +54,21 @@ class SdlDriver : public SystemDriver
 public:
 	SdlDriver();
 	virtual ~SdlDriver();
-
+	
 	/**
     	* Initializes this driver and starts it through its main loop.
     	*
     	* @return  true if successful, false otherwise
     	*/
-   	virtual bool init();
-
+   	virtual bool init(GameKernel *kernel);
+   	
    	/**
     * Starts the driver through its main loop.
     *
     * @return  true if successful, false otherwise
     */
    	virtual bool run();
-
+   	
 	/**
 	* Destroys this driver and cleans up all memory allocated to it.
 	*/
@@ -137,11 +139,12 @@ private:
 	int mBpp;							//BitsPerPixel of the window
 	Uint32 mvideoFlags;					//Video Flags of the screen.
 	bool misRunning;					//Is the SdlDriver running?
+	GameKernel *mKernel;				//The GameKernel that is running this driver.
 	DeviceHandle<Mouse>* mMouse;			//Mouse Device
 	DeviceHandle<Keyboard>* mKeyboard;		//Keyboard Device
 	//DeviceHandle<Joystick>* mJoystick;		//Joystick Device
 	SDL_Event mEvent;					//Event Structure
-
+	
 	//Private Methods
 	void handleEvent();
 	void onKeyUp();
