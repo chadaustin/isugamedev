@@ -112,76 +112,40 @@
 	</Configurations>
 	<Files>
 		<Filter
-			Name="Source Files"
+			Name="source"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="..\client\AppState.h">
-			</File>
-			<File
 				RelativePath="..\client\BrothaApp.cpp">
-			</File>
-			<File
-				RelativePath="..\client\BrothaApp.h">
 			</File>
 			<File
 				RelativePath="..\client\Camera.cpp">
 			</File>
 			<File
-				RelativePath="..\client\Camera.h">
-			</File>
-			<File
 				RelativePath="..\client\ChopShopWnd.cpp">
-			</File>
-			<File
-				RelativePath="..\client\ChopShopWnd.h">
 			</File>
 			<File
 				RelativePath="..\client\DealerWnd.cpp">
 			</File>
 			<File
-				RelativePath="..\client\DealerWnd.h">
-			</File>
-			<File
 				RelativePath="..\client\GameState.cpp">
 			</File>
 			<File
-				RelativePath="..\client\GameState.h">
+				RelativePath="..\client\GameWorld.cpp">
 			</File>
 			<File
 				RelativePath="..\client\GarageState.cpp">
 			</File>
 			<File
-				RelativePath="..\client\GarageState.h">
-			</File>
-			<File
 				RelativePath="..\client\LoginState.cpp">
-			</File>
-			<File
-				RelativePath="..\client\LoginState.h">
 			</File>
 			<File
 				RelativePath="..\client\ModelManager.cpp">
 			</File>
 			<File
-				RelativePath="..\client\ModelManager.h">
-			</File>
-			<File
-				RelativePath="..\client\PrintingEngine.h">
-			</File>
-			<File
 				RelativePath="..\client\Scene.cpp">
 			</File>
 			<File
-				RelativePath="..\client\Scene.h">
-			</File>
-			<File
 				RelativePath="..\client\ServerConnection.cpp">
-			</File>
-			<File
-				RelativePath="..\client\ServerConnection.h">
-			</File>
-			<File
-				RelativePath="..\client\State.h">
 			</File>
 			<File
 				RelativePath="..\client\Win32PrintingEngine.cpp">
@@ -190,10 +154,53 @@
 				RelativePath="..\client\main.cpp">
 			</File>
 			<File
-				RelativePath="..\client\main.h">
+				RelativePath="..\client\realmain.cpp">
+			</File>
+		</Filter>
+		<Filter
+			Name="header"
+			Filter="">
+			<File
+				RelativePath="..\client\BrothaApp.h">
 			</File>
 			<File
-				RelativePath="..\client\realmain.cpp">
+				RelativePath="..\client\Camera.h">
+			</File>
+			<File
+				RelativePath="..\client\ChopShopWnd.h">
+			</File>
+			<File
+				RelativePath="..\client\DealerWnd.h">
+			</File>
+			<File
+				RelativePath="..\client\GameState.h">
+			</File>
+			<File
+				RelativePath="..\client\GameWorld.h">
+			</File>
+			<File
+				RelativePath="..\client\GarageState.h">
+			</File>
+			<File
+				RelativePath="..\client\LoginState.h">
+			</File>
+			<File
+				RelativePath="..\client\ModelManager.h">
+			</File>
+			<File
+				RelativePath="..\client\PrintingEngine.h">
+			</File>
+			<File
+				RelativePath="..\client\Scene.h">
+			</File>
+			<File
+				RelativePath="..\client\ServerConnection.h">
+			</File>
+			<File
+				RelativePath="..\client\State.h">
+			</File>
+			<File
+				RelativePath="..\client\main.h">
 			</File>
 		</Filter>
 	</Files>

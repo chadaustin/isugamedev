@@ -182,7 +182,13 @@
 					RelativePath="..\server\MessageHandler.h">
 				</File>
 				<File
+					RelativePath="..\server\RequestGarageDataMessageHandler.h">
+				</File>
+				<File
 					RelativePath="..\server\ResyncMessageHandler.h">
+				</File>
+				<File
+					RelativePath="..\server\UpdatePlayerInfoMessageHandler.h">
 				</File>
 				<File
 					RelativePath="..\server\WebServer.h">
@@ -219,28 +225,10 @@
 					RelativePath="..\xml\BrothaData.h">
 				</File>
 				<File
-					RelativePath="..\xml\Car.h">
-				</File>
-				<File
-					RelativePath="..\xml\CarType.h">
-				</File>
-				<File
 					RelativePath="..\xml\DataManager.h">
 				</File>
 				<File
-					RelativePath="..\xml\Gang.h">
-				</File>
-				<File
 					RelativePath="..\xml\HtmlGen.h">
-				</File>
-				<File
-					RelativePath="..\xml\Mod.h">
-				</File>
-				<File
-					RelativePath="..\xml\Player.h">
-				</File>
-				<File
-					RelativePath="..\xml\Stat.h">
 				</File>
 				<File
 					RelativePath="..\xml\xmlpersist.h">
