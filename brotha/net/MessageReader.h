@@ -26,6 +26,10 @@ namespace net {
          PRUint32 tag, size;
          (*mInputStream) >> tag >> size;
 
+         // make sure we read everything (in case of bad message)
+         PRUint8* buffer = new PRUint8[size];
+         mInputStream->read(buffer, size);
+
          Message* msg;
          switch (tag) {
             case MSG_LOGIN:
@@ -35,20 +39,19 @@ namespace net {
             case MSG_DISCONNECT:
                msg = new DisconnectMessage();
                break;
-               
+
             case MSG_OK:
                msg = new OKMessage();
                break;
 
             default:
-               return 0;               
+               delete[] buffer;
+               return 0;
          }
 
          // stick the packet data in a byte buffer to restrict the
          // message from reading farther than it should in the network
          // stream
-         PRUint8* buffer = new PRUint8[size];
-         mInputStream->read(buffer, size);
          ByteBuffer bb;
          bb.write(buffer, size);
          delete[] buffer;       
