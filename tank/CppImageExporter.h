@@ -1,16 +1,16 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //
-//                         -=     TgaImport class     =-
+//                         -=     CppImageExport class     =-
 //
-// Description: "Importer for Targa files.
+// Description: "Exports an Image as c code.
 //
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
-//    $RCSfile: TgaImporter.h,v $
+//    $RCSfile: CppImageExporter.h,v $
 //    $Date: 2001-09-14 05:00:57 $
-//    $Revision: 1.3 $
-//    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
+//    $Revision: 1.1 $
+//    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //    This library is free software; you can redistribute it and/or
 //    modify it under the terms of the GNU Library General Public
@@ -27,49 +27,43 @@
 //    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 ///////////////// <auto-copyright END do not edit this line> ///////////////////
-#ifndef TGA_IMPORTER_INCLUDED
-#define TGA_IMPORTER_INCLUDED
+
+//////////////////////////////////////////////////////////////////////////////
+#ifndef CPP_PIXMAP_CODE_EXPORTER_INCLUDED
+#define CPP_PIXMAP_CODE_EXPORTER_INCLUDED
 
 #include "Image.h"
-#include "ImageImporter.h"
+#include "ImageExporter.h"
 
-//: TgaImporter
-// Load an image file into an Image object
+//: CppImageExporter
+// Write an Image object out to file
 //
 // To use, declare an instance of this class,
 // then call operator() with the filename and Image object you wish to act on.
 // i.e:
 //   Image image;
-//   TgaImporter tga_import;
-//   tga_import( "bugs.tga", image );
+//   /* now do some changes to the image, white noise, a fractal, etc.. */
+//   CppImageExporter cpp_export;
+//   cpp_export( "bugs.cpp", image );
 // 
 // alternately, you can call operator() this way:
-//   tga_import.operator()( "bugs.tga", image );
+//   cpp_export.operator()( "bugs.cpp", image );
 //
-class TgaImporter : public ImageImporter
+class CppImageExporter : public ImageExporter
 {	
 public:
 	//: Default constructor
-	TgaImporter();		
+	CppImageExporter();		
 		
 	//: Destructor
-	virtual ~TgaImporter();
+	virtual ~CppImageExporter();
 		
 	//: Save the image as "filename"
 	//  returns true or false for successful or unsuccessful
-	virtual bool				operator()(const char* const filename, Image& image);	
+	virtual bool				operator()( const char* const filename, const Image& image );	
 	
 	//: a string that describes the files supported by this importer
 	virtual const char* const	description() const;
-
-	// Read, and expand, one row of RLE data from the filestream.
-	// data       - pointer to buffer to recieve uncompressed data.
-	// bufferSize - buffer size in bytes
-	// bpp        - bytes per pixel (8, 16, 24, 32)
-	// fp         - file pointer, must be an opened file, ::use fseek to position at valid start of RLE row.
-	static int ReadRLERow( unsigned char* data, const int& bufferSize, const int& bpp, FILE *fp );
 };
-
-
 
 #endif
