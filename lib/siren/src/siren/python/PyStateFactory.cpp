@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PyStateFactory.cpp,v $
- * Date modified: $Date: 2003-02-14 05:47:09 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-14 07:34:50 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -61,7 +61,7 @@ void exportStateFactory()
    class_<StateFactory, bases<>, boost::noncopyable>("StateFactory", no_init)
       .def("create", &StateFactory::create)
       .def("register", &StateFactory::registerCreator, with_custodian_and_ward<1,2>())
-      .def("unregister")
+      .def("unregister", &StateFactory::unregisterCreator)
    ;
 
    /**

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PyState.cpp,v $
- * Date modified: $Date: 2003-02-14 05:41:34 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-14 07:34:50 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -51,6 +51,21 @@ public:
       call_method<void>(mSelf, "draw");
    }
 
+   void onKeyPress(SDLKey sym, bool down)
+   {
+      call_method<void>(mSelf, "onKeyPress", sym, down);
+   }
+
+   void onMousePress(Uint8 button, bool down, int x, int y)
+   {
+      call_method<void>(mSelf, "onMousePress", button, down, x, y);
+   }
+
+   void resize()
+   {
+      call_method<void>(mSelf, "resize");
+   }
+
 private:
    PyObject* mSelf;
 };
@@ -61,6 +76,15 @@ void exportState()
    class_<State, bases<>, StateWrap, boost::noncopyable>("State")
       .def("update", &StateWrap::update)
       .def("draw", &StateWrap::draw)
+      .def("onKeyPress", &StateWrap::onKeyPress)
+      .def("onMousePress", &StateWrap::onMousePress)
+      .def("onMouseMove", &StateWrap::onMouseMove)
+      .def("resize", &StateWrap::resize)
+      .def("invokeTransition", &StateWrap::invokeTransition)
+      .def("getNext", &StateWrap::getNext)
       .def("quit", &StateWrap::quit)
+      .add_property("width", &StateWrap::getWidth)
+      .add_property("height", &StateWrap::getHeight)
+      .add_property("quitting", &StateWrap::isQuitting)
    ;
 }
