@@ -20,6 +20,9 @@ int main(int argc, char* argv[])
 
 	data::BrothaData* b = data::load("test.xml");
 	data::save(b,std::string("test2.xml"));
+	data::BrothaData* b2 = new data::BrothaData();
+	data::fillWithFakeData(b2);
+	data::save(b2,std::string("test3.xml"));
 	b->xMLify(std::cout);
 	//reports::request r("2*/2*/2*");
 	/*/r.print(std::cout);

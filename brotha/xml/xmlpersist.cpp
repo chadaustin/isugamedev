@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-05-03 01:02:02 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-03 03:09:14 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -147,11 +147,15 @@ namespace data {
       Player* p = new Player("ama","kuriyama");
       Car* c = new Car("tercel");
       Mod* m = new Mod("breaks",4);
+	  Stat* s = new Stat("health", "100");
       CarType* ct = new CarType("tercel");
+	  ModType* mt = new ModType("exhaust",0,10);
       b->addGang(g);
       b->addCarType(ct);
+	  b->addModType(mt);
       c->addMod(m);
       p->addCar(c);
+	  p->addStat(s);
       g->addPlayer(p);
    }
 }
