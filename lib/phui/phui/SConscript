@@ -26,15 +26,22 @@ headers = [
     'Input.h',
     'Point.h',
     'phui.h',
-    'phuiCommon.h'
+    'phuiCommon.h',
+
+    # extra bridge headers
+    'SDLBridge.h',
+    'GLUTBridge.h',
 ]
 
 sources.extend(map(lambda n: n + '.cpp', classes))
 headers.extend(map(lambda n: n + '.h',   classes))
 
-library = env.Library(target = 'phui', source = sources)
+libraries = []
+libraries.append(env.Library(target = 'phui', source = sources))
+libraries.append(env.Library(target = 'phuiSDL',  source = 'SDLBridge.cpp'))
+libraries.append(env.Library(target = 'phuiGLUT', source = 'GLUTBridge.cpp'))
 
 for h in headers:
     env.Install(path.join(PREFIX, 'include', 'phui'), h)
     
-env.Install(path.join(PREFIX, 'lib'), library)
+env.Install(path.join(PREFIX, 'lib'), libraries)

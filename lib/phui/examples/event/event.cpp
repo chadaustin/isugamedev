@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-24 03:57:52 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-04-24 05:29:11 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,6 +38,7 @@
 #include <stdio.h>
 #include <GL/glut.h>
 #include <phui/phui.h>
+#include <phui/GLUTBridge.h>
 
 
 namespace {
@@ -53,7 +54,6 @@ void idle() {
 }
 
 void display() {
-
    glEnable(GL_BLEND);
    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -68,105 +68,28 @@ void reshape(int width, int height) {
    gRoot->setSize(width, height);
 }
 
-phui::InputKey GlutToPhuiKey(char key) {
-   printf("%d\n", (int)key);
-   if(key >= 'a' && key <= 'z') {
-      return (phui::InputKey)(phui::KEY_A + (key - 'a'));
-   } else if(key >= '0' && key <= '9') {
-      return (phui::InputKey)(phui::KEY_0 + (key - '0'));
-   }
-
-   switch (key) {
-      case 8:   return phui::KEY_BACKSPACE;
-      case 9:   return phui::KEY_TAB;
-      case 27:  return phui::KEY_ESCAPE;
-      case 32:  return phui::KEY_SPACE;
-      case 127: return phui::KEY_DELETE;
-         
-      default:  return phui::KEY_UNKNOWN;
-   }
-
-/*
-   // check major ranges
-   if (key >= '0' && key <= '9') {
-      return KEY_0 + key - '0';
-   } else if ((key >= 'a' && key <= 'z') ||
-              (key >= 'A' && key <= 'Z')) {
-      return KEY_A + tolower(key) - 'a';
-   }
-
-
-*/
-}
-
-phui::InputKey GlutSpecialToPhuiKey(int key) {
-   printf("%d\n", (int)key);
-
-#define KEY(name) \
-   case GLUT_KEY_##name: return phui::KEY_##name
-
-   switch (key) {
-      KEY(F1);
-      KEY(F2);
-      KEY(F3);
-      KEY(F4);
-      KEY(F5);
-      KEY(F6);
-      KEY(F7);
-      KEY(F8);
-      KEY(F9);
-      KEY(F10);
-      KEY(F11);
-      KEY(F12);
-      KEY(LEFT);
-      KEY(UP);
-      KEY(RIGHT);
-      KEY(DOWN);
-      KEY(PAGE_UP);
-      KEY(PAGE_DOWN);
-      KEY(HOME);
-      KEY(END);
-      KEY(INSERT);
-      default: return phui::KEY_UNKNOWN;
-   }
-
-#undef KEY
-
-}
-
-phui::InputButton GlutToPhuiButton(int button) {
-   if (button == GLUT_LEFT_BUTTON) {
-      return phui::BUTTON_LEFT;
-   } else if (button == GLUT_MIDDLE_BUTTON) {
-      return phui::BUTTON_MIDDLE;
-   } else if (button == GLUT_RIGHT_BUTTON) {
-      return phui::BUTTON_RIGHT;
-   } else {
-      return phui::BUTTON_UNKNOWN;
-   }
-}
-
 void OnKeyboardDown(unsigned char key, int /*x*/, int /*y*/) {
-   gRoot->onKeyDown(GlutToPhuiKey(key));
+   gRoot->onKeyDown(phui::GlutToPhuiKey(key));
 }
 
 void OnKeyboardUp(unsigned char key, int /*x*/, int /*y*/) {
-   gRoot->onKeyUp(GlutToPhuiKey(key));
+   gRoot->onKeyUp(phui::GlutToPhuiKey(key));
 }
 
 void OnSpecialDown(int key, int /*x*/, int /*y*/) {
-   gRoot->onKeyDown(GlutSpecialToPhuiKey(key));
+   gRoot->onKeyDown(phui::GlutSpecialToPhuiKey(key));
 }
 
 void OnSpecialUp(int key, int /*x*/, int /*y*/) {
-   gRoot->onKeyUp(GlutSpecialToPhuiKey(key));
+   gRoot->onKeyUp(phui::GlutSpecialToPhuiKey(key));
 }
 
 void OnMouseClick(int button, int state, int x, int y) {
+   phui::InputButton phui_button = phui::GlutToPhuiButton(button);
    if (state == GLUT_DOWN) {
-      gRoot->onMouseDown(GlutToPhuiButton(button), Point(x, y));
+      gRoot->onMouseDown(phui_button, Point(x, y));
    } else {
-      gRoot->onMouseUp(GlutToPhuiButton(button), Point(x, y));
+      gRoot->onMouseUp(phui_button, Point(x, y));
    }
 }
 
@@ -186,20 +109,16 @@ int main(int argc, char** argv) {
       glutDisplayFunc(display);
       glutReshapeFunc(reshape);
 
-      // register input callbacks
-      glutKeyboardFunc(OnKeyboardDown);
-      glutKeyboardUpFunc(OnKeyboardUp);
-      glutSpecialFunc(OnSpecialDown);
-      glutSpecialUpFunc(OnSpecialUp);
-      glutMouseFunc(OnMouseClick);
-      glutMotionFunc(OnMouseMove);
-      glutPassiveMotionFunc(OnMouseMove);
-
       glutSetCursor(GLUT_CURSOR_NONE);
 
+      // create our root widget
       gRoot = phui::CreateRoot(
          glutGet(GLUT_WINDOW_WIDTH),
          glutGet(GLUT_WINDOW_HEIGHT));
+
+      // register it with glut
+      phui::glutRegisterRoot(gRoot);
+
       phui::Window* window(new phui::Window());
       window->setPosition(150, 75);
       window->setSize(300, 250);
