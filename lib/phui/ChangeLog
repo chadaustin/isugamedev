@@ -1,3 +1,5 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-02-24 nonchocoboy  RootWindow now sets up orthographic 2D projection.
+2002-02-23 nonchocoboy  Added window example
 2002-02-23 aegis        initial version
