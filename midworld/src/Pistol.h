@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Pistol.h,v $
- * Date modified: $Date: 2002-10-01 04:26:42 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-10-01 08:35:28 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -62,7 +62,6 @@ namespace mw
          // add the bulllet to the gamestate...
          BaseBullet* bullet = createBullet("bullet");
          bullet->setRot(getRot());
-         bullet->setPos(getPos());
          bullet->setVel(getRot() * bullet->getVel());
          g.add(bullet); // bullet is not mine anymore, belongs to GameState
       }

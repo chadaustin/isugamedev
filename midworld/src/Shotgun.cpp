@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-10-01 04:26:42 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-01 08:35:28 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -79,7 +79,6 @@ namespace mw
 
          BaseBullet* bullet = createBullet("bullet");
          bullet->setRot(getRot() * barrel_rot); //shoot off at a limited random angle
-         bullet->setPos(getPos());
          bullet->setVel(getRot() * barrel_rot * bullet->getVel());
          g.add(bullet);
       }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.h,v $
- * Date modified: $Date: 2002-10-01 04:26:42 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-10-01 08:35:28 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -100,6 +100,13 @@ namespace mw
        * Gets the amount of ammo for this gun that is not in the current clip.
        */
       virtual void addAmmo( int ammount );
+
+      /**
+       * Gets the position at the end of the barrel. This is the point at which
+       * the bullets leave the gun.
+       */
+      gmtl::Point3f getBarrelEndPos() const;
+
    protected:
       /**
        * Discharges this weapon, emitting whatever projectile(s) it normally

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-10-01 04:26:42 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-01 08:35:28 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -94,7 +94,6 @@ namespace mw
 
       BaseBullet* bullet = createBullet("bullet");
       bullet->setRot(getRot() * barrel_rot);
-      bullet->setPos(getPos());
       bullet->setVel(getRot() * barrel_rot * bullet->getVel());
       g.add(bullet);
 

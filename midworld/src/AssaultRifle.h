@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AssaultRifle.h,v $
- * Date modified: $Date: 2002-10-01 04:26:42 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-01 08:35:28 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -91,19 +91,16 @@ namespace mw
          BaseBullet* bullet0 = createBullet("bullet");
          bullet0->setVel(gmtl::Vec3f(0, 0, -200));
          bullet0->setRot(getRot() * r0);
-         bullet0->setPos(getPos());
          bullet0->setVel(getRot() * r0 * bullet0->getVel());
          
          BaseBullet* bullet1 = createBullet("bullet");
          bullet1->setVel(gmtl::Vec3f(0, 0, -200));
          bullet1->setRot(getRot() * r1);
-         bullet1->setPos(getPos());
          bullet1->setVel(getRot() * r1 * bullet1->getVel());
 
          BaseBullet* bullet2 = createBullet("bullet");
          bullet2->setVel(gmtl::Vec3f(0, 0, -200));
          bullet2->setRot(getRot() * r2);
-         bullet2->setPos(getPos());
          bullet2->setVel(getRot() * r2 * bullet2->getVel());
          
          g.add(bullet0);
@@ -116,6 +113,6 @@ namespace mw
          ///@TODO Eject casings.
       }
    };
-}//end of namespace mw
+}
 
 #endif
