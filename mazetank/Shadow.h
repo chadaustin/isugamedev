@@ -27,8 +27,6 @@ public:
 
 	~Shadow();
 
-	void AddAObject(GameObject* TheObject);
-
 	int AddLight(GLfloat TheLightPosition[4]);
 
 	void SetFloorObject(GameObject* TheObject);
@@ -37,13 +35,12 @@ public:
 
 	void SetLightPosition(int Handle, GLfloat TheLightPosition[4]);
 
-	void DrawShadows();
+	void DrawShadows(vector<GameObject*> &TheObjects);
 
 private:
 
 	GLfloat GroundPlane[4];
 	vector<LightPosition> MyLights;
-	vector<GameObject*> TheShadowObjects;
 	GameObject* TheFloor;
 	int NumLights;
 	void ComputeShadowMatrix(GLfloat shadowMat[4][4], 

@@ -7,6 +7,7 @@
 
 
 #include "Shadow.h"
+#include "GameObject.h"
 
 Shadow::Shadow()
 {
@@ -20,11 +21,6 @@ Shadow::Shadow()
 Shadow::~Shadow()
 {
 	
-}
-
-void Shadow::AddAObject(GameObject* TheObject)
-{
-	TheShadowObjects.push_back(TheObject);
 }
 
 int Shadow::AddLight(GLfloat TheLightPosition[4])
@@ -62,7 +58,7 @@ void Shadow::SetTheGroundPlane(GLfloat TheGroundPlane[4])
 	}
 }
 
-void Shadow::DrawShadows()
+void Shadow::DrawShadows(vector<GameObject*> &TheObjects)
 {
 	GLfloat floorShadow[4][4];
 
@@ -88,8 +84,21 @@ void Shadow::DrawShadows()
 			ComputeShadowMatrix(floorShadow, GroundPlane, MyLights[index].ThePosition);
 			glMultMatrixf((GLfloat *) floorShadow);
 			glColor4f(0.5, 0.5, 0.5, 0.5);
-			for(int i = 0; i < TheShadowObjects.size(); i++)
-				TheShadowObjects[i]->Draw();
+
+			int i = 0;
+			ObjectType ObjectName;
+
+			if(TheObjects.size() > 0)
+			{
+				TheObjects[0]->GetCurrentObjectType(ObjectName);
+			}
+
+			while(i < TheObjects.size() && ObjectName != WALL)
+			{
+				TheObjects[i]->GetCurrentObjectType(ObjectName);
+				TheObjects[i]->Draw();
+				i++;
+			}
 		glPopMatrix();
 	}
 

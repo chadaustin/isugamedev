@@ -121,6 +121,10 @@ SOURCE=.\PhysicsEngine.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\Shadow.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SkyDome.cpp
 # End Source File
 # Begin Source File
@@ -185,6 +189,10 @@ SOURCE=.\FloorGraphics.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\FloorObject.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\GameObject.h
 # End Source File
 # Begin Source File
@@ -210,6 +218,10 @@ SOURCE=.\Jukebox.h
 # Begin Source File
 
 SOURCE=.\PhysicsEngine.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Shadow.h
 # End Source File
 # Begin Source File
 

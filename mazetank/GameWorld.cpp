@@ -55,7 +55,7 @@ void GameWorld::Init()
 	Player1->Init();
 	Player1->SetObjectAngle(0.0);
 	Player1->SetCurrentObjectType(CAMTANK);
-	float Position[3] = {0.0, 0.0, 0.0};
+	float Position[3] = {-80.0, -80.0, 0.0};
 	Player1->SetPosition(Position);
 	Player1->SetVelocity(0.0);
 	TheGameObjects.push_back(Player1);
@@ -69,7 +69,7 @@ void GameWorld::Init()
 	NonPlayer->Init();
 	NonPlayer->SetObjectAngle(0.0);
 	NonPlayer->SetCurrentObjectType(NPCTANK);
-	float Position2[3] = {40.0, 0.0, 0.0};
+	float Position2[3] = {80.0, 80.0, 0.0};
 	NonPlayer->SetPosition(Position2);
 	NonPlayer->SetVelocity(0.0);
 	TheGameObjects.push_back(NonPlayer);
@@ -91,6 +91,7 @@ void GameWorld::Init()
 	GameCamera->SetPitch(-8.0);
 	GameCamera->SetYaw(0.0);
 	GameCamera->SetRoll(0.0);
+	GameCamera->Move(80.0, 80.0);
 	/////////////////////////////////////////
 
 	/////////////////////////////////////////
@@ -127,8 +128,6 @@ void GameWorld::Init()
    MyShadows.SetFloorObject(Floor);
    int LightHandle = MyShadows.AddLight(light_position);
 
-   MyShadows.AddAObject(Player1);
-   MyShadows.AddAObject(NonPlayer);
    MyShadows.SetTheGroundPlane(floorPlane);
 }
 
@@ -168,7 +167,7 @@ void GameWorld::Draw()
 
 	GameCamera->Apply();
 
-	MyShadows.DrawShadows();
+	MyShadows.DrawShadows(TheGameObjects);
 
 	//////////////////////////////////////////////
 	// Enable Back Face culling and Draw all the
