@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.cpp,v $
- * Date modified: $Date: 2002-05-03 01:50:49 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-03 02:15:00 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -49,7 +49,7 @@ namespace game {
    Object::Object()
       : mHealth(0) {
       mUID = UIDMgr::getInstance().reserveID();
-      ostringstream out;
+      std::ostringstream out;
       out << mUID;
       mName = out.str();
    }

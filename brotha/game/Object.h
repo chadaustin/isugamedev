@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.h,v $
- * Date modified: $Date: 2002-05-03 01:50:49 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-05-03 02:15:00 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -122,7 +122,9 @@ namespace game {
       /**
        * Gets the health associated with this object.
        */
-      const PRUint32 getHealth() const;
+      const PRUint32 getHealth() const {
+         return mHealth;
+      }
 
       /// Gets the name of the model for this object.
       const std::string& getModel() const;
@@ -133,7 +135,9 @@ namespace game {
       /**
        * Sets the position vector associated with this object.
        */
-      void setHealth(PRUint32 health);
+      void setHealth(PRUint32 health){
+         mHealth = health;
+      }
 
       virtual PRUint32 getType();
       virtual PRUint32 getSize();
