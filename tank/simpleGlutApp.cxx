@@ -153,7 +153,7 @@ static void OnRedisplay()
       glEnable( GL_LIGHTING );
       kev::glRender( app.light );
   
-//      app.tank.draw();
+      app.tank.draw();
       app.world.draw();
 
       // draw all of the bullets
