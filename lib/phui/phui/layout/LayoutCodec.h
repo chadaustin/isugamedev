@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutCodec.h,v $
- * Date modified: $Date: 2002-12-23 12:56:50 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-04 01:33:33 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -40,7 +40,7 @@
 #ifndef PHUI_LAYOUT_CODEC_H
 #define PHUI_LAYOUT_CODEC_H
 
-#include "phuiCommon.h"
+#include "../phuiCommon.h"
 #include "../Widget.h"
 
 namespace phui
