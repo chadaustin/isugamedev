@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.cpp,v $
- * Date modified: $Date: 2002-12-03 06:50:44 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-03-11 01:24:33 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -55,8 +55,8 @@ namespace mw
    void 
    LevelLoader::handleStaticEntity(Entity* e, XMLNode &node)
    {
-      XMLString name = node.getName();
-      XMLString c_data;
+      std::string name = node.getName();
+      std::string c_data;
       
       XMLNodePtr cNode = node.getChild(std::string("pos"));
       e->setPos(gmtl::Point3f(cNode->getAttribute(std::string("x")).getValue<float>(), 
@@ -76,8 +76,8 @@ namespace mw
    LevelLoader::handleTurretEntity(XMLNode &node, GameState* g)
    {
       Entity* t;
-      XMLString name = node.getName();
-      XMLString c_data;
+      std::string name = node.getName();
+      std::string c_data;
       std::string nam, parent;
       int maxChildren, level;
       XMLNodePtr cNode= node.getChild(std::string("name"));
@@ -111,8 +111,8 @@ namespace mw
    LevelLoader::handleDroidEntity(XMLNode &node, GameState* g)
    {
       Entity* t;
-      XMLString name = node.getName();
-      XMLString c_data;
+      std::string name = node.getName();
+      std::string c_data;
       std::string nam, parent;
       int maxChildren, level;
       XMLNodePtr cNode= node.getChild(std::string("name"));
@@ -145,8 +145,8 @@ namespace mw
    void 
    LevelLoader::handleAmmoEntity(Entity* e, XMLNode &node)
    {
-      XMLString name = node.getName();
-      XMLString c_data;
+      std::string name = node.getName();
+      std::string c_data;
       
       XMLNodePtr cNode = node.getChild(std::string("pos"));
       e->setPos(gmtl::Point3f(cNode->getAttribute(std::string("x")).getValue<float>(), 
@@ -166,8 +166,8 @@ namespace mw
    LevelLoader::handleGunEntity(XMLNode &node, GameState* g)
    {
       Entity* t;
-      XMLString name = node.getName();
-      XMLString c_data;
+      std::string name = node.getName();
+      std::string c_data;
       std::string type;
       XMLNodePtr cNode= node.getChild(std::string("type"));
       XMLNodePtr n = *(cNode->getChildren().begin());
@@ -193,9 +193,9 @@ namespace mw
    void
    LevelLoader::dumpNode(XMLNode &node, GameState* g, int level)
    {
-      XMLString name = node.getName();
+      std::string name = node.getName();
       XMLNodeType type = node.getType();
-      XMLString c_data;
+      std::string c_data;
 
       for(int i=0;i<level;i++) std::cout << " ";
 
@@ -309,7 +309,7 @@ namespace mw
       catch (XMLError e)
       {
          XMLLocation where( context->getLocation() );
-         XMLString errmsg;
+         std::string errmsg;
          e.getStrError(errmsg);
 
          // print out where the error occured

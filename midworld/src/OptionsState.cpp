@@ -11,8 +11,6 @@ namespace mw
    {
       mImages.push_back( Texture::create("unsupported") );
 
-      mFont = 0;
-      mFontRenderer = 0;
       mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
       if (!mFont)
       {
@@ -22,12 +20,10 @@ namespace mw
       mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
       if (!mFontRenderer)
       {
-         delete mFont;
-         mFont = 0;
          throw std::runtime_error("Could not create gltext renderer");
       }
 
-      mFontRenderer->setFont(mFont);
+      mFontRenderer->setFont(mFont.get());
       
       bindKey = false;
       currentSelection = 0;
@@ -63,10 +59,7 @@ namespace mw
    }
 
    OptionsState::~OptionsState()
-   {
-      delete mFont;
-      delete mFontRenderer;
-   }
+   {}
 
    void OptionsState::draw()
    {

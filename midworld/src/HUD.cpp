@@ -12,8 +12,6 @@ namespace mw
 
    HUD::HUD()
    {
-      mFont = 0;
-      mFontRenderer = 0;
       mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
       if (!mFont)
       {
@@ -23,19 +21,14 @@ namespace mw
       mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
       if (!mFontRenderer)
       {
-         delete mFont;
-         mFont = 0;
          throw std::runtime_error("Could not create gltext renderer");
       }
 
-      mFontRenderer->setFont(mFont);
+      mFontRenderer->setFont(mFont.get());
    }
 
    HUD::~HUD()
-   {
-      delete mFont;
-      delete mFontRenderer;
-   }
+   {}
 
    void HUD::draw(
       float width, float height,
@@ -113,6 +106,7 @@ namespace mw
       glMatrixMode(GL_MODELVIEW);
       glPopMatrix();
     }
+
     void HUD::drawTape(float width, float height, float maxValue, float currentValue, bool horizontal)
     {
         glColor4f(0,0,1,1);     

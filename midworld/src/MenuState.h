@@ -24,12 +24,11 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.h,v $
- * Date modified: $Date: 2002-11-26 03:05:19 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2003-03-11 01:24:33 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
 #ifndef MW_MENU_STATE_H
 #define MW_MENU_STATE_H
 
@@ -119,8 +118,8 @@ namespace mw
       std::vector<MenuSquare> mSquares; //decorative, moving squares
       int mCurrentItem;
 
-      gltext::Font* mFont;
-      gltext::FontRenderer* mFontRenderer;
+      gltext::FontPtr mFont;
+      gltext::FontRendererPtr mFontRenderer;
    };
 }
 

@@ -44,8 +44,8 @@ namespace mw
       void onMouseMove(int x, int y) {}
 
       private:
-         gltext::Font* mFont;
-         gltext::FontRenderer* mFontRenderer;
+         gltext::FontPtr mFont;
+         gltext::FontRendererPtr mFontRenderer;
          std::vector<Texture*> mImages;
          SDLKey bindings[13];
          Uint8 mouseBindings[13];

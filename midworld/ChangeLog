@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-03-10 nonchocoboy  Upgrade to GLText 0.2.0 and CppDom 0.1.0.
 2002-12-02 browner      we now depend on cal3d and use animations.
 2002-12-02 browner      we now depend on cppdom and use xml for our level file 
                         format as well as for the level loader.

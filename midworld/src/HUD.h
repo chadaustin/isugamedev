@@ -20,8 +20,8 @@ namespace mw
          Player& player, float fps, const std::vector<std::string>& perf);
 
    private:
-      gltext::Font* mFont;
-      gltext::FontRenderer* mFontRenderer;
+      gltext::FontPtr mFont;
+      gltext::FontRendererPtr mFontRenderer;
       void drawTape(float width, float height, float maxValue, float currentValue,bool horizontal);
 
    };

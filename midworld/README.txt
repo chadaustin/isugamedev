@@ -10,8 +10,8 @@ You will need the following external libraries:
 Audiere  1.9.1          http://audiere.sourceforge.net
 Cal3d    0.8.0          http://cal3d.sourceforge.net
 Corona   0.2.0          http://corona.sourceforge.net
-cppdom                  http://sourceforge.net/projects/xml-cppdom/
-GLText   0.1.0          http://gltext.sourceforge.net
+cppdom   0.1.0          http://sourceforge.net/projects/xml-cppdom/
+GLText   0.2.0          http://gltext.sourceforge.net
 GMTL     0.1.12         http://ggt.sourceforge.net
 Loom     0.0.4          http://ailoom.sourceforge.net
 OpenSG   1.1.0          http://www.opensg.org

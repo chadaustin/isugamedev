@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-12-01 22:51:24 $
- * Version:       $Revision: 1.27 $
+ * Date modified: $Date: 2003-03-11 01:24:33 $
+ * Version:       $Revision: 1.28 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -113,19 +113,14 @@ namespace mw
       mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
       if (! mFontRenderer)
       {
-         delete mFont;
-         mFont = 0;
          throw std::runtime_error("Could not create gltext renderer");
       }
 
-      mFontRenderer->setFont(mFont);
+      mFontRenderer->setFont(mFont.get());
    }
 
    MenuState::~MenuState()
-   {
-      delete mFont;
-      delete mFontRenderer;
-   }
+   {}
 
    void
    MenuState::update(float dt)
