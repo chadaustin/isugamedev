@@ -12,9 +12,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: MessageTypes.h,v $
+ * File:          $RCSfile: RequestGarageDataMessage.h,v $
  * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.8 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,32 +41,43 @@
  *
  ************************************************************ brotha-cpr-end */
 
-#ifndef NET_MESSAGE_TYPES_H
-#define NET_MESSAGE_TYPES_H
+#ifndef NET_REQ_GARAGE_DATA_MESSAGE_H
+#define NET_REQ_GARAGE_DATA_MESSAGE_H
+
+
+#include <string>
+#include "Message.h"
+#include "MessageTypes.h"
+#include "Serialize.h"
 
 
 namespace net {
 
-   enum MessageType {
-      Login, ///< client sends to login
-      Disconnect, ///< client sends to disconnection from game
-      OK, ///< generic response object
-      JoinAs, ///< client sends to join game
-      Enter, ///< server sends to place client in a location
-      Resync, ///< client sends to request resyncing world
-      AddObj, ///< seerver sends to add an object
-      UpdateObj, ///< server sends to update an object
-      DelObj, ///< server sends to delete an object
-      AddPlayer, ///< server sends to add a player
-      UpdatePlayer, ///< server sends to update a player object
-      DelPlayer, ///< server sends to remove an object
-      UpdatePlayerInfo, ///< client sends to update its info
-      GarageData, ///< server sends data for the garage
-      RequestGarageData ///< client sends to request garage data
-      //...
-   }; // MessageType
+   /**
+    * Client will send this to request garage data
+    */
+   class RequestGarageDataMessage : public Message {
+   public:
+      RequestGarageDataMessage() {
+      }
 
-} // namespace net
+      PRUint32 getType() const {
+         return RequestGarageData;
+      }
 
+      PRUint32 getSize() {
+         return 0; // nothing to send
+      }
 
-#endif // NET_MESSAGE_TYPES_H
+      void serialize(OutputStream& os) {
+         // nothing to send
+      }
+
+      void deserialize(InputStream& is) {
+         // nothing to read
+      }
+   };
+
+}
+
+#endif

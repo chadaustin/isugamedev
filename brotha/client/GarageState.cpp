@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-05-01 19:35:57 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-01 22:57:36 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,6 +42,8 @@
  ************************************************************ brotha-cpr-end */
 
 #include <phui/SDLBridge.h>
+#include "net/GarageDataMessage.h"
+#include "net/RequestGarageDataMessage.h"
 #include "BrothaApp.h"
 #include "GarageState.h"
 #include "GameState.h"
@@ -56,7 +58,7 @@ namespace client {
       mRoot = phui::CreateRoot(640,480);
 
       // main window
-      phui::Window* mMainWnd = new phui::Window();
+      mMainWnd = new phui::Window();
       mMainWnd->setSize(200, 140);
       mMainWnd->setPosition(640/2 - 100,
                             480/2 - 70);
@@ -95,7 +97,11 @@ namespace client {
       mRoot->add(mChopShop);
       mRoot->add(mMainWnd);
 
-      mJoinGame = false;
+      mMainWnd->setVisible(false);
+      mPlayer = NULL;
+      mCarTypes = NULL;
+
+      mSubState = Send_Request;
    }
 
    GarageState::~GarageState() {
@@ -110,8 +116,33 @@ namespace client {
 
    void
    GarageState::update(BrothaApp* app, int elapsedTime) {
-      if(mJoinGame) {
+      if(mSubState == Send_Request) {
+         app->sendMessage(new net::RequestGarageDataMessage());
+
+         mSubState = Wait_For_Data;
+      } else if(mSubState == Wait_For_Data) {
+         net::Message* msg = NULL;
+         if(app->getFirstMsg(msg)) {
+            // make sure we got the right message type
+            if(msg->getType() == net::GarageData) {
+               net::GarageDataMessage* gdMsg = (net::GarageDataMessage*)msg;
+
+               mPlayer = gdMsg->getPlayer();
+               mCarTypes = gdMsg->getCarTypes();
+
+               mMainWnd->setVisible(true);
+
+               mSubState = User_Input;
+            } else {
+               std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               /// @todo raise an error
+            }
+         }
+      } else if(mSubState == Join_Game) {
          app->invokeStateTransition(new GameState());
+         mSubState = User_Input;
+      } else {
+         // do nothing
       }
    }
 
@@ -149,7 +180,7 @@ namespace client {
          mChopShop->show();
          mRoot->focus(mChopShop);
       } else if (src == mJoinGameBtn) {
-         mJoinGame = true;
+         mSubState = Join_Game;
       }
    }
 

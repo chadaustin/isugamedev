@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.h,v $
- * Date modified: $Date: 2002-05-01 19:39:11 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-01 22:57:36 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,6 +44,8 @@
 #define CLIENT_GARAGE_STATE_H
 
 #include <phui/phui.h>
+#include "xml/Player.h"
+#include "xml/CarType.h"
 #include "State.h"
 #include "DealerWnd.h"
 #include "ChopShopWnd.h"
@@ -54,6 +56,13 @@ namespace client {
                             , phui::ActionListener
                             , phui::WindowAdapter
    {
+   public:
+      enum SubState {
+         Send_Request, ///< need to send data request
+         Wait_For_Data, ///< waiting for data
+         User_Input, ///< user input
+         Join_Game ///< join game button pressed
+      };
    public:
       GarageState();
       ~GarageState();
@@ -76,11 +85,12 @@ namespace client {
 
       /// The mini-dealer window.
       DealerWnd* mDealer;
-
       phui::Window* mChopShop;
 
-      /// set to true to join the game
-      bool mJoinGame;
+      data::Player* mPlayer;
+      data::CarTypeList* mCarTypes;
+
+      SubState mSubState;
    };
 
 }

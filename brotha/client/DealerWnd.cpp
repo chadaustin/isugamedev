@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DealerWnd.cpp,v $
- * Date modified: $Date: 2002-04-28 20:43:39 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-01 22:57:36 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -61,7 +61,6 @@ namespace client {
       mCarsList->setBackgroundColor(phui::Colorf(0.2f, 0.3f, 0.8f, 0.8f));
       mCarsList->setForegroundColor(phui::WHITE);
       add(mCarsList);
-      mCarsList->add("Road Hummer");
 
       mCarsOwnedList = new phui::ListBox();
       mCarsOwnedList->setSize(250, 280);

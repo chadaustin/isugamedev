@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameThread.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-01 22:57:36 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -55,6 +55,7 @@ namespace server {
       reg(JoinAs);
       reg(Resync);
       reg(UpdatePlayerInfo);
+      reg(RequestGarageData);
       #undef reg
    }
 

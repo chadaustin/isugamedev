@@ -12,9 +12,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: MessageTypes.h,v $
+ * File:          $RCSfile: RequestGarageDataMessageHandler.h,v $
  * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.8 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,32 +41,31 @@
  *
  ************************************************************ brotha-cpr-end */
 
-#ifndef NET_MESSAGE_TYPES_H
-#define NET_MESSAGE_TYPES_H
+#ifndef REQ_GARAGE_DATA_MESSAGE_HANDLER_H
+#define REQ_GARAGE_DATA_MESSAGE_HANDLER_H
 
+#include "MessageHandler.h"
+#include "net/GarageDataMessage.h"
 
-namespace net {
+namespace server {
+   class RequestGarageDataMessageHandler : public MessageHandler {
+   public:
+      RequestGarageDataMessageHandler(BrothaGame* game, net::NetMgr* netMgr)
+         : MessageHandler(game, netMgr) {
+      }
 
-   enum MessageType {
-      Login, ///< client sends to login
-      Disconnect, ///< client sends to disconnection from game
-      OK, ///< generic response object
-      JoinAs, ///< client sends to join game
-      Enter, ///< server sends to place client in a location
-      Resync, ///< client sends to request resyncing world
-      AddObj, ///< seerver sends to add an object
-      UpdateObj, ///< server sends to update an object
-      DelObj, ///< server sends to delete an object
-      AddPlayer, ///< server sends to add a player
-      UpdatePlayer, ///< server sends to update a player object
-      DelPlayer, ///< server sends to remove an object
-      UpdatePlayerInfo, ///< client sends to update its info
-      GarageData, ///< server sends data for the garage
-      RequestGarageData ///< client sends to request garage data
-      //...
-   }; // MessageType
+      ~RequestGarageDataMessageHandler() {}
 
-} // namespace net
+      virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
+         // get the main data and the player the user entered
+         data::BrothaData* data = &m_brothaGame->getDataManager().getData();
+         data::Player* player = data->getPlayer(m_brothaGame->getPlayer(cID)->getName());
+         data::CarTypeList* carlist = &data->getCarTypes();
 
+         // send the data
+         m_netMgr->send(new net::GarageDataMessage(player, carlist), cID);
+      };
+   };
+}
 
-#endif // NET_MESSAGE_TYPES_H
+#endif // JOIN_AS_MESSAGE_HANDLER_H
