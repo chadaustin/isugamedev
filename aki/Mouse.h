@@ -11,8 +11,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //   $RCSfile: Mouse.h,v $
-//   $Date: 2002-01-29 15:21:47 $
-//   $Revision: 1.2 $
+//   $Date: 2002-01-29 15:36:55 $
+//   $Revision: 1.3 $
 //   Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //   This library is free software; you can redistribute it and/or
@@ -64,16 +64,6 @@ public:
 
    void      update();
    
-   // Set the binary state of the button, ON or OFF
-   // call this on every Mouse event
-   // (a button change or position change)
-   // give - b:    Mouse::LEFT or Mouse::MIDDLE or Mouse::RIGHT
-   // give - state: Mouse::ON or Mouse::OFF
-   // result - updates internal data, 
-   //        after this call the edge trigger states are valid.
-   void      setState( const Button& b, 
-                     const DigitalInput::BinaryState& state);
-
    // Set the position of the Mouse object
    // Call this on a Mouse-Move event (when the mouse moves)
    // give - x and y mouse coordinates
@@ -83,8 +73,8 @@ public:
    
 // Preferred methods - total flexibility
 public:
-   const DigitalInput::EdgeTriggerState& edgeState( const Mouse::Button& b ) const { return mButton[b].edgeState(); }
-   const DigitalInput::BinaryState& binaryState( const Mouse::Button& b ) const { return mButton[b].binaryState(); }
+   const DigitalInput& button( const Mouse::Button& b ) const  { return mButton[b]; }
+   DigitalInput& button( const Mouse::Button& b ) { return mButton[b]; }
    
    // return the x position of the mouse.
    const int&        x() const;
@@ -212,13 +202,6 @@ inline void Mouse::getOffset( int& xOffset, int& yOffset ) const
 {
    xOffset = this->dx();
    yOffset = this->dy();
-}
-
-inline void Mouse::setState( const Button& b, 
-                      const DigitalInput::BinaryState& state )
-{
-   //set the binary state for button 'b'
-   mButton[b].binaryState() = state;
 }
 
 //: Call this on every frame of your simulation

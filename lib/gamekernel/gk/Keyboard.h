@@ -89,68 +89,48 @@ public:
       
    Keyboard()
    {
-      buttons.resize( NumberOfKeys );
+      mButton.resize( NumberOfKeys );
    }
    
-   const DigitalInput::EdgeTriggerState& edgeState( char k ) const
+   /* lookup button by character */
+   const DigitalInput& button( char k ) const
    {
       int kk = (int)k;
-      return buttons[kk].edgeState();
+      return mButton[kk];
    }
    
-   DigitalInput::EdgeTriggerState& edgeState( char k )
+   /* lookup button by character */
+   DigitalInput& button( char k )
    {
       int kk = (int)k;
-      return buttons[kk].edgeState();
+      return mButton[kk];
    }
    
-   const DigitalInput::EdgeTriggerState& edgeState( Key k ) const
+   /* lookup button by Keyboard::Key */
+   const DigitalInput& button( Key k ) const
    {
-      assert( k >= 0 && k < buttons.size() && "out of bounds" );
-      return buttons[k].edgeState();
+      assert( k >= 0 && k < mButton.size() && "out of bounds" );
+      return mButton[k];
    }
    
-   DigitalInput::EdgeTriggerState& edgeState( Key k )
+   /* lookup button by Keyboard::Key */
+   DigitalInput& button( Key k )
    {
-      assert( k >= 0 && k < buttons.size() && "out of bounds" );
-      return buttons[k].edgeState();
-   }
-   
-   const DigitalInput::BinaryState& binaryState( char k ) const
-   {
-      int kk = (int)k;
-      return buttons[kk].binaryState();
-   }
-   
-   DigitalInput::BinaryState& binaryState( char k )
-   {
-      int kk = (int)k;
-      return buttons[kk].binaryState();
-   }
-   
-   const DigitalInput::BinaryState& binaryState( Key k ) const
-   {
-      assert( k >= 0 && k < buttons.size() && "out of bounds" );
-      return buttons[k].binaryState();
-   }
-   
-   DigitalInput::BinaryState& binaryState( Key k )
-   {
-      assert( k >= 0 && k < buttons.size() && "out of bounds" );
-      return buttons[k].binaryState();
+      assert( k >= 0 && k < mButton.size() && "out of bounds" );
+      return mButton[k];
    }
       
-   void updateEdgeStates()
+   void update()
    {
-      for (int x = 0; x < buttons.size(); ++x)
+      for (int x = 0; x < mButton.size(); ++x)
       {
-         buttons[x].updateEdgeStates();
+         mButton[x].updateEdgeStates();
       }
    }
 
    kev::queue<Key>& queue() { return mQueue; }
    
-   std::vector<DigitalInput> buttons;
+   std::vector<DigitalInput> mButton;
 private:
    kev::queue<Key> mQueue;
 };
