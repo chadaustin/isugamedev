@@ -153,7 +153,8 @@ void PhysicsEngine::BulletUpdate(GameObject* &BulletObject, int dt)
 void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
 {
 	float Position[3];
-   ObjectType ObjectName;
+    ObjectType ObjectName;
+	ObjectType ObjectName2;
 	vector<GameObject*> ToRemove;
 
    ///////////////////////////////////////////////////////
@@ -163,7 +164,7 @@ void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
 	for(i = 0; i < TheObjects.size(); i++)
 	{
 		TheObjects[i]->GetPosition(Position);
-      TheObjects[i]->GetCurrentObjectType(ObjectName);
+		TheObjects[i]->GetCurrentObjectType(ObjectName);
 
 		if(Position[2] < 0 && ObjectName == BULLET)
 		{
@@ -179,12 +180,18 @@ void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
    ////////////////////////////////////////
 	for(i = 0; i < TheObjects.size(); i++)
 	{
+		TheObjects[i]->GetCurrentObjectType(ObjectName);
 		for(j = i+1; j < TheObjects.size(); j++)
 		{
-			if(CheckForCollision(TheObjects[i], TheObjects[j]))
+			TheObjects[j]->GetCurrentObjectType(ObjectName2);
+
+			if(!(ObjectName == WALL && ObjectName2 == WALL))
 			{
-				TheObjects[i]->AddCollision(TheObjects[j]);
-            TheObjects[j]->AddCollision(TheObjects[i]);
+				if(CheckForCollision(TheObjects[i], TheObjects[j]))
+				{
+					TheObjects[i]->AddCollision(TheObjects[j]);
+					TheObjects[j]->AddCollision(TheObjects[i]);
+				}
 			}
 		}
 	}

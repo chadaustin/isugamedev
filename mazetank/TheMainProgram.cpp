@@ -28,8 +28,9 @@ int OldY = -1;
 
 int dt = 0;
 int Starttime, Stoptime;
-GLuint gamefloor[1];
 
+GLuint gamefloor[1];
+GLuint	parttext[1];	
 /////////////////////////////////////////////////////////////
 
 void Initialize()
@@ -45,8 +46,8 @@ void Initialize()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_CULL_FACE);
 
-	if(LOAD_TEXTUREBMP_SUCCESS == loadOpenGL2DTextureBMP("Textures/concrete.bmp", &gamefloor[0]))
-		cout << "Success" << endl;
+	loadOpenGL2DTextureBMP("Textures/concrete.bmp", &gamefloor[0]);
+	loadOpenGL2DTextureBMP("Textures/particle.bmp", &parttext[0]);
 
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);	// Linear Filtering
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	// Linear Filtering

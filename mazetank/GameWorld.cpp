@@ -11,13 +11,14 @@
 #include "TankObject.h"
 #include "Camera.h"
 #include "Input.h"
-#include "SoundManager.h"
-#include "SoundEffectManager.h"
-#include "Jukebox.h"
+//#include "SoundManager.h"
+//#include "SoundEffectManager.h"
+//#include "Jukebox.h"
 #include "WallObject.h"
+#include "BuildMaze.h"
 
 extern Input GameInput;
-sound::SoundManager* GameSound;
+//sound::SoundManager* GameSound;
 
 GameWorld::GameWorld()
 {
@@ -31,7 +32,7 @@ GameWorld::~GameWorld()
 
 	TheGameObjects.erase(TheGameObjects.begin(), TheGameObjects.end());
 
-   delete GameSound;
+//   delete GameSound;
 }
 
 void GameWorld::Init()
@@ -54,7 +55,6 @@ void GameWorld::Init()
    float Position2[3] = {40.0, 0.0, 0.0};
    NonPlayer->SetPosition(Position2);
    NonPlayer->SetVelocity(0.0);
-
    TheGameObjects.push_back(NonPlayer);
 
    GameCamera = new Camera;
@@ -64,10 +64,7 @@ void GameWorld::Init()
    GameCamera->SetYaw(0.0);
    GameCamera->SetRoll(0.0);
 
-   GameObject* Wall = new WallObject;
-   float WallPosition[3] = {20.0, 0.0, 1.0};
-   Wall->SetPosition(WallPosition);
-   TheGameObjects.push_back(Wall);
+   BuildMaze(TheGameObjects);
 
    GamePhysics.SetCamera(GameCamera);
    TheFloor.Init();
@@ -78,12 +75,12 @@ void GameWorld::Init()
    /////////////////////////////////////////
    //Initialize GameSound
    /////////////////////////////////////////
-   GameSound = new sound::SoundManager;
+/*   GameSound = new sound::SoundManager;
 
-   GameSound->getJukebox()->addTrack("music/track1.ogg");
+   GameSound->getJukebox()->addTrack("music/BSide.ogg");
    GameSound->getJukebox()->play();
 
-   GameSound->getSoundEffectManager()->playSound("music/entering1.wav");
+   GameSound->getSoundEffectManager()->playSound("music/entering1.wav");*/
 }
 
 void GameWorld::Update(int dt)
@@ -92,7 +89,7 @@ void GameWorld::Update(int dt)
    float OldTankPosition[3];
    float TankAngle;
 
-   GameSound->getJukebox()->update();
+//   GameSound->getJukebox()->update();
    GamePhysics.Update(TheGameObjects, dt);
    
    Player1->GetPosition(TankPosition);
