@@ -87,7 +87,6 @@ void CollisionDetection::AddObject(MyObject*& InObject)
 void CollisionDetection::RemoveObject(MyObject*& InObject)
 { 	
 	unsigned int Index;
-	int Shifted = 0;
 
 	Index = 0;
 	while(Index < MyObjectEdges.size())

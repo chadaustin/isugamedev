@@ -123,7 +123,6 @@ bool LilypadObject::Moved(float& x, float& y)
 
 void LilypadObject::Update()
 {	
-	NULL;
 }
 
 		 

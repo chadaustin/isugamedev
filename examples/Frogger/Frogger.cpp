@@ -98,7 +98,6 @@ void FrogInput(int key, int x, int y)
 			break;
 
 		default : 
-			NULL;
 			break;
 	}
 

@@ -172,7 +172,7 @@ void FrogObject::Update()
 				FrogMove = NONE;
 				break;
 
-	default :	NULL;
+	default :
 				break;
 	}
 
