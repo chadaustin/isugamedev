@@ -27,8 +27,8 @@ $MAILCMD = "/usr/lib/sendmail -odb -oem";
 $MAIL_BRANCH_HDR = "X-ISUGDC-CVS-Branch:";
 $ADD_TO_LINE = 1;
 
-$MAILADDRS = 'subatomic@users.sourceforge.net';
-#$MAILADDRS = 'isugamedev-checkins@lists.sourceforge.net';
+#$MAILADDRS = 'subatomic@users.sourceforge.net';
+$MAILADDRS = 'isugamedev-checkins@lists.sourceforge.net';
 
 @COMMIT_HOSTS = ();
 
