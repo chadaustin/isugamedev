@@ -23,8 +23,8 @@
 #include "glRenderLight.h"
 #include "TankGame.h"
 #include "GeodeCache.h"
-#include "Bullet.h"
 #include "Tank.h"
+#include "Bullet.h"
 
 //: Provide functionality to automatically use different lights.
 // Leave the first light (0) alone.
