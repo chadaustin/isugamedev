@@ -3,6 +3,7 @@
 #include "GameState.h"
 #include "IntroState.h"
 #include "MenuState.h"
+#include "Pistol.h"
 
 namespace mw
 {
@@ -12,7 +13,10 @@ namespace mw
       , mReverse(UP)
       , mStrafeRight(UP)
       , mStrafeLeft(UP)
-   {}
+      , mShoot(UP)
+   {
+      mPlayer.setWeapon(new Pistol());
+   }
 
    GameState::~GameState()
    {}
@@ -20,7 +24,7 @@ namespace mw
    void
    GameState::update(u64 elapsedTime)
    {
-      double dt = ((double)elapsedTime) / 1000000.0;
+      float dt = ((float)elapsedTime) / 1000000.0f;
       mCamera.setPlayerPos(mPlayer.position());
 
       // Accelerate
@@ -63,11 +67,33 @@ namespace mw
          mPlayer.setVelocity(mPlayer.velocity() - gmtl::Vec3f(mSpeed*0.9f,0,0));
       }
 
+      // Shoot
+      if (mShoot == EDGE_DOWN)
+      {
+         mPlayer.getWeapon()->setFiring(true);
+         std::cout<<"Trigger Down"<<std::endl;
+      }
+      else if (mShoot == EDGE_UP)
+      {
+         mPlayer.getWeapon()->setFiring(false);
+         std::cout<<"Trigger Up"<<std::endl;
+      }
+
       // update edge states...
       updateEdgeState(mAccelerate);
       updateEdgeState(mReverse);
       updateEdgeState(mStrafeRight);
       updateEdgeState(mStrafeLeft);
+      updateEdgeState(mShoot);
+
+      // Fire the player's weapon if necessary
+      if (mShoot == DOWN && mPlayer.getWeapon()->canFire())
+      {
+         RigidBody* bullet = mPlayer.getWeapon()->createBullet();
+         bullet->setPos(mPlayer.position());
+         bullet->setVel(mPlayer.rotation() * bullet->getVel());
+         mBodies.push_back(bullet);
+      }
 
       // Iterate over all the rigid bodies and update them
       for (RigidBodyList::iterator itr = mBodies.begin(); itr != mBodies.end(); ++itr)
@@ -145,6 +171,7 @@ namespace mw
       if (button == SDL_BUTTON_LEFT)
       {
          updateEdgeState(mShoot, down);
+         std::cout<<"LMB "<<down<<std::endl;
       }
    }
 
@@ -154,7 +181,7 @@ namespace mw
       float screen_size_x = 640;
       float screen_size_y = 480;
       gmtl::Vec3f mid(screen_size_x / 2, screen_size_y / 2, 0);
-      gmtl::Vec3f pos(x, y, 0);
+      gmtl::Vec3f pos((float)x, (float)y, 0);
       gmtl::Vec3f dir(pos - mid);
       gmtl::normalize(dir);
 

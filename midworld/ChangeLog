@@ -1,5 +1,8 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-06-18 nonchocoboy  Weapon framework started. Player can now shoot by
+           areinot      clicking about with the mouse with accurate reload
+                        and bullet to chamber wait times.
 2002-06-10 subatomic    Render player/camera, steer with mouse like abuse
 2002-06-09 aegis        Main menu and good transitions
 2002-06-09 nonchocoboy  Play theme music in the intro!

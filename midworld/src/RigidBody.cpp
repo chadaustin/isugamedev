@@ -23,18 +23,21 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-06-17 03:25:37 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-06-18 05:37:09 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <gmtl/VecOps.h>
 #include "RigidBody.h"
+#include "cubeGeometry.h"
 
 namespace mw
 {
-   void RigidBody::update(float dt)
+   void RigidBody::update(u64 elapsedTime)
    {
+      float dt = static_cast<float>(elapsedTime) / 1000000.0f;
+
       // Linear momentum
       // 
       gmtl::Vec3f accel = mForce / mMass;
@@ -59,6 +62,15 @@ namespace mw
 
    void RigidBody::draw()
    {
+      glPushMatrix();
+         glTranslatef(mPos[0], mPos[1], mPos[2]);
+         glScalef(0.5f, 0.5f, 0.5f);
+         cubeGeometry().render();
+      glPopMatrix();
+   }
 
+   const gmtl::AABoxf& RigidBody::getBounds() const
+   {
+      return mBounds;
    }
 }

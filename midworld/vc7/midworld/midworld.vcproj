@@ -111,6 +111,12 @@
 				RelativePath="..\..\src\Application.h">
 			</File>
 			<File
+				RelativePath="..\..\src\BoundsCollisionDetector.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\BoundsCollisionDetector.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Camera.cpp">
 			</File>
 			<File
@@ -165,6 +171,9 @@
 				RelativePath="..\..\src\NullCollisionDetector.h">
 			</File>
 			<File
+				RelativePath="..\..\src\Pistol.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Player.cpp">
 			</File>
 			<File
@@ -211,6 +220,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\Utility.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Weapon.h">
 			</File>
 			<File
 				RelativePath="..\..\src\cubeGeometry.cpp">

@@ -1,6 +1,7 @@
 #ifndef MW_PISTOL_H
 #define MW_PISTOL_H
 
+#include <gmtl/Math.h>
 #include "Weapon.h"
 
 namespace mw
@@ -9,9 +10,14 @@ namespace mw
    class Pistol : public Weapon
    {
    private:
-      int mBusyCounter;
-      int mReloadRate;
-      int mFireRate;
+      /// Time left (secs) to wait for the next bullet to be placed in the chamber
+      float mBusyCounter;
+
+      /// Time left (secs) to wait for reload to complete
+      float mReloadCounter;
+
+      float mReloadRate;
+      float mFireRate;
 
       int mAmmoInClip;
       int mClipSize;
@@ -29,8 +35,11 @@ namespace mw
          mReloading = false;
          mBusyCounter = 0;
 
-         mReloadRate = 1000;
-         mFireRate = 500;
+         mReloadRate = 2.0f;
+         mFireRate = 0.5f;
+
+         mAmmoInClip = mClipSize;
+         mAmmoInBag = 100;
       }
 
       void addAmmo(int ammount)  //for ammo pickup
@@ -45,20 +54,18 @@ namespace mw
       void setFiring(bool firing)   //for key pressing edge events
       {
          mFiring = firing;
-         if (firing == true)
-         {
-            //TODO: This does not belong here!
-            mBusyCounter = mFireRate;
-         }
       }
 
-      void setReloading(bool reloading)   //for key pressing edge events
+      /**
+       * Triggers a reload sequence.
+       */
+      void reload()
       {
-         mReloading = reloading;
-         if (reloading == true)
+         // Don't bother if we're already reloading or we have no ammo
+         if ((! mReloading) && (mAmmoInBag > 0))
          {
-            //TODO: This does not belong here!
-            mBusyCounter = mReloadRate;
+            mReloadCounter = mReloadRate;
+            mReloading = true;
          }
       }
 
@@ -72,39 +79,72 @@ namespace mw
          return mReloading;
       }
 
-      //pre:  Weapon can be fired, and there
-      //      is a bullet in the chamber
+      /**
+       * Creates a new bullet as though it were fired from this weapon.
+       * @pre Weapon can be fired and there is a bullet in the chamber
+       */
       RigidBody* createBullet()
       {
          RigidBody* bullet = new RigidBody();
+         bullet->setVel(gmtl::Vec3f(0,0,-30));
 
-         //TODO: set bullet properties here
-
+         // Remove the spent ammo from the clip
          --mAmmoInClip;
+
+         // Start the reload process automagically if necessary
+         if (mAmmoInClip == 0)
+         {
+            reload();
+         }
+         // Pause to put a new bullet in the chamber
+         else
+         {
+            mBusyCounter = mFireRate;
+         }
+
          return bullet;
       }
 
       bool canFire() const
       {
-         if (!mReloading && !mFiring && mAmmoInClip>0)
+         if (!mReloading && mFiring && mAmmoInClip>0)
          {
-            return true;
+            if ((mBusyCounter <= 0.0f) && (mReloadCounter <= 0.0f))
+            {
+               return true;
+            }
          }
          return false;
       }
 
-      void update(u64 dt)
+      void update(float dt)
       {
-         dt /= 1000;
+         // Process the reloading state if we're currently reloading the pistol
+         if (isReloading())
+         {
+            mReloadCounter -= dt;
+            // Check if we're done reloading
+            if (mReloadCounter <= 0.0f)
+            {
+               // Make sure the counter stays at 0
+               mReloadCounter = 0.0f;
+
+               // Try to refill the clip (even if it still has bullets left in it)
+               int new_clip = gmtl::Math::Min(mAmmoInBag, mClipSize - mAmmoInClip);
+               mAmmoInBag -= new_clip;
+               mAmmoInClip += new_clip;
+
+               // We're done reloading ...
+               mReloading = false;
+            }
+         }
+
+         // Handle the placement of a new bullet in the chamber
          mBusyCounter -= dt;
-         if (mBusyCounter <= 0)
+         if (mBusyCounter <= 0.0f)
          {
             //make sure busyCounter is 0
-            mBusyCounter = 0;
-
-            //reset flags
-            mReloading = false;
-            mfiring = false;
+            mBusyCounter = 0.0f;
          }
       }
    };

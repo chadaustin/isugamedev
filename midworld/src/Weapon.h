@@ -41,9 +41,9 @@ namespace mw
        * Updates the state of this bullet based on the amount of time that has
        * passed.
        *
-       * @param dt   the change in time in microseconds
+       * @param dt   the change in time in seconds
        */
-      virtual void update(u64 dt) = 0;
+      virtual void update(float dt) = 0;
    };
 }
 

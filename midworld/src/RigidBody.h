@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-06-17 03:25:37 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-06-18 05:37:09 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #include <gmtl/AABox.h>
 #include <gmtl/Point.h>
 #include <gmtl/Quat.h>
+#include "Types.h"
 
 namespace mw
 {
@@ -56,6 +57,8 @@ namespace mw
 
       float mMass;
 
+      /// The bounding volume for this body
+      gmtl::AABoxf mBounds;
    public:
 
       virtual ~RigidBody() {}
@@ -91,7 +94,7 @@ namespace mw
       /**
        * Sets the rotation of this rigid body.
        */
-      void setRot     (const gmtl::Quatf& rot) { mRot = rot; }
+      void setRot(const gmtl::Quatf& rot) { mRot = rot; }
 
       /**
        * Gets the rotation of this rigid body.
@@ -101,7 +104,7 @@ namespace mw
       /**
        * Sets the angular velocity of this rigid body.
        */
-      void setRotVel  (const gmtl::Vec3f& rotVel) { mRotVel = rotVel; }
+      void setRotVel(const gmtl::Vec3f& rotVel) { mRotVel = rotVel; }
 
       /**
        * Applies a force on this body at a position relative to its center. This
@@ -127,9 +130,9 @@ namespace mw
        * Updates the internal state of this body given the amount of time that
        * has passed.
        *
-       * @param dt      the differtial of time in seconds
+       * @param dt      the differtial of time in microseconds
        */
-      void update(float dt);
+      void update(u64 elapsedTime);
       void draw();	// display
 
       /**
@@ -137,7 +140,7 @@ namespace mw
        *
        * @return  the bounding volume for this body
        */
-      virtual const gmtl::AABoxf& getBounds() const = 0;
+      const gmtl::AABoxf& getBounds() const;
    };
 }
 

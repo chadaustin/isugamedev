@@ -60,8 +60,6 @@ namespace mw
       EdgeState mStrafeRight, mStrafeLeft;
       EdgeState mShoot;
    };
-
 }
-
 
 #endif

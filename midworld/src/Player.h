@@ -8,6 +8,7 @@
 #include <gmtl/Generate.h>
 #include <gmtl/Output.h>
 
+#include "Weapon.h"
 #include "cubeGeometry.h"
 
 namespace mw
@@ -16,7 +17,8 @@ namespace mw
 class Player
 {
 public:
-   Player() : mPos(), mVel(), mRot()
+   Player()
+      : mPos(), mVel(), mRot(), mWeapon(0)
    {
       this->init();
    }
@@ -33,13 +35,29 @@ public:
          glMultMatrixf( mXForm.getData() );
          glTranslatef( 0, 1, 0 );
          glPushMatrix();
-            glScalef( 0.5, 0.3, 0.4 );
+            glScalef( 0.5f, 0.3f, 0.4f );
             cubeGeometry().render();
          glPopMatrix();
-         glTranslatef( 0, 0, -0.5 );
-         glScalef( 0.15, 0.15, .3 );
+         glTranslatef( 0, 0, -0.5f );
+         glScalef( 0.15f, 0.15f, 0.3f );
          cubeGeometry().render();
       glPopMatrix();
+   }
+
+   /**
+    * Gets this player's weapon.
+    */
+   Weapon* getWeapon() const
+   {
+      return mWeapon;
+   }
+
+   /**
+    * Sets the player's weapon.
+    */
+   void setWeapon(Weapon* weapon)
+   {
+      mWeapon = weapon;
    }
 
    /**
@@ -95,7 +113,10 @@ public:
       // XFORM
       // store the matrix from the pos/rot data...
       gmtl::set( mXForm, mRot );
-      gmtl::setTrans( mXForm, mPos ); 
+      gmtl::setTrans( mXForm, mPos );
+
+      // update the current weapon
+      mWeapon->update(timeDelta);
    }
 
    const gmtl::Vec3f& velocity() const
@@ -148,6 +169,8 @@ private:
    gmtl::Matrix44f mXForm;
    gmtl::Vec3f mPos, mVel;
    gmtl::Quatf mRot;
+
+   Weapon* mWeapon;
 };
 }
 
