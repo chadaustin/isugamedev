@@ -7,6 +7,6 @@ rm -f tmp/resources.zip
 
 # Remove the directory if it's not empty
 FILES=`ls tmp`
-if test "x$FILES" == "x"; then
+if test "x$FILES" = "x"; then
    rmdir tmp
 fi
