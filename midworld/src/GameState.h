@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-07-07 03:26:22 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,6 +43,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "RigidBody.h"
+#include "Cursor.h"
 
 namespace mw
 {
@@ -107,9 +108,7 @@ namespace mw
       float mFrameCount;
       float mFrameTime;
       
-      // cursor
-      float mMousePosX, mMousePosY;
-      bool mNeedWarp;
+      Cursor mCursor;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-07-07 03:26:22 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,10 +53,8 @@ namespace mw
       , mFPS(0)
       , mFrameCount(0)
       , mFrameTime(0)
-      , mMousePosX( a->getWidth() / 2 )
-      , mMousePosY( a->getHeight() / 2 )
-      , mNeedWarp( true )
    {
+      mCursor.init( a->getWidth(), a->getHeight() );
       mGunSlots.resize( 10 );
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          mGunSlots[x] = UP;
@@ -95,14 +93,9 @@ namespace mw
    void
    GameState::update(float dt)
    {
-      // keep track of the mouse cursor...
-      if (mNeedWarp)
-      {
-         ::SDL_WarpMouse( this->application().getWidth() / 2, this->application().getHeight() / 2 );
-         mNeedWarp = false;
-      }
-      
-      
+      mCursor.update( this->application().getWidth(),
+                      this->application().getHeight() );
+
       mCamera.setPlayerPos(mPlayer.getPos());
 
       const gmtl::Vec3f accel(   gmtl::Vec3f(0, 0, -mSpeed)      );
@@ -182,8 +175,8 @@ namespace mw
       {
          float screen_size_x = this->application().getWidth();
          float screen_size_y = this->application().getHeight();
-         float x = mMousePosX;
-         float y = mMousePosY;
+         float x = mCursor.getX();
+         float y = mCursor.getY();
          gmtl::Vec3f mid(screen_size_x / 2, screen_size_y / 2, 0);
          gmtl::Vec3f pos( x, y, 0 );
          gmtl::Vec3f dir(pos - mid);
@@ -274,23 +267,8 @@ namespace mw
          }
       glPopMatrix();
 
-      // draw cursor (dumb)
-      glPushMatrix();
-      glMatrixMode(GL_PROJECTION);
-         glPushMatrix();
-         glLoadIdentity();
-         glOrtho(0, this->application().getWidth(), this->application().getHeight(), 0, 300, -300);
-      glMatrixMode(GL_MODELVIEW);
-         glPushMatrix();
-         glLoadIdentity();
-         glTranslatef( mMousePosX, mMousePosY, 0 );
-         glScalef( 3.0f, 3.0f, 3.0f );
-         cubeGeometry().render();
-         glPopMatrix();
-
-         glMatrixMode(GL_PROJECTION);
-         glPopMatrix();
-      glPopMatrix();
+      mCursor.draw( this->application().getWidth(),
+                      this->application().getHeight() );
          
       // Draw the HUD
       if (mFontRenderer)
@@ -404,30 +382,8 @@ namespace mw
    void
    GameState::onMouseMove(int x, int y)
    {
-      // keep track of the game-draw virtual cursor
-      mNeedWarp = true;
-      x -= this->application().getWidth() / 2;
-      y -= this->application().getHeight() / 2;
-      mMousePosX += x;
-      mMousePosY += y;
-      
-      // constrain virtual cursor
-      if (mMousePosX < 0)
-      {
-         mMousePosX = 0;
-      }
-      if (this->application().getWidth() < mMousePosX)
-      {
-         mMousePosX = this->application().getWidth();
-      }
-      if (mMousePosY < 0)
-      {
-         mMousePosY = 0;
-      }
-      if (this->application().getHeight() < mMousePosY)
-      {
-         mMousePosY = this->application().getHeight();
-      }
+      mCursor.onMouseMove( this->application().getWidth(),
+                      this->application().getHeight(), x, y );
    }
 
    void
