@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-05-03 04:13:09 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-03 07:05:50 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -62,6 +62,15 @@ namespace data {
 		 mPic = std::string("");
 		 mThumbPic = std::string("");
       }
+
+	  void removeMod(std::string name){
+		  for(int i = 0; i < mMods.size(); i++){
+			  Mod* c = mMods[i];
+			  if(name == c->getName()){
+				  mMods.erase(mMods.begin() + i);
+			  }
+		  }
+	  }
 
       /// Gets the name of this car.
       const std::string& getName() const {
