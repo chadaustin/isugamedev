@@ -8,14 +8,13 @@
 class AmbientWind {
 public:
   AmbientWind();
-  ~AmbientWind();
 
   void update(int elapsedTime);
 
 private:
-  audiere::Context* mContext;
-  audiere::Stream* mSound1;
-  audiere::Stream* mSound2;
+  audiere::AudioDevicePtr mContext;
+  audiere::OutputStreamPtr mSound1;
+  audiere::OutputStreamPtr mSound2;
   
   int mTimeUntilUpdate;
   int mTotalTime;
