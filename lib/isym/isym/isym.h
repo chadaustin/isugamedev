@@ -32,6 +32,9 @@ namespace isym
     *  @{
     */
    
+   /** Input symbol type.  
+    *  Use this when creating new symbols and pointers to symbols.
+    */
    typedef unsigned long long Symbol;
           
    /** Returns a unique identifier.
@@ -42,6 +45,8 @@ namespace isym
    /** @name input symbols
     *  @{
     */
+          
+   /** left mouse button... */
    const Symbol BUTTON_LEFT = isym::getUID();
    const Symbol BUTTON_MIDDLE = isym::getUID();
    const Symbol BUTTON_RIGHT = isym::getUID();
