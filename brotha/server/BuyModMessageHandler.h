@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BuyModMessageHandler.h,v $
- * Date modified: $Date: 2002-05-03 09:53:07 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-03 10:30:55 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -66,7 +66,12 @@ namespace server {
 
          data::Car* car = player->getCar(mMsg->getCarName());
          if(car != NULL) {
-            car->addMod(new data::Mod(mMsg->getModName(), mMsg->getModLevel()));
+            data::Mod* mod = car->getMod(mMsg->getModName());
+            if(mod == NULL) {
+               car->addMod(new data::Mod(mMsg->getModName(), mMsg->getModLevel()));
+            } else {
+               mod->setLevel(mMsg->getModLevel());
+            }
          }
 
          // send the good response
