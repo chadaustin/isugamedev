@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-09-10 02:54:39 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-09-16 18:55:04 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -101,10 +101,10 @@ namespace mw
    void
    IntroState::onKeyPress(SDLKey sym, bool down)
    {
-      if (down)
+      if (down && !mLeavingState)
       {
          mLeavingState = true;
-         mElapsedTime = 0;
+         mElapsedTime = std::max(0.0f, 1.0f - mElapsedTime);
       }
    }
 
