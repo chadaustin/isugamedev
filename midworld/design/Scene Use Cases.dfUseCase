@@ -1,0 +1,123 @@
+package id2vayhd5rsq03md5rsw091;
+
+/**
+@version 2.0
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node:oiref><oihard>
+@__modelType reference 
+*/
+class reference {
+}/**
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node107:oiref><oihard>
+@__modelType reference 
+*/
+class reference108 {
+}/**
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node109:oiref><oihard>
+@__modelType reference 
+*/
+class reference110 {
+}/**
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node111:oiref><oihard>
+@__modelType reference 
+*/
+class reference112 {
+}/**
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node115:oiref><oihard>
+@__modelType reference 
+*/
+class reference116 {
+}/**
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node117:oiref><oihard>
+@__modelType reference 
+*/
+class reference118 {
+}}/**
+
+@__tags
+@shapeType UseCaseDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node109:oiref>=320,150,135,21,1:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node.link:oiref>=212,120,330,120:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node115:oiref>=150,250,52,77,1:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node107:oiref>=330,110,101,21,1:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node117:oiref>=344,310,105,21,1:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node111:oiref>=340,250,108,21,1:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node:oiref>=160,110,52,77,1:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node.link113:oiref>=212,160,320,160:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node115.link114:oiref>=202,260,340,260:oigroup>
+<oigroup:<oiref:design#Class#id2vayhd5rsq03md5rsw091.node115.link:oiref>=202,317,344,320:oigroup>
+*/
+class __positions {
+}/**
+@shapeType Actor
+@__modelType node
+@name Game 
+*/
+class node {
+/**
+@shapeType CommunicatesLink
+@__modelType link
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node107:oiref><oihard>
+@directed*/
+class link {
+}/**
+@shapeType CommunicatesLink
+@__modelType link
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node109:oiref><oihard>
+@directed 
+*/
+class link113 {
+}}/**
+@shapeType UseCase
+@__modelType node
+@name AddEntity 
+*/
+class node107 {
+}/**
+@shapeType UseCase
+@__modelType node
+@name RemoveEntity 
+*/
+class node109 {
+}/**
+@shapeType UseCase
+@__modelType node
+@name LoadScene 
+*/
+class node111 {
+}/**
+@shapeType Actor
+@__modelType node
+@name Player 
+*/
+class node115 {
+/**
+@shapeType CommunicatesLink
+@__modelType link
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node111:oiref><oihard>
+@directed*/
+class link114 {
+}/**
+@shapeType CommunicatesLink
+@__modelType link
+@__ref <oiref:design#Class#id2vayhd5rsq03md5rsw091.node117:oiref><oihard>
+@directed 
+*/
+class link {
+}}/**
+@shapeType UseCase
+@__modelType node
+@name SaveScene 
+*/
+class node117 {
+}

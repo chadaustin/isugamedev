@@ -1,0 +1,113 @@
+package idobxad5rsq03md5rt9ctm;
+
+/**
+@version 2.0
+@__modelType diagram 
+*/
+class diagram {
+/**
+@__ref <oiref:cpp#Class#mw::Scene:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference {
+}/**
+@__ref <oiref:cpp#Class#SceneEncoder:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference122 {
+}/**
+@__ref <oiref:cpp#Class#SceneDecoder:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference124 {
+}/**
+@__ref <oiref:cpp#Class#mw::Entity:oiref><oihard>
+@__modelType reference
+@__imported*/
+class reference126 {
+}/**
+@__ref <oiref:cpp#Class#SceneViewer:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference128 {
+}/**
+@__ref <oiref:cpp#Class#SceneListener:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference130 {
+}/**
+@__ref <oiref:cpp#Class#mw::SceneViewer:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference133 {
+}/**
+@__ref <oiref:cpp#Class#mw::SceneListener:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference135 {
+}/**
+@__ref <oiref:cpp#Class#SceneEvent:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference136 {
+}/**
+@__ref <oiref:cpp#Class#mw::SceneEvent:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference139 {
+}/**
+@__ref <oiref:cpp#Class#AbstractEntity:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference1 {
+}/**
+@__ref <oiref:cpp#Class#mw::AbstractEntity:oiref><oihard>
+@__modelType reference
+@__imported 
+*/
+class reference44 {
+}}/**
+
+@__tags
+@shapeType ClassDiagram 
+*/
+class __tags {
+}/**
+@__options 
+*/
+class __options {
+}/**
+@__positions <oigroup:<oiref:cpp#Class#mw::Scene:oiref>=320,230,180,200,0:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::SceneViewer#mw::SceneListener:oiref>=155,290,155,188:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::SceneEvent#mScene:oiref>=401,150,401,230:oigroup>
+<oigroup:<oiref:cpp#Class#SceneEvent:oiref>=305,49,91,79,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::Scene#entities:oiref>=320,285,320,370:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SceneViewer:oiref>=90,290,131,105,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::SceneEvent#mEntity:oiref>=450,150,682,220:oigroup>
+<oigroup:<oiref:cpp#Extends#mw::AbstractEntity#mw::Entity:oiref>=642,440,642,374:oigroup>
+<oigroup:<oiref:cpp#Class#AbstractEntity:oiref>=530,390,147,146,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::Entity:oiref>=590,220,144,154,0:oigroup>
+<oigroup:<oiref:cpp#Class#SceneDecoder:oiref>=760,10,149,92,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::Scene#listeners:oiref>=320,152,238,152:oigroup>
+<oigroup:<oiref:cpp#Class#SceneListener:oiref>=240,50,110,92,1:oigroup>
+<oigroup:<oiref:cpp#Class#mw::AbstractEntity:oiref>=590,440,146,150,1:oigroup>
+<oigroup:<oiref:cpp#Class#SceneEncoder:oiref>=640,10,108,92,1:oigroup>
+<oigroup:<oiref:cpp#Class#SceneViewer:oiref>=110,74,99,92,1:oigroup>
+<oigroup:MemberLink#<oiref:cpp#Member#mw::Scene#mEntities:oiref>=320,285,320,370:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SceneEvent:oiref>=360,10,139,140,1:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SceneEvent#mScene:oiref>=365,213,32,13,0:oigroup>
+<oigroup:Composite#supplierCardinality#MemberLink#<oiref:cpp#Member#mw::SceneEvent#mEntity:oiref>=590,203,32,13,0:oigroup>
+<oigroup:<oiref:cpp#Class#mw::SceneListener:oiref>=90,70,148,118,1:oigroup>
+*/
+class __positions {
+}
