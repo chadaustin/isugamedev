@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-03-27 00:51:33 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-27 05:18:31 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,124 +44,127 @@
 #include <string>
 #include "UIDManager.h"
 
-class Player
+namespace game
 {
-public:
-   /**
-    * The UID type for players.
-    */
-   typedef UIDManager<Player>::UID UID;
+   class Player
+   {
+   public:
+      /**
+       * The UID type for players.
+       */
+      typedef UIDManager<Player>::UID UID;
 
-public:
-   /**
-    * Creates a new player with the default name "Player".
-    */
-   Player();
+   public:
+      /**
+       * Creates a new player with the default name "Player".
+       */
+      Player();
 
-   /**
-    * Creates a new player with the given name.
-    */
-   Player( const std::string& name );
+      /**
+       * Creates a new player with the given name.
+       */
+      Player( const std::string& name );
 
-   /**
-    * Destroys this player.
-    */
-   ~Player();
+      /**
+       * Destroys this player.
+       */
+      ~Player();
 
-   /**
-    * Sets whether this player is accelerating.
-    *
-    * @param flag    true if this player is accelerating, false otherwise
-    */
-   void setAccelerate( bool flag );
+      /**
+       * Sets whether this player is accelerating.
+       *
+       * @param flag    true if this player is accelerating, false otherwise
+       */
+      void setAccelerate( bool flag );
 
-   /**
-    * Tests if this player is accelerating.
-    *
-    * @return  true if the player is accelerating, false otherwise
-    */
-   bool isAccelerating() const;
+      /**
+       * Tests if this player is accelerating.
+       *
+       * @return  true if the player is accelerating, false otherwise
+       */
+      bool isAccelerating() const;
 
-   /**
-    * Sets whether this player is braking.
-    *
-    * @param flag    true if this player is braking, false otherwise
-    */
-   void setBrake( bool flag );
+      /**
+       * Sets whether this player is braking.
+       *
+       * @param flag    true if this player is braking, false otherwise
+       */
+      void setBrake( bool flag );
 
-   /**
-    * Tests if this player is braking.
-    *
-    * @return  true if the player is braking, false otherwise
-    */
-   bool isBraking() const;
+      /**
+       * Tests if this player is braking.
+       *
+       * @return  true if the player is braking, false otherwise
+       */
+      bool isBraking() const;
 
-   /**
-    * Sets whether this player is turning left.
-    *
-    * @param flag    true if this player is turning left, false otherwise
-    */
-   void setTurnLeft( bool flag );
+      /**
+       * Sets whether this player is turning left.
+       *
+       * @param flag    true if this player is turning left, false otherwise
+       */
+      void setTurnLeft( bool flag );
 
-   /**
-    * Tests if this player is turning left.
-    *
-    * @return  true if the player is turning left, false otherwise
-    */
-   bool isTurningLeft() const;
+      /**
+       * Tests if this player is turning left.
+       *
+       * @return  true if the player is turning left, false otherwise
+       */
+      bool isTurningLeft() const;
 
-   /**
-    * Sets whether this player is turning right.
-    *
-    * @param flag    true if this player is turning right, false otherwise
-    */
-   void setTurnRight( bool flag );
+      /**
+       * Sets whether this player is turning right.
+       *
+       * @param flag    true if this player is turning right, false otherwise
+       */
+      void setTurnRight( bool flag );
 
-   /**
-    * Tests if this player is turning right.
-    *
-    * @return  true if the player is turning right, false otherwise
-    */
-   bool isTurningRight() const;
+      /**
+       * Tests if this player is turning right.
+       *
+       * @return  true if the player is turning right, false otherwise
+       */
+      bool isTurningRight() const;
 
-public:
-   /**
-    * Gets the unique ID associated with this player.
-    */
-   const UID& getUID() const;
+   public:
+      /**
+       * Gets the unique ID associated with this player.
+       */
+      const UID& getUID() const;
 
-   /**
-    * Gets the name of this player.
-    *
-    * @return  the name of the player
-    */
-   const std::string& getName() const;
+      /**
+       * Gets the name of this player.
+       *
+       * @return  the name of the player
+       */
+      const std::string& getName() const;
 
-   /**
-    * Sets the name of this player to the given value.
-    *
-    * @param name    the new name for this player
-    */
-   void setName( const std::string& name );
+      /**
+       * Sets the name of this player to the given value.
+       *
+       * @param name    the new name for this player
+       */
+      void setName( const std::string& name );
 
-private:
-   /// This player's UID
-   UID mUID;
+   private:
+      /// This player's UID
+      UID mUID;
 
-   /// This player's name
-   std::string mName;
+      /// This player's name
+      std::string mName;
 
-   /// True if the player is accelerating
-   bool mAccelerate;
+      /// True if the player is accelerating
+      bool mAccelerate;
 
-   /// True if the player is braking
-   bool mBrake;
+      /// True if the player is braking
+      bool mBrake;
 
-   /// True if the player is turning left
-   bool mTurnLeft;
+      /// True if the player is turning left
+      bool mTurnLeft;
 
-   /// True if the player is turning right
-   bool mTurnRight;
-};
+      /// True if the player is turning right
+      bool mTurnRight;
+   };
+}
 
 #endif

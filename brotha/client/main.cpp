@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-03-27 00:51:33 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-27 05:18:31 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -54,9 +54,9 @@ public:
    {
    }
 
-   virtual ~BrothaApp( ){
+   virtual ~BrothaApp( )
+   {
    }
-
 
    virtual void onAppInit( gk::IGameKernel* kernel )
    {
@@ -102,7 +102,7 @@ public:
 
    virtual void onPostFrame()
    {
-      Player* player = mGame.getLocalPlayer();
+      game::Player* player = mGame.getLocalPlayer();
 
       // test for quit
       if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
@@ -172,7 +172,7 @@ public:
 
    gk::IGameKernel* mKernel;
 
-   BrothaGame mGame;
+   game::BrothaGame mGame;
 };
 
 int main( int argc, char *argv[] )

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-27 00:51:33 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-27 05:18:31 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,78 +45,81 @@
 #include "game/GameTimer.h"
 #include "game/Player.h"
 
-/**
- * Contains the current state information relative to the game as well as all
- * the data required to display the game.
- */
-class BrothaGame
+namespace game
 {
-public:
    /**
-    * Creates a new game with no players.
+    * Contains the current state information relative to the game as well as all
+    * the data required to display the game.
     */
-   BrothaGame();
+   class BrothaGame
+   {
+   public:
+      /**
+       * Creates a new game with no players.
+       */
+      BrothaGame();
 
-   /**
-    * Updates the state of all objects in the game.
-    */
-   void update();
+      /**
+       * Updates the state of all objects in the game.
+       */
+      void update();
 
-   /**
-    * Adds the given player to the game.
-    *
-    * @param player     the player to add
-    * @pre  player != NULL
-    */
-   void add( Player* player);
+      /**
+       * Adds the given player to the game.
+       *
+       * @param player     the player to add
+       * @pre  player != NULL
+       */
+      void add( Player* player);
 
-   /**
-    * Sets which player is on the local machine. If player is NULL, then it is
-    * assumed that there is no local player and this is a dedicated server.
-    *
-    * @param player     the player corresponding to the local player
-    */
-   void setLocalPlayer( Player* player );
+      /**
+       * Sets which player is on the local machine. If player is NULL, then it is
+       * assumed that there is no local player and this is a dedicated server.
+       *
+       * @param player     the player corresponding to the local player
+       */
+      void setLocalPlayer( Player* player );
 
-   /**
-    * Gets the player on the local machine. If there is no local player, as
-    * could be the case on a dedicated server, this method will return NULL.
-    *
-    * @return  the local player or NULL if there is no player on the local
-    *          machine
-    */
-   Player* getLocalPlayer();
+      /**
+       * Gets the player on the local machine. If there is no local player, as
+       * could be the case on a dedicated server, this method will return NULL.
+       *
+       * @return  the local player or NULL if there is no player on the local
+       *          machine
+       */
+      Player* getLocalPlayer();
 
-   /**
-    * Pauses or unpauses the game.
-    *
-    * @param pause   true to pause the game, false to unpause the game
-    */
-   void setPaused( bool pause );
+      /**
+       * Pauses or unpauses the game.
+       *
+       * @param pause   true to pause the game, false to unpause the game
+       */
+      void setPaused( bool pause );
 
-   /**
-    * Tests if the game is paused.
-    *
-    * @return  true if the game is paused, false otherwise
-    */
-   bool isPaused() const;
+      /**
+       * Tests if the game is paused.
+       *
+       * @return  true if the game is paused, false otherwise
+       */
+      bool isPaused() const;
 
-   /**
-    * Gets the game timer
-    */
-   const GameTimer& getGameTimer() const;
+      /**
+       * Gets the game timer
+       */
+      const GameTimer& getGameTimer() const;
 
-private:
-   typedef std::map<Player::UID, Player*> PlayerMap;
+   private:
+      typedef std::map<Player::UID, Player*> PlayerMap;
 
-   /// The game timer.
-   GameTimer mGameTime;
+      /// The game timer.
+      GameTimer mGameTime;
 
-   /// All players in the game.
-   PlayerMap mPlayers;
+      /// All players in the game.
+      PlayerMap mPlayers;
 
-   /// The local player.
-   Player* mLocalPlayer;
-};
+      /// The local player.
+      Player* mLocalPlayer;
+   };
+}
 
 #endif

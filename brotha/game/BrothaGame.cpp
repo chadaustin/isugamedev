@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-27 00:51:33 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-27 05:18:31 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,50 +40,53 @@
  ************************************************************ brotha-cpr-end */
 #include "BrothaGame.h"
 
-BrothaGame::BrothaGame()
-   : mLocalPlayer(NULL)
+namespace game
 {
-}
-
-void BrothaGame::update()
-{
-   /// @todo update the game state
-}
-
-void BrothaGame::add( Player* player )
-{
-   assert( player != NULL && "Cannot add a NULL player!" );
-   mPlayers[player->getUID()] = player;
-}
-
-void BrothaGame::setLocalPlayer( Player* player )
-{
-   mLocalPlayer = player;
-}
-
-Player* BrothaGame::getLocalPlayer()
-{
-   return mLocalPlayer;
-}
-
-void BrothaGame::setPaused( bool pause )
-{
-   if ( pause )
+   BrothaGame::BrothaGame()
+      : mLocalPlayer(NULL)
    {
-      mGameTime.stop();
    }
-   else
+
+   void BrothaGame::update()
    {
-      mGameTime.start();
+      /// @todo update the game state
    }
-}
 
-bool BrothaGame::isPaused() const
-{
-   return ( ! mGameTime.isStopped() );
-}
+   void BrothaGame::add( Player* player )
+   {
+      assert( player != NULL && "Cannot add a NULL player!" );
+      mPlayers[player->getUID()] = player;
+   }
 
-const GameTimer& BrothaGame::getGameTimer() const
-{
-   return mGameTime;
+   void BrothaGame::setLocalPlayer( Player* player )
+   {
+      mLocalPlayer = player;
+   }
+
+   Player* BrothaGame::getLocalPlayer()
+   {
+      return mLocalPlayer;
+   }
+
+   void BrothaGame::setPaused( bool pause )
+   {
+      if ( pause )
+      {
+         mGameTime.stop();
+      }
+      else
+      {
+         mGameTime.start();
+      }
+   }
+
+   bool BrothaGame::isPaused() const
+   {
+      return ( ! mGameTime.isStopped() );
+   }
+
+   const GameTimer& BrothaGame::getGameTimer() const
+   {
+      return mGameTime;
+   }
 }

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameTimer.h,v $
- * Date modified: $Date: 2002-03-27 00:02:32 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-03-27 05:18:31 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,162 +48,165 @@
 #  include <sys/time.h>
 #endif // WIN32
 
-/**
- * Keeps track of the time in the game assuming that the beginning of the
- * game is time zero. Time is tracked in milliseconds. This class works much
- * like a stopwatch allowing you to start, stop, pause and reset the timer.
- */
-class GameTimer
+namespace game
 {
-public:
    /**
-    * Creates a new game timer with zero elapsed time.
+    * Keeps track of the time in the game assuming that the beginning of the
+    * game is time zero. Time is tracked in milliseconds. This class works much
+    * like a stopwatch allowing you to start, stop, pause and reset the timer.
     */
-   GameTimer()
-      : mGameTime(0), mLastTime(0), mStoppedTime(0), mStopped(true)
-   {}
-
-   /**
-    * Starts the timer so that game time is incremented on subsequent calls
-    * to update().
-    *
-    * @see start()
-    * @see stop()
-    */
-   void start()
+   class GameTimer
    {
-      if ( isStopped() )
-      {
-         // get the current time
-         double curTime = getSysTime();
-         mStopped = false;
+   public:
+      /**
+       * Creates a new game timer with zero elapsed time.
+       */
+      GameTimer()
+         : mGameTime(0), mLastTime(0), mStoppedTime(0), mStopped(true)
+      {}
 
-         // check if this is a resume rather than a restart
-         if ( mStoppedTime != 0.0 )
+      /**
+       * Starts the timer so that game time is incremented on subsequent calls
+       * to update().
+       *
+       * @see start()
+       * @see stop()
+       */
+      void start()
+      {
+         if ( isStopped() )
          {
-            mLastTime += (curTime - mStoppedTime);
-            mStoppedTime = 0.0;
+            // get the current time
+            double curTime = getSysTime();
+            mStopped = false;
+
+            // check if this is a resume rather than a restart
+            if ( mStoppedTime != 0.0 )
+            {
+               mLastTime += (curTime - mStoppedTime);
+               mStoppedTime = 0.0;
+            }
+            else
+            {
+               mLastTime = curTime;
+            }
          }
-         else
+      }
+
+      /**
+       * Stops the timer. Game time is no longer incremented on subsequent
+       * calls to update() until start() is called.
+       *
+       * @see start()
+       * @see update()
+       */
+      void stop()
+      {
+         if ( ! isStopped() )
          {
+            mStoppedTime = getSysTime();
+            mGameTime += (mStoppedTime - mLastTime);
+            mStopped = true;
+         }
+      }
+
+      /**
+       * Tests if game time is stopped
+       *
+       * @return  true if game time is stopped; false otherwise
+       */
+      bool isStopped() const
+      {
+         return mStopped;
+      }
+
+      /**
+       * Resets game time back to zero.
+       */
+      void reset()
+      {
+         mGameTime = 0.0;
+         mLastTime = getSysTime();
+         mStoppedTime = 0.0;
+      }
+
+      /**
+       * Updates game time to reflect the amount of real time that has passed
+       * since the last update. If game time is paused, game time will not be
+       * incremented.
+       */
+      void update()
+      {
+         if ( ! isStopped() )
+         {
+            // determine the amount of time has elapsed since the last update
+            double curTime = getSysTime();
+            double deltaTime = curTime - mLastTime;
             mLastTime = curTime;
+
+            // update game time as appropriate
+            mGameTime += deltaTime;
          }
       }
-   }
 
-   /**
-    * Stops the timer. Game time is no longer incremented on subsequent
-    * calls to update() until start() is called.
-    *
-    * @see start()
-    * @see update()
-    */
-   void stop()
-   {
-      if ( ! isStopped() )
+      /**
+       * Gets the current game time in milliseconds.
+       *
+       * @return  the current game time in ms
+       */
+      double getElapsedTime() const
       {
-         mStoppedTime = getSysTime();
-         mGameTime += (mStoppedTime - mLastTime);
-         mStopped = true;
+         return mGameTime;
       }
-   }
 
-   /**
-    * Tests if game time is stopped
-    *
-    * @return  true if game time is stopped; false otherwise
-    */
-   bool isStopped() const
-   {
-      return mStopped;
-   }
-
-   /**
-    * Resets game time back to zero.
-    */
-   void reset()
-   {
-      mGameTime = 0.0;
-      mLastTime = getSysTime();
-      mStoppedTime = 0.0;
-   }
-
-   /**
-    * Updates game time to reflect the amount of real time that has passed
-    * since the last update. If game time is paused, game time will not be
-    * incremented.
-    */
-   void update()
-   {
-      if ( ! isStopped() )
+      /**
+       * Cross platform method to get the current system time in milliseconds.
+       *
+       * This function is based on Kevin Meinert's StopWatch class released
+       * under LGPL.
+       *
+       * @return  the current system time in milliseconds
+       */
+      static double getSysTime()
       {
-         // determine the amount of time has elapsed since the last update
-         double curTime = getSysTime();
-         double deltaTime = curTime - mLastTime;
-         mLastTime = curTime;
-
-         // update game time as appropriate
-         mGameTime += deltaTime;
-      }
-   }
-
-   /**
-    * Gets the current game time in milliseconds.
-    *
-    * @return  the current game time in ms
-    */
-   double getElapsedTime() const
-   {
-      return mGameTime;
-   }
-
-   /**
-    * Cross platform method to get the current system time in milliseconds.
-    *
-    * This function is based on Kevin Meinert's StopWatch class released
-    * under LGPL.
-    *
-    * @return  the current system time in milliseconds
-    */
-   static double getSysTime()
-   {
 #ifdef WIN32
-      struct _timeb tv;
-      _ftime( &tv );
+         struct _timeb tv;
+         _ftime( &tv );
 
-      // consolidate to milliseconds
-      return ( static_cast<double>(tv.time) +
-               static_cast<double>(tv.millitm) / 1000.0 );
+         // consolidate to milliseconds
+         return ( static_cast<double>(tv.time) +
+                  static_cast<double>(tv.millitm) / 1000.0 );
 #else
-      struct timeval tv;
-      gettimeofday( &tv, 0 );
+         struct timeval tv;
+         gettimeofday( &tv, 0 );
 
-      // consolidate to milliseconds
-      return ( static_cast<double>(tv.tv_sec) +
-               static_cast<double>(tv.tv_usec) / 1000000.0 );
+         // consolidate to milliseconds
+         return ( static_cast<double>(tv.tv_sec) +
+                  static_cast<double>(tv.tv_usec) / 1000000.0 );
 #endif // WIN32
-   }
+      }
 
-private:
-   /**
-    * The current game time (elapsed game time).
-    */
-   double mGameTime;
+   private:
+      /**
+       * The current game time (elapsed game time).
+       */
+      double mGameTime;
 
-   /**
-    * The time of the last update.
-    */
-   double mLastTime;
+      /**
+       * The time of the last update.
+       */
+      double mLastTime;
 
-   /**
-    * The time of the last stop() call.
-    */
-   double mStoppedTime;
+      /**
+       * The time of the last stop() call.
+       */
+      double mStoppedTime;
 
-   /**
-    * Stopped flag. True if game time is stopped.
-    */
-   bool mStopped;
-};
+      /**
+       * Stopped flag. True if game time is stopped.
+       */
+      bool mStopped;
+   };
+}
 
 #endif

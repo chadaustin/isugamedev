@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-03-27 00:51:33 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-27 05:18:31 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,76 +40,79 @@
  ************************************************************ brotha-cpr-end */
 #include "Player.h"
 
-Player::Player()
-   : mName("Player"), mAccelerate(false), mBrake(false), mTurnLeft(false),
-     mTurnRight(false)
+namespace game
 {
-   mUID = UIDManager<Player>::getInstance().reserveID();
-}
+   Player::Player()
+      : mName("Player"), mAccelerate(false), mBrake(false), mTurnLeft(false),
+        mTurnRight(false)
+   {
+      mUID = UIDManager<Player>::getInstance().reserveID();
+   }
 
-Player::Player( const std::string& name )
-   : mName(name), mAccelerate(false), mBrake(false), mTurnLeft(false),
-     mTurnRight(false)
-{
-   mUID = UIDManager<Player>::getInstance().reserveID();
-}
+   Player::Player( const std::string& name )
+      : mName(name), mAccelerate(false), mBrake(false), mTurnLeft(false),
+        mTurnRight(false)
+   {
+      mUID = UIDManager<Player>::getInstance().reserveID();
+   }
 
-Player::~Player()
-{
-   UIDManager<Player>::getInstance().releaseID( mUID );
-}
+   Player::~Player()
+   {
+      UIDManager<Player>::getInstance().releaseID( mUID );
+   }
 
-void Player::setAccelerate( bool flag )
-{
-   mAccelerate = flag;
-}
+   void Player::setAccelerate( bool flag )
+   {
+      mAccelerate = flag;
+   }
 
-bool Player::isAccelerating() const
-{
-   return mAccelerate;
-}
+   bool Player::isAccelerating() const
+   {
+      return mAccelerate;
+   }
 
-void Player::setBrake( bool flag )
-{
-   mBrake = flag;
-}
+   void Player::setBrake( bool flag )
+   {
+      mBrake = flag;
+   }
 
-bool Player::isBraking() const
-{
-   return mBrake;
-}
+   bool Player::isBraking() const
+   {
+      return mBrake;
+   }
 
-void Player::setTurnLeft( bool flag )
-{
-   mTurnLeft = flag;
-}
+   void Player::setTurnLeft( bool flag )
+   {
+      mTurnLeft = flag;
+   }
 
-bool Player::isTurningLeft() const
-{
-   return mTurnLeft;
-}
+   bool Player::isTurningLeft() const
+   {
+      return mTurnLeft;
+   }
 
-void Player::setTurnRight( bool flag )
-{
-   mTurnRight = flag;
-}
+   void Player::setTurnRight( bool flag )
+   {
+      mTurnRight = flag;
+   }
 
-bool Player::isTurningRight() const
-{
-   return mTurnRight;
-}
+   bool Player::isTurningRight() const
+   {
+      return mTurnRight;
+   }
 
-const Player::UID& Player::getUID() const
-{
-   return mUID;
-}
+   const Player::UID& Player::getUID() const
+   {
+      return mUID;
+   }
 
-const std::string& Player::getName() const
-{
-   return mName;
-}
+   const std::string& Player::getName() const
+   {
+      return mName;
+   }
 
-void Player::setName( const std::string& name )
-{
-   mName = name;
+   void Player::setName( const std::string& name )
+   {
+      mName = name;
+   }
 }
