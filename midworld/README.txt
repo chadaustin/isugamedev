@@ -8,7 +8,7 @@ The following contains instructions on how to attempt to build our source code.
 You will need the following external libraries:
 
 SCons	0.07		http://www.scons.org
-GMTL	0.0.5		http://ggt.sourceforge.net
+GMTL	0.1.8		http://ggt.sourceforge.net
 Corona	0.2.0 		http://corona.sourceforge.net
 Audiere	1.0.4		http://audiere.sourceforge.net
 SDL	1.2.4		http://www.libsdl.org
