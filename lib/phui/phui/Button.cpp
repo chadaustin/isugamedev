@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-26 10:11:36 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-04-26 10:26:44 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,6 +38,7 @@
 #include <GL/gl.h>
 #include "FontRendererCache.h"
 #include "WidgetContainer.h"
+#include <algorithm>
 
 namespace phui {
 
@@ -121,16 +122,29 @@ namespace phui {
          // inside this button.
          if (contains(p)) {
             std::cout<<"FIRE button pressed"<<std::endl;
-            for(ListenerIter iter=mListeners.begin();iter!=mListeners.end();++iter) {
-               ActionEvent evt(this);
-               (*iter)->onAction(evt);
-            }
+            fireActionEvent();
          }
       }
    }
 
    void Button::addActionListener(ActionListener* listener) {
       mListeners.push_back(listener);
+   }
+
+   void Button::removeActionListener(ActionListener* listener) {
+      ListenerIter itr;
+      itr = std::find(mListeners.begin(), mListeners.end(), listener);
+      if (itr != mListeners.end()) {
+         mListeners.erase(itr);
+      }
+   }
+
+   void Button::fireActionEvent() {
+      ActionEvent evt(this);
+
+      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++) {
+         (*itr)->onAction(evt);
+      }
    }
 
 } // namespace phui

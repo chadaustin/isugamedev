@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-04-26 10:11:36 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-26 10:26:44 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -106,9 +106,18 @@ namespace phui {
 
 
       /**
-       * Called to add listeners for button events
+       * Adds the given action listener that wishes to receive for button events.
        */
       void addActionListener(ActionListener* listener);
+
+      /**
+       * Removes the given action listener for this button.
+       */
+      void removeActionListener(ActionListener* listener);
+
+   private:
+      /// Helper to fire action events to listeners.
+      void fireActionEvent();
 
    private:
       /**
