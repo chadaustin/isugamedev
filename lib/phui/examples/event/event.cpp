@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-24 02:25:37 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-24 03:57:52 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -194,6 +194,8 @@ int main(int argc, char** argv) {
       glutMouseFunc(OnMouseClick);
       glutMotionFunc(OnMouseMove);
       glutPassiveMotionFunc(OnMouseMove);
+
+      glutSetCursor(GLUT_CURSOR_NONE);
 
       gRoot = phui::CreateRoot(
          glutGet(GLUT_WINDOW_WIDTH),

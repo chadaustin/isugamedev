@@ -2,6 +2,8 @@
 #define PHUI_POINT_H
 
 
+#include "phuiCommon.h"
+#include <GL/gl.h>
 #include <iostream>
 
 
@@ -33,6 +35,11 @@ inline Point operator+(const Point& lhs, const Point& rhs) {
 inline std::ostream& operator<<(std::ostream& os, const Point& p) {
    os << "(" << p.x << ", " << p.y << ")";
    return os;
+}
+
+
+inline void glVertex(const Point& p) {
+   glVertex2i(p.x, p.y);
 }
 
 

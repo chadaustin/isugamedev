@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.cpp,v $
- * Date modified: $Date: 2002-04-24 02:56:07 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-24 03:57:52 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -67,6 +67,7 @@ namespace phui {
 
          // disable depth testing since all draws occur at the same level
          glDisable(GL_DEPTH_TEST);
+
          // we need to clip widgets
          glEnable(GL_SCISSOR_TEST);
 
@@ -74,16 +75,33 @@ namespace phui {
          glEnable(GL_BLEND);
          glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-         // draw children
-         WidgetContainer::draw();
+
+      drawChildren();
+      drawPointer();
 
       glPopAttrib();
 
+      // restore old matrices
       glMatrixMode(GL_MODELVIEW);
-      glPopMatrix(); // modelview
-
+      glPopMatrix();
       glMatrixMode(GL_PROJECTION);
-      glPopMatrix(); // projection
+      glPopMatrix();
+   }
+
+   void RootWidget::onMouseMove(const Point& p) {
+      mPointerPosition = p;
+   }
+
+   void RootWidget::drawPointer() {
+      glColor(WHITE);
+      glBegin(GL_LINES);
+      glVertex(mPointerPosition);
+      glVertex(mPointerPosition + Point(5, 5));
+      glEnd();
+   }
+
+   void RootWidget::drawChildren() {
+      WidgetContainer::draw();
    }
 
 } // namespace phui

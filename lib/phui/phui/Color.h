@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2002-02-24 08:48:18 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-24 03:57:52 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -110,6 +110,10 @@ namespace phui {
       glColor4i( clr.r, clr.g, clr.b, clr.a );
    }
    //@}
+
+   static const Colorf WHITE(1, 1, 1, 1);
+   static const Colorf BLACK(0, 0, 0, 1);
+   static const Colorf NONE (0, 0, 0, 0);
 
 } // namespace phui
 

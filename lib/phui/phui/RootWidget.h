@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.h,v $
- * Date modified: $Date: 2002-04-15 09:20:39 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-24 03:57:52 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -53,7 +53,7 @@ namespace phui {
        * @param height     the height of the UI
        */
       RootWidget( int width, int height );
-      virtual ~RootWidget();
+      ~RootWidget();
 
       /**
        * First the projection matrix is modified to 2D orthographic projection.
@@ -62,7 +62,15 @@ namespace phui {
        *
        * @see WidgetContainer::draw()
        */
-      virtual void draw();
+      void draw();
+
+      void onMouseMove(const Point& p);
+
+   private:
+      void drawPointer();
+      void drawChildren();
+
+      Point mPointerPosition;
    };
 
 } // namespace phui
