@@ -23,11 +23,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2003-02-25 06:39:39 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-05-20 05:35:28 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** barfight-cpr-end */
+#ifndef BAR_GAME_STATE_H
+#define BAR_GAME_STATE_H
+
 #include <string>
 #include <vector>
 #include <siren/siren.h>
@@ -83,3 +86,5 @@ namespace bar
       siren::Camera mCamera;
    };
 }
+
+#endif
