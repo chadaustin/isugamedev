@@ -9,6 +9,8 @@
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
+#include "GraphicsObject.h"
+
 enum ObjectType{CAMTANK = 0};
 
 class GameObject
@@ -17,6 +19,7 @@ public:
 	virtual void Init() = 0;
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
+   virtual void GetGraphicsPointer(GraphicsObject*&) = 0;
 
 	//////////////////////////////////
 	// All the Common set functions

@@ -58,9 +58,10 @@ void TurretGraphics::Draw()
    this->GetCenter(Center);
    this->GetRotate(Rotate);
 
-   glRotatef(Rotate[0], 1.0, 0.0, 0.0);
-   glRotatef(Rotate[1], 0.0, 1.0, 0.0);
    glRotatef(Rotate[2], 0.0, 0.0, 1.0);
+   glRotatef(Rotate[1], 0.0, 1.0, 0.0);
+   glRotatef(Rotate[0], 1.0, 0.0, 0.0);
+
    glTranslatef(Center[0], Center[1], Center[2]);
 
    glCallList(model_list);

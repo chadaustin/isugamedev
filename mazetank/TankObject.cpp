@@ -27,6 +27,11 @@ void TankObject::Update()
 
 }
 
+void TankObject::GetGraphicsPointer(GraphicsObject *& TheGraphics)
+{
+   TheGraphics = Turret;
+}
+
 void TankObject::Draw()
 {
 	float Translate[3];

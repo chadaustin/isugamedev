@@ -1,13 +1,16 @@
 #include <gl/glut.h>
 #include "GameWorld.h"
+#include "Input.h"
 
+Input GameInput;
 GameWorld MazeTank;
+
 
 ///////////////////////////////
 
 void Initialize()
 {
-   MazeTank.Init();
+    MazeTank.Init();
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
@@ -19,56 +22,56 @@ void Initialize()
 
 }
 
-void MyKeyBoard(unsigned char key,int x, int y)
-{
-/*	float temp;
-	switch(key)
-	{
-	case 'a':
 
-		MyTank->GetObjectAngle(temp);
-		MyTank->SetObjectAngle(temp+1.0);
-		break;
-
-	case 'd':
-
-		MyTank->GetObjectAngle(temp);
-		MyTank->SetObjectAngle(temp-1.0);
-		break;
-
-	case 'w':
-		MyTank->GetVelocity(temp);
-		MyTank->SetVelocity(temp+0.01);
-		break;
-
-	case 's':
-		MyTank->GetVelocity(temp);
-		MyTank->SetVelocity(temp-0.01);
-		break;
-
-	case 'f':
-		ZRotate -= 1.0;
-		MyCamera->RotateAroundObject(1.0);
-		break;
-
-	case 'h':
-		ZRotate += 1.0;
-		MyCamera->RotateAroundObject(-1.0);
-		break;
-		
-	}
-*/
-}
 
 void MouseMotion(int x, int y)
 {
-/*	if(OldX != -1)
-		MyCamera->LookAround(OldY-y, -1*(OldX-x));
-
-	OldX = x;
-	OldY = y;*/
+   GameInput.TurretRotate(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
 }
 
+void KeyboardInput(int key, int x, int y)
+{
+   switch(key)
+   {
+   case GLUT_KEY_RIGHT:
+      GameInput.Turn(-0.02);
+      break;
+
+   case GLUT_KEY_LEFT:
+      GameInput.Turn(0.02);
+      break;
+
+   case GLUT_KEY_UP:
+      GameInput.Accel(0.017);
+      break;
+
+   case GLUT_KEY_DOWN:
+      GameInput.Accel(-0.017);
+      break;
+   }
+}
+
+void KeyboardInputUp(int key, int x, int y)
+{
+   switch(key)
+   {
+   case GLUT_KEY_RIGHT:
+      GameInput.Turn(0.0);
+      break;
+
+   case GLUT_KEY_LEFT:
+      GameInput.Turn(0.0);
+      break;
+
+   case GLUT_KEY_UP:
+      GameInput.Accel(0.0);
+      break;
+
+   case GLUT_KEY_DOWN:
+      GameInput.Accel(0.0);
+      break;
+   }
+}
 
 
 void update()
@@ -100,10 +103,13 @@ int main (int argc, char** argv)
 	Initialize();
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
-	glutKeyboardFunc(MyKeyBoard);
+	glutSpecialFunc(KeyboardInput);
+   glutSpecialUpFunc(KeyboardInputUp);
 	glutMotionFunc(MouseMotion);
 	glutIdleFunc(update);
 	
+   glutIgnoreKeyRepeat(1);
+
 	glutMainLoop();
 	return 0;
 }

@@ -23,6 +23,7 @@ public:
 	void Init();
 	void Update();
 	void Draw();
+   void GetGraphicsPointer(GraphicsObject*& TheGraphics);
 
 private:
 	
