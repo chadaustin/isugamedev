@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-30 08:02:12 $
- * Version:       $Revision: 1.56 $
+ * Date modified: $Date: 2002-10-31 05:45:30 $
+ * Version:       $Revision: 1.57 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -185,6 +185,7 @@ namespace mw
 
    private:
       void initializeInput();
+
       Turret* setupTurret(std::string name, std::string parent, int maxChild, int level);
       Enemy* setupDroid(std::string name, std::string parent, int maxChild, int level);
       
@@ -225,7 +226,6 @@ namespace mw
       Camera mCamera;
       float mSpeed;
       Player mPlayer;
-
 
 
       //XXX hack for testing AIsystem
