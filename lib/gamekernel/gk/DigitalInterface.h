@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-01-30 17:42:56 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,13 +36,47 @@
 #include "InputInterface.h"
 #include "DigitalInput.h"
 
+/** 
+ * DigitalInterface: Your Interface to all digital inputs.
+ * Looking to get button presses and other digital events?
+ * This is your interface.  This Interface gives you access to the under
+ * lying DigitalInput's DigitalInput::EdgeTriggerState state variable.
+ * Doesn't make sense?  Look at the nifty example below for how to get 
+ * input from your game engine...
+ *
+ * <h3> "Example (to sample input):" </h3>
+ * \code
+ *    DigitalInterface accelerate;
+ *    accelerate.init( "Accelerate" );
+ *    if (accelerate.getDigitalData() == DigitalInput::DOWN)
+ *       ... do something ...
+ * \endcode
+ *
+ * Of course, this assumes that you have set up your key bindings:
+ * 
+ * <h3>  "Example (to configure your key bindings):" </h3>
+ * \code
+ *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_UPARROW" );
+ *     GameInput::instance().bind( "StraefLeft", "Keyboard", "KEY_LEFTARROW" );
+ *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_RIGHTARROW" );
+ * \endcode
+ *
+ * @see DigitalInput
+ * @see GameInput
+ * @see AnalogInterface
+ * @author Kevin Meinert <kevin@vrsource.org>
+ * @author other happy people...
+ */
 class DigitalInterface : public InputInterface
 {
 public:
+   /** Constructor */
    DigitalInterface() {}
+   
+   /** Destructor */
    virtual ~DigitalInterface() {}
 
-   /* get the digital data from the analog device. */
+   /** get the DigitalInput data from the DigitalDevice. */
    virtual DigitalInput::EdgeTriggerState getDigitalData()
    {
       // this can surely be optimized...

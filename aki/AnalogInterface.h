@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInterface.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-01-30 17:42:56 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,14 +36,46 @@
 #include "InputInterface.h"
 #include "AnalogInput.h"
 
-// TODO: test me (this hasn't been verified to work yet...)
+/** 
+ * AnalogInterface: Your Interface to all analog inputs.
+ * Looking to get axis values from joystick, mouse, other other analog device?
+ * This is your interface.  This Interface gives you access to the under
+ * lying AnalogInput's float data variable.
+ * Doesn't make sense?  Look at the nifty example below for how to get 
+ * input from your game engine...
+ *
+ * <h3> "Example (to sample input):" </h3>
+ * \code
+ *    AnalogInterface mouselook_x;
+ *    mouselook_x.init( "MouselookX" );
+ *    float rotation = mouselook_x.getAnalogData();
+ *       ... then use rotation in your camera matrix ...
+ * \endcode
+ *
+ * Of course, this assumes that you have set up your key bindings:
+ * 
+ * <h3>  "Example (to configure your key bindings):" </h3>
+ * \code
+ *     GameInput::instance().bind( "MouselookX", "Mouse", "MOUSEAXIS_X" );
+ *     GameInput::instance().bind( "MouselookY", "Mouse", "MOUSEAXIS_Y" );
+ * \endcode
+ *
+ * @see AnalogInput
+ * @see GameInput
+ * @see DigitalInterface
+ * @author Kevin Meinert <kevin@vrsource.org>
+ * @author other happy people...
+ */
 class AnalogInterface : public InputInterface
 {
 public:
+   /** Constructor */
    AnalogInterface() {}
+
+   /** Destructor */
    virtual ~AnalogInterface() {}
 
-   /* get the analog data from the analog device. */
+   /** get the AnalogInput data from the AnalogDevice. */
    virtual float getAnalogData()
    {
       // this can surely be optimized...

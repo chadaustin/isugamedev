@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-01-30 17:28:54 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-01-30 17:42:56 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -49,7 +49,7 @@
  * Try to use the Interface classes instead of this class directly
  * (i.e. use DigitalInterface or AnalogInterface)
  *
- * <h3> "Usage (to sample input):" </h3>
+ * <h3> "Example (to sample input):" </h3>
  * \code
  *    DigitalInterface accelerate;
  *    accelerate.init( "Accelerate" );
@@ -57,7 +57,9 @@
  *       ... do something ...
  * \endcode
  *
- * <h3>  "Usage (to configure):" </h3>
+ * Of course, this assumes that you have set up your key bindings:
+ *
+ * <h3>  "Example (to configure your key bindings):" </h3>
  * \code
  *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_UPARROW" );
  *     GameInput::instance().bind( "StraefLeft", "Keyboard", "KEY_LEFTARROW" );
