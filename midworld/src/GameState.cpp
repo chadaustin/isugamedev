@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-09-23 19:45:15 $
- * Version:       $Revision: 1.34 $
+ * Date modified: $Date: 2002-09-24 04:14:58 $
+ * Version:       $Revision: 1.35 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -345,7 +345,8 @@ namespace mw
       float remaining_dt = dt;
       const gmtl::Vec3f& orig_vel = body->getVel();
 
-      body->addForce(gmtl::Vec3f(0, -9.81f, 0));
+      // Apply gravity to every body
+      body->addForce(gmtl::Vec3f(0, -9.81f, 0) * body->getMass());
 
       // Check for collisions
       CollisionDesc* desc = mCollDet->checkCollision(body, orig_vel * dt);
