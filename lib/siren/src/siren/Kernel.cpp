@@ -23,24 +23,179 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.cpp,v $
- * Date modified: $Date: 2003-02-03 03:38:28 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-03 05:37:01 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
+#include <stdexcept>
+#include <SDL.h>
 #include "Kernel.h"
+#include "Types.h"
 #include "State.h"
 #include "StateFactory.h"
+#include "Version.h"
 
 namespace siren
 {
+   /**
+    * A std::string-compatible version of SDL_GetError.
+    */
+   std::string
+   GetSDLError()
+   {
+      return SDL_GetError();
+   }
+
+   /**
+    * Throws an exception containing the current SDL error with the given prefix
+    * to the exception string.
+    *
+    * @throws std::runtime_error
+    */
+   void
+   ThrowSDLError(const std::string& prefix)
+   {
+      throw std::runtime_error((prefix + ": " + GetSDLError()).c_str());
+   }
+
+   //--------------------------------------------------------------------------
+   // Kernel
+   //--------------------------------------------------------------------------
+
    Kernel::Kernel()
-      : mWidth(0)
-      , mHeight(0)
+      : mWidth(1024)
+      , mHeight(768)
    {}
 
    Kernel::~Kernel()
    {}
+
+   void
+   Kernel::start(StatePtr state)
+   {
+      // Setup the inital state
+      mState = state;
+
+      controlLoop();
+   }
+
+   void
+   Kernel::transitionTo(const std::string& name)
+   {
+      mNextState = StateFactory::getInstance().create(name);
+   }
+
+   int
+   Kernel::getWidth() const
+   {
+      return mWidth;
+   }
+
+   int
+   Kernel::getHeight() const
+   {
+      return mHeight;
+   }
+
+   void
+   Kernel::controlLoop()
+   {
+      // initialize SDL
+      int init_flags = SDL_INIT_NOPARACHUTE | SDL_INIT_VIDEO | SDL_INIT_TIMER;
+      if (SDL_Init(init_flags) < 0)
+      {
+         ThrowSDLError("SDL Initialization failed");
+      }
+
+      const SDL_VideoInfo* info = SDL_GetVideoInfo();
+      if (!info)
+      {
+         ThrowSDLError("Retrieving video information failed");
+      }
+      // define our minimum requirements for the GL window
+      SDL_GL_SetAttribute(SDL_GL_RED_SIZE,     5);
+      SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,   5);
+      SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,    5);
+      SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
+      SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+      if (!SDL_SetVideoMode(mWidth, mHeight, info->vfmt->BitsPerPixel, SDL_OPENGL))
+      {
+         ThrowSDLError("Setting video mode failed");
+      }
+
+      std::string title = std::string("Siren v") + version;
+      SDL_WM_SetCaption(title.c_str(), 0);
+      // init the mouse state...
+      SDL_WarpMouse(mWidth / 2, mHeight / 2);
+      SDL_ShowCursor(SDL_DISABLE);
+
+      // let the app know what size it is
+      resize(mWidth, mHeight);
+      u64 last_time = SDL_GetTicks();
+      while (!shouldQuit())
+      {
+         SDL_Event event;
+         int result = SDL_PollEvent(&event);
+         bool should_quit = false;
+         while (result == 1)
+         {
+            switch (event.type)
+            {
+               case SDL_VIDEORESIZE:
+                  resize(event.resize.w, event.resize.h);
+                  break;
+
+               case SDL_KEYDOWN:
+               case SDL_KEYUP:
+                  mState->onKeyPress(event.key.keysym.sym,
+                                     event.key.state == SDL_PRESSED);
+                  break;
+
+               case SDL_MOUSEBUTTONDOWN:
+               case SDL_MOUSEBUTTONUP:
+                  mState->onMousePress(event.button.button,
+                                       event.button.state == SDL_PRESSED,
+                                       event.button.x, event.button.y);
+                  break;
+
+               case SDL_MOUSEMOTION:
+                  mState->onMouseMove(event.motion.x, event.motion.y);
+                  break;
+
+               case SDL_QUIT:
+                  should_quit = true;
+                  break;
+            }
+
+            result = SDL_PollEvent(&event);
+         }
+
+         // error or SDL_QUIT message
+         if (result < 0 || should_quit)
+         {
+            break;
+         }
+
+         // update and draw application
+         /// @todo Use a high-res timer to actually get in us rather than ms
+         u64 now = (u64)SDL_GetTicks();
+
+         // ignore wraparound
+         if (now >= last_time)
+         {
+            float dt = (float)(now - last_time) / 1000.0f;
+            update(dt);
+            draw();
+            SDL_GL_SwapBuffers();
+         }
+         last_time = now;
+      }
+
+      SDL_Quit();
+      SDL_ShowCursor(SDL_ENABLE);
+   }
 
    void
    Kernel::update(float dt)
@@ -77,12 +232,6 @@ namespace siren
    }
 
    void
-   Kernel::transitionTo(const std::string& name)
-   {
-      mNextState = StateFactory::getInstance().create(name);
-   }
-
-   void
    Kernel::resize(int width, int height)
    {
       mWidth  = width;
@@ -115,17 +264,5 @@ namespace siren
          return mState->isQuitting();
       }
       return false;
-   }
-
-   int
-   Kernel::getWidth() const
-   {
-      return mWidth;
-   }
-
-   int
-   Kernel::getHeight() const
-   {
-      return mHeight;
    }
 }

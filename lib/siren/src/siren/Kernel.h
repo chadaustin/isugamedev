@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.h,v $
- * Date modified: $Date: 2003-02-03 03:38:28 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-03 05:37:01 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -49,6 +49,32 @@ namespace siren
       ~Kernel();
 
       /**
+       * Starts up this kernel with the given initial state. This method will
+       * not return until the kernel is exit.
+       */
+      void start(StatePtr state);
+
+      /**
+       * Sets the next state to switch to. The transition will occur at the
+       * beginning of the next update
+       *
+       * @param state      the name of the state to switch to
+       *
+       * @throws std::runtime_error    if there is no state with the given name
+       */
+      void transitionTo(const std::string& name);
+
+      int getWidth() const;
+      int getHeight() const;
+
+   private:
+      /**
+       * The main control loop of the kernel. This method does not return until
+       * the kernel is stopped.
+       */
+      void controlLoop();
+
+      /**
        * Updates this kernel based on the amount of time that has passed since
        * the last frame.
        *
@@ -68,25 +94,12 @@ namespace siren
        */
       StatePtr getState() const;
 
-      /**
-       * Sets the next state to switch to. The transition will occur at the
-       * beginning of the next update
-       *
-       * @param state      the name of the state to switch to
-       *
-       * @throws std::runtime_error    if there is no state with the given name
-       */
-      void transitionTo(const std::string& name);
-
       void resize(int width, int height);
       void onKeyPress(SDLKey sym, bool down);
       void onMousePress(Uint8 button, bool down, int x, int y);
       void onMouseMove(int x, int y);
 
       bool shouldQuit();
-
-      int getWidth() const;
-      int getHeight() const;
 
    private:
       int mWidth;
