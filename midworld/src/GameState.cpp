@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-26 06:08:19 $
- * Version:       $Revision: 1.74 $
+ * Date modified: $Date: 2002-10-26 06:15:08 $
+ * Version:       $Revision: 1.75 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -62,11 +62,11 @@ namespace mw
    GameState::GameState( Application* a )
       : State( a )
       , mSpeed(10)
-      , mShoot(UP)
-      , mCycleWeapon(UP)
       , mFPS(0)
       , mFrameCount(0)
       , mFrameTime(0)
+      , mShoot(UP)
+      , mCycleWeapon(UP)
    {
       mGunSlots.resize( 10 );
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
