@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-05-01 19:03:58 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-05-01 22:11:12 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,7 +47,7 @@ namespace game {
    const Player::UID Player::UNKNOWN = 0;
 
    Player::Player(const std::string& name)
-      : mName(name), mBrake(0), mTurnAngle(0), mHealth(0), mIsBraking(false),
+      : mName(name), mHealth(0), mBrake(0), mTurnAngle(0), mIsBraking(false),
         mIsHandBraking(false), mIsTurningLeft(false), mIsTurningRight(false)
    {
       mUID = UIDMgr::getInstance().reserveID();
