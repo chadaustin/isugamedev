@@ -40,6 +40,7 @@ public:
 //      glDisable( GL_LIGHTING );
       glPushMatrix();
          glMultMatrixf( mXForm.data() );
+         glScalef(5.0f, 5.0f, 5.0f);
          glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
 
          glBegin( GL_TRIANGLES );
