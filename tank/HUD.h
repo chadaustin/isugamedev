@@ -1,12 +1,27 @@
 #ifndef HUD_INCLUDED
 #define HUD_INCLUDED
 
+#ifdef _WIN32
+   #include <windows.h> // make the app win32 friendly. :)
+#endif
+
+#ifdef _MSC_VER
+  // disable 'identifier was truncated to 255 characters in debug information' warning
+  #pragma warning(disable: 4786)
+#endif
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+
 #include "GeoSet.h"
 #include "PixmapFont.h"
 #include "PixmapFontImporter.h"
 #include "TextToGeoSet.h"
 
 typedef boost::shared_ptr<GeoSet> GeoSetPtr;
+
+#include "glRenderGeoSet.h"
+
 
 // simple HUD, just text for now...
 // todo, maybe allow the application to create widgets, i.e. register 
