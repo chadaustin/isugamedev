@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.cpp,v $
- * Date modified: $Date: 2002-09-09 05:50:05 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-09-09 05:59:22 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -97,6 +97,18 @@ namespace mw
             mNextStream = (mNextStream + 1) % MAX_SOUNDS;
          }
       }
+   }
+
+   bool
+   SoundEffectManager::preload(const std::string& sound)
+   {
+      return (getBuffer(sound) != 0);
+   }
+
+   void
+   SoundEffectManager::emptyCache()
+   {
+      mCache.clear();
    }
 
    audiere::SampleBuffer*

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.h,v $
- * Date modified: $Date: 2002-09-09 05:50:05 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-09-09 05:59:22 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -61,6 +61,21 @@ namespace mw
        * @param sound      the filename in which the sound is stored
        */
       void playSound(const std::string& sound);
+
+      /**
+       * Preloads the sound contained within the given file and stores it in the
+       * cache for later use.
+       *
+       * @param sound      the filename in which the sound is stored
+       *
+       * @return  true if the sound was loaded successfully, false otherwise
+       */
+      bool preload(const std::string& sound);
+
+      /**
+       * Removes all sounds contained in the cache.
+       */
+      void emptyCache();
 
    private:
       /**
