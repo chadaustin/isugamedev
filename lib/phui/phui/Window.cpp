@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2002-02-24 06:47:01 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-02-24 07:02:58 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -40,6 +40,7 @@
 namespace phui {
 
    Window::Window() {
+      mVisible = false;
    }
 
    Window::~Window() {

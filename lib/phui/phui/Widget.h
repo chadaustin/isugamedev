@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 06:47:01 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-02-24 07:02:58 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -47,7 +47,8 @@ namespace phui {
        * Creates a new widget with width and height 0 and size (0,0).
        */
       Widget()
-         : mX(0), mY(0), mWidth(0), mHeight(0), mEnabled(true)
+         : mX(0), mY(0), mWidth(0), mHeight(0), mEnabled(true), mVisible(true),
+           mBackgroundColor(0,0,0,0), mForegroundColor(1,1,1,1)
       {}
 
    public:
