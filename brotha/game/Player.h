@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-28 16:41:04 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-04-29 01:44:35 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,7 +44,9 @@
 #define PLAYER_H
 
 #include <string>
+#include <vector>
 #include "Object.h"
+#include "Car.h"
 
 namespace game {
    class Player {
@@ -57,6 +59,12 @@ namespace game {
       
       /// The UID reserved for UNKNOWN players.
       static const UID UNKNOWN;
+
+ 	  /// List of cars player owns
+	  typedef std::vector<Car*> CarList;
+
+	  /// Iterator for Car list
+      typedef CarList::iterator CarListItr;
 
    public:
       /**
@@ -131,6 +139,22 @@ namespace game {
        */
       PRFloat64 getTurnAngle() const;
 
+	  /**
+	   * Increments Kills Statistic
+	   */
+	  void addKill(){
+		  mKills++;
+	  }
+
+	  /**
+	   * Queries for owned cars
+	   *
+	   * @return a list of Cars the player owns
+	   */
+	  CarList getCars(){
+		  return mCars;
+	  }
+
       Object* getObject();
 
    public:
@@ -170,6 +194,9 @@ namespace game {
 
       /// Number of Player kills
       double mKills;
+
+	  /// List of owned cars
+	  CarList mCars;
 
       /// True if the player is accelerating
       ///PRFloat64 mAccelerate;

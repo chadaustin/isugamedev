@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:04 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-29 01:44:35 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,17 +41,18 @@
  *
  ************************************************************ brotha-cpr-end */
 #include "Player.h"
+#include <algorithm>
 
 namespace game {
    const Player::UID Player::UNKNOWN = 0;
 
    Player::Player()
-      : mName("Player"), mBrake(0), mTurnAngle(0){
+      : mName("Player"), mBrake(0), mTurnAngle(0), mKills(0){
       mUID = UIDMgr::getInstance().reserveID();
    }
 
    Player::Player( const std::string& name )
-      : mName(name), mBrake(0), mTurnAngle(0){
+      : mName(name), mBrake(0), mTurnAngle(0), mKills(0){
       mUID = UIDMgr::getInstance().reserveID();
    }
 
@@ -90,8 +91,8 @@ namespace game {
    PRFloat64 Player::getTurnAngle() const {
       return mTurnAngle;
    }
-
-   void Player::setTurnAngle( PRFloat64 newAngle ){
+   
+   void Player::setTurnAngle(PRFloat64 newAngle){
       mTurnAngle = newAngle;
    }
 
