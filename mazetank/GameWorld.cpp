@@ -2,8 +2,9 @@
 #include "GameObject.h"
 #include "TankObject.h"
 #include "Camera.h"
+#include "Input.h"
 
-
+extern Input GameInput;
 
 GameWorld::GameWorld()
 {
@@ -36,6 +37,9 @@ void GameWorld::Init()
 
    GamePhysics.SetCamera(GameCamera);
    TheFloor.Init();
+
+   GameInput.SetCamera(GameCamera);
+   GameInput.SetGameObjects(TheGameObjects);
 }
 
 void GameWorld::Update()
