@@ -151,7 +151,7 @@ http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
 
 
 
-       The test programs will be run, and the output may be examined
+       The test programs will be run and the output may be examined
        manually or automatically.
 
 
@@ -161,8 +161,8 @@ http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
 
 
        If an anomaly is detected, the error will be recorded, and
-       testing will continue, later the bug will be tracked down and
-       corrected, and testing will commence again.
+       testing will continue. Later the bug will be tracked down and
+       corrected after which testing will commence again.
 
 
 
@@ -193,7 +193,16 @@ http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
      
 
      2.3 functional tests
+      A. Login
+         Strategy:
+            - Check to make sure users can log in successfully.
 
+         What to Test:
+            1. Username and password are sent to the server.
+            2. Password is authenticated by the server.
+            3. Invalid username causes login failure.
+            4. Inavlid password causes login failure.
+            5. Valid username/password combination allows successful login.
 
 
 
@@ -570,6 +579,13 @@ Black box testing will be used to test functionality for    colliding objects.
 
 
 
+       3.6 Login
+
+           Requirements:
+               1.1, 1.2
+
+            
+            
 
 
 
