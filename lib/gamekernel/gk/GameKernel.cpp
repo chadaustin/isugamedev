@@ -24,12 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-03-21 04:54:59 $
-// Version:       $Revision: 1.28 $
+// Date modified: $Date: 2002-03-21 05:02:29 $
+// Version:       $Revision: 1.29 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "GameKernel.h"
+#include "GameInput.h"
 #include "SystemDriverFactory.h"
 #include "GameInputConfigure.h"
 
