@@ -4,17 +4,6 @@
 namespace mw
 {
    
-   bool NavNodeTree::addNode(Node* newNode)
-   {
-      Tree.push_back(newNode);
-      for(int i=0;i<newNode->links.size();i++)
-      {
-         newNode->links[i]->links.push_back(newNode);
-      }
-      return true;
-   }
-
-
    bool NavNodeTree::addLink(std::string node1, std::string node2)
    {
       Node* n1 = 0;
@@ -43,20 +32,26 @@ namespace mw
    }
 
 
-   std::vector<Node*>* NavNodeTree::allLinks(std::string node)
+   std::vector<Node*>& NavNodeTree::allLinks(std::string node)
    {
       Node* n = 0;
-   //   std::vector<Node*>* nodes = new std::vector<Node*>;
       for(int i=0;i<Tree.size();i++)
       {
          if(Tree[i]->name == node)
          {
             n = Tree[i];
-            i=Tree.size();
+            break;
          }
-         
       }
-      return &n->links;
+      if (n)
+      {
+         return n->links;
+      }
+      else
+      {
+         static std::vector<Node*> empty;
+         return empty;
+      }
    }
 
 

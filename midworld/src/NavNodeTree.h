@@ -30,9 +30,19 @@ namespace mw
       /**
        * adds a node to the tree
        * returns true if successfully added node
+       *
+       * This is inline because VC7 is pissing me off and won't
+       * link if it's not inline.  :(
        */
-      bool addNode(Node* newNode);
-      
+      void addNode(Node* newNode)
+      {
+         Tree.push_back(newNode);
+         for(int i=0;i<newNode->links.size();i++)
+         {
+            newNode->links[i]->links.push_back(newNode);
+         }
+      }
+
       /** 
        * adds a link between two nodes
        * returns true if sucessful
@@ -50,7 +60,7 @@ namespace mw
        * returns a reference to a vector containing references to all the 
        * nodes that node has a link to.
        */
-      std::vector<Node*>* allLinks(std::string node);
+      std::vector<Node*>& allLinks(std::string node);
       
    private:
       std::vector<Node*> Tree;
