@@ -18,8 +18,10 @@ include ${MK_DIR}/mk.platform
 
 WHOAMI:=$(shell whoami)
 ifeq ($(WHOAMI), kevn)
+ifneq ($(HOSTTYPE), Win32)
    INCLUDE_PATHS += -I/home/users/kevn/software/${HOSTTYPE}/include
    LIBPATHS += -L/home/users/kevn/software/${HOSTTYPE}/lib32
+endif
 endif
 
 
@@ -27,12 +29,16 @@ endif
 
 include ${MK_DIR}/mk.objs
 
-LIBS = -lglut -lGLU -lGL -L/usr/X11R6/lib -lXmu -lXext -lX11 -lXi -lm
+ifeq ($(HOSTTYPE), Win32)
+   LIBS=Glut32.lib Glu32.lib OpenGL32.lib 
+else
+   LIBS = -lglut -lGLU -lGL -L/usr/X11R6/lib -lXmu -lXext -lX11 -lXi -lm
+endif
 
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
 default: ${OBJS}
-	$(CC) $(CXX_FLAGS) ${OBJS} $(OUTPUT_EXE_FLAG) $(FILENAME) $(LIBPATHS) $(LIBS)
+	$(EXE_LINKER) $(EXE_FLAGS) ${OBJS} $(OUTPUT_EXE_FLAG)$(FILENAME) $(LIBPATHS) $(LIBS)
 
 
 
