@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-04-26 13:20:19 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-04-27 07:34:51 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -146,8 +146,13 @@ namespace phui {
    Widget* WidgetContainer::getWidgetAt(const Point& p) {
       for (size_t i = 0; i < mWidgets.size(); ++i) {
          Widget* wgt = mWidgets[i];
-         if (wgt->contains(p - wgt->getPosition())) {
-            return mWidgets[i];
+
+         // Make sure the widget is visible
+         if (wgt->isVisible()) {
+            // Check if this widget contains the given point
+            if (wgt->contains(p - wgt->getPosition())) {
+               return mWidgets[i];
+            }
          }
       }
       return 0;
