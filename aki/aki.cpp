@@ -15,7 +15,6 @@ public:
       mAccelerate.init( "Accelerate" );
       
       GameInput::instance().bind( "Quit", "Keyboard", "KEY_Q" );
-      GameInput::instance().bind( "Quit", "Keyboard", "KEY_q" );
       GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_SPACE" );
       GameInput::instance().bind( "Accelerate", "Mouse", "MOUSEBUTTON_LEFT" );
    }

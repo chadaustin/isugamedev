@@ -60,9 +60,6 @@ public:
       CARET = '^',
       UNDERSCORE = '_',
       LEFTQUOTE = '`',
-      a = 'a',b = 'b',c = 'c',d = 'd',e = 'e',f = 'f',g = 'g',h = 'h',
-      i = 'i',j = 'j',k = 'k',l = 'l',m = 'm',n = 'n',o = 'o',p = 'p',q = 'q',
-      r = 'r',s = 's',t = 't',u = 'u',v = 'v',w = 'w',x = 'x',y = 'y',z = 'z',
       CURLYLEFT = '{',
       PIPE = '|',
       CURLYRIGHT = '}',
@@ -173,32 +170,6 @@ private:
       mMap["KEY_CARET"] = Keyboard::CARET;
       mMap["KEY_UNDERSCORE"] = Keyboard::UNDERSCORE;
       mMap["KEY_LEFTQUOTE"] = Keyboard::LEFTQUOTE;
-      mMap["KEY_a"] = Keyboard::a;
-      mMap["KEY_b"] = Keyboard::b;
-      mMap["KEY_c"] = Keyboard::c;
-      mMap["KEY_d"] = Keyboard::d;
-      mMap["KEY_e"] = Keyboard::e;
-      mMap["KEY_f"] = Keyboard::f;
-      mMap["KEY_g"] = Keyboard::g;
-      mMap["KEY_h"] = Keyboard::h;
-      mMap["KEY_i"] = Keyboard::i;
-      mMap["KEY_j"] = Keyboard::j;
-      mMap["KEY_k"] = Keyboard::k;
-      mMap["KEY_l"] = Keyboard::l;
-      mMap["KEY_m"] = Keyboard::m;
-      mMap["KEY_n"] = Keyboard::n;
-      mMap["KEY_o"] = Keyboard::o;
-      mMap["KEY_p"] = Keyboard::p;
-      mMap["KEY_q"] = Keyboard::q;
-      mMap["KEY_r"] = Keyboard::r;
-      mMap["KEY_s"] = Keyboard::s;
-      mMap["KEY_t"] = Keyboard::t;
-      mMap["KEY_u"] = Keyboard::u;
-      mMap["KEY_v"] = Keyboard::v;
-      mMap["KEY_w"] = Keyboard::w;
-      mMap["KEY_x"] = Keyboard::x;
-      mMap["KEY_y"] = Keyboard::y;
-      mMap["KEY_z"] = Keyboard::z;
       mMap["KEY_CURLYLEFT"] = Keyboard::CURLYLEFT;
       mMap["KEY_PIPE"] = Keyboard::PIPE;
       mMap["KEY_CURLYRIGHT"] = Keyboard::CURLYRIGHT;
