@@ -120,6 +120,10 @@ SOURCE=.\Geode.cxx
 # End Source File
 # Begin Source File
 
+SOURCE=.\GeodeCache.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=.\glRenderLight.cxx
 # End Source File
 # Begin Source File
