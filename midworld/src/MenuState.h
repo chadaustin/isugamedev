@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.h,v $
- * Date modified: $Date: 2002-10-01 01:00:28 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-08 02:38:41 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,7 +36,6 @@
 #include <vector>
 #include "State.h"
 #include "Texture.h"
-#include "Cursor.h"
 
 namespace mw
 {
@@ -112,16 +111,12 @@ namespace mw
       void update(float dt);
       void draw();
       void onKeyPress(SDLKey sym, bool down);
-      void onMouseMove(int x, int y);
 
    private:
       std::vector<Texture*> mImages;
       std::vector<MenuItem> mItemList; //list of all selectable menu items
       std::vector<MenuSquare> mSquares; //decorative, moving squares
       int mCurrentItem;
-      
-      // derive new cursor from this to make it prettier... :)
-      Cursor mCursor;
    };
 }
 

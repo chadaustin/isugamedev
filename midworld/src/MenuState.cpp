@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-10-29 06:25:27 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-11-08 02:38:41 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,8 +44,6 @@ namespace mw
 
    MenuState::MenuState( Application* a ) : State( a )
    {
-      mCursor.init( this->application().getWidth(), 
-                    this->application().getHeight() );
       //setup sound and play
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       if(jukebox->getTrack(0)== "music/theme.ogg"){
@@ -119,8 +117,6 @@ namespace mw
    void
    MenuState::update(float dt)
    {
-      mCursor.update( this->application().getWidth(), 
-                      this->application().getHeight() );
       //TODO: make this work!  Andres
 /*
       float dt=(float)elapsedTime/1000000.f;
@@ -215,9 +211,6 @@ namespace mw
 	
       }
   */
-        
-        mCursor.draw( this->application().getWidth(), 
-                      this->application().getHeight() );
    }
 
    void
@@ -252,12 +245,5 @@ namespace mw
                break;
          }
       }
-   }
-
-   void
-   MenuState::onMouseMove(int x, int y)
-   {
-      mCursor.onMouseMove( this->application().getWidth(), 
-                           this->application().getHeight(), x, y );
    }
 }
