@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-03-27 06:13:43 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-03-28 05:24:47 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,143 +42,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "client/BrothaApp.h"
-
-namespace client
-{
-   /**
-    * Warn-a-Brotha interface with GameKernel.
-    */
-/*
-   class BrothaApp : public gk::AbstractGameApp
-   {
-   public:
-      BrothaApp( )
-         : mKernel( NULL )
-      {
-      }
-
-      virtual ~BrothaApp( )
-      {
-      }
-
-      virtual void onAppInit( gk::IGameKernel* kernel )
-      {
-         mKernel = kernel;
-         mKernel->setName( "Warn-a-Brotha" );
-         mQuit.init( "Quit", mKernel );
-         mAccelerate.init( "Accelerate", mKernel );
-         mBrake.init( "Brake", mKernel );
-         mTurnLeft.init( "TurnLeft", mKernel );
-         mTurnRight.init( "TurnRight", mKernel );
-         mPause.init( "Pause", mKernel );
-      }
-
-      virtual void onContextInit()
-      {
-         mKernel->setWindowSize( 640, 480 );
-      }
-
-      virtual void onContextDraw( int context = 0 )
-      {
-         int width, height;
-         mKernel->getWindowSize( width, height );
-         glViewport( 0, 0, width, height );
-
-         glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
-         glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
-         glEnable( GL_DEPTH_TEST );
-         glEnable( GL_BLEND );
-         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-
-
-         // set up the projection matrix
-         glMatrixMode( GL_PROJECTION );
-            glLoadIdentity();
-            gluPerspective( 100.0f, width / height, 0.01f, 1000.0f );
-
-         // initialize your matrix stack used for transforming your models
-         glMatrixMode( GL_MODELVIEW );
-            glLoadIdentity();
-
-         /// @todo draw the game!
-      }
-
-      virtual void onPostFrame()
-      {
-         game::Player* player = mGame.getLocalPlayer();
-
-         // test for quit
-         if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
-         {
-            mKernel->shutdown();
-         }
-
-         // accelerate
-         if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-         {
-            player->setAccelerate( true );
-         }
-         else if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_UP)
-         {
-            player->setAccelerate( false );
-         }
-
-         // brake
-         if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-         {
-            player->setBrake( true );
-         }
-         else if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_UP)
-         {
-            player->setBrake( false );
-         }
-
-         // turn left
-         if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-         {
-            player->setTurnLeft( true );
-         }
-         else if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_UP)
-         {
-            player->setTurnLeft( false );
-         }
-
-         // turn right
-         if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-         {
-            player->setTurnRight( true );
-         }
-         else if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_UP)
-         {
-            player->setTurnRight( false );
-         }
-
-         // un/pause game
-         if (mPause.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
-         {
-            mGame.setPaused( ! mGame.isPaused() );
-         }
-
-         // update the state of the game
-         mGame.update();
-      }
-
-   public:
-      gk::AnalogInterface mMouseX, mMouseY;
-      gk::DigitalInterface
-         mAccelerate,
-         mBrake,
-         mTurnLeft,
-         mTurnRight,
-         mPause,
-         mQuit;
-
-      gk::IGameKernel* mKernel;
-
-      game::BrothaGame mGame;
-   };
-*/
-}
 
 int main( int argc, char *argv[] )
 {
