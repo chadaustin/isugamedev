@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-07-07 03:31:52 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,6 +41,9 @@ namespace mw
 {
    MenuState::MenuState( Application* a ) : State( a )
    {
+      mCursor.init( this->application().getWidth(), 
+                    this->application().getHeight() );
+      
       //setup images
       mImages.resize(3);
 
@@ -103,7 +106,8 @@ namespace mw
    void
    MenuState::update(float dt)
    {
-      ::SDL_WarpMouse( this->application().getWidth() / 2, this->application().getHeight() / 2 );
+      mCursor.update( this->application().getWidth(), 
+                      this->application().getHeight() );
       //TODO: make this work!  Andres
 /*
       float dt=(float)elapsedTime/1000000.f;
@@ -200,6 +204,9 @@ namespace mw
 	
       }
   */
+        
+        mCursor.draw( this->application().getWidth(), 
+                      this->application().getHeight() );
    }
 
    void
@@ -244,7 +251,7 @@ namespace mw
    void
    MenuState::onMouseMove(int x, int y)
    {
-      mMouseX = x;
-      mMouseY = y;
+      mCursor.onMouseMove( this->application().getWidth(), 
+                           this->application().getHeight(), x, y );
    }
 }

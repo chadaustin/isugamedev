@@ -1,6 +1,8 @@
 #ifndef VIRTUAL_GAME_CURSOR
 #define VIRTUAL_GAME_CURSOR
 
+#include "cubeGeometry.h" // for default draw method
+
 namespace mw
 {
    /// virtual cursor, hides system sursor, shows opengl cursor
@@ -30,6 +32,7 @@ namespace mw
          ::SDL_ShowCursor( SDL_DISABLE );
       }      
       
+      /// overload this to draw your custom image.
       virtual void draw( int w, int h )
       {
          // draw cursor (dumb)
