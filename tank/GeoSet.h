@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-09-27 17:41:25 $
-//    $Revision: 1.6 $
+//    $Date: 2001-09-27 20:01:28 $
+//    $Revision: 1.7 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -72,7 +72,7 @@
 class GeoSet : public RefObj
 {
 public:
-   GeoSet() : mName( "geoset_name" ), mGstate( NULL ), mNumVerts( 6969 ), mPrimitiveType( GeoSet::TRIS ), mNumPrimitives( 9696 )
+   GeoSet() : mName( "geoset_name" ), mGstate( NULL ), mNumVerts( 0 ), mPrimitiveType( GeoSet::TRIS ), mNumPrimitives( 9696 )
    {
    }
 
