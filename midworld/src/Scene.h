@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.h,v $
- * Date modified: $Date: 2002-09-17 10:33:09 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-03 01:15:59 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -80,21 +80,27 @@ namespace mw
        */
       Entity* get(const Entity::UID& uid);
 
+      ///@{
       /**
        * Retrieves an iterator for the entities in this scene at the beginning
        * of the collection.
        *
        * @return  an iterator at the beginning of this scene
        */
+      EntityMapItr begin();
       EntityMapCItr begin() const;
+      ///@}
 
+      ///@{
       /**
        * Retrieves an iterator for the entities in this scene at the end of the
        * collection.
        *
        * @return  an iterator at the end of this scene
        */
+      EntityMapItr end();
       EntityMapCItr end() const;
+      ///@}
 
       /**
        * Adds the given listener to the list of SceneListeners that get notified

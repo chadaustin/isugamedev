@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:09 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-03 01:15:59 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -74,10 +74,22 @@ namespace mw
       return 0;
    }
 
+   Scene::EntityMapItr
+   Scene::begin()
+   {
+      return mEntities.begin();
+   }
+
    Scene::EntityMapCItr
    Scene::begin() const
    {
       return mEntities.begin();
+   }
+
+   Scene::EntityMapItr
+   Scene::end()
+   {
+      return mEntities.end();
    }
 
    Scene::EntityMapCItr
