@@ -24,20 +24,29 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Utility.h,v $
- * Date modified: $Date: 2002-10-29 18:50:36 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-05 08:31:50 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_UTILITY_H
 #define MW_UTILITY_H
 
+#include <assert.h>
 #include <SDL_opengl.h>
 #include <gmtl/Vec.h>
 #include <gmtl/Math.h>
 
 namespace mw
 {
+   // this should go into Debug.h someday
+   #ifdef _MSC_VER
+   #define DBG_BREAK() do { __asm int 3 } while (false)
+   #else
+   #define DBG_BREAK() assert(false && "Breakpoint reached")
+   #endif
+
+
    inline bool isPowerOfTwo(int i)
    {
       return (i & (i - 1)) == 0;
