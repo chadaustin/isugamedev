@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-20 03:27:38 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-02-20 05:20:01 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,8 +36,10 @@
 #include <gk/GameInputConfigure.h>
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
-#include <gk/GlutDriver.h>
+#include <GlutDriver.h>
 #include <gk/SystemDriverFactory.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 /** a very simple application
  *  as you develop your application, you'll probably want to write
@@ -148,7 +150,7 @@ int main( int argc, char *argv[] )
    gk::loadInputConfig( "config.xml", kernel );
 
    // create our system driver and let's go!
-   gk::SystemDriverFactory::instance().probe( "gkglut", "GLUT" );
+   gk::SystemDriverFactory::instance().probe( "glut", "GLUT" );
    gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
    kernel->startup( driver );
    return 1;
