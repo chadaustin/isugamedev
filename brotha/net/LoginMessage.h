@@ -15,6 +15,9 @@ namespace net {
 
    class LoginMessage : public Message {
    public:
+      LoginMessage() {
+      }
+
       LoginMessage(std::string username, std::string password) {
          mUsername = username;
          mPassword = password;

@@ -4,9 +4,11 @@
 #define NET_NET_MANAGER_H
 
 #include "Socket.h"
+#include "Connection.h"
 #include "Message.h"
 #include <vector>
 #include <utility>
+#include <map>
 
 namespace net {
    /**
@@ -24,6 +26,7 @@ namespace net {
       }
 
       ~NetMgr() {
+         /// @todo terminate each connection that has been opened
       }
 
       /**
@@ -35,7 +38,11 @@ namespace net {
        * @return  the ID for the created connection
        */
       ConnID handleSocket(Socket *socket) {
-         return 0;
+         // create a new connection and return the ID
+         static ConnID uniqueID = 0;
+         Connection *newConnection = new Connection(socket);
+         m_connections[uniqueID] = newConnection;
+         return uniqueID++;
       }
 
       /**
@@ -45,7 +52,8 @@ namespace net {
        * @param dest    the destination connection ID
        */
       void send(Message *msg, ConnID dest) {
-         /// @todo fill me
+         // simply pass the message to the approprate client
+         m_connections[dest]->send(msg);
       }
 
       /**
@@ -55,8 +63,21 @@ namespace net {
        * @param msgs    filled with the messages read
        */
       void readAll( std::vector< std::pair<Message*, ConnID> >& msgs ) {
-         /// @todo fill me
+         // for each connection
+         typedef std::map<ConnID, Connection*>::iterator ConnIter;
+         for(ConnIter cIter=m_connections.begin();cIter!=m_connections.end();cIter++) {
+            // read all the messages
+            std::vector<Message*> messages;
+            ((Connection*)cIter->second)->read(messages);
+            // and place each in the return
+            typedef std::vector<Message*>::iterator MsgIter;
+            for(MsgIter mIter=messages.begin();mIter!=messages.end();mIter++) {
+               msgs.push_back(std::make_pair(*mIter, cIter->first));
+            }
+         }
       }
+   private:
+      std::map<ConnID, Connection*> m_connections; // maps IDs to Connections
    };
 }
 
