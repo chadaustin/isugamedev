@@ -1,0 +1,330 @@
+# build with 'scons'
+import string, sys, os
+pj = os.path.join
+
+#------------------------------------------------------------------------------
+# Define some generally useful functions
+#------------------------------------------------------------------------------
+def RequireSConsVersion(minimum):
+   "Check the version of SCons being run is at least the given minimum."
+   import SCons
+   if float(SCons.__version__) < float(minimum):
+      print "SCons too old: " + SCons.__version__ + " < " + str(minimum)
+      sys.exit(-1)
+
+def BuildBaseEnvironment():
+   "Builds a base environment for other modules to build on."
+   global optimize, profile
+
+   CXX = WhereIs('g++3') or 'g++'
+   LINK = CXX
+   CXXFLAGS = ['-Wall', '-Wno-non-virtual-dtor']
+   LINKFLAGS = []
+
+   if optimize:
+      CXXFLAGS.extend(['-DNDEBUG', '-O2', '-funroll-all-loops'])
+   else:
+      CXXFLAGS.extend(['-DDEBUG', '-g'])
+
+   if profile:
+      CXXFLAGS.extend(['-pg'])
+      LINKFLAGS.extend(['-pg'])
+
+   env = Environment(
+      ENV = os.environ,
+      CXX = CXX,
+      LINK = LINK,
+      CPPPATH = [],
+      LIBPATH = [],
+      LIBS = [],
+      CXXFLAGS = CXXFLAGS,
+      LINKFLAGS = LINKFLAGS,
+   )
+
+   return env
+
+def InitGZipBuilder(env):
+   "Adds the builder and construction variables for gzip to an Environment."
+   try:
+      bld = env['BUILDERS']['GZip']
+   except KeyError:
+      bld = Builder(action = '$GZIPCOM',
+                    suffix = '$GZIPSUFFIX')
+      env['BUILDERS']['GZip'] = bld
+
+   env['GZIP']       = 'gzip'
+   env['GZIPFLAGS']  = ''
+   env['GZIPCOM']    = '$GZIP $GZIPFLAGS $SOURCES'
+   env['GZIPSUFFIX'] = '.gz'
+
+def InitBZip2Builder(env):
+   "Adds the builder and construction variables for bzip2 to an Environment."
+   try:
+      bld = env['BUILDERS']['BZip2']
+   except KeyError:
+      bld = Builder(action = '$BZIP2COM',
+                    suffix = '$BZIP2SUFFIX')
+      env['BUILDERS']['BZip2'] = bld
+
+   env['BZIP2']         = 'bzip2'
+   env['BZIP2FLAGS']    = ''
+   env['BZIP2COM']      = '$BZIP2 $BZIP2FLAGS $SOURCES'
+   env['BZIP2SUFFIX']   = '.bz2'
+
+#------------------------------------------------------------------------------
+# This function builds a  source distribution from the given files.
+#------------------------------------------------------------------------------
+def MakeDist(target = None, source = None, env = None):
+   import shutil
+
+   distTarget = str(target[0])
+   distSources = map(str, source)
+
+   if distTarget[-len(env['DISTSUFFIX'])] != env['DISTSUFFIX']:
+      distTarget = distTarget + env['DISTSUFFIX']
+
+
+   # Create the dist directory
+   distName = os.path.basename(distTarget[:-len(env['DISTSUFFIX'])])
+   os.mkdir(distName)
+
+   # Copy necessary files into the dist directory
+   for file in distSources:
+      src_file = str(file)
+      src_dir = os.path.dirname(src_file)
+      dest_dir = pj(distName, src_dir)
+
+      # Make sure the target directory exists
+      if not os.path.isdir(dest_dir):
+         os.makedirs(dest_dir)
+
+      # Copy the file over
+      shutil.copy2(src_file, pj(distName, src_file))
+
+   # Create the gzipped tarball
+   distTar = distName + '.tar'
+
+   os.system('tar cf '+distTar+' '+distName)
+   os.system('gzip -f '+distTar)
+#   env.Tar(target = distTar, source = distName)
+#   env.GZip(target = distTarGz, source = distTar)
+
+   # Remove the dist directory
+   shutil.rmtree(distName)
+   return 0
+
+def InitDistBuilder(env):
+   "Adds the builder and construction variables for Dist to an Environment."
+   try:
+      bld = env['BUILDERS']['Dist']
+   except KeyError:
+      bld = Builder(action = MakeDist,
+                    suffix = '$DISTSUFFIX')
+      env['BUILDERS']['Dist'] = bld
+
+   env['DISTSUFFIX']    = '.tar.gz'
+
+def ParseConfig(env, command, options):
+   "Parses xxx-config style output for compilation directives"
+
+   # Run the command
+   where = WhereIs(command)
+   if not where:
+      print '%s not found in PATH' % command
+      sys.exit(-1)
+   cmd = where + ' ' + string.join(options)
+   params = string.split(os.popen(cmd).read())
+
+   # Parse its output
+   for arg in params:
+      switch = arg[0:1]
+      option = arg[1:2]
+      if switch == '-':
+         if option == 'I':
+            env['CPPPATH'].append(arg[2:])
+         elif option == 'L':
+            env['LIBPATH'].append(arg[2:])
+         elif option == 'l':
+            env['LIBS'].append(arg[2:])
+         elif arg[0:11] == '-Wl,-rpath,':
+            env['LINKFLAGS'].append(arg)
+         else:
+            env['CXXFLAGS'].append(arg)
+      else:
+         # Must be a static library, add it to the libs
+         env['LIBS'].append(arg)
+
+def SetupSDL(env):
+   "Sets up the given environment for SDL"
+   ParseConfig(env, 'sdl-config', Split('--cflags --libs'))
+
+def SetupCorona(env):
+   "Sets up the given environment for Corona"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['corona'])
+
+def SetupAudiere(env):
+   "Sets up the given environment for Audiere"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['audiere'])
+
+def SetupGLText(env):
+   "Sets up the given enviroment for GLText"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['gltext'])
+
+def SetupOpenSG(env):
+   "Sets up the given environment for OpenSG"
+   if optimize:
+      ParseConfig(env, 'osg-config', ['--dbg --cflags --libs Base System'])
+   else:
+      ParseConfig(env, 'osg-config', ['--opt --cflags --libs Base System'])
+
+def SetupOpenGL(env):
+   "Sets up the given environment for OpenGL"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['GLU', 'GL'])
+
+Export('ParseConfig')
+Export('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenSG SetupOpenGL')
+
+#------------------------------------------------------------------------------
+# The BuildInfo data structure allows subdirectories of a recursive build to
+# pass information to their parents about the build.
+#------------------------------------------------------------------------------
+class BuildInfo:
+   def __init__(self):
+      self.programs = []
+      self.libraries = []
+      self.headers = []
+      self.sources = []
+      self.docs = []
+      self.extraDist = []
+
+   def add(self, bi):
+      "Adds the contents of the given build info object to this one"
+      self.programs.extend(bi.programs)
+      self.libraries.extend(bi.libraries)
+      self.headers.extend(bi.headers)
+      self.sources.extend(bi.sources)
+      self.docs.extend(bi.docs)
+      self.extraDist.extend(bi.extraDist)
+
+   def addPrograms(self, progs):
+      self.programs.extend(progs)
+
+   def addLibraries(self, libs):
+      self.libraries.extend(libs)
+
+   def addHeaders(self, files):
+      self.headers.extend(files)
+
+   def addSources(self, files):
+      self.sources.extend(files)
+
+   def addDocs(self, files):
+      self.docs.extend(files)
+
+   def addExtraDist(self, files):
+      self.extraDist.extend(files)
+
+   def getAll(self):
+      result = []
+      result.extend(self.programs)
+      result.extend(self.libraries)
+      result.extend(self.headers)
+      result.extend(self.sources)
+      result.extend(self.docs)
+      result.extend(self.extraDist)
+      return result
+
+   #---------------------------------------------------------------------------
+   # Accessors
+   #---------------------------------------------------------------------------
+   def getPrograms(self):
+      return self.programs
+
+   def getLibraries(self):
+      return self.libraries
+
+   def getHeaders(self):
+      return self.headers
+
+   def getSources(self):
+      return self.sources
+
+   def getDocs(self):
+      return self.docs
+
+   def getExtraDist(self):
+      return self.extraDist
+
+Export('BuildInfo')
+
+#------------------------------------------------------------------------------
+# Grok the arguments to this build
+#------------------------------------------------------------------------------
+RequireSConsVersion(0.08)
+
+# Check for optimize option
+optimize = 0
+if ARGUMENTS.get('opt', 0):
+   optimize = 1
+
+# Check for profile option
+profile = 0
+if ARGUMENTS.get('profile', 0):
+   profile = 1
+
+# Check for an install prefix
+PREFIX = '/usr/local'
+if ARGUMENTS.get('prefix'):
+   PREFIX = ARGUMENTS['prefix']
+Export('PREFIX')
+
+#------------------------------------------------------------------------------
+# Setup build information for this directory
+#------------------------------------------------------------------------------
+buildInfo = BuildInfo();
+buildInfo.addExtraDist(map(File, Split("""
+   SConstruct
+""")))
+
+#------------------------------------------------------------------------------
+# Create the base environment
+#------------------------------------------------------------------------------
+baseEnv = BuildBaseEnvironment()
+InitGZipBuilder(baseEnv)
+InitDistBuilder(baseEnv)
+Export('baseEnv')
+
+# recurse (keeping track of build information)
+subdirs = Split('src test')
+for dir in subdirs:
+   retval = SConscript(dirs = dir)
+   if retval != None:
+      buildInfo.add(retval)
+
+# install target
+baseEnv.Alias('install', PREFIX)
+
+# Get the list of files that should be included in the distribution
+def FileSorter(a, b):
+   if str(a) < str(b):
+      return -1
+   elif str(a) == str(b):
+      return 0
+   else:
+      return 1
+
+srcDistFiles = []
+srcDistFiles.extend(buildInfo.getHeaders())
+srcDistFiles.extend(buildInfo.getSources())
+srcDistFiles.extend(buildInfo.getExtraDist())
+srcDistFiles.extend(buildInfo.getDocs())
+srcDistFiles.sort(FileSorter)
+
+
+
+# build all sources by default but not the tests
+Default('build')
