@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-17 06:57:26 $
- * Version:       $Revision: 1.38 $
+ * Date modified: $Date: 2002-10-17 08:20:30 $
+ * Version:       $Revision: 1.39 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,14 +53,56 @@
 #include "SceneViewer.h"
 #include "InputAction.h"
 #include "State.h"
+
+#include "Turret.h"
+
+#include <loom/aiSystem.h>
+#include <loom/reflex.h>
+#include <loom/behavior.h>
+#include <loom/unit.h>
+#include <loom/command.h>
+
+#include <gmtl/Point.h>
+#include <gmtl/LineSeg.h>
+
 #include "ParticleEngine.h"
 
 namespace mw
 {
    class Application;
 
+   class turretTesting : public lm::testing
+   {
+   public:
+      turretTesting(Turret* t, Player* p)
+      {
+         mTurret = new Turret;
+         mPlayer = new Player;
+         mTurret = t; 
+         mPlayer = p;
+      }
+      
+      
+      virtual bool test()
+      {
+         gmtl::Point3f pos1, pos2;
+         pos1 = mTurret->getPos();
+         pos2 = mPlayer->getPos();
+         gmtl::LineSegf dist(pos1, pos2);
+         if(dist.getLength() < 20)
+            return true;
+         else
+            return false;
+      }
+   private:
+      Turret* mTurret;
+      Player* mPlayer;
+      
+   };
+         
 
 
+   
    class testing
    {
    public:
@@ -74,6 +116,10 @@ namespace mw
       {
          return false;
       }
+      bool aimTrue()
+      {
+      }
+   private:        
    };
 
    /**
@@ -154,9 +200,11 @@ namespace mw
       lm::aiNode* node2;
       lm::command* node1sCommand;
       lm::command* node2sCommand;
+      lm::command* aimCommand;
       lm::behavior* first;
       lm::behavior* second;
       lm::testing* myTestCommand;
+      lm::testing* aimTestCommand;
 
       lm::reflex* node1Instinct;
       lm::reflex* node2Instinct;

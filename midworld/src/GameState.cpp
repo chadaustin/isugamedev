@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-17 06:57:26 $
- * Version:       $Revision: 1.59 $
+ * Date modified: $Date: 2002-10-17 08:20:30 $
+ * Version:       $Revision: 1.60 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -191,18 +191,22 @@ namespace mw
       second = new lm::behavior;
 
 
-      first->addCommand(node1sCommand);
       second->addCommand(node2sCommand);
 
 
       //TODO: FOR LOOM: change instincts to take nodes as param1 not
       //instinctMans.
       myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
+   
+      aimTestCommand = new turretTesting(enemy1, &mPlayer);
+      aimCommand = new lm::simpleCommand<Turret>(enemy1, &Turret::aim);
+      
+      first->addCommand(aimCommand);
+      
+     node1Instinct = new lm::reflex(node1->mReflexManager, first, aimTestCommand);
 
- //     node1Instinct = new lm::instinct(node1->mInstinctManager, first, myTestCommand);
-
-      node2Instinct = new lm::reflex(node2, second, myTestCommand);
-//      node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
+ //     node2Instinct = new lm::reflex(node2, second, myTestCommand);
+      node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
 
       AI.registerNode(node1);
       AI.registerNode(node2);

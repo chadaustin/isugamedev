@@ -1,3 +1,6 @@
+#ifndef MW_TURRET_H
+#define MW_TURRET_H
+
 #include "Enemy.h"
 
 namespace mw
@@ -37,3 +40,5 @@ public:
 };
 
 }
+
+#endif
