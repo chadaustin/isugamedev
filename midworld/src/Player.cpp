@@ -148,12 +148,11 @@ namespace mw
 
    void Player::update( GameState& gs, float timeDelta )
    {
-      // @todo, use seconds not this weird range...
-      RigidBody::update( (long)(timeDelta * 1000000.0f) );
+      RigidBody::update(timeDelta);
 
       // update the current weapon
       this->weapon().setPos( this->getPos() + this->getRot() * gmtl::Vec3f( 0, 0, -0.5f ) );
       this->weapon().setRot( this->getRot() );
       this->weapon().update( gs, timeDelta );
    }
-}// namespace.
+}
