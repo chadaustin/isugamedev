@@ -22,7 +22,8 @@ python_dirs = Split("""
 
 # Copy the python scripts to the dist directory
 for dir in python_dirs:
-   pathname = pj(str(Dir('#')), 'src', dir, '*.py')
+   pathname = pj(str(Dir('#src')), dir, '*.py')
+   print 'pathname:',pathname
    python_scripts = glob.glob(pathname)
 
    for script in python_scripts:
