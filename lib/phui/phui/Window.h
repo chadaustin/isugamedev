@@ -11,15 +11,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2002-04-28 19:45:00 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2003-01-04 02:31:03 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
- * phui is (C) Copyright 2002 by Chad Austin, Josh Carlson, Ben Scott
+ * phui is (C) Copyright 2002 by
+ *      Chad Austin, Josh Carlson, Johnathan Gurley,
+ *      Ben Scott, Levi Van Oort
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -35,6 +37,12 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
+ *
+ * -----------------------------------------------------------------
+ * File:          $RCSfile: Window.h,v $
+ * Date modified: $Date: 2003-01-04 02:31:03 $
+ * Version:       $Revision: 1.13 $
+ * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WINDOW_H

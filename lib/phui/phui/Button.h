@@ -11,15 +11,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2003-01-04 02:31:01 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
- * phui is (C) Copyright 2002 by Chad Austin, Josh Carlson, Ben Scott
+ * phui is (C) Copyright 2002 by
+ *      Chad Austin, Josh Carlson, Johnathan Gurley,
+ *      Ben Scott, Levi Van Oort
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -35,6 +37,12 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
+ *
+ * -----------------------------------------------------------------
+ * File:          $RCSfile: Button.h,v $
+ * Date modified: $Date: 2003-01-04 02:31:01 $
+ * Version:       $Revision: 1.17 $
+ * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_BUTTON_H

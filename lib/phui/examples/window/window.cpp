@@ -1,25 +1,11 @@
 /* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil c-basic-offset: 3 -*- */
 // vim:cindent:ts=3:sw=3:et:tw=80:sta:
-/**************************************************************** phui-head beg
- *
- * phui - flexible user interface subsystem
- *
- * Original Authors:
- *    Chad Austin <aegis@aegisknight.org>
- *    Josh Carlson <josh@chegg.com>
- *    Ben Scott <bscott@iastate.edu>
- *
- * -----------------------------------------------------------------
- * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:58 $
- * Version:       $Revision: 1.20 $
- * -----------------------------------------------------------------
- *
- ************************************************************* phui-head-end */
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
- * phui is (C) Copyright 2002 by Chad Austin, Josh Carlson, Ben Scott
+ * phui is (C) Copyright 2002 by
+ *      Chad Austin, Josh Carlson, Johnathan Gurley,
+ *      Ben Scott, Levi Van Oort
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -36,8 +22,13 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  *
+ * -----------------------------------------------------------------
+ * File:          $RCSfile: window.cpp,v $
+ * Date modified: $Date: 2003-01-04 02:31:00 $
+ * Version:       $Revision: 1.21 $
+ * -----------------------------------------------------------------
+ *
  ************************************************************** phui-cpr-end */
-
 #include <GL/glut.h>
 #include <phui/phui.h>
 
