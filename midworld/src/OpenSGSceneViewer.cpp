@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-10-09 02:20:57 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-09 07:25:57 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -204,7 +204,7 @@ namespace mw
 //                                    gmtl::Point3f(max[0], max[1], max[2]));
 
          // Compare this node's bounds to the search bounds
-         if (isInVolume(region, entity_bounds))
+         if (gmtl::isInVolume(region, entity_bounds))
          {
             matches.push_back(mScene->get(itr->first));
          }
