@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-03 07:11:03 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-05-03 08:06:55 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -131,7 +131,7 @@ namespace data {
          StatList::iterator itr;
          for (itr = mStats.begin(); itr != mStats.end(); ++itr) {
             Stat* s = *itr;
-            if (s->getName() == value) {
+            if (s->getName() == name) {
                s->setVal(value);
                exists = true;
             }
