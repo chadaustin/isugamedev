@@ -3,6 +3,14 @@ from os import path
 Import('baseEnv PREFIX')
 Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenGL')
 
+interfaces = Split("""
+   CollisionDetector
+   CollisionListener
+   Entity
+   SpatialIndex
+   Weapon
+""")
+
 classes = Split("""
    AbstractEntity
    Application
@@ -33,20 +41,16 @@ sources = Split("""
 headers = Split("""
    AssaultRifle.h
    BaseBullet.h
-   CollisionDetector.h
    CollisionEvent.h
-   CollisionListener.h
-   Entity.h
    NullCollisionDetector.h
-   SpatialIndex.h
    UIDManager.h
    VectorSpatialIndex.h
    Version.h
-   Weapon.h
 """)
 
-sources.extend(map(lambda n: n + '.cpp', classes))
-headers.extend(map(lambda n: n + '.h', classes))
+headers.extend(map(lambda n: n + '.h',    interfaces))
+sources.extend(map(lambda n: n + '.cpp',  classes))
+headers.extend(map(lambda n: n + '.h',    classes))
 
 env = baseEnv.Copy()
 env['LIBPATH'].extend(['#src/AI'])
