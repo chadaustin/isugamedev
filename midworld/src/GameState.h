@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-03 06:06:15 $
- * Version:       $Revision: 1.66 $
+ * Date modified: $Date: 2002-11-05 08:29:00 $
+ * Version:       $Revision: 1.67 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,9 +41,9 @@
 #include <loom/command.h>
 
 #include <gmtl/Point.h>
-#include <gmtl/LineSeg.h>
-#include <gmtl/Generate.h>
-#include <gmtl/QuatOps.h>
+//#include <gmtl/LineSeg.h>
+//#include <gmtl/Generate.h>
+//#include <gmtl/QuatOps.h>
 
 #include <SDL.h>
 #include "Camera.h"
@@ -57,6 +57,7 @@
 #include "Scene.h"
 #include "SceneViewer.h"
 #include "State.h"
+#include "Testing.h"
 #include "Turret.h"
 #include "PhysicsEngine.h"
 
@@ -67,149 +68,8 @@ namespace gmtl
 
 namespace mw
 {
-
    class Application;
-
-   class droidTesting : public lm::testing
-   {
-   public:
-      droidTesting(Droid* e, Player* p)
-      {
-         mDroid = e;
-         mPlayer = p;
-      }
-
-      virtual bool test()
-      {
-         gmtl::Vec3f drd, pA, pB, plyr;
-
-
-         gmtl::Vec3f reach(0.0f, 0.0f, 30.0f);
-         
-         gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(
-            gmtl::AxisAnglef(45, 0, 1, 0));
-         gmtl::Quatf mRot = gmtl::makeRot<gmtl::Quatf>(
-            gmtl::AxisAnglef(-45, 0, 1, 0));
-
-         
-         drd = mDroid->getPos();
-         plyr = mPlayer->getPos();
-         pA = mDroid->getPos()+(mDroid->getRot()*nRot)*reach;
-         pB = mDroid->getPos()+(mDroid->getRot()*mRot)*reach;
-
-      //   std::cout << "plyr:" << plyr[0] << "," << plyr[2] << "  drd:" << drd[0] << "," << drd[2] << "  pA:" << pA[0] << "," << pA[2] << "  pB:" << pB[0] << "," << pB[2] << std::endl << std::endl;
-
-
-         // this big chunk checks to see if a point is inside a triangle given
-         // the 3 triangles vertices. ugh!
-         if(((((plyr[2]-drd[2])*(pA[0]-drd[0])) - ((plyr[0]-drd[0])*(pA[2]-drd[2]))) *
-                  (((plyr[2]-pA[2])*(pB[0]-pA[0])) - ((plyr[0]-pA[0])*(pB[2]-pA[2]))) > 0) &&
-               ((((plyr[2]-pA[2])*(pB[0]-pA[0])) - ((plyr[0]-pA[0])*(pB[2]-pA[2]))) *
-                (((plyr[2]-pB[2])*(drd[0]-pB[0])) - ((plyr[0]-pB[0])*(drd[2]-pB[2]))) > 0))
-
-        {
-            // we are in the droids sights now so we would return true
-            return true;
-         }
-         else
-         {
-            return false;
-         }
-      }
-   private:
-      Droid* mDroid;
-      Player* mPlayer;
-   };
-
-   class droidCommand : public lm::command
-   {
-   public:
-      droidCommand(Droid* e, Player* p)
-      {
-         mPlayer = p;
-         mDroid = e;
-      }
-
-      virtual void execute();
-
-   private:
-      Droid* mDroid;
-      Player* mPlayer;
-   };
-   
-         
-   
-
-   class turretTesting : public lm::testing
-   {
-   public:
-      turretTesting(Turret* t, Player* p)
-      {
-         mTurret = t;
-         mPlayer = p;
-      }
-
-
-      virtual bool test()
-      {
-         gmtl::Point3f pos1, pos2;
-         pos1 = mTurret->getPos();
-         pos2 = mPlayer->getPos();
-         gmtl::LineSegf dist(pos1, pos2);
-         if(dist.getLength() < 20)
-            return true;
-         else
-            return false;
-      }
-   private:
-      Turret* mTurret;
-      Player* mPlayer;
-
-   };
-
-
-   class turretCommand : public lm::command
-   {
-      public:
-
-      turretCommand(Turret* t, Player* p)
-      {
-         mTurret = t;
-         mPlayer = p;
-      }
-
-      virtual void execute();
-         
-
-
-
-      private:
-         Turret* mTurret;
-         Player* mPlayer;
-   };
-
-
-
-   class testing
-   {
-   public:
-      testing() {}
-
-      bool alwaysTrue()
-      {
-         return true;
-      }
-      bool alwaysFalse()
-      {
-         return false;
-      }
-      bool aimTrue()
-      {
-         return true;
-      }
-   private:
-   };
-
+   class testing;
 
    /**
     * The state in which the game is played.
@@ -303,9 +163,11 @@ namespace mw
       typedef std::map<Entity::UID, lm::aiNode*> NodeMap;
       NodeMap mMap;
 
+      // declare an instance of a loom aiSystem - the ai system for the game.
       lm::aiSystem AI;
-      // the following was test related stuff
+      // the following was AI related stuff
 
+      
       testing* appTest;
       std::vector<lm::aiNode*> mAInodes;
       lm::command* node1sCommand;

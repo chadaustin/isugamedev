@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-04 19:17:58 $
- * Version:       $Revision: 1.108 $
+ * Date modified: $Date: 2002-11-05 08:29:00 $
+ * Version:       $Revision: 1.109 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,9 @@
 #include <SDL_opengl.h>
 #include <gmtl/Generate.h>
 #include <gmtl/QuatOps.h>
+
+#include <loom/command.h>
+
 
 #include "AmmoCrate.h"
 #include "Application.h"
@@ -57,6 +60,7 @@
 #include "SpreadGun.h"
 #include "StateFactory.h"
 #include "StaticEntity.h"
+#include "Testing.h"
 #include "Turret.h"
 
 namespace mw
@@ -66,64 +70,6 @@ namespace mw
       StateCreatorImpl<GameState> creator("Game");
    }
 
-   void droidCommand::execute()
-   {
-      gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
-      gmtl::Vec3f downVec(0.0f,0.0f,-1.0f);
-      gmtl::Quatf currentQuat = mDroid->getRot(); /// Turret's current orientation
-      gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mDroid->getPos();
-      gmtl::normalize(vecToPlayer);
-      /// quaternion representing the rotation angle it would take to point at the player.
-      gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer); 
-      /// the quat that we are actually going to rotate the turret by.
-      gmtl::Quatf finalQuat;  
-      
-
-      
-         
-      gmtl::slerp(finalQuat, 0.055f, currentQuat, mQuat);  /// slerp to 4/10 the angle we need to have.
-      mDroid->setRot(finalQuat); 
-         
-      mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
-      gmtl::slerp(finalQuat, 1.0f, finalQuat, mQuat);
-      gmtl::Vec3f offset(0,0,3);
-      mDroid->getGun()->setRot(finalQuat);
-      mDroid->getGun()->setPos(mDroid->getPos()+(mDroid->getRot()*offset));
-      mDroid->getGun()->trigger(true);
-   }
-      
-      
-   
-   
-   void turretCommand::execute()
-   {
-      gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
-      gmtl::Vec3f downVec(0.0f,0.0f,-1.0f);
-      gmtl::Quatf currentQuat = mTurret->getRot(); /// Turret's current orientation
-      gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mTurret->getPos();
-      gmtl::normalize(vecToPlayer);
-      gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer); /// quaternion representing the rotation angle it would take to point at the player.
-      gmtl::Quatf finalQuat;  /// the quat that we are actually going to rotate the turret by.
-      
-
-      
-         
-      gmtl::slerp(finalQuat, 0.04f, currentQuat, mQuat);  /// slerp to 4/10 the angle we need to have.
-      mTurret->setRot(finalQuat); 
-         
-      mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
-      gmtl::slerp(finalQuat, 1.0f, finalQuat, mQuat);
-      gmtl::Vec3f offset(0,0,6);
-      mTurret->getGun()->setRot(finalQuat);
-      mTurret->getGun()->setPos(mTurret->getPos()+(mTurret->getRot()*offset));
-      mTurret->shoot();
-    
-   }  
-
-
-
-
-   
    GameState::GameState(Application* app)
       : State(app)
       , mSpeed(10)
