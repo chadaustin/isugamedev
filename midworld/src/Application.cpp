@@ -23,75 +23,73 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-06-06 05:00:42 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <SDL/SDL_opengl.h>
 #include "Application.h"
 
+namespace mw
+{
+   Application::Application()
+   {
+      mWidth  = 0;
+      mHeight = 0;
+   }
 
-namespace mw {
+   Application::~Application()
+   {
+   }
 
-  Application::Application()
-  {
-    mWidth  = 0;
-    mHeight = 0;
-  }
+   void
+   Application::update(u64 elapsedTime)
+   {
+   }
 
-  Application::~Application()
-  {
-  }
+   void
+   Application::draw()
+   {
+      // set up projection matrix
+      glMatrixMode(GL_PROJECTION);
+      glLoadIdentity();
+//      float aspect_ratio = (mHeight == 0 ? 1 : float(mWidth) / mHeight);
+      glOrtho(0, mWidth, mHeight, 0, -1, 1);
+//      gluPerspective(45, aspect_ratio, 0.001f, 100);
 
-  void
-  Application::update(u64 elapsedTime)
-  {
-  }
+      // set up view matrix
+      glMatrixMode(GL_MODELVIEW);
+      glLoadIdentity();
 
-  void
-  Application::draw()
-  {
-    // set up projection matrix
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-//    float aspect_ratio = (mHeight == 0 ? 1 : float(mWidth) / mHeight);
-    glOrtho(0, mWidth, mHeight, 0, -1, 1);
-//    gluPerspective(45, aspect_ratio, 0.001f, 100);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    // set up view matrix
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+      glBegin(GL_LINES);
+      glColor3f(1, 1, 1);
+      glVertex2f(0, 0);
+      glVertex2f(mWidth, mHeight);
+      glEnd();
+   }
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+   void
+   Application::resize(int width, int height)
+   {
+      mWidth  = width;
+      mHeight = height;
+   }
 
-    glBegin(GL_LINES);
-    glColor3f(1, 1, 1);
-    glVertex2f(0, 0);
-    glVertex2f(mWidth, mHeight);
-    glEnd();
-  }
+   void
+   Application::onKeyPress(SDLKey sym, bool down)
+   {
+   }
 
-  void
-  Application::resize(int width, int height)
-  {
-    mWidth  = width;
-    mHeight = height;
-  }
+   void
+   Application::onMousePress(Uint8 button, bool down, int x, int y)
+   {
+   }
 
-  void
-  Application::onKeyPress(SDLKey sym, bool down)
-  {
-  }
-
-  void
-  Application::onMousePress(Uint8 button, bool down, int x, int y)
-  {
-  }
-
-  void
-  Application::onMouseMove(int x, int y)
-  {
-  }
-
+   void
+   Application::onMouseMove(int x, int y)
+   {
+   }
 }

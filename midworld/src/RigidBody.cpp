@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-06-06 05:00:42 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,23 +37,21 @@ namespace mw
    {
       gmtl::Vec3f accel = mForce / mMass;
       mVel  += accel * dt;
-      mPos  += mVel * dt;      
+      mPos  += mVel * dt;
    }
 
    void RigidBody::addForce(gmtl::Vec3f force)
    {
       mForce += force;
    }
-   
+
    void RigidBody::addRotForce(gmtl::Vec3f rotForce)
-   {      
+   {
         mRotForce += rotForce;
    }
-   
+
    void RigidBody::draw()
    {
-   
+
    }
-   
-   
 }

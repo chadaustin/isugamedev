@@ -23,22 +23,21 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.h,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-06-06 05:00:42 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#ifndef APPLICATION_H
-#define APPLICATION_H
-
+#ifndef MW_APPLICATION_H
+#define MW_APPLICATION_H
 
 #include <SDL/SDL.h>
 #include "Types.h"
 
-
-namespace mw {
-
-   class Application {
+namespace mw
+{
+   class Application
+   {
    public:
       Application();
       ~Application();
@@ -56,8 +55,6 @@ namespace mw {
       int mWidth;
       int mHeight;
    };
-
 }
-
 
 #endif

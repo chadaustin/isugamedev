@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-06-06 05:00:42 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,43 +58,43 @@ int main(int argc, char** argv)
       log("SDL Initialization failed: " + GetSDLError());
       return EXIT_FAILURE;
    }
-   
+
    const SDL_VideoInfo* info = SDL_GetVideoInfo();
    if (!info)
    {
       log("Retrieving video information failed: " + GetSDLError());
       return EXIT_FAILURE;
    }
-   
+
    // define our minimum requirements for the GL window
    SDL_GL_SetAttribute(SDL_GL_RED_SIZE,     5);
    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,   5);
    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,    5);
    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-   
+
    const int width  = 640;
    const int height = 480;
-   
+
    if (!SDL_SetVideoMode(width, height, info->vfmt->BitsPerPixel, SDL_OPENGL))
    {
       log("Setting video mode failed: " + GetSDLError());
       return EXIT_FAILURE;
    }
-   
+
    SDL_WM_SetCaption("Midworld", 0);
-   
+
    try
    {
       std::auto_ptr<mw::Application> app(new mw::Application);
-      
+
       // let the app know what size it is
       app->resize(width, height);
-      
+
       Uint32 last_time = SDL_GetTicks();
-      
+
       while (1)
-      {      
+      {
          SDL_Event event;
          int result = SDL_PollEvent(&event);
          bool should_quit = false;
@@ -127,18 +127,18 @@ int main(int argc, char** argv)
                   should_quit = true;
                   break;
             }
-            
+
             result = SDL_PollEvent(&event);
          }
 
-         // error or SDL_QUIT message         
+         // error or SDL_QUIT message
          if (result < 0 || should_quit)
          {
             break;
          }
-         
+
          // update and draw application
-         
+
          Uint32 now = SDL_GetTicks();
          // ignore wraparound
          if (now >= last_time)
@@ -146,7 +146,7 @@ int main(int argc, char** argv)
             app->update(now - last_time);
          }
          last_time = now;
-         
+
          app->draw();
          SDL_GL_SwapBuffers();
       }
@@ -155,8 +155,8 @@ int main(int argc, char** argv)
    {
       log(std::string("uncaught exception: ") + e.what());
    }
-   
+
    SDL_Quit();
-   
+
    return 0;
 }

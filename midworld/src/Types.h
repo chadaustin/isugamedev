@@ -23,15 +23,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Types.h,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-06-06 05:00:42 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_TYPES_H
 #define MW_TYPES_H
 
-namespace mw {
+namespace mw
+{
 
 #ifdef _MSC_VER
 
@@ -42,7 +43,6 @@ namespace mw {
 
   typedef          long long i64;
   typedef unsigned long long u64;
-
 
 #endif
 
