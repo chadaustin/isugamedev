@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Size.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-01-05 06:54:27 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -66,5 +66,25 @@ namespace phui
    bool Size::operator!=(const Size& size) const
    {
       return (! operator==(size));
+   }
+
+   int Size::getWidth() const
+   {
+      return mWidth;
+   }
+
+   void Size::setWidth(int width)
+   {
+      mWidth = width;
+   }
+
+   int Size::getHeight() const
+   {
+      return mHeight;
+   }
+
+   void Size::setHeight(int height)
+   {
+      mHeight = height;
    }
 }

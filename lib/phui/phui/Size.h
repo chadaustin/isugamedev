@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Size.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-05 06:54:27 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -86,21 +86,17 @@ namespace phui
        */
       bool operator!=(const Size& size) const;
 
-      /**
-       * Gets the width of this size.
-       */
-      int getWidth() const
-      {
-         return mWidth;
-      }
+      /// Gets the width of this size.
+      int getWidth() const;
 
-      /**
-       * Gets the height of this size.
-       */
-      int getHeight() const
-      {
-         return mHeight;
-      }
+      /// Sets the width of this size to the given value.
+      void setWidth(int width);
+
+      /// Gets the height of this size.
+      int getHeight() const;
+
+      /// Sets the height of this size to the given value.
+      void setHeight(int height);
 
    private:
       /// Width of this size
