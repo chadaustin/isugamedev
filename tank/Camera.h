@@ -2,11 +2,13 @@
 #define CAMERA_INCLUDED_H
 
 #include "Matrix4f.h"
+#include "Quat.h"
+#include "convert.h"
 
 class Camera
 {
 public:
-   Camera() : mShouldFollow( false ), mPitch( 45.0f )
+   Camera() : mShouldFollow( false ), mPitch( 70.0f )
    {
       mXform.makeIdentity();
       mTargetPos.makeIdentity();
@@ -29,16 +31,19 @@ public:
       
       if (mShouldFollow)
       {
-         float angle = 70.0f;
-         //float angle = -15;
          Matrix4f rot_mat, trans, temp;
          trans.makeTranslation( Vec3<float>( 0,0,30 ) );
-         rot_mat.makeRotation( -angle * TO_RAD_F, 1,0,0 );
+         rot_mat.makeRotation( -mPitch * TO_RAD_F, 1,0,0 );
          Matrix4f::multiply( temp, rot_mat, trans );
          Matrix4f::multiply( mXform, mTargetPos, temp );
       }
    }
 
+   void setPitch( float deg )
+   {
+      mPitch = deg;
+   }   
+   
    const Matrix4f& matrix() const
    {
       return mXform;
@@ -66,6 +71,7 @@ private:
    Matrix4f mTargetPos;
    bool mShouldFollow;
    float mPitch;
+   
 };
 
 
