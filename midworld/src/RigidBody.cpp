@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-06-24 05:21:54 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-06-24 06:09:32 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,20 +35,41 @@
 
 namespace mw
 {
-   void RigidBody::update(u64 elapsedTime)
+   void RigidBody::update( u64 crazyTime )
    {
-      float dt = static_cast<float>(elapsedTime) / 1000000.0f;
+      // convert crazy time to standard range used in physics equations...
+      float dt = static_cast<float>( crazyTime ) / 1000000.0f;
 
-      // Linear momentum
-      // 
-      gmtl::Vec3f accel = mForce / mMass;
-      mVel  += accel * dt;
-      mPos  += mVel * dt;
-
-      // Angular momentum
-      // w = w0 + at
-      // r = r0 + wt
+      // change in position over time (first order)
+      // x' = v = P(t)/M
+      gmtl::Vec3f pos_delta = mVel * dt;
       
+      // change in lin momentum over time (second order)
+      // P'(t) = F(t)
+      gmtl::Vec3f linear_momentum_delta = mForce * dt;
+      
+      // change in rotation over time (first order)
+      // R'(t) = w(t)*' R(t)   (matrix version)
+      // q'(t) = 1/2 w(t) q(t) (quaternion version)
+      gmtl::Quatf rot_delta, temp;
+      gmtl::Quatf one_half_wt = gmtl::makePure( gmtl::Vec3f( mRotVel * 0.5f ) );
+      gmtl::mult( temp, one_half_wt, mRot );
+      gmtl::mult( rot_delta, temp, dt );  // scale by time...
+      
+      // change in ang momentum over time (second order)
+      // L'(t) = T(t)
+      gmtl::Vec3f ang_momentum_delta = mTorque;
+
+      // add the derivitives to the current rigidbody state
+      mPos += pos_delta;
+      mVel += (linear_momentum_delta / mMass);
+      mRot += rot_delta;
+      gmtl::normalize( mRot ); // rot quats always normalized
+      mRotVel += ang_momentum_delta; // @todo this is wrong (needs inertia tensor)
+      
+      // zero out the force, and torque accumulators.
+      mForce.set( 0.0f, 0.0f, 0.0f );
+      mTorque.set( 0.0f, 0.0f, 0.0f );
    }
 
    void RigidBody::addForce(const gmtl::Vec3f& force)
@@ -56,9 +77,9 @@ namespace mw
       mForce += force;
    }
 
-   void RigidBody::addForce(const gmtl::Vec3f& force, const gmtl::Vec3f& pos)
+   void RigidBody::addForce( const gmtl::Vec3f& force, const gmtl::Vec3f& pos )
    {
-      mTorque += gmtl::cross(pos, force);
+      mTorque += gmtl::cross( pos, force );
    }
 
    void RigidBody::draw()

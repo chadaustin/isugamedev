@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-06-24 05:21:54 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-06-24 06:09:32 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,20 +45,6 @@ namespace mw
     */
    class RigidBody
    {
-   private:
-      gmtl::Point3f mPos;  //position
-      gmtl::Vec3f mVel;
-      gmtl::Vec3f mForce;	
-
-   //rotation vars
-      gmtl::Quatf mRot;
-      gmtl::Vec3f mRotVel;
-      gmtl::Vec3f mTorque;
-
-      float mMass;
-
-      /// The bounding volume for this body
-      gmtl::AABoxf mBounds;
    public:
 
       virtual ~RigidBody() {}
@@ -141,6 +127,21 @@ namespace mw
        * @return  the bounding volume for this body
        */
       const gmtl::AABoxf& getBounds() const;
+
+   private:
+      gmtl::Point3f mPos;  //position
+      gmtl::Vec3f mVel;
+      gmtl::Vec3f mForce;	
+
+   //rotation vars
+      gmtl::Quatf mRot;
+      gmtl::Vec3f mRotVel;
+      gmtl::Vec3f mTorque;
+
+      float mMass;
+
+      /// The bounding volume for this body
+      gmtl::AABoxf mBounds;
    };
 }
 
