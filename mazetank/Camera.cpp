@@ -25,19 +25,34 @@ void Camera::SetDistanceFromObjectCenter(float Distance[3])
 		CamDistance[i] = Distance[i];
 }
 
-void Camera::SetPitch(float InDegrees)
+void Camera::SetObjectPitch(float InDegrees)
 {
 	CurrentRotates[1] = InDegrees;
 }
 
-void Camera::SetRoll(float InDegrees)
+void Camera::SetObjectRoll(float InDegrees)
 {
 	CurrentRotates[0] = InDegrees;
 }
 
-void Camera::SetYaw(float InDegrees)
+void Camera::SetObjectYaw(float InDegrees)
 {
 	CurrentRotates[2] = InDegrees;
+}
+
+void Camera::SetPitch(float InDegrees)
+{
+   CamOrient[1] = InDegrees;
+}
+
+void Camera::SetRoll(float InDegrees)
+{
+   CamOrient[0] = InDegrees;
+}
+
+void Camera::SetYaw(float InDegrees)
+{
+   CamOrient[2] = InDegrees;
 }
 
 void Camera::SnapBack()
@@ -71,9 +86,9 @@ void Camera::Apply()
 
 	glTranslatef(-10.0, 0.0, 0.0);
 
-	glRotatef(LookAroundRotates[0], 1.0, 0.0, 0.0);
-	glRotatef(LookAroundRotates[1], 0.0, 1.0, 0.0);
-	glRotatef(LookAroundRotates[2], 0.0, 0.0, 1.0);
+	glRotatef(LookAroundRotates[0] + CamOrient[0], 1.0, 0.0, 0.0);
+	glRotatef(LookAroundRotates[1] + CamOrient[1], 0.0, 1.0, 0.0);
+	glRotatef(LookAroundRotates[2] + CamOrient[2], 0.0, 0.0, 1.0);
 
    glTranslatef(CamDistance[0], CamDistance[1], CamDistance[2]);
 

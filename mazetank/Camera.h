@@ -28,6 +28,38 @@ public:
 	void SetDistanceFromObjectCenter(float Distance[3]);
 
 	////////////////////////////////////
+	// void SetObjectPitch(float InDegrees);
+	////////////////////////////////////
+	// Pre: None
+	// Post: Camera Pitch is set to given value
+   //       around Object Center
+	// Notes:
+	////////////////////////////////////
+	void SetObjectPitch(float InDegrees);
+
+	////////////////////////////////////
+	// void SetObjectYaw(float InDegrees)
+	////////////////////////////////////
+	// Pre: None
+	// Post: Camera Yaw is set to given value
+   //       around Object Center
+	// Notes:
+	//
+	/////////////////////////////////////
+	void SetObjectYaw(float InDegrees);
+
+	/////////////////////////////////////
+	// void SetObjectRoll(float InDegrees)
+	/////////////////////////////////////
+	// Pre: None
+	// Post: Camera Roll is set to given value
+   //       around Object Center
+	// Notes:
+	//
+	/////////////////////////////////////
+	void SetObjectRoll(float InDegrees);
+
+	////////////////////////////////////
 	// void SetPitch(float InDegrees);
 	////////////////////////////////////
 	// Pre: None
@@ -115,6 +147,7 @@ private:
 	float LookAroundRotates[3];
 
 	float MovementTranslations[3];
+   float CamOrient[3];
 
 	float MULTX;
 	float MULTZ;
