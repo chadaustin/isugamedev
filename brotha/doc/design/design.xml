@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.66 2002-04-12 07:03:04 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 07:03:04 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.67 2002-04-12 07:12:48 tamc Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 07:12:48 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -1523,6 +1523,7 @@
   <chapter>
     <title>Traceability Matrix</title>
     <table>
+      <title></title>
       <tgroup cols='4' align='left' colsep='1' rowsep='1'>
         <colspec colname='c1'/>
         <colspec colname='c2'/>
