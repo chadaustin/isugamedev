@@ -5,7 +5,7 @@
 #include "Input.h"
 #include "SoundManager.h"
 #include "SoundEffectManager.h"
-#include "JukeBox.h"
+#include "Jukebox.h"
 
 extern Input GameInput;
 //sound::SoundManager* GameSound;

@@ -11,7 +11,7 @@ PhysicsEngine::PhysicsEngine()
 	dt = 0;
 
 	CurrentCamera = NULL;
-   GRAVITY = -.00000981;
+   GRAVITY = -.00002981;
 }
 
 PhysicsEngine::~PhysicsEngine()

@@ -102,7 +102,7 @@ void Input::ShootBullet()
    Bullet->SetPosition(Position);
    Bullet->SetObjectAngle(TankRotation+TurretRotations[2]);
    Bullet->SetObjectZAngle(TurretRotations[0]);
-   Bullet->SetVelocityZ(0.02);
+   Bullet->SetVelocityZ(0.03);
    /////////////////////////////////////////////////////////
    Bullet->SetVelocity(0.03);
 
