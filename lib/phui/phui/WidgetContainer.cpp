@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-05-03 03:56:25 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -106,22 +106,31 @@ namespace phui {
       capture(0);
 
       if (Widget* widget = getWidgetAt(p)) {
-         focus(widget);
-         capture(widget);
-         widget->onMouseDown(button, p - widget->getPosition());
+         // we'll want to simply ignore this event if widget is disabled
+         if(widget->isEnabled()) {
+            focus(widget);
+            capture(widget);
+            widget->onMouseDown(button, p - widget->getPosition());
+         }
       }
    }
 
    void WidgetContainer::onMouseUp(InputButton button, const Point& p) {
       if (Widget* widget = getMouseWidget(p)) {
-         widget->onMouseUp(button, p - widget->getPosition());
-         capture(0);
+         // we'll want to simply ignore this event if widget is disabled
+         if(widget->isEnabled()) {
+            widget->onMouseUp(button, p - widget->getPosition());
+            capture(0);
+         }
       }
    }
 
    void WidgetContainer::onMouseMove(const Point& p) {
       if (Widget* widget = getMouseWidget(p)) {
-         widget->onMouseMove(p - widget->getPosition());
+         // we'll want to simply ignore this event if widget is disabled
+         if(widget->isEnabled()) {
+            widget->onMouseMove(p - widget->getPosition());
+         }
       }
    }
 
