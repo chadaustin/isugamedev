@@ -41,6 +41,14 @@ namespace net {
          return net::sizes::getVarSize(mUpdateWhat) + net::sizes::getVarSize(mUpdateTo);
       }
 
+      const UpdateWhat getUpdateWhat() {
+         return (UpdateWhat)mUpdateWhat;
+      }
+
+      const PRFloat64 getUpdateTo() {
+         return mUpdateTo;
+      }
+
       void serialize(OutputStream& os) {
          os << mUpdateWhat << mUpdateTo;
       }
