@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-29 15:35:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-29 19:17:59 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -52,6 +52,14 @@ namespace server {
    void BrothaGame::add( game::Player* player, net::NetMgr::ConnID cID ) {
       assert( player != NULL && "Cannot add a NULL player!" );
       mConnectedPlayers[cID] = player;
+   }
+
+   game::Player* BrothaGame::getPlayer( game::Player::UID uid ) {
+      PlayerMap::iterator itr = mPlayers.find(uid);
+      if ( itr != mPlayers.end() ) {
+         return itr->second;
+      }
+      return NULL;
    }
 
    void BrothaGame::joinPlayer( net::NetMgr::ConnID cID ) {

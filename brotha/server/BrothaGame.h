@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-29 15:35:11 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-29 19:17:58 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -79,6 +79,15 @@ namespace server {
        * @pre  cID has already been added
        */
       void joinPlayer( net::NetMgr::ConnID cID );
+
+      /**
+       * Gets the player with the given ID.
+       *
+       * @param playerID   the UID of the player to retrieve
+       *
+       * @return  the player if they exist, NULL if no playe has that UID
+       */
+      game::Player* getPlayer( game::Player::UID uid );
 
       /**
        * Performs a resync on the player referred to by the connection.
