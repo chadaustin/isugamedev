@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameKernel.h,v $
-// Date modified: $Date: 2002-03-18 07:23:33 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-03-19 01:19:56 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -59,7 +59,7 @@ namespace gk {
  *    }
  * \endcode
  */
-class IGameKernel : public Private::DLLInterface
+class IGameKernel : public DLLInterface
 {
 public:
    /**
@@ -121,7 +121,7 @@ public:
     * Set the name of the running application. You should call this in
     * onAppInit() with your app's name because some system drivers can't set the
     * window title after onAppInit().
-    * 
+    *
     * @todo consider moving this function to the App baseclass.
     *       this way if more than one app is registered, then
     *       each can be named.
@@ -151,7 +151,7 @@ public:
     */
    virtual IGameApp* getApp() = 0;
 };
-   
+
 } // namespace gk
 
 #endif

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-18 07:23:33 $
-// Version:       $Revision: 1.23 $
+// Date modified: $Date: 2002-03-19 01:19:56 $
+// Version:       $Revision: 1.24 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -43,7 +43,7 @@ namespace gk
  *
  * @see IGameKernel
  */
-class GameKernel : public Private::DLLImpl< IGameKernel >
+class GameKernel : public DLLImpl< IGameKernel >
 {
 public:
    /**

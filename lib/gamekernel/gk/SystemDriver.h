@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriver.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-03-19 01:19:56 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,8 +36,6 @@
 #include <string>
 
 namespace gk {
-
-// forward declaration
 class IGameKernel;
 
 /**
@@ -50,8 +48,6 @@ class IGameKernel;
 class SystemDriver
 {
 public:
-   virtual ~SystemDriver() {}
-
    /**
     * Initializes this driver. At the very least, implementations should
     * register their drivers with the input manager. The kernel which is

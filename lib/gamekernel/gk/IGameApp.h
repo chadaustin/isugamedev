@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameApp.h,v $
-// Date modified: $Date: 2002-03-18 06:34:55 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-19 01:19:56 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -56,7 +56,7 @@ class IGameKernel;
  *    };
  * \endcode
  */
-class IGameApp : public Private::DLLInterface
+class IGameApp : public DLLInterface
 {
 public:
    /**

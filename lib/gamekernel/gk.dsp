@@ -68,8 +68,8 @@ LINK32=link.exe
 # PROP Intermediate_Dir "gk___Win32_Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GK_EXPORTS" /YX /FD /GZ  /c
-# ADD CPP /nologo /MTd /W3 /Gm /GR /GX /ZI /Od /I "." /I "external/xdl" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GK_EXPORTS" /D "XDL_BUILD_DLL" /D "USE_WIN32" /YX /FD /GZ  /c
+# ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GK_EXPORTS" /YX /FD /GZ /c
+# ADD CPP /nologo /MTd /W3 /Gm /GR /GX /ZI /Od /I "." /I "external/xdl" /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "GK_EXPORTS" /D "XDL_BUILD_DLL" /D "USE_WIN32" /YX /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
@@ -105,10 +105,6 @@ SOURCE=.\gk\gk.cpp
 # Begin Source File
 
 SOURCE=.\gk\SystemDriverFactory.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\gk\Version.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -221,10 +217,6 @@ SOURCE=.\gk\SystemDriver.h
 # Begin Source File
 
 SOURCE=.\gk\SystemDriverFactory.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\gk\Version.h
 # End Source File
 # End Group
 # Begin Group "xmlpp"

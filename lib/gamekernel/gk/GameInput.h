@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-03-18 08:03:41 $
-// Version:       $Revision: 1.34 $
+// Date modified: $Date: 2002-03-19 01:19:56 $
+// Version:       $Revision: 1.35 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -64,7 +64,7 @@ namespace gk {
  * @see AnalogInterface
  * @author Kevin Meinert <kevin@vrsource.org>
  */
-class GameInput : public Private::DLLImpl< IGameInput >
+class GameInput : public DLLImpl< IGameInput >
 {
 public:
    /**

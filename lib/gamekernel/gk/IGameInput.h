@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameInput.h,v $
-// Date modified: $Date: 2002-03-18 08:03:41 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-19 01:19:56 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -73,7 +73,7 @@ class IGameKernel;
  * @see AnalogInterface
  * @see DigitalInterface
  */
-class IGameInput : public Private::DLLInterface
+class IGameInput : public DLLInterface
 {
 public:
    /**
