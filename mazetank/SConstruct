@@ -1,0 +1,32 @@
+import os
+execfile('glut_libs.py')
+AUDIERE_LIBS = ['audiere', 'acoustique', 'vorbisfile', 'vorbis', 'ogg']
+
+Default('.')  # build everything by default
+
+sources = Split("""
+  AIEngine.cpp
+  BMPLoader.cpp
+  BulletObject.cpp
+  Camera.cpp
+  CollisionResponse.cpp
+  GameWorld.cpp
+  Input.cpp
+  Jukebox.cpp
+  PhysicsEngine.cpp
+  Shadow.cpp
+  SkyDome.cpp
+  SoundEffectManager.cpp
+  SoundManager.cpp
+  TankGraphics.cpp
+  TankObject.cpp
+  TheMainProgram.cpp
+  TurretGraphics.cpp
+  WallObject.cpp
+  glm.cpp
+""")
+
+env = Environment(
+    ENV = os.environ,
+    LIBS = GLUT_LIBS + AUDIERE_LIBS)
+env.Program(target = 'mazetank', source = sources)
