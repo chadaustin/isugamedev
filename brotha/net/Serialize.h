@@ -14,6 +14,17 @@
 
 namespace net {
 
+   // PRFloat64
+   inline OutputStream& operator<<(OutputStream& os, PRFloat64 f) {
+      os.write(&f, 8);
+      return os;
+   }
+
+   inline InputStream& operator>>(InputStream& is, PRFloat64& f) {
+      is.read(&f, 8);
+      return is;
+   }
+
    // PRUint32
 
    inline OutputStream& operator<<(OutputStream& os, PRUint32 ui) {
