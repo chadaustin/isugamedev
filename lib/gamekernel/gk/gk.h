@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.h,v $
-// Date modified: $Date: 2002-03-18 07:23:33 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-03-18 08:24:20 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -74,6 +74,16 @@ namespace gk {
        */
       GK_APIFUNC(IGameKernel*, GK_createGameKernel(IGameApp* app));
 
+      /**
+       * Gets the version string for this library. The formatted string is
+       * returned in the form of MAJOR.MINOR.PATCH
+       *
+       * @return  the version string
+       *
+       * @private
+       */
+      GK_APIFUNC(const char*, GK_getVersion());
+
    } // namespace Private
 
    //--------------------------------------------------------------------------
@@ -88,6 +98,16 @@ namespace gk {
    inline IGameKernel* createGameKernel( IGameApp* app )
    {
       return Private::GK_createGameKernel( app );
+   }
+
+   /**
+    * Gets the version string for this library in the form of MAJOR.MINOR.PATCH
+    *
+    * @return  the version string
+    */
+   inline std::string getVersion()
+   {
+      return std::string( Private::GK_getVersion() );
    }
 
 } // namespace gk

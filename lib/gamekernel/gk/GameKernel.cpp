@@ -24,14 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-03-18 07:23:33 $
-// Version:       $Revision: 1.25 $
+// Date modified: $Date: 2002-03-18 08:24:19 $
+// Version:       $Revision: 1.26 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "gk/GameKernel.h"
 #include "gk/SystemDriverFactory.h"
-#include "gk/Version.h"
 #include "gk/GameInputConfigure.h"
 
 namespace gk {
@@ -40,7 +39,6 @@ GameKernel::GameKernel( IGameApp* app )
    : mDriver( NULL ), mApp( app )
 {
    assert( app != NULL && "You must pass in a valid application" );
-   std::cout<<"GameKernel v"<<getVersionString()<<std::endl;
    mInput = new GameInput();
 }
 

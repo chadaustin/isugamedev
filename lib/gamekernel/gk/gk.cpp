@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.cpp,v $
-// Date modified: $Date: 2002-03-18 08:01:16 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-18 08:24:20 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,9 +37,17 @@
 namespace gk {
 
    namespace Private {
+
+      // exported createGameKernel function
       GK_APIDEF(IGameKernel*, GK_createGameKernel( IGameApp* app ))
       {
          return new GameKernel( app );
+      }
+
+      // exported getVersion function
+      GK_APIDEF(const char*, GK_getVersion())
+      {
+         return "0.1.2";
       }
 
    } // namespace Private

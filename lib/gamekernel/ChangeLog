@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  --------------------------------------------------------
+2002-03-18 nonchocoboy  Exported a getVersion function.
 2002-03-18 nonchocoboy  Split GameInput into interface/implementation.
 2002-03-18 nonchocoboy  Moved configuration to the GameKernel interface.
 2002-03-18 nonchocoboy  Version 0.1.2
