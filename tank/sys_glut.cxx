@@ -182,11 +182,11 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
       break;
    }
    case 'q':
-      game->getPlayer( 0 )->getCamera().setFollowDistVel( 40 );
+      game->getPlayer( 0 )->getCamera().setFollowDistVel( -40 );
       break;
 
    case 'e':
-      game->getPlayer( 0 )->getCamera().setFollowDistVel( -40 );
+      game->getPlayer( 0 )->getCamera().setFollowDistVel( 40 );
       break;
 
    case 'w':
