@@ -20,8 +20,9 @@ namespace mw
    private:
       gltext::Font* mFont;
       gltext::FontRenderer* mFontRenderer;
-   };
+      void drawTape(float width, float height, float maxValue, float currentValue,bool horizontal);
 
+   };
 }
 
 #endif

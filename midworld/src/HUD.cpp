@@ -49,7 +49,7 @@ namespace mw
          glPushMatrix();
             glTranslatef(20, 20.0f+mFont->getAscent(), 0);
             glColor4f(1,0,0,0.8f);
-            mFontRenderer->render("Midworld");
+            mFontRenderer->render("Levi Rules");
          glPopMatrix();
 
          if (!player.weapon().isNull())
@@ -80,12 +80,15 @@ namespace mw
          // player health
          glPushMatrix();
          glTranslatef(300, 20 + mFont->getAscent(), 0);
-         glColor4f(0, 1, 0, 1);
+
+         /*glColor4f(0, 1, 0, 1);
          {
             std::stringstream str;
             str << "Health: " << player.getHealth();
             mFontRenderer->render(str.str().c_str());
-         }
+         }*/
+
+         drawTape(100, 20, 100, player.getHealth(), true);
          glPopMatrix();
 
          // FPS
@@ -102,6 +105,42 @@ namespace mw
          glPopMatrix();
          glPopMatrix();
       }
-   }
+    }
+    void HUD::drawTape(float width, float height, float maxValue, float currentValue, bool horizontal)
+    {
+        glColor4f(0,0,1,1);     
+        glBegin(GL_LINE_LOOP);
+            glVertex3f(0,0,0);
+            glVertex3f(width,0,0);
+            glVertex3f(width,height,0);
+            glVertex3f(0,height,0);
+        glEnd();
 
+        float fillwidth = width;
+        float fillheight = height;
+        if(horizontal)
+        {
+            fillwidth = width*(currentValue/maxValue);
+        }
+        else
+        {
+            fillheight = height*(currentValue/maxValue);
+        }
+            
+        if(currentValue > maxValue*.50)
+            glColor4f(0,1,0,1);
+        else if(currentValue > maxValue*.25)
+            glColor4f(1,1,0,1);
+        else
+            glColor4f(1,0,0,1);
+
+        glBegin(GL_QUADS);
+            glVertex3f(1,1,0);
+            glVertex3f(fillwidth-1,1,0);
+            glVertex3f(fillwidth-1,fillheight-1,0);
+            glVertex3f(1,fillheight-1,0);
+        glEnd();
+        
+    }
 }
+
