@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-02 00:40:58 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -131,6 +131,8 @@ namespace client {
                mCarTypes = gdMsg->getCarTypes();
 
                mMainWnd->setVisible(true);
+
+               mDealer->updateData(&mPlayer->getCars(), mCarTypes);
 
                mSubState = User_Input;
             } else {

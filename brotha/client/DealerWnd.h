@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DealerWnd.h,v $
- * Date modified: $Date: 2002-04-28 21:58:27 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-02 00:40:58 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,6 +44,8 @@
 #define CLIENT_DEALER_WND_H
 
 #include <phui/phui.h>
+#include "xml/Car.h"
+#include "xml/CarType.h"
 
 namespace client {
    /**
@@ -61,6 +63,7 @@ namespace client {
       void onAction(const phui::ActionEvent& evt);
       void onListSelection(const phui::ListSelectionEvent& evt);
 
+      void updateData(data::CarList* playerList, data::CarTypeList* allCars);
    private:
       phui::ListBox* mCarsList;
       phui::ListBox* mCarsOwnedList;

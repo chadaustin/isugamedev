@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DealerWnd.cpp,v $
- * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-02 00:40:58 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -106,6 +106,16 @@ namespace client {
       phui::Widget* src = evt.getSource();
       if (src == mCarsList) {
          std::cout<<"Selected "<<mCarsList->get(evt.getSelectedIndex())<<std::endl;
+      }
+   }
+
+   void DealerWnd::updateData(data::CarList* playerList, data::CarTypeList* allCars) {
+      for(unsigned int x=0;x<allCars->size();++x) {
+         mCarsList->add((*allCars)[x]->getName());
+      }
+
+      for(unsigned int x=0;x<playerList->size();++x) {
+         mCarsOwnedList->add((*playerList)[x]->getName());
       }
    }
 }
