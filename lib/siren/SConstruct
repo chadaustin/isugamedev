@@ -32,6 +32,30 @@ def GetPlatform():
       return sys.platform
 Export('GetPlatform')
 
+def CreateConfig(target, source, env):
+   "Creates the prefix-config file users use to compile against this library"
+   import re
+
+   targets = map(lambda x: str(x), target)
+   sources = map(lambda x: str(x), source)
+
+   submap = env['submap']
+
+   # Build each target from its source
+   for i in range(len(targets)):
+      print "Generating config file " + targets[i]
+      contents = open(sources[i], 'r').read()
+
+      # Go through the substitution dictionary and modify the contents read in
+      # from the source file
+      for key, value in submap.items():
+         contents = re.sub(re.escape(key), re.escape(value), contents)
+
+      # Write out the target file with the new contents
+      open(targets[0], 'w').write(contents)
+      os.chmod(targets[0], 0755)
+   return 0
+
 def BuildBaseEnvironment():
    "Builds a base environment for other modules to build on."
    global optimize, profile
@@ -187,6 +211,7 @@ pkg.addExtraDist(Split("""
    ChangeLog
    COPYING
    README
+   siren-config.in
    SConstruct
    src/SConscript
    src/siren/SConscript
@@ -205,6 +230,35 @@ subdirs = Split('src test')
 SConscript(dirs = subdirs)
 #for dir in subdirs:
 #   SConscript(dirs = pj(builddir, dir))
+
+
+# Create the extra builders
+# Define a builder for the cppdom-config script
+builders = {
+   'ConfigBuilder'   : Builder(action = CreateConfig)
+}
+
+# Setup the builder for siren-config
+siren_ver = string.split(GetSirenVersion(), '.')
+env = baseEnv.Copy(BUILDERS = builders)
+env.ConfigBuilder('siren-config', 'siren-config.in',
+   submap = {
+      '@prefix@'                    : Prefix(),
+      '@exec_prefix@'               : '${prefix}',
+      '@siren_cxxflags@'            : '',
+      '@includedir@'                : pj(Prefix(), 'include'),
+      '@siren_extra_cxxflags@'      : '',
+      '@siren_extra_include_dirs@ ' : '',
+      '@siren_libs@'                : '-lsiren',
+      '@libdir@'                    : pj(Prefix(), 'lib'),
+      '@VERSION_MAJOR@'             : siren_ver[0],
+      '@VERSION_MINOR@'             : siren_ver[1],
+      '@VERSION_PATCH@'             : siren_ver[2],
+   }
+)
+
+env.Depends('siren-config', pj('src', 'siren', 'Version.h'))
+env.Install(pj(Prefix(), 'bin'), 'siren-config')
 
 pkg.build()
 
