@@ -10,6 +10,7 @@
 #include <GL/glut.h>
 
 #include <iostream>
+#include <vector>
 #include <stdlib.h>
 
 // data types
@@ -26,6 +27,17 @@
 // application objects
 #include "Camera.h"
 #include "Tank.h"
+#include "Bullet.h"
+
+
+// Provide functionality to automatically use different lights.
+// Leave the first light (0) alone.
+static int nextLightNum = 0;
+
+int GetNextLightNum()
+{
+   return (nextLightNum++ % 7) + 1;
+}
 
 // a place to store application data...
 class App
@@ -39,7 +51,8 @@ public:
       camera.follow( true );
       camera.setTargetPos( tank.matrix() );
       camera.setPitch( 45.0f );
-      
+
+      light.setNumber(0);
       light.setPos(0.0f, 0.0f, 0.0f, 1.0f);
       light.setColor( Light::diffuse, 1.0f, 1.0f, 1.0f );
       light.on();
@@ -53,6 +66,7 @@ public:
    float width, height;
    int mainWin_contextID;
    Tank tank;
+   std::vector<Bullet *> bullets;
    Camera camera;
    Light light;
    StopWatch stopWatch;
@@ -65,16 +79,18 @@ App app;
 
 void drawGrid()
 {
+   int extent = 1000;
+
    glPushAttrib( GL_ENABLE_BIT );
       glDisable( GL_LIGHTING );
       glColor3f( 0.7, 0.3, 0.1 );
       glBegin( GL_LINES );
-         for ( int x = -1000; x < 1000; x += 5)
+         for ( int x = -extent; x < extent; x += 5)
          {
-            glVertex3f( -1000, 0, x );
-            glVertex3f(  1000, 0, x );
-            glVertex3f( x, 0, -1000 );
-            glVertex3f( x, 0,  1000 );
+            glVertex3f( -extent, 0, x );
+            glVertex3f(  extent, 0, x );
+            glVertex3f( x, 0, -extent );
+            glVertex3f( x, 0,  extent );
          }
       glEnd();
    glPopAttrib();
@@ -110,6 +126,26 @@ static void OnRedisplay()
       kev::glRender( app.light );
   
       app.tank.draw();
+
+      // draw all of the bullets
+      std::vector<Bullet *>::const_iterator citr;
+      for (citr = app.bullets.begin(); citr != app.bullets.end(); citr++) {
+         (*citr)->draw();
+      }
+      // remove bullets outside our world
+      std::vector<Bullet *>::iterator itr;
+      itr = app.bullets.begin();
+      while (itr != app.bullets.end()) {
+         const Vec3<float> pos = (*itr)->position();
+         if (fabs(pos[0]) > 1000.0f || fabs(pos[1]) > 1000.0f ||
+             fabs(pos[2]) > 1000.0f)
+         {
+            delete (*itr);
+            app.bullets.erase(itr);
+         } else {
+            itr++;
+         }
+      }
       
       drawGrid();
    
@@ -129,6 +165,12 @@ static void OnIdle()
    app.camera.setTargetPos( app.tank.matrix() );
    app.tank.update( app.stopWatch.timeInstant() );
    app.camera.update( app.stopWatch.timeInstant() );
+
+   //Update the bullets
+   std::vector<Bullet *>::iterator itr;
+   for (itr = app.bullets.begin(); itr != app.bullets.end(); itr++) {
+      (*itr)->update( app.stopWatch.timeInstant() );
+   }
    
    Vec3<float> lightOffset( -10.0f, 0.0f, 0.0f );
    lightOffset = app.camera.position() + lightOffset;
@@ -170,12 +212,29 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
 { 
    switch (k)
    {
-   // If user pressed 'q' or 'ESC', then exit the app.
+   // If user pressed 'ESC', then exit the app.
    // this is really ungraceful, but necessary since GLUT does a while(1)
    // as it's control loop.  There is no GLUT method to exit, unfortunately.
-   case 'q':
    case 27:
       exit( 0 );
+      break;
+
+   case ' ':
+   {
+      Bullet *bullet = new Bullet();
+      bullet->setPos( app.tank.getBarrelEndPos() );
+      bullet->setRot( app.tank.rotation() );
+      bullet->setRotVel( 20.0f );
+      bullet->setVel( app.tank.getForward() * 80.0f );
+      app.bullets.push_back( bullet );
+      break;
+   }
+   case 'q':
+      app.camera.setFollowDistVel( 40 );
+      break;
+
+   case 'e':
+      app.camera.setFollowDistVel( -40 );
       break;
 
    case 'w':
@@ -206,6 +265,10 @@ static void OnKeyboardUp( unsigned char k, int x, int y )
 {
    switch (k)
    {
+   case 'q':
+   case 'e':
+      app.camera.setFollowDistVel( 0 );
+      break;
    case 'w':
    case 's':
       app.camera.setPitchVel( 0 );

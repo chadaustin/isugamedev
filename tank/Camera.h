@@ -8,7 +8,9 @@
 class Camera
 {
 public:
-   Camera() : mTargetPos(0,0,0), mShouldFollow( false ), mYaw(0.0f), mYawVel(0.0f), mPitch( 70.0f ), mPitchVel( 0.0f )
+   Camera() : mTargetPos(0,0,0), mShouldFollow( false ), mYaw(0.0f),
+              mYawVel(0.0f), mPitch( 70.0f ), mPitchVel( 0.0f ),
+              mFollowDist( 30.0f ), mFollowDistVel( 0.0f )
    {
       mXform.makeIdentity();
       mTargetRot.makeIdent();
@@ -51,7 +53,7 @@ public:
          mXform = target_mat;
 
          Matrix4f pitch_mat, yaw_mat, trans, temp;
-         trans.makeTranslation( Vec3<float>( 0,0,30 ) );
+         trans.makeTranslation( Vec3<float>( 0,0, mFollowDist ) );
          pitch_mat.makeRotation( -mPitch * TO_RAD_F, 1,0,0 );
          yaw_mat.makeRotation( -mYaw * TO_RAD_F, 0,1,0 );
          Matrix4f::multiply( temp, yaw_mat * pitch_mat, trans );
@@ -67,6 +69,7 @@ public:
       
       mPitch += mPitchVel * timeDelta;
       mYaw += mYawVel * timeDelta;
+      mFollowDist += mFollowDistVel * timeDelta;
    }
 
    void setPitch( float deg )
@@ -89,14 +92,24 @@ public:
    void setYawVel( float deg )
    {
       mYawVel = deg;
-   }   
+   }
+
+   void setFollowDist( float offset )
+   {
+      mFollowDist = offset;
+   }
+
+   void setFollowDistVel( float offsetVel )
+   {
+      mFollowDistVel = offsetVel;
+   }
    
    const Matrix4f& matrix() const
    {
       return mXform;
    }
    
-   void draw()
+   void draw() const
    {
       Matrix4f mat = mXform;
       mat.invert();
@@ -120,7 +133,7 @@ private:
    bool mShouldFollow;
    float mPitch, mPitchVel;
    float mYaw, mYawVel;
-   
+   float mFollowDist, mFollowDistVel;
 };
 
 

@@ -10,7 +10,7 @@ public:
       mXForm.makeIdentity();
    }
    
-   void drawPyramidThing()
+   void drawPyramidThing() const
    {
       glPushMatrix();
          glTranslatef( 0.0f, 0.0f, 0.25f );
@@ -36,7 +36,7 @@ public:
       glPopMatrix();
    }   
    
-   void draw()
+   void draw() const
    {
       kev::glRender( mMaterial );
       glPushMatrix();
@@ -60,7 +60,14 @@ public:
       glPopMatrix();
    }
   
-   
+   /**
+    * Gets the position at the end of the barrel.
+    */
+   Vec3<float> getBarrelEndPos() const
+   {
+      Vec3<float> barrelEndPos = Vec3<float>( 0, 8, -17 );
+      return (mRot * barrelEndPos) + mPos;
+   }
    
    Vec3<float> getForward() const
    {
@@ -149,7 +156,13 @@ public:
    const Vec3<float>& position() const
    {
       return mPos;
-   }  
+   }
+
+   const Quat<float>& rotation() const
+   {
+      return mRot;
+   }
+
 private:
    Matrix4f mXForm;
    Vec3<float> mPos, mVel;
