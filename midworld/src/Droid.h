@@ -39,8 +39,8 @@ namespace mw
       void setTree(NavNodeTree* t){mTree = t;}
       void setWasFuckedFlag(bool b){ wasFuckedFlag = b; }
       bool getWasFuckedFlag(){ return wasFuckedFlag; }
-      void setResetVelocityFlag(bool b){ resetVelocityFlag = b; }
-      bool getResetVelocityFlag(){ return resetVelocityFlag; }
+      void setFirstTimeFlag(bool b){ firstTimeFlag = b; }
+      bool getFirstTimeFlag(){ return firstTimeFlag; }
       
    private:
       float timeDelta;
@@ -54,8 +54,10 @@ namespace mw
       // chasing a player
       bool wasFuckedFlag;
 
-      // flag for reseting the droids velocity
-      bool resetVelocityFlag;
+      
+      // flag for testing whether or not we should reset the velocity of the
+      // droid to zero
+      bool firstTimeFlag;
       
       // we keep a reference to 2 nodes the node we are comming from and the
       // node that we are going to

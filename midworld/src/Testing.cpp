@@ -156,6 +156,8 @@ namespace mw
       }
       
       
+
+      
       
       gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
       gmtl::Vec3f downVec(0.0f,0.0f,-1.0f);
@@ -194,7 +196,6 @@ namespace mw
 
    void droidFindCloseNodeCommand::execute()
    {
-      std::cout << "we got here and we suck" << std::endl;
       gmtl::Vec3f zeroVec(0.0f, 0.0f, 0.0f);
       mDroid->setVel(zeroVec);
       // set the current Node to the node we are at (which is the goal node)
@@ -212,29 +213,35 @@ namespace mw
       mDroid->setGoalNode(possibleNodes[someNum]);
       mDroid->setFakeNode(mDroid->getCurrentNode()->loc);
       mDroid->setWasFuckedFlag(false);
-      
-      std::cout << "we souldn't be here" << std::endl;
-      
    }
 
    void droidMoveToNodeCommand::execute()
    {
-      gmtl::Vec3f result;
+      gmtl::Vec3f result(0.0f, 0.0f, 0.0f);
       gmtl::Vec3f temp;
       std::cout << "in moveDroid (executed every frame):" << std::endl;
       if(mDroid->getFuckedFlag())
       {
          std::cout << "  * FuckedFlag is set" << std::endl;
-      }else if(mDroid->getWasFuckedFlag())
-      {
-         
+      }
+      else if(mDroid->getWasFuckedFlag())
+      {  
+         if(mDroid->getFirstTimeFlag()==true)
+         {
+            mDroid->setVel(result);
+            mDroid->setFirstTimeFlag(false);
+         }
+            
          std::cout << "  * wasFuckedFlag is set" << std::endl;
          std::cout << "    * force is: " << mDroid->getVel() << std::endl;
+         std::cout << "    * fakeNode: " << mDroid->getFakeNode()->loc << std::endl;
+         std::cout << "    * goalNode: " << mDroid->getGoalNode()->loc << std::endl;
+         std::cout << "    * droidPos: " << mDroid->getPos() << std::endl;
          temp = (mDroid->getGoalNode()->loc - mDroid->getFakeNode()->loc);
          result += temp;
-         if(gmtl::length(mDroid->getVel()) < 50)
+         if(gmtl::length(mDroid->getVel()) < 120.0f)
          {  
-            result /= 10;
+            result /= 40;
             mDroid->addForce(result);
          }
       }else
@@ -242,9 +249,10 @@ namespace mw
          std::cout << "  * default implemenatation" << std::endl;
          std::cout << "    * mDroid->name: " << mDroid->getGoalNode()->name << "  goal->pos: " << mDroid->getGoalNode()->loc << std::endl << std::endl;
          result = mDroid->getGoalNode()->loc - mDroid->getCurrentNode()->loc;
-         if(gmtl::length(mDroid->getForce()) < 0.25f)
+         if(gmtl::length(mDroid->getForce()) < 30.0f)
             
          {  
+            result/=10;
             mDroid->addForce(result);
          }
       }
