@@ -15,6 +15,9 @@ public:
 
    // returns true if the song played successfully, and false otherwise
    virtual bool play(const char* filename) = 0;
+
+   // returns true if music started successfully, false otherwise
+   virtual bool playMusic(const char* filename) = 0;
 };
 
 

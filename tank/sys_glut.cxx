@@ -12,7 +12,10 @@
 #include "AudioSystemFactory.h"
 #include "GeodeCache.h"
 
+
 #define SOUND_FIRE "fire.wav"
+#define BACKGROUND_MUSIC "music.mp3"
+
 
 //: App width/height
 static float sWidth = 640.0f;
@@ -297,6 +300,8 @@ main( int argc, char **argv )
       exit(EXIT_FAILURE);
    }
 
+   audioSystem->playMusic(BACKGROUND_MUSIC);
+
    // Set the window's initial size
    ::glutInitWindowSize( (int)sWidth, (int)sHeight );
    ::glutInit( &argc, argv );
@@ -333,16 +338,18 @@ main( int argc, char **argv )
 //   ::glutMotionFunc( OnMousePos );
 //   ::glutPassiveMotionFunc( OnMousePos );
 
-    // start the application loop, your callbacks will now be called
-    // time for glut to sit and spin.
-    ::glutMainLoop();
+   // start the background music
 
-    // shut down the audio system
-    delete audioSystem;
+   // start the application loop, your callbacks will now be called
+   // time for glut to sit and spin.
+   ::glutMainLoop();
 
-    // the C++ standard implicitly does 'return 0' if control reaches the
-    // end of main() but VC++, of course, doesn't support this
-    return 0;
+   // shut down the audio system
+   delete audioSystem;
+
+   // the C++ standard implicitly does 'return 0' if control reaches the
+   // end of main() but VC++, of course, doesn't support this
+   return 0;
 }
 
 //------------------------------------------------------------------------------

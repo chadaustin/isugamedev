@@ -8,6 +8,7 @@ AudiereAudioSystem::AudiereAudioSystem()
       m_streams[i] = 0;
    }
    m_current_stream = 0;
+   m_background_music = 0;
 }
 
 
@@ -19,6 +20,12 @@ AudiereAudioSystem::~AudiereAudioSystem()
          AdrCloseStream(m_streams[i]);
          m_streams[i] = 0;
       }
+   }
+
+   // destroy the background music
+   if (m_background_music) {
+      AdrCloseStream(m_background_music);
+      m_background_music = 0;
    }
 
    AdrDestroyContext(m_context);
@@ -55,6 +62,27 @@ AudiereAudioSystem::play(const char* filename)
       AdrPlayStream(m_streams[m_current_stream]);
       m_current_stream = (m_current_stream + 1) % MAX_SOUND_EFFECTS;
       return true;
+   } else {
+      return false;
+   }
+}
+
+
+bool
+AudiereAudioSystem::playMusic(const char* filename)
+{
+   if (m_background_music) {
+      AdrCloseStream(m_background_music);
+      m_background_music = 0;
+   }
+
+   m_background_music = AdrOpenStream(m_context, filename);
+   if (m_background_music) {
+
+      AdrSetStreamRepeat(m_background_music, ADR_TRUE);
+      AdrPlayStream(m_background_music);
+      return true;
+
    } else {
       return false;
    }

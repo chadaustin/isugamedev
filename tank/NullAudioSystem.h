@@ -11,8 +11,9 @@ public:
    NullAudioSystem();
    ~NullAudioSystem();
 
-   bool initialize(const char* device, const char* parameters);
-   bool play(const char* filename);
+   virtual bool initialize(const char* device, const char* parameters);
+   virtual bool play(const char* filename);
+   virtual bool playMusic(const char* filename);
 };
 
 

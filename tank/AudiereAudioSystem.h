@@ -14,6 +14,7 @@ public:
 
    virtual bool initialize(const char* device, const char* parameters);
    virtual bool play(const char* filename);
+   virtual bool playMusic(const char* filename);
 
 private:
    // we just need a comment
@@ -22,6 +23,7 @@ private:
    ADR_CONTEXT m_context;
    ADR_STREAM m_streams[MAX_SOUND_EFFECTS];
    int m_current_stream;
+   ADR_STREAM m_background_music;
 };
 
 
