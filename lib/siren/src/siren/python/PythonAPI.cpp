@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-02-14 08:25:25 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-14 09:06:47 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -34,6 +34,7 @@ using namespace boost::python;
 
 extern void exportAvatar();
 extern void exportKernel();
+extern void exportSDLUtil();
 extern void exportState();
 extern void exportStateFactory();
 
@@ -42,6 +43,7 @@ BOOST_PYTHON_MODULE(siren)
 {
    exportAvatar();
    exportKernel();
+   exportSDLUtil();
    exportState();
    exportStateFactory();
 }

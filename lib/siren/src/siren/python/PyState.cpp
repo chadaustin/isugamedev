@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PyState.cpp,v $
- * Date modified: $Date: 2003-02-14 07:34:50 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-14 09:06:47 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -59,6 +59,11 @@ public:
    void onMousePress(Uint8 button, bool down, int x, int y)
    {
       call_method<void>(mSelf, "onMousePress", button, down, x, y);
+   }
+
+   void onMouseMove(int x, int y)
+   {
+      call_method<void>(mSelf, "onMouseMove", x, y);
    }
 
    void resize()

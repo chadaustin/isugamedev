@@ -8,6 +8,7 @@ sources = Split("""
    PythonAPI.cpp
    PyAvatar.cpp
    PyKernel.cpp
+   PySDLUtil.cpp
    PyState.cpp
    PyStateFactory.cpp
 """)

@@ -1,0 +1,20 @@
+John              john.cfg
+john.cfg          data/john.cfg
+
+big_map.bmp       data/big_map.bmp
+big_map.png       data/big_map.png
+
+john.csf          data/john.csf
+
+john_walk.caf     data/john_walk.caf
+john_run.caf      data/john_run.caf
+john_dance.caf    data/john_dance.caf
+john_idle.caf     data/john_idle.caf
+john_type.caf     data/john_type.caf
+john_sit.caf      data/john_sit.caf
+john_work1.caf    data/john_work1.caf
+john_work2.caf    data/john_work2.caf
+
+john.cmf          data/john.cmf
+
+john_whole.crf    data/john_whole.crf
