@@ -54,6 +54,7 @@ namespace lr
       // draw the level
       glColor4f(1, 1, 1, 1);
       mLevel->draw();
+      mPlayer->draw();
       
    }
 
@@ -68,6 +69,7 @@ namespace lr
 
    void GameState::onKeyPress(SDLKey sym, bool down)
    {
+      mPlayer->handleKeyPress(sym, down);
    }
 
 

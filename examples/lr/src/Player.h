@@ -3,6 +3,7 @@
 
 
 #include <iostream>
+#include <SDL.h>
 #include <SDL_opengl.h>
 
 #include "Types.h"
@@ -60,17 +61,36 @@ namespace lr
        * in. They simply divide the position and height by 32 to get the grid
        * location.
        */
-      int getRealPos(){ return (int)realPos/32; }
-      int getRealHeight(){ return (int)realHeight/32; }
+      int getGridPos(){ return (int)realPos/32; }
+      int getGridHeight(){ return (int)realHeight/32; }
 
       
+      /**
+       * this is the keypress handler, it stores which keys were pressed since
+       * the last update that we went through
+       */
+      void handleKeyPress(SDLKey sym, bool down);
+
       
+      /**
+       * here are all the methods for collision detection and figureing out what
+       * state to put the player in
+       */
+      bool brickUnder();
+      bool onWire();
+      bool onLadder();
    protected:
       float realPos;    // players real position on the screen from 0 to 1024
       float realHeight; // players real height on the screen from 0 to 768
       
       playerState mState;			// players current state either hang1,2, climb1,2, or run1,2,
       Texture* run1Image, *run2Image, *climb1Image, *climb2Image, *hang1Image, *hang2Image;
+      
+      /** 
+       * now we create a currentTexture pointer that just points at the one we
+       * need to draw 
+       */
+      Texture* currentTexture;
       
       
       textureState mTextureState;		
@@ -87,6 +107,11 @@ namespace lr
        * is in it
        */
       Level* mLevel;
+
+      /** variables for update that get set in handleKeyPress - blah */
+      bool keyup, keydown, keyleft, keyright;
+
+      float initTime;
    };
 
 } // end namespace
