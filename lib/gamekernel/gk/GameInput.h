@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-09 17:13:17 $
-// Version:       $Revision: 1.23 $
+// Date modified: $Date: 2002-02-09 17:32:35 $
+// Version:       $Revision: 1.24 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -124,17 +124,17 @@ public:
     */
    bool addDevice( Device* devPtr, const std::string& name )
    {
-      std::map< std::string, Device* >::const_iterator itr;
-      itr = mDevices.find( name );
-
-      if ( itr == mDevices.end() )
+      if (mDevices.count( name ) == 0)
       {
          mDevices[ name ] = devPtr;
-         std::cout<<"Added device: "<<name<<std::endl;
+         std::cout << "Added device: " << name << std::endl;
          return true;
+      }      
+      else
+      {
+         std::cout << "Failed to add device: " << name << std::endl;
+         return false;
       }
-      std::cout<<"Failed to add device: "<<name<<std::endl;
-      return false;
    }
 
    /**
