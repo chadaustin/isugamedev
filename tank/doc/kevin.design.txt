@@ -1,10 +1,20 @@
+Game Design Copyright (C) 2001  Kevin Meinert, kevin@vrsource.org       
+This design available freely only to members of the ISU Game Developers 
+club.  For outside use, please ask permission from the authors.        
+Revisions are welcome, submit them to the club or to Kevin directly.
+=======================================================================
+
+
 Author(s) and Contributors(s)
 =============================
-Kevin Meinert - (inititial design concept)
+Kevin Meinert
+- inititial design concept
+- kevin@vrsource.org     
+
 
 Name
 =========
-dreamgame (better name to be decided)
+dreamgame (better name to be decided maybe...)
 
 Genre
 =========
