@@ -17,6 +17,7 @@
 #include "Camera.h"
 #include "Tank.h"
 #include "glRenderLight.h"
+#include "StopWatch.h"
 
 // a place to store application data...
 class App
@@ -34,12 +35,14 @@ public:
       light.setPos(0.0f, 0.0f, 0.0f, 1.0f);
       light.setColor(Light::diffuse);
       light.on();
+      stopWatch.pulse();
    }
    int width, height;
    int mainWin_contextID;
    Tank tank;
    Camera camera;
    Light light;
+   StopWatch stopWatch;
 };
 App app;
 
@@ -110,6 +113,8 @@ static void OnRedisplay()
 //////////////////////////////////////////////////
 static void OnIdle()
 {
+   app.stopWatch.pulse();
+   
    // According to the GLUT specification, the current window is
    // undefined during an idle callback.  So we need to explicitly change
    // it if necessary
@@ -117,8 +122,8 @@ static void OnIdle()
            glutSetWindow( app.mainWin_contextID );
 
    app.camera.setTargetPos( app.tank.matrix() );
-   app.tank.update();
-   app.camera.update();
+   app.tank.update( app.stopWatch.timeInstant() );
+   app.camera.update( app.stopWatch.timeInstant() );
    
    Vec3<float> lightOffset(-10.0f, 0.0f, 0.0f);
    lightOffset = app.camera.position() + lightOffset;
@@ -214,19 +219,19 @@ static void OnSpecialKeyboardDown(int k, int x, int y)
    {
    case GLUT_KEY_UP:
    {
-      app.tank.setSpeed( 0.3f );
+      app.tank.setVelocity( 0.0f, 0.0f, -40.0f );
       break;
    }
    case GLUT_KEY_DOWN:
    {
-      app.tank.setSpeed( -0.3f );
+      app.tank.setVelocity( 0.0f, 0.0f, 40.0f );
       break;
    }
    case GLUT_KEY_RIGHT:
-      app.tank.setAngVel( -0.01f );
+      app.tank.setAngVel( -3.0f );
       break;
    case GLUT_KEY_LEFT:
-      app.tank.setAngVel( 0.01f );
+      app.tank.setAngVel( 3.0f );
       break;
    default:
       // do nothing if no special key pressed
@@ -244,7 +249,7 @@ static void OnSpecialKeyboardUp( int k, int x, int y )
    case GLUT_KEY_UP:
    case GLUT_KEY_DOWN:
    {
-      app.tank.setSpeed( 0.0f );
+      app.tank.setVelocity( 0.0f, 0.0f, 0.0f );
       break;
    }
    case GLUT_KEY_RIGHT:

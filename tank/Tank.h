@@ -79,52 +79,52 @@ public:
       
    void update( float timeDelta = 1.0f )
    {
-      // handle requests for forward or back
-      Vec3<float> forward = this->getForward();
-      this->setVelocity( forward * mSpeed * timeDelta );
+      // POS
+      // x' = v = vel in tank local coord system
+      Vec3<float> pos_delta = mRot * mVel;
       
+      // add the derivative onto the tank's position
+      mPos += pos_delta * timeDelta;
       
-      // update state......
-     
-      this->translate( mVel );
-      
+      // ROT
       // update ang velocity.
       // change in rotation is 1/2 angvel times current rotation or...
       // q' = 1/2 w * q, where w is a Vec3 who's magnitude is amount of angvel
       // and who's axis defines the axis of rotation.
-      Quat<float> delta;
-      delta.mult( mRotVel * 0.5f, mRot );
-      //delta.mult( delta, time_delta );  // do this if we're considering time...
+      Quat<float> rot_delta;
+      rot_delta.mult( mRotVel * 0.5f, mRot );
+      rot_delta.mult( rot_delta, timeDelta );  // scale by time...
       
-      mRot.add( mRot, delta );
+      // add the derivative onto the tank's rotation
+      mRot.add( mRot, rot_delta );
       mRot.normalize();
       
+      // XFORM
       // store the matrix from the pos/rot data...
       kev::quat2mat( mPos, mRot, mXForm );
-   }
-
-   /**
-    * Sets the speed at which this tank moves. Negative speed implies that the
-    * tank is running in reverse.
-    */
-   void setSpeed( float speed )
-   {
-      mSpeed = speed;
    }
 
    const Vec3<float>& velocity() const
    {
       return mVel;
-   }   
+   }
+   
+   // with repect to tank local coordinate system.
+   // i.e. if tank is rotated, then 0,0,-1 is always "forward" for the tank.
+   void setVelocity( const Vec3<float>&  vel )
+   {
+      mVel = vel;
+   }
+   void setVelocity( float x, float y, float z )
+   {
+      mVel.set( x, y, z );
+   }
    
    void translate( const Vec3<float>& offset )
    {
       mPos += offset;
    }   
-   void setVelocity( const Vec3<float>&  vel )
-   {
-      mVel = vel;
-   }
+   
       
    void setRot( float deg )
    {
