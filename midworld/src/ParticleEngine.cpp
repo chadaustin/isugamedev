@@ -7,7 +7,7 @@ namespace mw
 {
    ParticleEngine::ParticleEngine(const std::string& filename,
                                   const int numParticles,
-								  const gmtl::Point3f pos,
+                                  const gmtl::Point3f pos,
                                   const Camera& gameCamera)
       : mParticleCamera(gameCamera)
    {
@@ -22,7 +22,7 @@ namespace mw
          temp->size(0.2);
          temp->setMass(0.10);
          temp->setVel(velocity);
-		 temp->setPos(pos);
+         temp->setPos(pos);
          mParticleGroup.push_back(temp);
       }
    }
