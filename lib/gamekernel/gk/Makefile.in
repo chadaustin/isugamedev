@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-05-14 15:52:36 $
-# Version:       $Revision: 1.9 $
+# Date modified: $Date: 2002-05-14 16:20:21 $
+# Version:       $Revision: 1.10 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -107,8 +107,8 @@ DEPDIR =
 
 PATH_TO_SRCS = $(srcdir):$(top_srcdir)/cppdom/cppdom
 MK_DIR = $(top_srcdir)/mk
-INCLUDE_PATHS = -I$(top_srcdir) -I$(top_srcdir)/cppdom/installed/include -I$(top_srcdir)/external/xdl @INCLUDES@
-LIBS=@LIBS@ -I$(top_srcdir)/cppdom/installed/lib$(LIBBITSUF)
+INCLUDE_PATHS = -I$(top_srcdir) -I$(top_srcdir)/cppdom -I$(top_srcdir)/external/xdl @INCLUDES@
+LIBS=@LIBS@
 DEFS=@GK_DEFS@
 
 ################################################################################
