@@ -29,6 +29,7 @@ classes = Split("""
    CollisionResponse
    CreditsState
    Droid
+   EndingState
    Enemy
    EntityFactory
    GameManager
