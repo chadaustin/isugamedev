@@ -1,5 +1,5 @@
 #!/bin/sh
-dirs=../../src ../../examples
+dirs='../../phui ../../examples'
 
 CPP_EXTS=java,h.in,h,cxx,cpp
 HASH_EXTS=in,pl,sh,py
