@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-01 10:06:11 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-05-01 23:01:54 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -85,6 +85,24 @@ namespace game {
       }
 
       /**
+       * Gets the players health
+       *
+       * @return the health of the player
+       */
+      int getKills() const{
+         return mKills;
+      }
+
+      /**
+       * Gets the players health
+       *
+       * @return the health of the player
+       */
+      int getCoins() const{
+         return mCoins;
+      }
+
+      /**
        * Sets whether this player is braking.
        *
        * @param flag    true if this player is braking, false otherwise
@@ -145,8 +163,15 @@ namespace game {
 
       /// This player's position
       gmtl::Vec3f mPosition;
+
       /// This player's health
       int mHealth;
+
+      /// The number of kills this player has
+      int mKills;
+
+      /// The number of coins this player has
+      int mCoins;
 
       /// True if the player is braking
       PRFloat64 mBrake;

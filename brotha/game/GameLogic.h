@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-05-01 21:19:02 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-01 23:01:54 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,6 +47,7 @@
 #include <vector>
 #include "Player.h"
 #include "GameTimer.h"
+#include "xml/BrothaData.h"
 
 namespace game
 {
@@ -103,6 +104,8 @@ namespace game
 
      void outputList();
 
+     void updateStats();
+
    private:
       //vector for players in the game.
       typedef std::vector<Player*> PlayerList;
@@ -112,6 +115,13 @@ namespace game
       typedef std::vector<Object*> ObjectList;
       ObjectList mObject;
       typedef ObjectList::iterator ObjectListItr;
+
+      typedef std::vector<data::Gang*> GangList;
+      GangList mGang;
+
+      typedef std::vector<data::Player*> GangPlayerList;
+      GangPlayerList mGangPlayer; 
+
    };
 }
 

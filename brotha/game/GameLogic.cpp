@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-01 21:19:02 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-01 23:01:54 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,6 +43,7 @@
 #include "GameLogic.h"
 #include <algorithm>
 #include <gmtl/VecOps.h>
+#include <sstream>
 
 namespace game
 {
@@ -63,11 +64,43 @@ namespace game
          mObject[i]->setPosition(oPosition);
       }
 
+      GameLogic::updateStats();
+
          /// @todo collision detection
          /// @todo update player attributes (health, kills, etc)  
    }
 
-   void GameLogic::add(Player* player) {
+   void GameLogic::updateStats(){
+      data::BrothaData* dBroth;
+      data::Player* dPlayer;
+      data::Gang* dGang;
+      std::ostringstream out;
+      Player* currPlayer;
+      PlayerListItr Itr;
+      mGang = dBroth->getGangList();
+
+      for (unsigned int i=0; i < mGang.size(); i++){
+         /// update players xml data
+         dGang = dBroth->getGang(mGang[i]->getName());
+         mGangPlayer = dGang->getPlayerList();
+         for (unsigned int j=0; j < mGangPlayer.size();j++){
+                        
+            dPlayer = dGang->getPlayer(mGangPlayer[j]->getName());
+            currPlayer = GameLogic::getPlayer(dPlayer->getName());
+            
+            if (currPlayer != NULL){
+               out << currPlayer->getKills();
+               dPlayer->setStat("Kills", out.str()); 
+               out << currPlayer->getHealth();
+               dPlayer->setStat("Health", out.str());
+               out << currPlayer->getCoins();
+               dPlayer->setStat("Coins", out.str());
+            }// end if
+         }// end for
+      }// end for
+   }
+
+   void GameLogic::add(Player* player){
 
       // make sure player is not equal to null
       assert (player != NULL && "Cannot add a NULL player!");
