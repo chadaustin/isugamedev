@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-03-29 14:13:42 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-29 14:46:01 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,8 +47,6 @@
 namespace game
 {
    class Player : public Object {
-   public:
-
    public:
       /**
        * Creates a new player with the default name "Player".
@@ -135,6 +133,11 @@ namespace game
        * @param name    the new name for this player
        */
       void setName( const std::string& name );
+
+      virtual PRUint32 getType() const;
+      virtual PRUint32 getSize();
+      virtual void serialize(net::OutputStream& os);
+      virtual void deserialize(net::InputStream& os);
 
    private:
       /// This player's name

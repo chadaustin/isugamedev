@@ -26,6 +26,14 @@ namespace net {
       return is;
    }
 
+   // bool (ultimately is PRUint32)
+
+   inline InputStream& operator>>(InputStream& is, bool& b) {
+      PRUint32 ui = (PRUint32)b;
+      is >> ui;
+      b = (ui != 0);
+      return is;
+   }
 
    // std::string
 
