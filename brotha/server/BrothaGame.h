@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-29 21:13:10 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-03-30 20:14:15 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -116,18 +116,20 @@ namespace server {
        */
       const game::GameTimer& getGameTimer() const;
 
+      net::NetMgr::ConnID getConnectionID( game::Player* player );
    private:
       typedef std::map<game::Player::UID, game::Player*> PlayerMap;
+      typedef PlayerMap::iterator PlayerMapIter;
       typedef std::map<net::NetMgr::ConnID, game::Player*> PlayerConnectionMap;
       typedef PlayerConnectionMap::iterator PlayerConnectionMapIter;
 
       /// The game timer.
       game::GameTimer mGameTime;
 
-      /// All players that have actually joined the game.
+      /// All players that are in the game
       PlayerMap mPlayers;
 
-      /// All players that have may a connection
+      /// All players that are connected (not necessary in the game)
       PlayerConnectionMap mConnectedPlayers;
 
       /// The network manager

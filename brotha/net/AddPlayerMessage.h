@@ -30,7 +30,7 @@ namespace net {
 
       PRUint32 getSize() {
          if(m_player != NULL) {
-            return m_player->getSize();
+            return m_player->getSize() + net::sizes::getVarSize(m_isYou);
          } else {
             return 0;
          }

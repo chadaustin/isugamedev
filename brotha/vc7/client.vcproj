@@ -33,10 +33,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../external/GK/gk.lib OpenGL32.Lib GlU32.Lib ../../nspr/lib/nspr4.lib"
+				AdditionalDependencies="../external/GK/gk.lib OpenGL32.Lib GlU32.Lib ../../nspr/lib/nspr4.lib ../external/audiere.lib"
 				ShowProgress="0"
 				OutputFile="../bin/win32/client-dbg.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories=""
 				IgnoreAllDefaultLibraries="FALSE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/client.pdb"
@@ -82,10 +83,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../external/GK/gk.lib OpenGL32.Lib GlU32.Lib ../../nspr/lib/nspr4.lib"
+				AdditionalDependencies="../external/GK/gk.lib OpenGL32.Lib GlU32.Lib ../../nspr/lib/nspr4.lib ../external/audiere.lib"
 				ShowProgress="0"
 				OutputFile="../bin/win32/client.exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="../external ../../nspr/lib/ ../external/GK"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"

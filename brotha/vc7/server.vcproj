@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../;../../nspr/include"
+				AdditionalIncludeDirectories="../;../../nspr/include;../external"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -37,7 +37,7 @@
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/server.pdb"
-				SubSystem="2"
+				SubSystem="1"
 				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -65,7 +65,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../../nspr/include;../"
+				AdditionalIncludeDirectories="../../nspr/include;../;../external"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -110,6 +110,9 @@
 				RelativePath="..\server\BrothaGame.cpp">
 			</File>
 			<File
+				RelativePath="..\server\ConsoleServer.cpp">
+			</File>
+			<File
 				RelativePath="..\server\GameThread.cpp">
 			</File>
 			<File
@@ -117,15 +120,6 @@
 			</File>
 			<File
 				RelativePath="..\server\WebServer.cpp">
-			</File>
-			<File
-				RelativePath="..\server\main.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						ObjectFile="Debug-server/main.obj"/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter

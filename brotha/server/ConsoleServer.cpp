@@ -57,7 +57,7 @@ int main(int argc, char** argv) {
       std::string cmd;
       std::cout << "brotha> " << std::flush;
       std::getline(std::cin, cmd);
-      if (!cin) {
+      if (!std::cin) {
          std::cout << std::endl;
          break;
       }

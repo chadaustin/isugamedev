@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-29 23:21:13 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-03-30 20:14:15 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -52,7 +52,7 @@ namespace client
          case (net::AddPlayer):
          {
             net::AddPlayerMessage* pMsg = (net::AddPlayerMessage*)msg;
-            std::cout<<"InGame: Player="<<pMsg->getPlayer()<<std::endl;
+            std::cout<<"InGame: Player="<<pMsg->getPlayer()->getName()<<std::endl;
             app->getGame().add( pMsg->getPlayer() );
             // reset the local player if necessary
             if (pMsg->isYou()) {
@@ -64,7 +64,7 @@ namespace client
          {
             net::UpdatePlayerMessage* pMsg = (net::UpdatePlayerMessage*)msg;
             game::Player* player = pMsg->getPlayer();
-            app->getGame().getPlayer(player->getUID())->setPosition( player->getPosition() );
+//            app->getGame().getPlayer(player->getUID())->setPosition( player->getPosition() );
             /// @todo send more stuff
             break;
          }
@@ -97,7 +97,7 @@ namespace client
          return std::auto_ptr<AppState>(NULL);
       } else if(msg->getType() == net::AddPlayer) {
          net::AddPlayerMessage* pMsg = (net::AddPlayerMessage*)msg;
-         std::cout<<"InGame: Player="<<pMsg->getPlayer()<<std::endl;
+         std::cout<<"InGame: Player="<<pMsg->getPlayer()->getName()<<std::endl;
          app->getGame().add( pMsg->getPlayer() );
          // set the local player if necessary
          if(pMsg->isYou()) {

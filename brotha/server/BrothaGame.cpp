@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-29 21:13:10 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-30 20:14:15 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,12 +46,22 @@ namespace server {
    }
 
    void BrothaGame::update() {
-      /// @todo update the game state
+      /// @todo do a frame in the game
+      /// for each object that is modified broadcast to everyone
    }
 
    void BrothaGame::add( game::Player* player, net::NetMgr::ConnID cID ) {
       assert( player != NULL && "Cannot add a NULL player!" );
       mConnectedPlayers[cID] = player;
+   }
+
+   net::NetMgr::ConnID BrothaGame::getConnectionID( game::Player* player ) {
+      for(PlayerConnectionMapIter iter=mConnectedPlayers.begin();iter!=mConnectedPlayers.end();++iter) {
+         if(player == iter->second) {
+            return iter->first;
+         }
+      }
+      return -1;
    }
 
    game::Player* BrothaGame::getPlayer( game::Player::UID uid ) {
@@ -65,12 +75,18 @@ namespace server {
    void BrothaGame::joinPlayer( net::NetMgr::ConnID cID ) {
       game::Player *player = mConnectedPlayers[cID];
       mPlayers[player->getUID()] = player;
+
+      /// @todo notify all the other connections that a new player exists
    }
 
    void BrothaGame::resync( net::NetMgr::ConnID cID) {
-      for(PlayerConnectionMapIter iter=mConnectedPlayers.begin();iter!=mConnectedPlayers.end();++iter) {
-         m_netMgr->send(new net::AddPlayerMessage(iter->second, iter->first == cID), cID);
+      // send players
+      for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
+         bool isYou = (cID == getConnectionID(iter->second));
+         net::AddPlayerMessage *msgP = new net::AddPlayerMessage(iter->second, isYou);
+         m_netMgr->send(msgP, cID);
       }
+      // send objects
       m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
    }
 
