@@ -156,7 +156,7 @@ namespace mw
       }
       
       
-
+      mDroid->setFirstTimeFlag(true);
       
       
       gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
@@ -191,6 +191,7 @@ namespace mw
    {
       mDroid->setGoalNode(mDroid->getTree()->findNearestNavNode(mDroid->getPos()));
       mDroid->setFakeNode(mDroid->getPos());
+      
    }
    
 
