@@ -1,0 +1,36 @@
+from os import path
+
+Import('baseEnv PREFIX')
+
+classes = Split("""
+   Observer
+""")
+
+sources = Split("""
+""")
+
+headers = Split("""
+   ActionContainer.h
+   Action.h
+   AIManager.h
+   AINode.h
+   AiQueue.h
+   AISystem.h
+   Behavior.h
+   BehaviorMachine.h
+   BoolBehavior.h
+   Instinct.h
+   InstinctManager.h
+   Shoot.h
+   ShootingAction.h
+   Unit.h
+""")
+
+sources.extend(map(lambda n: n + '.cpp', classes))
+headers.extend(map(lambda n: n + '.h', classes))
+
+env = baseEnv.Copy()
+
+libraries = [
+    env.Library(target = 'ai', source = sources)
+]
