@@ -27,9 +27,10 @@ detail description: cross genre - (elements of RPG, puzzle, and
 Similar to other games?
 ========================
 aki's quest takes ideas from many places:
-- ankh (triggerable objects, puzzles, remote control room)
-- zelda (market places you can buy and sell at)
 - blaster master (tank, and person that can get out, weapons powerup)
+- ankh (triggerable objects, puzzles, remote control room)
+- quake (heavy weapons, rocket, grenade, railgun, nailgun)
+- zelda (market places you can buy and sell at)
 - super mario (jumpsquash, size powerups (in this game size wont change))
 - mario 64 (3rd person camera action)
 - return to krondor, diablo (inventory screen, equip your character)
@@ -37,8 +38,8 @@ aki's quest takes ideas from many places:
 - duke nukem (tripwire, pipebomb)
 - all rpg games (player stats)
 
-basically zelda adventure, blastermaster action, ankh puzzles, with quake 
-weaponry.
+basically blastermaster exploration, ankh puzzles, quake weaponry, 
+  with zelda adventure, and mario/zelda fantasy.
 
 (note: what's ankh??  go download out an AppleIIe emulator and get ankh.bin      
        file for it :)
