@@ -44,6 +44,7 @@ default: ${OBJS}
 
 
 clobber: clean
+	rm *.d
 
 # the "clean" target, cleans object code and exe from the directory...
 # NOTE: SGI's CC command produces an ii_files directory.
