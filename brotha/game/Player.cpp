@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-04-29 01:44:35 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-04-29 02:13:43 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -102,6 +102,25 @@ namespace game {
 
    void Player::setName( const std::string& name ){
       mName = name;
+   }
+
+   void Player::addCar(Car* car){
+      assert ( car != NULL && "Cannot add a Null car!" );
+
+      // add car to vector
+      mCars.push_back(car);
+   }
+
+   void Player::removeCar(Car* car){
+      CarListItr Itr;
+
+      // find the car to remove and set to iterator
+      Itr = std::find(mCars.begin(), mCars.end(), car);
+      
+      // makes sure car exists and removes if it does
+      if(Itr != mCars.end()){
+         mCars.erase(Itr);
+      }
    }
 
    PRUint32 Player::getSize(){

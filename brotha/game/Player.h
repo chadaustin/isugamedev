@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-29 01:44:35 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-04-29 02:13:43 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -139,21 +139,31 @@ namespace game {
        */
       PRFloat64 getTurnAngle() const;
 
-	  /**
-	   * Increments Kills Statistic
-	   */
-	  void addKill(){
-		  mKills++;
-	  }
+	   /**
+	    * Increments Kills Statistic
+	    */
+	   void addKill(){
+	 	   mKills++;
+	   }
 
-	  /**
-	   * Queries for owned cars
-	   *
-	   * @return a list of Cars the player owns
-	   */
-	  CarList getCars(){
-		  return mCars;
-	  }
+	   /**
+	    * Queries for owned cars
+	    *
+	    * @return a list of Cars the player owns
+	    */
+	   CarList getCars(){
+		   return mCars;
+	   }
+     
+      /**
+       * Adds another car to the player's list
+       */
+      void addCar(Car* car);
+
+      /**
+       * Removes a car from the player's list
+       */
+      void removeCar(Car* car);
 
       Object* getObject();
 
@@ -195,11 +205,8 @@ namespace game {
       /// Number of Player kills
       double mKills;
 
-	  /// List of owned cars
-	  CarList mCars;
-
-      /// True if the player is accelerating
-      ///PRFloat64 mAccelerate;
+	   /// List of owned cars
+	   CarList mCars;
 
       /// True if the player is braking
       PRFloat64 mBrake;
