@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-10-09 08:35:14 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-10 09:01:15 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -125,8 +125,6 @@ namespace mw
             const gmtl::Quatf& rot = entity->getRot();
             gmtl::Matrix44f xform = gmtl::makeTrans<gmtl::Matrix44f>(static_cast<gmtl::Vec3f>(pos));
             xform *= gmtl::make<gmtl::Matrix44f>(rot);
-//            gmtl::Matrix44f xform = gmtl::make<gmtl::Matrix44f>(rot);
-//            xform *= gmtl::makeTrans<gmtl::Matrix44f>(static_cast<gmtl::Vec3f>(pos));
 
             // Convert the matrix to OpenSG matrix
             osg::Matrix osg_mat;
@@ -140,6 +138,13 @@ namespace mw
                trans->setMatrix(osg_mat);
             }
             osg::endEditCP(trans, osg::Transform::MatrixFieldMask);
+
+            // Update the entity's bounds
+            osg::Pnt3f min, max;
+            node->getVolume().getBounds(min, max);
+            gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
+            gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
+            entity->setBounds(gmtl::AABoxf(gmtl_min, gmtl_max));
          }
       }
 
@@ -180,6 +185,52 @@ namespace mw
          // finish up the frame
          mWin->frameExit();
       glPopAttrib();
+
+      // Draw the goddamn bounding boxes
+      for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
+           itr != mEntityNodeMap.end(); ++itr)
+      {
+         osg::NodePtr entity_node = itr->second;
+
+         // Get the bounds of this node
+         osg::Pnt3f osg_min, osg_max;
+         entity_node->getVolume().getBounds(osg_min, osg_max);
+         gmtl::Point3f min(osg_min[0], osg_min[1], osg_min[2]);
+         gmtl::Point3f max(osg_max[0], osg_max[1], osg_max[2]);
+
+         glColor4f(0,0,1,1);
+         // Front face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], min[2]);
+            glVertex3f(max[0], max[1], min[2]);
+            glVertex3f(min[0], max[1], min[2]);
+         glEnd();
+
+         // Back face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], max[2]);
+            glVertex3f(max[0], min[1], max[2]);
+            glVertex3f(max[0], max[1], max[2]);
+            glVertex3f(min[0], max[1], max[2]);
+         glEnd();
+
+         // Bottom face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], min[2]);
+            glVertex3f(max[0], min[1], max[2]);
+            glVertex3f(min[0], min[1], max[2]);
+         glEnd();
+
+         // Top face
+         glBegin(GL_LINE_LOOP);
+            glVertex3f(min[0], max[1], min[2]);
+            glVertex3f(max[0], max[1], min[2]);
+            glVertex3f(max[0], max[1], max[2]);
+            glVertex3f(min[0], max[1], max[2]);
+         glEnd();
+      }
    }
 
    std::list<RigidBody*>
@@ -200,14 +251,17 @@ namespace mw
          gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
          gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
          gmtl::AABoxf entity_bounds(gmtl_min, gmtl_max);
-//         gmtl::AABoxf entity_bounds(gmtl::Point3f(min[0], min[1], min[2]),
-//                                    gmtl::Point3f(max[0], max[1], max[2]));
 
          // Compare this node's bounds to the search bounds
          if (gmtl::isInVolume(region, entity_bounds))
          {
             matches.push_back(mScene->get(itr->first));
          }
+      }
+
+      if (matches.size() > 1)
+      {
+         std::cout<<"Found "<<matches.size()<<" intersections"<<std::endl;
       }
 
       return matches;

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-10-10 09:01:15 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -63,9 +63,6 @@ namespace mw
       void setPos(const gmtl::Point3f& pos)
       {
          getCurrentState().setPos(pos);
-         gmtl::Vec3f extents = (mBounds.getMax() - mBounds.getMin()) * 0.5f;
-         mBounds.setMin(getCurrentState().getPos() - extents);
-         mBounds.setMax(getCurrentState().getPos() + extents);
       }
 
       /**
@@ -153,6 +150,8 @@ namespace mw
        * @return  the bounding volume for this body
        */
       const gmtl::AABoxf& getBounds() const;
+
+      void setBounds(const gmtl::AABoxf& box);
 
       /** convert the pos/rot to a matrix. */
       gmtl::Matrix44f matrix() const;

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-10 02:02:24 $
- * Version:       $Revision: 1.52 $
+ * Date modified: $Date: 2002-10-10 09:01:15 $
+ * Version:       $Revision: 1.53 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -92,46 +92,46 @@ namespace mw
       // Init the collision detection system
       mCollDet = new BoundsCollisionDetector();
       mCollDet->setSpatialIndex(viewer);
-      
+
       // Add the player into the game
       /// XXX: If the player gets reaped it will segfault since mPlayer is a member
       add(&mPlayer);
-      
+
       // XXX hack for testing aisystem
       appTest = new testing;
 
-      
-      
-      //XXX hack for testing aiNodes for the aiSystem 
+
+
+      //XXX hack for testing aiNodes for the aiSystem
       node1 = new lm::aiNode("Ben", NULL, -1, 1);
       node2 = new lm::aiNode("Chad", node1, -1, 1);
-     
-      
-  
+
+
+
       Enemy* enemy1 = new Enemy();
       Enemy* enemy2 = new Enemy();
       gmtl::Point3f inPos1(5.0,0.0,-5.0);
       enemy1->setPos(inPos1);
       gmtl::Point3f inPos2(0.0,0.0,-10.0);
       enemy2->setPos(inPos2);
-      
-      
+
+
 
       enemy1->setModel("turret");
       enemy2->setModel("security_droid");
-      
+
       add(enemy1);
       add(enemy2);
-      
+
 
       node1sCommand = new lm::simpleCommand<Enemy>(enemy1, &Enemy::walkRandom);
       node2sCommand = new lm::simpleCommand<Enemy>(enemy2, &Enemy::walkRandom);
 
-      
-      
+
+
       first = new lm::behavior;
       second = new lm::behavior;
-      
+
 
       first->addCommand(node1sCommand);
       second->addCommand(node2sCommand);
@@ -147,18 +147,17 @@ namespace mw
 
       AI.registerNode(node1);
       AI.registerNode(node2);
-      
+
       mMap[enemy1->getUID()] = node1;
       mMap[enemy2->getUID()] = node2;
 
 
-      
+
       AmmoCrate* crate = new AmmoCrate();
       crate->setPos(gmtl::Point3f(10, 0, -10));
       crate->setModel("ammo_crate");
       add(crate);
-      
-      
+
       loadLevel("levels/level1.txt");
 
       mExplosion = new ParticleEngine("images/explosive_particle.png",
@@ -170,7 +169,7 @@ namespace mw
    {
       AI.update();
       mExplosion->update(dt);
-      
+
       mCursor.update(application().getWidth(),
                      application().getHeight());
 
@@ -418,6 +417,48 @@ namespace mw
          glPopAttrib();
 
          mExplosion->draw();
+
+         // Draw the bounds
+         glColor4f(1,0,0,1);
+         for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+         {
+            const Entity* entity = itr->second;
+            const gmtl::AABoxf& bounds = entity->getBounds();
+            const gmtl::Point3f& min = bounds.getMin();
+            const gmtl::Point3f& max = bounds.getMax();
+
+            // Front face
+            glBegin(GL_LINE_LOOP);
+               glVertex3f(min[0], min[1], min[2]);
+               glVertex3f(max[0], min[1], min[2]);
+               glVertex3f(max[0], max[1], min[2]);
+               glVertex3f(min[0], max[1], min[2]);
+            glEnd();
+
+            // Back face
+            glBegin(GL_LINE_LOOP);
+               glVertex3f(min[0], min[1], max[2]);
+               glVertex3f(max[0], min[1], max[2]);
+               glVertex3f(max[0], max[1], max[2]);
+               glVertex3f(min[0], max[1], max[2]);
+            glEnd();
+
+            // Bottom face
+            glBegin(GL_LINE_LOOP);
+               glVertex3f(min[0], min[1], min[2]);
+               glVertex3f(max[0], min[1], min[2]);
+               glVertex3f(max[0], min[1], max[2]);
+               glVertex3f(min[0], min[1], max[2]);
+            glEnd();
+
+            // Top face
+            glBegin(GL_LINE_LOOP);
+               glVertex3f(min[0], max[1], min[2]);
+               glVertex3f(max[0], max[1], min[2]);
+               glVertex3f(max[0], max[1], max[2]);
+               glVertex3f(min[0], max[1], max[2]);
+            glEnd();
+         }
       glPopMatrix();
 
       mCursor.draw(application().getWidth(), application().getHeight());
@@ -546,6 +587,8 @@ namespace mw
             Entity* collidee = (Entity*)desc->getCollidee();
             collidee->onCollisionEntry(evt);
 
+            std::cout<<"Collision! "<<body->getUID()<<" -> "<<collidee->getUID()<<std::endl;
+
             // Update the remaining time differential
             remaining_dt -= time_to_collision;
 
@@ -568,7 +611,6 @@ namespace mw
          if (entity->isExpired())
          {
             dead.push_back(uid);
-            
          }
       }
 
