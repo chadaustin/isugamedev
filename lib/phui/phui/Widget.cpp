@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-26 11:14:50 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-26 12:03:10 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -34,6 +34,7 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
+#include <stdio.h>
 #include "Widget.h"
 #include "WidgetContainer.h"
 
@@ -139,6 +140,16 @@ namespace phui
    }
 
    bool Widget::hasFocus() {
-      return (this == mParent->getFocus());
+      WidgetContainer* parent = getParent();
+      Widget* child = this;
+      while (parent) {
+         if (parent->getFocus() != child) {
+            return false;
+         }
+         child = parent;
+         parent = parent->getParent();
+      }
+      //      puts("A widget has focus!");
+      return true;
    }
 }

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-26 10:26:44 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-04-26 12:03:10 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -70,12 +70,12 @@ namespace phui {
          glVertex2i(width, height);
          glVertex2i(0,     height);
       glEnd();
-
+      
       // draw text
       glColor(mButtonDown ? getBackgroundColor() : getForegroundColor());
 
       FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
-
+      
       const Insets& i = getInsets();
 //      int w = width  - i.getLeft() - i.getRight();
 //      int h = height - i.getTop()  - i.getBottom();
@@ -92,6 +92,15 @@ namespace phui {
       int fontY = textRectY + fontAscent;
 
       renderer->draw(mText, fontX, fontY);
+      
+      if (hasFocus()) {
+         glBegin(GL_LINE_LOOP);
+         glVertex2i(0,     0     );
+         glVertex2i(width, 0     );
+         glVertex2i(width, height);
+         glVertex2i(0,     height);
+         glEnd();
+      }
    }
 
    void Button::setText(const std::string& text) {

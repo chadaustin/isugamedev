@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2002-04-26 06:44:13 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-26 12:03:10 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -69,6 +69,16 @@ namespace phui {
       glVertex2i(width, height);
       glVertex2i(0,     height);
       glEnd();
+
+      if (hasFocus()) {
+         glColor(getForegroundColor());
+         glBegin(GL_LINE_LOOP);
+         glVertex2i(0,     0);
+         glVertex2i(width, 0);
+         glVertex2i(width, height);
+         glVertex2i(0,     height);
+         glEnd();
+      }
 
       WidgetContainer::draw();
    }
