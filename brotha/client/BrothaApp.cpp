@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-25 23:34:42 $
- * Version:       $Revision: 1.27 $
+ * Date modified: $Date: 2002-04-26 03:59:46 $
+ * Version:       $Revision: 1.28 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -38,6 +38,10 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
+#ifdef WIN32
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdexcept>
