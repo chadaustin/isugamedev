@@ -3,7 +3,7 @@
 
 #include <algorithm>
 #include "MessageQueue.h"
-#include "../thread/Lock.h"
+#include "thread/Lock.h"
 
 namespace net {
 
@@ -12,7 +12,6 @@ namespace net {
       thread::Lock l__(this);
       mQueue.push(message);
    }
-
 
    void
    MessageQueue::read(std::vector<Message*> &messages) {
@@ -23,6 +22,13 @@ namespace net {
          messages.push_back(mQueue.front());
          mQueue.pop();
       }
+   }
+
+   unsigned int
+   MessageQueue::getSize() {
+      thread::Lock l__(this);
+
+      return mQueue.size();
    }
 
 } // namespace net

@@ -19,6 +19,13 @@ namespace net {
       void push(Message* message);
       void read(std::vector<Message*> &messages);
 
+      /**
+       * Gets the number of messages in this queue. This method is atomic.
+       *
+       * @return  the number of msgs in this queue
+       */
+      unsigned int getSize();
+
    private:
       std::queue<Message*> mQueue;
    };
