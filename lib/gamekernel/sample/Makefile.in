@@ -8,7 +8,7 @@ clean: clean-recursive
 clobber: clobber-recursive
 
 all-recursive install-recursive uninstall-recursive clean-recursive clobber-recursive:
-	dot_seen=no; \
+	@dot_seen=no; \
 	target=`echo $@ | sed s/-recursive//`; \
 	list='$(SUBDIRS)'; for subdir in $$list; do \
 		echo "Making $$target in $$subdir"; \
