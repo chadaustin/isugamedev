@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-22 04:00:58 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-02-22 04:45:58 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -546,15 +546,21 @@ GlutDriver::OnJoystick( unsigned int buttonMask, int x, int y, int z )
    int numAxes = joy->numAxes();
    if ( numAxes > 0 )
    {
-      joy->axis( 0 ).setData( x );
+      // normalize the data from the axis to [-1,1]
+      float normX = ((float)x / 1000.0f)*2.0f - 1.0f;
+      joy->axis( 0 ).setData( normX );
    }
    if ( numAxes > 1 )
    {
-      joy->axis( 1 ).setData( y );
+      // normalize the data from the axis to [-1,1]
+      float normY = ((float)y / 1000.0f)*2.0f - 1.0f;
+      joy->axis( 1 ).setData( normY );
    }
    if ( numAxes > 2 )
    {
-      joy->axis( 2 ).setData( z );
+      // normalize the data from the axis to [-1,1]
+      float normZ = ((float)z / 1000.0f)*2.0f - 1.0f;
+      joy->axis( 2 ).setData( normZ );
    }
 }
 
