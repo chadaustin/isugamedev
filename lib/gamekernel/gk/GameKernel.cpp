@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2003-02-09 07:44:50 $
-// Version:       $Revision: 1.32 $
+// Date modified: $Date: 2003-02-09 08:45:24 $
+// Version:       $Revision: 1.33 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -147,8 +147,8 @@ void GameKernel::shutdown()
 {
    if ( mDriver ) {
       mDriver->shutdown();
-      delete mDriver;
-      mDriver = NULL;
+      //delete mDriver;   // if we delete this while in run(), then mDriver is NULL causing a segfault at the return of run() (on vc7 at least)
+      //mDriver = NULL;
    }
 }
 
