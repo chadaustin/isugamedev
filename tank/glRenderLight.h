@@ -3,13 +3,13 @@
 //
 //                         -= glRenderLight =-
 //
-// Description: "Light renderer for OGL"
+// Description: "decoupled Light renderer for OGL"
 //
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: glRenderLight.h,v $
-//    $Date: 2001-09-10 16:25:10 $
-//    $Revision: 1.5 $
+//    $Date: 2001-09-20 20:12:50 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
