@@ -37,13 +37,13 @@ include ${MK_DIR}/mk.platform
 include ${MK_DIR}/mk.hosttype
 # IRIX
 ifeq ($(HOSTTYPE), irix)
-   LIBS = -lm 
+   LIBS = 
    include ${MK_DIR}/mk.irix
 endif
 
 #LiNUX
 ifeq ($(HOSTTYPE), linux)
-   LIBS = -lm
+   LIBS = 
    include ${MK_DIR}/mk.gnu
 endif
 
