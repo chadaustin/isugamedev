@@ -1,0 +1,35 @@
+import os
+pj = os.path.join
+
+Import('baseEnv')
+Import('SetupSDL SetupBoostPython SetupPython')
+
+builders = {
+   'Pyste'     : Builder(action = '$PYTHON $PYSTE $CPPFLAGS --module=${TARGET.filebase} --out=$TARGET $SOURCES',
+                         suffix = '.cpp',
+                         src_suffix = '.pyste')
+}
+
+env = baseEnv.Copy(BUILDERS = builders)
+env['with-pyste'] = pj(os.environ['HOME'],
+                       'software/src/boost_1_30_0/libs/python/pyste/src/pyste.py')
+
+
+
+
+# Run Pyste to generate BPL code
+env['PYTHON'] = WhereIs('python')
+env['PYSTE'] = env['with-pyste']
+SetupSDL(env)
+env.Append(CPPPATH = [str(Dir('#src'))])
+env['CPPFLAGS'] = map(lambda x: '-I'+x, env['CPPPATH'])
+env.Pyste('siren.pyste')
+
+# Build the python bindings
+env = baseEnv.Copy()
+env.Append(LIBPATH = [str(Dir('#src/siren'))],
+           LIBS = ['siren'])
+SetupSDL(env)
+SetupBoostPython(env)
+SetupPython(env, '2.2')
+env.SharedLibrary('siren', 'siren.cpp', SHLIBPREFIX='')
