@@ -33,9 +33,9 @@ namespace mw
       {
          // add the bulllet to the gamestate...
          RigidBody* bullet = this->createBullet();
-         bullet->setRot( this->rotation() );
-         bullet->setPos( this->position() );
-         bullet->setVel( this->rotation() * bullet->getVel() );
+         bullet->setRot( this->getRot() );
+         bullet->setPos( this->getPos() );
+         bullet->setVel( this->getRot() * bullet->getVel() );
          g.add( bullet ); // bullet is not mine anymore, belongs to GameState
       }
    };

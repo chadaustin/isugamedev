@@ -34,7 +34,7 @@ namespace mw
          BaseProjectileWeapon::update( g, dt );
          if (mFiring)
          {
-            mSpinning += 360.0f * dt; // 90 deg per sec
+            mSpinning += 5.0f * 360.0f * dt; // 5 Revs per sec
          }
       }
       
@@ -49,19 +49,19 @@ namespace mw
          
          // define the 3 bullets in the spread weapon.
          RigidBody* bullet0 = this->createBullet();
-         bullet0->setRot( this->rotation() * r0 );
-         bullet0->setPos( this->position() );
-         bullet0->setVel( this->rotation() * r0 * bullet0->getVel() );
+         bullet0->setRot( this->getRot() * r0 );
+         bullet0->setPos( this->getPos() );
+         bullet0->setVel( this->getRot() * r0 * bullet0->getVel() );
          
          RigidBody* bullet1 = this->createBullet();
-         bullet1->setRot( this->rotation() * r1 );
-         bullet1->setPos( this->position() );
-         bullet1->setVel( this->rotation() * r1 * bullet1->getVel() );
+         bullet1->setRot( this->getRot() * r1 );
+         bullet1->setPos( this->getPos() );
+         bullet1->setVel( this->getRot() * r1 * bullet1->getVel() );
          
          RigidBody* bullet2 = this->createBullet();
-         bullet2->setRot( this->rotation() * r2 );
-         bullet2->setPos( this->position() );
-         bullet2->setVel( this->rotation() * r2 * bullet2->getVel() );
+         bullet2->setRot( this->getRot() * r2 );
+         bullet2->setPos( this->getPos() );
+         bullet2->setVel( this->getRot() * r2 * bullet2->getVel() );
          
          // add the three bullets to the game
          // bullet is not mine anymore, belongs to GameState
