@@ -18,15 +18,15 @@ namespace metro
 		return mId;
 	}
 
-	void Entity::setPos( const Coord2i & p )
+	void Entity::setPosition( const Coord2i & p )
 	{
 		//TODO: move to moveHandler
-		World::instance().updateEntityCoords( mId, pos, p );
-		pos=p;
+		World::instance().updateEntityCoords( mId, mPosition, p );
+		mPosition = p;
 	}
 
-	Coord2i Entity::getPos()const
+	Coord2i Entity::getPosition()const
 	{
-		return pos;
+		return mPosition;
 	}
 }

@@ -28,7 +28,7 @@ namespace metro
 		//  0.5% of chance to move
 		if( float(rand())/RAND_MAX * 1000 < 5 )
 		{
-			setPos( Coord2i( pos + Coord2i( 1 , 1 ) ) );
+			setPosition( Coord2i( mPosition + Coord2i( 1 , 1 ) ) );
 		}
 	}
 

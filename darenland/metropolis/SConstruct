@@ -15,10 +15,13 @@ def getSrcFiles(dir, src):
 baseEnv = Environment(ENV = os.environ)
 
 # setup any elements of the environment that we want
+DEBUG = 0
 if ARGUMENTS.has_key('debug'):
 	baseEnv.Append(CXXFLAGS = ['-g'])
+	DEBUG = 1
 else:
 	baseEnv.Append(CXXFLAGS = ['-O3', '-march=pentium4', '-mfpmath=sse'])
+Export('DEBUG')
 baseEnv.Append(LIBS = ['GL', 'GLU', 'glut', 'SDL', 'pthread'])
 baseEnv.Append(CPPPATH = ['src/', '/usr/include/python2.2/', '#external/GMTL'])
 # baseEnv.Append(LIBPATH = ['./shared/lib'])
@@ -31,7 +34,8 @@ print src_files
 omit_files = ['#src/reality/EntityFactory.cpp',
 			     '#src/TestApp.cpp',
 				  '#src/Metropolis.cpp',
-				  '#src/python/metropolis.cpp']
+				  '#src/python/metropolis.cpp',
+				  '#src/parsers/XMLParser.cpp']
 for x in omit_files:
 	if src_files.count(x) > 0:
 		src_files.remove(x)

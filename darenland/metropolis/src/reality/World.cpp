@@ -43,7 +43,7 @@ namespace metro
 
 		Entity * c = new Character(4);
 
-		c->setPos(Coord2i(0,0));
+		c->setPosition(Coord2i(0,0));
 		mEntityList.push_back( c );
 	}
 
@@ -289,7 +289,7 @@ namespace metro
 
   for( unsigned int i = 0; i < mEntityList.size(); ++i)
 		{
-			gmtl::Point3f p = getWorldCoords( mEntityList[i]->getPos() );
+			gmtl::Point3f p = getWorldCoords( mEntityList[i]->getPosition() );
 			glTranslatef( p[0], p[1], p[2] );
 			mEntityList[i]->draw();
 		}

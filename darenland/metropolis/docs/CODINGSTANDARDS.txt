@@ -66,8 +66,9 @@ Here's a list of the rules being followed:
 
 - Macro guard should always be: '_METRO_' + FILE_NAME_WITH_SPACES_BETWEEN_WORDS + '_H_'
 
-- Header files continue with System and API headers, utility headers, and local headers, 
-  seperated into blocks and commented with at least a general reason for why they're used.
+- Header files continue with System and API headers, utility headers, and 
+local headers, seperated into blocks and commented with at least a general 
+reason for why they're used.
 
 - All code should be explititly enclosed in a metro namespace tag. NOT using namespace metro.
 
@@ -91,6 +92,13 @@ Here's a list of the rules being followed:
 
 - member variables should always start with an 'm'.
 
+- Member variables and member functions should be named using FULL words; 
+  I know this might seem tedious, but it does help to avoid ambiguity.  For 
+  example, say I encounter mMat in a class; is this a matrix, a material 
+  property, or something else?  I now have to try and guess that from context;
+  this is a LOT more tedious than typing out full names, like mModelviewMatrix 
+  or mMaterialProperty.
+
 - standard rules for capitals in variable and class names apply.
 
 - Todo notation should always contain the text TODO in the comment, with exactly that capitalization
@@ -101,8 +109,8 @@ Here's a list of the rules being followed:
     ...;
   }
 
-- Brackets may be ommitted from one-line control statements. The affected statement should be on the next
-  line and indented.
+- Brackets may be ommitted from one-line control statements. The affected
+  statement should be on the next line and indented.
   if ( ... )
     statement;
 

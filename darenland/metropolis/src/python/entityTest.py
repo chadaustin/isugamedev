@@ -41,6 +41,7 @@ class Character(Entity):
 		print self.race
 		print self.attributes
 		print self.skills
+		print self.getPosition()
 		print '============================================================='
 	
 e = Entity(5)

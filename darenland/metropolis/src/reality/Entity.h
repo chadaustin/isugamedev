@@ -53,14 +53,32 @@ namespace metro
 		 */
 		virtual std::string getType( void ) const = 0;
 
+		/**
+		 * Returns the Unique ID of this entity
+		 *
+		 * @return	the UID of this entity
+		 */
 		EntityID getID( void ) const;
 
-		//TODO: this should probably go into a 'movable' or 'locational' class
-		virtual gmtl::Point2i getPos()const;
-		virtual void setPos(const gmtl::Point2i & p);
+		/**
+		 * Returns the current position of this entity
+		 *
+		 * @return	the current position of this entity
+		 */
+		virtual gmtl::Point2i getPosition()const;
+
+		/**
+		 * Sets the current position of this entity
+		 *
+		 * @param	pos		the new position for the entity
+		 */
+		virtual void setPosition(const gmtl::Point2i & p);
 
 	protected:
-		gmtl::Point2i pos;
+
+		///the current position of this entity
+		gmtl::Point2i mPosition;
+		
 		///the unique identifier of this entity
 		EntityID mId;
 	};

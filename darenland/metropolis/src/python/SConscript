@@ -29,10 +29,16 @@ def SetupPython(env, requiredVersion):
               LIBPATH   = [py_libpath],
               LIBS      = [py_lib, 'pthread', 'util'])
 
-Import('baseEnv METRO_HOME')
+Import('baseEnv METRO_HOME DEBUG')
 
+actions = ''
+if DEBUG:
+	actions = '$PYTHON $PYSTE $CPPFLAGS --debug --module=${TARGET.filebase} --out=$TARGET $SOURCES && $PYTHON $CONVERTER $CONVERTER_SRC $CONVERTER_DEST'
+else:
+	actions = '$PYTHON $PYSTE $CPPFLAGS --module=${TARGET.filebase} --out=$TARGET $SOURCES && $PYTHON $CONVERTER $CONVERTER_SRC $CONVERTER_DEST'
+	
 builders = {
-   'Pyste'     : Builder(action = '$PYTHON $PYSTE $CPPFLAGS --debug --module=${TARGET.filebase} --out=$TARGET $SOURCES && $PYTHON $CONVERTER $CONVERTER_SRC $CONVERTER_DEST',
+   'Pyste'     : Builder(action = actions,
                          suffix = '.cpp',
                          src_suffix = '.pyste')
 }
