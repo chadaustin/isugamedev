@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginState.cpp,v $
- * Date modified: $Date: 2002-05-01 19:05:47 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-01 19:39:11 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -51,15 +51,6 @@
 
 
 namespace client {
-   std::map<std::string, bool> input;
-
-   const float PI = 3.141579f;
-   
-   template< class T >
-   T deg2rad(const T& deg) {
-      return deg * PI / T(180);
-   }
-
    LoginState::LoginState() {
       /// @todo make this the same size as the game window?  depends
       /// if we want the UI to be resolution-dependent or not...
@@ -115,16 +106,6 @@ namespace client {
 
       mRoot->add(window);
 
-      // Setup the scene
-      mScene.addObject("tank", "models/hovertank_body.obj");
-
-      mScene.addObject("tank2", "models/hovertank_body.obj");
-      mScene.getObject("tank2")->preMult(osg::Matrix::translate(0.5,0,-2));
-      mScene.getObject("tank2")->preMult(osg::Matrix::rotate(180.0f, 0,1,0));
-
-      mScene.getCamera().setFollowDist(5);
-      mScene.getCamera().setPitch(deg2rad(15.0f));
-
       std::cout<<"Entered Login state"<<std::endl;
    }
 
@@ -135,7 +116,6 @@ namespace client {
    void
    LoginState::draw() {
       glClear(GL_COLOR_BUFFER_BIT);
-      mScene.draw();
       mRoot->draw();
 /*
       glDisable(GL_LIGHTING);
@@ -275,55 +255,11 @@ namespace client {
          }
       } else { // User_Input
          // don't do anything  ^__^
-         float dt = (float)elapsedTime / 1000.0f;
-
-         // Move the tank
-         float speed = 3.7f;
-         if (input["drive"]) {
-            osg::Vec3 forward(0,0,-speed);
-            forward *= dt;
-            mScene.getObject("tank")->preMult(osg::Matrix::translate(forward));
-         }
-         if (input["reverse"]) {
-            osg::Vec3 backward(0,0,speed);
-            backward *= dt;
-            mScene.getObject("tank")->preMult(osg::Matrix::translate(backward));
-         }
-         if (input["turnleft"]) {
-            float ang = deg2rad(30.0f) * dt;
-            mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
-         }
-         if (input["turnright"]) {
-            float ang = deg2rad(-30.0f) * dt;
-            mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
-         }
-
-         osg::Quat targetRot;
-         targetRot.set(mScene.getObject("tank")->getMatrix());
-         osg::Vec3 targetPos = mScene.getObject("tank")->getMatrix().getTrans();
-         mScene.getCamera().setTarget(targetPos, targetRot);
-         mScene.getCamera().update(dt);
       }
    }
 
    void
    LoginState::onKeyPress(SDLKey sym, bool down) {
-      if (sym == SDLK_w) {
-         input["drive"] = down;
-      }
-      else if (sym == SDLK_s) {
-         input["reverse"] = down;
-      }
-      else if (sym == SDLK_a) {
-         input["turnleft"] = down;
-      }
-      else if (sym == SDLK_d) {
-         input["turnright"] = down;
-      }
-      else if (sym == SDLK_ESCAPE) {
-         exit(0);
-      }
-
       if (down) {
          mRoot->onKeyDown(phui::SDLToPhuiKey(sym));
       } else {

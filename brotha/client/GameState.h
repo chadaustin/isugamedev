@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-01 19:39:11 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -61,6 +61,9 @@ namespace client {
       void onKeyPress(SDLKey sym, bool down);
       void onMousePress(Uint8 button, bool down, int x, int y);
       void onMouseMove(int x, int y);
+
+   private:
+      Scene mScene;
    };
 
 }

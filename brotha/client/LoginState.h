@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginState.h,v $
- * Date modified: $Date: 2002-05-01 19:05:47 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-01 19:39:11 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,7 +47,6 @@
 #include <phui/phui.h>
 #include <phui/ActionListener.h>
 #include "State.h"
-#include "Scene.h"
 
 
 namespace client {
@@ -86,8 +85,6 @@ namespace client {
       phui::Button* mConnect;
       phui::Button* mQuit;
       phui::CheckBox* mSpectator;
-
-      Scene mScene;
 
       SubState mSubState;
    };

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.h,v $
- * Date modified: $Date: 2002-05-01 19:23:27 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-01 19:39:11 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,7 +45,6 @@
 
 #include <phui/phui.h>
 #include "State.h"
-#include "Scene.h"
 #include "DealerWnd.h"
 #include "ChopShopWnd.h"
 
