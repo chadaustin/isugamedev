@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IDevice.h,v $
-// Date modified: $Date: 2002-03-21 05:57:16 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-21 06:08:54 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -59,7 +59,7 @@ public:
    virtual Input* getInput( const std::string& name ) = 0;
 
    /**
-    * Gest the input on this device with the associated integer ID. If there is
+    * Gets the input on this device with the associated integer ID. If there is
     * no input with the given ID, this method returns NULL.
     *
     * @param id      the ID of the input to retrieve
