@@ -1,6 +1,6 @@
 import os
 execfile('glut_libs.py')
-AUDIERE_LIBS = ['audiere', 'acoustique', 'vorbisfile', 'vorbis', 'ogg']
+AUDIERE_LIBS = ['audiere', 'vorbisfile', 'vorbis', 'ogg']
 
 Default('.')  # build everything by default
 
