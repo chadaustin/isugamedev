@@ -35,7 +35,7 @@ SRCS = \
 
 MK_DIR = ./mk
 PATH_TO_SRCS = .
-INCLUDE_PATHS += -I./boost -I./regexx
+INCLUDE_PATHS += -I. -I./boost -I./regexx
 
 include ${MK_DIR}/mk.hosttype
 include ${MK_DIR}/mk.platform
