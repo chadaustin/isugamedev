@@ -22,7 +22,7 @@ headers.extend( map(lambda fn: fn + '.h', classes) )
 sources.extend( map(lambda fn: fn + '.cpp', classes) )
 
 
-LIBS = ['gk', 'net', 'game', 'nspr4']
+LIBS = ['gk', 'net', 'game', 'nspr4', 'audiere']
 if sys.platform == 'cygwin':
     LIBS.extend(['glut32', 'opengl32', 'glu32'])
 else:

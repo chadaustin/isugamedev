@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 17:44:37 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-03-29 19:27:52 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,6 +41,8 @@
 #include "BrothaApp.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <audiere.h>
+#include <stdexcept>
 
 namespace client
 {
@@ -54,10 +56,26 @@ namespace client
 
    BrothaApp::~BrothaApp()
    {
+      delete mAudiereContext;
+      delete mMainStream;
    }
 
    void BrothaApp::onAppInit( gk::IGameKernel* kernel )
    {
+      // open audiere context
+      mAudiereContext = audiere::CreateContext(0);
+      if (!mAudiereContext) {
+         throw std::runtime_error("audiere context creation failed");
+      }
+
+      // open stream
+      mMainStream = mAudiereContext->openStream("la_marche_de_la_lune.ogg");
+      if (!mMainStream) {
+         throw std::runtime_error("could not open audiere stream");
+      }
+
+      mMainStream->play();
+
       mKernel = kernel;
       mKernel->setName( "Warn-a-Brotha" );
       mQuit.init( "Quit", mKernel );
