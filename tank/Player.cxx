@@ -6,14 +6,13 @@
 Player::Player()
    : mScore( 0L )
 {
-   std::cout<<"*** Making New Player\n"<<std::flush;
    mUID = UIDManager<Player>::instance().reserveID();
    mTank = new Tank();
 
    //init the camera
    mCamera.follow( true );
    mCamera.setTargetPos( mTank->matrix() );
-   mCamera.setPitch( 45.0f );
+   mCamera.setPitch( 30.0f );
 }
 
 //------------------------------------------------------------------------------

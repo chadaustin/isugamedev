@@ -8,12 +8,12 @@
 class Camera
 {
 public:
-   Camera() : mTargetPos(0,0,0), mTargetPosOld( 0,0,30 ), mShouldFollow( false ), 
+   Camera() : mTargetPos(0,0,0), mTargetPosOld( 0,0,-30 ), mShouldFollow( false ), 
               mYaw(0.0f),
               mYawVel(0.0f), 
-              mPitch( 70.0f ), 
+              mPitch( 30.8f ), 
               mPitchVel( 0.0f ),
-              mFollowDist( 10.0f ), 
+              mFollowDist( 5.6f ), 
               mFollowDistVel( 0.0f )
    {
       mXform.makeIdent();
@@ -80,6 +80,8 @@ public:
       mPitch += mPitchVel * timeDelta;
       mYaw += mYawVel * timeDelta;
       mFollowDist += mFollowDistVel * timeDelta;
+
+	  //std::cout<<mFollowDist<<" "<<mPitch<<" "<<mYaw<<"\n"<<std::flush;
    }
 
    void setPitch( float deg )
