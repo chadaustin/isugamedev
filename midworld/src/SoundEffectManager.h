@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.h,v $
- * Date modified: $Date: 2002-09-08 03:04:51 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-09 05:50:05 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,6 +33,7 @@
 #define MW_SOUND_EFFECT_MANAGER_H
 
 #include <string>
+#include <map>
 #include <audiere.h>
 
 namespace mw
@@ -62,11 +63,26 @@ namespace mw
       void playSound(const std::string& sound);
 
    private:
+      /**
+       * Checks the cache for a buffer associated with the given sound. If a
+       * buffer for the sound is not in the cache, it is created. Otherwise, the
+       * buffer in the cache is returned.
+       *
+       * @param sound      the name of the sound to get
+       *
+       * @return  a buffer for the sound, NULL if it could not be opened
+       */
+      audiere::SampleBuffer* getBuffer(const std::string& sound);
+
+   private:
       enum { MAX_SOUNDS = 8 };
 
       adr::RefPtr<adr::AudioDevice> mDevice;
       adr::RefPtr<adr::OutputStream> mStreams[MAX_SOUNDS];
       int mNextStream;
+
+      typedef std::map< std::string, adr::RefPtr<adr::SampleBuffer> > BufferMap;
+      BufferMap mCache;
    };
 }
 

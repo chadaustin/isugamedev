@@ -1,5 +1,8 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-09-09 nonchocoboy  Added caching semantics to the SoundEffectManager so
+                        that sound effects are loaded into memory when they are
+                        first needed and then reused thereafter.
 2002-09-08 nonchocoboy  SpreadGun discharges a single bullet at a time,
                         iterating over the barrels.
 2002-09-07 nonchocoboy  Added version information in Version.h
@@ -16,9 +19,9 @@ DATE       AUTHOR       CHANGE
 2002-07-05 daren        Added in a BaseBullet for all bullets, and a GrimReaper
                         to clean up the bullets.  createBullet now makes
                         BaseBullet types instead of RigidBodies.
-2002-07-05 subatomic    Implemented virtual game cursor, hiding/warping the 
+2002-07-05 subatomic    Implemented virtual game cursor, hiding/warping the
                         system mouse now, add this to GameState/MenuState
-2002-07-05 subatomic    Weapon slots work with 0-9 keys and multi weapons per 
+2002-07-05 subatomic    Weapon slots work with 0-9 keys and multi weapons per
                         slot.
 2002-07-04 nonchocoboy  Added a simple HUD. We now depend on GLText.
 2002-07-01 areinot      Added Shotgun weapon.

@@ -24,12 +24,55 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.cpp,v $
- * Date modified: $Date: 2002-09-08 03:04:51 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-09 05:50:05 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <iostream>
 #include "SoundEffectManager.h"
+
+// XXX: Remove these functions when audiere 1.9.1 is released (which
+// coincidentally contains these functions).
+namespace audiere
+{
+  typedef char u8;
+
+  inline OutputStream* OpenSound(
+    AudioDevice* device,
+    SampleBuffer* buffer)
+  {
+    return OpenSound(device, buffer->openStream(), false);
+  }
+
+  inline SampleBuffer* CreateSampleBuffer(SampleSource* source)
+  {
+    // If the stream is not seekable, we can't create a buffer for it.
+    if (!source || !source->isSeekable()) {
+      return 0;
+    }
+
+    int stream_length = source->getLength();
+    int channel_count, sample_rate;
+    SampleFormat sample_format;
+    source->getFormat(channel_count, sample_rate, sample_format);
+
+    int stream_length_bytes =
+      stream_length * channel_count * GetSampleSize(sample_format);
+    u8* buffer = new u8[stream_length_bytes];
+    source->setPosition(0);  // in case the source has been read from already
+    source->read(stream_length, buffer);
+
+
+    return CreateSampleBuffer(buffer, stream_length, channel_count,
+                              sample_rate, sample_format);
+  }
+
+  inline SampleBuffer* CreateSampleBuffer(const char* filename)
+  {
+    return CreateSampleBuffer(OpenSampleSource(filename));
+  }
+} // namespace audiere
 
 namespace mw
 {
@@ -42,13 +85,43 @@ namespace mw
    void
    SoundEffectManager::playSound(const std::string& sound)
    {
-      audiere::OutputStream* stream = adr::OpenSound(
-         mDevice.get(), sound.c_str(), false);
-      if (stream)
+      audiere::SampleBuffer* buffer = getBuffer(sound);
+      if (buffer)
       {
-         stream->play();
-         mStreams[mNextStream] = stream;
-         mNextStream = (mNextStream + 1) % MAX_SOUNDS;
+         audiere::OutputStream* stream = audiere::OpenSound(mDevice.get(),
+                                                            buffer);
+         if (stream)
+         {
+            stream->play();
+            mStreams[mNextStream] = stream;
+            mNextStream = (mNextStream + 1) % MAX_SOUNDS;
+         }
+      }
+   }
+
+   audiere::SampleBuffer*
+   SoundEffectManager::getBuffer(const std::string& sound)
+   {
+      // Check the cache first
+      BufferMap::iterator itr = mCache.find(sound);
+
+      // Cache hit. Return a new stream for the cached buffer
+      if (itr != mCache.end())
+      {
+         return itr->second.get();
+      }
+      // Cache miss. Open the sound into a buffer and cache it
+      else
+      {
+         std::cout<<"SoundEffectManager: Cache miss for '"<<sound<<"'"<<std::endl;
+         audiere::RefPtr<audiere::SampleBuffer> buffer =
+                        audiere::CreateSampleBuffer(sound.c_str());
+         if (buffer)
+         {
+            mCache[sound] = buffer;
+            return buffer.get();
+         }
+         return 0;
       }
    }
 }
