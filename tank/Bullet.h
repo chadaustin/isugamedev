@@ -20,7 +20,7 @@ class Bullet
 {
 public:
    Bullet()
-      : mRot(), mRotVel(), mGeometry()
+      : mRot(), mRotVel(), mGeometry(new Geode)
    {
       mXForm.makeIdent();
 

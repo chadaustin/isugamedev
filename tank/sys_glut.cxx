@@ -120,7 +120,7 @@ OnApplicationInit()
    game->getWorld().setLight( light );
 
    kev::ObjImporter importer;
-   safe_ptr< Geode> geom;
+   safe_ptr<Geode> geom = new Geode;
 
    //Load our tank model
    importer.load( geom, "models/ship.obj" );
