@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-01 07:37:38 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-01 07:55:33 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -51,78 +51,107 @@
 namespace data {
 
    class Player {
-   private:
-      std::string name;
-      std::string password;
-      CarList cars;
-      StatList stats;
-
    public:
-      Player(std::string iname, std::string ipasswd) {
-         name = iname;
-         password = ipasswd;
+      /// Creates a new player with the given name/pass pair.
+      Player(const std::string& name, const std::string& password)
+         : mName(name), mPassword(password)
+      {}
+
+      /// Gets this player's password.
+      const std::string& getPassword() const {
+         return mPassword;
       }
 
-      void changePassword(std::string npw) {
-         password = npw;
+      /// Sets the password for this player.
+      void setPassword(const std::string& password) {
+         mPassword = password;
       }
 
-      std::string getName() {
-         return name;
+      /// Gets the name of this player.
+      const std::string& getName() const {
+         return mName;
       }
 
-      std::string getPassword() {
-         return password;
+      /// Gets the list of cars owned by this player.
+      CarList& getCars() {
+         return mCars;
       }
 
-      CarList getCars() {
-         return cars;
+      /// Gets the list of stats for this player.
+      StatList& getStats() {
+         return mStats;
       }
 
-      StatList getStats() {
-         return stats;
-      }
-
+      /// Adds the given car to this player's list of owned cars.
       void addCar(Car* c) {
-         cars.push_back(c);
+         mCars.push_back(c);
       }
 
+      /// Adds the given stat to this player's list of stats.
       void addStat(Stat* s) {
-         stats.push_back(s);
+         mStats.push_back(s);
       }
 
-      std::string getStat(std::string in) {
-
+      /**
+       * Gets the stat with the given name from this player.
+       *
+       * @pre The player has a stat with the given name.
+       */
+      const std::string& getStat(const std::string& name) {
+         StatList::iterator itr;
+         for (itr = mStats.begin(); itr != mStats.end(); ++itr) {
+            Stat* stat = *itr;
+            if (stat->getName() == name) {
+               return stat->getVal();
+            }
+         }
+         assert(false && "Player does not have the stat requested");
       }
 
-      void setStat(std::string in, std::string val) {
-         bool exists = false;;
-         for (unsigned int i = 0; i < stats.size(); ++i) {
-            Stat* s = stats[i];
-            if(s->getName() == in) {
-               s->setVal(val);
+      /// Sets the stat with the given name to the given value.
+      void setStat(const std::string& name, const std::string& value) {
+         bool exists = false;
+         StatList::iterator itr;
+         for (itr = mStats.begin(); itr != mStats.end(); ++itr) {
+            Stat* s = *itr;
+            if (s->getName() == value) {
+               s->setVal(value);
                exists = true;
             }
          }
-         if (!exists) {
-            stats.push_back(new Stat(in,val));
+
+         // add the stat since it does not already exist
+         if (! exists) {
+            mStats.push_back(new Stat(name, value));
          }
       }
 
       void xMLify(std::ostream& out) {
-         out << "    <player name=\"" << name << "\" password=\"" << password << "\">" << std::endl;
-         for (unsigned int i = 0; i < cars.size(); ++i) {
-            cars[i]->xMLify(out);
+         out << "    <player name=\"" << mName << "\" password=\"" << mPassword << "\">" << std::endl;
+         for (unsigned int i = 0; i < mCars.size(); ++i) {
+            mCars[i]->xMLify(out);
          }
-         for (unsigned int i = 0; i < stats.size(); ++i) {
-            stats[i]->xMLify(out);
+         for (unsigned int i = 0; i < mStats.size(); ++i) {
+            mStats[i]->xMLify(out);
          }
          out << "   </player>" << std::endl;
       }
   
+   private:
+      /// The name of this player.
+      std::string mName;
+
+      /// The password for this player.
+      std::string mPassword;
+
+      /// The cars this player owns.
+      CarList mCars;
+
+      /// The stats for this player.
+      StatList mStats;
    };
 
-   typedef std::vector<Player*> playerlist;
+   typedef std::vector<Player*> PlayerList;
 }
 
 #endif

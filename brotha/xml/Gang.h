@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Gang.h,v $
- * Date modified: $Date: 2002-05-01 05:40:16 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 07:55:33 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -54,7 +54,7 @@ namespace data {
    private:
       std::string name;
       std::string info;
-      playerlist players;
+      PlayerList players;
    public:
       Gang(const std::string& iname) {
          name = iname;
@@ -63,7 +63,7 @@ namespace data {
          players.push_back(i);
       }
 
-      playerlist getPlayerList() {
+      PlayerList getPlayerList() {
          return players;
       }
 
