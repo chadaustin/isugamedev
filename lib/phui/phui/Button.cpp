@@ -7,9 +7,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: Button.h,v $
+ * File:          $RCSfile: Button.cpp,v $
  * Date modified: $Date: 2002-02-24 07:26:20 $
- * Version:       $Revision: 1.5 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -34,43 +34,36 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
-#ifndef PHUI_BUTTON_H
-#define PHUI_BUTTON_H
-
-#include <string>
-#include "Widget.h"
+#include <GL/gl.h>
+#include "Button.h"
 
 namespace phui {
 
-   /**
-    * A classic UI button widget.
-    */
-   class Button : public Widget {
-   public:
-      /**
-       * Creates a new button with no label at (0,0) with size (0,0).
-       */
-      Button();
+   Button::Button()
+      : mLabel("")
+   {
+   }
 
-      /**
-       * Creates a new button with the given label at (0,0) with size (0,0).
-       */
-      Button( const std::string& label );
+   Button::Button( const std::string& label )
+      : mLabel( label )
+   {
+   }
 
-      /**
-       * Destroys this button.
-       */
-      virtual ~Button();
+   Button::~Button() {
+   }
 
-      /**
-       * Draws this button with its label.
-       */
-      virtual void draw();
+   void Button::draw()
+   {
+      // draw the button background
+      glColor( mBackgroundColor );
+      glBegin(GL_TRIANGLE_FAN);
+         glVertex2i( mX,          mY           );
+         glVertex2i( mX + mWidth, mY           );
+         glVertex2i( mX + mWidth, mY + mHeight );
+         glVertex2i( mX,          mY + mHeight );
+      glEnd();
 
-   private:
-      std::string mLabel;
-   };
+      // @todo draw label text
+   }
 
 } // namespace phui
-
-#endif

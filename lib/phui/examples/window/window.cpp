@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-02-24 07:02:58 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-02-24 07:26:19 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -129,9 +129,17 @@ int main( int argc, char** argv )
    gWnd->setPosition( 150, 75 );
    gWnd->setSize( 300, 250 );
    gWnd->setVisible( true );
-   phui::Colorf c( 1, 0, 0, 0.5 );
-   gWnd->setBackgroundColor( c );
+   gWnd->setBackgroundColor( phui::Colorf(1,0,0,0.5) );
+
+   phui::Button* btn = new phui::Button();
+   btn->setPosition( 10, 10 );
+   btn->setSize( 75, 30 );
+   btn->setVisible( true );
+   btn->setBackgroundColor( phui::Colorf(0,0,1,0.7) );
+   gWnd->add( btn );
+
    gUI->add( gWnd );
+
 
    glutMainLoop();
 }
