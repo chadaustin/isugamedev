@@ -35,7 +35,7 @@ o------------------------------------------------------------------------------o
     * A good C++ compiler
     * SCons 0.11
     * Audiere 1.9.1
-    * Boost 1.29.0
+    * Boost 1.29.0 + boost.python
     * Cal3D from CVS
     * Corona 0.2.0
     * GMTL 0.1.13

@@ -6,6 +6,7 @@ Import('SetupAudiere SetupCal3D SetupCorona SetupOpenGL SetupSDL')
 
 # Define the sources
 classes = Split("""
+   Camera
    Kernel
    ResourceManager
    State
