@@ -1,0 +1,42 @@
+ChadWorld
+Fully Dressed Use Cases
+Player Talk
+
+
+Primary actor:  Player
+Stakeholders and Interests:
+  - Player:  Wants to communicate with other players.
+Preconditions:
+  - The server is running.
+  - The player is connected to the server.
+Success Guarantee (Postconditions):
+  - The server has received the text message from the player and
+    broadcasted it to every other player.
+
+Main Success Scenario (Happy Path):
+  1. The player wishes to communicate with other players.
+  2. The player presses the talk button on the keyboard.
+  3. The player enters a line of text.
+  4. The client software sends that line of text to the server.
+  5. The server broadcasts the text to every other connected player.
+  6. The client displays the text above the visible avatars of the
+     other players.
+
+Extensions:
+  *a. If the network connection is severed...
+      1. The server removes the client from the list of connections.
+      2. The client displays a "Connection Lost" message to the user.
+  6a. The player is far away from other players in the world.
+      1. To reduce network activity, the server could only broadcast
+         the communication event to other players within close
+         proximity.
+
+Special Requirements:
+  - None
+
+Technology and Data Variations List:
+  - None
+
+Open Issues:
+  - What if you only want to talk to a certain person?
+  - The user may wish to customize which key(s) enable talk mode.

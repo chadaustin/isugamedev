@@ -1,0 +1,40 @@
+ChadWorld
+Fully Dressed Use Cases
+Create World
+
+
+Primary actor:  Server Administrator
+Stakeholders and Interests:
+  - The administrator initiates the world creation / server startup
+    process.
+  - The player wants the world to remain persistent over time.
+Preconditions:
+  - None
+Success Guarantee (Postconditions):
+  - The server is running, the world had been deserialized or
+    initialized, and the server is accepting connections.
+
+Main Success Scenario (Happy Path):
+  1. The administrator starts the server software.
+  2. The server loads the world tree from the world database.
+  3. The server begins listening on the network for connections.
+  4. The server handles connections from clients.
+
+Extensions:
+  *a: If the network connection is severed...
+      1. All clients disconnect.
+      2. The server continues listening until the network connection
+         returns.
+  2a: If the world database does not exist...
+      1. The server creates a default world.
+  3a: If the port used by the server is taken...
+      1. The server displays an error message and exits.
+
+Special Requirements:
+  - None
+
+Technology and Data Variations List:
+  - None
+
+Open Issues:
+  - Where does the default world come from?
