@@ -11,7 +11,7 @@
 
 #include "GameObject.h"
 #include <vector>
-#include <gl/glut.h>
+#include <GL/glut.h>
 
 using namespace std;
 
