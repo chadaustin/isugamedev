@@ -224,14 +224,16 @@ static void OnMousePos( int x, int y )
 ////////////////////////////////
 static void OnMouseClick( int button, int state, int x, int y )
 {
-   int tempx, tempy; // temp for tests with each card
+   int temp; // temp card place 
    // !!!TODO!!!: Need mouse interaction?
    //             read the glut docs/manpage to find out how to query 
    //             which button was pressed...
    //             you may have to get this from the glut website 
    //             (use www.google.com to search for it)
    if (button==GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-      std::cout << dek.isACard(mouseX, mouseY) << std::endl;
+      if((temp=dek.isACard(mouseX, mouseY))!=-1)
+         std::cout << temp << std::endl;
+         dek.selectCard(temp);
    }
 }
 

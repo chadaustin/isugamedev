@@ -14,7 +14,11 @@
 class deck{
 public:
    // constructor
-   deck(){};
+   deck(){
+      for(int i=0;i<12;i++){
+         selectedCards[i]=0;
+      }
+   };
 
    void init(){
       int i;
@@ -32,7 +36,7 @@ public:
       xpos +=50; ypos +=300;
 	   for(i=0;i<4;i++){
 	      for(j=0;j<3;j++){
-	         glPushMatrix();
+            glPushMatrix();
 	         glTranslatef(i*100+95, ((3-j)*130)-390,0);
             xpos+=(i*100+95); ypos+=(((3-j)*130)-390);
             Cards[count++].draw();
@@ -43,6 +47,12 @@ public:
 	      }
 	   }
 	   count=0;
+      glTranslatef(-50,-300,0);
+      for(i=0;i<12;i++){
+         if(selectedCards[i]==1){
+            drawHighlight(i);
+         }
+      }
    }
 
    
@@ -62,11 +72,32 @@ public:
       return -1;
    }  
 
+   void drawHighlight(int card){
+      int tempx, tempy;
+      getCardPos(card, tempx, tempy);
+      glColor3f(0,1,0);
+      glBegin(GL_LINE_LOOP);
+         glVertex3f(tempx-3, tempy-3, 0);
+         glVertex3f(tempx-3, tempy+123, 0);
+         glVertex3f(tempx+53, tempy+123, 0);
+         glVertex3f(tempx+53, tempy-3,0);
+      glEnd();
+      glutSwapBuffers();
+   }
+   
    void getCardAttribute(int card, int& color, int& shape, int& number){
       color = Cards[card].getColor();
       shape = Cards[card].getShape();
       number = Cards[card].getNumber();
    }      
+   
+   void selectCard(int card){
+      selectedCards[card]=1;
+   }
+   
+   void deselectCard(int card){
+      selectedCards[card]=0;
+   }
    
 private:
    struct cPos{
@@ -75,6 +106,7 @@ private:
    
    card Cards[12];
    cPos cardPos[12];
+   int selectedCards[12];
 };
 
 #endif

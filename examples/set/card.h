@@ -147,6 +147,17 @@ private:
    // allocate storage for textures ids
    COGLTexture textures[16];  
 
+public:
+   int getColor(){
+      return color;
+   }
+   int getShape(){
+      return shape;
+   }
+   int getNumber(){
+      return number;
+   }
+   
   
    
 
