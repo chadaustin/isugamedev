@@ -56,8 +56,6 @@ sources.extend(map(lambda n: n + '.cpp',  classes))
 headers.extend(map(lambda n: n + '.h',    classes))
 
 env = baseEnv.Copy()
-env['LIBPATH'].extend(['#src/AI'])
-env['LIBS'].extend(['ai'])
 SetupSDL(env)
 SetupCorona(env)
 SetupAudiere(env)
@@ -69,5 +67,3 @@ programs = [
 ]
 
 env.Install(path.join(PREFIX, 'bin'), programs)
-
-SConscript(dirs = Split('AI'))
