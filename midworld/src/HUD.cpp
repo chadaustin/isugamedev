@@ -14,16 +14,20 @@ namespace mw
       mFont = 0;
       mFontRenderer = 0;
       mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
-      if (mFont)
+      if (!mFont)
       {
-         std::cout<<"Font font"<<std::endl;
-         mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
-         if (mFontRenderer)
-         {
-            std::cout<<"Created renderer"<<std::endl;
-            mFontRenderer->setFont(mFont);
-         }
+         throw std::runtime_error("Could not create gltext font: fonts/arial.ttf");
       }
+      
+      mFontRenderer = gltext::CreateRenderer(gltext::PIXMAP);
+      if (!mFontRenderer)
+      {
+         delete mFont;
+         mFont = 0;
+         throw std::runtime_error("Could not create gltext renderer");
+      }
+
+      mFontRenderer->setFont(mFont);
    }
 
    HUD::~HUD()
@@ -34,77 +38,67 @@ namespace mw
 
    void HUD::draw(float width, float height, Player& player, float fps)
    {
-      // Draw the HUD
-      if (mFontRenderer)
+      static const gmtl::Vec4f white(1, 1, 1, 1);
+      static const gmtl::Vec4f red  (1, 1, 1, 1);
+      static const gmtl::Vec4f green(1, 1, 1, 1);
+      static const gmtl::Vec4f blue (1, 1, 1, 1);
+   
+      glMatrixMode(GL_PROJECTION);
+      glPushMatrix();
+      glLoadIdentity();
+      gluOrtho2D(0, width, height, 0);
+
+      glMatrixMode(GL_MODELVIEW);
+      glPushMatrix();
+      glLoadIdentity();
+
+      if (!player.weapon().isNull())
       {
-         glMatrixMode(GL_PROJECTION);
          glPushMatrix();
-         glLoadIdentity();
-         gluOrtho2D(0, width, height, 0);
-
-         glMatrixMode(GL_MODELVIEW);
-         glPushMatrix();
-         glLoadIdentity();
-
-         glPushMatrix();
-            glTranslatef(20, 20.0f+mFont->getAscent(), 0);
-            glColor4f(1,0,0,0.8f);
-            mFontRenderer->render("Levi Rules");
-         glPopMatrix();
-
-         if (!player.weapon().isNull())
-         {
-            glPushMatrix();
-            glTranslatef(550, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
-            glColor4f(1,0,0,1);
-            {
-               std::stringstream str;
-               str << player.weapon().getAmmoInClip();
-               mFontRenderer->render(str.str().c_str());
-            }
-            glTranslatef(40, 0, 0);
-            {
-               std::stringstream str;
-               str << player.weapon().getAmmoInBag();
-               mFontRenderer->render(str.str().c_str());
-            }
-            glPopMatrix();
-
-            glPushMatrix();
-            glTranslatef(20, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
-            glColor4f(1,0,0,1);
-            mFontRenderer->render(player.weapon().getName().c_str());
-            glPopMatrix();
-         }
-         
-         // player health
-         glPushMatrix();
-         glTranslatef(300, 20 + mFont->getAscent(), 0);
-
-         /*glColor4f(0, 1, 0, 1);
+         glTranslatef(550, 768 - mFont->getAscent() - mFont->getDescent(), 0);
+         glColor4f(1,0,0,1);
          {
             std::stringstream str;
-            str << "Health: " << player.getHealth();
+            str << player.weapon().getAmmoInClip();
             mFontRenderer->render(str.str().c_str());
-         }*/
-
-         drawTape(100, 20, 100, player.getHealth(), true);
-         glPopMatrix();
-
-         // FPS
-         glPushMatrix();
-         glTranslatef(550, 20.0f+mFont->getAscent(), 0);
-         glColor4f(1,1,1,1);
+         }
+         glTranslatef(40, 0, 0);
          {
             std::stringstream str;
-            str << std::setprecision(4) << fps;
+            str << player.weapon().getAmmoInBag();
             mFontRenderer->render(str.str().c_str());
          }
          glPopMatrix();
 
-         glPopMatrix();
+         glPushMatrix();
+         glTranslatef(20, 768 - mFont->getAscent() - mFont->getDescent(), 0);
+         glColor4f(1,0,0,1);
+         mFontRenderer->render(player.weapon().getName().c_str());
          glPopMatrix();
       }
+      
+      // player health
+      glPushMatrix();
+      glTranslatef(20, 20, 0);
+      drawTape(300, 20, 100, player.getHealth(), true);
+      glPopMatrix();
+
+      // FPS
+      glPushMatrix();
+      glTranslatef(924, 20.0f+mFont->getAscent(), 0);
+      glColor4f(1,1,1,1);
+      {
+         std::stringstream str;
+         str << std::setprecision(4) << fps;
+         mFontRenderer->render(str.str().c_str());
+      }
+      glPopMatrix();
+
+      glMatrixMode(GL_PROJECTION);
+      glPopMatrix();
+      
+      glMatrixMode(GL_MODELVIEW);
+      glPopMatrix();
     }
     void HUD::drawTape(float width, float height, float maxValue, float currentValue, bool horizontal)
     {

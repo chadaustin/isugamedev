@@ -138,15 +138,12 @@ namespace mw
    class moveTests : public lm::testing
    {
    public:
-      moveTests(){}
       virtual bool test(){return true;}
    };
    
    class tests : public lm::testing
    {
    public:
-      virtual bool testing() {}
-
       bool alwaysTrue()
       {
          return true;

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CreditsState.cpp,v $
- * Date modified: $Date: 2002-09-17 02:47:36 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-11-13 15:42:56 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,10 +51,9 @@ namespace mw
       glDisable(GL_DEPTH_TEST);
       glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      glDisable(GL_CULL_FACE);
 
       glClear(GL_COLOR_BUFFER_BIT);
-
-      /// @todo  we assume 640x480...  :(
 
       // set up projection matrix
       glMatrixMode(GL_PROJECTION);

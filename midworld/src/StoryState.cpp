@@ -58,6 +58,7 @@ namespace mw
    {
       glEnable(GL_TEXTURE_2D);
       glDisable(GL_DEPTH_TEST);
+      glDisable(GL_CULL_FACE);
 
       glClearColor(1,1,1,1);
       glClear(GL_COLOR_BUFFER_BIT);

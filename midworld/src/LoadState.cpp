@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.cpp,v $
- * Date modified: $Date: 2002-11-13 09:14:23 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-11-13 15:42:56 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -99,6 +99,7 @@ namespace mw
    {
       glEnable(GL_TEXTURE_2D);
       glDisable(GL_DEPTH_TEST);
+      glDisable(GL_CULL_FACE);
 
       glClear(GL_COLOR_BUFFER_BIT);
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-10-17 06:57:26 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-11-13 15:42:56 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -88,6 +88,7 @@ namespace mw
 
       glEnable(GL_TEXTURE_2D);
       glDisable(GL_DEPTH_TEST);
+      glDisable(GL_CULL_FACE);
 
       glClear(GL_COLOR_BUFFER_BIT);
 

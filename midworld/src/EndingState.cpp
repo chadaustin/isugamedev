@@ -46,8 +46,7 @@ namespace mw
    void
    EndingState::draw()
    {
-      /// @todo  think about GL states
-
+      glDisable(GL_CULL_FACE);
       glEnable(GL_TEXTURE_2D);
       glDisable(GL_DEPTH_TEST);
 

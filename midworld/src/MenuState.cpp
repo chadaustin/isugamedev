@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-11-08 02:38:41 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-11-13 15:42:56 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -177,6 +177,7 @@ namespace mw
       glDisable(GL_DEPTH_TEST);
       glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      glDisable(GL_CULL_FACE);
 
       glClear(GL_COLOR_BUFFER_BIT);
 
