@@ -14,6 +14,7 @@ private:
   std::string name;
   std::string password; //look, it's private so it's secure :)
   carlist cars;
+  statlist stats;
 
 public:
   Player(std::string iname, std::string ipasswd){
@@ -40,11 +41,17 @@ public:
   void addCar(Car* c){
     cars.push_back(c);
   }
+  void addStat(Stat* s){
+	  stats.push_back(s);
+  }
 
   void xMLify(std::ostream& out){
     out << "    <player name=\"" << name << "\" password=\"" << password << "\">" << std::endl;
     for(int i = 0; i < cars.size(); i++){
       cars[i]->xMLify(out);
+    }
+    for(int i = 0; i < stats.size(); i++){
+      stats[i]->xMLify(out);
     }
 	out << "   </player>" << std::endl;
   }

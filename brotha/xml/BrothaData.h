@@ -8,6 +8,8 @@
 
 
 #include "Mod.h"
+#include "stat.h"
+
 #include "Car.h"
 #include "Gang.h"
 #include "Cartype.h"

@@ -1,10 +1,41 @@
 <wbdata>
-  <gang name="emigia">
-    <player name="ama" password="kuriyama" gang="emigia">
+  <gang name="reflect">
+    <player name="ama" password="kuriyama">
       <car cartype="tercel">
         <mod name="breaks" level="4" />
       </car>
-   </player>
+      <stat name="kills" value="43" />
+      <stat name="deaths" value="4" />
+      <stat name="coins" value="55" />
+    </player>
+    <player name="Rake" password="figgot">
+      <car cartype="supra">
+        <mod name="breaks" level="55" />
+        <mod name="spoiler" level="54" />
+      </car>
+      <stat name="kills" value="4" />
+    </player>
+  </gang>
+  <gang name="brothaTeam">
+    <player name="chadO" password="p1">
+      <car name="tercel" />
+    </player>
+    <player name="chadA" password="p1">
+      <car name="civic" />
+    </player>
+    <player name="ben" password="p4">
+      <car name="vrac simulator" />
+    </player>
+    <player name ="josh" password="sup?">
+      <car name="civic" />
+    </player>
+    <player name="jermy" password="note">
+      <car name="fiesta" />
+    </player>
   </gang>
   <cartype name="tercel" file="car.model" />
+  <cartype name="supra" file="car.model" />
+  <cartype name="civic" file="car.model" />
+  <cartype name="vrac simulator" file="car.model" />
+  <cartype name="fiesta" file="car.model" />
 </wbdata>
