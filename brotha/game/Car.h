@@ -1,9 +1,9 @@
-//#ifndef CAR_H
-//#define CAR_H
+#ifndef GAME_CAR_H
+#define GAME_CAR_H
 
+#include <vector>
 #include <string>
 #include "Object.h"
-#include <vector>
 
 namespace game {
 
@@ -27,3 +27,5 @@ namespace game {
    };
 
 }
+
+#endif
