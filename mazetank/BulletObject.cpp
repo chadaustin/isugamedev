@@ -46,9 +46,9 @@ void BulletObject::Draw()
 		glRotatef(Rotate, 0.0, 0.0, 1.0);
 		glRotatef(90.0, 0.0, 0.0, 1.0);
 
-		glScalef(1.0, 1.0, 1.0);
+		glScalef(0.2, 0.2, 0.2);
 
-		glutSolidSphere(0.5, 10, 10);
+		glutSolidSphere(1.0, 10, 10);
 
 	glPopMatrix();
 }

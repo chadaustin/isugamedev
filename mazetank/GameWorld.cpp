@@ -8,7 +8,7 @@
 #include "JukeBox.h"
 
 extern Input GameInput;
-sound::SoundManager* GameSound;
+//sound::SoundManager* GameSound;
 
 GameWorld::GameWorld()
 {
@@ -22,7 +22,7 @@ GameWorld::~GameWorld()
 
 	TheGameObjects.erase(TheGameObjects.begin(), TheGameObjects.end());
 
-   delete GameSound;
+//   delete GameSound;
 }
 
 void GameWorld::Init()
@@ -53,15 +53,15 @@ void GameWorld::Init()
    /////////////////////////////////////////
    //Initialize GameSound
    /////////////////////////////////////////
-   GameSound = new sound::SoundManager;
+//   GameSound = new sound::SoundManager;
 
-   GameSound->getJukebox()->addTrack("music/track1.ogg");
-   GameSound->getJukebox()->play();
+//   GameSound->getJukebox()->addTrack("music/track1.ogg");
+//   GameSound->getJukebox()->play();
 }
 
 void GameWorld::Update()
 {
-   GameSound->getJukebox()->update();
+//   GameSound->getJukebox()->update();
    GamePhysics.Update(TheGameObjects);
 }
 

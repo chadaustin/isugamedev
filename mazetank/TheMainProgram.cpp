@@ -119,6 +119,11 @@ void MyKeyboard(unsigned char key, int x, int y)
 
    case 'h':
       GameInput.Honk();
+      break;
+
+   case 'x':
+      GameInput.ShootBullet();
+      break;
 	}
 
 }

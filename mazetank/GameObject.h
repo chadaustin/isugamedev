@@ -45,11 +45,18 @@ public:
    {
       ObjectAngleVelocity = Angle;
    }
-
 	void SetObjectAngle(float Angle)
 	{
 		ObjectAngle = Angle;
 	}
+   void SetObjectZAngle(float Angle)
+   {
+      ObjectZAngle = Angle;
+   }
+   void SetVelocityZ(float Velocity)
+   {
+      ObjectVelocityZ = Velocity;
+   }
 	////////////////////////////////////
 
 
@@ -82,6 +89,14 @@ public:
 	{
 		Angle = ObjectAngle;
 	}
+   void GetObjectZAngle(float& Angle)
+   {
+      Angle = ObjectAngle;
+   }
+   void GetVelocityZ(float& Velocity)
+   {
+      Velocity = ObjectVelocityZ;
+   }
 	/////////////////////////////////////////
 
 
@@ -91,6 +106,8 @@ protected:
 	float ObjectVelocity;
 	float ObjectAngle;
 	float ObjectAngleVelocity;
+   float ObjectZAngle;
+   float ObjectVelocityZ;
 	ObjectType ObjectName;
 
 };

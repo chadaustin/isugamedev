@@ -11,6 +11,7 @@ PhysicsEngine::PhysicsEngine()
 	dt = 0;
 
 	CurrentCamera = NULL;
+   GRAVITY = -.00000981;
 }
 
 PhysicsEngine::~PhysicsEngine()
@@ -86,6 +87,10 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject)
 	NewPosition[1] = ObjectPosition[1] + MoveY;
 	NewPosition[2] = ObjectPosition[2];
 
+   //////////////////////////////////////////////////
+   // Set New tank angle based on Angular velocity
+   // and change in time
+   //////////////////////////////////////////////////
 	ObjectAngle = (AngleInRadians * 180.0) / PI;
 
 	TruckObject->SetPosition(NewPosition);
@@ -104,5 +109,44 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject)
 
 void PhysicsEngine::BulletUpdate(GameObject* &BulletObject)
 {
-	
+   float ObjectPosition[3];
+	float ObjectVelocity = 0.0;
+	float ObjectAngle;
+   float ObjectAngleZ;
+   float ObjectVelocityZ;
+
+   /////////////////////////////////////////////////
+   // Collect all info about the current Bullet for
+   // use in equations
+   /////////////////////////////////////////////////
+   BulletObject->GetVelocity(ObjectVelocity);
+   ObjectVelocity *= dt;
+
+   BulletObject->GetPosition(ObjectPosition);
+   BulletObject->GetObjectAngle(ObjectAngle);
+   BulletObject->GetObjectZAngle(ObjectAngleZ);
+   BulletObject->GetVelocityZ(ObjectVelocityZ);
+   
+   
+	float AngleInRadians = (ObjectAngle * PI)/180;
+   float AngleZInRadians = (ObjectAngleZ * PI)/180;
+
+   float MoveX = ObjectVelocity*cos(AngleInRadians);
+	float MoveY = ObjectVelocity*sin(AngleInRadians);
+
+   //////////////////////////////////////////////////////
+   // Calculate the Z position
+   //////////////////////////////////////////////////////
+   float NewVelocity = ObjectVelocityZ + GRAVITY*dt;
+   float MoveZ = NewVelocity*dt;
+   
+   float NewPosition[3];
+
+   NewPosition[0] = ObjectPosition[0] + MoveX;
+   NewPosition[1] = ObjectPosition[1] + MoveY;
+   NewPosition[2] = ObjectPosition[2] + MoveZ;
+
+   BulletObject->SetPosition(NewPosition);
+   BulletObject->SetVelocityZ(NewVelocity);
+
 }

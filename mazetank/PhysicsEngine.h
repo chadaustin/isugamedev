@@ -46,6 +46,7 @@ public:
 private:
 	Camera* CurrentCamera;
 	int dt, Starttime, Stoptime;
+   float GRAVITY;
 
 	void CameraTruckUpdate(GameObject* &TruckObject);
 	void BulletUpdate(GameObject* &BulletObject);

@@ -3,8 +3,10 @@
 #include "GameObject.h"
 #include "BulletObject.h"
 #include "SoundManager.h"
+#include "GameWorld.h"
 
-extern sound::SoundManager* GameSound;
+//extern sound::SoundManager* GameSound;
+extern GameWorld MazeTank;
 
 Input::Input()
 {
@@ -81,7 +83,7 @@ void Input::ShootBullet()
 {
 	float TankRotation;
 	float TurretRotations[3];
-	GameObject* Bullet;
+	GameObject* Bullet = new BulletObject;
 
 	GraphicsObject* TheTurret;
 
@@ -90,9 +92,24 @@ void Input::ShootBullet()
 
 	TheTurret->GetRotate(TurretRotations);
 
+   /////////////////////////////////////////////////////////
+   //Calculate the angle that the bullet should take off at
+   /////////////////////////////////////////////////////////
+   float Position[3];
+
+   Player1->GetPosition(Position);
+
+   Bullet->SetPosition(Position);
+   Bullet->SetObjectAngle(TankRotation+TurretRotations[2]);
+   Bullet->SetObjectZAngle(TurretRotations[0]);
+   Bullet->SetVelocityZ(0.02);
+   /////////////////////////////////////////////////////////
+   Bullet->SetVelocity(0.03);
+
+   MazeTank.AddObjectToGame(Bullet);
 }
 
 void Input::Honk()
 {
-   GameSound->getSoundEffectManager()->playSound("music/car2.wav");
+ //  GameSound->getSoundEffectManager()->playSound("music/car2.wav");
 }
