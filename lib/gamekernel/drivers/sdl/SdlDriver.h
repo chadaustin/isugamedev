@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2003-02-09 07:44:11 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2003-02-09 08:36:56 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -163,7 +163,7 @@ private:
 	//Called when the mouse is unclicked.
 	void onMouseUp();
 	//Yucky function that maps from SDL_KEY types to Keyboard::Key types.
-	std::string getKeyID(SDL_keysym &key);
+	Keyboard::Key getKeyID(SDL_keysym &key);
 	
 	/* TODO:
 	   1.	Implement Joystick Control.

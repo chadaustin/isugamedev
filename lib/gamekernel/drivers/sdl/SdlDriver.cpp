@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-09 07:43:48 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2003-02-09 08:36:56 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -160,22 +160,35 @@ bool SdlDriver::run()
 #ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug: Calling app->onUpdate()" << std::endl;
 #endif
-		//mKernel->getApp()->onUpdate();
-		mApp->onUpdate();
+		
+		
+      
 #ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug: app->onUpdate() Called." << std::endl;
 #endif
 		if (misRunning)
 		{
+         // pre frame
+         mApp->onPreUpdate();
+
 #ifdef SDLDRIVER_DEBUG
 			std::cerr << "##SDL Driver Debug: Calling app->onDraw()" << std::endl;
 #endif
+
+         // ---- in the frame now ----
+         // draw
 			mApp->onDraw(0);
 #ifdef SDLDRIVER_DEBUG
 			std::cerr << "##SDL Driver Debug: app->onDraw() Called." << std::endl;
 #endif
+         // intra frame
+         mApp->onUpdate();
 
 			SDL_GL_SwapBuffers();
+
+         // post frame
+         mApp->onPostUpdate();
+
 			while (SDL_PollEvent(&mEvent) && (misRunning))
 			{
 				handleEvent();
@@ -209,6 +222,7 @@ void SdlDriver::shutdown()
 		std::cerr << "##SDL Driver Debug: Calling SDL_Quit" << std::endl;
 #endif
 	SDL_Quit();
+   exit( 0 ); // hack, should probably clean up displays and such to get rid of the graphics window
 #ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug: SDL_Quit Called" << std::endl;
 #endif
@@ -313,10 +327,12 @@ void SdlDriver::onKeyUp()
 	std::cerr << "SDL Driver Debug:  Inside onKeyUp" << std::endl;
 #endif
 	SDL_keysym key = mEvent.key.keysym;
-	std::string keyID = getKeyID(key);
+	//std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::OFF;
 	Keyboard *kb = mKeyboard->getDevice();
-	kb->button(keyID)->setBinaryState(state);
+	//kb->button(keyID)->setBinaryState(state);
+
+   kb->button( getKeyID(key) ).setBinaryState( state );
 	//mPressDown = false;
 }
 
@@ -326,15 +342,15 @@ void SdlDriver::onKeyDown()
 	std::cerr<<"SDL Driver Debug:  Inside onKeyDown" << std::endl;
 #endif
 	SDL_keysym key = mEvent.key.keysym;
-	std::string keyID = getKeyID(key);
+	//std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::ON;
 	Keyboard *kb = mKeyboard->getDevice();
-#ifdef SDLDRIVER_DEBUG
-	std::cerr<<"SDL Driver Debug:  KeyID:  " <<keyID<< std::endl;
-#endif
-Keyboard::Key id = static_cast<Keyboard::Key>(kb->mMap[keyID]);
+//#ifdef SDLDRIVER_DEBUG
+//	std::cerr<<"SDL Driver Debug:  KeyID:  " <<keyID<< std::endl;
+//#endif
+   Keyboard::Key id = getKeyID(key);//static_cast<Keyboard::Key>(kb->mMap[keyID]);
 	kb->queue().push_back(id);
-	kb->button(id).setBinaryState(state);
+	kb->button( id ).setBinaryState( state );	
 }
 
 void SdlDriver::onMouseMove()
@@ -413,402 +429,416 @@ Mouse *mouse = mMouse->getDevice();
 }
 
 //FIXME:  Yuck!  There has to be a better way...
-std::string SdlDriver::getKeyID(SDL_keysym& key)
+Keyboard::Key SdlDriver::getKeyID(SDL_keysym& key)
 {
-	if (key.sym == SDLK_BACKSPACE)
-	{
-		return "KEY_BS";
-	}
-	else if (key.sym == SDLK_TAB)
-	{
-		return "KEY_TAB";
-	}
-	else if (key.sym == SDLK_RETURN)
-	{
-		return "KEY_NEWLINE";
-	}
-	else if (key.sym == SDLK_ESCAPE)
-	{
-		return "KEY_ESC";
-	}
-	else if (key.sym == SDLK_SPACE)
-	{
-		return "KEY_SPACE";
-	}
-	else if (key.sym == SDLK_QUOTEDBL)
-	{
-		return "KEY_DOUBLEQUOTES";
-	}
-	else if (key.sym == SDLK_HASH)
-	{
-		return "KEY_HASH";
-	}
-	else if (key.sym == SDLK_DOLLAR)
-	{
-		return "KEY_DOLLAR";
-	}
-	else if (key.sym == SDLK_5 && key.mod == KMOD_SHIFT)
-	{
-		return "KEY_PERCENT";
-	}
-	else if (key.sym == SDLK_AMPERSAND)
-	{
-		return "KEY_AMPERSAND";
-	}
-	else if (key.sym == SDLK_QUOTE)
-	{
-		return "KEY_RIGHTQUOTE";
-	}
-	else if (key.sym == SDLK_LEFTPAREN)
-	{
-		return "KEY_LEFTPAREN";
-	}
-	else if (key.sym == SDLK_RIGHTPAREN)
-	{
-		return "KEY_RIGHTPAREN";
-	}
-	else if (key.sym == SDLK_ASTERISK)
-	{
-		return "KEY_ASTERISK";
-	}
-	else if (key.sym == SDLK_PLUS)
-	{
-		return "KEY_POS";
-	}
-	else if (key.sym == SDLK_COMMA)
-	{
-		return "KEY_COMMA";
-	}
-	else if (key.sym == SDLK_MINUS)
-	{
-		return "KEY_NEG";
-	}
-	else if (key.sym == SDLK_PERIOD)
-	{
-		return "KEY_PERIOD";
-	}
-	else if (key.sym == SDLK_SLASH)
-	{
-		return "KEY_SLASH";
-	}
-	else if (key.sym == SDLK_0)
-	{
-		return "KEY_ZERO";
-	}
-	else if (key.sym == SDLK_1)
-	{
-		return "KEY_ONE";
-	}
-	else if (key.sym == SDLK_2)
-	{
-		return "KEY_TWO";
-	}
-	else if (key.sym == SDLK_3)
-	{
-		return "KEY_THREE";
-	}
-	else if (key.sym == SDLK_4)
-	{
-		return "KEY_FOUR";
-	}
-	else if (key.sym == SDLK_5)
-	{
-		return "KEY_FIVE";
-	}
-	else if (key.sym == SDLK_6)
-	{
-		return "KEY_SIX";
-	}
-	else if (key.sym == SDLK_7)
-	{
-		return "KEY_SEVEN";
-	}
-	else if (key.sym == SDLK_8)
-	{
-		return "KEY_EIGHT";
-	}
-	else if (key.sym == SDLK_9)
-	{
-		return "KEY_NINE";
-	}
-	else if (key.sym == SDLK_COLON)
-	{
-		return "KEY_COLON";
-	}
-	else if (key.sym == SDLK_SEMICOLON)
-	{
-		return "KEY_SEMICOLON";
-	}
-	else if (key.sym == SDLK_LESS)
-	{
-		return "KEY_LESSTHAN";
-	}
-	else if (key.sym == SDLK_GREATER)
-	{
-		return "KEY_GREATERTHAN";
-	}
-	else if (key.sym == SDLK_QUESTION)
-	{
-		return "KEY_QUESTION";
-	}
-	else if (key.sym == SDLK_AT)
-	{
-		return "KEY_AT";
-	}
-	else if (key.sym == SDLK_a)
-	{
-		return "KEY_A";
-	}
-	else if (key.sym == SDLK_b)
-	{
-		return "KEY_B";
-	}
-	else if (key.sym == SDLK_c)
-	{
-		return "KEY_C";
-	}
-	else if (key.sym == SDLK_d)
-	{
-		return "KEY_D";
-	}
-	else if (key.sym == SDLK_e)
-	{
-		return "KEY_E";
-	}
-	else if (key.sym == SDLK_f)
-	{
-		return "KEY_F";
-	}
-	else if (key.sym == SDLK_g)
-	{
-		return "KEY_G";
-	}
-	else if (key.sym == SDLK_h)
-	{
-		return "KEY_H";
-	}
-	else if (key.sym == SDLK_i)
-	{
-		return "KEY_I";
-	}
-	else if (key.sym == SDLK_j)
-	{
-		return "KEY_J";
-	}
-	else if (key.sym == SDLK_l)
-	{
-		return "KEY_L";
-	}
-	else if (key.sym == SDLK_m)
-	{
-		return "KEY_M";
-	}
-	else if (key.sym == SDLK_n)
-	{
-		return "KEY_N";
-	}
-	else if (key.sym == SDLK_o)
-	{
-		return "KEY_O";
-	}
-	else if (key.sym == SDLK_p)
-	{
-		return "KEY_P";
-	}
-	else if (key.sym == SDLK_q)
-	{
-		return "KEY_Q";
-	}
-	else if (key.sym == SDLK_r)
-	{
-		return "KEY_R";
-	}
-	else if (key.sym == SDLK_s)
-	{
-		return "KEY_S";
-	}
-	else if (key.sym == SDLK_t)
-	{
-		return "KEY_T";
-	}
-	else if (key.sym == SDLK_u)
-	{
-		return "KEY_U";
-	}
-	else if (key.sym == SDLK_v)
-	{
-		return "KEY_V";
-	}
-	else if (key.sym == SDLK_w)
-	{
-		return "KEY_W";
-	}
-	else if (key.sym == SDLK_x)
-	{
-		return "KEY_X";
-	}
-	else if (key.sym == SDLK_y)
-	{
-		return "KEY_Y";
-	}
-	else if (key.sym == SDLK_z)
-	{
-		return "KEY_Z";
-	}
-	else if (key.sym == SDLK_LEFTBRACKET)
-	{
-		if (key.mod == KMOD_SHIFT)
-		{
-			return "KEY_CURLYLEFT";
-		}	
-		return "KEY_LEFTBRACKET";
-	}
-	else if (key.sym == SDLK_BACKSLASH)
-	{
-		if (key.mod == KMOD_SHIFT)
-		{
-			return "KEY_PIPE";
-		}
-		return "KEY_BACKSLASH";
-	}
-	else if (key.sym == SDLK_RIGHTBRACKET)
-	{
-		if (key.mod == KMOD_SHIFT)
-		{
-			return "KEY_CURLYRIGHT";
-		}
-		return "KEY_RIGHTBRACKET";
-	}
-	else if (key.sym == SDLK_CARET)
-	{
-		return "KEY_CARET";
-	}
-	else if (key.sym == SDLK_UNDERSCORE)
-	{
-		return "KEY_UNDERSCORE";
-	}
-	else if (key.sym == SDLK_BACKQUOTE)
-	{
-		if (key.mod == KMOD_SHIFT)
-		{
-			return "KEY_TILDE";
-		}
-		return "KEY_LEFTQUOTE";
-	}
-	else if (key.sym == SDLK_DELETE)
-	{
-		return "KEY_DELETE";
-	}
-	else if (key.sym == SDLK_PAGEUP)
-	{
-		return "KEY_PAGEUP";
-	}
-	else if (key.sym == SDLK_PAGEDOWN)
-	{
-		return "KEY_PAGEDOWN";
-	}
-	else if (key.sym == SDLK_HOME)
-	{
-		return "KEY_HOME";
-	}
-	else if (key.sym == SDLK_END)
-	{
-		return "KEY_END";
-	}
-	else if (key.sym == SDLK_INSERT)
-	{
-		return "KEY_INSERT";
-	}
-	else if (key.sym == SDLK_UP)
-	{
-		return "KEY_UPARROW";
-	}
-	else if (key.sym == SDLK_DOWN)
-	{
-		return "KEY_DOWNARROW";
-	}
-	else if (key.sym == SDLK_LEFT)
-	{
-		return "KEY_LEFTARROW";
-	}
-	else if (key.sym == SDLK_RIGHT)
-	{
-		return "KEY_RIGHTARROW";
-	}
-	else if (key.sym == SDLK_CAPSLOCK)
-	{
-		return "KEY_CAPS";
-	}
-	else if (key.sym == SDLK_LSHIFT)
-	{
-		return "KEY_LSHIFT";
-	}
-	else if (key.sym == SDLK_LCTRL)
-	{
-		return "KEY_LCTRL";
-	}
-	else if (key.sym == SDLK_RSHIFT)
-	{
-		return "KEY_RSHIFT";
-	}
-	else if (key.sym == SDLK_RCTRL)
-	{
-		return "KEY_RCTRL";
-	}
-	else if (key.sym == SDLK_F1)
-	{
-		return "KEY_F1";
-	}
-	else if (key.sym == SDLK_F2)
-	{
-		return "KEY_F2";
-	}
-	else if (key.sym == SDLK_F3)
-	{
-		return "KEY_F3";
-	}
-	else if (key.sym == SDLK_F4)
-	{
-		return "KEY_F4";
-	}
-	else if (key.sym == SDLK_F5)
-	{
-		return "KEY_F5";
-	}
-	else if (key.sym == SDLK_F6)
-	{
-		return "KEY_F6";
-	}
-	else if (key.sym == SDLK_F7)
-	{
-		return "KEY_F7";
-	}
-	else if (key.sym == SDLK_F8)
-	{
-		return "KEY_F8";
-	}
-	else if (key.sym == SDLK_F9)
-	{
-		return "KEY_F9";
-	}
-	else if (key.sym == SDLK_F10)
-	{
-		return "KEY_F10";
-	}
-	else if (key.sym == SDLK_F11)
-	{
-		return "KEY_F11";
-	}
-	else if (key.sym == SDLK_F12)
-	{
-		return "KEY_F12";
-	}
+	switch(key.sym)
+   {
+      case SDLK_BACKSPACE:
+	   {
+		   return Keyboard::BACKSPACE;
+	   }
+	   case SDLK_TAB:
+	   {
+		   return Keyboard::TAB;
+	   }
+	   case SDLK_RETURN:
+	   {
+		   return Keyboard::NEWLINE;
+	   }
+	   case SDLK_ESCAPE:
+	   {
+		   return Keyboard::ESC;
+	   }
+	   case SDLK_SPACE:
+	   {
+		   return Keyboard::SPACE;
+	   }
+	   case SDLK_QUOTEDBL:
+	   {
+		   return Keyboard::DOUBLEQUOTES;
+	   }
+	   case SDLK_HASH:
+	   {
+		   return Keyboard::HASH;
+	   }
+	   case SDLK_DOLLAR:
+	   {
+		   return Keyboard::DOLLAR;
+	   }
+	   case SDLK_AMPERSAND:
+	   {
+		   return Keyboard::AMPERSAND;
+	   }
+	   case SDLK_QUOTE:
+	   {
+		   return Keyboard::RIGHTQUOTE;
+	   }
+	   case SDLK_LEFTPAREN:
+	   {
+		   return Keyboard::LEFTPAREN;
+	   }
+	   case SDLK_RIGHTPAREN:
+	   {
+		   return Keyboard::RIGHTPAREN;
+	   }
+	   case SDLK_ASTERISK:
+	   {
+		   return Keyboard::ASTERISK;
+	   }
+	   case SDLK_PLUS:
+	   {
+		   return Keyboard::POS;
+	   }
+	   case SDLK_COMMA:
+	   {
+		   return Keyboard::COMMA;
+	   }
+	   case SDLK_MINUS:
+	   {
+		   return Keyboard::NEG;
+	   }
+	   case SDLK_PERIOD:
+	   {
+		   return Keyboard::PERIOD;
+	   }
+	   case SDLK_SLASH:
+	   {
+		   return Keyboard::SLASH;
+	   }
+	   case SDLK_0:
+	   {
+		   return Keyboard::ZERO;
+	   }
+	   case SDLK_1:
+	   {
+		   return Keyboard::ONE;
+	   }
+	   case SDLK_2:
+	   {
+		   return Keyboard::TWO;
+	   }
+	   case SDLK_3:
+	   {
+		   return Keyboard::THREE;
+	   }
+	   case SDLK_4:
+	   {
+		   return Keyboard::FOUR;
+	   }
+	   case SDLK_5:
+	   {
+         if (key.mod == KMOD_SHIFT)
+	         return Keyboard::PERCENT;
+	      else
+		      return Keyboard::FIVE;
+	   }
+	   case SDLK_6:
+	   {
+		   return Keyboard::SIX;
+	   }
+	   case SDLK_7:
+	   {
+		   return Keyboard::SEVEN;
+	   }
+	   case SDLK_8:
+	   {
+		   return Keyboard::EIGHT;
+	   }
+	   case SDLK_9:
+	   {
+		   return Keyboard::NINE;
+	   }
+	   case SDLK_COLON:
+	   {
+		   return Keyboard::COLON;
+	   }
+	   case SDLK_SEMICOLON:
+	   {
+		   return Keyboard::SEMICOLON;
+	   }
+	   case SDLK_LESS:
+	   {
+		   return Keyboard::LESSTHAN;
+	   }
+	   case SDLK_GREATER:
+	   {
+		   return Keyboard::GREATERTHAN;
+	   }
+	   case SDLK_QUESTION:
+	   {
+		   return Keyboard::QUESTION;
+	   }
+	   case SDLK_AT:
+	   {
+		   return Keyboard::AT;
+	   }
+	   case SDLK_a:
+	   {
+		   return Keyboard::A;
+	   }
+	   case SDLK_b:
+	   {
+		   return Keyboard::B;
+	   }
+	   case SDLK_c:
+	   {
+		   return Keyboard::C;
+	   }
+	   case SDLK_d:
+	   {
+		   return Keyboard::D;
+	   }
+	   case SDLK_e:
+	   {
+		   return Keyboard::E;
+	   }
+	   case SDLK_f:
+	   {
+		   return Keyboard::F;
+	   }
+	   case SDLK_g:
+	   {
+		   return Keyboard::G;
+	   }
+	   case SDLK_h:
+	   {
+		   return Keyboard::H;
+	   }
+	   case SDLK_i:
+	   {
+		   return Keyboard::I;
+	   }
+	   case SDLK_j:
+	   {
+		   return Keyboard::J;
+	   }
+      case SDLK_k:
+	   {
+		   return Keyboard::K;
+	   }
+	   case SDLK_l:
+	   {
+		   return Keyboard::L;
+	   }
+	   case SDLK_m:
+	   {
+		   return Keyboard::M;
+	   }
+	   case SDLK_n:
+	   {
+		   return Keyboard::N;
+	   }
+	   case SDLK_o:
+	   {
+		   return Keyboard::O;
+	   }
+	   case SDLK_p:
+	   {
+		   return Keyboard::P;
+	   }
+	   case SDLK_q:
+	   {
+		   return Keyboard::Q;
+	   }
+	   case SDLK_r:
+	   {
+		   return Keyboard::R;
+	   }
+	   case SDLK_s:
+	   {
+		   return Keyboard::S;
+	   }
+	   case SDLK_t:
+	   {
+		   return Keyboard::T;
+	   }
+	   case SDLK_u:
+	   {
+		   return Keyboard::U;
+	   }
+	   case SDLK_v:
+	   {
+		   return Keyboard::V;
+	   }
+	   case SDLK_w:
+	   {
+		   return Keyboard::W;
+	   }
+	   case SDLK_x:
+	   {
+		   return Keyboard::X;
+	   }
+	   case SDLK_y:
+	   {
+		   return Keyboard::Y;
+	   }
+	   case SDLK_z:
+	   {
+		   return Keyboard::Z;
+	   }
+      case SDLK_RALT:
+	   {
+		   return Keyboard::RALT;
+	   }
+      case SDLK_LALT:
+	   {
+		   return Keyboard::LALT;
+	   }
+	   case SDLK_LEFTBRACKET:
+	   {
+		   if (key.mod == KMOD_SHIFT)
+		   {
+			   return Keyboard::CURLYLEFT;
+		   }	
+		   return Keyboard::LEFTBRACKET;
+	   }
+	   case SDLK_BACKSLASH:
+	   {
+		   if (key.mod == KMOD_SHIFT)
+		   {
+			   return Keyboard::PIPE;
+		   }
+		   return Keyboard::BACKSLASH;
+	   }
+	   case SDLK_RIGHTBRACKET:
+	   {
+		   if (key.mod == KMOD_SHIFT)
+		   {
+			   return Keyboard::CURLYRIGHT;
+		   }
+		   return Keyboard::RIGHTBRACKET;
+	   }
+	   case SDLK_CARET:
+	   {
+		   return Keyboard::CARET;
+	   }
+	   case SDLK_UNDERSCORE:
+	   {
+		   return Keyboard::UNDERSCORE;
+	   }
+	   case SDLK_BACKQUOTE:
+	   {
+		   if (key.mod == KMOD_SHIFT)
+		   {
+			   return Keyboard::TILDE;
+		   }
+		   return Keyboard::LEFTQUOTE;
+	   }
+	   case SDLK_DELETE:
+	   {
+		   return Keyboard::DEL;
+	   }
+	   case SDLK_PAGEUP:
+	   {
+		   return Keyboard::PAGEUP;
+	   }
+	   case SDLK_PAGEDOWN:
+	   {
+		   return Keyboard::PAGEDOWN;
+	   }
+	   case SDLK_HOME:
+	   {
+		   return Keyboard::HOME;
+	   }
+	   case SDLK_END:
+	   {
+		   return Keyboard::END;
+	   }
+	   case SDLK_INSERT:
+	   {
+		   return Keyboard::INSERT;
+	   }
+	   case SDLK_UP:
+	   {
+		   return Keyboard::UPARROW;
+	   }
+	   case SDLK_DOWN:
+	   {
+		   return Keyboard::DOWNARROW;
+	   }
+	   case SDLK_LEFT:
+	   {
+		   return Keyboard::LEFTARROW;
+	   }
+	   case SDLK_RIGHT:
+	   {
+		   return Keyboard::RIGHTARROW;
+	   }
+	   case SDLK_CAPSLOCK:
+	   {
+		   return Keyboard::CAPS;
+	   }
+	   case SDLK_LSHIFT:
+	   {
+		   return Keyboard::LSHIFT;
+	   }
+	   case SDLK_LCTRL:
+	   {
+		   return Keyboard::LCTRL;
+	   }
+	   case SDLK_RSHIFT:
+	   {
+		   return Keyboard::RSHIFT;
+	   }
+	   case SDLK_RCTRL:
+	   {
+		   return Keyboard::RCTRL;
+	   }
+	   case SDLK_F1:
+	   {
+		   return Keyboard::F1;
+	   }
+	   case SDLK_F2:
+	   {
+		   return Keyboard::F2;
+	   }
+	   case SDLK_F3:
+	   {
+		   return Keyboard::F3;
+	   }
+	   case SDLK_F4:
+	   {
+		   return Keyboard::F4;
+	   }
+	   case SDLK_F5:
+	   {
+		   return Keyboard::F5;
+	   }
+	   case SDLK_F6:
+	   {
+		   return Keyboard::F6;
+	   }
+	   case SDLK_F7:
+	   {
+		   return Keyboard::F7;
+	   }
+	   case SDLK_F8:
+	   {
+		   return Keyboard::F8;
+	   }
+	   case SDLK_F9:
+	   {
+		   return Keyboard::F9;
+	   }
+	   case SDLK_F10:
+	   {
+		   return Keyboard::F10;
+	   }
+	   case SDLK_F11:
+	   {
+		   return Keyboard::F11;
+	   }
+	   case SDLK_F12:
+	   {
+		   return Keyboard::F12;
+	   }
 
-	else
-	{
-		std::cerr << "SDL Driver Error:  Unknown/Unhandled Key Pressed." << std::endl;
-		return "";
-	}
+      default:
+	   {
+		   std::cerr << "SDL Driver Error:  Unknown/Unhandled Key Pressed." << std::endl;
+		   return Keyboard::F12;
+	   }
+   }
 }
    
 		
