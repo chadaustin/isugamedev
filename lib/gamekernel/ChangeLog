@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  --------------------------------------------------------
+2002-03-30 nonchocoboy  Simplified IGameApp to one update method.
 2002-03-20 nonchocoboy  Version 0.1.3
 2002-03-18 nonchocoboy  ISystemDriver implementations no longer need to export
                         a destroySystemDriver function.
