@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-07-07 03:50:01 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,7 @@
 #include <gmtl/Math.h>
 #include <gmtl/AxisAngle.h>
 #include "BaseProjectileWeapon.h"
+#include "BaseBullet.h"
 
 namespace mw
 {
@@ -80,17 +81,17 @@ namespace mw
                      r2( gmtl::make<gmtl::Quatf>( gmtl::AxisAnglef( -angle, 0.0f, 1.0f, 0.0f ) ) );
          
          // define the 3 bullets in the spread weapon.
-         RigidBody* bullet0 = this->createBullet();
+         BaseBullet* bullet0 = this->createBullet();
          bullet0->setRot( this->getRot() * r0 );
          bullet0->setPos( this->getPos() );
          bullet0->setVel( this->getRot() * r0 * bullet0->getVel() );
          
-         RigidBody* bullet1 = this->createBullet();
+         BaseBullet* bullet1 = this->createBullet();
          bullet1->setRot( this->getRot() * r1 );
          bullet1->setPos( this->getPos() );
          bullet1->setVel( this->getRot() * r1 * bullet1->getVel() );
          
-         RigidBody* bullet2 = this->createBullet();
+         BaseBullet* bullet2 = this->createBullet();
          bullet2->setRot( this->getRot() * r2 );
          bullet2->setPos( this->getPos() );
          bullet2->setVel( this->getRot() * r2 * bullet2->getVel() );

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-07-07 03:26:22 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-07-07 03:50:01 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,8 +41,10 @@
 #include "GameScene.h"
 #include "Camera.h"
 #include "Player.h"
+#include "BaseBullet.h"
 #include "Enemy.h"
 #include "RigidBody.h"
+#include "GrimReaper.h"
 #include "Cursor.h"
 
 namespace mw
@@ -68,9 +70,21 @@ namespace mw
       void onMousePress(Uint8 button, bool down, int x, int y);
 
       void onMouseMove(int x, int y);
-
-      void add( RigidBody* );
-
+      /**
+       * Adds a RigidBody into the world
+       * @param b the body to add into the world
+       */
+      void add( RigidBody* b);
+      /**
+       * Adds a bullet into the world
+       * @param bullet the bullet to add into the world.
+       */
+      void add( BaseBullet* bullet);
+      /**
+       * Adds an enemy into the world
+       * @param enemy the enemy to add into the world.
+       */
+      void add( Enemy* enemy);
    private:
       // called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);
@@ -89,12 +103,13 @@ namespace mw
       typedef std::vector<RigidBody*> RigidBodyList;
       RigidBodyList mBodies;
       std::vector<Enemy*> mEnemies;
+      std::vector<BaseBullet*> mBullets;
+      GrimReaper *mReaper;
       // actions :*)
       EdgeState mAccelerate;
       EdgeState mReverse;
       EdgeState mStrafeRight, mStrafeLeft;
       EdgeState mShoot, mCycleWeapon;
-      std::vector<EdgeState> mGunSlots;
       
       // input data for the Player object.
       // note: in local screen space, not actual player vel

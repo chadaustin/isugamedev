@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-07-07 03:50:01 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -210,9 +210,9 @@ namespace mw
     * Creates a new bullet as though it were fired from this weapon.
     * @pre Weapon can be fired and there is a bullet in the chamber
     */
-   RigidBody* BaseProjectileWeapon::createBullet() const
+   BaseBullet* BaseProjectileWeapon::createBullet() const
    {
-      RigidBody* bullet = new RigidBody();
+      BaseBullet* bullet = new BaseBullet();
       bullet->setVel(gmtl::Vec3f(0,0,-30));
       return bullet;
    }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Pistol.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-07-07 03:50:01 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -60,7 +60,7 @@ namespace mw
       void discharge(GameState& g)
       {
          // add the bulllet to the gamestate...
-         RigidBody* bullet = this->createBullet();
+         BaseBullet* bullet = this->createBullet();
          bullet->setRot( this->getRot() );
          bullet->setPos( this->getPos() );
          bullet->setVel( this->getRot() * bullet->getVel() );

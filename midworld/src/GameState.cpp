@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-07 03:40:20 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-07-07 03:50:01 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -84,6 +84,7 @@ namespace mw
             mFontRenderer->setFont(mFont);
          }
       }
+      mReaper = new GrimReaper();
    }
 
    GameState::~GameState()
@@ -210,11 +211,23 @@ namespace mw
       updateEdgeState(mStrafeLeft);
       updateEdgeState(mShoot);
       updateEdgeState(mCycleWeapon);
+
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          updateEdgeState( mGunSlots[x] );
+      
+      //Reap through the bullets
+      mReaper->reap(mBullets); 
 
       // Iterate over all the rigid bodies and update them
       for (RigidBodyList::iterator itr = mBodies.begin(); itr != mBodies.end(); ++itr)
+      {
+         (*itr)->update(dt);
+      }
+      for (std::vector<BaseBullet*>::iterator itr = mBullets.begin(); itr != mBullets.end(); ++itr)
+      {
+         (*itr)->update(dt);
+      }
+      for (std::vector<Enemy*>::iterator itr = mEnemies.begin(); itr != mEnemies.end(); ++itr)
       {
          (*itr)->update(dt);
       }
@@ -235,6 +248,16 @@ namespace mw
    void GameState::add( RigidBody* b )
    {
       mBodies.push_back( b );
+   }
+   
+   void GameState::add( BaseBullet* bullet)
+   {
+      mBullets.push_back(bullet);
+   }
+
+   void GameState::add( Enemy* enemy)
+   {
+      mEnemies.push_back(enemy);
    }
    
    void GameState::draw()
@@ -262,6 +285,16 @@ namespace mw
 
          // Draw all the bodies in the world
          for (RigidBodyList::iterator itr = mBodies.begin(); itr != mBodies.end(); ++itr)
+         {
+            (*itr)->draw();
+         }
+
+         for (std::vector<BaseBullet*>::iterator itr = mBullets.begin(); itr != mBullets.end(); ++itr)
+         {
+            (*itr)->draw();
+         }
+         
+         for (std::vector<Enemy*>::iterator itr = mEnemies.begin(); itr != mEnemies.end(); ++itr)
          {
             (*itr)->draw();
          }
@@ -327,33 +360,23 @@ namespace mw
    }
 
    void
-   GameState::onKeyPress( SDLKey sym, bool down )
+   GameState::onKeyPress(SDLKey sym, bool down)
    {
       // todo replace this with a keymapper.
       // map keys to events... yay.
       switch (sym)
       {
-      case SDLK_0: updateEdgeState( mGunSlots[0], down ); break;
-      case SDLK_1: updateEdgeState( mGunSlots[1], down ); break;
-      case SDLK_2: updateEdgeState( mGunSlots[2], down ); break;
-      case SDLK_3: updateEdgeState( mGunSlots[3], down ); break;
-      case SDLK_4: updateEdgeState( mGunSlots[4], down ); break;
-      case SDLK_5: updateEdgeState( mGunSlots[5], down ); break;
-      case SDLK_6: updateEdgeState( mGunSlots[6], down ); break;
-      case SDLK_7: updateEdgeState( mGunSlots[7], down ); break;
-      case SDLK_8: updateEdgeState( mGunSlots[8], down ); break;
-      case SDLK_9: updateEdgeState( mGunSlots[9], down ); break;
       case SDLK_w: case SDLK_UP:
-         updateEdgeState( mAccelerate, down );
+         updateEdgeState(mAccelerate, down);
          break;
       case SDLK_s: case SDLK_DOWN:
-         updateEdgeState( mReverse, down );
+         updateEdgeState(mReverse, down);
          break;
       case SDLK_a: case SDLK_LEFT:
-         updateEdgeState( mStrafeLeft, down );
+         updateEdgeState(mStrafeLeft, down);
          break;
       case SDLK_d: case SDLK_RIGHT:
-         updateEdgeState( mStrafeRight, down );
+         updateEdgeState(mStrafeRight, down);
          break;
       case SDLK_ESCAPE: case SDLK_q:
          if (down)

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AssaultRifle.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-07-07 03:50:01 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #define MW_ASSAULTRIFLE_H
 
 #include "RigidBody.h"
+#include "BaseBullet.h"
 #include <gmtl/Math.h>
 
 namespace mw
@@ -78,11 +79,11 @@ namespace mw
    protected:
       /**
        * Creates a bullet as though fired from this weapon.
-       * @return A RigidBody representing the bullet.
+       * @return A BaseBullet representing the bullet.
        */
-      virtual RigidBody* createBullet() const
+      virtual BaseBullet* createBullet() const
       {
-         RigidBody* bullet = new RigidBody();
+         BaseBullet* bullet = new BaseBullet();
          bullet->setVel(gmtl::Vec3f(0, 0, -200));
          return bullet;
       }
@@ -98,17 +99,17 @@ namespace mw
          gmtl::Quatf r0( gmtl::make<gmtl::Quatf>( gmtl::AxisAnglef( angle, 0.0f, 1.0f, 0.0f ) ) ),                     r1, 
                      r2( gmtl::make<gmtl::Quatf>( gmtl::AxisAnglef( -angle, 0.0f, 1.0f, 0.0f) ) );
          //make a three round burst.
-         RigidBody* bullet0 = this->createBullet();
+         BaseBullet* bullet0 = this->createBullet();
          bullet0->setRot(this->getRot() * r0);
          bullet0->setPos(this->getPos());
          bullet0->setVel(this->getRot() * r0 * bullet0->getVel());
          
-         RigidBody* bullet1 = this->createBullet();
+         BaseBullet* bullet1 = this->createBullet();
          bullet1->setRot(this->getRot() * r1);
          bullet1->setPos(this->getPos());
          bullet1->setVel(this->getRot() * r1 * bullet1->getVel());
          
-         RigidBody* bullet2 = this->createBullet();
+         BaseBullet* bullet2 = this->createBullet();
          bullet2->setRot(this->getRot() * r2);
          bullet2->setPos(this->getPos());
          bullet2->setVel(this->getRot() * r2 * bullet2->getVel());

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-07-07 03:50:01 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 
 #include <gmtl/Math.h>
 #include "Weapon.h"
+#include "BaseBullet.h"
 
 namespace mw
 {
@@ -112,7 +113,7 @@ namespace mw
       virtual void ejectCasing(GameState& g) = 0;
 
       /// Creates a new bullet as though fired from this weapon.
-      RigidBody* createBullet() const;
+      virtual BaseBullet* createBullet() const;
 
       /**
        * This causes the weapon to cock - as in removing a bullet from the clip

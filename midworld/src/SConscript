@@ -13,6 +13,7 @@ classes = Split("""
    Enemy
    GameManager
    GameState
+   GrimReaper
    IntroState
    Jukebox
    MenuState

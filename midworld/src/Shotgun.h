@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-07-07 03:50:01 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,7 +35,7 @@
 #include <gmtl/Math.h>
 #include <stdlib.h>
 #include "BaseProjectileWeapon.h"
-#include "RigidBody.h"
+#include "BaseBullet.h"
 
 const unsigned int NUM_PELLETS = 10;
 
@@ -80,8 +80,8 @@ namespace mw
       void discharge(GameState& g)
       {
          // add the bullet to the gamestate...
-         RigidBody** bullet;
-         bullet = new RigidBody*[NUM_PELLETS];
+         BaseBullet** bullet;
+         bullet = new BaseBullet*[NUM_PELLETS];
 
          for(unsigned int i=0; i<NUM_PELLETS; i++)
          {
