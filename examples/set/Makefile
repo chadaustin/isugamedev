@@ -18,16 +18,16 @@ endif
 
 ## build it...
 
-SRCS = simpleGlutApp.cpp 
+SRCS = simpleGlutApp.cpp BmpImporter.cpp textures.cpp Image.cpp 
 
 ifeq ($(HOSTTYPE), irix)
 all:
-	CC $(SRCS) -o lr -lglut -lGL -lGLU -lX11 -lXmu
+	CC $(SRCS) -o set-game -lglut -lGL -lGLU -lX11 -lXmu
 endif
 
 ifeq ($(HOSTTYPE), linux)
 all:
-	g++ $(SRCS) -o lr -lglut -lGL -lGLU -L/usr/X11R6/lib -lX11 -lXmu
+	g++ $(SRCS) -o set-game -lglut -lGL -lGLU -L/usr/X11R6/lib -lX11 -lXmu
 endif
 
 
