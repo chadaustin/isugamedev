@@ -21,6 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32,NDEBUG,_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -37,10 +38,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib phui_Release/phui.lib gltt.lib freetype.lib"
 				OutputFile=".\window_Release/window.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="external/lib"
 				ProgramDatabaseFile=".\window_Release/window.pdb"
 				SubSystem="1"/>
 			<Tool
@@ -72,7 +74,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;external"
+				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32,_DEBUG,_CONSOLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="5"
@@ -93,6 +95,7 @@
 				OutputFile=".\window_Debug/window.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="external/lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\window_Debug/window.pdb"
 				SubSystem="1"/>

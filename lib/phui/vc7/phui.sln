@@ -12,6 +12,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
 		{321E954C-0B7C-411B-9FED-ECC66E6C5BFC}.0 = {04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}
+		{493DE2DA-3E86-4322-851B-FB55EBEB33CA}.0 = {04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}.Debug.ActiveCfg = Debug|Win32

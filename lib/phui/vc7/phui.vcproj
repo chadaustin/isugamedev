@@ -21,6 +21,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32,NDEBUG,_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -64,7 +65,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="external"
+				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32,_DEBUG,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -142,6 +143,9 @@
 				RelativePath="..\phui\SDLBridge.cpp">
 			</File>
 			<File
+				RelativePath="..\phui\Size.cpp">
+			</File>
+			<File
 				RelativePath="..\phui\TextField.cpp">
 			</File>
 			<File
@@ -204,6 +208,9 @@
 			</File>
 			<File
 				RelativePath="..\phui\SDLBridge.h">
+			</File>
+			<File
+				RelativePath="..\phui\Size.h">
 			</File>
 			<File
 				RelativePath="..\phui\TextField.h">
