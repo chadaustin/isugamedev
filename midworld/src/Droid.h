@@ -30,18 +30,17 @@ namespace mw
       bool getFuckedFlag(){ return fuckedFlag; }
       
       void setGoalNode(Node* node){goalNode = node; }
-      Node* getGoalNode(){
-         std::cout << "in getGoalNode" << std::endl;
-         std::cout << goalNode->getLoc() << " From getGoalNode" << std::endl << std::endl;
-         return goalNode;}
+      Node* getGoalNode(){ return goalNode; }
       Node* getFakeNode(){return fakeNode;}
       void setFakeNode(gmtl::Vec3f pos){fakeNode->loc = pos; }
       Node* getCurrentNode(){ return currentNode; }
       void setCurrentNode(Node* node){ currentNode = node; }
       NavNodeTree* getTree(){ return mTree; }
       void setTree(NavNodeTree* t){mTree = t;}
-
-      
+      void setWasFuckedFlag(bool b){ wasFuckedFlag = b; }
+      bool getWasFuckedFlag(){ return wasFuckedFlag; }
+      void setResetVelocityFlag(bool b){ resetVelocityFlag = b; }
+      bool getResetVelocityFlag(){ return resetVelocityFlag; }
       
    private:
       float timeDelta;
@@ -50,6 +49,14 @@ namespace mw
       // path between two nodes.  Or more accurately it gets set when we start 
       // chasing the player.  
       bool fuckedFlag;
+
+      // flag to help us with finding our way back to a node after we finish
+      // chasing a player
+      bool wasFuckedFlag;
+
+      // flag for reseting the droids velocity
+      bool resetVelocityFlag;
+      
       // we keep a reference to 2 nodes the node we are comming from and the
       // node that we are going to
       Node* goalNode;

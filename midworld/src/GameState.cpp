@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-13 07:35:27 $
- * Version:       $Revision: 1.122 $
+ * Date modified: $Date: 2002-11-14 01:08:53 $
+ * Version:       $Revision: 1.123 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -492,8 +492,6 @@ namespace mw
 
       Droid* droid = EntityFactory::instance().create<Droid>();
       
-      std::cout << "setupDroid---> tree.size(): " << tree.getTree().size() << std::endl << std::endl;
-
       
       // setup the shoot reflex
       myTestCommand = new droidTesting(droid, &mPlayer);
@@ -519,15 +517,15 @@ namespace mw
 
       goalBehavior->addCommand(goalCommand);
       atGoalNode = new lm::reflex(node1, goalBehavior, goalTest);
-/*
+
       // setup the last reflex which is the defualt (always called reflex)
-      moveCommand = new droidMoveToNodeCommand(droid, &tree);
-      moveBehavior = new lm::behavior
-      moveTest = new moveTests();
+      moveCommand = new droidMoveToNodeCommand(droid, droidNavTree);
+      moveBehavior = new lm::behavior;
+      moveTest = new tests();
 
       moveBehavior->addCommand(moveCommand);
       defaultDroidAction = new lm::reflex(node1, moveBehavior, moveTest);
-*/
+
       droid->setTree(droidNavTree);
       
       AI.registerNode(node1);

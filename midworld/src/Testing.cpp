@@ -58,6 +58,7 @@ namespace mw
    {
       mDroid = e;
       mTree = t;
+      mDroid->setWasFuckedFlag(true);
    }
 
    turretCommand::turretCommand(Turret* t, Player* p)
@@ -113,15 +114,16 @@ namespace mw
 
    bool droidChooseNewNodeTesting::test()
    {
-      std::cout << "in droidChooseNewNodeTesting" << std::endl << std::endl;
-      std::cout << mDroid->getGoalNode()->getLoc()[0] << std::endl;
-      if(mDroid->getGoalNode()->getLoc() == mDroid->getPos())
+      bool temp = true;
+      for(int i=0; i<3;i++)
       {
-         std::cout << "ChooseNewNodeTesting return true" << std::endl;
-         return true;
+         if(!((mDroid->getGoalNode()->loc[i] < mDroid->getPos()[i]+.5) && 
+               (mDroid->getGoalNode()->loc[i] > mDroid->getPos()[i]-.5)))
+               {
+                  temp = false;
+               }
       }
-      std::cout << "else returning false" << std::endl << std::endl;
-      return false;
+      return temp;
    }
 
    
@@ -141,10 +143,20 @@ namespace mw
 
    void droidCommand::execute()
    {
+      
+      gmtl::Vec3f zeroVec(0.0f, 0.0f, 0.0f);
+      
       // set this to true so that we can test to see if we aren't in our path
       // anymore ... oh my god what a shitty shitty hack
       mDroid->setFuckedFlag(true);
-
+      if(!mDroid->getWasFuckedFlag())
+      {
+         mDroid->setWasFuckedFlag(true);
+         mDroid->setVel(zeroVec);
+      }
+      
+      
+      
       gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
       gmtl::Vec3f downVec(0.0f,0.0f,-1.0f);
       
@@ -175,52 +187,68 @@ namespace mw
 
    void droidFuckedCommand::execute()
    {
-      std::cout << "seting goal Node" << std::endl << std::endl << std::endl;
-      std::cout << "fCommand execute: getTree.size(): " << mDroid->getTree()->getTree().size() << std::endl << std::endl;
       mDroid->setGoalNode(mDroid->getTree()->findNearestNavNode(mDroid->getPos()));
       mDroid->setFakeNode(mDroid->getPos());
-      std::cout << "done setting goal Node" << std::endl;
    }
    
 
    void droidFindCloseNodeCommand::execute()
    {
-      std::cout << "In droidFindCloseNodeCommand" << std::endl;
+      std::cout << "we got here and we suck" << std::endl;
+      gmtl::Vec3f zeroVec(0.0f, 0.0f, 0.0f);
+      mDroid->setVel(zeroVec);
       // set the current Node to the node we are at (which is the goal node)
       mDroid->setCurrentNode(mDroid->getGoalNode());
       // possible nodes is a vector of all the possible nodes that we could go
       // to next.
-      std::cout << "after setCurrentNode()" << std::endl;
       std::vector<Node*> possibleNodes;
-      std::cout << "goal node name" << mDroid->getGoalNode()->name << std::endl;
       possibleNodes = mTree->allLinks(mDroid->getGoalNode()->name);
       // we get some number between 0 and the vectors size + .999
       // we actuall want to add 1 but the possibility exists that the returned
       // value would be the integer size of the vector and to add 1 and round
       // down would then still put us off the end of the vector so we can only
       // add .999
-      std::cout << "name: " << mDroid->getGoalNode()->name << std::endl;
-      std::cout << "size of posNodes: " << possibleNodes.size() << std::endl;
       int someNum = (int)gmtl::Math::rangeRandom(0, ((float)possibleNodes.size()-0.001f));
-      std::cout << "setGoal and Fake nodes, someNum: " << someNum << std::endl;
       mDroid->setGoalNode(possibleNodes[someNum]);
-      std::cout<< "done setting goal node: " << possibleNodes[someNum]->loc << std::endl;
-      mDroid->setFakeNode(possibleNodes[someNum]->loc);
-      std::cout << "end of droidFindCloseNodeCommand" << std::endl;
+      mDroid->setFakeNode(mDroid->getCurrentNode()->loc);
+      mDroid->setWasFuckedFlag(false);
       
+      std::cout << "we souldn't be here" << std::endl;
       
    }
 
    void droidMoveToNodeCommand::execute()
    {
       gmtl::Vec3f result;
-      if(!(mDroid->getFuckedFlag()))
+      gmtl::Vec3f temp;
+      std::cout << "in moveDroid (executed every frame):" << std::endl;
+      if(mDroid->getFuckedFlag())
       {
-         gmtl::lerp(result, 1.0f, mDroid->getCurrentNode()->loc, mDroid->getCurrentNode()->loc);
+         std::cout << "  * FuckedFlag is set" << std::endl;
+      }else if(mDroid->getWasFuckedFlag())
+      {
+         
+         std::cout << "  * wasFuckedFlag is set" << std::endl;
+         std::cout << "    * force is: " << mDroid->getVel() << std::endl;
+         temp = (mDroid->getGoalNode()->loc - mDroid->getFakeNode()->loc);
+         result += temp;
+         if(gmtl::length(mDroid->getVel()) < 50)
+         {  
+            result /= 10;
+            mDroid->addForce(result);
+         }
       }else
       {
-         mDroid->setFuckedFlag(false);
+         std::cout << "  * default implemenatation" << std::endl;
+         std::cout << "    * mDroid->name: " << mDroid->getGoalNode()->name << "  goal->pos: " << mDroid->getGoalNode()->loc << std::endl << std::endl;
+         result = mDroid->getGoalNode()->loc - mDroid->getCurrentNode()->loc;
+         if(gmtl::length(mDroid->getForce()) < 0.25f)
+            
+         {  
+            mDroid->addForce(result);
+         }
       }
+      mDroid->setFuckedFlag(false);
    }
             
    void turretCommand::execute()

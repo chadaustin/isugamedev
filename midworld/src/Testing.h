@@ -25,6 +25,22 @@ namespace mw
    class Player;
    class Turret;
 
+   class tests : public lm::testing
+   {
+   public:
+      virtual bool test() {}
+
+      bool alwaysTrue()
+      {
+         return true;
+      }
+      bool alwaysFalse()
+      {
+         return false;
+      }
+   private:
+   };
+
    class droidTesting : public lm::testing
    {
    public:
@@ -139,20 +155,6 @@ namespace mw
    {
    public:
       virtual bool test(){return true;}
-   };
-   
-   class tests : public lm::testing
-   {
-   public:
-      bool alwaysTrue()
-      {
-         return true;
-      }
-      bool alwaysFalse()
-      {
-         return false;
-      }
-   private:
    };
 } //end mw namespace
    

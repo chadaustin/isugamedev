@@ -28,9 +28,6 @@ namespace mw
          name = n;
       }
       gmtl::Vec3f getLoc(){ 
-         std::cout << "in getLoc" << std::endl;
-         std::cout << name << std::endl;
-         std::cout << loc[0] << std::endl;
          return loc; }
       std::string name;
       gmtl::Vec3f loc;
@@ -67,14 +64,11 @@ namespace mw
        */
       void addNode(Node* newNode)
       {
-         std::cout << "pushing newNode onto Tree" << std::endl;
          Tree.push_back(newNode);
-         std::cout << "Tree.begin()->name = "<< Tree[0]->getLoc()[0] << std::endl;
          for(unsigned int i=0;i<newNode->links.size();i++)
          {
             newNode->links[i]->links.push_back(newNode);
          }
-         std::cout << "Tree.size(): " << Tree.size() << std::endl;
       }
 
       /** 
