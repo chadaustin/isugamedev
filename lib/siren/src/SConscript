@@ -16,7 +16,6 @@ classes = Split("""
 headers = Split("""
    siren.h
    Singleton.h
-   LokiTypeInfo.h
 """)
 sources = []
 
@@ -27,6 +26,7 @@ sources.extend(map(lambda n: n + '.cpp', classes))
 env = baseEnv.Copy()
 SetupAudiere(env)
 SetupSDL(env)
+env.Append(CPPPATH = ['#external/Loki'])
 lib = pkg.createSharedLibrary('siren', env)
 lib.addSources(sources)
 lib.addHeaders(headers, 'siren')
