@@ -629,7 +629,7 @@ static void OnIdle()
    
    // non graphics calculations...
    app.stopwatch.pulse();
-   app.update( app.stopwatch.timeInstant() );
+   app.update( app.stopwatch.timeDelta() );
    
    
    
