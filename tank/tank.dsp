@@ -90,7 +90,15 @@ LINK32=link.exe
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=.\BmpImporter.cxx
+# End Source File
+# Begin Source File
+
 SOURCE=.\ColorRGBA.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=.\CppImageExporter.cxx
 # End Source File
 # Begin Source File
 
@@ -103,6 +111,10 @@ SOURCE=.\FileHandler.cxx
 # Begin Source File
 
 SOURCE=.\Image.cxx
+# End Source File
+# Begin Source File
+
+SOURCE=.\imageIoReg.cxx
 # End Source File
 # Begin Source File
 
