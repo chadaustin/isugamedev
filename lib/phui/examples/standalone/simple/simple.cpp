@@ -24,11 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: simple.cpp,v $
- * Date modified: $Date: 2005-01-25 01:41:34 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2005-01-25 23:11:40 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
+#include <gltext/FTFont.h>
+#include <gltext/gltext.h>
 #include <phui/phui.h>
 #include <phui/DriverManager.h>
 #include <iostream>
@@ -39,6 +41,7 @@ int main(int argc, char* argv)
              << phui::DriverManager::Instance().getSupportedDrivers()
              << " drivers." 
              << std::endl;
+   gltext::FontPtr font = gltext::FTFont::create("arial.ttf", 12, 32);
    phui::RootWidgetPtr root = new phui::RootWidget(640, 480);
    phui::WindowPtr window = phui::Window::create();
    phui::ButtonPtr btn = phui::Button::create("Push Me");

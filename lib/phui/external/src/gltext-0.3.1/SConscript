@@ -68,6 +68,7 @@ if 'install' not in COMMAND_LINE_TARGETS:
    Alias('local_build', env.Install( pj(buildRoot, 'external', 'lib'), lib ))
    for h in headers:
       Alias('local_build', env.Install(pj(buildRoot, 'external', 'include', 'gltext'), h))
+   SConscript(dirs = Split('examples'))
 
 Alias('install', env.Install( pj(env['prefix'], 'lib'), lib ))
 for h in headers:

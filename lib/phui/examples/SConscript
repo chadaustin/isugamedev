@@ -1,3 +1,4 @@
 import os
 pj = os.path.join
-SConscript(dirs = [pj('standalone', 'window'), pj('standalone', 'simple')])
+SConscript(dirs = [pj('standalone', 'window'), pj('standalone', 'simple'),
+                   'loki'])
