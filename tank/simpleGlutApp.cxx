@@ -174,9 +174,9 @@ static void OnIdle()
 {
    app.stopWatch.pulse();
 
-   app.camera.setTargetPos( app.tank.matrix() );
    app.tank.update( app.stopWatch.timeInstant() );
    app.camera.update( app.stopWatch.timeInstant() );
+   app.camera.setTargetPos( app.tank.matrix() );
 
    //Update the bullets
    std::vector<Bullet *>::iterator itr;

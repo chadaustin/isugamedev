@@ -120,7 +120,7 @@ public:
       mPos = pos;
    }
       
-   void update( float timeDelta = 1.0f )
+   void update( float timeDelta )
    {
       if (tex.imageValid() == false)
       {
@@ -130,18 +130,19 @@ public:
       // POS
       // x' = v = vel in tank local coord system
       Vec3<float> pos_delta = mRot * mVel;
+      pos_delta *= timeDelta; // scale by time...
       
       // add the derivative onto the tank's position
-      mPos += pos_delta * timeDelta;
+      mPos += pos_delta;
       
       // ROT
       // update ang velocity.
       // change in rotation is 1/2 angvel times current rotation or...
       // q' = 1/2 w * q, where w is a Vec3 who's magnitude is amount of angvel
       // and who's axis defines the axis of rotation.
-      Quat<float> rot_delta;
-      rot_delta.mult( mRotVel * 0.5f, mRot );
-      rot_delta.mult( rot_delta, timeDelta );  // scale by time...
+      Quat<float> rot_delta, temp;
+      temp.mult( mRotVel * 0.5f, mRot );
+      rot_delta.mult( temp, timeDelta );  // scale by time...
       
       // add the derivative onto the tank's rotation
       mRot.add( mRot, rot_delta );

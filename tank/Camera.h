@@ -32,7 +32,7 @@ public:
       mShouldFollow = shouldFollow;
    }   
    
-   void update( float timeDelta = 1.0f )
+   void update( float timeDelta )
    {
       if (mShouldFollow)
       {
