@@ -1,5 +1,8 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-04-26 aegis        Added input mapping utilities for GLUT and SDL.
+2002-04-26 tamc         Added initial support for Label, Button, CheckBox,
+                        ListBox and TextField widgets.
 2002-04-15 nonchocoboy  Removed boost.
 2002-02-24 nonchocoboy  RootWindow now sets up orthographic 2D projection.
 2002-02-23 nonchocoboy  Added window example
