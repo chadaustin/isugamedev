@@ -1,5 +1,8 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-11-10 nonchocoboy  Fixed the sweep collision detector. Objects can no
+                        longer "stick" to objects they have collided with.
+                        NEW VERSION: 0.4.0
 2002-11-05 browner      factored out the ai testing and command stuff into its
                         own file to clean up GameState.cpp and GameState.h
 2002-11-03 nonchocoboy  CollisionDetector algorithms now report all collisions
