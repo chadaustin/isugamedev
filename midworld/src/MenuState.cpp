@@ -14,14 +14,7 @@ namespace mw
    MenuState::MenuState()
    {
       mImages.resize(2);
-      /*
-      mImages[0] = new Texture("menu_new_game.png");
-      mImages[1] = new Texture("menu_load_game.png");
-      mImages[2] = new Texture("menu_options.png");
-      mImages[3] = new Texture("menu_credits.png");
-      mImages[4] = new Texture("menu_exit.png");
-      */
-
+    
       mImages[0] = new Texture("menu_bg.jpeg");
       mImages[1] = new Texture("menu_selection.png");      
       
@@ -87,15 +80,7 @@ namespace mw
 	             	      	 mItemList[mCurrentItem].y,
 	             	      	 mItemList[mCurrentItem].x + mItemList[mCurrentItem].width,
 	             	      	 mItemList[mCurrentItem].y + mItemList[mCurrentItem].height);
-      
-      /*for (int i = 0; i < 5; ++i) {
-         if (i == mCurrentItem) {
-            glColor4f(1, 1, 1, 1);
-         } else {
-            glColor4f(1,1,1,0.5f);
-         }
-         mImages[i]->drawRectangle(0, i * 100, 640, (i + 1) * 100);
-      }*/
+   
    }
 
    void
