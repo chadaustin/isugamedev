@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-09 09:27:27 $
- * Version:       $Revision: 1.51 $
+ * Date modified: $Date: 2002-10-10 02:02:24 $
+ * Version:       $Revision: 1.52 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -160,12 +160,16 @@ namespace mw
       
       
       loadLevel("levels/level1.txt");
+
+      mExplosion = new ParticleEngine("images/explosive_particle.png",
+                                      5000, mCamera);
    }
 
    void
    GameState::update(float dt)
    {
       AI.update();
+      mExplosion->update(dt);
       
       mCursor.update(application().getWidth(),
                      application().getHeight());
@@ -412,12 +416,13 @@ namespace mw
             glBindTexture(GL_TEXTURE_2D, 0);
          }
          glPopAttrib();
+
+         mExplosion->draw();
       glPopMatrix();
 
       mCursor.draw(application().getWidth(), application().getHeight());
-      mHUD.draw(
-         application().getWidth(), application().getHeight(),
-         mPlayer, mFPS);
+      mHUD.draw(application().getWidth(), application().getHeight(),
+                mPlayer, mFPS);
    }
 
    void

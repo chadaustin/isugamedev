@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-09 09:20:41 $
- * Version:       $Revision: 1.36 $
+ * Date modified: $Date: 2002-10-10 02:02:24 $
+ * Version:       $Revision: 1.37 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,6 +33,12 @@
 #define MW_GAME_STATE_H
 
 #include <vector>
+
+#include <loom/aiSystem.h>
+#include <loom/reflex.h>
+#include <loom/behavior.h>
+#include <loom/unit.h>
+#include <loom/command.h>
 
 #include <SDL.h>
 #include "Camera.h"
@@ -46,14 +52,7 @@
 #include "Scene.h"
 #include "SceneViewer.h"
 #include "State.h"
-
-
-#include <loom/aiSystem.h>
-#include <loom/reflex.h>
-#include <loom/behavior.h>
-#include <loom/unit.h>
-#include <loom/command.h>
-
+#include "ParticleEngine.h"
 
 namespace mw
 {
@@ -204,6 +203,8 @@ namespace mw
       
 
       PhysicsEngine mPhysics;
+
+      ParticleEngine* mExplosion;
    };
 }
 
