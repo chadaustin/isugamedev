@@ -61,10 +61,12 @@ public:
       this->translate( mVel );
       
       // update ang velocity.
-      // q' = 1/2 w * q
+      // change in rotation is 1/2 angvel times current rotation or...
+      // q' = 1/2 w * q, where w is a Vec3 who's magnitude is amount of angvel
+      // and who's axis defines the axis of rotation.
       Quat<float> delta;
       delta.mult( mRotVel * 0.5f, mRot );
-      //delta.mult( delta, time_delta ); 
+      //delta.mult( delta, time_delta );  // do this if we're considering time...
       
       mRot.add( mRot, delta );
       mRot.normalize();
