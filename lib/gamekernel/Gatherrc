@@ -1,0 +1,19 @@
+// To check these targets out, run: cvs-gather.pl
+// you'll need cvs and perl on your system.
+
+Doozer
+{
+//   CVSROOT: :pserver:anonymous@cvs.doozer.sourceforge.net:/cvsroot/doozer;
+//   Module: Doozer/mk [mk];
+//   Tag: HEAD;
+//   Path: .;
+}; 
+
+cppdom     
+{
+   CVSROOT:
+   :pserver:anonymous@cvs.xml-cppdom.sourceforge.net:/cvsroot/xml-cppdom;
+   Module: cppdom  [cppdom];
+   Tag: HEAD;
+   Path: .;
+};
