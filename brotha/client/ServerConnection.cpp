@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ServerConnection.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-01 18:40:38 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -58,9 +58,12 @@ namespace client {
    }
 
    void ServerConnection::connect(const std::string& host, int port) {
-      std::auto_ptr<net::Socket> socket(new net::Socket(host.c_str(), port));
-      mConnID = mNetMgr->handleSocket(socket);
-      mIsConnected = true;
+      // only connect we aren't already
+      if(!isConnected()) {
+         std::auto_ptr<net::Socket> socket(new net::Socket(host.c_str(), port));
+         mConnID = mNetMgr->handleSocket(socket);
+         mIsConnected = true;
+      }
    }
 
    void ServerConnection::readAll(net::NetMgr::MsgList& msgs) {
