@@ -1,0 +1,5 @@
+Jade won't scale the PNGs for us, so we'll have to do that by hand with gimp.
+
+Notes:
+- Don't scale the image .. looks like crap. Change the pixel res instead (px/in)
+- The maximum printable width for scaled PNGs: 5.8in

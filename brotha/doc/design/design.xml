@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.18 2002-04-08 20:02:48 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 20:02:48 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.19 2002-04-08 21:33:19 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 21:33:19 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -508,10 +508,26 @@
     <para>Since <emphasis>Warn-a-Brotha</emphasis> has an overall client/server design, the project can be split into two distinctly seperate applications that use the modules differently.</para>
     <section>
       <title>The Server Application</title>
+      <figure>
+        <title>Components used by the Server Application</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="figures/server_components.png" format="PNG" scalefit="1"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
       <para>The server is the main workhorse, responsible for managing multiple client connections and their requests, updating the state of the game on a regular basis and sending messages to connected clients with the updates on the state of the game. The server is also responsible for storing gang, player, car, and car modification specific information, providing this information to the clients, and generating reports on this information.</para>
     </section>
     <section>
       <title>The Client Application</title>
+      <figure>
+        <title>Components Used by the Client Application</title>
+        <mediaobject>
+          <imageobject>
+            <imagedata align="center" fileref="figures/client_components.png" format="PNG" scalefit="1"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
       <para>The client application is simply the glue that binds the various modules it requires - namely Connection Manager, Input, Sound, Texture and UI. It is really just a dumb display which allows the user to connect to the server. Once connected, it processes input from the attached and configured devices and which device inputs are triggered, forwards the corresponding request to the server. The client also provides a visual view onto the game world based on the update data received from the server.</para>
     </section>
   </chapter>
