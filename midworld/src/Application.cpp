@@ -4,7 +4,8 @@
  *
  * midworld - retro post-nuclear mayhem
  * midworld is (C) Copyright 2002 by
- *    Chad Austin, Johnathan Gurley, Andres Reinot, Ben Scott
+ *    Chad Austin, Josh Brown, Johnathan Gurley,
+ *    Kevin Meinert, Andres Reinot, Ben Scott
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -23,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-07-06 05:11:01 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-07-07 02:21:10 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
