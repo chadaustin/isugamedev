@@ -1,0 +1,47 @@
+from os import path
+
+Import('baseEnv PREFIX BuildInfo')
+Import('SetupGLText SetupOpenGL')
+
+# Listed here are interfaces that only have a .h associated with them
+interfaces = Split("""
+""")
+
+# Listed here are classes that have a .h and a .cpp file associated with them
+classes = Split("""
+   HUD
+""")
+
+buildInfo = BuildInfo()
+
+# Listed here are headers that have no associated .cpp file
+buildInfo.addHeaders(map(File, Split("""
+""")))
+
+# Listed here are sources that have no associated .h file
+buildInfo.addSources(map(File, Split("""
+   simpleGlutApp.cpp
+""")))
+
+buildInfo.addExtraDist(map(File, Split("""
+   SConscript
+""")))
+
+buildInfo.addHeaders(map(lambda n: File(n + '.h'),    interfaces))
+buildInfo.addHeaders(map(lambda n: File(n + '.h'),    classes))
+buildInfo.addSources(map(lambda n: File(n + '.cpp'),  classes))
+
+env = baseEnv.Copy()
+
+env ['LIBS'].extend(['cppdom'])
+
+
+SetupGLText(env)
+SetupOpenGL(env)
+
+buildInfo.addPrograms([
+    env.Program('../build/midworld', buildInfo.getSources())
+])
+env.Install(path.join(PREFIX, 'bin'), buildInfo.getPrograms())
+
+Return('buildInfo')
