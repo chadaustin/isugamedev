@@ -19,7 +19,7 @@ Tank::Tank(GLfloat x, GLfloat y, GLfloat z, GLfloat angleIn)
 	hitPoints = 1;
 	angle = angleIn;
 	rotateSpeed = 2.2f;
-	extents = 3.0;
+	extents = 4.3;
 
 }
 
@@ -408,6 +408,7 @@ void Tank::turn(GLint dir)
 	
 void Tank::deathDraw()
 {
+	alive = false;
 	return;
 }
 

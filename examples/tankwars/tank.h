@@ -36,6 +36,7 @@ public:
 	GLfloat getZ() { return zPos; };
 	GLfloat getAngle() { return angle; };
 	GLfloat getExtents() {return extents; };
+	bool DorA() { return alive;};
 
 	GLuint *treadTex;
 
