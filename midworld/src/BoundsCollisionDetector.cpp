@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-06-18 03:00:54 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -62,7 +62,7 @@ namespace mw
 
       // This algorithm collides with the first body found with the normal in
       // the opposite direction of the path travelled.
-      gmtl::Vec3f normal = makeNormal(-path);
+      gmtl::Vec3f normal = gmtl::makeNormal(-path);
       return new CollisionDesc(pcs.front(), normal, 1.0f);
    }
 
