@@ -7,7 +7,7 @@ namespace net {
   enum MessageType {
     MSG_LOGIN,
     MSG_DISCONNECT,
-    MSG_ACK,
+    MSG_OK,
   };
 
 }
