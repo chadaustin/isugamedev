@@ -15,6 +15,7 @@ env = baseEnv.Copy()
 env.Append(CPPPATH = Split('# #gk #cppdom #external/xdl'),
            LIBPATH = Split('#cppdom/cppdom #gk /usr/local/lib'),
            LIBS = Split('cppdom SDL gk') )
+env.Append(CXXFLAGS = ['-DXDL_BUILD_DLL', '-DWIN32'])
 
 if GetPlatform() == 'irix':
    env['SHCXXFLAGS'] = '${CXXFLAGS}'
