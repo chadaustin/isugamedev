@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-06-24 06:36:10 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-06-24 06:43:48 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -83,7 +83,7 @@ namespace mw
       mTorque += gmtl::cross( pos, force );
    }
 
-   void RigidBody::draw()
+   void RigidBody::draw() const
    {
       glPushMatrix();
          glTranslatef(mPos[0], mPos[1], mPos[2]);
