@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RequestGarageDataMessageHandler.h,v $
- * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-01 23:34:45 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -58,9 +58,9 @@ namespace server {
 
       virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
          // get the main data and the player the user entered
-         data::BrothaData* data = &m_brothaGame->getDataManager().getData();
-         data::Player* player = data->getPlayer(m_brothaGame->getPlayer(cID)->getName());
-         data::CarTypeList* carlist = &data->getCarTypes();
+         data::BrothaData& data = data::DataManager::instance().getData();
+         data::Player* player = data.getPlayer(m_brothaGame->getPlayer(cID)->getName());
+         data::CarTypeList* carlist = &data.getCarTypes();
 
          // send the data
          m_netMgr->send(new net::GarageDataMessage(player, carlist), cID);
