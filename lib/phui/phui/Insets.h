@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Insets.h,v $
- * Date modified: $Date: 2003-01-05 11:54:51 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2003-01-06 01:34:53 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -63,6 +63,9 @@ namespace phui
        * @param insets     the Insets object to copy
        */
       Insets(const Insets& insets);
+
+      /// Sets the insets for this object.
+      void set(int left, int right, int top, int bottom);
 
       /**
        * Makes this insets object a copy of the given insets object.

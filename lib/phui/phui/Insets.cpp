@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Insets.cpp,v $
- * Date modified: $Date: 2003-01-05 11:54:51 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-06 01:34:53 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -44,6 +44,14 @@ namespace phui
    Insets::Insets(const Insets& insets)
    {
       *this = insets;
+   }
+
+   void Insets::set(int left, int right, int top, int bottom)
+   {
+      mLeft = left;
+      mRight = right;
+      mTop = top;
+      mBottom = bottom;
    }
 
    Insets& Insets::operator=(const Insets& insets)

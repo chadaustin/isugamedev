@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Size.h,v $
- * Date modified: $Date: 2003-01-05 07:00:46 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2003-01-06 01:34:53 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -37,14 +37,12 @@
 namespace phui
 {
    /**
-    * Class used to describe a size value.
+    * Class used to describe a 2D size value as a (width,height) pair.
     */
    class Size
    {
    public:
-      /**
-       * Creates a new Size object initialized to 0.
-       */
+      /// Creates a new Size object initialized to (0,0).
       Size();
 
       /**
@@ -61,6 +59,9 @@ namespace phui
        * @param size       the Size object to copy
        */
       Size(const Size& size);
+
+      /// Sets the dimensions of this size.
+      void set(int width, int height);
 
       /**
        * Makes this size object a copy of the given size object.

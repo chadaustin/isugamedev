@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Point.h,v $
- * Date modified: $Date: 2003-01-05 06:44:42 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2003-01-06 01:34:53 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -47,6 +47,12 @@ namespace phui
       Point()               { x = 0;   y = 0; }
       Point(int x_, int y_) { x = x_ ; y = y_; }
       Point(const Point& p) { x = p.x; y = p.y; }
+
+      void set(int x_, int y_)
+      {
+         x = x_;
+         y = y_;
+      }
 
       int x;
       int y;
