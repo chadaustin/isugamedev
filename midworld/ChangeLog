@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-06-06 aegis        Render an intro image
+2002-06-06 aegis        Added beginnings of state architecture
 2002-06-05 aegis        Added main() and got a line on the screen
 2002-06-05 nonchocoboy  Created the bounds collision detector.
 2002-06-04 nonchocoboy  Added collision detection system interfaces.

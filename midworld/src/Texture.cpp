@@ -58,10 +58,10 @@ namespace mw
       ///        3Dfx cards can only handle 256*256 tex's
 
       // copy our image pixels into the texture buffer
-      for (int y = 0; y < real_height; ++y)
+      for (int row = 0; row < real_height; ++row)
       {
-         memcpy(buffer + tex_width * y,
-                real_pixels + real_width * y,
+         memcpy(buffer + tex_width * row,
+                real_pixels + real_width * row,
                 real_width * sizeof(u32));
       }
 
@@ -101,11 +101,11 @@ namespace mw
    Texture::drawRectangle(int x1, int y1, int x2, int y2)
    {
       bind();
-      glBegin(GL_TRIANGLE_FAN);
-      glVertex2i(x1, y1); glTexCoord2f(0,          0);
-      glVertex2i(x2, y1); glTexCoord2f(mRealWidth, 0);
-      glVertex2i(x2, y2); glTexCoord2f(mRealWidth, mRealHeight);
-      glVertex2i(x1, y2); glTexCoord2f(0,          mRealHeight);
+      glBegin(GL_QUADS);
+      glTexCoord2f(0,          0);           glVertex2i(x1, y1);
+      glTexCoord2f(mRealWidth, 0);           glVertex2i(x2, y1); 
+      glTexCoord2f(mRealWidth, mRealHeight); glVertex2i(x2, y2); 
+      glTexCoord2f(0,          mRealHeight); glVertex2i(x1, y2); 
       glEnd();
    }
 
