@@ -28,7 +28,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#       $Id: auto-copyright.pl,v 1.3 2002-02-24 02:18:27 nonchocoboy Exp $
+#       $Id: auto-copyright.pl,v 1.4 2002-02-24 02:26:04 nonchocoboy Exp $
 #
 
 use File::Basename;
@@ -171,7 +171,7 @@ sub recurseFunc {
                $file_contents .= $_;
             }
 
-            my $copyrights_plus_delimiters = "$newbegintag\n$all_copyrights$newendtag\n";
+            my $copyrights_plus_delimiters = "$newbegintag\n$all_copyrights$newendtag";
             
             # convert tags for use in a regex
             $begintag_regex_safe = $begintag;
