@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-10-19 daren	Added in a file parser for input bindings
+			midworld now can use InputSymbol for input bindings
 2002-10-09 browner      made midworld use loom for the ai system
                         NEW VERSION 0.2.4
 2002-10-08 nonchocoboy  Added a loading state for filling up the resource
