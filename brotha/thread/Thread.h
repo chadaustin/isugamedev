@@ -55,7 +55,17 @@ namespace thread {
             PR_AtomicDecrement(&mKillMe);
             PR_Interrupt(mThread); // forces all blocked calls to die
             join();
+            mRunning = false;
          }
+      }
+
+      /**
+       * Tests if the thread is currently executing in its run loop.
+       *
+       * @return  true if the thread is alive; false otherwise
+       */
+      bool isRunning() {
+         return mRunning;
       }
 
       void join() {
