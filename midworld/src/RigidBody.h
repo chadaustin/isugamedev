@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-11-11 08:05:53 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-11-14 10:24:31 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -54,7 +54,8 @@ namespace mw
 
       RigidBody()
          : mMass( 1.0f )
-         , mBounds(gmtl::Point3f(0,0,0), gmtl::Point3f(1,1,1))
+           , mBounds(gmtl::Point3f(0,0,0), gmtl::Point3f(1,1,1))
+           , mBoundsSize(gmtl::Vec3f(1, 1, 1))
       {
          mIsCollidable = true;
       }
@@ -160,8 +161,15 @@ namespace mw
        * @return  the bounding volume for this body
        */
       const gmtl::AABoxf& getBounds() const;
-
       void setBounds(const gmtl::AABoxf& box);
+
+      const gmtl::Vec3f getBoundsSize() const {
+         return mBoundsSize;
+      }
+
+      void setBoundsSize(const gmtl::Vec3f& size) {
+         mBoundsSize = size;
+      }
 
       /** convert the pos/rot to a matrix. */
       gmtl::Matrix44f matrix() const;
@@ -206,6 +214,7 @@ namespace mw
 
       /// The bounding volume for this body
       gmtl::AABoxf mBounds;
+      gmtl::Vec3f mBoundsSize;
       
       bool mIsCollidable;
 

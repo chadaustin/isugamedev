@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-11-11 08:18:14 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-11-14 10:24:31 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -165,6 +165,7 @@ namespace mw
       for (EntityNodeMap::iterator itr = mEntityNodeMap.begin();
            itr != mEntityNodeMap.end(); ++itr)
       {
+         /*
          osg::NodePtr entity_node = itr->second;
 
          // Get the bounds of this node
@@ -173,9 +174,10 @@ namespace mw
          gmtl::Point3f gmtl_min(min[0], min[1], min[2]);
          gmtl::Point3f gmtl_max(max[0], max[1], max[2]);
          gmtl::AABoxf entity_bounds(gmtl_min, gmtl_max);
+         */
 
          // Compare this node's bounds to the search bounds
-         if (gmtl::isInVolume(region, entity_bounds))
+         if (gmtl::isInVolume(region, mEntityEntityMap[itr->first]->getBounds()))
          {
             matches.push_back(mScene->get(itr->first));
          }
@@ -211,12 +213,17 @@ namespace mw
 
       // Cache a mapping of the entity UID to its transform node
       mEntityNodeMap[entity->getUID()] = trans_node;
+      mEntityEntityMap[entity->getUID()] = entity;
       entity->addBodyChangeListener(this);
 
       updateEntity(entity);
 
       // Setup the entity's bounds
-      entity->setBounds(getBounds(entity->getUID()));
+      trans_node->updateVolume();
+      gmtl::AABoxf bounds(getBounds(entity->getUID()));
+      entity->setBoundsSize(bounds.getMax() - bounds.getMin());
+
+
 
 //      std::cout<<"Added entity: uid="<<entity->getUID()<<std::endl;
    }
@@ -238,6 +245,7 @@ namespace mw
 
          // Remove the entity UID to node ptr mapping
          mEntityNodeMap.erase(itr);
+         mEntityEntityMap.erase(uid);
 
          // Stop listening to the entity
          evt.getEntity()->removeBodyChangeListener(this);
@@ -296,7 +304,17 @@ namespace mw
       node->updateVolume();
 
       // Update the entity's bounds
-      entity->setBounds(getBounds(entity->getUID()));
+
+      // bounds from OpenSG
+      gmtl::AABoxf bounds(getBounds(entity->getUID()));
+      gmtl::Vec3f midpoint = (bounds.getMin() + bounds.getMax()) / 2;
+
+      // entity bounds
+      gmtl::Vec3f size(entity->getBoundsSize());
+
+      entity->setBounds(gmtl::AABoxf(
+                           midpoint - size / 2,
+                           midpoint + size / 2));
    }
 
    gmtl::AABoxf

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.h,v $
- * Date modified: $Date: 2002-11-11 04:39:47 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-14 10:24:31 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -92,6 +92,9 @@ namespace mw
       /// A mapping of entity IDs to their respective node
       typedef std::map<Entity::UID, osg::NodePtr> EntityNodeMap;
       EntityNodeMap mEntityNodeMap;
+
+      typedef std::map<Entity::UID, Entity*> EntityEntityMap;
+      EntityEntityMap mEntityEntityMap;
 
       osg::RenderAction* mRenderAction;
       osg::PassiveWindowPtr mWin;
