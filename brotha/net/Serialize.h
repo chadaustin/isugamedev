@@ -16,12 +16,12 @@ namespace net {
 
    // PRUint32
 
-   OutputStream& operator<<(OutputStream& os, PRUint32 ui) {
+   inline OutputStream& operator<<(OutputStream& os, PRUint32 ui) {
       os.write(&ui, 4);
       return os;
    }
 
-   InputStream& operator>>(InputStream& is, PRUint32& ui) {
+   inline InputStream& operator>>(InputStream& is, PRUint32& ui) {
       is.read(&ui, 4);
       return is;
    }
@@ -29,13 +29,13 @@ namespace net {
 
    // std::string
 
-   OutputStream& operator<<(OutputStream& os, const std::string& str) {
+   inline OutputStream& operator<<(OutputStream& os, const std::string& str) {
       os << PRUint32(str.length());
       os.write((void*)str.data(), (int)str.length());
       return os;
    }
 
-   InputStream& operator>>(InputStream& is, std::string& str) {
+   inline InputStream& operator>>(InputStream& is, std::string& str) {
       PRUint32 length;
       is >> length;
       str = std::string(length, 0);
@@ -45,7 +45,8 @@ namespace net {
       char buffer[BUFFER_SIZE];
       int i = 0;
       while (length > 0) {
-         int read = std::min(length, BUFFER_SIZE);
+         using namespace std;
+         int read = min(length, BUFFER_SIZE);
          is.read(buffer, read);
          std::copy(str.begin() + i, str.begin() + i + read, buffer);
          i += read;
