@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DLLInterface.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-03-22 02:55:48 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -66,7 +66,6 @@ namespace gk {
        */
       void operator delete( void* p )
       {
-         std::cout<<"DLLInterface::delete"<<std::endl;
          if ( p )
          {
             DLLInterface* i = static_cast<DLLInterface*>(p);
@@ -94,7 +93,7 @@ namespace gk {
    class DLLImpl : public Interface
    {
    public:
-      virtual ~DLLImpl() { std::cout<<"~DLLImpl"<<std::endl;}
+      virtual ~DLLImpl() {}
 
       /**
        * Implementation of DLLInterface's destroy method. This function will
@@ -103,7 +102,6 @@ namespace gk {
        */
       virtual void destroy()
       {
-         std::cout<<"DLLImpl::destroy"<<std::endl;
          delete this;
       }
 
@@ -115,7 +113,6 @@ namespace gk {
        */
       void operator delete( void* p )
       {
-         std::cout<<"DLLImpl::delete"<<std::endl;
          ::operator delete( p );
       }
    };
