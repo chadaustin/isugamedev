@@ -13,57 +13,66 @@
 namespace data {
 
    class BrothaData {
-   private:
-      GangList gangs;
-      CarTypeList cars;
-
    public:
+      /// Gets the list of gangs in the database.
       GangList& getGangList() {
-         return gangs;
+         return mGangs;
       }
 
+      /// Gets the list of car types in the database.
       CarTypeList& getCarTypes() {
-         return cars;
+         return mCarTypes;
       }
 
+      /// Adds the given car type to the database.
       void addCarType(CarType* c) {
-         cars.push_back(c);
+         mCarTypes.push_back(c);
       }
 
+      /// Adds the given gang to the database.
       void addGang(Gang* g) {
-         gangs.push_back(g);
+         mGangs.push_back(g);
       }
 
       void xMLify(std::ostream& out) {
          out << "<wbdata>" << std::endl;
-         for (unsigned int i = 0; i < gangs.size(); ++i) {
-            gangs[i]->xMLify(out);
+         for (unsigned int i = 0; i < mGangs.size(); ++i) {
+            mGangs[i]->xMLify(out);
          }
-         for (unsigned int i = 0; i < cars.size(); ++i) {
-            cars[i]->xMLify(out);
+         for (unsigned int i = 0; i < mCarTypes.size(); ++i) {
+            mCarTypes[i]->xMLify(out);
          }
          out << "</wbdata>";
       }
 
+      /// Gets the gang with the given name in the database.
       Gang* getGang(const std::string& name) {
-         for (unsigned int i = 0; i < gangs.size(); ++i) {
-            if (gangs[i]->getName() == name) {
-               return gangs[i];
+         for (unsigned int i = 0; i < mGangs.size(); ++i) {
+            if (mGangs[i]->getName() == name) {
+               return mGangs[i];
             }
          }
          throw "not found";
-         return gangs[0];  //should never be reached.
+         return mGangs[0];  //should never be reached.
       }
 
+      /// Gets the player with the given name in the database or NULL if not found.
       Player* getPlayer(const std::string& name) {
          GangList::iterator itr;
-         for (itr = gangs.begin(); itr != gangs.end(); ++itr) {
+         for (itr = mGangs.begin(); itr != mGangs.end(); ++itr) {
             if (Player* p = (*itr)->getPlayer(name)) {
                return p;
             }
          }
          return NULL;
       }
+
+   private:
+      /// All gangs in the database.
+      GangList mGangs;
+
+      /// All car types in the database.
+      CarTypeList mCarTypes;
    };
 }
 
