@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-04-06 08:55:42 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-04-06 12:02:17 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -139,12 +139,13 @@ private:
 	Uint32 mvideoFlags;					//Video Flags of the screen.
 	bool misRunning;					//Is the SdlDriver running?
 	IGameKernel *mKernel;				//The GameKernel that is running this driver.
-	IGameApp *mApp;
+	IGameApp *mApp;					//The Application that is using this driver.
 	DeviceHandle<Mouse>* mMouse;			//Mouse Device
 	DeviceHandle<Keyboard>* mKeyboard;		//Keyboard Device
 	//DeviceHandle<Joystick>* mJoystick;		//Joystick Device
 	SDL_Event mEvent;					//Event Structure
-	
+	bool mPress;					//Hack to work with the DigitalInput devices.	
+	bool mPressDown;					//Hack to work with the DigitalInput devices.
 	//Private Methods
 	
 	//This function determines what kind of event has occurred, 

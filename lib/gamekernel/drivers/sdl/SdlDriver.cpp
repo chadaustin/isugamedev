@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-04-06 08:55:43 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-04-06 12:02:17 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -32,7 +32,7 @@
 #include "SdlDriver.h"
 #include <xdl.h>
 #include <string>
-#define SDLDRIVER_DEBUG 1
+//#define SDLDRIVER_DEBUG 1
 //Create the drivers that can be probed by the SystemDriverFactory
 #ifdef XDL_BUILD_DLL
 extern "C" XDL_FUNC gk::ISystemDriver*
@@ -49,6 +49,9 @@ SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(16), mvideoFlags(0), mK
 	misRunning = false;
 	mName = "SDL with OpenGL";	
 	//We really don't need to do anything other than initialize variables.
+	//FIXME:  This hack should be removed once unnecessary.
+	mPress = false;
+	mPressDown = false;
 }
 
 SdlDriver::~SdlDriver()
@@ -294,6 +297,12 @@ void SdlDriver::handleEvent()
 			//unhandled event; we pretty much ignore it.
 	}
 	mKernel->getInput()->update();	
+	//FIXME:  This hack is for working with a key being held down in DigitalInput
+	//	  Basically it goes back to a pseudo idle mode on a single button press.
+	if (mPressDown == false && mPress == true)
+	{
+		mKernel->getInput()->update();
+	}
 }
 
 void SdlDriver::onKeyUp()
@@ -306,6 +315,8 @@ void SdlDriver::onKeyUp()
 	const DigitalInput::BinaryState state = DigitalInput::OFF;
 	Keyboard *kb = mKeyboard->getDevice();
 	kb->button(keyID)->setBinaryState(state);
+	mPressDown = false;
+	mPressDown = false;
 }
 
 void SdlDriver::onKeyDown()
@@ -313,6 +324,11 @@ void SdlDriver::onKeyDown()
 #ifdef SDLDRIVER_DEBUG
 	std::cerr<<"SDL Driver Debug:  Inside onKeyDown" << std::endl;
 #endif
+	//FIXME:  This hack is for working with DigitalInput handling a button being pressed down
+	if (mPress == true)
+		mPressDown = true;
+	if (mPress == false)
+		mPress = true;
 	SDL_keysym key = mEvent.key.keysym;
 	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::ON;
