@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: UIDManager.h,v $
- * Date modified: $Date: 2002-03-27 05:18:31 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-22 05:15:47 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -53,8 +53,14 @@ namespace game
     *
     * A queue is maintained with the available unique IDs. Also, the highest
     * UID allocated so far is stored.
+    *
+    * @param managedClass     the class for which the UIDs generated will be
+    *                         unique for
+    * @param minValue         the minimum value of generated UIDs
+    * @param id_t             the type of UIDs that will be generated
     */
    template< class managedClass,
+             id_t minValue = 0,
              class id_t = unsigned long >
    class UIDManager : private thread::Synchronized
    {
@@ -70,21 +76,21 @@ namespace game
        * This is a singleton. Use UIDManager::instance() instead.
        */
       UIDManager()
-         : mLargestUID(0)
+         : mLargestUID(minValue)
       {}
 
       /**
        * Copies of singletons are prohibited. This constructor is not implemented
        * on purpose. Usage should cause a compile-time error.
        */
-      UIDManager( const UIDManager<managedClass, id_t>& copy );
+      UIDManager( const UIDManager<managedClass, minValue, id_t>& copy );
 
       /**
        * Copies of singletons are prohibited. This assignment operator is not
        * implemented on purpose. Usage should cause a compile-time error.
        */
-      UIDManager<managedClass, id_t> operator=(
-                  const UIDManager<managedClass, id_t>& copy );
+      UIDManager<managedClass, minValue, id_t> operator=(
+                  const UIDManager<managedClass, minValue, id_t>& copy );
 
       /**
        * This is a singleton. You can't delete this.
@@ -96,11 +102,11 @@ namespace game
       /**
        * Gets the singleton instance of this class.
        */
-      static UIDManager<managedClass, id_t>& getInstance()
+      static UIDManager<managedClass, minValue, id_t>& getInstance()
       {
          if ( mInstance == NULL )
          {
-            mInstance = new UIDManager<managedClass, id_t>();
+            mInstance = new UIDManager<managedClass, minValue, id_t>();
          }
          return *mInstance;
       }
@@ -154,12 +160,13 @@ namespace game
        */
       UID mLargestUID;
 
-      static UIDManager<managedClass, id_t>* mInstance;
+      static UIDManager<managedClass, minValue, id_t>* mInstance;
    };
 
    template < class managedClass,
+              id_t minValue,
               class id_t >
-   UIDManager<managedClass, id_t>* UIDManager<managedClass, id_t>::mInstance = NULL;
+   UIDManager<managedClass, minValue, id_t>* UIDManager<managedClass, minValue, id_t>::mInstance = NULL;
 }
 
 #endif
