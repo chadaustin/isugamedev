@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-11 05:26:03 $
-// Version:       $Revision: 1.29 $
+// Date modified: $Date: 2002-02-11 13:52:24 $
+// Version:       $Revision: 1.30 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -77,7 +77,10 @@ class GameInput : public Singleton<GameInput>
 {
 public:
    /**
-    * This is a singleton. Use GameInput::getInstance() instead.
+    * Constructor (use Singleton::instance() instead). 
+    * GameInput is a singleton, which means you cannot directly construct 
+    * your own instance of this class.
+    * Instead, use GameInput::instance() to access the global version.
     *
     * @see Singleton::instance()
     */
@@ -102,12 +105,13 @@ public:
    }
 
    /**
-    * Gets the input from the <device,input> pair.
+    * Gets the the Input associated with the <device,input> pair.
     *
     * @param device     the name of the device
     * @param input      the name of the input source on the device
     *
-    * @return  the input if it exists, NULL otherwise
+    * @return  the Input if <device,input> has already been bound.
+    * @return  NULL if <device,input> has not been bound.
     */
    Input* getInput( const std::string& device, const std::string& input )
    {
