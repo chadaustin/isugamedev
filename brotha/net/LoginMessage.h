@@ -10,29 +10,29 @@
 
 namespace net {
 
-  class LoginMessage : public Message {
-  public:
-    LoginMessage(std::string username, std::string password) {
-      mUsername = username;
-      mPassword = password;
-    }
+   class LoginMessage : public Message {
+   public:
+      LoginMessage(std::string username, std::string password) {
+         mUsername = username;
+         mPassword = password;
+      }
 
-    int getType() {
-      return MSG_LOGIN;
-    }
+      int getType() {
+         return MSG_LOGIN;
+      }
 
-    void serialize(OutputStream& os) {
-      os << mUsername << mPassword;
-    }
+      void serialize(OutputStream& os) {
+         os << mUsername << mPassword;
+      }
 
-    void deserialize(InputStream& is) {
-      is >> mUsername >> mPassword;
-    }
+      void deserialize(InputStream& is) {
+         is >> mUsername >> mPassword;
+      }
 
-  private:
-    std::string mUsername;
-    std::string mPassword;
-  };
+   private:
+      std::string mUsername;
+      std::string mPassword;
+   };
 
 }
 

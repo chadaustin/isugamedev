@@ -4,13 +4,13 @@
 
 namespace net {
 
-  enum MessageType {
-    MSG_LOGIN,
-    MSG_DISCONNECT,
-    MSG_OK,
-  };
+   enum MessageType {
+      MSG_LOGIN,
+      MSG_DISCONNECT,
+      MSG_OK,
+   }; // MessageType
 
-}
+} // namespace net
 
 
-#endif
+#endif // NET_MESSAGE_TYPES_H

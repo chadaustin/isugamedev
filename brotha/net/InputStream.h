@@ -4,13 +4,13 @@
 
 namespace net {
 
-  class InputStream {
-  public:
-    virtual ~InputStream() { }
-    virtual void read(void* buffer, int size) = 0;
-  };
+   class InputStream {
+   public:
+      virtual ~InputStream() { }
+      virtual void read(void* buffer, int size) = 0;
+   };
 
-}
+} // namespace net
 
 
-#endif
+#endif // NET_INPUT_STREAM_H

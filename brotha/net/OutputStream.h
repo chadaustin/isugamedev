@@ -4,13 +4,13 @@
 
 namespace net {
 
-  class OutputStream {
-  public:
-    virtual ~OutputStream() { }
-    virtual void write(void* buffer, int size) = 0;
-  };
+   class OutputStream {
+   public:
+      virtual ~OutputStream() { }
+      virtual void write(void* buffer, int size) = 0;
+   };
 
-}
+} // namespace net
 
 
-#endif
+#endif // NET_OUTPUT_STREAM_H
