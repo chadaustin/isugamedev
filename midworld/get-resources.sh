@@ -13,7 +13,7 @@
 if [ -f resources.cvsroot ]; then
     CVSROOT=`cat resources.cvsroot`
 else
-    CVSROOT=:pserver:anonymous@pyrallis.aegisknight.org://pyrallis/cvsroot
+    CVSROOT=:pserver:anonymous@pyrallis.aegisknight.org:/cvsroot
 fi
 
 echo
