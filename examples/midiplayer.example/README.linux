@@ -1,0 +1,11 @@
+verify sound is working:
+==================================================
+run sndcfg and make sure your sound card is setup.  
+this should play some midi for you. to test your card.
+
+also try out "playmidi" by Nathan Laredo...
+
+
+
+/dev/sequencer2 should be symlinked to /dev/music
+
