@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-10 05:37:12 $
-// Version:       $Revision: 1.18 $
+// Date modified: $Date: 2003-02-10 05:59:48 $
+// Version:       $Revision: 1.19 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -202,6 +202,16 @@ bool SdlDriver::run()
 #endif
 		if (misRunning)
 		{
+         // handle input
+         while (SDL_PollEvent(&mEvent) && (misRunning))
+			{
+				handleEvent();
+#ifdef SDLDRIVER_DEBUG
+				std::cerr << "##SDL Driver Debug: handleEvent() exited.  misRunning: " << misRunning<<std::endl;
+#endif			
+			}
+         mKernel->getInput()->update();	
+
          // pre frame
          mApp->onPreUpdate();
 
@@ -222,14 +232,6 @@ bool SdlDriver::run()
 
          // post frame
          mApp->onPostUpdate();
-
-			while (SDL_PollEvent(&mEvent) && (misRunning))
-			{
-				handleEvent();
-#ifdef SDLDRIVER_DEBUG
-				std::cerr << "##SDL Driver Debug: handleEvent() exited.  misRunning: " << misRunning<<std::endl;
-#endif			
-			}
 		}
 	}while(misRunning);
 	return true;
@@ -369,6 +371,9 @@ void SdlDriver::handleEvent()
       }
       case SDL_JOYHATMOTION:
       {
+         // fixme: during one frame if we get more than 1 event, we need to combine both to get the right result.
+         // in one frame: UP, then DOWN.  when 2nd event happens, UP event is put to OFF, this isn't right.
+
          // collect the data from the bit flags.        
          float x = 0.0f, y = 0.0f;  
          DigitalInput::BinaryState up( DigitalInput::OFF ), down( DigitalInput::OFF ),
@@ -410,7 +415,6 @@ void SdlDriver::handleEvent()
 			break;
 			//unhandled event; we pretty much ignore it.
 	}
-	mKernel->getInput()->update();	
 }
 
 void SdlDriver::onKeyUp()
