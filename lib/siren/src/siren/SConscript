@@ -18,6 +18,7 @@ headers = Split("""
    siren.h
    Singleton.h
    Types.h
+   Utility.h
 """)
 sources = []
 
