@@ -12,6 +12,8 @@
 #include "AudioSystemFactory.h"
 #include "GeodeCache.h"
 
+#define SOUND_FIRE "fire.wav"
+
 //: App width/height
 static float sWidth = 640.0f;
 static float sHeight = 640.0f;
@@ -164,6 +166,9 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
 
    case ' ':
    {
+      // play the bullet sound
+      audioSystem->play(SOUND_FIRE);
+
       Bullet *bullet = new Bullet();
       bullet->setPos( game->getPlayer( 0 )->getTank()->getBarrelEndPos() );
       bullet->setRot( game->getPlayer( 0 )->getTank()->rotation() );
