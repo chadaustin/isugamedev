@@ -1,0 +1,149 @@
+import os, string, sys
+pj = os.path.join
+
+# Pull in the AutoDist module
+sys.path = [pj('tools', 'build')] + sys.path
+from AutoDist import *
+
+# Check for the optimize option
+optimize = 0
+if ARGUMENTS.get('opt', 0):
+   optimize = 1
+
+# Check for an install prefix
+if ARGUMENTS.get('prefix', 0):
+   Prefix(ARGUMENTS['prefix'])
+
+
+def BuildBaseEnvironment():
+   "Builds a base environment for other modules to build on."
+   global optimize, profile
+
+   CXX = WhereIs('g++3') or 'g++'
+   LINK = CXX
+   CXXFLAGS = ['-Wall', '-Wno-non-virtual-dtor']
+   LINKFLAGS = []
+
+   if optimize:
+      CXXFLAGS.extend(['-DNDEBUG', '-O2'])
+   else:
+      CXXFLAGS.extend(['-DDEBUG', '-g'])
+
+   env = Environment(
+      ENV = os.environ,
+      CXX = CXX,
+      LINK = LINK,
+      CPPPATH = [],
+      LIBPATH = [],
+      LIBS = [],
+      CXXFLAGS = CXXFLAGS,
+      LINKFLAGS = LINKFLAGS,
+   )
+
+   return env
+
+
+def ParseConfig(env, command, options):
+   "Parses xxx-config style output for compilation directives"
+
+   cmd = WhereIs(command)
+   if cmd is None:
+      print "Error: Could not find %s" % command
+      sys.exit(-1)
+
+   # Run the command
+   cmd = cmd + ' ' + string.join(options)
+   params = string.split(os.popen(cmd).read())
+
+   # Parse its output
+   for arg in params:
+      switch = arg[0:1]
+      option = arg[1:2]
+      if switch == '-':
+         if option == 'I':
+            env['CPPPATH'].append(arg[2:])
+         elif option == 'L':
+            env['LIBPATH'].append(arg[2:])
+         elif option == 'l':
+            env['LIBS'].append(arg[2:])
+         else:
+            env['CXXFLAGS'].append(arg)
+      else:
+         # Must be a static library, add it to the libs
+         env['LIBS'].append(arg)
+
+def SetupSDL(env):
+   "Sets up the given environment for SDL"
+   ParseConfig(env, 'sdl-config', Split('--cflags --libs'))
+
+def SetupAudiere(env):
+   "Sets up the given environment for Audiere"
+   env.Append(LIBS = ['audiere'])
+
+def SetupCorona(env):
+   "Sets up the given environment for Corona"
+   env.Append(LIBS = ['corona'])
+
+def SetupCppUnit(env):
+   "Sets up the given environment for CppUnit"
+   ParseConfig(env, 'cppunit-config', Split('--cflags --libs'))
+
+def SetupOpenGL(env):
+   "Sets up the given environment to be able to build with OpenGL"
+   # CYGWIN
+   if sys.platform == 'cygwin':
+       OPENGL_LIBS = ['opengl32', 'glu32']
+
+   # IRIX
+   elif string.find(sys.platform, 'irix') != -1:
+       OPENGL_LIBS = ['GLU', 'GL', 'X11', 'Xmu']
+
+   # GENERIC (LINUX?)
+   else:
+       OPENGL_LIBS = ['GLU', 'GL']
+
+   # Add in the OpenGL libs to the environment
+   env.Append(LIBS = OPENGL_LIBS)
+
+Export('ParseConfig')
+Export('SetupSDL SetupAudiere SetupCorona SetupCppUnit SetupOpenGL')
+
+
+def GetSirenVersion():
+   "Gets the Siren version from the src/Version.h header"
+   import re
+   contents = open('src/Version.h', 'r').read()
+   major = re.compile('.*(#define *SIREN_VERSION_MAJOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   minor = re.compile('.*(#define *SIREN_VERSION_MINOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   patch = re.compile('.*(#define *SIREN_VERSION_PATCH *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   return '%d.%d.%d' % (int(major), int(minor), int(patch))
+
+
+#------------------------------------------------------------------------------
+# Grok the arguments to this build
+#------------------------------------------------------------------------------
+EnsureSConsVersion(0,9)
+baseEnv = BuildBaseEnvironment()
+Export('baseEnv')
+
+# Create the Siren package
+pkg = Package('siren', GetSirenVersion())
+pkg.addExtraDist(Split("""
+   AUTHORS
+   ChangeLog
+   COPYING
+   README
+   SConstruct
+   src/SConscript
+   src/sound/SConscript
+   tools/build/AutoDist.py
+"""))
+Export('pkg')
+
+# Recurse
+subdirs = Split('src')
+SConscript(dirs = subdirs)
+
+pkg.build()
+
+Default('.')
