@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-30 06:00:44 $
- * Version:       $Revision: 1.89 $
+ * Date modified: $Date: 2002-10-30 06:32:57 $
+ * Version:       $Revision: 1.90 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -139,7 +139,7 @@ namespace mw
 
 
       initializeInput();
-      initializeAI();
+//      initializeAI();
       loadLevel("levels/level1.txt");
 
       mCamera.setMaxFollowDistance(50.0f);
@@ -151,6 +151,7 @@ namespace mw
    {
       AI.update();
 
+//      mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
       mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
       const gmtl::Vec3f accel  (0, 0, -mSpeed);
@@ -606,7 +607,7 @@ namespace mw
 	  while (in >> type >> x >> y >> z >> h >> p >> r)
       {
          // THIS SUCKS ASS
-         // VC++ 7 does not compile this right
+         // VC++ 7 does not compile this right unless it's static
          // Internal Compiler Error
          // this is not threadsafe
          static Entity* e;
@@ -618,8 +619,15 @@ namespace mw
          }
          else if (type == "turret")
          {
-            e = EntityFactory::instance().create<Turret>();
-            e->setModel("turret");
+            std::string name, parent;
+            int maxChild, level;
+            if (in >> name >> parent >> maxChild >> level)
+            {
+               Turret* t;
+               t = setupTurret(name, parent, maxChild, level);
+               t->setModel("turret");
+               e=t;
+            }
          }
          else if (type == "ammo")
          {
@@ -714,6 +722,35 @@ namespace mw
    }
 
 
+   /**
+    * This function sets up the turret object in the game, assigns it all the ai
+    * related stuff that it needs and returns a reference to that Turret.
+    * TODO: figure out how to handle the parent case.
+    */
+   Turret* 
+   GameState::setupTurret(std::string name, std::string parent, int maxChild, int level)
+   {
+      node1 = new lm::aiNode(name, NULL, maxChild, level);
+      
+      Turret* turret = EntityFactory::instance().create<Turret>();
+      node1sCommand = new lm::simpleCommand<Turret>(turret, &Turret::aim);
+      
+      first = new lm::behavior;
+      first->addCommand(node1sCommand);
+
+      aimTestCommand = new turretTesting(turret, &mPlayer);
+      aimCommand = new turretCommand(turret, &mPlayer);
+
+      first->addCommand(aimCommand);
+
+      node1Instinct = new lm::reflex(node1, first, aimTestCommand);
+      AI.registerNode(node1);
+
+      mMap[turret->getUID()] = node1;
+
+      return turret;
+   }
+      
    void
    GameState::initializeAI()
    {
@@ -741,7 +778,7 @@ namespace mw
       enemy2->setModel("security_droid");
 
       add(enemy1);
-//      add(enemy2);
+      add(enemy2);
 
 
       node1sCommand = new lm::simpleCommand<Turret>(enemy1, &Turret::aim);

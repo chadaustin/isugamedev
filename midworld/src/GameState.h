@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-30 06:00:44 $
- * Version:       $Revision: 1.52 $
+ * Date modified: $Date: 2002-10-30 06:32:58 $
+ * Version:       $Revision: 1.53 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -186,6 +186,7 @@ namespace mw
    private:
       void initializeInput();
       void initializeAI();
+      Turret* setupTurret(std::string name, std::string parent, int maxChild, int level);
       
       void drawEntities();
 
@@ -233,6 +234,7 @@ namespace mw
       // the following was test related stuff
 
       testing* appTest;
+      std::vector<lm::aiNode*> nodes;
       lm::aiNode* node1;
       lm::aiNode* node2;
       lm::command* node1sCommand;
