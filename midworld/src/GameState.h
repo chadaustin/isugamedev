@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-30 07:22:51 $
- * Version:       $Revision: 1.55 $
+ * Date modified: $Date: 2002-10-30 08:02:12 $
+ * Version:       $Revision: 1.56 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -185,8 +185,8 @@ namespace mw
 
    private:
       void initializeInput();
-      void initializeAI();
       Turret* setupTurret(std::string name, std::string parent, int maxChild, int level);
+      Enemy* setupDroid(std::string name, std::string parent, int maxChild, int level);
       
       void drawEntities();
 

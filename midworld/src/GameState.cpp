@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-30 07:22:51 $
- * Version:       $Revision: 1.92 $
+ * Date modified: $Date: 2002-10-30 08:02:11 $
+ * Version:       $Revision: 1.93 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -365,7 +365,6 @@ namespace mw
       glLoadIdentity();
 
       glPushMatrix();
-      {
          mCamera.draw();
          mGameScene.draw();
 
@@ -380,8 +379,47 @@ namespace mw
 
          drawEntities();
 
-//         drawBounds();
-      }
+         // Draw the bounds
+         glColor4f(1,0,0,1);
+         for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+         {
+            const Entity* entity = itr->second;
+            const gmtl::AABoxf& bounds = entity->getBounds();
+            const gmtl::Point3f& min = bounds.getMin();
+            const gmtl::Point3f& max = bounds.getMax();
+
+            // Front face
+            glBegin(GL_LINE_LOOP);
+               glVertex3f(min[0], min[1], min[2]);
+               glVertex3f(max[0], min[1], min[2]);
+               glVertex3f(max[0], max[1], min[2]);
+               glVertex3f(min[0], max[1], min[2]);
+            glEnd();
+
+            // Back face
+            glBegin(GL_LINE_LOOP);
+               glVertex3f(min[0], min[1], max[2]);
+               glVertex3f(max[0], min[1], max[2]);
+               glVertex3f(max[0], max[1], max[2]);
+               glVertex3f(min[0], max[1], max[2]);
+            glEnd();
+
+            // Bottom face
+            glBegin(GL_LINE_LOOP);
+               glVertex3f(min[0], min[1], min[2]);
+               glVertex3f(max[0], min[1], min[2]);
+               glVertex3f(max[0], min[1], max[2]);
+               glVertex3f(min[0], min[1], max[2]);
+            glEnd();
+
+            // Top face
+            glBegin(GL_LINE_LOOP);
+               glVertex3f(min[0], max[1], min[2]);
+               glVertex3f(max[0], max[1], min[2]);
+               glVertex3f(max[0], max[1], max[2]);
+               glVertex3f(min[0], max[1], max[2]);
+            glEnd();
+         }
       glPopMatrix();
 
       mHUD.draw(application().getWidth(), application().getHeight(),
@@ -398,52 +436,6 @@ namespace mw
          glTranslate(entity->getPos());
          entity->draw();
          glTranslate(-entity->getPos());
-      }
-   }
-
-   void
-   GameState::drawBounds()
-   {
-      // Draw the bounds
-      glColor4f(1,0,0,1);
-      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
-      {
-         const Entity* entity = itr->second;
-         const gmtl::AABoxf& bounds = entity->getBounds();
-         const gmtl::Point3f& min = bounds.getMin();
-         const gmtl::Point3f& max = bounds.getMax();
-
-         // Front face
-         glBegin(GL_LINE_LOOP);
-            glVertex3f(min[0], min[1], min[2]);
-            glVertex3f(max[0], min[1], min[2]);
-            glVertex3f(max[0], max[1], min[2]);
-            glVertex3f(min[0], max[1], min[2]);
-         glEnd();
-
-         // Back face
-         glBegin(GL_LINE_LOOP);
-            glVertex3f(min[0], min[1], max[2]);
-            glVertex3f(max[0], min[1], max[2]);
-            glVertex3f(max[0], max[1], max[2]);
-            glVertex3f(min[0], max[1], max[2]);
-         glEnd();
-
-         // Bottom face
-         glBegin(GL_LINE_LOOP);
-            glVertex3f(min[0], min[1], min[2]);
-            glVertex3f(max[0], min[1], min[2]);
-            glVertex3f(max[0], min[1], max[2]);
-            glVertex3f(min[0], min[1], max[2]);
-         glEnd();
-
-         // Top face
-         glBegin(GL_LINE_LOOP);
-            glVertex3f(min[0], max[1], min[2]);
-            glVertex3f(max[0], max[1], min[2]);
-            glVertex3f(max[0], max[1], max[2]);
-            glVertex3f(min[0], max[1], max[2]);
-         glEnd();
       }
    }
 
@@ -622,8 +614,15 @@ namespace mw
 
          if (type == "droid")
          {
-            e = EntityFactory::instance().create<Enemy>();
-            e->setModel("security_droid");
+            std::string name, parent;
+            int maxChild, level;
+            if(in >> name >> parent >> maxChild >> level)
+            {
+               Enemy* en;
+               en = setupDroid(name, parent, maxChild, level);
+               en->setModel("security_droid");
+               e = en;
+            }
          }
          else if (type == "turret")
          {
@@ -730,6 +729,34 @@ namespace mw
    }
 
 
+
+   /** 
+    * this function sets up the turret object in the game, assigns it all the
+    * ai related stuff that it needs and returns a reference to the droid.
+    * TODO: figure out how to handle the parent case.
+    */
+   Enemy*
+   GameState::setupDroid(std::string name, std::string parent, int maxChild, int level)
+   {
+      lm::aiNode* node1 = new lm::aiNode(name, NULL, maxChild, level);
+      mAInodes.push_back(node1);
+
+      Enemy* enemy = EntityFactory::instance().create<Turret>();
+      node2sCommand = new lm::simpleCommand<Enemy>(enemy, &Enemy::walkRandom);
+      myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
+      
+      second = new lm::behavior;
+      second->addCommand(node2sCommand);
+
+      node2Instinct = new lm::reflex(node1, second, myTestCommand);
+      AI.registerNode(node1);
+
+      mMap[enemy->getUID()] = node1;
+      
+      return enemy;
+   }
+   
+
    /**
     * This function sets up the turret object in the game, assigns it all the ai
     * related stuff that it needs and returns a reference to that Turret.
@@ -760,69 +787,6 @@ namespace mw
       return turret;
    }
       
-   void
-   GameState::initializeAI()
-   {
-      // XXX hack for testing aisystem
-      appTest = new testing;
-
-
-      //XXX hack for testing aiNodes for the aiSystem
-      node1 = new lm::aiNode("Ben", NULL, -1, 1);
-      node2 = new lm::aiNode("Chad", node1, -1, 1);
-
-      Turret* enemy1 = EntityFactory::instance().create<Turret>();
-
-
-
-      Enemy* enemy2 = EntityFactory::instance().create<Enemy>();
-      gmtl::Point3f inPos1(20.0,10.0,-20.0);
-      enemy1->setPos(inPos1);
-      gmtl::Point3f inPos2(30.0,0.0,-30.0);
-      enemy2->setPos(inPos2);
-
-
-
-      enemy1->setModel("turret");
-      enemy2->setModel("security_droid");
-
-      add(enemy1);
-      add(enemy2);
-
-
-      node1sCommand = new lm::simpleCommand<Turret>(enemy1, &Turret::aim);
-      node2sCommand = new lm::simpleCommand<Enemy>(enemy2, &Enemy::walkRandom);
-
-
-
-      first = new lm::behavior;
-      second = new lm::behavior;
-
-
-      first->addCommand(node1sCommand);
-      second->addCommand(node2sCommand);
-
-
-      //TODO: FOR LOOM: change instincts to take nodes as param1 not
-      //instinctMans.
-      myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
-
-      aimTestCommand = new turretTesting(enemy1, &mPlayer);
-      aimCommand = new turretCommand(enemy1, &mPlayer);
-
-      first->addCommand(aimCommand);
-
-      node1Instinct = new lm::reflex(node1, first, aimTestCommand);
-      node2Instinct = new lm::reflex(node2, second, myTestCommand);
-
-      AI.registerNode(node1);
-      AI.registerNode(node2);
-
-      mMap[enemy1->getUID()] = node1;
-      mMap[enemy2->getUID()] = node2;
-   }
-
-
    void
    GameState::updateEdgeState(EdgeState& state, bool absoluteState)
    {
