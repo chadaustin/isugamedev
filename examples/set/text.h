@@ -1,3 +1,10 @@
+/*******************************************************************
+ *      Set game - CS352 - Iowa State University
+ *      Proffesor: Lynette Kizer
+ *      Author: Josh Brow
+ *      File: text.h
+ *******************************************************************/
+
 #ifndef TEX
 #define TEX
 

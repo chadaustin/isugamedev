@@ -1,4 +1,9 @@
-
+/*******************************************************************
+ *      Set game - CS352 - Iowa State University
+ *      Proffesor: Lynette Kizer
+ *      Author: Josh Brow
+ *      File: simpleGlutApp.cpp
+ *******************************************************************/
 
 #ifdef WIN32
    #include <windows.h>  // make the app win32 friendly. :)
@@ -24,7 +29,7 @@ int mouseX, mouseY;
 
 int DIFFI=10;
 
-
+// keep windows happy
 #ifdef WIN32
       void msleep( float msec )
       {
@@ -77,7 +82,7 @@ int DIFFI=10;
 
 
 
-// a place to store application data...
+// a class to store, update, and query application wide data...
 class App
 {
 public:
@@ -511,6 +516,4 @@ void main( int argc, char* argv[] )
    // time for glut to sit and spin.
    ::glutMainLoop();
 }
-
-
 
