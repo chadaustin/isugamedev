@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.h,v $
- * Date modified: $Date: 2002-07-29 05:48:35 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-08-14 20:26:31 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,8 +46,11 @@ namespace mw
       /**
        * Constructor
        */
-      BaseBullet() :  mExistCount(0), mTimeOut(5)
+      BaseBullet()
+         : mExistCount(0)
+         , mTimeOut(5)
       {
+         mBounds = gmtl::AABoxf(gmtl::Point3f(0,0,0), gmtl::Point3f(0.150f, 0.150f, 0.350f));
       }
       /**
        * Destructor
@@ -72,6 +75,23 @@ namespace mw
 
       void onCollisionEntry(const CollisionEvent& evt)
       {
+         if (evt.getSource() == this)
+         {
+            // Don't collide with other bullets
+            if (dynamic_cast<BaseBullet*>(evt.getDesc()->getCollidee()))
+            {
+               return;
+            }
+         }
+         else
+         {
+            // Don't collide with other bullets
+            if (dynamic_cast<BaseBullet*>(evt.getSource()))
+            {
+               return;
+            }
+         }
+
          // Make sure we die next frame
          mExistCount = mTimeOut;
       }
@@ -91,6 +111,6 @@ namespace mw
       /// The amount of time this bullet is allowed to stay in the GameState
       float mTimeOut;
    };
+}
 
-}//end of namespace mw
 #endif
