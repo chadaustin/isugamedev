@@ -52,7 +52,7 @@ build: $(OBJS)
 	-@echo "-------------------------------------------"
 	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .so)"
 	-@echo "-------------------------------------------"
-	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS) $(OUTPUT_EXE_FLAG)$(FILENAME) $(LIBS)
+	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS) $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIBS)
 	-@echo ""
 	-@echo "-------------------------------------------"
 	-@echo "$(FILENAME) done"
