@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-05-02 04:17:03 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-05-02 07:13:14 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -115,6 +115,12 @@ namespace game
      void getStats(Player* player);
 
    private:
+     /**
+      * Processes the inputs on the given player.
+      */
+     void processInput(Player* player, float dt);
+
+   private:
       //vector for players in the game.
       typedef std::vector<Player*> PlayerList;
       PlayerList mPlayer;
@@ -123,7 +129,6 @@ namespace game
       typedef std::vector<Object*> ObjectList;
       ObjectList mObject;
       typedef ObjectList::iterator ObjectListItr;
-      
    };
 }
 

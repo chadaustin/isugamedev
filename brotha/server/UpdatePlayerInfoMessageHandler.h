@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: UpdatePlayerInfoMessageHandler.h,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-05-02 07:13:14 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -59,30 +59,39 @@ namespace server {
          net::UpdatePlayerInfoMessage* uMsg = (net::UpdatePlayerInfoMessage*)msg;
          // get player based off of connection
          game::Player* player = m_brothaGame->getPlayer(cID);
+         std::cout<<"Player \""<<player->getName()<<"\": "<<std::flush;
          // update info
          switch(uMsg->getUpdateWhat()) {
-            //case (net::UpdatePlayerInfoMessage::ACCELERATION):
-            //   player->mIsAccelerating = (uMsg->getOn() != 0);
-            //   break;
+            case (net::UpdatePlayerInfoMessage::ACCELERATION):
+               player->mIsAccelerating = (uMsg->getOn() != 0);
+               std::cout<<"Accelerate ["<<uMsg->getOn()<<"]"<<std::endl;
+               break;
             case (net::UpdatePlayerInfoMessage::BRAKE):
                player->mIsBraking = (uMsg->getOn() != 0);
+               std::cout<<"Brake ["<<uMsg->getOn()<<"]"<<std::endl;
                break;
             case (net::UpdatePlayerInfoMessage::HANDBRAKE):
                player->mIsHandBraking = (uMsg->getOn() != 0);
+               std::cout<<"Hand brake ["<<uMsg->getOn()<<"]"<<std::endl;
                break;
             case (net::UpdatePlayerInfoMessage::SHOOT):
                ///@todo do something with this
+               std::cout<<"Shoot ["<<uMsg->getOn()<<"]"<<std::endl;
                break;
             case (net::UpdatePlayerInfoMessage::TURNRIGHT):
                player->mIsTurningRight = (uMsg->getOn() != 0);
+               std::cout<<"Turn right ["<<uMsg->getOn()<<"]"<<std::endl;
                break;
             case (net::UpdatePlayerInfoMessage::TURNLEFT):
                player->mIsTurningLeft = (uMsg->getOn() != 0);
+               std::cout<<"Turn left ["<<uMsg->getOn()<<"]"<<std::endl;
                break;
             case (net::UpdatePlayerInfoMessage::WEAPON):
                ///@todo do something with this
+               std::cout<<"Weapon ["<<uMsg->getOn()<<"]"<<std::endl;
                break;
             default:
+               std::cout<<"Unknown ["<<uMsg->getOn()<<"]"<<std::endl;
                break;
          }
       };

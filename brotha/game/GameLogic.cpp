@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-02 05:59:02 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-05-02 07:13:14 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,7 +46,7 @@
 #include <sstream>
 #include "xml/DataManager.h"
 #include <gmtl/Containment.h>
-//#include "gmtl/Sphere.h"
+#include <gmtl/Output.h>
 
 namespace game
 {
@@ -59,6 +59,14 @@ namespace game
    void GameLogic::update(float time){ 
       gmtl::Point3f oPosition;
       gmtl::Spheref oSphere;
+
+      // Handle inputs from the various players
+      PlayerList::iterator itr;
+      for (itr = mPlayer.begin(); itr != mPlayer.end(); ++itr) {
+         Player* p = *itr;
+         processInput(p, time);
+      }
+
       for (unsigned int i=0; i < mObject.size(); i++){
          // compute new position
          oPosition = mObject[i]->getPosition() + (mObject[i]->getVelocity() * time);
@@ -196,6 +204,37 @@ namespace game
          player->setCoins(coins);
          player->setKills(kills);
          player->setHealth(health);
+      }
+   }
+
+   void GameLogic::processInput(Player* player, float dt) {
+      std::cout<<"processInput for "<<player->getName()<<" with dt="<<dt<<std::endl;
+      // Gets the forward vehicle
+      Object* vehicle = player->getVehicle();
+//      gmtl::Vec3f forward = vehicle->getForward();
+      gmtl::Vec3f forward(0,0,-1);
+      float speed = 3.7f;
+
+      float angSpeed = 30.0f * 180.0f / 3.141579f;
+
+      // handle acceleration
+      if (player->mIsAccelerating) {
+         gmtl::Vec3f newV = vehicle->getVelocity() + (forward * (speed * dt));
+         std::cout<<"newV="<<newV<<std::endl;
+         vehicle->setVelocity(newV);
+      }
+      if (player->mIsBraking) {
+         vehicle->setVelocity(vehicle->getVelocity() - (forward * (speed * dt)));
+      }
+      if (player->mIsHandBraking) {
+         /// @todo implement hand braking
+         std::cout<<"Hand Braking (not implemented)!"<<std::endl;
+      }
+      if (player->mIsTurningLeft) {
+//         vehicle->setAngularVelocity(vehicle->getAngularVelocity() + (angSpeed * dt));
+      }
+      if (player->mIsTurningRight) {
+//         vehicle->setAngularVelocity(vehicle->getAngularVelocity() - (angSpeed * dt));
       }
    }
 }
