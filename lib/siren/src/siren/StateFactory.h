@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StateFactory.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-07 04:33:02 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -133,7 +133,7 @@ namespace siren
 
       virtual StatePtr create()
       {
-         return StatePtr(StateType());
+         return StatePtr(new StateType());
       }
    };
 }
