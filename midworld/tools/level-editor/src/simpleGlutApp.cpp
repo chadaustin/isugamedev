@@ -241,6 +241,7 @@ void drawModels()
          glVertex2f(modelsInWorld[i].xlo, modelsInWorld[i].ylo);
          glVertex2f(modelsInWorld[i].xhi, modelsInWorld[i].ylo);
       glEnd();
+      std::cout << "xhi: " << modelsInWorld[i].xhi << " xlo: " << modelsInWorld[i].xlo << std::endl;
       glPopMatrix();
    }
    
@@ -299,10 +300,10 @@ void drawObjAtMouse()
    }
    std::cout << "newMouseX,Y: " << mouseX << "  " << mouseY << std::endl;
    glBegin(GL_POLYGON);
-      glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
-      glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
-      glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, modelsInMenu[drawOnMouse-1].ylo*TEMPSCALE);
-      glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, modelsInMenu[drawOnMouse-1].ylo*TEMPSCALE);
+      glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
+      glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
+      glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, -modelsInMenu[drawOnMouse-1].ylo*TEMPSCALE);
+      glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, -modelsInMenu[drawOnMouse-1].ylo*TEMPSCALE);
    glEnd();
    glTranslatef(-mouseX, -mouseY, 0);
 }
