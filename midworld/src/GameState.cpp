@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2003-04-29 21:39:32 $
- * Version:       $Revision: 1.135 $
+ * Date modified: $Date: 2003-05-01 05:10:07 $
+ * Version:       $Revision: 1.136 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -82,7 +82,7 @@ namespace mw
       jukebox->addTrack("music/Theme001.ogg");
       jukebox->addTrack("music/Level001.ogg");
       jukebox->addTrack("music/Level002.ogg");
-      jukebox->play();
+    //  jukebox->play();
 
       mScene = new Scene();
       OpenSGSceneViewer* viewer = new OpenSGSceneViewer(mScene);
@@ -167,9 +167,6 @@ namespace mw
 //      const int COAT_MATERIAL_SET = 2;
 
       mPlayerCoreModel.setCoreMaterialId(BODY_MATERIAL_THREAD, HAT_MATERIAL_SET, hatMaterialID);
-//      mPlayerCoreModel.setCoreMaterialId(BODY_MATERIAL_THREAD, COAT_MATERIAL_SET, coatMaterialID);
-//      mPlayerCoreModel.setCoreMaterialId(BODY_MATERIAL_THREAD, PANTS_MATERIAL_SET, pantsMaterialID);
-
       
       if (! myModel.create(&mPlayerCoreModel))
       {
@@ -321,7 +318,7 @@ namespace mw
       
       mFPSCounter.update(dt);
    }
-   gmtl::Vec3f temp;
+   gmtl::Vec3f playerPos;
    
    void GameState::draw()
    {
@@ -330,9 +327,9 @@ namespace mw
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
       glEnable(GL_DEPTH_TEST);
-      glEnable(GL_BLEND);
-      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-      glDisable(GL_CULL_FACE);
+//      glEnable(GL_BLEND);
+//      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//      glDisable(GL_CULL_FACE);
 
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
@@ -347,15 +344,24 @@ namespace mw
       glPushMatrix();
          mCamera.draw();
 
-         mGameScene.draw();
 
          mSkydomeTex->bind();
          RenderSkyDome();
          mSkydomeTex->unbind();
 
+         mGameScene.draw();
+  
+         
          
 
-         glTranslate(temp);
+
+         
+         
+
+         drawEntities();
+         
+
+         glTranslate(playerPos);
             if(drawAni && mActionUp->getEdgeState()==1) 
             {
                std::cout << "EdgeState: " << mActionUp->getEdgeState() << std::endl << std::endl;
@@ -370,20 +376,17 @@ namespace mw
             {
                drawAnimation();
             }
-         glTranslate(-temp);
+         glTranslate(-playerPos);
          
-
          // Make sure we clean up after OpenSG until they fix their bugs
-         glPushAttrib(GL_ENABLE_BIT);
+         glPushAttrib(GL_ALL_ATTRIB_BITS);
          {
             mSceneViewer->draw();
             // Grrr... OpenSG leaves the current texture bound
-            glBindTexture(GL_TEXTURE_2D, 0);
+     //       glBindTexture(GL_TEXTURE_2D, 0);
          }
          glPopAttrib();
-         
 
-         drawEntities();
          
          
          // Draw this last for correct depth testing
@@ -391,27 +394,29 @@ namespace mw
 
          
          
-//         drawBounds();
+         mHUD.draw(application().getWidth(), application().getHeight(),
+                mPlayer, mFPSCounter.getFPS(), mPM.getOutput());
+
+      
+         
+   //      drawBounds();
       glPopMatrix();
 
-      mHUD.draw(application().getWidth(), application().getHeight(),
-                mPlayer, mFPSCounter.getFPS(), mPM.getOutput());
+      
+
    }
    
    void
    GameState::drawEntities()
    {
-      // Run through the entities in the scene and mark those that are dead
+      // Run through the entities in the scene 
       for (Scene::EntitySetCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
          const Entity* entity = *itr;
-         glTranslate(entity->getPos());
          if(entity == &mPlayer)
          {
-            temp = entity->getPos();
-            entity->draw();
+            playerPos = entity->getPos();
          }
-         glTranslate(-entity->getPos());
       }
    }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-12-21 19:25:49 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2003-05-01 05:10:08 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -194,6 +194,10 @@ namespace mw
          glMatrixMode(GL_MODELVIEW);
          glPushMatrix();
 
+    //     glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+         glEnable(GL_CULL_FACE);
+    //     glDisable(GL_DEPTH_TEST);
+         glDisable(GL_BLEND);
          mWin->render(mRenderAction);
 
          glPopMatrix();

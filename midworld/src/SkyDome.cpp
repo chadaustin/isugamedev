@@ -173,10 +173,10 @@ void GenerateDome(float radius, float dtheta, float dphi, float hTile, float vTi
 int RenderSkyDome()
 {
 	glPushMatrix();
-	glTranslatef(0.0f, -100.0f, 0.0f);
+   glTranslatef(0.0f, -100.0f, 0.0f);
 	glRotatef(SDL_GetTicks()/2000.0f,0.0f, 1.0f, 0.0f);
 	glRotatef(270, 1.0f, 0.0f, 0.0f);
-
+   
    glFrontFace(GL_CW);
 
 	glBegin(GL_TRIANGLE_STRIP);
