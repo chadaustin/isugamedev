@@ -48,7 +48,7 @@ endif
 include ${MK_DIR}/mk.objs
 
 # Compile then Link
-build: $(OBJS)
+build: $(OBJS) $(LIB_FILENAME) $(STATIC_LIB_FILENAME)
 	-@echo ""
 	-@echo "-------------------------------------------"
 	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .so)"
@@ -59,6 +59,16 @@ build: $(OBJS)
 	-@echo "-------------------------------------------"
 	-@echo "$(FILENAME) done"
 	-@echo "-------------------------------------------"
+
+prefix ?= build
+
+
+install: build
+	-mkdir $(prefix)
+	-mkdir $(prefix)/include
+	-mkdir $(prefix)/lib$(LIBBITSUF)
+	-cp *.h $(prefix)/include
+	-cp $(LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
 
 # Remove the compiled stuff from the system
 clean:
