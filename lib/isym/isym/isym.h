@@ -51,9 +51,12 @@ namespace isym
     */
           
    /** left mouse button... */
-   const Symbol BUTTON_LEFT = isym::getUID();
-   const Symbol BUTTON_MIDDLE = isym::getUID();
-   const Symbol BUTTON_RIGHT = isym::getUID();
+   const Symbol MOUSE_LEFT = isym::getUID();
+   const Symbol MOUSE_MIDDLE = isym::getUID();
+   const Symbol MOUSE_RIGHT = isym::getUID();
+   const Symbol MOUSE_0 = MOUSE_LEFT;
+   const Symbol MOUSE_1 = MOUSE_MIDDLE;
+   const Symbol MOUSE_2 = MOUSE_RIGHT;
    const Symbol KEY_ESCAPE = isym::getUID();
    const Symbol KEY_F1 = isym::getUID();
    const Symbol KEY_F2 = isym::getUID();
