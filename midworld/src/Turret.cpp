@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2003-06-16 08:14:56 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,7 +34,7 @@
 #include "EntityFactory.h"
 #include "SpreadGun.h"
 #include "Turret.h"
-#include "ParticleEngine.h"
+//#include "ParticleEngine.h"
 
 namespace mw
 {
@@ -48,7 +48,7 @@ namespace mw
    
    Turret::~Turret()
    {
-      EntityFactory& factory = EntityFactory::instance();
+/*      EntityFactory& factory = EntityFactory::instance();
       ParticleEngine* engine = new ParticleEngine(
          factory.getGameState(),
          "explosive_particle",
@@ -56,7 +56,7 @@ namespace mw
       factory.add(engine);
       
       engine->setPos(getPos());
-   }
+*/   }
 
    
    void Turret::aim()

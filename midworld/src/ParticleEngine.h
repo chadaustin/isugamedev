@@ -4,6 +4,7 @@
 #include <list>
 #include <gmtl/Vec.h>
 #include <gmtl/Point.h>
+
 #include "AbstractEntity.h"
 #include "Camera.h"
 #include "Particle.h"

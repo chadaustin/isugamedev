@@ -1,6 +1,7 @@
 #include <gmtl/VecOps.h>
 #include <gmtl/Math.h>
 #include <SDL_opengl.h>
+
 #include "GameState.h"
 #include "ParticleEngine.h"
 #include "Utility.h"

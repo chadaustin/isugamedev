@@ -15,6 +15,8 @@ interfaces = Split("""
 """)
 
 # Listed here are classes that have a .h and a .cpp file associated with them
+# I removed ParticleEngine from this since we were getting the crazy cross
+# errors -- arg
 classes = Split("""
    AbstractEntity
    AmmoBag
@@ -52,7 +54,6 @@ classes = Split("""
    OpenSGSceneViewer
    OptionsState
    Particle
-   ParticleEngine
    PerformanceMonitor
    PhysicsEngine
    Pistol

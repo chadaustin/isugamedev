@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-11-11 08:05:53 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2003-06-16 08:14:56 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,7 +43,8 @@ namespace mw
    void RigidBody::addForce( const gmtl::Vec3f& force, const gmtl::Vec3f& pos )
    {
       mForce += force; // yes we need both... :)
-      mTorque += gmtl::cross( pos, force );
+      // TODO: add this back in
+ //     mTorque += gmtl::cross( pos, force );
    }
 
    gmtl::Vec3f RigidBody::getForward() const

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2003-05-01 05:10:08 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2003-06-16 08:14:56 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -50,7 +50,7 @@ namespace mw
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       jukebox->clear();
       jukebox->addTrack("music/theme.ogg");
-  //    jukebox->play();
+      jukebox->play();
    }
 
    IntroState::~IntroState()

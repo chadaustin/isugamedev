@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2003-06-16 08:14:56 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,7 +37,7 @@
 #include <cstdlib>
 #include "Enemy.h"
 #include "EntityFactory.h"
-#include "ParticleEngine.h"
+//#include "ParticleEngine.h"
 #include "Pistol.h"
 
 namespace mw
@@ -51,7 +51,7 @@ namespace mw
    
    Enemy::~Enemy()
    {
-      EntityFactory& factory = EntityFactory::instance();
+/*      EntityFactory& factory = EntityFactory::instance();
       ParticleEngine* engine = new ParticleEngine(
          factory.getGameState(),
          "explosive_particle",
@@ -59,5 +59,5 @@ namespace mw
       factory.add(engine);
      
       engine->setPos(getPos());
-   }
+*/   }
 }

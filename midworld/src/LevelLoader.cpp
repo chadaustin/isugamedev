@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.cpp,v $
- * Date modified: $Date: 2003-03-11 01:24:33 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2003-06-16 08:14:56 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -125,7 +125,7 @@ namespace mw
       maxChildren = cNode->getAttribute(std::string("num")).getValue<int>();
       cNode= node.getChild(std::string("level"));
       level = cNode->getAttribute(std::string("nu")).getValue<int>();
-      t = g->setupTurret(nam, parent, maxChildren, level);
+      t = g->setupDroid(nam, parent, maxChildren, level, *g->getNavNodeTree());
       cNode = node.getChild(std::string("pos"));
       t->setPos(gmtl::Point3f(cNode->getAttribute(std::string("x")).getValue<float>(), 
                         cNode->getAttribute(std::string("y")).getValue<float>(),
@@ -188,7 +188,45 @@ namespace mw
       return t;
    }
 
-   
+   Entity* 
+   LevelLoader::handleNavNode(XMLNode &node, GameState* g)
+   {
+      Node* navNode = new Node();
+      std::string name = node.getName();
+      std::string nam;
+      std::string c_data;
+      std::string type;
+      XMLNodePtr cNode = node.getChild(std::string("pos"));
+      navNode->loc[0]=cNode->getAttribute(std::string("x")).getValue<float>();
+      navNode->loc[1]=cNode->getAttribute(std::string("y")).getValue<float>();
+      navNode->loc[2]=cNode->getAttribute(std::string("z")).getValue<float>();
+      
+      cNode = node.getChild(std::string("name"));
+      XMLNodePtr n= *(cNode->getChildren().begin());
+      nam = n->getCdata();
+      navNode->name = nam;
+      
+      g->getNavNodeTree()->addNode(navNode);
+   }
+
+   Entity*
+   LevelLoader::handleNavNodeLink(XMLNode &node, GameState* g)
+   {
+      std::string name1, name2;
+      std::string c_data1, c_data2;
+      std::string type;
+
+      XMLNodePtr cNode = node.getChild(std::string("navNode1"));
+      XMLNodePtr n = *(cNode->getChildren().begin());
+      name1 = n->getCdata();
+      cNode = node.getChild(std::string("navNode2"));
+      n = *(cNode->getChildren().begin());
+      name2 = n->getCdata();
+
+      g->getNavNodeTree()->addLink(name1, name2);
+      
+      
+   }
 
    void
    LevelLoader::dumpNode(XMLNode &node, GameState* g, int level)
@@ -221,7 +259,13 @@ namespace mw
             Entity* e;
             e = handleGunEntity(node, g);
             g->add(e);
-         }else if(name.c_str() == std::string("droid")){
+         }else if(name.c_str() == std::string("navNode"))
+         {
+            handleNavNode(node, g);
+         }else if(name.c_str() == std::string("navNodeLink"))
+         {
+            handleNavNodeLink(node, g);
+         }else if(name.c_str() == std::string("security_droid")){
             Entity* e;
             e = handleDroidEntity(node, g);
             g->add(e);

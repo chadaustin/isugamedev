@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Camera.cpp,v $
- * Date modified: $Date: 2002-11-14 12:12:28 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2003-06-16 08:14:56 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -116,7 +116,7 @@ namespace mw
    void
    Camera::draw()
    {
-      gmtl::Matrix44f cam_inv = gmtl::makeInverse(mTransform);
+      gmtl::Matrix44f cam_inv = gmtl::invert(mTransform);
       glMultMatrixf(cam_inv.getData());
 
 //      glRotatef( 90, 1,0,0 );

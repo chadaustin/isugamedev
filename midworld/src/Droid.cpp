@@ -5,7 +5,7 @@
 #include "EntityFactory.h"
 #include "Pistol.h"
 #include "Droid.h"
-#include "ParticleEngine.h"
+//#include "ParticleEngine.h"
 #include "NavNodeTree.h"
 
 namespace mw
@@ -27,7 +27,7 @@ namespace mw
 
    Droid::~Droid()
    {
-      EntityFactory& factory = EntityFactory::instance();
+ /*     EntityFactory& factory = EntityFactory::instance();
       ParticleEngine* engine = new ParticleEngine(
             factory.getGameState(),
             "explosive_particle",
@@ -35,7 +35,7 @@ namespace mw
       factory.add(engine);
 
       engine->setPos(getPos());
-   }
+*/   }
 
    float Droid::getTimeDelta()
    {

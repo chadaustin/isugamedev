@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.h,v $
- * Date modified: $Date: 2002-12-03 06:50:44 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-06-16 08:14:56 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -73,6 +73,9 @@ namespace mw
       static Entity* handleGunEntity(XMLNode &node, GameState* g);
       static Entity* handleTurretEntity(XMLNode &node, GameState* g);
       static Entity* handleDroidEntity(XMLNode &node, GameState* g);
+      static Entity* handleNavNode(XMLNode &node, GameState* g);
+      static Entity* handleNavNodeLink(XMLNode &node, GameState* g);
+
    private:
       LevelLoader();
       LevelLoader(const LevelLoader&);
