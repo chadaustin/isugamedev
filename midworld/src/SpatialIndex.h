@@ -4,7 +4,7 @@
 #define MW_SPATIAL_INDEX_H
 
 #include <list>
-#include <gmtl/AABB.h>
+#include <gmtl/AABox.h>
 #include "RigidBody.h"
 
 namespace mw
@@ -25,7 +25,7 @@ namespace mw
        *
        * @return  a list of intersecting bodies
        */
-      virtual std::list<RigidBody*> intersect(const gmtl::AABB& region) = 0;
+      virtual std::list<RigidBody*> intersect(const gmtl::AABoxf& region) = 0;
    };
 }
 

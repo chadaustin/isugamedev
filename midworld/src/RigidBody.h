@@ -21,7 +21,7 @@ namespace mw
        *
        * @return  the bounding volume for this body
        */
-      virtual const gmtl::AABBf& getBounds() const;
+      virtual const gmtl::AABoxf& getBounds() const;
 
       /**
        * Gets the position of this rigid body relative to the world's origin.
