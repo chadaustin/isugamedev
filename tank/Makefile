@@ -62,14 +62,8 @@ endif
 
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
-default: 
-	cd regexx && $(MAKE) 
-	@echo " "
-	@echo "================="
-	@echo "Making TANK"
-	@echo "================="
-	@echo " "
-	$(MAKE) USE_DEPEND='Y' tank
+default:
+	$(MAKE) USE_DEPEND='Y' tank$(EXE_FILE_SUFFIX)
 
 debug:
 	$(MAKE) USE_DEBUG='Y' default
@@ -77,16 +71,20 @@ debug:
 release:
 	$(MAKE) USE_DEBUG='N' default
 
-tank: ${OBJS} imageIoReg.$(OBJ_FILE_SUFFIX)
+# rule to build the regexx library.
+$(LIB_FILE_PREFIX)regexx.$(LIB_FILE_SUFFIX):
+	cd regexx && $(MAKE)
+	ln -s regexx/$(LIB_FILE_PREFIX)regexx.$(LIB_FILE_SUFFIX) .
+
+tank$(EXE_FILE_SUFFIX): $(LIB_FILE_PREFIX)regexx.$(LIB_FILE_SUFFIX) \
+                           ${OBJS} \
+                           imageIoReg.$(OBJ_FILE_SUFFIX) 
 	@echo " "
 	@echo "----------------------"
 	@echo "Making TANK executable"
 	@echo "----------------------"
 	@echo " "
 	$(EXE_LINKER) $(EXE_FLAGS) ${OBJS} $(LINKALL_ON) imageIoReg.$(OBJ_FILE_SUFFIX) $(LINKALL_OFF) $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIB_PATHS) $(LIBS)
-
-
-
 
 clobber: clean
 	rm -f *.d
@@ -106,6 +104,7 @@ clean:
 	@echo "================="
 	@echo " "
 	-rm -rf $(OBJS) $(EXE_FILENAME) ii_files
+	-rm $(LIB_FILE_PREFIX)regexx.$(LIB_FILE_SUFFIX)
 
 ifeq ($(USE_DEPEND),Y)
 include ${MK_DIR}/mk.depend
