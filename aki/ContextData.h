@@ -5,30 +5,36 @@
 //
 //  Define.h: a class to map data to contexts
 //
-///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
+/////////////////// <GK heading BEGIN do not edit this line> /////////////////
 //
-//    $RCSfile: ContextData.h,v $
-//    $Date: 2002-01-30 06:18:27 $
-//    $Revision: 1.2 $
-//    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
+// gamekernel - a platform for running games
+// gamekernel is (C) Copyright 2001-2002 by Kevin Meinert, Ben Scott
 //
-//    This library is free software; you can redistribute it and/or
-//    modify it under the terms of the GNU Library General Public
-//    License as published by the Free Software Foundation; either
-//    version 2 of the License, or (at your option) any later version.
+// Authors: Kevin Meinert <kevin@vrsource.org>
+//          Ben Scott <bscott@iastate.edu>
 //
-//    This library is distributed in the hope that it will be useful,
-//    but WITHOUT ANY WARRANTY; without even the implied warranty of
-//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-//    Library General Public License for more details.
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Library General Public
+// License as published by the Free Software Foundation; either
+// version 2 of the License, or (at your option) any later version.
 //
-//    You should have received a copy of the GNU Library General Public
-//    License along with this library; if not, write to the Free
-//    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Library General Public License for more details.
 //
-///////////////// <auto-copyright END do not edit this line> ///////////////////
-
-//////////////////////////////////////////////////////////////////////////////
+// You should have received a copy of the GNU Library General Public
+// License along with this library; if not, write to the
+// Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+// Boston, MA 02111-1307, USA.
+//
+// -----------------------------------------------------------------
+// File:          $RCSfile: ContextData.h,v $
+// Date modified: $Date: 2002-01-30 06:48:25 $
+// Version:       $Revision: 1.3 $
+// -----------------------------------------------------------------
+//
+////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef CONTEXT_DATA_H
 #define CONTEXT_DATA_H
 
