@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="http://isugamedev.sourceforge.net/brotha/docbook.css" type="text/css"?>
+<?xml-stylesheet href="file://localhost/C:/Documents and Settings/Josh/My Documents/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.15 2002-04-08 10:20:52 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 10:20:52 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.16 2002-04-08 11:52:33 tamc Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 11:52:33 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -50,7 +50,8 @@
     <para>At a high level, <emphasis>Warn-a-Brotha</emphasis> can be broken down into several clear modules. This includes Connection Manager, Data/XML, Game Logic, Input, Network, Report Server, Sound, Texture, Threading and UI.</para>
     <section>
       <title>Connection Manager Module</title>
-      <para>Description of what this module does here ...</para>
+      <para>The Connection Manager module is responsible for handling the sending and receiving of messages from a number of peer connections. Objects of type <classname>Socket</classname> are passed into the module through the <methodname>handleSocket</methodname> method. This method returns a unique connection identification number that will be associated with the <classname>Socket</classname> object. The <methodname>send</methodname> method accepts an object of type <classname>Message</classname> and a connection identification number. The message that is passed in will be sent to the peer connection represented by the connection identification number. The <methodname>readAll</methodname> method will return to the caller a collection of objects of type <classname>Message</classname> and the connection identification number that represents the peer connection from which the <classname>Message</classname> object originated from. The <classname>Message</classname> class provides the abstract implementation for all <classname>Message</classname> objects. Data cannot be sent using the Connection Manager unless the data is represented by an object that implements the <classname>Message</classname> class.</para>
+      <para>Internally the Connection Manager module is composed of several classes: <classname>Connection</classname>, <classname>WriteThread</classname> and <classname>ReadThread</classname><classname></classname>. Each <classname>Socket</classname> passed into the module through <methodname>handleSocket</methodname> creates a <classname>Connection</classname> object. This <classname>Connection</classname> object creates a <classname>WriteThread</classname> and a <classname>ReadThread</classname> to handle the actual sending and receiving of data.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
