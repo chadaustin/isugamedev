@@ -24,7 +24,7 @@ Bullet::Bullet()
 
 Bullet::~Bullet()
 {
-	delete next;
+	//delete next;
 	//delete [] weaponTex;
 }
 
