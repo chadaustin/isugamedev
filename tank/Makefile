@@ -8,7 +8,9 @@
 PROJECT_NAME = tank
 
 # objects to be included in the project....
-SRCS = simpleGlutApp.cxx Matrix4f.cxx Light.cxx ColorRGBA.cxx Material.cxx Texture.cxx TgaImporter.cxx Image.cxx
+SRCS = ImageManager.cxx FileHandler.cxx simpleGlutApp.cxx Matrix4f.cxx Light.cxx \
+       ColorRGBA.cxx Material.cxx Texture.cxx TgaImporter.cxx Image.cxx \
+       CppImageExporter.cxx BmpImporter.cxx imageIoReg.cxx
 MK_DIR = ./mk
 PATH_TO_SRCS = .
 
