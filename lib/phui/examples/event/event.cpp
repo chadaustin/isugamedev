@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-22 06:31:10 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-22 07:17:17 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -231,6 +231,19 @@ int main(int argc, char** argv) {
       txt->setBackgroundColor(phui::Colorf(1,1,1,1.0f));
       txt->setForegroundColor(phui::Colorf(0,0,0,1.0f));
       window->add(txt);
+
+      phui::ListBox* lst(new phui::ListBox());
+      lst->setPosition(130,100);
+      lst->setSize(100,100);
+      lst->setVisible(true);
+      lst->setBackgroundColor(phui::Colorf(1,1,1,1.0f));
+      lst->setForegroundColor(phui::Colorf(0,0,0,1.0f));
+      lst->add("Apples");
+      lst->add("Oranges");
+      lst->add("Bananas");
+      lst->add("Pears");
+      lst->add("Peaches");
+      window->add(lst);
 
       gRoot->add(window);
       gRoot->add(wnd);
