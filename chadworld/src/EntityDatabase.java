@@ -12,6 +12,13 @@ public class EntityDatabase {
   private List m_database = new ArrayList();
   private int m_id = 0;
 
+  /**
+   * getEntity is responsible for returning the Entity object
+   * associated with a username in the world.  If the EntityDatabase
+   * were to store persistent locations of objects within the world,
+   * getEntity() would return a new Entity object with the position
+   * set to the previous position of the user.
+   */
   synchronized Entity getEntity(String usename) {
     Entity e = new Entity();
     e.id = m_id++;
