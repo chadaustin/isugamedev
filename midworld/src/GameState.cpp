@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-16 09:14:23 $
- * Version:       $Revision: 1.57 $
+ * Date modified: $Date: 2002-10-17 05:51:22 $
+ * Version:       $Revision: 1.58 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -155,8 +155,8 @@ namespace mw
 
  //     node1Instinct = new lm::instinct(node1->mInstinctManager, first, myTestCommand);
 
-//      node2Instinct = new lm::reflex(node2, second, myTestCommand);
-      node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
+      node2Instinct = new lm::reflex(node2, second, myTestCommand);
+//      node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
 
       AI.registerNode(node1);
       AI.registerNode(node2);
