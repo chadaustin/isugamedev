@@ -43,14 +43,19 @@ public:
          Quat<float> dampened_rot;
          dampened_rot.slerp( dampening_factor, mTargetRotOld, mTargetRot );
          mTargetRotOld = dampened_rot;
-
+         
+         // dampen the camera position...
+         Vec3<float> dampened_pos;
+         dampened_pos.lerp( dampening_factor, mTargetPosOld, mTargetPos );
+         mTargetPosOld = dampened_pos;
+         
          // set the target matrix that the camera would match if mounted to 
          // the vehicle on a springy dampened platform.  this will be 
          // used to determine the camera local coordinate system
          // used then as a basis for pitching and yawing the camera.
          Matrix4f target_mat;
-         kev::quat2mat( mTargetPos, dampened_rot, target_mat );
-         mXform = target_mat;
+         kev::quat2mat( dampened_pos, dampened_rot, target_mat );
+         //mXform = target_mat;
 
          Matrix4f pitch_mat, yaw_mat, trans, temp;
          trans.makeTrans( Vec3<float>( 0,0, mFollowDist ) );
@@ -131,7 +136,7 @@ public:
    
 private:
    Matrix4f mXform;
-   Vec3<float> mTargetPos;
+   Vec3<float> mTargetPos, mTargetPosOld;
    Quat<float> mTargetRot, mTargetRotOld;
    bool mShouldFollow;
    float mPitch, mPitchVel;
