@@ -24,15 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.h,v $
- * Date modified: $Date: 2002-08-14 20:26:31 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-09-07 06:00:11 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_BASE_BULLET_H
 #define MW_BASE_BULLET_H
 
-#include "Entity.h"
+#include "AbstractEntity.h"
 
 namespace mw
 {
@@ -40,7 +40,7 @@ namespace mw
     * This class represents the base bullet from which all guns derive
     * their bullet types.
     */
-   class BaseBullet: public Entity
+   class BaseBullet: public AbstractEntity
    {
    public:
       /**

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-07-29 05:48:35 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-09-07 06:00:11 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,14 +33,14 @@
 #define MW_ENEMY_H
 
 #include <cstdlib>
-#include "Entity.h"
+#include "AbstractEntity.h"
 
 namespace mw
 {
    /**
     * Base class for all enemy types.
     */
-   class Enemy: public Entity
+   class Enemy: public AbstractEntity
    {
    public:
 

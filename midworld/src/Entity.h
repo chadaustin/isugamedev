@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Entity.h,v $
- * Date modified: $Date: 2002-07-29 05:48:35 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-07 06:00:11 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,6 +46,11 @@ namespace mw
    {
    public:
       /**
+       * The UID data type.
+       */
+      typedef unsigned long UID;
+
+      /**
        * Determines if this entity has expired and needs to be removed from the
        * game. This allows all expired objects to be removed in a single pass at
        * the end of each frame.
@@ -54,6 +59,21 @@ namespace mw
        *          otherwise
        */
       virtual bool isExpired() const = 0;
+
+      /**
+       * Gets the ID of the model this entity requires.
+       */
+      virtual int getModel() const = 0;
+
+      /**
+       * Sets the ID of the model this entity requires.
+       */
+      virtual void setModel(int model) = 0;
+
+      /**
+       * Gets the unique ID of this entity.
+       */
+      virtual const UID& getUID() const = 0;
    };
 }
 

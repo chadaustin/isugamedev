@@ -4,6 +4,7 @@ Import('baseEnv PREFIX')
 Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenGL')
 
 classes = Split("""
+   AbstractEntity
    Application
    BaseProjectileWeapon
    BoundsCollisionDetector
@@ -30,12 +31,15 @@ sources = Split("""
 """)
 
 headers = Split("""
+   AssaultRifle.h
+   BaseBullet.h
    CollisionDetector.h
    CollisionEvent.h
    CollisionListener.h
    Entity.h
    NullCollisionDetector.h
    SpatialIndex.h
+   UIDManager.h
    VectorSpatialIndex.h
    Weapon.h
 """)
