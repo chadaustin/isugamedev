@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-06 23:05:17 $
-# Version:       $Revision: 1.11 $
+# Date modified: $Date: 2002-02-13 08:07:59 $
+# Version:       $Revision: 1.12 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -32,6 +32,7 @@
 # objects to be included in the project....
 SRCS = \
    GameKernel.cpp \
+	SystemDriverFactory.cpp \
    GlutDriver.cpp \
    xmlparser.cpp  xmlpp.cpp  xmltokenizer.cpp
 
