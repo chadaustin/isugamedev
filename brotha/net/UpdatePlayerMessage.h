@@ -14,7 +14,7 @@
 namespace net {
 
    /**
-    * Clients will send this to join the game as a particular type of user
+    * Server will send this to notify that clients should update a player
     */
    class UpdatePlayerMessage : public Message {
    public:

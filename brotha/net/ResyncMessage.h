@@ -14,7 +14,7 @@
 namespace net {
 
    /**
-    * Clients will send this to join the game as a particular type of user
+    * Clients will send this to request a resync
     */
    class ResyncMessage : public Message {
    public:
@@ -26,18 +26,14 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return getVarSize(mCode);
+         return 0;
       }
 
       void serialize(OutputStream& os) {
-         os << mCode;
       }
 
       void deserialize(InputStream& is) {
-         is >> mCode;
       }
-   private:
-      PRUint32 mCode;
    };
 
 }

@@ -14,7 +14,7 @@
 namespace net {
 
    /**
-    * Clients will send this to join the game as a particular type of user
+    * Server will send this to notify that clients should delete an object
     */
    class DelObjMessage : public Message {
    public:
@@ -26,18 +26,18 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return getVarSize(mCode);
+         return getVarSize(mObjectID);
       }
 
       void serialize(OutputStream& os) {
-         os << mCode;
+         os << mObjectID;
       }
 
       void deserialize(InputStream& is) {
-         is >> mCode;
+         is >> mObjectID;
       }
    private:
-      PRUint32 mCode;
+      PRUint32 mObjectID;
    };
 
 }
