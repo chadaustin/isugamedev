@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2002-09-23 21:25:23 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-01 06:29:23 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -123,6 +123,13 @@ namespace mw
    Texture::bind()
    {
       glBindTexture(GL_TEXTURE_2D, mTexture);
+   }
+
+   
+   void
+   Texture::unbind()
+   {
+      glBindTexture(GL_TEXTURE_2D, 0);
    }
 
 
