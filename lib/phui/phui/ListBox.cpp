@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-05-03 08:42:35 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-03 10:26:38 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -112,7 +112,7 @@ namespace phui {
    }
 
    void ListBox::remove(unsigned int idx) {
-      if (idx <= mItems.size()) {
+      if (idx < mItems.size()) {
          mItems.erase(mItems.begin() + idx);
 
          if(idx == mSelectedItem) {
@@ -140,7 +140,7 @@ namespace phui {
          FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
          unsigned int selectedIdx = (p.y-(p.y%renderer->getHeight()))/renderer->getHeight();
          // Check that the computed index isn't outside our list of values
-         if (selectedIdx <= mItems.size()) {
+         if (selectedIdx < mItems.size()) {
             mSelectedItem = selectedIdx;
             std::cout<<"Selected index "<<mSelectedItem<<"/"<<mItems.size()<<std::endl;
             fireListSelectionEvent(mSelectedItem);
