@@ -39,7 +39,7 @@ namespace server {
       return retVal;
    }
 
-   void WebServer::processRequest(net::Socket *socket, std::string &str) {
+   void WebServer::processRequest(net::Socket *socket, const std::string &str) {
       /// @todo actually process request and generate dynamic response :)
 
       std::string response = "HTTP/1.0 200\r\nDate: Thu, 28 Mar 2002 12:54:45\
@@ -48,7 +48,7 @@ text/html\r\n\r\n<HTML><FONT size=7><CENTER>No!!!</CENTER></FONT></HTML>";
       sendResponse(socket, response);
    }
 
-   void WebServer::sendResponse(net::Socket *socket, std::string &str) {
+   void WebServer::sendResponse(net::Socket *socket, const std::string &str) {
       int written = 0;
       int toWrite = (int)str.length();
       char buffer[64];

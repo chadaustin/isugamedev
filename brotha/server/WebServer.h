@@ -18,8 +18,8 @@ namespace server {
       virtual void run();
 
       std::string readRequest(net::Socket *socket);
-      void processRequest(net::Socket *socket, std::string &str);
-      void sendResponse(net::Socket *socket, std::string &str);
+      void processRequest(net::Socket *socket, const std::string &str);
+      void sendResponse(net::Socket *socket, const std::string &str);
    private:
       net::ServerSocket m_serverSocket;
    };
