@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 01:37:12 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-01-06 02:52:00 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -168,8 +168,10 @@ namespace phui
       class_<WidgetContainer, bases<Widget>, WidgetContainerPtr, boost::noncopyable>("WidgetContainer", no_init)
          .def("add", &WidgetContainer::add)
          .def("remove", &WidgetContainer::remove)
+         .def("getWidget", &WidgetContainer::getWidget)
          .def("draw", &WidgetContainer::draw)
          .def("setLayoutManager", &WidgetContainer::setLayoutManager)
+         .add_property("numChildren", &WidgetContainer::getNumChildren)
       ;
 
       // Button
@@ -191,7 +193,7 @@ namespace phui
          .def("removeWindowListener", &Window::removeWindowListener)
       ;
 
-//      def("createButton", createButton, return_value_policy<reference_existing_object>());
+      def("createRoot", CreateRoot);
       def("createButton", createButton);
       def("createWindow", createWindow);
 

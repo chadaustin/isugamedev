@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2003-01-06 02:52:00 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -75,6 +75,19 @@ namespace phui
        * @param widget     the widget to remove
        */
       void remove(WidgetPtr widget);
+
+      /**
+       * Gets the widget at the given index in this container.
+       *
+       * @param idx     the index to the Widget to retrieve
+       *
+       * @return  the Widget at the given index; NULL if the index is out of
+       *          bounds.
+       */
+      WidgetPtr getWidget(unsigned int idx);
+
+      /// Gets the number of widgets in this container.
+      unsigned int getNumChildren();
 
       /**
        * Draws this widget and all of its children.

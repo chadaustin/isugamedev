@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.28 $
+ * Date modified: $Date: 2003-01-06 02:52:01 $
+ * Version:       $Revision: 1.29 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -79,6 +79,23 @@ namespace phui
             mLayoutManager->remove(widget->getPosition());
          }
       }
+   }
+
+   WidgetPtr WidgetContainer::getWidget(unsigned int idx)
+   {
+      if (idx < getNumChildren())
+      {
+         return mWidgets[idx];
+      }
+      else
+      {
+         return WidgetPtr();
+      }
+   }
+
+   unsigned int WidgetContainer::getNumChildren()
+   {
+      return mWidgets.size();
    }
 
    void WidgetContainer::draw()
