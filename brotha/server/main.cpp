@@ -2,6 +2,12 @@
 #include <string>
 
 #include "resource.h"
+#include "GameServer.h"
+#include "ListenServer.h"
+#include "net/ServerSocket.h"
+
+GameServer g_GameServer;
+ListenServer g_ListenServer(99);
 
 LRESULT CALLBACK WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
    static HWND wndLog;
@@ -29,6 +35,9 @@ LRESULT CALLBACK WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
             case ID_SERVER_START:
                EnableMenuItem(menu, ID_SERVER_START, MF_GRAYED);
                EnableMenuItem(menu, ID_SERVER_STOP, MF_ENABLED);
+
+               //g_GameServer.start();
+               g_ListenServer.start();
                break;
             case ID_SERVER_STOP:
                EnableMenuItem(menu, ID_SERVER_START, MF_ENABLED);
