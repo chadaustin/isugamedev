@@ -35,7 +35,11 @@ namespace isym
    /** Input symbol type.  
     *  Use this when creating new symbols and pointers to symbols.
     */
+#ifdef WIN32
+   typedef __uint64 Symbol;
+#else
    typedef unsigned long long Symbol;
+#endif
           
    /** Returns a unique identifier.
     *  Rolls around after calling 2^64 times.
