@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 05:04:54 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-02-24 06:13:46 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -36,6 +36,8 @@
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WIDGET_H
 #define PHUI_WIDGET_H
+
+#include "Color.h"
 
 namespace phui {
 
@@ -74,8 +76,8 @@ namespace phui {
        */
       virtual void setPosition(int x, int y)
       {
-         x = mX;
-         y = mY;
+         mX = x;
+         mY = y;
       }
 
       /**
@@ -122,6 +124,46 @@ namespace phui {
          mEnabled = enabled;
       }
 
+      /**
+       * Sets the background color of this widget.
+       *
+       * @param clr     the new background color
+       */
+      virtual void setBackgroundColor( const Colorf& clr )
+      {
+         mBackgroundColor = clr;
+      }
+
+      /**
+       * Gets the background color of this widget.
+       *
+       * @return  the background color
+       */
+      virtual const Colorf& getBackgroundColor() const
+      {
+         return mBackgroundColor;
+      }
+
+      /**
+       * Sets the foreground color of this widget.
+       *
+       * @param clr     the new foreground color
+       */
+      virtual void setForegroundColor( const Colorf& clr )
+      {
+         mForegroundColor = clr;
+      }
+
+      /**
+       * Gets the foreground color of this widget.
+       *
+       * @return  the foreground color
+       */
+      virtual const Colorf& getForegroundColor() const
+      {
+         return mForegroundColor;
+      }
+
       virtual bool hasFocus() { return false; }
 
    protected:
@@ -149,6 +191,16 @@ namespace phui {
        * Whether this widget is enabled or disabled.
        */
       bool mEnabled;
+
+      /**
+       * The background color.
+       */
+      Colorf mBackgroundColor;
+
+      /**
+       * The foreground color.
+       */
+      Colorf mForegroundColor;
    };
 
 } // namespace phui
