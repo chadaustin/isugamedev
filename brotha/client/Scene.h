@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.h,v $
- * Date modified: $Date: 2002-04-22 09:34:49 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-24 14:57:11 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,19 +41,20 @@
 #ifndef CLIENT_SCENE_H
 #define CLIENT_SCENE_H
 
+#include <osg/Vec3>
 #include <osg/Matrix>
 #include <osg/Transform>
 #include <osgUtil/SceneView>
 #include "ModelManager.h"
+#include "Camera.h"
 
 namespace client {
    /**
     * Manages our scene. The scene is initially set up as:
     * <pre>
-    *      /-- mViews --* PlayerNView
-    * mRoot
-    *      \-- mObjs --* ObjTrans -- ObjModel
-    *       \-- mStaticObjs --* ObjTrans -- ObjModel
+    *            /-- mObjs --* ObjTrans -- ObjModel
+    * mRoot -- mView
+    *            \-- mStaticObjs --* ObjTrans -- ObjModel
     * </pre>
     * 
     * In this way we keep the movable objects as well as the static objects
@@ -87,6 +88,13 @@ namespace client {
        */
       osg::Transform* getObject(const std::string& name);
 
+      /**
+       * Gets the specialized camera we use.
+       *
+       * @return     this scene's camera
+       */
+      Camera& getCamera();
+
    private:
       /// Our view into the scene.
       osgUtil::SceneView* mSceneView;
@@ -94,8 +102,11 @@ namespace client {
       /// The root node in our scene
       osg::Group* mRoot;
 
-      /// The group node containing all player views.
-      osg::Group* mViews;
+      /// The tranform node representing the camera's transform.
+      osg::Transform* mFollowView;
+
+      /// Camera's position and orientation before follow adjustment
+      osg::Transform* mFollowTarget;
 
       /// The group node containing all dynamic objects.
       osg::Group* mObjs;
@@ -105,6 +116,9 @@ namespace client {
 
       /// Manages and caches models loaded from disk.
       ModelManager mModelMgr;
+
+      /// Our specialized camera into the scene.
+      Camera mCamera;
    };
 }
 #endif

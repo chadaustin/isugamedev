@@ -5,6 +5,7 @@ Import('OPENGL_LIBS SDL_LIBS OSG_LIBS')
 classes = [
 #   'AppState',
    'BrothaApp',
+   'Camera',
    'LoginState',
    'ModelManager',
    'Scene',

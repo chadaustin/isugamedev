@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.cpp,v $
- * Date modified: $Date: 2002-04-22 09:34:49 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-24 14:57:11 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -53,12 +53,22 @@ namespace client {
       mSceneView->getLight()->setSpecular(osg::Vec4(1.0f,1.0f,1.0f,1.0f));
 
       mRoot = new osg::Group();
-      mViews = new osg::Group();
+
+      // Camera follow node
+      mFollowView = new osg::Transform();
+//      osg::Matrix mat = osg::Matrix::rotate(mFollowPitch, 1,0,0) *
+//                        osg::Matrix::translate(0,0,-mFollowDist);
+//      mFollowView->setMatrix(mat);
+      mRoot->addChild(mFollowView);
+
+      // Camera target view node
+      mFollowTarget = new osg::Transform();
+      mFollowView->addChild(mFollowTarget);
+      
       mObjs = new osg::Group();
       mStaticObjs = new osg::Group();
-      mRoot->addChild(mViews);
-      mRoot->addChild(mObjs);
-      mRoot->addChild(mStaticObjs);
+      mFollowTarget->addChild(mObjs);
+      mFollowTarget->addChild(mStaticObjs);
 
       // Tell our scene viewer about our scene
       mSceneView->setSceneData(mRoot);
@@ -69,9 +79,24 @@ namespace client {
 
    void Scene::draw()
    {
+      osg::Matrix follow_mat = osg::Matrix::rotate(mCamera.getPitch(), 1,0,0) *
+                        osg::Matrix::translate(0,0,-mCamera.getFollowDist());
+      mFollowView->setMatrix(follow_mat);
+
+      // Setup our camera
+      const osg::Matrix& mat = mCamera.getTransform();
+      osg::Matrix cameraXForm;
+      cameraXForm.invert(mat);
+      mFollowTarget->setMatrix(cameraXForm);
+
       mSceneView->app();
       mSceneView->cull();
-      mSceneView->draw();
+
+      // Push the attrib state since OSG manages to munge it all up when it does
+      // its draw traversal.
+      glPushAttrib(GL_ALL_ATTRIB_BITS);
+         mSceneView->draw();
+      glPopAttrib();
    }
 
    void Scene::addObject(const std::string& name, const std::string& model)
@@ -114,5 +139,10 @@ namespace client {
          }
       }
       return NULL;
+   }
+
+   Camera& Scene::getCamera()
+   {
+      return mCamera;
    }
 }
