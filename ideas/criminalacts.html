@@ -6,10 +6,15 @@
 <body bgcolor="#ffffff" text="#000000">
 <h1>Criminal Acts Design</h1>
 
-<p><i>Game design copyright 2001 Ben Scott,
-<a href="mailto::bscott@iastate.edu">bscott@iastate.edu</a>. This design is
-freely avaiable only to members of the ISU Game Developers Club. For outside
-use, please ask permission from the authors. Revisions are welcome.</i>
+<p><i>Game design copyright &copy; 2001<br>
+ - Ben Scott &lt;<a href="mailto::bscott@iastate.edu">bscott@iastate.edu</a>&gt;<br>
+This design is freely avaiable only to members of the
+<a href="http://isugamedev.sf.net">ISU Game Developers Club</a>.
+For outside use, please ask permission from the authors. Revisions are
+welcome. If you make edits to this document, please add yourself to the
+copyright header at the top of this document.</i>
+
+
 
 <h2>1. Intro</h2>
 <p>Criminal Acts is a strategy game at heart intermixed with fast first-person
@@ -81,11 +86,11 @@ VRJuggler as well as OpenGL for the graphics API. This will allow the game to
 run in the C6 virtual reality cave. However, this is obviously not a
 high-priority item.
 
-<h2>4. Graphics</h2>
+<h2>4. World Views</h2>
 <p>There are three primary views in Criminal Acts: Walking, Driving and City
 views. All views are implemented as 3D scenes. Transitions between views are
 handled seamlessly in order to maximize the player's immersion in the game. Of
-course, all view are configurable. 
+course, all views are configurable.
 
 <h3>4.1 Walking View</h3>
 <p>Whenever the player is freely walking about the city the game will take on
@@ -109,6 +114,58 @@ may wreak havok on the city. Using the mouse, the player may select the
 buildings on the map that his thugs should interact with as well as select the
 action that should be performed.
 
+<h2>5. The City</h2>
+<p>The city is the primary environment in which the player interacts. It is
+officially divided into police precincts. The boundaries for these precincts are
+dependent on the size of the police force working for that precinct and the
+number of citizens living in the area.
+
+<p>Unofficially, the city is divided into gang territories each controlled by a
+separate gang. The territories will expand and shrink dynamically as the game
+plays depending on the influence that gang has on the area. Thus the size of a
+particular gang's territory will be a function of how much the citizens in that
+area fear them as well as how much activity that gang performs in the area. In
+this way the player must continue to manage their turf and cannot assume that
+once they control an area they can forget about it and assume that it's theirs
+for the rest of the game.
+
+<p>Citizens within the city each have their own agenda. They may work or stay at
+home. They may live in one part of the city and commute to another. They may
+live in the same building that they work in. Thus each citizen will live out
+their life by sleeping, going to work, working, going home, going out to eat,
+going to a movie, etc. much in the way the player would expect out of a person
+in the real world.
+
+<h3>5.1 Moving About the City</h3>
+<p>The player has three ways to move about the city. They can walk, take the
+public transportation or steal a car and drive. Walking and driving are probably
+going to be the most popular and most effective ways to get about.
+
+<h4>5.1.1 Walking</h4>
+<p>While the player is walking about, the game will take on the form like that
+of a first-person shooter. The player will see the environment from a
+first-person perspective. While using this method of transportation, the player
+may also carry and use weapons. Unlike most trigger-happy first person shooters,
+the player will not just be able to walk about unnoticed while holding an uzi or
+a rocket launcher. Thus the player will want to hide the weapon under their coat
+until it is needed so that they do not get arrested.
+
+<h4>5.1.2 Public Transportation</h4>
+<p>Public transportation exists in the city in the form of buses, trains and
+the subway. These all run according to a set schedule barring any problems such
+as a train wreck or a traffic jam. If the player so wishes they may hijack any
+of these vehicles and control them as though they were controlling any other
+vehicle in the game.
+
+<h4>5.1.3 Driving Vehicles</h4>
+<p>Stealing and driving vehicles proved to be very useful and rewarding in
+<i>Grand Theft Auto</i>. Criminal Acts will provide this functionality as well.
+At any time, the player may steal a vehicle from a citizen, parking lot, etc.
+and take it for a spin about the city. This part of the game will play much more
+like <i>Midtown Madness</i> and <i>Driver</i>.
+
+<h2>6. The Citizens</h2>
+<p>
 
 
 
