@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-10-03 10:47:48 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-10-04 07:27:11 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,84 +43,84 @@
 
 namespace mw
 {
-class GameState;
+   class GameState;
 
-class Player : public AbstractEntity
-{
-public:
-   Player();
-
-   void draw() const;
-
-   bool isWeaponSlotEmpty( int slot );
-   
-   /**
-    * Gets this player's current weapon.
-    */
-   Weapon& weapon();
-   
-   /**
-    * Gets this player's current weapon.
-    */
-   const Weapon& weapon() const;
-   
-   /**
-    * Sets the player's current in-use weapon.
-    */
-   void setWeapon( int slot );
-   
-   /** adds weapon to player's inventory.
-    *  each added weapon may cause that weapon to immediately become active
-    *  depending on the player's game preferences.
-    */
-   void addWeapon( Weapon* w );
-   
-   /** make the next weapon active.
-    *  this will either iterate round-robin through the list
-    *  of weapons that the player has, or it may iterate in an 
-    *  alternate order specified by player's game preferences.
-    */
-   void nextWeapon();
-
-   ///@{
-   /// Gets this player's ammo bag.
-   AmmoBag&       getAmmoBag();
-   const AmmoBag& getAmmoBag() const;
-   ///@}
-
-   /**
-    * Gets the position at the end of the barrel.
-    */
-   gmtl::Vec3f getBarrelEndPos() const;
-   
-   void update( GameState& gs, float timeDelta );
-
-   bool isExpired() const
+   class Player : public AbstractEntity
    {
-      return false;
-   }
+   public:
+      Player();
 
-   void onCollisionEntry(const CollisionEvent& evt)
-   {
-   }
+      void draw() const;
 
-   void onCollisionMovement(const CollisionEvent& evt)
-   {
-   }
+      bool isWeaponSlotEmpty(int slot);
 
-   void onCollisionExit(const CollisionEvent& evt)
-   {
-   }
+      /**
+       * Gets this player's current weapon.
+       */
+      Weapon& weapon();
 
-private:
-   std::multimap<int, Weapon*> mWeapons;
-   std::map<int, int> mLastWeapon;
-   std::multimap<int, Weapon*>::iterator mCurrentWeapon;
-   int mLastSlot;
+      /**
+       * Gets this player's current weapon.
+       */
+      const Weapon& weapon() const;
 
-   /// This player's ammo bag.
-   AmmoBag mAmmoBag;
-};
+      /**
+       * Sets the player's current in-use weapon.
+       */
+      void setWeapon(int slot);
+
+      /** adds weapon to player's inventory.
+       *  each added weapon may cause that weapon to immediately become active
+       *  depending on the player's game preferences.
+       */
+      void addWeapon(Weapon* w);
+
+      /** make the next weapon active.
+       *  this will either iterate round-robin through the list
+       *  of weapons that the player has, or it may iterate in an
+       *  alternate order specified by player's game preferences.
+       */
+      void nextWeapon();
+
+      ///@{
+      /// Gets this player's ammo bag.
+      AmmoBag&       getAmmoBag();
+      const AmmoBag& getAmmoBag() const;
+      ///@}
+
+      /**
+       * Gets the position at the end of the barrel.
+       */
+      gmtl::Vec3f getBarrelEndPos() const;
+
+      void update(GameState& gs, float timeDelta);
+
+      bool isExpired() const
+      {
+         return false;
+      }
+
+      void onCollisionEntry(const CollisionEvent& evt)
+      {
+      }
+
+      void onCollisionMovement(const CollisionEvent& evt)
+      {
+      }
+
+      void onCollisionExit(const CollisionEvent& evt)
+      {
+      }
+
+   private:
+      std::multimap<int, Weapon*> mWeapons;
+      std::map<int, int> mLastWeapon;
+      std::multimap<int, Weapon*>::iterator mCurrentWeapon;
+      int mLastSlot;
+
+      /// This player's ammo bag.
+      AmmoBag mAmmoBag;
+   };
 }
 
 #endif

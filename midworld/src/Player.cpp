@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-10-03 10:47:48 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-10-04 07:27:11 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -137,10 +137,10 @@ namespace mw
    void Player::addWeapon( Weapon* w )
    {
       assert( NULL != w && "bad weapon ptr" );
-      
+
       // make sure this is initialized
       mLastSlot = w->getCategory();
-      
+
       // add the weapon to the slot
       int c = mWeapons.count( w->getCategory() );
       std::multimap<int, Weapon*>::iterator f = mWeapons.find( w->getCategory() );
@@ -159,7 +159,7 @@ namespace mw
 
       // make sure this is initialized
       mLastWeapon[mLastSlot] = c - 1;
-      
+
       // if not already in the inventory, then add it.
       if (!foundit)
       {
