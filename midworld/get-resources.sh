@@ -1,20 +1,10 @@
 #!/bin/sh
 
-# repository:  :pserver:anonymous@pyrallis.aegisknight.org:/cvsroot
-# password:    <nothing>
+# repository:  user@cvs.isugamedev.sf.net:/cvsroot/isugamedev
+# password:    your password
 # module:      midworld-resources
-#
-# If aegis has given you a user account on the CVS server, you may use it
-# instead.  Make a file called resources.cvsroot in the current directory
-# and add the CVSROOT to that.  For example:
-#
-# echo ":pserver:aegis@pyrallis.aegisknight.org:/cvsroot" > resources.cvsroot
 
-if [ -f resources.cvsroot ]; then
-    CVSROOT=`cat resources.cvsroot`
-else
-    CVSROOT=:pserver:anonymous@pyrallis.aegisknight.org:/cvsroot
-fi
+CVSROOT=`cat CVS/Root`
 
 echo
 echo "Using CVSROOT: $CVSROOT"
