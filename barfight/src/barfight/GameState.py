@@ -21,8 +21,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: GameState.py,v $
-# Date modified: $Date: 2003-06-02 17:38:46 $
-# Version:       $Revision: 1.2 $
+# Date modified: $Date: 2003-06-03 03:56:17 $
+# Version:       $Revision: 1.3 $
 # -----------------------------------------------------------------
 ############################################################## barfight-cpr end
 from OpenGL.GL import *
@@ -53,6 +53,9 @@ class GameState(siren.State):
       rot = gmtl.Quatf()
 #      gmtl.set(rot, gmtl.AxisAnglef(gmtl.deg2Rad(180), 0,1,0))
       self.player.rot = rot
+
+      # Big hack to get player rotation control to work
+      self.vel_change = gmtl.Vec3f()
 
       self.npcs = []
       for i in range(4):
@@ -191,16 +194,17 @@ class GameState(siren.State):
       sleft    = gmtl.Vec3f( speed * 0.9, 0, 0)
       sright   = gmtl.Vec3f(-speed * 0.9, 0, 0)
 
-      vel_change = gmtl.Vec3f(0,0,0)
-      vel_change = vel_change + accel   * self.actionForward.getEdgeState()
-      vel_change = vel_change + reverse * self.actionBackward.getEdgeState()
-      vel_change = vel_change + sleft   * self.actionStrafeLeft.getEdgeState()
-      vel_change = vel_change + sright  * self.actionStrafeRight.getEdgeState()
+#      vel_change = gmtl.Vec3f(0,0,0)
+      self.vel_change = self.vel_change + accel   * self.actionForward.getEdgeState()
+      self.vel_change = self.vel_change + reverse * self.actionBackward.getEdgeState()
+      self.vel_change = self.vel_change + sleft   * self.actionStrafeLeft.getEdgeState()
+      self.vel_change = self.vel_change + sright  * self.actionStrafeRight.getEdgeState()
 
       # Update the current velocity
       forward = gmtl.Vec3f()
-      gmtl.xform(forward, self.player.rot, gmtl.Vec3f(vel_change))
-      self.player.vel = self.player.vel + forward
+      gmtl.xform(forward, self.player.rot, gmtl.Vec3f(self.vel_change))
+      self.player.vel = forward
+#      self.player.vel = self.player.vel + forward
 
 
    def onKeyPress(self, sym, down):
@@ -240,13 +244,20 @@ class GameState(siren.State):
       '''
       Called when the mouse has been moved to a new position.
       '''
+      # If we just warped the mouse to the center, ignore that movement
       if self.ignoreMouseMove:
          self.ignoreMouseMove = False
          return
 
+      # Compute the offset of the mouse from the center
       center = gmtl.Point2i(self.getWidth() / 2, self.getHeight() / 2)
       diff = gmtl.Point2f(x - center[0], y - center[1])
 
+      # Compute change in yaw for player rotation cnotrol
+      yaw = float(x - center[0]) / 180.0
+      self.player.yawChange += yaw
+
+      # Put the mouse back in the center of the screen
       siren.WarpMouse(center[0], center[1])
       self.ignoreMouseMove = True
 

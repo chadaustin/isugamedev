@@ -21,14 +21,16 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Player.py,v $
-# Date modified: $Date: 2003-06-02 17:38:46 $
-# Version:       $Revision: 1.2 $
+# Date modified: $Date: 2003-06-03 03:56:17 $
+# Version:       $Revision: 1.3 $
 # -----------------------------------------------------------------
 ############################################################## barfight-cpr end
 from OpenGL.GL import *
 
 import siren
 import gmtl
+
+from Util import *
 
 class Player:
    def __init__(self, name, avatarType):
@@ -43,8 +45,23 @@ class Player:
 
       self.vel = gmtl.Vec3f(0,0,0)
 
+      # Change in yaw is used to control rotation from mouse-look
+      self.yawChange = 0.0
+
+
    def update(self, dt):
       self.avatar.update(dt)
+
+      # Update the player's rotation
+      if self.yawChange != 0.0:
+         # Update the player's rotation to match the new rotation
+         yaw_rot = gmtl.makeRotQuat(
+                     gmtl.makeRotMatrix44(
+                        gmtl.AxisAnglef(-self.yawChange, gmtl.Vec3f(0,1,0))))
+         self.rot = self.rot * yaw_rot
+
+         # Reset the yaw change since we took care of it
+         self.yawChange = 0.0
 
       # Move the player
       self.pos = self.pos + self.vel * dt
@@ -54,9 +71,16 @@ class Player:
       glPushMatrix()
       glTranslatef(self.pos[0], self.pos[1], self.pos[2])
 
+      # Make the rotation matrix
+      rot = gmtl.Matrix44f()
+      gmtl.setRot(rot, self.rot)
+
+      glMultMatrixf(getMatrixData(rot))
+
       self.avatar.render()
       
       glPopMatrix()
+
 
    def getName(self):
       return self.name

@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-06-02 nonchocoboy  Added movement and turning controls.
 2003-05-20 nonchocoboy  Barfight is now fully Python.
 2003-02-21 nonchocoboy  Added motion blur (for drunkenness).
 2003-02-21 nonchocoboy  We have a running avatar.
