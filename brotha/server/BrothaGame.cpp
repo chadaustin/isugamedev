@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-01 18:42:30 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,6 +46,11 @@
 namespace server {
    BrothaGame::BrothaGame(net::NetMgr *netMgr) {
       m_netMgr = netMgr;
+      mDataMgr = new data::DataManager("data.xml");
+   }
+
+   BrothaGame::~BrothaGame() {
+      delete mDataMgr;
    }
 
    void BrothaGame::sendToAll( net::Message* msg, bool onlyInGame ) {
@@ -215,5 +220,9 @@ namespace server {
 
    const game::GameTimer& BrothaGame::getGameTimer() const {
       return mGameTime;
+   }
+
+   data::DataManager& BrothaGame::getDataManager() {
+      return *mDataMgr;
    }
 }

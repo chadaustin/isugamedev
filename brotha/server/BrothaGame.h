@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 18:42:30 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,6 +48,7 @@
 #include "game/GameTimer.h"
 #include "game/Player.h"
 #include "net/NetMgr.h"
+#include "xml/DataManager.h"
 
 namespace server {
    /**
@@ -202,6 +203,10 @@ namespace server {
        */
       const game::GameTimer& getGameTimer() const;
 
+      /**
+       * Gets the data manager for this game.
+       */
+      data::DataManager& getDataManager();
    private:
 
       /// The game timer.
@@ -225,6 +230,9 @@ namespace server {
 
       /// The network manager
       net::NetMgr *m_netMgr;
+
+      /// The data manager
+      data::DataManager* mDataMgr;
    };
 }
 
