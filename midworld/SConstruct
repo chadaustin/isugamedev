@@ -3,8 +3,6 @@ import sys
 import os
 import string
 
-# build all sources by default but not the tests
-Default('src')
 
 # debug or release build?
 CXXFLAGS = ['-Wall']
@@ -26,12 +24,17 @@ if ARGUMENTS.get('prefix'):
 Export('PREFIX')
 
 
+# link with SDL and GL
+LIBS = ['SDL', 'GL', 'GLU']
+
+
 # create the base environment
 env = Environment(LIBPATH = '#src',
                   CPPPATH = ['#', '#src'],
                   ENV = os.environ,
                   LINKFLAGS = LINKFLAGS,
-                  CXXFLAGS = CXXFLAGS)
+                  CXXFLAGS = CXXFLAGS,
+                  LIBS = LIBS)
 
 Export('env')
 SConscript(dirs = Split('src test'))
@@ -39,3 +42,6 @@ SConscript(dirs = Split('src test'))
 
 # install target
 env.Alias('install', PREFIX)
+
+# build all sources by default but not the tests
+Default('src')
