@@ -6,6 +6,9 @@ other compilers than gnu... (libtool isn't compatible with CC at least)
 
 pcre is in the same directory too to make the compile easier.
 
+and all .cc files are renamed to .cpp so that visual studio can handle them...
+
+
 
 the code modifications differ in this way:
 
