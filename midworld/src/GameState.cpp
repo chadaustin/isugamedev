@@ -18,6 +18,7 @@ namespace mw
       , mStrafeLeft(UP)
       , mShoot(UP)
       , mCycleWeapon(UP)
+      , mFPS(0)
    {
       mPlayer.addWeapon( new Pistol );
       mPlayer.addWeapon( new SpreadGun );
@@ -131,6 +132,7 @@ namespace mw
 
       mCamera.update( dt );
       mPlayer.update( *this, dt);
+      mFPS = 1.0f / dt;
    }
 
    void GameState::add( RigidBody* b )
@@ -181,7 +183,7 @@ namespace mw
          glLoadIdentity();
 
          glPushMatrix();
-            glTranslatef(20, 20+mFont->getAscent(), 0);
+            glTranslatef(20, 20.0f+mFont->getAscent(), 0);
             glColor4f(1,0,0,0.8f);
             mFontRenderer->render("Midworld");
          glPopMatrix();
@@ -200,6 +202,17 @@ namespace mw
                str << mPlayer.weapon().getAmmoInBag();
                mFontRenderer->render(str.str().c_str());
             }
+         glPopMatrix();
+
+         // FPS
+         glPushMatrix();
+         glTranslatef(550, 20.0f+mFont->getAscent(), 0);
+         glColor4f(1,1,1,1);
+         {
+            std::stringstream str;
+            str << (int)mFPS;
+            mFontRenderer->render(str.str().c_str());
+         }
          glPopMatrix();
 
          glPopMatrix();

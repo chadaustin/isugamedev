@@ -69,6 +69,9 @@ namespace mw
 
       gltext::Font* mFont;
       gltext::FontRenderer* mFontRenderer;
+
+      // This state's FPS
+      float mFPS;
    };
 }
 
