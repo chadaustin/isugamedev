@@ -1,13 +1,9 @@
 
-//#include <alloca.h>
 #include <iostream>
 #include "regexx.hh"
 #include "iniFile.h"
 
-//------------------------------------------------------------------------------
-
-void
-iniFile::load( const char* const filename )
+void iniFile::load( const char* const filename )
 {
    regexx::Regexx sectionMatcher, sectionNameMatcher;
    regexx::Regexx commentSubst;
@@ -70,8 +66,7 @@ iniFile::load( const char* const filename )
          // stips any whitespace before keyname, before and after =, and after the value.
          // i.e.     key name      =      value   string  
          //      becomes "key name" and "value   string"
-//         num_of_matches = keyMatcher.exec( sectiontext,"[ ]*([^=^\n]*[^=^ ^\n])[ ]*=+[ ]*\"?([^\n]*[^ ^\"^\n]?)\"?[\n]*", regexx::Regexx::global);
-         num_of_matches = keyMatcher.exec( sectiontext," *([^ =\n]+) *= *\"?([^\"\n]*)\"?[ \n]*", regexx::Regexx::global);
+         num_of_matches = keyMatcher.exec( sectiontext,"[ ]*([^=^\n]*[^=^ ^\n])[ ]*=+[ ]*([^\n]*[^ ^\n]?)[\n]*", regexx::Regexx::global);
          //       std::cout << "Found " << num_of_matches <<" entries:"<< endl;
 
          for (int key = 0; key < keyMatcher.match.size();  ++key)
@@ -90,5 +85,3 @@ iniFile::load( const char* const filename )
        std::cerr << e.message().c_str() << std::endl;
    }
 }
-
-//------------------------------------------------------------------------------
