@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-07-29 06:10:29 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-07-29 06:21:07 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -94,7 +94,12 @@ namespace mw
       glPushMatrix();
          glTranslatef(mPos[0], mPos[1], mPos[2]);
          glMultMatrixf( gmtl::make<gmtl::Matrix44f>( mRot ).getData() );
-         glScalef(0.5f, 0.5f, 0.5f);
+
+         // Get the extents of the bounds of this object
+         gmtl::Vec3f extents = mBounds.getMax() - mBounds.getMin();
+         extents *= 0.5f;
+ 
+         glScalef(extents[0], extents[1], extents[2]);
          cubeGeometry().render();
       glPopMatrix();
    }
