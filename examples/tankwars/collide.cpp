@@ -21,11 +21,59 @@ bool ifNCollide(generic *obj1, generic *obj2)
 	return nCollide;
 }
 
-bool terrainCollide(generic *object, generic *terrain)
+bool terrainCollide(generic *object, generic *terrain, bool &hitBack)
 {
 	bool collide = false;
 
-	
+	GLfloat boundary = terrain->getExtents();
+	GLfloat objX = object->getX();
+	GLfloat objZ = object->getZ();
+	GLfloat objExtents = object->getExtents();
+
+	if( (objX - objExtents) < (-boundary) )
+	{
+		// object is hitting the right wall
+		collide = true;
+
+		if(object->getAngle() < 90 || object->getAngle() > 270)
+		{
+			// front end collision
+			hitBack = false;
+		}
+	}
+	else if((objX + objExtents) > boundary)
+	{
+		// object hitting left wall
+		collide = true;
+
+		if(object->getAngle() < 90 || object->getAngle() > 270)
+		{
+			// back end collision
+			hitBack = true;
+		}
+	}
+	else if((objZ - objExtents) < (-boundary))
+	{
+		// hitting bottom wall
+		collide = true;
+
+		if(object->getAngle() > 180)
+		{
+			// front end collision
+			hitBack = false;
+		}
+	}
+	else if ((objZ + objExtents) > (boundary))
+	{
+		// hitting top wall
+		collide = true;
+
+		if(object->getAngle() < 180)
+		{
+			// back end collision
+			hitBack = true;
+		}
+	}
 
 	return collide;
 }
