@@ -9,6 +9,9 @@ env = baseEnv.Copy()
 # Resources listing
 env.Install('../../dist', str(File('#data/resources.txt')))
 
+# Key bindings
+env.Install('../../dist/data', str(File('#data/inputbindings.txt')))
+
 
 # Avatars
 avatar_files = glob.glob(pj(str(Dir('#data/avatars')), '*.*'))
