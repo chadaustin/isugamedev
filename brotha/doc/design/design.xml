@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.57 2002-04-12 01:47:28 jjhnsn Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 01:47:28 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.58 2002-04-12 02:33:57 jjhnsn Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 02:33:57 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -404,14 +404,10 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>The GameLogic module needs an efficient way to update player statistics.  To do this we decided to use the capabilities of the Connection Manager and its message queues.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Update</title>
+          <para>The update() procedure sends a predefined message with variables reprensenting player statics whenever a statistic is updated in the game.  In this way the game is not sending useless information to update player statistics unless there is something to update, so the network will not be hammered with empty messages</para>
         </section>
       </section>
     </section>
