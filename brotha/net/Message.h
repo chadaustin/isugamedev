@@ -25,14 +25,6 @@ namespace net {
       virtual PRUint32 getSize() = 0;
       virtual void serialize(OutputStream& os) = 0;
       virtual void deserialize(InputStream& os) = 0;
-   protected:
-      PRUint32 getVarSize(const PRUint32 &var) {
-         return PRUint32(sizeof(PRUint32));
-      }
-
-      PRUint32 getVarSize(const std::string &var) {
-         return PRUint32(sizeof(PRUint32) + var.length());
-      }
    };
 
 }

@@ -13,6 +13,23 @@
 
 
 namespace net {
+   namespace sizes {
+      inline PRUint32 getVarSize(const bool var) {
+         return PRUint32(sizeof(PRUint32));
+      }
+
+      inline PRUint32 getVarSize(const PRUint32 &var) {
+         return PRUint32(sizeof(PRUint32));
+      }
+
+      inline PRUint32 getVarSize(const PRFloat64 &var) {
+         return PRUint32(sizeof(PRFloat64));
+      }
+
+      inline PRUint32 getVarSize(const std::string &var) {
+         return PRUint32(sizeof(PRUint32) + var.length());
+      }
+   }
 
    // PRFloat64
    inline OutputStream& operator<<(OutputStream& os, PRFloat64 f) {

@@ -28,7 +28,7 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return getVarSize(mUsername) + getVarSize(mPassword);
+         return net::sizes::getVarSize(mUsername) + net::sizes::getVarSize(mPassword);
       }
 
       void serialize(OutputStream& os) {

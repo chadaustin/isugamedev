@@ -26,7 +26,7 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return getVarSize(mObjectID);
+         return net::sizes::getVarSize(mObjectID);
       }
 
       void serialize(OutputStream& os) {
