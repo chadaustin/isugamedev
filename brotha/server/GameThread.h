@@ -11,6 +11,7 @@
 #include "LoginMessageHandler.h"
 #include "JoinAsMessageHandler.h"
 #include "ResyncMessageHandler.h"
+#include "UpdatePlayerInfoMessageHandler.h"
 #include "MessageHandler.h"
 
 namespace server {

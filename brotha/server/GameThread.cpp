@@ -14,6 +14,7 @@ namespace server {
       reg(Login);
       reg(JoinAs);
       reg(Resync);
+      reg(UpdatePlayerInfo);
       #undef reg
    }
 

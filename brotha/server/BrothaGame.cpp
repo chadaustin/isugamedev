@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-04-21 21:25:55 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-21 23:36:52 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -95,19 +95,16 @@ namespace server {
    }
 
    void BrothaGame::addPlayer( game::Player* player, net::NetMgr::ConnID cID ) {
-	  std::vector playerList;
-      playerList.push_back(
-	  assert( player != NULL && "Cannot add a NULL player!" );
+      assert( player != NULL && "Cannot add a NULL player!" );
       mConnectedPlayers[cID] = player;
-      
-	  /// @todo notify everyone of this player being added to the game
-	  net::AddPlayerMessage *msg = new net::AddPlayerMessage(player);
-	  sendtoAll(msg, true);
+
+      // notify everyone else of this player being added to the game
+      net::AddPlayerMessage *msg = new net::AddPlayerMessage(player);
+      sendToAll(msg, true);
    }
 
    void BrothaGame::removePlayer( game::Player* player ) {
-      
-	  PlayerMapIter delPlayer = mPlayers.find( getUID(player) );
+     PlayerMapIter delPlayer = mPlayers.find( getUID(player) );
       if(delPlayer != mPlayers.end()) {
          game::Player::UID uid = delPlayer->first;
          std::cout<<"Removed player: "<<uid<<std::endl;
@@ -118,7 +115,6 @@ namespace server {
          net::DelPlayerMessage *msg = new net::DelPlayerMessage(uid);
          sendToAll(msg, true);
       }
-	  */
    }
 
    void BrothaGame::addObject( game::Object* object ) {

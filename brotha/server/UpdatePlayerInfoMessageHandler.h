@@ -9,14 +9,14 @@
 namespace server {
    class UpdatePlayerInfoMessageHandler : public MessageHandler {
    public:
-      UpdatePlayerInfoMessageHandler(game::BrothaGame* game, net::NetMgr* netMgr)
+      UpdatePlayerInfoMessageHandler(BrothaGame* game, net::NetMgr* netMgr)
          : MessageHandler(game, netMgr) {
       }
 
       ~UpdatePlayerInfoMessageHandler() {}
 
       virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
-         net::UpdatePlayerInfo* uMsg = (net::UpdatePlayerInfo*)msg;
+         net::UpdatePlayerInfoMessage* uMsg = (net::UpdatePlayerInfoMessage*)msg;
       };
    };
 }
