@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-09-08 nonchocoboy  SpreadGun discharges a single bullet at a time,
+                        iterating over the barrels.
 2002-09-07 nonchocoboy  Added version information in Version.h
                         NEW VERSION: 0.1.0
 2002-09-07 nonchocoboy  Entities now have a UID associated with them. The
