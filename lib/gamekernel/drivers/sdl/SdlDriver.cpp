@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-09 08:45:59 $
-// Version:       $Revision: 1.16 $
+// Date modified: $Date: 2003-02-10 05:14:27 $
+// Version:       $Revision: 1.17 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -68,7 +68,7 @@ bool SdlDriver::init(IGameKernel *kernel)
 	#ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug:  Callling SDL_Init()" << std::endl;
 	#endif
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) < 0)
 	{
 		std::cerr << "SDL Driver Error:  Couldn't Initialize SDL.\nSDL Error: " << SDL_GetError() << std::endl;
 		return false;
@@ -114,7 +114,45 @@ bool SdlDriver::init(IGameKernel *kernel)
 	screen = NULL;
 	mMouse = new DeviceHandle<Mouse>("Mouse", mKernel);
 	mKeyboard = new DeviceHandle<Keyboard>("Keyboard", mKernel);
-	mJoystick = new DeviceHandle<Joystick>("Joystick", mKernel);
+	
+   
+   if (SDL_NumJoysticks() > 0)
+   {
+      mSDLJoy.resize( SDL_NumJoysticks() );
+      mJoystick.resize( SDL_NumJoysticks() );
+
+      // open all joysticks.
+      for (int x = 0; x < SDL_NumJoysticks(); ++x)
+      {
+         // Open joystick
+         mSDLJoy[x] = SDL_JoystickOpen( x );
+         
+         char temp[512];
+         sprintf( temp, "Joystick%d", x );
+         std::string joystickName( temp );
+         Joystick* joystick = new Joystick;
+         joystick->setNumButtons( SDL_JoystickNumButtons( mSDLJoy[x] ) + (4*SDL_JoystickNumHats( mSDLJoy[x] )) );
+         joystick->setNumAxes( SDL_JoystickNumAxes( mSDLJoy[x] ) + (2*SDL_JoystickNumHats( mSDLJoy[x] )) );
+         mJoystick[x] = new DeviceHandle<Joystick>( joystickName, mKernel, joystick );
+         
+         if (mSDLJoy[x])
+         {
+            std::cout << "Opened Joystick " << x << std::endl;
+            std::cout << "- Name: " << SDL_JoystickName( x ) << std::endl;
+            std::cout << "- Number of Axes: " << SDL_JoystickNumAxes( mSDLJoy[x] ) << std::endl;
+            std::cout << "- Number of Buttons: " << SDL_JoystickNumButtons( mSDLJoy[x] ) << std::endl;
+            std::cout << "- Number of Balls: " << SDL_JoystickNumBalls( mSDLJoy[x] ) << std::endl;
+            std::cout << "- Number of Hats: " << SDL_JoystickNumHats( mSDLJoy[x] ) << std::endl;
+         }
+         else
+         std::cout << "Couldn't open Joystick " << x << std::endl;
+      }
+
+      // enable joystick event processing
+      SDL_JoystickEventState( SDL_ENABLE );
+   }
+   
+
 	//odds of this happening are pretty slim, but might as well check...
 	if (!mMouse)
 	{
@@ -126,11 +164,7 @@ bool SdlDriver::init(IGameKernel *kernel)
 		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the keyboard Device Handle." << std::endl;
 		return false;
 	}
-   if (!mJoystick)
-	{
-		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the joystick Device Handle." << std::endl;
-		return false;
-	}
+
 	//This enables repeating keybaord events.  These values should be read from somewhere, not hardcoded in.
 	//SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 	return true;
@@ -203,6 +237,18 @@ bool SdlDriver::run()
 
 void SdlDriver::shutdown()
 {
+   // kill all joy sticks
+   for (int x = 0; x < SDL_NumJoysticks(); ++x)
+   {
+      // Close if opened
+      if (SDL_JoystickOpened( x ))
+         SDL_JoystickClose( mSDLJoy[x] );
+
+      delete mJoystick[x];
+   }
+   mJoystick.clear();
+   mSDLJoy.clear();
+
 	//Cleanup time...
 #ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug: Calling Shutdown" << std::endl;
@@ -314,7 +360,42 @@ void SdlDriver::handleEvent()
 		case SDL_MOUSEBUTTONUP:
 			onMouseUp();
 			break;
-		default:
+      case SDL_JOYAXISMOTION:
+      {
+         std::cout << "axis"<<(int)mEvent.jaxis.axis<<": " << mEvent.jaxis.value / 32767.0f << std::endl;
+         Joystick *joystick = mJoystick[mEvent.jaxis.which]->getDevice();
+         joystick->axis( mEvent.jaxis.axis ).setData( mEvent.jaxis.value / 32767.0f );
+         break;
+      }
+      case SDL_JOYHATMOTION:
+         if (mEvent.jhat.value & SDL_HAT_CENTERED)
+            std::cout << "hat: center" << std::endl;
+         if (mEvent.jhat.value & SDL_HAT_UP)
+            std::cout << "hat: up" << std::endl;
+         if (mEvent.jhat.value & SDL_HAT_RIGHT)
+            std::cout << "hat: right" << std::endl;
+         if (mEvent.jhat.value & SDL_HAT_DOWN)
+            std::cout << "hat: down" << std::endl;
+         if (mEvent.jhat.value & SDL_HAT_LEFT)
+            std::cout << "hat: left" << std::endl;
+         break;
+      case SDL_JOYBUTTONDOWN:
+         {
+            Joystick *joystick = mJoystick[mEvent.jbutton.which]->getDevice();
+            joystick->button( mEvent.jbutton.button ).setBinaryState( DigitalInput::ON );
+            // current state of the button (whos event should be coming next...)
+            // (mEvent.jbutton.state == SDL_PRESSED)
+         }
+         break;
+      case SDL_JOYBUTTONUP:
+         {
+            Joystick *joystick = mJoystick[mEvent.jbutton.which]->getDevice();
+            joystick->button( mEvent.jbutton.button ).setBinaryState( DigitalInput::OFF);
+            // current state of the button (whos event should be coming next...)
+            // (mEvent.jbutton.state == SDL_PRESSED)
+         }
+         break;
+      default:
 			break;
 			//unhandled event; we pretty much ignore it.
 	}

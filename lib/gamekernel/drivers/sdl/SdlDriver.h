@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2003-02-09 08:36:56 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2003-02-10 05:14:27 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -143,11 +143,14 @@ private:
 	IGameApp *mApp;					//The Application that is using this driver.
 	DeviceHandle<Mouse>* mMouse;			//Mouse Device
 	DeviceHandle<Keyboard>* mKeyboard;		//Keyboard Device
-	DeviceHandle<Joystick>* mJoystick;		//Joystick Device
+	std::vector<DeviceHandle<Joystick>*> mJoystick;		//Joystick Device
 	SDL_Event mEvent;					//Event Structure
 	//bool mPress;					//Hack to work with the DigitalInput devices.	
 	//bool mPressDown;					//Hack to work with the DigitalInput devices.
 	//Private Methods
+
+   std::vector<SDL_Joystick*> mSDLJoy;
+
 	
 	//This function determines what kind of event has occurred, 
 	//and then calls the appropriate method to handle the event.
