@@ -1,0 +1,28 @@
+import os
+pj = os.path.join
+
+Import('pkg baseEnv PREFIX GetPlatform')
+
+headers = Split("""
+SdlDriver.h
+""")
+
+sources = Split("""
+SdlDriver.cpp
+""")
+
+env = baseEnv.Copy()
+env.Append(CPPPATH = Split('# #gk #cppdom #external/xdl'),
+           LIBPATH = Split('#cppdom/cppdom #gk /usr/local/lib'),
+           LIBS = Split('cppdom SDL gk') )
+
+if GetPlatform() == 'irix':
+   env['SHCXXFLAGS'] = '${CXXFLAGS}'
+
+#lib = pkg.createStaticLibrary('gksdl', env)
+
+lib = pkg.createSharedLibrary('gksdl', env)
+lib.addSources(sources)
+lib.addHeaders(headers, 'gksdl')
+
+

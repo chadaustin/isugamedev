@@ -1,0 +1,36 @@
+import os
+pj = os.path.join
+
+Import('pkg baseEnv PREFIX GetPlatform')
+
+headers = Split("""
+AbstractGameApp.h   GameInput.h           Joystick.h
+AnalogDevice.h      GameInputConfigure.h  Keyboard.h
+AnalogInput.h       GameKernel.h          Mouse.h
+AnalogInterface.h   IDevice.h             Singleton.h
+ContextData.h       IGameApp.h            SystemDriverFactory.h
+DLLInterface.h      IGameInput.h          TypedDevice.h
+DigitalDevice.h     IGameKernel.h         gk.h
+DigitalInput.h      ISystemDriver.h       gkCommon.h
+DigitalInterface.h  Input.h
+EventInput.h        InputInterface.h
+""")
+
+sources = Split("""
+ GameInput.cpp  GameKernel.cpp  SystemDriverFactory.cpp  gk.cpp
+""")
+
+env = baseEnv.Copy()
+env.Append(CPPPATH = Split('# #gk #cppdom #external/xdl'),
+           LIBPATH = ['#cppdom/cppdom'],
+           LIBS = ['cppdom'])
+
+if GetPlatform() == 'irix':
+   env['SHCXXFLAGS'] = '${CXXFLAGS}'
+
+#lib = pkg.createSharedLibrary('gk', env)
+lib = pkg.createStaticLibrary('gk', env)
+lib.addSources(sources)
+lib.addHeaders(headers, 'gk')
+
+

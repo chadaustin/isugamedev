@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-06-14 10:24:54 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2003-02-08 08:36:47 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -225,19 +225,19 @@ void SdlDriver::showMouse( bool show )
 	}
 }
 
-void SdlDriver::fullscreen(int ctx = 0)
+void SdlDriver::fullscreen(int ctx )
 {
 	mvideoFlags |= SDL_FULLSCREEN;
 	SDL_SetVideoMode(mWidth, mHeight, mBpp, mvideoFlags);
 }
 
-void SdlDriver::getWindowSize(int& width, int& height, int ctx = 0)
+void SdlDriver::getWindowSize(int& width, int& height, int ctx)
 {
 	width = mWidth;
 	height = mHeight;
 }
 
-void SdlDriver::setWindowSize(int width, int height, int ctx = 0)
+void SdlDriver::setWindowSize(int width, int height, int ctx)
 {
 	//suggested bpp
 	int sbpp;
