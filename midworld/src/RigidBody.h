@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-06-06 05:19:46 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-06-17 03:25:37 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,63 +33,111 @@
 
 #include <gmtl/AABox.h>
 #include <gmtl/Point.h>
+#include <gmtl/Quat.h>
 
 namespace mw
 {
    /**
     * @ingroup Physics
     *
-    * A physical body that cannot be deformed.
+    * A physical body that cannot be deformed. All units are in SI units.
     */
    class RigidBody
    {
-   
+   private:
       gmtl::Point3f mPos;  //position
       gmtl::Vec3f mVel;
-      gmtl::Vec3f mAccel;
       gmtl::Vec3f mForce;	
-      
+
    //rotation vars
-
-      gmtl::Vec3f mRot;
+      gmtl::Quatf mRot;
       gmtl::Vec3f mRotVel;
-      gmtl::Vec3f mRotAccel;
-      gmtl::Vec3f mRotForce;
+      gmtl::Vec3f mTorque;
 
+      float mMass;
 
    public:
 
-      float mMass;
-      //private access//
-
-      void setPos(gmtl::Point3f pos){ mPos=pos;}
-      void setVel(gmtl::Vec3f vel){ mVel=vel;}
-      void addForce(gmtl::Vec3f force);
-
-      void setRot     (gmtl::Vec3f rotAngle ){ mRot=rotAngle;}
-      void setRotVel  (gmtl::Vec3f rotVel)   { mRotVel=rotVel;}
-      void addRotForce(gmtl::Vec3f rotForce);
-
-
-
-      void move(float dt);	// update pos,vel,accel, and force
-      void draw();	// display
-
       virtual ~RigidBody() {}
+
+      /**
+       * Sets the position of this rigid body relative to the world's origin.
+       */
+      void setPos(const gmtl::Point3f& pos) { mPos = pos; }
+
+      /**
+       * Gets the position of this rigid body relative to the world's origin.
+       */
+      const gmtl::Point3f& getPos() const { return mPos; }
+
+      /**
+       * Sets the velocity of this rigid body.
+       */
+      void setVel(const gmtl::Vec3f& vel) { mVel = vel; }
+
+      /**
+       * Gets the velocity of this rigid body.
+       */
+      const gmtl::Vec3f& getVel() const { return mVel; }
+
+      /**
+       * Applies a force on this body at its center of mass. This will not add
+       * any torque on the body.
+       *
+       * @param force      the force to apply
+       */
+      void addForce(const gmtl::Vec3f& force);
+
+      /**
+       * Sets the rotation of this rigid body.
+       */
+      void setRot     (const gmtl::Quatf& rot) { mRot = rot; }
+
+      /**
+       * Gets the rotation of this rigid body.
+       */
+      const gmtl::Quatf& getRot() const { return mRot; }
+
+      /**
+       * Sets the angular velocity of this rigid body.
+       */
+      void setRotVel  (const gmtl::Vec3f& rotVel) { mRotVel = rotVel; }
+
+      /**
+       * Applies a force on this body at a position relative to its center. This
+       * will add a torque to the body.
+       *
+       * @param force      the force to apply
+       * @param pos        the vector from the center of the body to the point
+       *                   on which the force is being applied
+       */
+      void addForce(const gmtl::Vec3f& force, const gmtl::Vec3f& pos);
+
+      /**
+       * Sets the mass of this body in kg.
+       */
+      void setMass(float mass) { mMass = mass; }
+
+      /**
+       * Gets the mass of this body in kg.
+       */
+      float getMass() const { return mMass; }
+
+      /**
+       * Updates the internal state of this body given the amount of time that
+       * has passed.
+       *
+       * @param dt      the differtial of time in seconds
+       */
+      void update(float dt);
+      void draw();	// display
 
       /**
        * Gets the axis-aligned bounding box that tightly contains this body.
        *
        * @return  the bounding volume for this body
        */
-      virtual const gmtl::AABoxf& getBounds() const;
-
-      /**
-       * Gets the position of this rigid body relative to the world's origin.
-       *
-       * @return  this body's position.
-       */
-      virtual const gmtl::Point3f& getPosition() const;
+      virtual const gmtl::AABoxf& getBounds() const = 0;
    };
 }
 

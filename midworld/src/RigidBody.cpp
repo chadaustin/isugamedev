@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-06-06 05:00:42 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-06-17 03:25:37 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,21 +33,28 @@
 
 namespace mw
 {
-   void RigidBody::move(float dt)
+   void RigidBody::update(float dt)
    {
+      // Linear momentum
+      // 
       gmtl::Vec3f accel = mForce / mMass;
       mVel  += accel * dt;
       mPos  += mVel * dt;
+
+      // Angular momentum
+      // w = w0 + at
+      // r = r0 + wt
+      
    }
 
-   void RigidBody::addForce(gmtl::Vec3f force)
+   void RigidBody::addForce(const gmtl::Vec3f& force)
    {
       mForce += force;
    }
 
-   void RigidBody::addRotForce(gmtl::Vec3f rotForce)
+   void RigidBody::addForce(const gmtl::Vec3f& force, const gmtl::Vec3f& pos)
    {
-        mRotForce += rotForce;
+      mTorque += gmtl::cross(pos, force);
    }
 
    void RigidBody::draw()
