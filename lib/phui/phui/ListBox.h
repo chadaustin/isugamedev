@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.h,v $
- * Date modified: $Date: 2002-04-27 20:39:16 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-27 21:03:41 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -40,8 +40,10 @@
 #include "phuiCommon.h"
 #include <string>
 #include <vector>
+#include <list>
 #include <iostream>
 #include "Widget.h"
+#include "ListSelectionListener.h"
 
 namespace phui {
 
@@ -95,6 +97,21 @@ namespace phui {
        */
       void onMouseDown(InputButton button, const Point& p);
 
+      /**
+       * Adds the given list selection listener that wishes to receive list
+       * selection events.
+       */
+      void addListSelectionListener(ListSelectionListener* listener);
+
+      /**
+       * Removes the given action listener for this button.
+       */
+      void removeListSelectionListener(ListSelectionListener* listener);
+
+   private:
+      /// Helper to fire list selection events to listeners.
+      void fireListSelectionEvent(int selectedIdx);
+
    private:
       /**
        * The items in the listbox
@@ -105,6 +122,13 @@ namespace phui {
        * The selected item in the listbox, -1 = none
        */
       int mSelectedItem;
+
+      /**
+       * All listeners for this list.
+       */
+      typedef std::list<ListSelectionListener*> ListenerList;
+      typedef ListenerList::iterator ListenerIter;
+      std::list<ListSelectionListener*> mListeners;
    };
 
 } // namespace phui

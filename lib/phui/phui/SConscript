@@ -27,6 +27,7 @@ headers = [
     'ActionListener.h',
     'Color.h',
     'Input.h',
+    'ListSelectionListener.h',
     'Point.h',
     'phui.h',
     'phuiCommon.h',

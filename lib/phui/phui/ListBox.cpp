@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-04-27 20:39:16 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-27 21:03:41 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -126,6 +126,27 @@ namespace phui {
       if (button == BUTTON_LEFT) {
          FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
          mSelectedItem = (p.y-(p.y%renderer->getHeight()))/renderer->getHeight();
+         std::cout<<"Selected index "<<mSelectedItem<<"/"<<mItems.size()<<std::endl;
+      }
+   }
+
+   void ListBox::addListSelectionListener(ListSelectionListener* listener) {
+      mListeners.push_back(listener);
+   }
+
+   void ListBox::removeListSelectionListener(ListSelectionListener* listener) {
+      ListenerIter itr;
+      itr = std::find(mListeners.begin(), mListeners.end(), listener);
+      if (itr != mListeners.end()) {
+         mListeners.erase(itr);
+      }
+   }
+
+   void ListBox::fireListSelectionEvent(int selectedIdx) {
+      ListSelectionEvent evt(this, selectedIdx);
+
+      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++) {
+         (*itr)->onListSelection(evt);
       }
    }
 } // namespace phui
