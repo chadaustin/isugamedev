@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-10-29 18:50:36 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-11-07 21:25:43 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -184,6 +184,18 @@ int main()
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
+   // set the current path to where the executable resides
+   char filename[MAX_PATH];
+   GetModuleFileName(GetModuleHandle(0), filename, MAX_PATH);
+   
+   // remove the basename
+   char* backslash = strrchr(filename, '\\');
+   if (backslash)
+   {
+      *backslash = 0;
+      SetCurrentDirectory(filename);
+   }
+
    return main();
 }
 
