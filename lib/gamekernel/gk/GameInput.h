@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.16 $
+// Date modified: $Date: 2002-02-07 00:25:18 $
+// Version:       $Revision: 1.17 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -70,7 +70,7 @@ GK_BEGIN_NAMESPACE
  *
  * @see DigitalInterface
  * @see AnalogInterface
- * @see kev::Singleton<GameInput>
+ * @see Singleton<GameInput>
  * @author Kevin Meinert <kevin@vrsource.org>
  * @author other happy people...
  */
@@ -79,8 +79,10 @@ class GameInput : public Singleton<GameInput>
 public:
    GameInput()
    {
-      mDevices["Keyboard"] = mKeyboard = new Keyboard;
-      mDevices["Mouse"] = mMouse = new Mouse;
+      mKeyboard = new Keyboard();
+      mMouse = new Mouse();
+      addDevice( mKeyboard, "Keyboard" );
+      addDevice( mMouse, "Mouse" );
    }
 
    /** return an Input ptr
@@ -111,14 +113,49 @@ public:
       return dev->getInput( input );
    }
 
-   /** Add a device to InputManager.
+   /**
+    * Add a device to this input manager.
     *
     * Add the devPtr to the device Array, devPtr should
-    * not already be in the array.  Returns -1 on failure
+    * not already be in the array. 
+    *
+    * @param devPtr     the device to add
+    * @param name       the unique name for the device
+    *
+    * @return  true if successful, false otherwise
     *
     * MODIFIES: self
     */
-   bool addInput( Input* devPtr );
+   bool addDevice( Device* devPtr, const std::string& name )
+   {
+      std::map< std::string, Device* >::const_iterator itr;
+      itr = mDevices.find( name );
+
+      if ( itr == mDevices.end() )
+      {
+         mDevices[ name ] = devPtr;
+         return true;
+      }
+      return false;
+   }
+
+   /**
+    * Gets the device with the given name.
+    *
+    * @name    the name of the device to retrieve
+    *
+    * @return  a pointer to the device if it exists, NULL otherwise
+    */
+   Device* getDevice( const std::string& name )
+   {
+      std::map< std::string, Device* >::iterator itr;
+      itr = mDevices.find( name );
+      if ( itr != mDevices.end() )
+      {
+         return itr->second;
+      }
+      return NULL;
+   }
 
    /**
     *  bind an alias to a device's input
