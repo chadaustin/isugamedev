@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WebServer.cpp,v $
- * Date modified: $Date: 2002-04-29 05:34:06 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-29 05:46:17 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -70,11 +70,14 @@ namespace server {
 
    std::string WebServer::readRequest(net::Socket *socket) {
       std::string retVal;
+      std::string temp;
       while(1) {
          char buffer[10000];
          int bytesRead = socket->read(buffer, 10000);
          retVal.resize(retVal.length() + bytesRead);
-         std::copy(buffer, buffer+bytesRead, retVal.begin());
+		 temp.resize(bytesRead);
+         std::copy(buffer, buffer+bytesRead, temp.begin());
+		 retVal += temp;
          if(retVal.find("\r\n\r\n") != std::string::npos) {
             break;
          }
