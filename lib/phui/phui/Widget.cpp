@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-12-31 04:24:58 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2003-01-04 00:00:32 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,6 +38,7 @@
  *
  ************************************************************** phui-cpr-end */
 #include <stdio.h>
+#include <stdexcept>
 #include "Widget.h"
 #include "WidgetContainer.h"
 
