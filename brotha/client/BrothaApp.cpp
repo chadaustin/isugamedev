@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 17:30:41 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-03-29 17:44:37 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,7 +47,8 @@ namespace client
    BrothaApp::BrothaApp()
       : mKernel(NULL), mNetMgr(NULL), mConnID(-1),
         mAppState(new NotConnectedState()),
-        mName("yourname"), mPass("yourpassword"), mIsConnected(false)
+        mName("yourname"), mPass("yourpassword"), mIsConnected(false),
+        mInGame(false)
    {
    }
 
@@ -96,27 +97,30 @@ namespace client
       glMatrixMode( GL_MODELVIEW );
          glLoadIdentity();
 
-      game::Player* player = mGame.getLocalPlayer();
+      // Only draw if we're in the game
+      if ( isInGame() ) {
+         game::Player* player = mGame.getLocalPlayer();
+         const gmtl::Vec<PRFloat64,3>& pos = player->getPosition();
 
-      const gmtl::Vec<PRFloat64,3>& pos = player->getPosition();
+         glColor4f( 1.0, 0.0, 0.0, 1.0f );
+         // setup camera
+         glTranslatef( 0, -15, 0 );
+         /// @todo draw the game!
 
-      glColor4f( 1.0, 0.0, 0.0, 1.0f );
-//      glTranslatef( pos[0], pos[1], pos[2] );
-      /// @todo draw the game!
 
-
-      // draw grid
-      glColor4f(0,0,1,1);
-      glBegin( GL_LINES );
-      float extent = 1000.0;
-      for ( float x = -extent; x < extent; ++x )
-      {
-         glVertex3f( -extent, 0, x );
-         glVertex3f(  extent, 0, x );
-         glVertex3f( x, 0, -extent );
-         glVertex3f( x, 0,  extent );
+         // draw grid
+         glColor4f(0,0,1,1);
+         glBegin( GL_LINES );
+         float extent = 1000.0;
+         for ( float x = -extent; x < extent; ++x )
+         {
+            glVertex3f( -extent, 0, x );
+            glVertex3f(  extent, 0, x );
+            glVertex3f( x, 0, -extent );
+            glVertex3f( x, 0,  extent );
+         }
+         glEnd();
       }
-      glEnd();
    }
 
    void BrothaApp::onPostFrame()

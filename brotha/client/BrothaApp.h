@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-03-29 16:35:49 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-03-29 17:44:37 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -113,6 +113,11 @@ namespace client
       std::string getServerIP() { return "127.0.0.1"; }
       int getServerPort() { return 35791; }
 
+      bool isInGame() { return mInGame; }
+      void setInGame( bool val ) { mInGame = val; }
+
+      game::BrothaGame& getGame() { return mGame; }
+
    public:
       gk::DigitalInterface
          mAccelerate,
@@ -139,6 +144,7 @@ namespace client
 
       std::string mName, mPass;
       bool mIsConnected;
+      bool mInGame;
    };
 }
 
