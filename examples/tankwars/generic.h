@@ -26,6 +26,7 @@ public:
 	virtual GLfloat getY() { return yPos;};
 	virtual GLfloat getZ() { return zPos;};
 	virtual GLfloat getExtents() { return extents;};
+	virtual	GLfloat getAngle() { return angle; };
 
 protected:
 
