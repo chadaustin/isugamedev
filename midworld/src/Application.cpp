@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-06-06 09:55:41 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-06-06 10:09:04 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -52,6 +52,7 @@ namespace mw {
    void
    Application::update(u64 elapsedTime)
    {
+      mState->update(elapsedTime);
    }
 
    void
@@ -70,16 +71,19 @@ namespace mw {
    void
    Application::onKeyPress(SDLKey sym, bool down)
    {
+      mState->onKeyPress(sym, down);
    }
 
    void
    Application::onMousePress(Uint8 button, bool down, int x, int y)
    {
+      mState->onMousePress(button, down, x, y);
    }
 
    void
    Application::onMouseMove(int x, int y)
    {
+      mState->onMouseMove(x, y);
    }
 
 }
