@@ -91,6 +91,14 @@ SOURCE=.\badguy.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\BmpImporter.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\Image.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\level.cpp
 # End Source File
 # Begin Source File
@@ -112,6 +120,18 @@ SOURCE=.\textures.cpp
 # Begin Source File
 
 SOURCE=.\badguy.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\BmpHeader.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\BmpImporter.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Image.h
 # End Source File
 # Begin Source File
 

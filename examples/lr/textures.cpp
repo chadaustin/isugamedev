@@ -1,5 +1,5 @@
-#include "textures.h"
 #include "BmpImporter.h"
+#include "textures.h"
 
 void COGLTexture::LoadFromFile(char *filename)
 {

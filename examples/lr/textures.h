@@ -2,6 +2,10 @@
 #ifndef TEXTURE
 #define TEXTURE
 
+// win32 needs windows.h before gl.h
+#ifdef WIN32
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glu.h>
 
