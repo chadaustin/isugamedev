@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-04-21 23:36:52 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-22 05:52:11 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -173,7 +173,7 @@ namespace server {
       if( iter != mConnectedPlayers.end() ) {
          return getUID( iter->second );
       }
-      return -1;
+      return game::Player::UNKNOWN;
    }
 
    game::Player::UID BrothaGame::getUID( game::Player *player ) {
