@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriver.h,v $
-// Date modified: $Date: 2002-02-13 07:53:44 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,7 +38,7 @@
 namespace gk {
 
 // forward declaration
-class GameKernel;
+class IGameKernel;
 
 /**
  * Interface to a driver that will run a graphical application. You should
@@ -64,7 +64,7 @@ public:
     *
     * @see GameInput::addDevice( Device*, const std::string& )
     */
-   virtual bool init( GameKernel* kernel ) = 0;
+   virtual bool init( IGameKernel* kernel ) = 0;
 
    /**
     * Starts the driver through its main loop.

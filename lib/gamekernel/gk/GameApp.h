@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameApp.h,v $
-// Date modified: $Date: 2002-03-18 04:19:59 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,13 +33,9 @@
 #define GK_GAMEAPP_H
 
 #include "gk/gkCommon.h"
-#include <string>
-#include <vector>
-#include "gk/Mouse.h"
-#include "gk/Keyboard.h"
 
 namespace gk {
-   class GameKernel;
+   class IGameKernel;
 
 /**
  * Base game application class for use with the GameKernel. Application writers
@@ -108,9 +104,9 @@ public:
     * For convenience a pointer to the GameKernel managing this app is passed
     * through this function.
     *
-    * @param kernel     the GameKernel instance running this ap
+    * @param kernel     the IGameKernel instance running this app
     */
-   virtual void onAppInit( GameKernel* kernel) {}
+   virtual void onAppInit( IGameKernel* kernel) {}
 
    /**
     * This is called once for each context (window) after the window has been

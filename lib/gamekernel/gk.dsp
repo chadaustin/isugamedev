@@ -63,8 +63,8 @@ LIB32=link.exe -lib
 # PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
-# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ  /c
-# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "." /D "_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "USE_WIN32" /YX /FD /GZ  /c
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GR /GX /ZI /Od /I "." /D "_DEBUG" /D "_LIB" /D "WIN32" /D "_MBCS" /D "USE_WIN32" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -90,6 +90,10 @@ SOURCE=.\gk\GameKernel.cpp
 # Begin Source File
 
 SOURCE=.\gk\SystemDriverFactory.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\gk\Version.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -129,6 +133,10 @@ SOURCE=.\gk\DigitalInterface.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\gk\DLLInterface.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\gk\EventInput.h
 # End Source File
 # Begin Source File
@@ -149,7 +157,15 @@ SOURCE=.\gk\GameKernel.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\gk\gk.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\gk\gkCommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\gk\IGameKernel.h
 # End Source File
 # Begin Source File
 
@@ -182,6 +198,10 @@ SOURCE=.\gk\SystemDriver.h
 # Begin Source File
 
 SOURCE=.\gk\SystemDriverFactory.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\gk\Version.h
 # End Source File
 # End Group
 # End Target

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Device.h,v $
-// Date modified: $Date: 2002-02-20 03:27:38 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -35,6 +35,7 @@
 #include "gk/gkCommon.h"
 #include <string>
 #include <vector>
+#include <map>
 #include "gk/Input.h"
 
 namespace gk {

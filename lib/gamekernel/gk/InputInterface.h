@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-02-20 02:58:40 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,7 +34,7 @@
 
 #include "gk/gkCommon.h"
 #include <string>
-#include "gk/GameKernel.h"
+#include "gk/IGameKernel.h"
 
 namespace gk 
 {
@@ -72,7 +72,7 @@ public:
     *
     * @param alias      the alias to an input you wish to get input data from
     */
-   virtual void init( const std::string& alias, GameKernel* kernel )
+   virtual void init( const std::string& alias, IGameKernel* kernel )
    {
       mAlias = alias;
       mKernel = kernel;
@@ -83,7 +83,7 @@ protected:
    /**
     * The kernel whose input this object interfaces with.
     */
-   GameKernel* mKernel;
+   IGameKernel* mKernel;
 
 public:
    std::string mAlias;

@@ -24,18 +24,14 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-18 04:19:59 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 
-#include <gk/GameApp.h>      // the base application type
+#include <gk/gk.h>
 #include <gk/GameKernel.h>
-#include <gk/GameInput.h>
-#include <gk/GameInputConfigure.h>
-#include <gk/AnalogInterface.h>
-#include <gk/DigitalInterface.h>
 #include <GlutDriver.h>
 #include <gk/SystemDriverFactory.h>
 #include "Grid.h"
@@ -52,7 +48,7 @@ public:
    {
    }
 
-   virtual void onAppInit( GameKernel* kernel )
+   virtual void onAppInit( IGameKernel* kernel )
    {
       mKernel = kernel;
       mKernel->setName( "Input Test" );
@@ -111,13 +107,13 @@ public:
    AnalogInterface mMouseX, mMouseY;
    DigitalInterface mAccelerate, mQuit;
 
-   GameKernel* mKernel;
+   IGameKernel* mKernel;
 };
 
 int main( int argc, char *argv[] )
 {
    // create the kernel and add our app in
-   GameKernel* kernel = new GameKernel( new InputApp() );
+   IGameKernel* kernel = new GameKernel( new InputApp() );
 
    // configure the system
    loadInputConfig( "config.xml", kernel );

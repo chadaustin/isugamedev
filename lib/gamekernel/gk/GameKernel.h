@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-18 04:19:59 $
-// Version:       $Revision: 1.20 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.21 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,55 +33,17 @@
 #define GK_GAMEKERNEL_H
 
 #include "gk/gkCommon.h"
-#include <vector>
-
-#include "gk/ContextData.h"
-#include "gk/GameApp.h"      // the base application type
-#include "gk/GameInput.h"
-#include "gk/SystemDriver.h"
-#include "gk/GameInput.h"
+#include "gk/IGameKernel.h"
 
 namespace gk
 {
 
 /**
- * The GameKernel serves as an effective system platform for a game application.
- * After defining your application object, use the GameKernel to run your
- * application.
+ * Implementation of the GameKernel interface for usage across a DLL.
  *
- * <h3> "Example (to start your application using GLUT):" </h3>
- * \code
- *    class MyAppType : public gk::GameApp {};
- *    int main()
- *    {
- *       gk::GameKernel* kernel = new gk::GameKernel( new MyAppType() );
- *       gk::SystemDriverFactory::instance().probe( "glut", "GLUT" );
- *       gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
- *       kernel->startup( driver );
- *       return 1;
- *    }
- * \endcode
- *
- * <h3> "Example (to start your application using SDL):" </h3>
- * \code
- *    class MyAppType : public gk::GameApp {};
- *    int main()
- *    {
- *       gk::GameKernel* kernel = new gk::GameKernel( new MyAppType() );
- *       gk::SystemDriverFactory::instance().probe( "sdl", "SDL" );
- *       gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "SDL" );
- *       kernel->startup( driver );
- *       return 1;
- *    }
- * \endcode
- *
- * GameKernel is a Facade for all system driver interactions.
- * An application should deal directly with an instance of this object to avoid
- * talking directly to a SystemDriver implementation.
- *
- * @see GameApp
+ * @see IGameKernel
  */
-class GameKernel
+class GameKernel : public Private::DLLImpl< IGameKernel >
 {
 public:
    /**
@@ -160,6 +122,8 @@ public:
 
    /**
     * Gets the application managed by this kernel.
+    *
+    * @return the application managed by this kernel
     */
    GameApp* getApp();
 

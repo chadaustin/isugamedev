@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-18 03:17:06 $
-// Version:       $Revision: 1.32 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.33 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,17 +36,13 @@
 #include <string>
 #include <utility> // for pair
 
-#include "gk/Mouse.h"
-#include "gk/Keyboard.h"
-
-#include "gk/DigitalInput.h"
-#include "gk/AnalogInput.h"
 #include "gk/EventInput.h"
+#include "gk/Device.h"
 
 namespace gk {
 
-// forward declare GameKernel
-class GameKernel;
+// forward declare IGameKernel
+class IGameKernel;
 
 /**
  * Input manager for game input.
@@ -203,7 +199,7 @@ public:
     * implementations should call this function every frame to ensure valid
     * input within the application.
     *
-    * @see GameKernel
+    * @see IGameKernel
     * @see SystemDriver
     */
    void update()
@@ -268,7 +264,7 @@ public:
     *
     * @pre kernel != NULL
     */
-   DeviceHandle( const std::string& name, GameKernel* kernel )
+   DeviceHandle( const std::string& name, IGameKernel* kernel )
       : mName( name ), mKernel( kernel )
    {
       mDevice = new Type();
@@ -324,7 +320,7 @@ private:
    /**
     * The kernel to which the device is attached.
     */
-   GameKernel* mKernel;
+   IGameKernel* mKernel;
 
    /**
     * The managed device.

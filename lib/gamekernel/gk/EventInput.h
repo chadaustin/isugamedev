@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: EventInput.h,v $
-// Date modified: $Date: 2002-02-10 19:03:42 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,6 +33,7 @@
 #define GK_EVENTINPUT_H
 
 #include "gk/gkCommon.h"
+#include <vector>
 #include "gk/DigitalInput.h"
 #include "gk/AnalogInput.h"
 

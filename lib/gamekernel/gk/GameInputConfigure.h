@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInputConfigure.h,v $
-// Date modified: $Date: 2002-02-21 18:59:29 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,12 +38,12 @@
 #include "xmlpp/xmlpp.h"
 
 #include "gk/GameInput.h"
-#include "gk/GameKernel.h"
+#include "gk/IGameKernel.h"
 
 namespace gk {
 
 inline static bool loadInputConfig( const std::string& filename,
-                                    GameKernel* kernel )
+                                    IGameKernel* kernel )
 {
    assert( kernel != NULL );
    xmlpp::XMLContextPtr ctx( new xmlpp::XMLContext );

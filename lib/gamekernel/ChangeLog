@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  --------------------------------------------------------
+2002-03-17 nonchocoboy  Split GameKernel into interface/implementation.
 2002-03-17 nonchocoboy  Removed explicit support for multiple apps.
 2002-02-21 nonchocoboy  Analog data should now be normalized to [-1,1].
 2002-02-20 nonchocoboy  Added GK version info into library.

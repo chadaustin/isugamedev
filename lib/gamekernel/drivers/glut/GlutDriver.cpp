@@ -24,14 +24,12 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-03-18 04:19:59 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "GlutDriver.h"
-#include "gk/GameKernel.h"
-#include "gk/GameInput.h"
 #include <xdl.h>
 #include <GL/glut.h>
 
@@ -84,7 +82,7 @@ GlutDriver::~GlutDriver()
 //------------------------------------------------------------------------------
 
 bool
-GlutDriver::init( GameKernel* kernel )
+GlutDriver::init( IGameKernel* kernel )
 {
    assert( kernel != NULL );
    mKernel = kernel;
@@ -267,7 +265,7 @@ GlutDriver::OnIdle()
 {
    postRedisplay();
 
-   GameKernel* kernel = sDriver->mKernel;
+   IGameKernel* kernel = sDriver->mKernel;
    GameApp* app = kernel->getApp();
 
    // do an app frame
@@ -310,7 +308,7 @@ GlutDriver::OnRedisplay()
    sDriver->initCurrentContext();
 
    // draw the app
-   GameKernel* kernel = sDriver->mKernel;
+   IGameKernel* kernel = sDriver->mKernel;
    assert( kernel->getApp() != NULL && "you can't run a NULL application" );
    kernel->getApp()->onContextDraw( sDriver->mCurrentContext );
 

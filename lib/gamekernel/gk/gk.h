@@ -24,20 +24,35 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.h,v $
-// Date modified: $Date: 2002-02-25 21:22:37 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_GK_H
 #define GK_GK_H
 
+#ifndef __cplusplus
+#error GameKernel requires a C++ compiler
+#endif
+
 // include all useful gk headers for easy use by the client program
+#include <gk/gkCommon.h>
+#include <xdl.h>
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
 #include <gk/GameApp.h>
-#include <gk/GameKernel.h>
+#include <gk/IGameKernel.h>
 #include <gk/GameInputConfigure.h>
 #include <gk/SystemDriverFactory.h>
+
+// exported functions need a calling convention for win32
+#ifdef WIN32
+#  define GK_CALL __stdcall
+#else
+#  define GK_CALL
+#endif
+
+#define GK_APIFUNC(ret, decl) extern "C" XDL_FUNC ret GK_CALL decl
 
 #endif

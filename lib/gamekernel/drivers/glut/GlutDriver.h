@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-02-20 00:23:31 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-18 05:39:33 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,7 +34,7 @@
 
 #include "gk/gkCommon.h"
 #include "gk/SystemDriver.h"
-#include "gk/GameKernel.h"
+#include "gk/IGameKernel.h"
 #include "gk/GameInput.h"
 #include "gk/Mouse.h"
 #include "gk/Keyboard.h"
@@ -64,7 +64,7 @@ public:
     *
     * @see GameInput::addDevice( Device*, const std::string& )
     */
-   virtual bool init( GameKernel* kernel );
+   virtual bool init( IGameKernel* kernel );
 
    /**
     * Starts the driver through its main loop.
@@ -207,7 +207,7 @@ private:
    /**
     * The kernel which is handling this driver.
     */
-   GameKernel* mKernel;
+   IGameKernel* mKernel;
 
    /**
     * There should only be 1 GLUT driver at any given time, but we don't want
