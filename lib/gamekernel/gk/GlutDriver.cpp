@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-08 05:39:46 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-02-08 06:03:49 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -97,10 +97,8 @@ GlutDriver::init()
    ::glutIgnoreKeyRepeat( 1 );
 
    // register the our devices with the input manager
-   mMouse = new Mouse();
-   GameInput::instance().addDevice( mMouse, "Mouse" );
-   mKeyboard = new Keyboard();
-   GameInput::instance().addDevice( mKeyboard, "Keyboard" );
+   mMouse = new DeviceHandle<Mouse>( "Mouse" );
+   mKeyboard = new DeviceHandle<Keyboard>( "Keyboard" );
 
    return true;
 }
@@ -276,7 +274,8 @@ GlutDriver::OnReshape( int w, int h )
 void
 GlutDriver::OnKeyboardDown( unsigned char k, int x, int y )
 {
-   sDriver->mKeyboard->queue().push_back( (Keyboard::Key)(int)k );
+   Keyboard* keyboard = sDriver->mKeyboard->getDevice();
+   keyboard->queue().push_back( (Keyboard::Key)(int)k );
 
    // ignore case
    if ('a' <= k && k <= 'z')
@@ -285,7 +284,7 @@ GlutDriver::OnKeyboardDown( unsigned char k, int x, int y )
    }
 
    const DigitalInput::BinaryState state = DigitalInput::ON;
-   sDriver->mKeyboard->button( k ).setBinaryState( state );
+   keyboard->button( k ).setBinaryState( state );
 }
 
 //------------------------------------------------------------------------------
@@ -304,7 +303,8 @@ GlutDriver::OnKeyboardUp( unsigned char k, int x, int y )
    }
 
    const DigitalInput::BinaryState state = DigitalInput::OFF;
-   sDriver->mKeyboard->button( k ).setBinaryState( state );
+   Keyboard* keyboard = sDriver->mKeyboard->getDevice();
+   keyboard->button( k ).setBinaryState( state );
 }
 
 //------------------------------------------------------------------------------
@@ -362,7 +362,7 @@ GlutDriver::keyboardEvent( const bool& isdown, const int& k, Keyboard& keyboard 
 void
 GlutDriver::OnSpecialKeyboardDown( int k, int x, int y )
 {
-   keyboardEvent( true, k, *(sDriver->mKeyboard) );
+   keyboardEvent( true, k, *(sDriver->mKeyboard->getDevice()) );
 }
 
 //------------------------------------------------------------------------------
@@ -373,7 +373,7 @@ GlutDriver::OnSpecialKeyboardDown( int k, int x, int y )
 void
 GlutDriver::OnSpecialKeyboardUp( int k, int x, int y )
 {
-   keyboardEvent( false, k, *(sDriver->mKeyboard) );
+   keyboardEvent( false, k, *(sDriver->mKeyboard->getDevice()) );
 }
 
 
@@ -385,8 +385,9 @@ GlutDriver::OnSpecialKeyboardUp( int k, int x, int y )
 void
 GlutDriver::OnMousePos( int x, int y )
 {
-   sDriver->mMouse->axis( 0 ).setData( x );
-   sDriver->mMouse->axis( 1 ).setData( y );
+   Mouse* mouse = sDriver->mMouse->getDevice();
+   mouse->axis( 0 ).setData( x );
+   mouse->axis( 1 ).setData( y );
 }
 
 //------------------------------------------------------------------------------
@@ -418,9 +419,10 @@ GlutDriver::OnMouseClick( int button, int state, int x, int y )
    }
 
    // Set the mousebutton state and the mouse position
-   sDriver->mMouse->button( b ).setBinaryState( binaryState );
-   sDriver->mMouse->axis( 0 ).setData( x );
-   sDriver->mMouse->axis( 1 ).setData( y );
+   Mouse* mouse = sDriver->mMouse->getDevice();
+   mouse->button( b ).setBinaryState( binaryState );
+   mouse->axis( 0 ).setData( x );
+   mouse->axis( 1 ).setData( y );
 }
 
 //------------------------------------------------------------------------------

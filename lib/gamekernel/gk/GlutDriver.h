@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-02-08 05:39:46 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-08 06:03:49 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,6 +34,7 @@
 
 #include "gk/gkCommon.h"
 #include "gk/SystemDriver.h"
+#include "gk/GameInput.h"
 #include "gk/Mouse.h"
 #include "gk/Keyboard.h"
 #include "gk/ContextData.h"
@@ -186,12 +187,12 @@ private:
    /**
     * Our mouse device.
     */
-   Mouse* mMouse;
+   DeviceHandle<Mouse>* mMouse;
 
    /**
     * Our keyboard device.
     */
-   Keyboard* mKeyboard;
+   DeviceHandle<Keyboard>* mKeyboard;
 
    /**
     * There should only be 1 GLUT driver at any given time, but we don't want

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-08 05:39:46 $
-// Version:       $Revision: 1.20 $
+// Date modified: $Date: 2002-02-08 06:03:49 $
+// Version:       $Revision: 1.21 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -199,6 +199,79 @@ public:
 private:
    std::map<std::string, EventInput> mBindTable;
    std::map<std::string, Device*> mDevices;
+};
+
+/**
+ * Device wrapper that provides automatic addition and removal of the contained
+ * device with the input manager.
+ *
+ * @param Type    the type of device to manage
+ */
+template< class Type >
+class DeviceHandle
+{
+public:
+   /**
+    * Creates and instance of the device type and adds it to the input manager.
+    *
+    * @param name    the name of the device
+    */
+   DeviceHandle( const std::string& name )
+      : mName( name )
+   {
+      mDevice = new Type();
+      GameInput::instance().addDevice( mDevice, name );
+   }
+
+   /**
+    * Removes the device from the input manager and destroys it.
+    */
+   ~DeviceHandle()
+   {
+      GameInput::instance().removeDevice( mName );
+      delete mDevice;
+   }
+
+   /**
+    * Gets the contained device.
+    *
+    * @return  a pointer to the contained device
+    */
+   Type* getDevice()
+   {
+      return mDevice;
+   }
+
+   /**
+    * Gets the contained device.
+    *
+    * @return  a pointer to the contained device
+    */
+   const Type* getDevice() const
+   {
+      return mDevice;
+   }
+
+   /**
+    * Gets the name of the contained device.
+    *
+    * @return  the name of the contained device
+    */
+   const std::string& getName() const
+   {
+      return mName;
+   }
+
+private:
+   /**
+    * The name of the device.
+    */
+   std::string mName;
+
+   /**
+    * The managed device.
+    */
+   Type* mDevice;
 };
 
 GK_END_NAMESPACE
