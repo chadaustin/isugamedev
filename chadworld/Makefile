@@ -1,7 +1,9 @@
 SOURCES = \
 	Client/ChadWorldClient.java \
 	Client/ServerConnection.java \
+	Client/SynchronizationBehavior.java \
 	Common/Packet.java \
+	Common/WorldPacket.java \
 	Server/ChadWorldServer.java \
 	Server/ConnectionThread.java
 

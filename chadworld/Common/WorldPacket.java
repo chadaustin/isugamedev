@@ -1,8 +1,8 @@
-import javax.vecmath.*;
-
 package chadworld;
+
+import javax.vecmath.*;
 
 
 public class WorldPacket extends Packet {
-  Matrix4f[] m_cubes;
+  public Matrix4f[] cubes;
 }
