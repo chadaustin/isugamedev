@@ -42,13 +42,13 @@ inline static bool loadInputConfig( const std::string& filename )
    xmlpp::XMLNodeListIterator it = nl.begin();
    while (it != nl.end())
    {
-      std::cerr << "in name: " << (*it)->name() << std::endl;
+      //std::cerr << "in name: " << (*it)->name() << std::endl;
       try
       {
          xmlpp::XMLAttributes& attr = (*it)->get_attrmap();
-         std::cout << "attr: " << attr.get( "action" ) << "\n" << std::flush;
-         std::cout << "attr: " << attr.get( "device" ) << "\n" << std::flush;
-         std::cout << "attr: " << attr.get( "input" ) << "\n" << std::flush;
+         //std::cout << "attr: " << attr.get( "action" ) << "\n" << std::flush;
+         //std::cout << "attr: " << attr.get( "device" ) << "\n" << std::flush;
+         //std::cout << "attr: " << attr.get( "input" ) << "\n" << std::flush;
          GameInput::instance().bind( attr.get( "action" ), attr.get( "device" ), attr.get( "input" ) );
       }
       catch (xmlpp::xmlerror e)

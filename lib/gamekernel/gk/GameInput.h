@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-08 20:59:44 $
-// Version:       $Revision: 1.22 $
+// Date modified: $Date: 2002-02-09 17:13:17 $
+// Version:       $Revision: 1.23 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -179,7 +179,7 @@ public:
    {
       Input* in_put = GameInput::instance().getInput( device, input );
       mBindTable[alias].bind( in_put );
-      std::cout<<"Bound "<<device<<":"<<input<<" to "<<alias<<std::endl;
+      std::cout<<"Bound \""<<device<<"\":\""<<input<<"\" to \""<<alias<<"\""<<std::endl;
    }
 
 public:
