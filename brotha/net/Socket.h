@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Socket.h,v $
- * Date modified: $Date: 2002-02-26 00:51:07 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-02 13:08:31 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -58,10 +58,12 @@ class Socket {
 protected:
    SOCKET m_socket;
    struct sockaddr_in m_addrIn;
-   long m_port;
    unsigned int m_polltime;
+   long m_port;
+   long m_numQueued;
 
 public:
+   enum selectResponses{ select_ERROR, select_NONE, select_READ, select_SEND, select_CLOSE };
    Socket();
 	virtual ~Socket();
 
@@ -78,9 +80,11 @@ public:
    long recieve(void* buffer, unsigned long bytes2read, unsigned int timeout);
    bool ioControl(long cmd, unsigned long *argp);
 
+   virtual long select(unsigned int timeout);
+
    bool isOpen();
 };
 
 } // namespace net
 
-#endif
+#endif

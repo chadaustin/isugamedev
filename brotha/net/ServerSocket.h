@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ServerSocket.h,v $
- * Date modified: $Date: 2002-02-26 00:51:07 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-02 13:08:31 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -50,14 +50,17 @@ class ServerSocket : public Socket
 protected:
    long m_numQueued;
 public:
+   enum selectResponses{ select_ERROR, select_NONE, select_READ, select_SEND, select_CLOSE, select_CONNECT };
    ServerSocket(long _numQueued);
    virtual ~ServerSocket();
 
    bool open(long port);
+   long select(unsigned int timeout);
+
    bool listen();
    bool accept(Socket &socket);
 };
 
 } // namespace net
 
-#endif
+#endif

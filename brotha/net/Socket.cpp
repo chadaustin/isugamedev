@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Socket.cpp,v $
- * Date modified: $Date: 2002-02-26 00:51:07 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-02 13:08:31 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,7 +42,7 @@
 
 namespace net {
 
-Socket::Socket(void)
+Socket::Socket()
    :m_socket(INVALID_SOCKET),
    m_port(),
    m_polltime(100) {
@@ -157,7 +157,7 @@ long Socket::send(void* buffer, unsigned long bytes2write, unsigned int timeout)
 
    // attempt to write everything before a time out
    while(bytes2write > 0) {
-      switch(select(0, (fd_set*)0, &poll_obj, (fd_set*)0, &timeVal)) {
+      switch(::select(0, (fd_set*)0, &poll_obj, (fd_set*)0, &timeVal)) {
          case SOCKET_ERROR: {
             // 'select' failed
             // getLastError = Error Code
@@ -216,7 +216,7 @@ long Socket::recieve(void* buffer, unsigned long bytes2read, unsigned int timeou
 
    // attempt to read everything before a time out
    while(bytes2read > 0) {
-      switch(select(0, &poll_obj, (fd_set*)0, (fd_set*)0, &timeVal)) {
+      switch(::select(0, &poll_obj, (fd_set*)0, (fd_set*)0, &timeVal)) {
          case SOCKET_ERROR: {
             // 'select' failed
             // getLastError = Error Code
@@ -270,8 +270,40 @@ bool Socket::ioControl(long cmd, unsigned long *argp) {
    }
 }
 
+long Socket::select(unsigned int timeout) {
+   fd_set read, write, except;
+   FD_ZERO(&read);
+   FD_ZERO(&write);
+   FD_ZERO(&except);
+
+   long error = 0;
+
+   struct timeval timeVal;
+   timeVal.tv_sec  = (long)((m_polltime*1000) / 1000000); // seconds to wait
+   timeVal.tv_usec = (long)((m_polltime*1000) % 1000000); // micro seconds to wait
+
+   FD_SET(m_socket,&read);
+   FD_SET(m_socket,&write);
+   FD_SET(m_socket,&except);
+
+   int i = ::select(0,&read,&write,&except,&timeVal);
+   if(i==SOCKET_ERROR) {
+      // getLastError Error Code
+      return select_ERROR;
+   }
+
+   if(FD_ISSET(m_socket,&read)) {
+      return select_READ;
+   } else if(FD_ISSET(m_socket,&write)) {
+      return select_SEND;
+   } else if(FD_ISSET(m_socket,&except)) {
+      return select_CLOSE;
+   }
+   return select_NONE;
+}
+
 bool Socket::isOpen() {
    return (m_socket != INVALID_SOCKET);
 }
 
-} // namespace net
+} // namespace net

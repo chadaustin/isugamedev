@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ServerSocket.cpp,v $
- * Date modified: $Date: 2002-02-26 00:51:06 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-02 13:08:31 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -67,6 +67,15 @@ bool ServerSocket::open(long port) {
       return false;
    }
    return true;
+}
+
+long ServerSocket::select(unsigned int timeout) {
+   long result = Socket::select(timeout);
+   if(result==select_READ) {
+      long length = getRecieveSize();
+      result = (length==0 ? select_CONNECT : select_READ);
+   }
+   return result;
 }
 
 bool ServerSocket::listen() {
