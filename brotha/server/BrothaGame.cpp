@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-01 21:50:48 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-05-01 22:07:05 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -217,5 +217,9 @@ namespace server {
 
    const game::GameTimer& BrothaGame::getGameTimer() const {
       return mGameTime;
+   }
+
+   game::GameLogic& BrothaGame::getLogic() {
+      return mLogic;
    }
 }

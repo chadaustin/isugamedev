@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-05-01 21:50:48 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-01 22:07:05 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,7 +46,7 @@
 #include <map>
 #include <set>
 #include "game/GameTimer.h"
-#include "game/Player.h"
+#include "game/GameLogic.h"
 #include "net/NetMgr.h"
 
 namespace server {
@@ -204,6 +204,9 @@ namespace server {
        */
       const game::GameTimer& getGameTimer() const;
 
+      /// Gets the game logic for this server.
+      game::GameLogic& getLogic();
+
    private:
 
       /// The game timer.
@@ -227,6 +230,9 @@ namespace server {
 
       /// The network manager
       net::NetMgr *m_netMgr;
+
+      /// The game logic
+      game::GameLogic mLogic;
    };
 }
 
