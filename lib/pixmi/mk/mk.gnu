@@ -24,8 +24,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: mk.gnu,v $
-# Date modified: $Date: 2002-01-31 02:31:45 $
-# Version:       $Revision: 1.3 $
+# Date modified: $Date: 2002-05-06 13:03:48 $
+# Version:       $Revision: 1.4 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -70,3 +70,5 @@ OUTPUT_EXE_FLAG = -o
 OUTPUT_OBJ_FLAG = -c -o
 OUTPUT_LIB_FLAG = -o
 OUTPUT_STATIC_LIB_FLAG =
+
+LIBPATH = -l
