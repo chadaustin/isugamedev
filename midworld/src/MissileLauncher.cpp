@@ -42,7 +42,7 @@ namespace mw
       mMissileBehavior = new lm::behavior;
       mMissileBehavior->addCommand(mMissileCommand);
       mMissileTesting = new lm::nodeTestCommand<Testing>(mAITest, &Testing::alwaysTrue);
-      missileInstinct = new lm::reflex(missileNode, mMissileBehavior, mMissileTesting);
+      missileInstinct = new lm::reflex(missileNode->mReflexManager, mMissileBehavior, mMissileTesting);
       g.addSmart(missile, missileNode);
    }
 

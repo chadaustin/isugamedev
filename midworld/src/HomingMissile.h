@@ -11,6 +11,8 @@
 #include <loom/behavior.h>
 #include <loom/command.h>
 #include <loom/unit.h>
+#include <loom/reflexManager.h>
+
 
 namespace mw
 {
