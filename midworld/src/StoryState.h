@@ -1,8 +1,7 @@
 #ifndef MW_STORY_STATE_H
 #define MW_STORY_STATE_H
 
-
-#include <gltext.h>
+#include <vector>
 #include "State.h"
 #include "Texture.h"
 
@@ -22,10 +21,27 @@ namespace mw
 
    private:
       float mElapsedTime;
+      int mCurrentFrame;
+      int mCurrentCell;
 
-      Texture* mStoryImage;
-      gltext::Font* mFont;
-      gltext::FontRenderer* mFontRenderer;
+      struct Cell
+      {
+         int frameNum;
+         int x, y;
+         int width, height;
+         float waitTime;
+         Texture* image;
+
+         Cell()
+            : image(0)
+         {}
+
+         Cell(int frame, int ax, int ay, int w, int h, float time, Texture* tex)
+            : frameNum(frame), x(ax), y(ay), width(w), height(h), waitTime(time), image(tex)
+         {}
+      };
+
+      std::vector<Cell> mCells;
    };
 }
 
