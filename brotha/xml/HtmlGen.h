@@ -226,7 +226,7 @@ namespace reports {
                html << "<div class=\"gang2\">";
                html << "<h1>" + g->getName() + "</h1>";
                html << "<div class=\"ganginfo\">" << g->getInfo() << "</div>";
-			   html << "<img src=\"" << g->mPic << "\">";
+			   html << "<br><center><img src=\"" << g->mPic << "\"></center><br>";
                html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
                html << "<div class=\"playerlist\">";
                html << renderPlayerList(g->getPlayerList(), schema, g->getName());
@@ -286,7 +286,7 @@ namespace reports {
       reports::request r(query);
       if (r.valid) {
          data::GangList gl = data.getGangList();
-         return inlineStyle() + "<a href=\"/\"><h1>Warn-a-brotha report server</h1></a> " +  renderGangList(gl,r);
+		 return inlineStyle() + "<a href=\"/\"><center><br><br><img src=\"http://hatori42.com/wb/title.jpg\" border=0><br><br></center><h2>Warn-a-brotha report server</h2></a> " +  renderGangList(gl,r);
       }
       return "error";
 
