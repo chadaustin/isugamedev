@@ -24,28 +24,41 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-02-17 21:12:10 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-03-21 04:53:14 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GK_ANALOGDEVICE_H
 #define GK_ANALOGDEVICE_H
 
-#include "gk/gkCommon.h"
-#include "gk/Device.h"
-#include "gk/AnalogInput.h"
+#include <gk/gkCommon.h>
+#include <gk/Device.h>
+#include <gk/AnalogInput.h>
 
 namespace gk {
 
-/* an analog device
- * a mouse, or joystick (for example) may be an analog device
- * an analog device can contain many inputs (or axes)
+/**
+ * This abstract class describes an analog device such as a mouse or joystick.
+ * An analog device is described by its inputs. In an analog device each input
+ * is an axis. An analog device can contain any number of inputs (axes).
+ *
+ * @see AnalogInput
+ * @see Device
  */
 class AnalogDevice : public TypedDevice<AnalogInput>
 {
 public:
    AnalogDevice() {}
+
+   /**
+    * Gets the xth axial input in this device.
+    *
+    * @param x    the zero-based index to the input
+    * @pre 0 <= x < numAxes()
+    *
+    * @return  the AnalogInput corresponding to index x
+    */
    AnalogInput& axis( int x )
    {
       Input* in = TypedDevice<AnalogInput>::getInput( x );
@@ -53,9 +66,18 @@ public:
       assert( ain != NULL && "this shouldn't happen" );
       return *ain;
    }
-   AnalogInput* axis( const std::string& x )
+
+   /**
+    * Gets the axial input assigned to the given name.
+    *
+    * @param name    the name of the input to retrieve
+    *
+    * @return  the AnalogInput corresponding to name or NULL if no input is
+    *          assigned to name
+    */
+   AnalogInput* axis( const std::string& name )
    {
-      Input* in = TypedDevice<AnalogInput>::getInput( x );
+      Input* in = TypedDevice<AnalogInput>::getInput( name );
       return dynamic_cast<AnalogInput*>( in );
    }
 
