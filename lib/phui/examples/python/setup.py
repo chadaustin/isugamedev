@@ -43,22 +43,37 @@ b2.backgroundColor.set(0,0,1,1)
 b2.foregroundColor.set(0,0,0,1)
 
 lbl = createLabel()
-lbl.text = 'BPL v2 is hella-cool!'
+lbl.text = 'Choose A Beer'
 lbl.position.set(130, 10)
-lbl.size.set(130, 25)
+lbl.size.set(100, 20)
 lbl.backgroundColor.set(0,0,1,0.5)
 
-list = createListBox()
-list.add('Corona')
-list.add('XX')
-list.add('Michelob')
-list.add('Guinness')
-list.position.set(130, 40)
-list.size.set(70, 70)
+beer_list = createListBox()
+beer_list.add('Corona')
+beer_list.add('XX')
+beer_list.add('Michelob')
+beer_list.add('Guinness')
+beer_list.position.set(130, 30)
+beer_list.size.set(100, 70)
+
+beer_btn = createButton()
+beer_btn.text = 'Drink'
+beer_btn.position.set(170, 105)
+beer_btn.size.set(60, 25)
+beer_btn.backgroundColor.set(0,0,1,0.5)
+
+txt = createTextField()
+txt.text = "I'm a text box"
+txt.position.set(5, 150)
+txt.size.set(80, 20)
+txt.backgroundColor.set(1,1,1,1)
+txt.foregroundColor.set(0,0,0,0)
 
 wnd2 = ui.getWidget(0)
 wnd2.add(b2)
 wnd2.add(lbl)
-wnd2.add(list)
+wnd2.add(beer_list)
+wnd2.add(beer_btn)
+wnd2.add(txt)
 
 print 'Success!'

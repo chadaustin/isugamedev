@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 06:51:40 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2003-01-06 07:07:06 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -60,6 +60,7 @@ namespace phui
    PHUI_CREATE(Label)
    PHUI_CREATE(ListBox)
    PHUI_CREATE(Window)
+   PHUI_CREATE(TextField)
 
 #undef PHUI_CREATE
 
@@ -87,6 +88,7 @@ namespace phui
       implicitly_convertible<CheckBoxPtr, WidgetPtr>();
       implicitly_convertible<LabelPtr, WidgetPtr>();
       implicitly_convertible<ListBoxPtr, WidgetPtr>();
+      implicitly_convertible<TextFieldPtr, WidgetPtr>();
       implicitly_convertible<WidgetContainerPtr, WidgetPtr>();
       implicitly_convertible<RootWidgetPtr, WidgetContainerPtr>();
       implicitly_convertible<WindowPtr, WidgetContainerPtr>();
@@ -224,6 +226,12 @@ namespace phui
          .def("removeListSelectionListener", &ListBox::removeListSelectionListener)
       ;
 
+      // TextField
+      class_<TextField, bases<Widget>, TextFieldPtr>("TextField", no_init)
+         .add_property("text", make_function(&TextField::getText, return_internal_reference<>()),
+                               make_function(&TextField::setText))
+      ;
+
       // RootWidget
       class_<RootWidget, bases<WidgetContainer>, RootWidgetPtr>("RootWidget", no_init)
       ;
@@ -239,6 +247,7 @@ namespace phui
       def("createCheckBox", createCheckBox);
       def("createLabel", createLabel);
       def("createListBox", createListBox);
+      def("createTextField", createTextField);
       def("createWindow", createWindow);
    }
 }
