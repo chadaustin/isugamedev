@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-11 08:44:23 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-11-11 08:51:58 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -163,16 +163,6 @@ namespace mw
             // body                == collider
             // desc->getCollidee() == collidee
             mCollisionResponse->collide(body, desc->getCollidee());
-         }
-         
-         // Check if we just put the body in a bad state
-         {
-            const gmtl::AABoxf& postColliderBounds = mScene->get(0)->getBounds();
-            const gmtl::AABoxf& postCollideeBounds = mScene->get(1)->getBounds();
-            if (gmtl::intersect(postColliderBounds, postCollideeBounds))
-            {
-               assert(false && "We left the body in a bad state");
-            }
          }
       }
    }
