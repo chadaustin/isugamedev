@@ -10,12 +10,14 @@
 
 #include "glRenderLight.h"
 #include "TankGame.h"
+#include "AudioSystemFactory.h"
 
 //: App width/height
 static float sWidth = 640.0f;
 static float sHeight = 640.0f;
 
 static TankGame *game = new TankGame();
+static IAudioSystem* audioSystem;
 static int mainWin_contextID;
 
 // Provide functionality to automatically use different lights.
@@ -290,6 +292,11 @@ main( int argc, char **argv )
    // initialize the state of your app here if needed...
    OnApplicationInit();
 
+   audioSystem = CreateAudioSystem();
+   if (!audioSystem) {
+      exit(EXIT_FAILURE);
+   }
+
    // Set the window's initial size
    ::glutInitWindowSize( (int)sWidth, (int)sHeight );
    ::glutInit( &argc, argv );
@@ -330,9 +337,28 @@ main( int argc, char **argv )
     // time for glut to sit and spin.
     ::glutMainLoop();
 
+    // shut down the audio system
+    delete audioSystem;
+
     // the C++ standard implicitly does 'return 0' if control reaches the
     // end of main() but VC++, of course, doesn't support this
     return 0;
 }
 
 //------------------------------------------------------------------------------
+
+
+#ifdef _WIN32
+#ifndef _CONSOLE
+
+int WINAPI WinMain(
+  HINSTANCE /*instance*/,
+  HINSTANCE /*prev_instance*/,
+  LPSTR     /*command_line*/,
+  int       /*show_command*/)
+{
+  return main(__argc, __argv);
+}
+
+#endif
+#endif

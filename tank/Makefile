@@ -11,6 +11,7 @@ PROJECT_NAME = tank
 
 # objects to be included in the project....
 SRCS = \
+   AudioSystemFactory.cxx \
    BmpImporter.cxx \
    ColorRGBA.cxx \
    CppImageExporter.cxx \
@@ -23,6 +24,7 @@ SRCS = \
    Light.cxx \
    Material.cxx \
    Matrix4f.cxx \
+   NullAudioSystem.cxx \
    Player.cxx \
    TankGame.cxx \
    Texture.cxx \
