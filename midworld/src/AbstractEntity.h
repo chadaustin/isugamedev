@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AbstractEntity.h,v $
- * Date modified: $Date: 2002-10-29 05:34:04 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-29 05:39:09 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -69,16 +69,6 @@ namespace mw
        * Sets the ID of the model this entity requires.
        */
       void setModel(const std::string& model);
-
-      void setScale(const gmtl::Vec3f& scale)
-      {
-         mScale = scale;
-      }
-
-      const gmtl::Vec3f getScale() const
-      {
-         return mScale;
-      }
 
       /**
        * Gets the unique ID of this entity.

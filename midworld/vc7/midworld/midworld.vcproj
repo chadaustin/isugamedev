@@ -138,6 +138,9 @@
 				RelativePath="..\..\src\AssaultRifle.h">
 			</File>
 			<File
+				RelativePath="..\..\src\BaseBullet.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\BaseBullet.h">
 			</File>
 			<File
@@ -145,6 +148,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\BaseProjectileWeapon.h">
+			</File>
+			<File
+				RelativePath="..\..\src\BodyState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\BoundsCollisionDetector.cpp">
@@ -190,6 +196,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\Entity.h">
+			</File>
+			<File
+				RelativePath="..\..\src\EntityFactory.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\EntityFactory.h">
 			</File>
 			<File
 				RelativePath="..\..\src\GameManager.cpp">

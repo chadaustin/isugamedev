@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BodyState.h,v $
- * Date modified: $Date: 2002-10-01 07:54:16 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-29 05:39:09 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -56,7 +56,9 @@ namespace mw
        * or rotational velocity.
        */
       BodyState()
-      {}
+		 : mScale(1, 1, 1)
+      {
+	  }
 
       /// Creates an exact duplicate of the given state.
       BodyState(const BodyState& state)
@@ -72,6 +74,11 @@ namespace mw
 
       /// Sets the position of this state to the given point.
       void setPos(const gmtl::Point3f& pos) { mPos = pos; }
+
+	  gmtl::Vec3f&         getScale()       { return mScale; }
+	  const gmtl::Vec3f&   getScale() const { return mScale; }
+
+	  void setScale(const gmtl::Vec3f& scale) { mScale = scale; }
 
       ///@{
       /// Gets the rotation for this state.
@@ -129,6 +136,8 @@ namespace mw
 
       /// The body's rotational velocity.
       gmtl::Vec3f mRotVel;
+
+	  gmtl::Vec3f mScale;
    };
 }
 

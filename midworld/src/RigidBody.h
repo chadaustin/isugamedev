@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-10-10 09:01:15 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-10-29 05:39:09 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -69,10 +69,16 @@ namespace mw
        * Gets the position of this rigid body relative to the world's origin.
        */
       const gmtl::Point3f& getPos() const { return getCurrentState().getPos(); }
-
       gmtl::Point3f& getPos() { return getCurrentState().getPos(); }
 
-      /**
+      void setScale(const gmtl::Vec3f& scale) { getCurrentState().setScale(scale); }
+      
+
+	  const gmtl::Vec3f& getScale() const { return getCurrentState().getScale(); }
+	  gmtl::Vec3f& getScale() { return getCurrentState().getScale(); }
+
+
+	  /**
        * Sets the velocity of this rigid body.
        */
       void setVel(const gmtl::Vec3f& vel) { getCurrentState().setVel(vel); }

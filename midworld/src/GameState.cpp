@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 04:13:43 $
- * Version:       $Revision: 1.77 $
+ * Date modified: $Date: 2002-10-29 05:39:09 $
+ * Version:       $Revision: 1.78 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -114,7 +114,7 @@ namespace mw
       loadLevel("levels/level1.txt");
 
       mExplosion = new ParticleEngine("images/explosive_particle.png",
-                                      5000, mCamera);
+		  5000, gmtl::Point3f(0, 0, 0), mCamera);
    }
 
    void
@@ -576,9 +576,15 @@ namespace mw
       std::string type;
       double x, y, z;
       double h, p, r;
-      while (in >> type >> x >> y >> z >> h >> p >> r)
+
+	  while (in >> type >> x >> y >> z >> h >> p >> r)
       {
-         Entity* e;
+         // THIS SUCKS ASS
+         // VC++ 7 does not compile this right
+         // Internal Compiler Error
+         // this is not threadsafe
+         static Entity* e;
+
          if (type == "droid")
          {
             e = EntityFactory::instance().create<Enemy>();
