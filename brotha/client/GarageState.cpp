@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-04-28 22:16:46 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-01 19:23:27 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,6 +44,7 @@
 #include <phui/SDLBridge.h>
 #include "BrothaApp.h"
 #include "GarageState.h"
+#include "GameState.h"
 #include <map>
 
 namespace client {
@@ -107,6 +108,9 @@ namespace client {
 
    void
    GarageState::update(BrothaApp* app, int elapsedTime) {
+      if(mJoinGame) {
+         app->invokeStateTransition(new GameState());
+      }
    }
 
    void
@@ -139,10 +143,11 @@ namespace client {
       if (src == mDealerBtn) {
          mDealer->show();
          mRoot->focus(mDealer);
-      }
-      else if (src == mChopShopBtn) {
+      } else if (src == mChopShopBtn) {
          mChopShop->show();
          mRoot->focus(mChopShop);
+      } else if (src == mJoinGameBtn) {
+         mJoinGame = true;
       }
    }
 

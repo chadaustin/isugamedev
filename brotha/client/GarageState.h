@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.h,v $
- * Date modified: $Date: 2002-04-28 22:16:46 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-05-01 19:23:27 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -79,6 +79,9 @@ namespace client {
       DealerWnd* mDealer;
 
       phui::Window* mChopShop;
+
+      /// set to true to join the game
+      bool mJoinGame;
    };
 
 }
