@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-28 16:41:08 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-29 02:56:35 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,6 +47,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "stat.h"
 
 namespace dataxml{
 
@@ -89,6 +90,24 @@ public:
   }
   void addStat(Stat* s){
 	  stats.push_back(s);
+  }
+
+  std::string getStat(std::string in){
+
+  }
+
+  void setStat(std::string in, std::string val){
+	  bool exists = false;;
+	  for(int i = 0; i < stats.size(); i++){
+		  dataxml::Stat* s = stats[i];
+		  if(s->getName() == in){
+			  s->setVal(val);
+			  exists = true;
+		  }
+	  }
+	  if(!exists){
+		  stats.push_back(new Stat(in,val));
+	  }
   }
 
   void xMLify(std::ostream& out){

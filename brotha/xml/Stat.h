@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Stat.h,v $
- * Date modified: $Date: 2002-04-28 16:41:08 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-29 02:56:35 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -73,6 +73,10 @@ public:
   
   std::string getVal(){
     return value;
+  }
+
+  void setVal(std::string in){
+	  value = in;
   }
   
   void xMLify(std::ostream& out){
