@@ -1,2 +1,3 @@
 SConscript('event/SConscript')
+SConscript('sdl/SConscript')
 SConscript('window/SConscript')

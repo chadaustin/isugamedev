@@ -1,19 +1,38 @@
-Import('env')
+from os import path
 
+Import('env PREFIX')
 
-sources = [
-    'Button.cpp',
-    'Font.cpp',
-    'FontRenderer.cpp',
-    'Insets.cpp',
-    'Label.cpp',
-    'Rect.cpp',
-    'RootFactory.cpp',
-    'RootWidget.cpp',
-    'TextField.cpp',
-    'WidgetContainer.cpp',
-    'Widget.cpp',
-    'Window.cpp',
+classes = [
+    'Button',
+    'Font',
+    'FontRenderer',
+    'Insets',
+    'Label',
+    'Rect',
+    'RootFactory',
+    'RootWidget',
+    'TextField',
+    'Widget',
+    'WidgetContainer',
+    'Window',
 ]
 
-env.Library(target = 'phui', source = sources)
+sources = []
+
+headers = [
+    'Color.h',
+    'Input.h',
+    'Point.h',
+    'phui.h',
+    'phuiCommon.h'
+]
+
+sources.extend(map(lambda n: n + '.cpp', classes))
+headers.extend(map(lambda n: n + '.h',   classes))
+
+library = env.Library(target = 'phui', source = sources)
+
+for h in headers:
+    env.Install(path.join(PREFIX, 'include', 'phui'), h)
+    
+env.Install(path.join(PREFIX, 'lib'), library)
