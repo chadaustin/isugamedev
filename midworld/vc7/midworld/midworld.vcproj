@@ -234,12 +234,6 @@
 				RelativePath="..\..\src\InputBinder.h">
 			</File>
 			<File
-				RelativePath="..\..\src\InputManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\InputManager.h">
-			</File>
-			<File
 				RelativePath="..\..\src\InputParser.cpp">
 			</File>
 			<File
