@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.64 2002-04-12 06:10:56 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 06:10:56 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.65 2002-04-12 07:00:27 tamc Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 07:00:27 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -1497,7 +1497,62 @@
   </chapter>
   <chapter>
     <title>Traceability Matrix</title>
-    <para>probably figure out how to create a table or else stuff a pic in here</para>
+    <table>
+      <tgroup cols='4' align='left' colsep='1' rowsep='1'>
+        <colspec colname='c1'/>
+        <colspec colname='c2'/>
+        <colspec colname='c3'/>
+        <colspec colname='c4'/>
+        <thead>
+          <row>
+            <entry align='center'>Requirement</entry>
+            <entry align='center'>Description</entry>
+            <entry align='center'>Module(s)</entry>
+            <entry align='center'>Page(s)</entry>
+          </row>
+        </thead>
+        <tfoot>
+          <row>
+            <entry>1</entry>
+            <entry>Login</entry>
+            <entry>(insert modules)</entry>
+            <entry>(insert pages)</entry>
+          </row>
+          </tfoot>
+          <tbody>
+          <row>
+            <entry>2</entry>
+            <entry>Garage</entry>
+            <entry>(insert modules)</entry>
+            <entry>(insert pages)</entry>
+          </row>
+          <row>
+            <entry>3</entry>
+            <entry>In Game</entry>
+            <entry>(insert modules)</entry>
+            <entry>(insert pages)</entry>
+          </row>
+          <row>
+            <entry>4</entry>
+            <entry>Configure</entry>
+            <entry>(insert modules)</entry>
+            <entry>(insert pages)</entry>
+          </row>
+          <row>
+            <entry>5</entry>
+            <entry>Server</entry>
+            <entry>(insert modules)</entry>
+            <entry>(insert pages)</entry>
+          </row>
+          <row>
+            <entry>6</entry>
+            <entry>Reports</entry>
+            <entry>(insert modules)</entry>
+            <entry>(insert pages)</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
   </chapter>
   <appendix>
     <title>External Dependencies</title>
