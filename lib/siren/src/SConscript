@@ -2,7 +2,7 @@ import os
 pj = os.path.join
 
 Import('baseEnv pkg')
-Import('SetupAudiere SetupOpenGL')
+Import('SetupAudiere SetupOpenGL SetupSDL')
 
 # Define the sources
 classes = Split("""
@@ -23,6 +23,7 @@ sources.extend(map(lambda n: n + '.cpp', classes))
 # Clone the environment
 env = baseEnv.Copy()
 SetupAudiere(env)
+SetupSDL(env)
 lib = pkg.createSharedLibrary('siren', env)
 lib.addSources(sources)
 lib.addHeaders(headers, 'siren')
@@ -30,5 +31,5 @@ lib.addHeaders(headers, 'siren')
 Export('lib')
 
 # Recurse
-subdirs = Split('sound')
+subdirs = Split('input sound')
 SConscript(dirs = subdirs)
