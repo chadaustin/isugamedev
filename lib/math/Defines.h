@@ -10,8 +10,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Defines.h,v $
-//    $Date: 2002-01-11 16:18:25 $
-//    $Revision: 1.3 $
+//    $Date: 2002-01-11 17:23:41 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -42,8 +42,7 @@
 
 // Undef Max and Min macros if they are already defined since they will cause
 // some nasty compiler errors since they're defined as functions here in the kev
-// namespace. This really only applies to builds against VRJuggler.
-// NOTE: we should really change Max to Max and Min to Min
+// namespace. 
 #ifdef Max
 #undef Max
 #endif
@@ -192,130 +191,79 @@ namespace defines
    /**********/
 
    // Same as sqrt(2.0)
-   const double    sqrt_TWO_D      = 1.41421356237309504880;
+   const double    SQRT_TWO_D      = 1.41421356237309504880;
 
    // Same as sqrtf(2.0f)
-   const float     sqrt_TWO_F      = 1.41421356237309504880f;
+   const float     SQRT_TWO_F      = 1.41421356237309504880f;
 
    // Same as 1.0 / sqrt(2.0)
-   const double    INV_sqrt_TWO_D  = 0.70710678118654752440;
+   const double    INV_SQRT_TWO_D  = 0.70710678118654752440;
 
    // Same as 1.0f / sqrtf(2.0f)
-   const float     INV_sqrt_TWO_F  = 0.70710678118654752440f;
+   const float     INV_SQRT_TWO_F  = 0.70710678118654752440f;
 
    // Same as sqrt(3.0)
-   const double    sqrt_THREE_D      = 1.73205080757;
+   const double    SQRT_THREE_D      = 1.73205080757;
 
    // Same as sqrtf(3.0f)
-   const float     sqrt_THREE_F      = 1.73205080757f;
+   const float     SQRT_THREE_F      = 1.73205080757f;
 
    // Same as 1.0 / sqrt(3.0)
-   const double    INV_sqrt_THREE_D    = 0.577350269189;
+   const double    INV_SQRT_THREE_D    = 0.577350269189;
 
    // Same as 1.0f / sqrtf(3.0f)
-   const float     INV_sqrt_THREE_F    = 0.577350269189f;
-
-   /********/
-   /* Bool */
-   /********/
-   // True
-   const bool XzTrue               = true;
-
-   // False
-   const bool XzFalse                = false;
-
-   /*********/
-   /* Color */
-   /*********/
-   // should move this someday to the color class
-   const float UNDEFINED_HUE_COLOR = 6.9696969696969f;
-
-   /*******************************/
-   /* Standard Data Type Typedefs */
-   /*******************************/
-   //: Bool
-   typedef bool               XzBool;
-
-   //: char
-   typedef char               XzChar;
-
-   //: unsigned char
-   typedef unsigned char         XzUchar;
-
-   //: unsigned short
-   typedef unsigned short         XzUshort;
-
-   //: short
-   typedef   short               XzShort;
-
-   //: integer
-   typedef int                  XzInt;
-
-   //: unsigned integer
-   typedef unsigned int         XzUint;
-
-   //: long
-   typedef   long               XzLong;
-
-   //: unsigned long
-   typedef unsigned long         XzUlong;
-
-   //: float
-   typedef float               XzFloat;
-
-   //: double
-   typedef double               XzDouble;
-
-   /***********************************/
-   /* Unambiguous Data Type Typedefs  */
-   /***********************************/
-   //: an 8bit value
-   typedef char               XzInt8;
-
-   //: an unsigned 8bit integer
-   typedef unsigned char         XzUint8;
-
-   //: a 16bit value
-   typedef short               XzInt16;
-
-   //: an unsigned 16bit value
-   typedef unsigned short         XzUint16;
-
-   //: a 32bit integer
-   typedef int                  XzInt32;
-
-   //: an unsigned 32bit integer
-   typedef unsigned int         XzUint32;
-
-   //: 32bit floating point number
-   typedef float               XzFloat32;
-
-   //: a 64bit floating point number
-   typedef double               XzFloat64;
-
-   //: a 64bit integer
-   typedef long               XzInt64;
-
-   //: an unsigned 64bit integer
-   typedef unsigned long         XzUint64;
-
-
-   /*****************************/
-   /* Other Data Type Typedefs  */
-   /*****************************/
-   //: One byte - an 8 bit unsigned number
-   typedef   unsigned char         XzByte;
-
-   //: One word - a 16 bit unsigned number
-   typedef   unsigned short         XzWord;
-
-   //: a double word - a 32 bit unsigned number
-   typedef   unsigned int         XzDword;
+   const float     INV_SQRT_THREE_F    = 0.577350269189f;
 };
 using namespace defines;
 
 namespace kev
 {
+   /*******************************/
+   /* Standard Data Type Typedefs */ 
+   /*******************************/
+   //: char
+   typedef signed char        int8;
+
+   //: unsigned char
+   typedef unsigned char      uint8;
+
+   //: unsigned short
+   typedef unsigned short     uint16;
+
+   //: short
+   typedef signed short       int16;
+
+   //: integer
+   typedef signed int         int32;
+
+   //: unsigned integer
+   typedef unsigned int       uint32;
+
+   //: long
+   typedef signed long        int64;
+
+   //: unsigned long
+   typedef unsigned long      uint64;
+
+   //: float
+   typedef float              float32;
+
+   //: double
+   typedef double             float64;
+
+   /*****************************/
+   /* Other Data Type Typedefs  */
+   /*****************************/
+   //: One byte - an 8 bit unsigned number
+   typedef   uint8    byte;
+
+   //: One word - a 16 bit unsigned number
+   typedef   uint16   word;
+
+   //: a double word - a 32 bit unsigned number
+   typedef   uint32   dword;
+
+
    /*******************************/
    /* math and assorted functions */
    /*******************************/

@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: convert.h,v $
-//    $Date: 2002-01-11 16:18:25 $
-//    $Revision: 1.3 $
+//    $Date: 2002-01-11 17:23:41 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -133,7 +133,6 @@ namespace kev
       Vec3<float> vec;
       mat2quat( m, vec, quat );
    }
-};
 
-
+} // end namespace kev
 #endif // ! CONVERT_H_INCLUDED

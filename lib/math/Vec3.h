@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec3.h,v $
-//    $Date: 2002-01-11 16:18:25 $
-//    $Revision: 1.3 $
+//    $Date: 2002-01-11 17:23:41 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -32,6 +32,8 @@
 
 #include "Defines.h"
 
+namespace kev
+{
 template <class DataType>
 class Vec3
 {
@@ -502,4 +504,5 @@ typedef Vec3<double> Vec3d;
 typedef Vec3<int>    Vec3i;
 typedef Vec3<long>   Vec3l;
 
+} // end namespace kev
 #endif

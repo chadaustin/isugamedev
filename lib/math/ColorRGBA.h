@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ColorRGBA.h,v $
-//    $Date: 2002-01-11 16:18:25 $
-//    $Revision: 1.3 $
+//    $Date: 2002-01-11 17:23:41 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -36,11 +36,13 @@
 #include "Vec4.h"
 #include "Defines.h" // kev::max kev::min
 
+namespace kev
+{
    class ColorRGBA
    {
    protected:
 	   // ColorRGBA "has" 4 channels.
-	   Vec4<float> _channel;
+	   Vec4<float> mChannel;
 	   void validate();
 
    public:
@@ -97,21 +99,21 @@
 
 	   //: Access to the "data" in this class.  (read only)
 	   //  this function can be used as if it "is" color channel data. (that's why there is no "get")
-	   inline const float *	data() const { return _channel.data(); }
+	   inline const float *	data() const { return mChannel.data(); }
 
 	   //: Access to the "Vec4<float>" vector in this class, 
 	   //  useful for arithmetic operations, this vector holds the 4 channel color data.
-	   inline float *			data() { return _channel.data(); }
+	   inline float *			data() { return mChannel.data(); }
 
 	   //: Access to the "Vec4<float>" vector in this class, (read only)
 	   //  useful for arithmetic operations, this vector holds the 4 channel color data.
-	   inline const Vec4<float>&	vector() const { return _channel; }
+	   inline const Vec4<float>&	vector() const { return mChannel; }
 
 	   //: Access to the "Vec4<float>" vector in this class, 
 	   //  useful for arithmetic operations, this vector holds the 4 channel color data.
-	   inline Vec4<float>&			vector() { return _channel; }
+	   inline Vec4<float>&			vector() { return mChannel; }
 
-	   //: Get the hsv. Hue is defined as [0,360) or SL_UNDEFINED_HUE_COLOR.
+	   //: Get the hsv. Hue is defined as [0,1].
 	   //  All others are defined as [0,1];
 	   void					getHSV( float &hue, float &saturation, float &value ) const;
 
@@ -121,49 +123,49 @@
 	   const ColorRGBA &		operator=( const int& color );
 
 	   //: Equality operator.
-	   bool					operator==( const ColorRGBA &color ) { return this->_channel == color._channel; }
+	   bool					operator==( const ColorRGBA &color ) { return this->mChannel == color.mChannel; }
 
       // Linear Interpolation between two colors, includes alpha.
 	   void			      Lerp(const ColorRGBA& from, const ColorRGBA& to, 
 					               const float& lerp )
       {
-         Vec4<float> offset = to._channel - from._channel;
-         this->_channel = from._channel + offset * lerp;
+         Vec4<float> offset = to.mChannel - from.mChannel;
+         this->mChannel = from.mChannel + offset * lerp;
       }
 
 
    // Methods to access channel data: in floating point between [0,1]
    public:
 	   // Conversion operator (read only) - from SlColor to float*
-	   inline					operator const float* () const { return _channel.data(); }
+	   inline					operator const float* () const { return mChannel.data(); }
 
 	   // Conversion operator - from SlColor to float*
-	   inline					operator float* () { return _channel.data(); }
+	   inline					operator float* () { return mChannel.data(); }
 	   
 	   // Index an individual color channel [0,3] --> red/green/blue/alpha
-	   inline float &			operator[] ( const int& i ) { return _channel[i]; }
+	   inline float &			operator[] ( const int& i ) { return mChannel[i]; }
 	   // Index an individual color channel [0,3] (read only) --> red/green/blue/alpha
-	   inline const float &	operator[] ( const int& i ) const { return _channel[i]; }
+	   inline const float &	operator[] ( const int& i ) const { return mChannel[i]; }
 	   
 	   //: Access the red channel
-	   inline float&			red() { return _channel[0]; }
+	   inline float&			red() { return mChannel[0]; }
 	   //: Access the red channel (read only)
-	   inline const float&		red() const { return _channel[0]; }
+	   inline const float&		red() const { return mChannel[0]; }
 	   
 	   //: Access the green channel
-	   inline float&			green() { return _channel[1]; }
+	   inline float&			green() { return mChannel[1]; }
 	   //: Access the green channel (read only)
-	   inline const float&		green() const { return _channel[1]; }
+	   inline const float&		green() const { return mChannel[1]; }
 	   
 	   //: Access the blue channel
-	   inline float &			blue() { return _channel[2]; }
+	   inline float &			blue() { return mChannel[2]; }
 	   //: Access the blue channel (read only)
-	   inline const float&		blue() const { return _channel[2]; }
+	   inline const float&		blue() const { return mChannel[2]; }
 	   
 	   //: Access the alpha channel
-	   inline float &			alpha() { return _channel[3]; }
+	   inline float &			alpha() { return mChannel[3]; }
 	   //: Access the alpha channel (read only)
-	   inline const float&		alpha() const { return _channel[3]; }
+	   inline const float&		alpha() const { return mChannel[3]; }
 
    public:
 	   //: Input/output.
@@ -187,7 +189,7 @@
 	   //Convert Hue-Saturation-Value format to Red-Green-Blue format
 	   //
 	   //r, g, b, s, v are from 0 to 1
-	   //h is from 0 to 360
+	   //h is from 0 to 1
 	   static void				HSV2RGB(const float &h, const float &s, const float &v, float &r, float &g, float &b);
 	   static void				HSV2RGB(const ColorRGBA &hsv, ColorRGBA &rgb);
 
@@ -195,7 +197,7 @@
 	   //Convert Red-Green-Blue format to Hue-Saturation-Value format
 	   //
 	   //r, g, b, s, v are from 0 to 1
-	   //h is from 0 to 360
+	   //h is from 0 to 1
 	   static void				RGB2HSV(const float &r, const float &g, const float &b, float &h, float &s, float &v);
 	   static void				RGB2HSV(const ColorRGBA &rgb, ColorRGBA &hsv);
 
@@ -444,5 +446,6 @@
    }
    //////////////////////////////////////////////////////////////////
 
+} // end namespace kev
 
 #endif

@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ColorRGBA.cpp,v $
-//    $Date: 2002-01-11 16:18:25 $
-//    $Revision: 1.3 $
+//    $Date: 2002-01-11 17:23:41 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -30,14 +30,16 @@
 
 //////////////////////////////////////////////////////////////////////////////
 #include "ColorRGBA.h"
+namespace kev
+{
 
 //	Default Constructor
 ColorRGBA::ColorRGBA()
 {
-	_channel[0] = 0.0f;
-	_channel[1] = 0.0f;
-	_channel[2] = 0.0f;
-	_channel[3] = 1.0f;
+	mChannel[0] = 0.0f;
+	mChannel[1] = 0.0f;
+	mChannel[2] = 0.0f;
+	mChannel[3] = 1.0f;
 }
 
 
@@ -46,10 +48,10 @@ ColorRGBA::ColorRGBA( const unsigned int& red, const unsigned int& green, const 
 {
 	float factor = 1.0f / 255.0f;
 
-	_channel[0] = ((float) red) * factor;
-	_channel[1] = ((float) green) * factor;
-	_channel[2] = ((float) blue) * factor;
-	_channel[3] = ((float) alpha) * factor;
+	mChannel[0] = ((float) red) * factor;
+	mChannel[1] = ((float) green) * factor;
+	mChannel[2] = ((float) blue) * factor;
+	mChannel[3] = ((float) alpha) * factor;
 
 	this->validate();
 }
@@ -59,10 +61,10 @@ ColorRGBA::ColorRGBA( const int& red, const int& green, const int& blue, const i
 {
 	float factor = 1.0f / 255.0f;
 
-	_channel[0] = ((float) red) * factor;
-	_channel[1] = ((float) green) * factor;
-	_channel[2] = ((float) blue) * factor;
-	_channel[3] = ((float) alpha) * factor;
+	mChannel[0] = ((float) red) * factor;
+	mChannel[1] = ((float) green) * factor;
+	mChannel[2] = ((float) blue) * factor;
+	mChannel[3] = ((float) alpha) * factor;
 
 	this->validate();
 }
@@ -71,10 +73,10 @@ ColorRGBA::ColorRGBA( const int& red, const int& green, const int& blue, const i
 //	Constructor.
 ColorRGBA::ColorRGBA( const float& red, const float& green, const float& blue, const float& alpha )
 {
-	_channel[0] = red;
-	_channel[1] = green;
-	_channel[2] = blue;
-	_channel[3] = alpha;
+	mChannel[0] = red;
+	mChannel[1] = green;
+	mChannel[2] = blue;
+	mChannel[3] = alpha;
 
 	this->validate();
 }
@@ -82,10 +84,10 @@ ColorRGBA::ColorRGBA( const float& red, const float& green, const float& blue, c
 //	Copy Constructor.
 ColorRGBA::ColorRGBA( const ColorRGBA& color ) 
 {
-	_channel[0] = color.red();
-	_channel[1] = color.green();
-	_channel[2] = color.blue();
-	_channel[3] = color.alpha();
+	mChannel[0] = color.red();
+	mChannel[1] = color.green();
+	mChannel[2] = color.blue();
+	mChannel[3] = color.alpha();
 
 	this->validate();
 }
@@ -93,7 +95,7 @@ ColorRGBA::ColorRGBA( const ColorRGBA& color )
 //: Copy constructor for vector
 ColorRGBA::ColorRGBA( const Vec4<float>& color )
 {
-	_channel = color;
+	mChannel = color;
 
 	this->validate();
 }
@@ -108,18 +110,18 @@ ColorRGBA::ColorRGBA( const unsigned int& rgb, const float& alpha )
 	
 	float factor = 1.0f / 255.0f;
 
-	_channel[0] = ((float) red) * factor;
-	_channel[1] = ((float) green) * factor;
-	_channel[2] = ((float) blue) * factor;
-	_channel[3] = alpha;
+	mChannel[0] = ((float) red) * factor;
+	mChannel[1] = ((float) green) * factor;
+	mChannel[2] = ((float) blue) * factor;
+	mChannel[3] = alpha;
 }
 
 //  Get the color.
 void ColorRGBA::getInteger ( unsigned int& rgb ) const 
 { 
-	unsigned int red =   (unsigned int) (_channel[0] * 255.0f);
-	unsigned int green = (unsigned int) (_channel[1] * 255.0f);
-	unsigned int blue =  (unsigned int) (_channel[2] * 255.0f);
+	unsigned int red =   (unsigned int) (mChannel[0] * 255.0f);
+	unsigned int green = (unsigned int) (mChannel[1] * 255.0f);
+	unsigned int blue =  (unsigned int) (mChannel[2] * 255.0f);
 
 	rgb = ( red << 0 ) | ( green << 8 ) | ( blue << 16 );
 }
@@ -127,28 +129,28 @@ void ColorRGBA::getInteger ( unsigned int& rgb ) const
 //  Get the color.
 void ColorRGBA::get( float &red, float &green, float &blue ) const 
 { 
-	red =   _channel[0];
-	green = _channel[1];
-	blue =  _channel[2];
+	red =   mChannel[0];
+	green = mChannel[1];
+	blue =  mChannel[2];
 }
 
 //  Get the color.
 void ColorRGBA::get( float &red, float &green, float &blue, float &alpha ) const 
 { 
-	red =   _channel[0];
-	green = _channel[1];
-	blue =  _channel[2];
-	alpha = _channel[3];
+	red =   mChannel[0];
+	green = mChannel[1];
+	blue =  mChannel[2];
+	alpha = mChannel[3];
 }
 	
 //  Sets the ColorRGBA on the left (*this) of the "=" equal to the 
 //  one on the right (color).
 const ColorRGBA& ColorRGBA::operator=( const ColorRGBA& color )
 {
-	_channel[0] = color[0];
-	_channel[1] = color[1];
-	_channel[2] = color[2];
-	_channel[3] = color[3];
+	mChannel[0] = color[0];
+	mChannel[1] = color[1];
+	mChannel[2] = color[2];
+	mChannel[3] = color[3];
 
 	this->validate();
 
@@ -158,10 +160,10 @@ const ColorRGBA& ColorRGBA::operator=( const ColorRGBA& color )
 //  Set the rgba value.
 void ColorRGBA::set( const float& red, const float& green, const float& blue, const float& alpha ) 
 {
-	_channel[0] = red;
-	_channel[1] = green;
-	_channel[2] = blue;
-	_channel[3] = alpha;
+	mChannel[0] = red;
+	mChannel[1] = green;
+	mChannel[2] = blue;
+	mChannel[3] = alpha;
 
 	this->validate();
 }
@@ -171,10 +173,10 @@ void ColorRGBA::setInteger( const int& red, const int& green, const int& blue, c
 {
 	float factor = 1.0f / 255.0f;
 
-	_channel[0] = ((float) red) * factor;
-	_channel[1] = ((float) green) * factor;
-	_channel[2] = ((float) blue) * factor;
-	_channel[3] = ((float) alpha) * factor;
+	mChannel[0] = ((float) red) * factor;
+	mChannel[1] = ((float) green) * factor;
+	mChannel[2] = ((float) blue) * factor;
+	mChannel[3] = ((float) alpha) * factor;
 
 	this->validate();
 }
@@ -185,10 +187,10 @@ void ColorRGBA::setInteger ( const unsigned int& red, const unsigned int& green,
 {
 	float factor = 1.0f / 255.0f;
 
-	_channel[0] = ((float) red) * factor;
-	_channel[1] = ((float) green) * factor;
-	_channel[2] = ((float) blue) * factor;
-	_channel[3] = ((float) alpha) * factor;
+	mChannel[0] = ((float) red) * factor;
+	mChannel[1] = ((float) green) * factor;
+	mChannel[2] = ((float) blue) * factor;
+	mChannel[3] = ((float) alpha) * factor;
 
 	this->validate();
 }
@@ -196,10 +198,10 @@ void ColorRGBA::setInteger ( const unsigned int& red, const unsigned int& green,
 //  Set the rgba value.
 void ColorRGBA::set( const ColorRGBA &color ) 
 {
-	_channel[0] = color[0];
-	_channel[1] = color[1];
-	_channel[2] = color[2];
-	_channel[3] = color[3];
+	mChannel[0] = color[0];
+	mChannel[1] = color[1];
+	mChannel[2] = color[2];
+	mChannel[3] = color[3];
 
 	this->validate();
 }
@@ -213,27 +215,27 @@ void ColorRGBA::setInteger ( const unsigned int& rgb, const float& alpha )
 	
 	float factor = 1.0f / 255.0f;
 
-	_channel[0] = ((float) red) * factor;
-	_channel[1] = ((float) green) * factor;
-	_channel[2] = ((float) blue) * factor;
-	_channel[3] = alpha;
+	mChannel[0] = ((float) red) * factor;
+	mChannel[1] = ((float) green) * factor;
+	mChannel[2] = ((float) blue) * factor;
+	mChannel[3] = alpha;
 }
 
 	
 //  Make sure the values are in range.
 void ColorRGBA::validate() 
 {
-	if		( _channel[0] > 1.0f ) _channel[0] = 1.0f;
-	else if ( _channel[0] < 0.0f ) _channel[0] = 0.0f;
+	if		( mChannel[0] > 1.0f ) mChannel[0] = 1.0f;
+	else if ( mChannel[0] < 0.0f ) mChannel[0] = 0.0f;
 
-	if		( _channel[1] > 1.0f ) _channel[1] = 1.0f;
-	else if ( _channel[1] < 0.0f ) _channel[1] = 0.0f;
+	if		( mChannel[1] > 1.0f ) mChannel[1] = 1.0f;
+	else if ( mChannel[1] < 0.0f ) mChannel[1] = 0.0f;
 
-	if		( _channel[2] > 1.0f ) _channel[2] = 1.0f;
-	else if ( _channel[2] < 0.0f ) _channel[2] = 0.0f;
+	if		( mChannel[2] > 1.0f ) mChannel[2] = 1.0f;
+	else if ( mChannel[2] < 0.0f ) mChannel[2] = 0.0f;
 
-	if		( _channel[3] > 1.0f ) _channel[3] = 1.0f;
-	else if ( _channel[3] < 0.0f ) _channel[3] = 0.0f;
+	if		( mChannel[3] > 1.0f ) mChannel[3] = 1.0f;
+	else if ( mChannel[3] < 0.0f ) mChannel[3] = 0.0f;
 }
 
 //  Output operator.
@@ -261,12 +263,14 @@ istream& operator>>( istream &in, ColorRGBA &color )
 //  Get the hsv.
 void ColorRGBA::getHSV ( float &hue, float &saturation, float &value ) const
 {
-	ColorRGBA::RGB2HSV ( _channel[0], _channel[1], _channel[2], hue, saturation, value );
+	ColorRGBA::RGB2HSV ( mChannel[0], mChannel[1], mChannel[2], hue, saturation, value );
 }
 
 //  Set the hsv.
 void ColorRGBA::setHSV ( const float& hue, const float& saturation, const float& value, const float& alpha)
 {
-	ColorRGBA::HSV2RGB( hue, saturation, value, _channel[0], _channel[1], _channel[2] );
-	_channel[3] = alpha;
+	ColorRGBA::HSV2RGB( hue, saturation, value, mChannel[0], mChannel[1], mChannel[2] );
+	mChannel[3] = alpha;
 }
+
+} // end namespace kev

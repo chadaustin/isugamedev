@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.cpp,v $
-//    $Date: 2002-01-11 16:18:25 $
-//    $Revision: 1.3 $
+//    $Date: 2002-01-11 17:23:41 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -32,6 +32,9 @@
 #include "Defines.h"
 #include "Matrix4f.h"
 
+namespace kev
+{
+
 //: Default Constructor
 //  NOTE: does no initialization, call identity() to init to identity matrix
 Matrix4f::Matrix4f()
@@ -42,10 +45,10 @@ Matrix4f::Matrix4f()
 //: Copy constructor
 Matrix4f::Matrix4f( const Matrix4f& M )
 {
-   _m[0] = M._m[0]; _m[4] = M._m[4]; _m[8]  = M._m[8];  _m[12] = M._m[12];
-   _m[1] = M._m[1]; _m[5] = M._m[5]; _m[9]  = M._m[9];  _m[13] = M._m[13];
-   _m[2] = M._m[2]; _m[6] = M._m[6]; _m[10] = M._m[10]; _m[14] = M._m[14];
-   _m[3] = M._m[3]; _m[7] = M._m[7]; _m[11] = M._m[11]; _m[15] = M._m[15];
+   mMat[0] = M.mMat[0]; mMat[4] = M.mMat[4]; mMat[8]  = M.mMat[8];  mMat[12] = M.mMat[12];
+   mMat[1] = M.mMat[1]; mMat[5] = M.mMat[5]; mMat[9]  = M.mMat[9];  mMat[13] = M.mMat[13];
+   mMat[2] = M.mMat[2]; mMat[6] = M.mMat[6]; mMat[10] = M.mMat[10]; mMat[14] = M.mMat[14];
+   mMat[3] = M.mMat[3]; mMat[7] = M.mMat[7]; mMat[11] = M.mMat[11]; mMat[15] = M.mMat[15];
 }
 
 
@@ -56,10 +59,10 @@ Matrix4f::Matrix4f( const Matrix4f& M )
 Matrix4f::Matrix4f( const float* m )
 {
    assert( false );
-   _m[0] = m[0]; _m[4] = m[4]; _m[8]  = m[8];  _m[12] = m[12];
-   _m[1] = m[1]; _m[5] = m[5]; _m[9]  = m[9];  _m[13] = m[13];
-   _m[2] = m[2]; _m[6] = m[6]; _m[10] = m[10]; _m[14] = m[14];
-   _m[3] = m[3]; _m[7] = m[7]; _m[11] = m[11]; _m[15] = m[15];
+   mMat[0] = m[0]; mMat[4] = m[4]; mMat[8]  = m[8];  mMat[12] = m[12];
+   mMat[1] = m[1]; mMat[5] = m[5]; mMat[9]  = m[9];  mMat[13] = m[13];
+   mMat[2] = m[2]; mMat[6] = m[6]; mMat[10] = m[10]; mMat[14] = m[14];
+   mMat[3] = m[3]; mMat[7] = m[7]; mMat[11] = m[11]; mMat[15] = m[15];
 }
 */
 //: Construct 4x4 matrix from 16 floats
@@ -68,30 +71,30 @@ Matrix4f::Matrix4f( float a0, float a4, float a8,  float a12,
          float a2, float a6, float a10, float a14,
          float a3, float a7, float a11, float a15 )
 {
-   _m[0] = a0; _m[4] = a4; _m[8]  = a8;  _m[12] = a12;
-   _m[1] = a1; _m[5] = a5; _m[9]  = a9;  _m[13] = a13;
-   _m[2] = a2; _m[6] = a6; _m[10] = a10; _m[14] = a14;
-   _m[3] = a3; _m[7] = a7; _m[11] = a11; _m[15] = a15;
+   mMat[0] = a0; mMat[4] = a4; mMat[8]  = a8;  mMat[12] = a12;
+   mMat[1] = a1; mMat[5] = a5; mMat[9]  = a9;  mMat[13] = a13;
+   mMat[2] = a2; mMat[6] = a6; mMat[10] = a10; mMat[14] = a14;
+   mMat[3] = a3; mMat[7] = a7; mMat[11] = a11; mMat[15] = a15;
 }
 
 void Matrix4f::getEulerXYZ( float& xRot, float& yRot, float& zRot ) const
 {
    float cz;
 
-   zRot = kev::atan2(-_m[4], _m[0]);     // -(-cy*sz)/(cy*cz) - cy falls out
-   xRot = kev::atan2(-_m[9], _m[10]);     // -(sx*cy)/(cx*cy) - cy falls out
+   zRot = kev::atan2(-mMat[4], mMat[0]);     // -(-cy*sz)/(cy*cz) - cy falls out
+   xRot = kev::atan2(-mMat[9], mMat[10]);     // -(sx*cy)/(cx*cy) - cy falls out
    cz   = kev::cos( zRot );
-   yRot = kev::atan2(_m[8], _m[0]/cz);   // (sy)/((cy*cz)/cz)
+   yRot = kev::atan2(mMat[8], mMat[0]/cz);   // (sy)/((cy*cz)/cz)
 }   
 
 void Matrix4f::getEulerZYX(  float& zRot, float& yRot, float& xRot ) const
 {
    float sx;
 
-   zRot = kev::atan2( _m[1], _m[0]);      // (cy*sz)/(cy*cz) - cy falls out
-   xRot = kev::atan2( _m[6], _m[10]);      // (sx*cy)/(cx*cy) - cy falls out
+   zRot = kev::atan2( mMat[1], mMat[0]);      // (cy*sz)/(cy*cz) - cy falls out
+   xRot = kev::atan2( mMat[6], mMat[10]);      // (sx*cy)/(cx*cy) - cy falls out
    sx   = kev::sin( xRot );
-   yRot = kev::atan2( -_m[2],(_m[6]/sx) );   // -(-sy)/((sx*cy)/sx)
+   yRot = kev::atan2( -mMat[2],(mMat[6]/sx) );   // -(-sy)/((sx*cy)/sx)
 }  
 
 void Matrix4f::makeEulerXYZ( const float& xRot, const float& yRot, const float& zRot )
@@ -102,10 +105,10 @@ void Matrix4f::makeEulerXYZ( const float& xRot, const float& yRot, const float& 
 
    // Derived by simply multiplying out the matrices by hand
    // X*Y*Z
-   _m[0] = cy*cz;              _m[4] = -cy*sz;              _m[8] = sy;      _m[12] = 0.0f;
-   _m[1] = sx*sy*cz + cx*sz;   _m[5] = -sx*sy*sz + cx*cz;   _m[9] = -sx*cy;  _m[13] = 0.0f;
-   _m[2] = -cx*sy*cz + sx*sz;  _m[6] = cx*sy*sz + sx*cz;    _m[10] = cx*cy;   _m[14] = 0.0f;
-   _m[3] = 0.0f;               _m[7] = 0.0f;                _m[11] = 0.0f;    _m[15] = 1.0f;
+   mMat[0] = cy*cz;              mMat[4] = -cy*sz;              mMat[8] = sy;      mMat[12] = 0.0f;
+   mMat[1] = sx*sy*cz + cx*sz;   mMat[5] = -sx*sy*sz + cx*cz;   mMat[9] = -sx*cy;  mMat[13] = 0.0f;
+   mMat[2] = -cx*sy*cz + sx*sz;  mMat[6] = cx*sy*sz + sx*cz;    mMat[10] = cx*cy;   mMat[14] = 0.0f;
+   mMat[3] = 0.0f;               mMat[7] = 0.0f;                mMat[11] = 0.0f;    mMat[15] = 1.0f;
 }   
 void Matrix4f::makeEulerZYX( const float& xRot, const float& yRot, const float& zRot )
 {
@@ -114,70 +117,70 @@ void Matrix4f::makeEulerZYX( const float& xRot, const float& yRot, const float& 
    float sz = kev::sin(TO_RAD_F * zRot);  float cz = kev::cos(TO_RAD_F * zRot);
 
    // Z*Y*Z
-   _m[0] = cy*cz;      _m[4] = -cx*sz + sx*sy*cz;   _m[8] = sx*sz + cx*sy*cz;    _m[12] = 0.0f;
-   _m[1] = cy*sz;      _m[5] = cx*cz + sx*sy*sz;    _m[9] = -sx*cz + cx*sy*sz;   _m[13] = 0.0f;
-   _m[2] = -sy;        _m[6] = sx*cy;               _m[10] = cx*cy;               _m[14] = 0.0f;
-   _m[3] = 0.0f;       _m[7] = 0.0f;                _m[11] = 0.0f;                _m[15] = 1.0f;
+   mMat[0] = cy*cz;      mMat[4] = -cx*sz + sx*sy*cz;   mMat[8] = sx*sz + cx*sy*cz;    mMat[12] = 0.0f;
+   mMat[1] = cy*sz;      mMat[5] = cx*cz + sx*sy*sz;    mMat[9] = -sx*cz + cx*sy*sz;   mMat[13] = 0.0f;
+   mMat[2] = -sy;        mMat[6] = sx*cy;               mMat[10] = cx*cy;               mMat[14] = 0.0f;
+   mMat[3] = 0.0f;       mMat[7] = 0.0f;                mMat[11] = 0.0f;                mMat[15] = 1.0f;
 }   
    
 //: perform an abs (absolute value) function to each matrix cell
 void Matrix4f::absolute()
 {
-   kev::abs( _m[0] );
-   kev::abs( _m[1] );
-   kev::abs( _m[2] );
-   kev::abs( _m[3] );
+   kev::abs( mMat[0] );
+   kev::abs( mMat[1] );
+   kev::abs( mMat[2] );
+   kev::abs( mMat[3] );
    
-   kev::abs( _m[4] );
-   kev::abs( _m[5] );
-   kev::abs( _m[6] );
-   kev::abs( _m[7] );
+   kev::abs( mMat[4] );
+   kev::abs( mMat[5] );
+   kev::abs( mMat[6] );
+   kev::abs( mMat[7] );
    
-   kev::abs( _m[8] );
-   kev::abs( _m[9] );
-   kev::abs( _m[10] );
-   kev::abs( _m[11] );
+   kev::abs( mMat[8] );
+   kev::abs( mMat[9] );
+   kev::abs( mMat[10] );
+   kev::abs( mMat[11] );
    
-   kev::abs( _m[12] );
-   kev::abs( _m[13] );
-   kev::abs( _m[14] );
-   kev::abs( _m[15] );
+   kev::abs( mMat[12] );
+   kev::abs( mMat[13] );
+   kev::abs( mMat[14] );
+   kev::abs( mMat[15] );
 }
 
 //: copy translation from a matrix
 //  copy translation only
 void Matrix4f::copyTrans( const Matrix4f& mat )
 {
-   _m[12] = mat[12];
-   _m[13] = mat[13];
-   _m[14] = mat[14];
+   mMat[12] = mat[12];
+   mMat[13] = mat[13];
+   mMat[14] = mat[14];
 }
    
 //: copy rotation from a matrix
 //  copy the upper 3x3 only
 void Matrix4f::copyRotation( const Matrix4f& mat )
 {
-   _m[0] = mat[0];
-   _m[1] = mat[1];
-   _m[2] = mat[2];
+   mMat[0] = mat[0];
+   mMat[1] = mat[1];
+   mMat[2] = mat[2];
 
-   _m[4] = mat[4];
-   _m[5] = mat[5];
-   _m[6] = mat[6];
+   mMat[4] = mat[4];
+   mMat[5] = mat[5];
+   mMat[6] = mat[6];
 
-   _m[8] = mat[8];
-   _m[9] = mat[9];
-   _m[10] = mat[10];
+   mMat[8] = mat[8];
+   mMat[9] = mat[9];
+   mMat[10] = mat[10];
 }
 
 //: Get the determinate of the matrix.
 float Matrix4f::det() const
 {
    return
-      _m[0]  * this->det3( 1, 2, 3, 1, 2, 3 ) -
-      _m[4]  * this->det3( 1, 2, 3, 0, 2, 3 ) +
-      _m[8]  * this->det3( 1, 2, 3, 0, 1, 3 ) -
-      _m[12] * this->det3( 1, 2, 3, 0, 1, 2 );
+      mMat[0]  * this->det3( 1, 2, 3, 1, 2, 3 ) -
+      mMat[4]  * this->det3( 1, 2, 3, 0, 2, 3 ) +
+      mMat[8]  * this->det3( 1, 2, 3, 0, 1, 3 ) -
+      mMat[12] * this->det3( 1, 2, 3, 0, 1, 2 );
 }
 
 //: Get the determinate of the upper left 3 x 3 submatrix.
@@ -194,34 +197,34 @@ float Matrix4f::det3( int r1, int r2, int r3, int c1, int c2, int c3 ) const
    c2 *= 4;
    c3 *= 4;
 
-   return  _m[r1+c1] *( _m[r2+c2] * _m[r3+c3] - _m[r2+c3] * _m[r3+c2] ) -
-      _m[r1+c2] *( _m[r2+c1] * _m[r3+c3] - _m[r2+c3] * _m[r3+c1] ) +
-      _m[r1+c3] *( _m[r2+c1] * _m[r3+c2] - _m[r2+c2] * _m[r3+c1] );
+   return  mMat[r1+c1] *( mMat[r2+c2] * mMat[r3+c3] - mMat[r2+c3] * mMat[r3+c2] ) -
+      mMat[r1+c2] *( mMat[r2+c1] * mMat[r3+c3] - mMat[r2+c3] * mMat[r3+c1] ) +
+      mMat[r1+c3] *( mMat[r2+c1] * mMat[r3+c2] - mMat[r2+c2] * mMat[r3+c1] );
 }
 
 //: check if 'this' == matrix, within a certain tolerence
 bool Matrix4f::equals( const Matrix4f& M, float tolerance ) const
 {
    return 
-      ( fabsf( _m[0]  - M._m[0] )  <= tolerance &&
-        fabsf( _m[1]  - M._m[1] )  <= tolerance &&
-        fabsf( _m[2]  - M._m[2] )  <= tolerance &&
-        fabsf( _m[3]  - M._m[3] )  <= tolerance &&
+      ( fabsf( mMat[0]  - M.mMat[0] )  <= tolerance &&
+        fabsf( mMat[1]  - M.mMat[1] )  <= tolerance &&
+        fabsf( mMat[2]  - M.mMat[2] )  <= tolerance &&
+        fabsf( mMat[3]  - M.mMat[3] )  <= tolerance &&
 
-        fabsf( _m[4]  - M._m[4] )  <= tolerance &&
-        fabsf( _m[5]  - M._m[5] )  <= tolerance &&
-        fabsf( _m[6]  - M._m[6] )  <= tolerance &&
-        fabsf( _m[7]  - M._m[7] )  <= tolerance &&
+        fabsf( mMat[4]  - M.mMat[4] )  <= tolerance &&
+        fabsf( mMat[5]  - M.mMat[5] )  <= tolerance &&
+        fabsf( mMat[6]  - M.mMat[6] )  <= tolerance &&
+        fabsf( mMat[7]  - M.mMat[7] )  <= tolerance &&
 
-        fabsf( _m[8]  - M._m[8] )  <= tolerance &&
-        fabsf( _m[9]  - M._m[9] )  <= tolerance &&
-        fabsf( _m[10] - M._m[10] ) <= tolerance &&
-        fabsf( _m[11] - M._m[11] ) <= tolerance &&
+        fabsf( mMat[8]  - M.mMat[8] )  <= tolerance &&
+        fabsf( mMat[9]  - M.mMat[9] )  <= tolerance &&
+        fabsf( mMat[10] - M.mMat[10] ) <= tolerance &&
+        fabsf( mMat[11] - M.mMat[11] ) <= tolerance &&
 
-        fabsf( _m[12] - M._m[12] ) <= tolerance &&
-        fabsf( _m[13] - M._m[13] ) <= tolerance &&
-        fabsf( _m[14] - M._m[14] ) <= tolerance &&
-        fabsf( _m[15] - M._m[15] ) <= tolerance );
+        fabsf( mMat[12] - M.mMat[12] ) <= tolerance &&
+        fabsf( mMat[13] - M.mMat[13] ) <= tolerance &&
+        fabsf( mMat[14] - M.mMat[14] ) <= tolerance &&
+        fabsf( mMat[15] - M.mMat[15] ) <= tolerance );
 }
 
 
@@ -230,31 +233,31 @@ bool Matrix4f::equals( const Matrix4f& M, float tolerance ) const
 bool Matrix4f::equals( const float* m, float tolerance ) const
 {
    return 
-      ( fabsf( _m[0]  - m[0] )  <= tolerance &&
-        fabsf( _m[1]  - m[1] )  <= tolerance &&
-        fabsf( _m[2]  - m[2] )  <= tolerance &&
-        fabsf( _m[3]  - m[3] )  <= tolerance &&
+      ( fabsf( mMat[0]  - m[0] )  <= tolerance &&
+        fabsf( mMat[1]  - m[1] )  <= tolerance &&
+        fabsf( mMat[2]  - m[2] )  <= tolerance &&
+        fabsf( mMat[3]  - m[3] )  <= tolerance &&
 
-        fabsf( _m[4]  - m[4] )  <= tolerance &&
-        fabsf( _m[5]  - m[5] )  <= tolerance &&
-        fabsf( _m[6]  - m[6] )  <= tolerance &&
-        fabsf( _m[7]  - m[7] )  <= tolerance &&
+        fabsf( mMat[4]  - m[4] )  <= tolerance &&
+        fabsf( mMat[5]  - m[5] )  <= tolerance &&
+        fabsf( mMat[6]  - m[6] )  <= tolerance &&
+        fabsf( mMat[7]  - m[7] )  <= tolerance &&
 
-        fabsf( _m[8]  - m[8] )  <= tolerance &&
-        fabsf( _m[9]  - m[9] )  <= tolerance &&
-        fabsf( _m[10] - m[10] ) <= tolerance &&
-        fabsf( _m[11] - m[11] ) <= tolerance &&
+        fabsf( mMat[8]  - m[8] )  <= tolerance &&
+        fabsf( mMat[9]  - m[9] )  <= tolerance &&
+        fabsf( mMat[10] - m[10] ) <= tolerance &&
+        fabsf( mMat[11] - m[11] ) <= tolerance &&
 
-        fabsf( _m[12] - m[12] ) <= tolerance &&
-        fabsf( _m[13] - m[13] ) <= tolerance &&
-        fabsf( _m[14] - m[14] ) <= tolerance &&
-        fabsf( _m[15] - m[15] ) <= tolerance );
+        fabsf( mMat[12] - m[12] ) <= tolerance &&
+        fabsf( mMat[13] - m[13] ) <= tolerance &&
+        fabsf( mMat[14] - m[14] ) <= tolerance &&
+        fabsf( mMat[15] - m[15] ) <= tolerance );
 }
 
 //: get the inverse of this matrix
 bool Matrix4f::getInverse( Matrix4f& M ) const
 {
-   M.set( _m );
+   M.set( mMat );
    return M.invert();
 }
 
@@ -262,35 +265,35 @@ bool Matrix4f::getInverse( Matrix4f& M ) const
 //  sets the 3 diagonal cells
 void Matrix4f::getScale( float& sx, float& sy, float& sz ) const
 {
-   sx = _m[0];
-   sy = _m[5];
-   sz = _m[10];
+   sx = mMat[0];
+   sy = mMat[5];
+   sz = mMat[10];
 }
 
 //: get the translation component of this matrix
 void Matrix4f::getTrans( float& tx, float& ty, float& tz ) const
 {
-   tx = _m[12];
-   ty = _m[13];
-   tz = _m[14];
+   tx = mMat[12];
+   ty = mMat[13];
+   tz = mMat[14];
 }
 
 //: get the transpose of this matrix
 void Matrix4f::getTranspose( Matrix4f& M ) const
 {
-   M.set( _m[0],  _m[1],  _m[2],  _m[3],
-             _m[4],  _m[5],  _m[6],  _m[7],
-             _m[8],  _m[9],  _m[10], _m[11],
-             _m[12], _m[13], _m[14], _m[15] );
+   M.set( mMat[0],  mMat[1],  mMat[2],  mMat[3],
+             mMat[4],  mMat[5],  mMat[6],  mMat[7],
+             mMat[8],  mMat[9],  mMat[10], mMat[11],
+             mMat[12], mMat[13], mMat[14], mMat[15] );
 }
 
 //: get the rotation and scale part of this matrix
 void Matrix4f::getRotScale( Matrix4f& R ) const
 {
-   R.set(   _m[0], _m[4], _m[8],  0.0f,
-         _m[1], _m[5], _m[9],  0.0f,
-         _m[2], _m[6], _m[10], 0.0f,
-         0.0f,  0.0f,  0.0f, _m[15] );
+   R.set(   mMat[0], mMat[4], mMat[8],  0.0f,
+         mMat[1], mMat[5], mMat[9],  0.0f,
+         mMat[2], mMat[6], mMat[10], 0.0f,
+         0.0f,  0.0f,  0.0f, mMat[15] );
 }
 
 /*
@@ -316,10 +319,10 @@ void Matrix4f::getRotationXYZ( float& xRot, float& yRot, float& zRot ) const
 // WARNING: This function is dangerous since you could pass a bad pointer, use at your own risk
 void Matrix4f::get( float* m ) const
 {
-    m[0] = _m[0]; m[4] = _m[4]; m[8]  = _m[8];  m[12] = _m[12];
-    m[1] = _m[1]; m[5] = _m[5]; m[9]  = _m[9];  m[13] = _m[13];
-    m[2] = _m[2]; m[6] = _m[6]; m[10] = _m[10]; m[14] = _m[14];
-    m[3] = _m[3]; m[7] = _m[7]; m[11] = _m[11]; m[15] = _m[15];
+    m[0] = mMat[0]; m[4] = mMat[4]; m[8]  = mMat[8];  m[12] = mMat[12];
+    m[1] = mMat[1]; m[5] = mMat[5]; m[9]  = mMat[9];  m[13] = mMat[13];
+    m[2] = mMat[2]; m[6] = mMat[6]; m[10] = mMat[10]; m[14] = mMat[14];
+    m[3] = mMat[3]; m[7] = mMat[7]; m[11] = mMat[11]; m[15] = mMat[15];
 }
 
 //: get a copy of the matrix
@@ -328,19 +331,19 @@ void Matrix4f::get( float& a0, float& a4, float& a8,  float& a12,
                      float& a2, float& a6, float& a10, float& a14,
                      float& a3, float& a7, float& a11, float& a15 ) const
 {
-   a0 = _m[0]; a4 = _m[4]; a8  = _m[8];  a12 = _m[12];
-   a1 = _m[1]; a5 = _m[5]; a9  = _m[9];  a13 = _m[13];
-   a2 = _m[2]; a6 = _m[6]; a10 = _m[10]; a14 = _m[14];
-   a3 = _m[3]; a7 = _m[7]; a11 = _m[11]; a15 = _m[15];
+   a0 = mMat[0]; a4 = mMat[4]; a8  = mMat[8];  a12 = mMat[12];
+   a1 = mMat[1]; a5 = mMat[5]; a9  = mMat[9];  a13 = mMat[13];
+   a2 = mMat[2]; a6 = mMat[6]; a10 = mMat[10]; a14 = mMat[14];
+   a3 = mMat[3]; a7 = mMat[7]; a11 = mMat[11]; a15 = mMat[15];
 }
 
 //: make matrix an identity matrix
 void Matrix4f::makeIdent()
 {
-   _m[0] = 1.0f; _m[4] = 0.0f; _m[8]  = 0.0f; _m[12] = 0.0f;
-   _m[1] = 0.0f; _m[5] = 1.0f; _m[9]  = 0.0f; _m[13] = 0.0f;
-   _m[2] = 0.0f; _m[6] = 0.0f; _m[10] = 1.0f; _m[14] = 0.0f;
-   _m[3] = 0.0f; _m[7] = 0.0f; _m[11] = 0.0f; _m[15] = 1.0f;
+   mMat[0] = 1.0f; mMat[4] = 0.0f; mMat[8]  = 0.0f; mMat[12] = 0.0f;
+   mMat[1] = 0.0f; mMat[5] = 1.0f; mMat[9]  = 0.0f; mMat[13] = 0.0f;
+   mMat[2] = 0.0f; mMat[6] = 0.0f; mMat[10] = 1.0f; mMat[14] = 0.0f;
+   mMat[3] = 0.0f; mMat[7] = 0.0f; mMat[11] = 0.0f; mMat[15] = 1.0f;
 }
 
 //: invert the matrix.
@@ -352,7 +355,7 @@ bool Matrix4f::invert()
    int   n = 4;
    int     i, j, k;
         int     r[ 4], c[ 4], row[ 4], col[ 4];
-        float  m[ 4][ 4*2], pivot, max_m, tmp_m, fac;
+        float  m[ 4][ 4*2], pivot, maxmMat, tmpmMat, fac;
 
    
         // Initialization
@@ -376,16 +379,16 @@ bool Matrix4f::invert()
         for (k = 0; k < n; k++ )
         {
                 // Choosing the pivot
-                for (i = 0, max_m = 0; i < n; i++ )
+                for (i = 0, maxmMat = 0; i < n; i++ )
                 {
                         if (row[ i]  )      continue;
                         for (j = 0; j < n; j++ )
                         {
                                 if (col[ j] )          continue;
-                                tmp_m = kev::abs( m[ i][ j]);
-                                if (tmp_m > max_m)
+                                tmpmMat = kev::abs( m[ i][ j]);
+                                if (tmpmMat > maxmMat)
                                 {
-                                        max_m = tmp_m;
+                                        maxmMat = tmpmMat;
                                         r[ k] = i;
                                         c[ k] = j;
                                 }
@@ -482,32 +485,32 @@ bool Matrix4f::invertF()
 //: is the matrix an identity matrix?
 bool Matrix4f::isIdentity() const
 {
-   return( _m[0] == 1.0f && _m[4] == 0.0f && _m[8]  == 0.0f && _m[12] == 0.0f &&
-          _m[1] == 0.0f && _m[5] == 1.0f && _m[9]  == 0.0f && _m[13] == 0.0f &&
-          _m[2] == 0.0f && _m[6] == 0.0f && _m[10] == 1.0f && _m[14] == 0.0f &&
-          _m[3] == 0.0f && _m[7] == 0.0f && _m[11] == 0.0f && _m[15] == 1.0f );
+   return( mMat[0] == 1.0f && mMat[4] == 0.0f && mMat[8]  == 0.0f && mMat[12] == 0.0f &&
+          mMat[1] == 0.0f && mMat[5] == 1.0f && mMat[9]  == 0.0f && mMat[13] == 0.0f &&
+          mMat[2] == 0.0f && mMat[6] == 0.0f && mMat[10] == 1.0f && mMat[14] == 0.0f &&
+          mMat[3] == 0.0f && mMat[7] == 0.0f && mMat[11] == 0.0f && mMat[15] == 1.0f );
 }
 
 
 //: is the matrix an identity matrix within some tolerence?
 bool Matrix4f::isIdentity( float tol ) const
 {
-   return( kev::abs( _m[0] - 1.0f ) < tol && 
-          kev::abs( _m[1] ) < tol && 
-          kev::abs( _m[2] ) < tol && 
-          kev::abs( _m[3] ) < tol && 
-          kev::abs( _m[4] ) < tol && 
-          kev::abs( _m[5] - 1.0f ) < tol && 
-          kev::abs( _m[6] ) < tol && 
-          kev::abs( _m[7] ) < tol && 
-          kev::abs( _m[8] ) < tol && 
-          kev::abs( _m[9] ) < tol && 
-          kev::abs( _m[10] - 1.0f ) < tol && 
-          kev::abs( _m[11] ) < tol && 
-          kev::abs( _m[12] ) < tol && 
-          kev::abs( _m[13] ) < tol && 
-          kev::abs( _m[14] ) < tol && 
-          kev::abs( _m[15] - 1.0f ) < tol );
+   return( kev::abs( mMat[0] - 1.0f ) < tol && 
+          kev::abs( mMat[1] ) < tol && 
+          kev::abs( mMat[2] ) < tol && 
+          kev::abs( mMat[3] ) < tol && 
+          kev::abs( mMat[4] ) < tol && 
+          kev::abs( mMat[5] - 1.0f ) < tol && 
+          kev::abs( mMat[6] ) < tol && 
+          kev::abs( mMat[7] ) < tol && 
+          kev::abs( mMat[8] ) < tol && 
+          kev::abs( mMat[9] ) < tol && 
+          kev::abs( mMat[10] - 1.0f ) < tol && 
+          kev::abs( mMat[11] ) < tol && 
+          kev::abs( mMat[12] ) < tol && 
+          kev::abs( mMat[13] ) < tol && 
+          kev::abs( mMat[14] ) < tol && 
+          kev::abs( mMat[15] - 1.0f ) < tol );
 }
 
 
@@ -555,7 +558,7 @@ void Matrix4f::multiply( Matrix4f& c, const Matrix4f& a, const Matrix4f& b )
 void Matrix4f::multLeft( const Matrix4f& M )
 {
    float a[16];
-   Matrix4f::multiply( a, M._m, _m );
+   Matrix4f::multiply( a, M.mMat, mMat );
    this->set( a );
 }
 
@@ -563,7 +566,7 @@ void Matrix4f::multLeft( const Matrix4f& M )
 void Matrix4f::multRight( const Matrix4f& M )
 {
    float a[16];
-   Matrix4f::multiply( a, _m, M._m );
+   Matrix4f::multiply( a, mMat, M.mMat );
    this->set( a );
 }
 
@@ -571,10 +574,10 @@ void Matrix4f::multRight( const Matrix4f& M )
 // NOTE: not very efficient, it returns a copy.
 Matrix4f Matrix4f::operator-() const
 {
-   return Matrix4f( -_m[0], -_m[4], -_m[8],  -_m[12],
-                  -_m[1], -_m[5], -_m[9],  -_m[13],
-                  -_m[2], -_m[6], -_m[10], -_m[14],
-                  -_m[3], -_m[7], -_m[11], -_m[15] );
+   return Matrix4f( -mMat[0], -mMat[4], -mMat[8],  -mMat[12],
+                  -mMat[1], -mMat[5], -mMat[9],  -mMat[13],
+                  -mMat[2], -mMat[6], -mMat[10], -mMat[14],
+                  -mMat[3], -mMat[7], -mMat[11], -mMat[15] );
 }
 
 //: this = m[16]
@@ -583,10 +586,10 @@ Matrix4f Matrix4f::operator-() const
 /*
 Matrix4f& Matrix4f::operator=( const float* m )
 {
-   _m[0] = m[0]; _m[4] = m[4]; _m[8]  = m[8];  _m[12] = m[12];
-   _m[1] = m[1]; _m[5] = m[5]; _m[9]  = m[9];  _m[13] = m[13];
-   _m[2] = m[2]; _m[6] = m[6]; _m[10] = m[10]; _m[14] = m[14];
-   _m[3] = m[3]; _m[7] = m[7]; _m[11] = m[11]; _m[15] = m[15];
+   mMat[0] = m[0]; mMat[4] = m[4]; mMat[8]  = m[8];  mMat[12] = m[12];
+   mMat[1] = m[1]; mMat[5] = m[5]; mMat[9]  = m[9];  mMat[13] = m[13];
+   mMat[2] = m[2]; mMat[6] = m[6]; mMat[10] = m[10]; mMat[14] = m[14];
+   mMat[3] = m[3]; mMat[7] = m[7]; mMat[11] = m[11]; mMat[15] = m[15];
 
     return *this;
 }
@@ -594,10 +597,10 @@ Matrix4f& Matrix4f::operator=( const float* m )
 //: this = M
 Matrix4f& Matrix4f::operator=( const Matrix4f& M )
 {
-   _m[0] = M._m[0]; _m[4] = M._m[4]; _m[8]  = M._m[8];  _m[12] = M._m[12];
-   _m[1] = M._m[1]; _m[5] = M._m[5]; _m[9]  = M._m[9];  _m[13] = M._m[13];
-   _m[2] = M._m[2]; _m[6] = M._m[6]; _m[10] = M._m[10]; _m[14] = M._m[14];
-   _m[3] = M._m[3]; _m[7] = M._m[7]; _m[11] = M._m[11]; _m[15] = M._m[15];
+   mMat[0] = M.mMat[0]; mMat[4] = M.mMat[4]; mMat[8]  = M.mMat[8];  mMat[12] = M.mMat[12];
+   mMat[1] = M.mMat[1]; mMat[5] = M.mMat[5]; mMat[9]  = M.mMat[9];  mMat[13] = M.mMat[13];
+   mMat[2] = M.mMat[2]; mMat[6] = M.mMat[6]; mMat[10] = M.mMat[10]; mMat[14] = M.mMat[14];
+   mMat[3] = M.mMat[3]; mMat[7] = M.mMat[7]; mMat[11] = M.mMat[11]; mMat[15] = M.mMat[15];
 
     return *this;
 }
@@ -606,7 +609,7 @@ Matrix4f& Matrix4f::operator=( const Matrix4f& M )
 Matrix4f& Matrix4f::operator*=( const Matrix4f& M )
 {
    float a[16];
-   Matrix4f::multiply( a, _m, M._m );
+   Matrix4f::multiply( a, mMat, M.mMat );
    this->set( a );
    return *this;
 }
@@ -618,7 +621,7 @@ Matrix4f& Matrix4f::operator*=( const Matrix4f& M )
 Matrix4f& Matrix4f::operator*=( const float* m )
 {
    float a[16];
-   Matrix4f::multiply( _m, m, a );
+   Matrix4f::multiply( mMat, m, a );
    this->set( a );
    return *this;
 }
@@ -629,10 +632,10 @@ Matrix4f& Matrix4f::operator/=( float value )
 {
    float inv = 1.0f / value;
 
-   _m[0] /= inv; _m[4] /= inv; _m[8]  /= inv; _m[12] /= inv;
-   _m[1] /= inv; _m[5] /= inv; _m[9]  /= inv; _m[13] /= inv;
-   _m[2] /= inv; _m[6] /= inv; _m[10] /= inv; _m[14] /= inv;
-   _m[3] /= inv; _m[7] /= inv; _m[11] /= inv; _m[15] /= inv;
+   mMat[0] /= inv; mMat[4] /= inv; mMat[8]  /= inv; mMat[12] /= inv;
+   mMat[1] /= inv; mMat[5] /= inv; mMat[9]  /= inv; mMat[13] /= inv;
+   mMat[2] /= inv; mMat[6] /= inv; mMat[10] /= inv; mMat[14] /= inv;
+   mMat[3] /= inv; mMat[7] /= inv; mMat[11] /= inv; mMat[15] /= inv;
 
    return *this;
 }
@@ -643,7 +646,7 @@ Matrix4f& Matrix4f::operator/=( float value )
 Matrix4f Matrix4f::operator*( const Matrix4f& M ) const
 {
    Matrix4f M3( Matrix4f::identity() );
-   Matrix4f::multiply( M3._m, this->_m, M._m );
+   Matrix4f::multiply( M3.mMat, this->mMat, M.mMat );
    return M3;
 }
 
@@ -655,37 +658,37 @@ Matrix4f Matrix4f::operator*( const Matrix4f& M ) const
 Matrix4f Matrix4f::operator*( const float* m ) const
 {
    Matrix4f M3( Matrix4f::identity() );
-   Matrix4f::multiply( M3._m, this->_m, m );
+   Matrix4f::multiply( M3.mMat, this->mMat, m );
    return M3;
 }
 */
 //: test for equality
 bool Matrix4f::operator==( const Matrix4f& M2 ) const
 {
-   return( this->_m[0] == M2[0] && this->_m[4] == M2[4] && this->_m[8]  == M2[8]  && this->_m[12] == M2[12] && 
-      this->_m[1] == M2[1] && this->_m[5] == M2[5] && this->_m[9]  == M2[9]  && this->_m[13] == M2[13] && 
-      this->_m[2] == M2[2] && this->_m[6] == M2[6] && this->_m[10] == M2[10] && this->_m[14] == M2[14] && 
-      this->_m[3] == M2[3] && this->_m[7] == M2[7] && this->_m[11] == M2[11] && this->_m[15] == M2[15] );
+   return( this->mMat[0] == M2[0] && this->mMat[4] == M2[4] && this->mMat[8]  == M2[8]  && this->mMat[12] == M2[12] && 
+      this->mMat[1] == M2[1] && this->mMat[5] == M2[5] && this->mMat[9]  == M2[9]  && this->mMat[13] == M2[13] && 
+      this->mMat[2] == M2[2] && this->mMat[6] == M2[6] && this->mMat[10] == M2[10] && this->mMat[14] == M2[14] && 
+      this->mMat[3] == M2[3] && this->mMat[7] == M2[7] && this->mMat[11] == M2[11] && this->mMat[15] == M2[15] );
 }
 //: test for equality
 // WARNING: This function is dangerous since you could pass a bad pointer, use at your own risk
 /*
 bool Matrix4f::operator==( const float* m2 ) const
 {
-   return( this->_m[0] == m2[0] && this->_m[4] == m2[4] && this->_m[8]  == m2[8]  && this->_m[12] == m2[12] && 
-       this->_m[1] == m2[1] && this->_m[5] == m2[5] && this->_m[9]  == m2[9]  && this->_m[13] == m2[13] && 
-      this->_m[2] == m2[2] && this->_m[6] == m2[6] && this->_m[10] == m2[10] && this->_m[14] == m2[14] && 
-       this->_m[3] == m2[3] && this->_m[7] == m2[7] && this->_m[11] == m2[11] && this->_m[15] == m2[15] );
+   return( this->mMat[0] == m2[0] && this->mMat[4] == m2[4] && this->mMat[8]  == m2[8]  && this->mMat[12] == m2[12] && 
+       this->mMat[1] == m2[1] && this->mMat[5] == m2[5] && this->mMat[9]  == m2[9]  && this->mMat[13] == m2[13] && 
+      this->mMat[2] == m2[2] && this->mMat[6] == m2[6] && this->mMat[10] == m2[10] && this->mMat[14] == m2[14] && 
+       this->mMat[3] == m2[3] && this->mMat[7] == m2[7] && this->mMat[11] == m2[11] && this->mMat[15] == m2[15] );
 }
 */
       
 //: test for un-equality
 bool Matrix4f::operator!=( const Matrix4f& M2 ) const
 {
-   return( this->_m[0] != M2[0] || this->_m[4] != M2[4] || this->_m[8]  != M2[8]  || this->_m[12] != M2[12] || 
-      this->_m[1] != M2[1] || this->_m[5] != M2[5] || this->_m[9]  != M2[9]  || this->_m[13] != M2[13] || 
-      this->_m[2] != M2[2] || this->_m[6] != M2[6] || this->_m[10] != M2[10] || this->_m[14] != M2[14] || 
-      this->_m[3] != M2[3] || this->_m[7] != M2[7] || this->_m[11] != M2[11] || this->_m[15] != M2[15] );
+   return( this->mMat[0] != M2[0] || this->mMat[4] != M2[4] || this->mMat[8]  != M2[8]  || this->mMat[12] != M2[12] || 
+      this->mMat[1] != M2[1] || this->mMat[5] != M2[5] || this->mMat[9]  != M2[9]  || this->mMat[13] != M2[13] || 
+      this->mMat[2] != M2[2] || this->mMat[6] != M2[6] || this->mMat[10] != M2[10] || this->mMat[14] != M2[14] || 
+      this->mMat[3] != M2[3] || this->mMat[7] != M2[7] || this->mMat[11] != M2[11] || this->mMat[15] != M2[15] );
 }
 
 //: test for un-equality
@@ -693,10 +696,10 @@ bool Matrix4f::operator!=( const Matrix4f& M2 ) const
 /*
 bool Matrix4f::operator!=( const float* m2 ) const
 {
-   return( this->_m[0] != m2[0] || this->_m[4] != m2[4] || this->_m[8]  != m2[8]  || this->_m[12] != m2[12] || 
-      this->_m[1] != m2[1] || this->_m[5] != m2[5] || this->_m[9]  != m2[9]  || this->_m[13] != m2[13] || 
-      this->_m[2] != m2[2] || this->_m[6] != m2[6] || this->_m[10] != m2[10] || this->_m[14] != m2[14] || 
-      this->_m[3] != m2[3] || this->_m[7] != m2[7] || this->_m[11] != m2[11] || this->_m[15] != m2[15] );
+   return( this->mMat[0] != m2[0] || this->mMat[4] != m2[4] || this->mMat[8]  != m2[8]  || this->mMat[12] != m2[12] || 
+      this->mMat[1] != m2[1] || this->mMat[5] != m2[5] || this->mMat[9]  != m2[9]  || this->mMat[13] != m2[13] || 
+      this->mMat[2] != m2[2] || this->mMat[6] != m2[6] || this->mMat[10] != m2[10] || this->mMat[14] != m2[14] || 
+      this->mMat[3] != m2[3] || this->mMat[7] != m2[7] || this->mMat[11] != m2[11] || this->mMat[15] != m2[15] );
 }
 */
 //: Rotate this matrix about an axis
@@ -740,9 +743,9 @@ void Matrix4f::scale( float sx, float sy, float sz )
 
 void Matrix4f::setScale( float sx, float sy, float sz )
 {
-   _m[0]  = sx;
-   _m[5]  = sy;
-   _m[10] = sz;
+   mMat[0]  = sx;
+   mMat[5]  = sy;
+   mMat[10] = sz;
 }
 
 void Matrix4f::makeScale( float sx, float sy, float sz )
@@ -787,19 +790,19 @@ void Matrix4f::makeLookAt(   const float& eyex,
     
     u = v.cross(n);
     
-    _m[0] = u[0];   //0,0
-    _m[4] = u[1];   //1,0
-    _m[8] = u[2];   //2,0
-    _m[1] = v[0];   //0,1
-    _m[5] = v[1];   //1,1
-    _m[9] = v[2];   //2,1
-    _m[2] = n[0];   //0,2
-    _m[6] = n[1];   //1,2
-    _m[10] = n[2];  //2,2
+    mMat[0] = u[0];   //0,0
+    mMat[4] = u[1];   //1,0
+    mMat[8] = u[2];   //2,0
+    mMat[1] = v[0];   //0,1
+    mMat[5] = v[1];   //1,1
+    mMat[9] = v[2];   //2,1
+    mMat[2] = n[0];   //0,2
+    mMat[6] = n[1];   //1,2
+    mMat[10] = n[2];  //2,2
     
-    _m[12] = -u.dot(eye);   //3,0
-    _m[13] = -v.dot(eye);   //3,1
-    _m[14] = -n.dot(eye);   //3,2
+    mMat[12] = -u.dot(eye);   //3,0
+    mMat[13] = -v.dot(eye);   //3,1
+    mMat[14] = -n.dot(eye);   //3,2
 }
 
 //: Set to a projection matrix
@@ -808,25 +811,25 @@ void Matrix4f::makeFrustum( const float& left, const float& right,
              const float& bottom, const float& top, 
              const float& Near, const float& Far)
 {
-    _m[0] =( 2.0f * Near ) /( right - left );
-    _m[1] = 0.0f;
-    _m[2] = 0.0f;
-    _m[3] = 0.0f;
+    mMat[0] =( 2.0f * Near ) /( right - left );
+    mMat[1] = 0.0f;
+    mMat[2] = 0.0f;
+    mMat[3] = 0.0f;
     
-    _m[4] = 0.0f;
-    _m[5] =( 2.0f * Near ) /( top - bottom );
-    _m[6] = 0.0f;
-    _m[7] = 0.0f;
+    mMat[4] = 0.0f;
+    mMat[5] =( 2.0f * Near ) /( top - bottom );
+    mMat[6] = 0.0f;
+    mMat[7] = 0.0f;
     
-    _m[8] =( right + left ) /( right - left );
-    _m[9] =( top + bottom ) /( top - bottom );
-    _m[10] = -( Far + Near ) /( Far - Near );
-    _m[11] = -1.0f;
+    mMat[8] =( right + left ) /( right - left );
+    mMat[9] =( top + bottom ) /( top - bottom );
+    mMat[10] = -( Far + Near ) /( Far - Near );
+    mMat[11] = -1.0f;
     
-    _m[12] = 0.0f;
-    _m[13] = 0.0f;
-    _m[14] = -( 2.0f * Far * Near ) /( Far - Near );
-    _m[15] = 0.0f;
+    mMat[12] = 0.0f;
+    mMat[13] = 0.0f;
+    mMat[14] = -( 2.0f * Far * Near ) /( Far - Near );
+    mMat[15] = 0.0f;
 }
 
 // fovy 
@@ -861,48 +864,48 @@ void Matrix4f::makeRot( const float& rad, const float& x, const float& y, const 
 {
     float cosine = cosf( rad );
     float sine = sinf( rad );
-    float one_minus_cosine = 1 - cosine;
+    float onemMatinus_cosine = 1 - cosine;
 
     // rotation part    
-    _m[0] = x * x +( 1.0f - x*x ) * cosine;
-    _m[1] = x * y * one_minus_cosine + z * sine;
-    _m[2] = x * z * one_minus_cosine - y * sine;
+    mMat[0] = x * x +( 1.0f - x*x ) * cosine;
+    mMat[1] = x * y * onemMatinus_cosine + z * sine;
+    mMat[2] = x * z * onemMatinus_cosine - y * sine;
     
-    _m[4] = y * x * one_minus_cosine - z * sine;
-    _m[5] = y * y +( 1.0f - y*y ) * cosine;
-    _m[6] = y * z * one_minus_cosine + x * sine;
+    mMat[4] = y * x * onemMatinus_cosine - z * sine;
+    mMat[5] = y * y +( 1.0f - y*y ) * cosine;
+    mMat[6] = y * z * onemMatinus_cosine + x * sine;
     
-    _m[8] = z * x * one_minus_cosine + y * sine;
-    _m[9] = z * y * one_minus_cosine - x * sine;
-    _m[10] = z * z +( 1.0f - z*z ) * cosine;
+    mMat[8] = z * x * onemMatinus_cosine + y * sine;
+    mMat[9] = z * y * onemMatinus_cosine - x * sine;
+    mMat[10] = z * z +( 1.0f - z*z ) * cosine;
     
     // translation part
-    _m[12] = 0;
-    _m[13] = 0;
-    _m[14] = 0;
+    mMat[12] = 0;
+    mMat[13] = 0;
+    mMat[14] = 0;
 
     // bottom row
-    _m[3] = 0;
-    _m[7] = 0;
-    _m[11] = 0;
-    _m[15] = 1;
+    mMat[3] = 0;
+    mMat[7] = 0;
+    mMat[11] = 0;
+    mMat[15] = 1;
 }
 
 //: copy the rotation part of the matrix mat
 void Matrix4f::setRot( const Matrix4f& mat )
 {
    // rotation part
-   _m[0] = mat[0];
-   _m[1] = mat[1];
-   _m[2] = mat[2];
+   mMat[0] = mat[0];
+   mMat[1] = mat[1];
+   mMat[2] = mat[2];
 
-   _m[4] = mat[4];
-   _m[5] = mat[5];
-   _m[6] = mat[6];
+   mMat[4] = mat[4];
+   mMat[5] = mat[5];
+   mMat[6] = mat[6];
 
-   _m[8] = mat[8];
-   _m[9] = mat[9];
-   _m[10] = mat[10];
+   mMat[8] = mat[8];
+   mMat[9] = mat[9];
+   mMat[10] = mat[10];
 }
 
 //: Set the matrix to a rotation matrix defined by the rotation part of M
@@ -912,15 +915,15 @@ void Matrix4f::makeRot( const Matrix4f& mat )
    this->setRot( mat );
    
    // translation part
-   _m[12] = 0;
-   _m[13] = 0;
-   _m[14] = 0;
+   mMat[12] = 0;
+   mMat[13] = 0;
+   mMat[14] = 0;
    
    // bottom row
-   _m[3] = 0;
-   _m[7] = 0;
-   _m[11] = 0;
-   _m[14] = 1;
+   mMat[3] = 0;
+   mMat[7] = 0;
+   mMat[11] = 0;
+   mMat[14] = 1;
 }
 
 
@@ -928,39 +931,39 @@ void Matrix4f::setRotX( float angle )
 {
    float value = cosf( angle );
 
-   _m[5]  = value;
-   _m[10] = value;
+   mMat[5]  = value;
+   mMat[10] = value;
 
    value = sinf( angle );
 
-   _m[9] = - value;
-   _m[6] =   value;
+   mMat[9] = - value;
+   mMat[6] =   value;
 }
 
 void Matrix4f::setRotY( float angle )
 {
    float value = cosf( angle );
 
-   _m[0]  = value;
-   _m[10] = value;
+   mMat[0]  = value;
+   mMat[10] = value;
 
    value = sinf( angle );
 
-   _m[2] = - value;   // Is this one right?
-   _m[8] =   value;
+   mMat[2] = - value;   // Is this one right?
+   mMat[8] =   value;
 }
 
 void Matrix4f::setRotZ( float angle )
 {
    float value = cosf( angle );
 
-   _m[0] = value;
-   _m[5] = value;
+   mMat[0] = value;
+   mMat[5] = value;
 
    value = sinf( angle );
 
-   _m[4] = - value;
-   _m[1] =   value;
+   mMat[4] = - value;
+   mMat[1] =   value;
 }
 
 void Matrix4f::makeRotX( float angle )
@@ -1006,9 +1009,9 @@ void Matrix4f::makeRotXYZ( const float& xRot, const float& yRot, const float& zR
       
 void Matrix4f::setTrans( float tx, float ty, float tz )
 {
-   _m[12] = tx;
-   _m[13] = ty;
-   _m[14] = tz;
+   mMat[12] = tx;
+   mMat[13] = ty;
+   mMat[14] = tz;
 }
 
 void Matrix4f::makeTrans( float tx, float ty, float tz )
@@ -1020,19 +1023,19 @@ void Matrix4f::makeTrans( float tx, float ty, float tz )
 
 void Matrix4f::set( const Matrix4f& M )
 {
-   _m[0] = M._m[0]; _m[4] = M._m[4]; _m[8]  = M._m[8];  _m[12] = M._m[12];
-   _m[1] = M._m[1]; _m[5] = M._m[5]; _m[9]  = M._m[9];  _m[13] = M._m[13];
-   _m[2] = M._m[2]; _m[6] = M._m[6]; _m[10] = M._m[10]; _m[14] = M._m[14];
-   _m[3] = M._m[3]; _m[7] = M._m[7]; _m[11] = M._m[11]; _m[15] = M._m[15];
+   mMat[0] = M.mMat[0]; mMat[4] = M.mMat[4]; mMat[8]  = M.mMat[8];  mMat[12] = M.mMat[12];
+   mMat[1] = M.mMat[1]; mMat[5] = M.mMat[5]; mMat[9]  = M.mMat[9];  mMat[13] = M.mMat[13];
+   mMat[2] = M.mMat[2]; mMat[6] = M.mMat[6]; mMat[10] = M.mMat[10]; mMat[14] = M.mMat[14];
+   mMat[3] = M.mMat[3]; mMat[7] = M.mMat[7]; mMat[11] = M.mMat[11]; mMat[15] = M.mMat[15];
 }
 
 //: set the matrix
 void Matrix4f::set( const float* m )
 {
-   _m[0] = m[0]; _m[4] = m[4];   _m[8]  = m[8];   _m[12] = m[12];
-   _m[1] = m[1]; _m[5] = m[5];   _m[9]  = m[9];   _m[13] = m[13];
-   _m[2] = m[2]; _m[6] = m[6];   _m[10] = m[10];   _m[14] = m[14];
-   _m[3] = m[3]; _m[7] = m[7];   _m[11] = m[11];   _m[15] = m[15];
+   mMat[0] = m[0]; mMat[4] = m[4];   mMat[8]  = m[8];   mMat[12] = m[12];
+   mMat[1] = m[1]; mMat[5] = m[5];   mMat[9]  = m[9];   mMat[13] = m[13];
+   mMat[2] = m[2]; mMat[6] = m[6];   mMat[10] = m[10];   mMat[14] = m[14];
+   mMat[3] = m[3]; mMat[7] = m[7];   mMat[11] = m[11];   mMat[15] = m[15];
 }
 
 //: set the matrix with 16 floats
@@ -1041,10 +1044,10 @@ void Matrix4f::set( float a0, float a4, float a8,  float a12,
          float a2, float a6, float a10, float a14,
          float a3, float a7, float a11, float a15 )
 {
-   _m[0] = a0; _m[4] = a4; _m[8]  = a8;  _m[12] = a12;
-   _m[1] = a1; _m[5] = a5; _m[9]  = a9;  _m[13] = a13;
-   _m[2] = a2; _m[6] = a6; _m[10] = a10; _m[14] = a14;
-   _m[3] = a3; _m[7] = a7; _m[11] = a11; _m[15] = a15;
+   mMat[0] = a0; mMat[4] = a4; mMat[8]  = a8;  mMat[12] = a12;
+   mMat[1] = a1; mMat[5] = a5; mMat[9]  = a9;  mMat[13] = a13;
+   mMat[2] = a2; mMat[6] = a6; mMat[10] = a10; mMat[14] = a14;
+   mMat[3] = a3; mMat[7] = a7; mMat[11] = a11; mMat[15] = a15;
 }
 
 void Matrix4f::translate( float tx, float ty, float tz )
@@ -1072,17 +1075,17 @@ void Matrix4f::transpose()
    // Make a transposed copy(don't do the diagonals).
 
    float a[16];
-                   a[4]  = _m[1];   a[8]  = _m[2];   a[12] = _m[3];
-   a[1]  = _m[4];                  a[9]  = _m[6];   a[13] = _m[7];
-   a[2]  = _m[8];  a[6]  = _m[9];                  a[14] = _m[11];
-   a[3]  = _m[12];   a[7]  = _m[13];   a[11] = _m[14];
+                   a[4]  = mMat[1];   a[8]  = mMat[2];   a[12] = mMat[3];
+   a[1]  = mMat[4];                  a[9]  = mMat[6];   a[13] = mMat[7];
+   a[2]  = mMat[8];  a[6]  = mMat[9];                  a[14] = mMat[11];
+   a[3]  = mMat[12];   a[7]  = mMat[13];   a[11] = mMat[14];
 
    // Copy back into this matrix.
 
-                   _m[4] = a[4];   _m[8] = a[8];   _m[12] = a[12];
-   _m[1] = a[1];                   _m[9] = a[9];   _m[13] = a[13];
-   _m[2] = a[2];   _m[6] = a[6];                   _m[14] = a[14];
-   _m[3] = a[3];   _m[7] = a[7];   _m[11] = a[11];
+                   mMat[4] = a[4];   mMat[8] = a[8];   mMat[12] = a[12];
+   mMat[1] = a[1];                   mMat[9] = a[9];   mMat[13] = a[13];
+   mMat[2] = a[2];   mMat[6] = a[6];                   mMat[14] = a[14];
+   mMat[3] = a[3];   mMat[7] = a[7];   mMat[11] = a[11];
 }
 
 //////////////////////////////////////////////////////
@@ -1100,16 +1103,16 @@ void Matrix4f::makeLookAt( const Vec3<float>& eye, const Vec3<float>& center, co
 
 void Matrix4f::scale( const Vec3<float>& s )
 {
-   Matrix4f scale_matrix;
-   scale_matrix.makeScale( s );
-   this->multRight( scale_matrix );
+   Matrix4f scalemMatatrix;
+   scalemMatatrix.makeScale( s );
+   this->multRight( scalemMatatrix );
 }
 
 void Matrix4f::setScale( const Vec3<float>& s )
 {
-   _m[0]  = s[0];
-   _m[5]  = s[1];
-   _m[10] = s[2];
+   mMat[0]  = s[0];
+   mMat[5]  = s[1];
+   mMat[10] = s[2];
 }
 void Matrix4f::makeScale( const Vec3<float>& s )
 {
@@ -1131,9 +1134,9 @@ void Matrix4f::rotate( const float& rad, const Vec3<float>& axis)
 
 void Matrix4f::setTrans( const Vec3<float>& t )
 {
-   _m[12] = t[0];
-   _m[13] = t[1];
-   _m[14] = t[2];
+   mMat[12] = t[0];
+   mMat[13] = t[1];
+   mMat[14] = t[2];
 }
 void Matrix4f::makeTrans( const Vec3<float>& t )
 {
@@ -1150,33 +1153,33 @@ void Matrix4f::translate( const Vec3<float>& t )
 
 void Matrix4f::getTrans( Vec3<float>& t ) const
 {
-   t[0] = _m[12];
-   t[1] = _m[13];
-   t[2] = _m[14];
+   t[0] = mMat[12];
+   t[1] = mMat[13];
+   t[2] = mMat[14];
 }
 
 void Matrix4f::getScale( Vec3<float>& s ) const
 {
-   s[0] = _m[0];
-   s[1] = _m[5];
-   s[2] = _m[10];
+   s[0] = mMat[0];
+   s[1] = mMat[5];
+   s[2] = mMat[10];
 }
 
 Vec4<float> Matrix4f::operator*( const Vec4<float>& b ) const
 {
-   return Vec4<float>( _m[0] * b[0] + _m[4] * b[1] + _m[8]  * b[2] + _m[12] * b[3],
-         _m[1] * b[0] + _m[5] * b[1] + _m[9]  * b[2] + _m[13] * b[3],
-         _m[2] * b[0] + _m[6] * b[1] + _m[10] * b[2] + _m[14] * b[3],
-         _m[3] * b[0] + _m[7] * b[1] + _m[11] * b[2] + _m[15] * b[3] );
+   return Vec4<float>( mMat[0] * b[0] + mMat[4] * b[1] + mMat[8]  * b[2] + mMat[12] * b[3],
+         mMat[1] * b[0] + mMat[5] * b[1] + mMat[9]  * b[2] + mMat[13] * b[3],
+         mMat[2] * b[0] + mMat[6] * b[1] + mMat[10] * b[2] + mMat[14] * b[3],
+         mMat[3] * b[0] + mMat[7] * b[1] + mMat[11] * b[2] + mMat[15] * b[3] );
 }
 Vec3<float> Matrix4f::operator*( const Vec3<float>& b ) const
 {
    float a[4];
 
-   a[3] = 1.0f /( _m[3] * b[0] + _m[7] * b[1] + _m[11] * b[2] + _m[15] );
-   a[2] = a[3] *( _m[2] * b[0] + _m[6] * b[1] + _m[10] * b[2] + _m[14] );
-   a[1] = a[3] *( _m[1] * b[0] + _m[5] * b[1] + _m[9]  * b[2] + _m[13] );
-   a[0] = a[3] *( _m[0] * b[0] + _m[4] * b[1] + _m[8]  * b[2] + _m[12] );
+   a[3] = 1.0f /( mMat[3] * b[0] + mMat[7] * b[1] + mMat[11] * b[2] + mMat[15] );
+   a[2] = a[3] *( mMat[2] * b[0] + mMat[6] * b[1] + mMat[10] * b[2] + mMat[14] );
+   a[1] = a[3] *( mMat[1] * b[0] + mMat[5] * b[1] + mMat[9]  * b[2] + mMat[13] );
+   a[0] = a[3] *( mMat[0] * b[0] + mMat[4] * b[1] + mMat[8]  * b[2] + mMat[12] );
 
    return Vec3<float>( a );
 }
@@ -1219,3 +1222,4 @@ Vec3<float> operator/( const Vec3<float>& v, const Matrix4f& M )
 }
 
 
+} // end namespace kev

@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.h,v $
-//    $Date: 2002-01-11 16:18:25 $
-//    $Revision: 1.3 $
+//    $Date: 2002-01-11 17:23:41 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -34,6 +34,9 @@
 #include "Vec3.h"
 #include "Vec4.h"
 #include <iostream>
+
+namespace kev
+{
 
 //: 4x4 matrix oriented in columnar order
 class  Matrix4f
@@ -68,10 +71,10 @@ public:
 	void                    copyRotation( const Matrix4f& matrix );
 	
 	//: get a pointer to the matrix data
-	float *			data() { return _m; }
+	float *			data() { return mMat; }
 	
 	//: get a const pointer to the matrix data
-	const float *		data() const { return _m; }
+	const float *		data() const { return mMat; }
 	
 	//: Get the determinate of the matrix.
 	float			det() const;
@@ -172,16 +175,16 @@ public:
 	Matrix4f                operator-() const;
 
 	//: returns memory element i(out of [0..15])
-	inline float&           operator[]( int i ) { return _m[i]; }
+	inline float&           operator[]( int i ) { return mMat[i]; }
 	
 	//: returns memory element i(out of [0..15])
-	inline const float&     operator[]( int i ) const { return _m[i]; }
+	inline const float&     operator[]( int i ) const { return mMat[i]; }
 	
 	//: returns element i, j
-	inline float&           operator()( const int& i, const int& j ) { return _m[i*4+j]; }
+	inline float&           operator()( const int& i, const int& j ) { return mMat[i*4+j]; }
 	
 	//: returns element i, j
-	inline const float&     operator()( const int& i, const int& j ) const { return _m[i*4+j]; }
+	inline const float&     operator()( const int& i, const int& j ) const { return mMat[i*4+j]; }
 
 	//: this = M
 	Matrix4f&               operator=( const Matrix4f& M );
@@ -343,9 +346,9 @@ public:
 //: Data members
 private:
 	// the matrix data.
-	float _m[16];
+	float mMat[16];
 };
 
-	
+} //namespace kev
 
 #endif
