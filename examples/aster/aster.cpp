@@ -671,7 +671,7 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
       app.fireButton = true;
       break;
    case 'f':
-   case 'F':
+   case 'F': {
       static bool full = false;
       static int old_width, old_height;
       if (full == false)
@@ -689,6 +689,7 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
       full = !full;
       std::cout<<full<<std::endl;
       break;
+   }
    case 'A':
    case 'a':
      app.straefLeftButton = true;
