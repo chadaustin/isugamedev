@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.cpp,v $
- * Date modified: $Date: 2002-02-24 06:21:12 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-02-24 07:25:32 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -57,8 +57,14 @@ namespace phui {
       glPushMatrix();
          glLoadIdentity();
 
+      // disable depth testing since all draws occur at the same level
+      glDisable( GL_DEPTH_TEST );
+
       // draw children
       WidgetContainer::draw();
+
+      // re-enable depth testing
+      glEnable( GL_DEPTH_TEST );
 
       glPopMatrix(); // modelview
       glPopMatrix(); // projection
