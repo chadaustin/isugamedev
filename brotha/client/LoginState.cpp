@@ -293,7 +293,7 @@ namespace client {
       if(src == mConnect) {
          mSubState = Send_Login;
       } else if(src == mQuit) {
-         ///@todo handle quit
+         exit(0);
       }
    }
 }
