@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-03-18 03:47:31 $
-// Version:       $Revision: 1.22 $
+// Date modified: $Date: 2002-03-18 04:19:59 $
+// Version:       $Revision: 1.23 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -66,7 +66,7 @@ void GameKernel::getWindowSize( int& width, int& height, int ctx )
 }
 /* for resize of the window
  * i.e. use this to restore after a full screen
- *      use this to init the window size in OnAppInit
+ *      use this to init the window size in onAppInit
  */
 void GameKernel::setWindowSize( int width, int height, int ctx )
 {
@@ -106,7 +106,7 @@ bool GameKernel::startup( SystemDriver* driver )
 
    // Initialize the registered app before starting the driver in case the app
    // needs to set the window position and name.
-   mApp->OnAppInit( this );
+   mApp->onAppInit( this );
 
    // tell the driver to get moving!
    return mDriver->run();

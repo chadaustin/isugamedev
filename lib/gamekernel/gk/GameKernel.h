@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-18 03:47:31 $
-// Version:       $Revision: 1.19 $
+// Date modified: $Date: 2002-03-18 04:19:59 $
+// Version:       $Revision: 1.20 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -122,7 +122,7 @@ public:
 
    /** for resize of the window
     * i.e. use this to restore after a full screen
-    *      use this to init the window size in OnAppInit
+    *      use this to init the window size in onAppInit
     */
    void setWindowSize( int width, int height, int ctx = 0 );
 

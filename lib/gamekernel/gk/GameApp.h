@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameApp.h,v $
-// Date modified: $Date: 2002-03-18 03:47:31 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-03-18 04:19:59 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -50,8 +50,8 @@ namespace gk {
  *    class MyApp : public GameApp
  *    {
  *       virtual ~MyAp();
- *       virtual void OnContextDraw( int context );
- *       virtual void OnPreFrame();
+ *       virtual void onContextDraw( int context );
+ *       virtual void onPreFrame();
  *       // other overridden functions if necessary...
  *    };
  * \endcode
@@ -78,26 +78,26 @@ public:
     *
     * @param context    the current OpenGL context
     */
-   virtual void OnContextDraw( int context = 0 ) {}
+   virtual void onContextDraw( int context = 0 ) {}
 
    /**
     * This is called immediately before onContextDraw(). You may do any
     * application specific pre-frame processing within this function.
     */
-   virtual void OnPreFrame() {}
+   virtual void onPreFrame() {}
 
    /**
     * This is called during a call to onContextDraw if the GameKernel driver is
     * multi-threaded. Otherwise it's call time is unspecified and may happen
     * either before or after a draw.
     */
-   virtual void OnIntraFrame() {}
+   virtual void onIntraFrame() {}
 
    /**
     * This is called immediately after onContextDraw(). You may do any
     * application specific post-frame processing within this function.
     */
-   virtual void OnPostFrame() {}
+   virtual void onPostFrame() {}
 
 // Init methods
 public:
@@ -110,19 +110,19 @@ public:
     *
     * @param kernel     the GameKernel instance running this ap
     */
-   virtual void OnAppInit( GameKernel* kernel) {}
+   virtual void onAppInit( GameKernel* kernel) {}
 
    /**
     * This is called once for each context (window) after the window has been
     * opened, but before the onContextDraw().
     */
-   virtual void OnContextInit() {}
+   virtual void onContextInit() {}
 
    /**
     * This is called once for each context (window) immediately before the
     * window has been closed.
     */
-   virtual void OnContextExit() {}
+   virtual void onContextExit() {}
 };
 
 } // namespace gk

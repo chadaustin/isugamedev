@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-03-18 03:47:30 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-03-18 04:19:59 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -273,9 +273,9 @@ GlutDriver::OnIdle()
    // do an app frame
    assert( app != NULL && "you can't run a NULL application" );
    kernel->getInput()->update();
-   app->OnPreFrame();
-   app->OnIntraFrame();
-   app->OnPostFrame();
+   app->onPreFrame();
+   app->onIntraFrame();
+   app->onPostFrame();
 
    // force a poll on the joystick
    if ( sDriver->mJoystick != NULL )
@@ -297,7 +297,7 @@ GlutDriver::initCurrentContext()
 
       // init the app
       assert( mKernel->getApp() != NULL && "you can't run a NULL application" );
-      mKernel->getApp()->OnContextInit();
+      mKernel->getApp()->onContextInit();
    }
 }
 
@@ -312,7 +312,7 @@ GlutDriver::OnRedisplay()
    // draw the app
    GameKernel* kernel = sDriver->mKernel;
    assert( kernel->getApp() != NULL && "you can't run a NULL application" );
-   kernel->getApp()->OnContextDraw( sDriver->mCurrentContext );
+   kernel->getApp()->onContextDraw( sDriver->mCurrentContext );
 
    glutSwapBuffers();
 }

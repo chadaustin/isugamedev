@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-18 03:47:31 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-03-18 04:19:59 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -52,7 +52,7 @@ public:
    {
    }
 
-   virtual void OnAppInit( GameKernel* kernel )
+   virtual void onAppInit( GameKernel* kernel )
    {
       mKernel = kernel;
       mKernel->setName( "Input Test" );
@@ -62,12 +62,12 @@ public:
       mMouseY.init( "MouseLookY", mKernel );
    }
 
-   virtual void OnContextInit()
+   virtual void onContextInit()
    {
       mKernel->setWindowSize( 640, 480 );
    }
 
-   virtual void OnContextDraw( int context = 0 )
+   virtual void onContextDraw( int context = 0 )
    {
       int width, height;
       mKernel->getWindowSize( width, height );
@@ -93,7 +93,7 @@ public:
       grid.draw();
    }
 
-   virtual void OnPostFrame()
+   virtual void onPostFrame()
    {
       if (mQuit.getDigitalData() == DigitalInput::DOWN)
       {
