@@ -6,10 +6,15 @@ Import('SetupAudiere SetupOpenGL')
 
 # Define the sources
 classes = Split("""
+   ResourceManager
    Version
 """)
 
-headers = []
+headers = Split("""
+   siren.h
+   Singleton.h
+   LokiTypeInfo.h
+""")
 sources = []
 
 headers = map(lambda n: n + '.h',   classes)
