@@ -12,6 +12,7 @@
 #include "GameScene.h"
 #include "Camera.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "RigidBody.h"
 
 namespace mw
@@ -56,7 +57,7 @@ namespace mw
 
       typedef std::vector<RigidBody*> RigidBodyList;
       RigidBodyList mBodies;
-
+      std::vector<Enemy*> mEnemies;
       // actions :*)
       EdgeState mAccelerate;
       EdgeState mReverse;

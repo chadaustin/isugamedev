@@ -25,7 +25,12 @@ namespace mw
       mPlayer.addWeapon( new Pistol );
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
-
+      for (int i = 0; i < 10; i++)
+      {
+         mEnemies.push_back(new Enemy());
+         add(mEnemies[i]);
+      }
+      
       mFont = 0;
       mFontRenderer = 0;
       mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
