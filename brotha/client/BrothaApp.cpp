@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-22 04:16:20 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-04-22 04:27:24 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -62,7 +62,8 @@ namespace client
       // init the sound subsystem
       try {
          mSoundMgr = new sound::SoundManager();
-         mSoundMgr->getJukebox()->addTrack("la_marche_de_la_lune.ogg");
+         mSoundMgr->getJukebox()->addTrack("music/track1.ogg");
+         mSoundMgr->getJukebox()->addTrack("music/track2.ogg");
          mSoundMgr->getJukebox()->play();
       }
       catch (const std::exception& e) {
