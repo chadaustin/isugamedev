@@ -66,8 +66,9 @@ prefix ?= build
 install: build
 	-mkdir $(prefix)
 	-mkdir $(prefix)/include
+	-mkdir $(prefix)/include/math
 	-mkdir $(prefix)/lib$(LIBBITSUF)
-	-cp *.h $(prefix)/include
+	-cp *.h $(prefix)/include/math
 	-cp $(LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
 
 # Remove the compiled stuff from the system
