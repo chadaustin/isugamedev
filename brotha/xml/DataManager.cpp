@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DataManager.cpp,v $
- * Date modified: $Date: 2002-05-01 05:40:16 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-01 21:50:48 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,23 +44,42 @@
 #include "xmlpersist.h"
 
 namespace data {
-   DataManager::DataManager(const std::string& dataFile)
-      : mFile(dataFile)
-   {
-      mData = data::load(dataFile);
-      if (! mData) {
-         std::cerr<<"Failed to load data file!"<<std::endl;
-      }
-   }
+   DataManager* DataManager::sInstance = NULL;
+
+   DataManager::DataManager()
+      : mFile("data.xml"), mData(NULL)
+   {}
 
    DataManager::~DataManager() {
+      flush();
       delete mData;
+   }
+
+   DataManager& DataManager::instance() {
+      if (! sInstance) {
+         sInstance = new DataManager();
+      }
+      return *sInstance;
+   }
+
+   bool DataManager::refresh()
+   {
+      mData = data::load(mFile);
+      if (! mData) {
+         std::cerr<<"Failed to load data file!"<<std::endl;
+         return false;
+      }
+      return true;
    }
 
    void DataManager::flush() const {
       if (mData) {
 //         data::save(dataFile);
       }
+   }
+
+   void DataManager::setDataFile(const std::string& dataFile) {
+      mFile = dataFile;
    }
 
    BrothaData& DataManager::getData() {

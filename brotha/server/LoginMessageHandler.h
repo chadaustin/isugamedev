@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginMessageHandler.h,v $
- * Date modified: $Date: 2002-05-01 19:05:47 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 21:50:48 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,6 +45,7 @@
 #define LOGIN_MESSAGE_HANDLER_H
 
 #include "MessageHandler.h"
+#include "xml/DataManager.h"
 
 namespace server {
    class LoginMessageHandler : public MessageHandler {
@@ -59,7 +60,7 @@ namespace server {
          net::LoginMessage *mMsg = (net::LoginMessage*)msg;
 
          // get the main data and the player the user entered
-         data::BrothaData data = m_brothaGame->getDataManager().getData();
+         data::BrothaData& data = data::DataManager::instance().getData();
          data::Player* player = data.getPlayer(mMsg->getUsername());
 
          if(player != NULL && player->getPassword().compare(mMsg->getPassword()) == 0) {

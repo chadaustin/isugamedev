@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DataManager.h,v $
- * Date modified: $Date: 2002-05-01 07:15:33 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-01 21:50:48 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -51,25 +51,25 @@ namespace data {
     * the database on the disk.
     */
    class DataManager {
-   public:
-      /**
-       * Creates a new data manager using the given database.
-       */
-      DataManager(const std::string& dataFile);
-
-      /**
-       * Flushes data out and destroys the data manager.
-       */
+   private:
+      DataManager();
+      DataManager(const DataManager&); // intentionally not implemented
       ~DataManager();
 
-      /**
-       * Flushes out the data in memory to the disk.
-       */
+   public:
+      /// Gets the singleton instance of this class.
+      static DataManager& instance();
+
+      /// Refreshes in memory data from the data on the disk.
+      bool refresh();
+
+      /// Flushes out the data in memory to the disk.
       void flush() const;
 
-      /**
-       * Gets the data in memory.
-       */
+      /// Sets the file used to load and save data.
+      void setDataFile(const std::string& dataFile);
+
+      /// Gets the data in memory.
       BrothaData& getData();
 
    private:
@@ -78,6 +78,9 @@ namespace data {
 
       /// The in memory cache of the data.
       BrothaData* mData;
+
+      /// The singleton instance of this class.
+      static DataManager* sInstance;
    };
 }
 

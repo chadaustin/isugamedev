@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaServer.h,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-01 21:50:48 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,6 +47,7 @@
 #include "ListenServer.h"
 #include "GameThread.h"
 #include "WebServer.h"
+#include "xml/DataManager.h"
 #include <vector>
 
 namespace server {
@@ -64,6 +65,8 @@ namespace server {
       }
 
       void StartServer() {
+         data::DataManager::instance().refresh();
+
          m_netMgr = new net::NetMgr();
 
          m_gameThread   = new GameThread(m_netMgr);
