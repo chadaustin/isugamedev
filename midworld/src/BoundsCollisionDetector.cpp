@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-07-29 00:38:26 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -55,16 +55,26 @@ namespace mw
       // Find all objects whose bounds intersect with this body's bounds
       std::list<RigidBody*> pcs = mSpatialIndex->intersect(bounds);
 
-      // No collisions, return null
-      if (pcs.size() == 0)
+      for (std::list<RigidBody*>::iterator itr = pcs.begin(); itr != pcs.end(); ++itr)
       {
-         return 0;
+         RigidBody* collidee = *itr;
+
+         // Don't collide against ourself
+         if (body == collidee)
+         {
+            continue;
+         }
+
+         // This algorithm collides with the first body found with the normal in
+         // the opposite direction of the path travelled.
+         gmtl::Vec3f normal = gmtl::makeNormal(-path);
+
+         // In this simple algorithm, we return the first collidee found
+         return new CollisionDesc(collidee, normal, 1.0f);
       }
 
-      // This algorithm collides with the first body found with the normal in
-      // the opposite direction of the path travelled.
-      gmtl::Vec3f normal = gmtl::makeNormal(-path);
-      return new CollisionDesc(pcs.front(), normal, 1.0f);
+      // No collisions, return null
+      return 0;
    }
 
    void BoundsCollisionDetector::setSpatialIndex(SpatialIndex* index)
