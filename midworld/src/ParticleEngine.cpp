@@ -5,6 +5,7 @@
 #include "ParticleEngine.h"
 #include "Utility.h"
 #include "GameManager.h"
+#include "PhysicsEngine.h"
 
 namespace mw
 {
@@ -72,7 +73,7 @@ namespace mw
 
          particle->addForce(PhysicsEngine::GRAVITY * particle->getMass());
          particle->update(dt);
-         mParticlePhysics->update(particle, dt, false);
+         PhysicsEngine::update(particle, dt, false);
          particle->moveToNextState();
          if (particle->isExpired())
          {

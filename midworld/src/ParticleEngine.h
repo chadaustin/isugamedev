@@ -7,7 +7,6 @@
 #include "AbstractEntity.h"
 #include "Camera.h"
 #include "Particle.h"
-#include "PhysicsEngine.h"
 #include "Texture.h"
 
 namespace mw
@@ -34,7 +33,6 @@ namespace mw
 
       typedef std::list<Particle*> ParticleList;
       ParticleList mParticleGroup;
-      PhysicsEngine* mParticlePhysics;
       const Camera& mParticleCamera;
    };
 }
