@@ -51,3 +51,30 @@ issues
   1.) need generic hooks for collision in the dynengine
     a.) should consider temporal
   2.) need collision library, geometry structure for efficient collisions.
+
+
+
+
+Metrics Log:
+
+===============================================================
+System State:
+
+7160 entities in system (fire particle time to live == 100.3)
+also with tris in opengl, window minimized (do reduce fill limitations...) 
+
+===============================================================
+Results:
+
+Particle
+- 6.35 fps (SGI octane, 10.10.2001)
+
+Particle with virtual funcs
+- 6.35 fps (SGI octane, 10.10.2001)
+
+Body without rotations
+- 5.00 fps (SGI octane, 10.10.2001)
+
+Body without rotations AND with virtual funcs
+- 4.90 fps (SGI octane, 10.10.2001)
+
