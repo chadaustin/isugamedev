@@ -121,7 +121,7 @@ bool LilypadObject::Moved(float& x, float& y)
 	return false;
 }
 
-void LilypadObject::Update()
+void LilypadObject::Update(int dt)
 {	
 }
 

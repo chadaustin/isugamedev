@@ -34,7 +34,7 @@ public:
 
 
 	///////////////////////////////////////////////////
-    // Moved()
+    	// Moved()
 	///////////////////////////////////////////////////
 	// Notes: If function returns true x and y contain 
 	// distanced moved.
@@ -43,14 +43,14 @@ public:
 
 
 	///////////////////////////////////////////////////
-    // CollisionResponse()
+    	// CollisionResponse()
 	///////////////////////////////////////////////////
 	// Notes: Function is responsible for responding
 	// to Collision between self and CollisionObject
 	///////////////////////////////////////////////////	
 	void CollisionResponse(MyObject* CollisionObject);
 
-	void Update();
+	void Update(int dt);
 
 	void Draw();
 

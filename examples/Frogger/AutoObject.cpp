@@ -120,7 +120,7 @@ bool AutoObject::Moved(float& x, float& y)
 }
 
 
-void AutoObject::Update()
+void AutoObject::Update(int dt)
 {	
   if (GameX > WindowSizeX && VelocityX > 0)
 	  MoveX = (WindowSizeX+ObjectSizeX)* -1;

@@ -48,7 +48,7 @@ public:
 	///////////////////////////////////////////////////	
 	void CollisionResponse(MyObject* CollisionObject);
 
-	void Update();
+	void Update(int dt);
 
 	void Draw();
 

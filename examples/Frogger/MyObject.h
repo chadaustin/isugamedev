@@ -35,7 +35,7 @@ public:
 	virtual bool Moved(float& x, float& y) = 0;
 
 	virtual void CollisionResponse(MyObject* CollisionObject) = 0;
-	virtual void Update()= 0;
+	virtual void Update(int dt)= 0;
 	virtual void Draw()=0;
 };
 

@@ -37,7 +37,7 @@ public:
 	//	This function is called and updates
 	//	all gameworld objects
 	//////////////////////////////////////
-	void Update();
+	void Update(int dt);
 
 
 

@@ -134,7 +134,7 @@ bool LogObject::Moved(float& x, float& y)
 }
 
 
-void LogObject::Update()
+void LogObject::Update(int dt)
 {	
 
   if (GameX > WindowSizeX && VelocityX > 0)

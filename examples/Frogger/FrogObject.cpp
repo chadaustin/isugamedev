@@ -147,7 +147,7 @@ bool FrogObject::Moved(float& x, float& y)
 }
 
 
-void FrogObject::Update()
+void FrogObject::Update(int dt)
 {	
 	switch (FrogMove)
 	{

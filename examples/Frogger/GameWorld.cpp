@@ -118,7 +118,7 @@ void GameWorld::Create()
 // Notes:
 //	Updates all the game data.
 /////////////////////////////////////
-void GameWorld::Update()
+void GameWorld::Update(int dt)
 { 	
 	MyObject* Cursor;
 	MyObject* TheMainCollision;
@@ -132,7 +132,7 @@ void GameWorld::Update()
 	//////////////////////////////////////////////
 	for(i = 0; i < int(MobileObjects.size()); i++)
 	{
-		MobileObjects[i]->Update();
+		MobileObjects[i]->Update(dt);
 	}
 
 	//////////////////////////////////////////////

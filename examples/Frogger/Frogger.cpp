@@ -26,7 +26,7 @@ Movement FrogMove = NONE;
 ///////////////////////
 
 
-int start_clock_count = SDL_GetTicks();
+int startClock = SDL_GetTicks();
 int temp = 0;
 
 // Game Object
@@ -37,14 +37,10 @@ void display();
 
 void update()
 {
-	//Need to fix this being frame locked on 30 fps
-	//while(SDL_GetTicks()-start_clock_count < 30)
-	//{
-	    display();
-	//}
-	start_clock_count = SDL_GetTicks();
-	Frogger.Update();
-
+	int dt = SDL_GetTicks() - startClock;
+	startClock = SDL_GetTicks();
+	
+	Frogger.Update(dt);
 }
 
 
@@ -166,6 +162,7 @@ int main()
 	    }
 	}
 	update();
+	display();
     }
     SDL_Quit();
 }
