@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: convert.h,v $
-//    $Date: 2001-09-06 04:17:32 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-10 16:26:27 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -27,6 +27,8 @@
 //    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 ///////////////// <auto-copyright END do not edit this line> ///////////////////
+#ifndef CONVERT_H_INCLUDED
+#define CONVERT_H_INCLUDED
 
 #include "Vec3.h"
 #include "Matrix4f.h"
@@ -115,3 +117,6 @@ namespace kev
       }
    }
 };
+
+
+#endif // ! CONVERT_H_INCLUDED
