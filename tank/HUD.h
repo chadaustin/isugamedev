@@ -39,7 +39,7 @@ public:
       //std::cout<<"deleting hud... "<<"\n"<<std::flush;
    }
       
-   void draw()
+   void draw() const
    {
       glPushAttrib( GL_ENABLE_BIT );
       glDisable( GL_LIGHTING );
