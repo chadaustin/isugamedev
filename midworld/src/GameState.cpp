@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-11 08:05:52 $
- * Version:       $Revision: 1.117 $
+ * Date modified: $Date: 2002-11-11 08:06:38 $
+ * Version:       $Revision: 1.118 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -295,8 +295,7 @@ namespace mw
          drawBounds();
       glPopMatrix();
 
-      mHUD.draw(application().getWidth(), application().getHeight(),
-                mPlayer, mFPS);
+      mHUD.draw(*this);
    }
    
    void

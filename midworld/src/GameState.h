@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-11 07:22:17 $
- * Version:       $Revision: 1.70 $
+ * Date modified: $Date: 2002-11-11 08:06:38 $
+ * Version:       $Revision: 1.71 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -124,6 +124,11 @@ namespace mw
       Camera& getCamera()
       {
          return mCamera;
+      }
+      
+      float getFPS()
+      {
+         return mFPS;
       }
 
       Turret* setupTurret(const std::string& name, const std::string& parent,
