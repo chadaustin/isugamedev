@@ -14,6 +14,16 @@ public:
    {
    }
 
+#ifndef NDEBUG
+   //: When debugging is enabled, assert that there are no references to the
+   //  object that's being destroyed.
+   ~RefObj()
+   {
+      assert(mRefCount == 0 &&
+             "Destroying an object that still has references");
+   }
+#endif
+
    //: Notifies this object that the calling object has a reference to this
    //  object and is using it. The reference count is incremented. Note that all
    //  calls to ref() must be later followed with a call to unref().
