@@ -2,13 +2,50 @@ this dir contains the physics engine portion of my animation library that i'll
 probably be doing my masters thesis on.
 
 
+
+how it's currently designed:
+
+The DynamicSystem is a container of Entities and Operators.  It iterates
+over all operators executing each.  Operators have access to its DynamicSystem
+where it can then iterate over any number of entities (for example, gravity
+operates on all n entities, while spring operates on just 2 entities).
+
+each operator applies some effect to the entities in the system.  for 
+example this could be applyForce, or setColor.  Accumulative effects
+are stored in each entity.  after all operators are executed, then 
+derivatives are calculated with respect to the time elapsed and then 
+applied to the entity.  entities could potentially use 1st or 2nd order
+effects...
+
+DynamicSystem has base type of the specified entity (templated) so systems can 
+hold other systems (yay!).
+Operators have a base type, while Entities are only required to match
+a certain interface (see Particle.h or Body.h for example interface).
+This is so Body and Particle don't need virtual funcs (but what about 
+when you have some new datatype that needs to change over time,
+wouldn't you want to overload computeDerivitives, copy, addPhase, multPhase?)
+
+Dynamic system is allowed to change its solver at runtime.  Its solver is
+what computes the entity's time derivative and applies it.
+
+To extend:
+- subclass Body or Particle, create a DynamicSystem<yourEntityType>
+  - in your new entity subclass you can add render funcs or whatever
+  - you can't overload funcs though (yet!) so if you need to do additional
+    derivative stuff (like velocity of color, or of size?) then you
+    might have to copy body or particle for yourself...
+
 issues
 - particle.h is simply a subset of body.h, nothing more.
   would like them to share as much code as possible but still be very fast.
   
+- but what about when you have some new datatype that needs to change over time,
+  wouldn't you want to overload computeDerivitives, copy, addPhase, multPhase?
+
 - what about data attached to each body/particle.  we dont want to embed
   every possible data item (color, age, texture, etc...), but yet we need
   the capability to do this at will... template metaprogramming, data fields?
+  inheritance? (see previous).
   
 - collision.  non existant.  need some way to do this.  
   1.) need generic hooks for collision in the dynengine
