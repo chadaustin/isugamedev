@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2002-02-11 03:26:03 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -77,11 +77,11 @@ public:
    };
 
    /** constructor */
-   Mouse::Mouse() : AnalogDevice(), DigitalDevice()
+   Mouse() : AnalogDevice(), DigitalDevice()
    {
       DigitalDevice::setNumInputs( 3 ); // 3 button mouse.
       AnalogDevice::setNumInputs( 2 ); // 2 axis mouse.
-      Mouse::initialize_map();
+      this->initialize_map();
    }
 
    /** destructor */
@@ -93,7 +93,7 @@ public:
     * before you read any data from the Mouse.
     * <b>NOTE:</b> If you're using GameKernel system, then you don't need to call this.
     */
-   virtual void Mouse::update()
+   virtual void update()
    {
       DigitalDevice::update();
       AnalogDevice::update();
