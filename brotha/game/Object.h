@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.h,v $
- * Date modified: $Date: 2002-05-02 05:59:02 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-05-03 01:28:28 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -117,12 +117,12 @@ namespace game {
       /**
        * Gets the health associated with this object.
        */
-      const PRFloat64& getHealth() const;
+      const int getHealth() const;
 
       /**
        * Sets the position vector associated with this object.
        */
-      void setHealth(PRFloat64& health);
+      void setHealth(int health);
 
       virtual PRUint32 getType();
       virtual PRUint32 getSize();
@@ -143,7 +143,7 @@ namespace game {
       gmtl::Spheref mSphere;
 
       /// This object's health
-      PRFloat64 mHealth;
+      int mHealth;
    };
 }
 
