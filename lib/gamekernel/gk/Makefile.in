@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-03-14 06:39:35 $
-# Version:       $Revision: 1.6 $
+# Date modified: $Date: 2002-03-18 23:42:25 $
+# Version:       $Revision: 1.7 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -48,6 +48,7 @@ INSTALL_DATA=@INSTALL_DATA@
 
 # objects to be included in the project....
 SRCS = \
+	AbstractGameApp.h \
 	AnalogDevice.h \
 	AnalogInput.h \
 	AnalogInterface.h \
@@ -56,14 +57,19 @@ SRCS = \
 	DigitalDevice.h \
 	DigitalInput.h \
 	DigitalInterface.h \
+	DLLInterface.h \
 	EventInput.h \
-	GameApp.h \
 	GameInputConfigure.h \
 	GameInput.h \
+	GameInput.cpp \
 	GameKernel.h \
 	GameKernel.cpp \
 	gk.h \
+	gk.cpp \
 	gkCommon.h \
+	IGameApp.h \
+	IGameInput.h \
+	IGameKernel.h \
 	Input.h \
 	InputInterface.h \
 	Joystick.h \
@@ -73,8 +79,6 @@ SRCS = \
 	SystemDriver.h \
 	SystemDriverFactory.h \
 	SystemDriverFactory.cpp \
-	Version.h \
-	Version.cpp \
 	xmlparser.cpp xmlpp.cpp xmltokenizer.cpp
 
 # project name...

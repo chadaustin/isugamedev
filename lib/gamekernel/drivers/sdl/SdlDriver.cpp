@@ -23,15 +23,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-02-20 04:01:15 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-18 23:42:24 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 
 #include "SdlDriver.h"
-#include "gk/GameKernel.h"
-#include "gk/GameInput.h"
 #include <xdl.h>
 #include <string>
 
@@ -71,7 +69,7 @@ SdlDriver::~SdlDriver()
 {
 }
 
-bool SdlDriver::init(GameKernel *kernel)
+bool SdlDriver::init(IGameKernel *kernel)
 {
 	if (!kernel)
 	{
