@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: imageIoReg.cxx,v $
-//    $Date: 2001-09-20 20:12:50 $
-//    $Revision: 1.2 $
+//    $Date: 2003-05-23 05:59:17 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -27,6 +27,10 @@
 //    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 ///////////////// <auto-copyright END do not edit this line> ///////////////////
+
+#ifdef _MSC_VER
+#pragma warning(disable : 4786)
+#endif
 
 #include <stdio.h>
 #include "ImageManager.h"

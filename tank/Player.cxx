@@ -1,3 +1,6 @@
+#ifdef _MSC_VER
+#pragma warning(disable : 4786)
+#endif
 
 #include "Tank.h"
 #include "Player.h"

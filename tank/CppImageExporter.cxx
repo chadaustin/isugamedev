@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: CppImageExporter.cxx,v $
-//    $Date: 2001-09-14 05:00:57 $
-//    $Revision: 1.1 $
+//    $Date: 2003-05-23 05:59:17 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //    This library is free software; you can redistribute it and/or
@@ -29,6 +29,11 @@
 ///////////////// <auto-copyright END do not edit this line> ///////////////////
 
 //////////////////////////////////////////////////////////////////////////////
+
+#ifdef _MSC_VER
+#pragma warning(disable : 4786)
+#endif
+
 
 #include <string>  // for std::string
 #include "Defines.h"		// needed for kev::byteReverse()

@@ -1,6 +1,10 @@
+#ifdef _MSC_VER
+#pragma warning(disable : 4786)
+#endif
+
 
 #include <iostream>
-#include "regexx.hh"
+#include "regexx/regexx.hh"
 #include "iniFile.h"
 
 void iniFile::load( const char* const filename )
