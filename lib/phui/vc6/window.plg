@@ -1,0 +1,162 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: phui - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP205.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /Fp"Release/phui.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\Button.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\RootFactory.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\RootWidget.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\WidgetContainer.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\Window.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP205.tmp" 
+Creating command line "link.exe -lib /nologo /out:"Release\phui.lib"  .\Release\Button.obj .\Release\RootFactory.obj .\Release\RootWidget.obj .\Release\WidgetContainer.obj .\Release\Window.obj "
+<h3>Output Window</h3>
+Compiling...
+Button.cpp
+RootFactory.cpp
+RootWidget.cpp
+WidgetContainer.cpp
+Window.cpp
+Creating library...
+
+
+
+<h3>Results</h3>
+phui.lib - 0 error(s), 0 warning(s)
+<h3>
+--------------------Configuration: phui - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP206.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"phui_Debug/phui.pch" /YX /Fo"phui_Debug/" /Fd"phui_Debug/" /FD /GZ /c 
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\Button.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\RootFactory.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\RootWidget.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\WidgetContainer.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\Window.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP206.tmp" 
+Creating command line "link.exe -lib /nologo /out:"phui_Debug\phui.lib"  .\phui_Debug\Button.obj .\phui_Debug\RootFactory.obj .\phui_Debug\RootWidget.obj .\phui_Debug\WidgetContainer.obj .\phui_Debug\Window.obj "
+<h3>Output Window</h3>
+Compiling...
+Button.cpp
+RootFactory.cpp
+RootWidget.cpp
+WidgetContainer.cpp
+Window.cpp
+Creating library...
+
+
+
+<h3>Results</h3>
+phui.lib - 0 error(s), 0 warning(s)
+<h3>
+--------------------Configuration: phui - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP207.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /Fp"Release/phui.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\Button.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\RootFactory.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\RootWidget.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\WidgetContainer.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\Window.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP207.tmp" 
+Creating command line "link.exe -lib /nologo /out:"Release\phui.lib"  .\Release\Button.obj .\Release\RootFactory.obj .\Release\RootWidget.obj .\Release\WidgetContainer.obj .\Release\Window.obj "
+<h3>Output Window</h3>
+Compiling...
+Button.cpp
+RootFactory.cpp
+RootWidget.cpp
+WidgetContainer.cpp
+Window.cpp
+Creating library...
+<h3>
+--------------------Configuration: window - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP208.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"window_Release/window.pch" /YX /Fo"window_Release/" /Fd"window_Release/" /FD /c 
+"D:\cygwin\home\Administrator\josh\lib\phui\examples\window\window.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP208.tmp" 
+Creating temporary file "C:\TEMP\RSP209.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"window_Release/window.pdb" /machine:I386 /out:"window_Release/window.exe" 
+.\window_Release\window.obj
+.\Release\phui.lib
+]
+Creating command line "link.exe @C:\TEMP\RSP209.tmp"
+<h3>Output Window</h3>
+Compiling...
+window.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+window.exe - 0 error(s), 0 warning(s)
+<h3>
+--------------------Configuration: phui - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP20B.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"phui_Debug/phui.pch" /YX /Fo"phui_Debug/" /Fd"phui_Debug/" /FD /GZ /c 
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\Button.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\RootFactory.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\RootWidget.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\WidgetContainer.cpp"
+"D:\cygwin\home\Administrator\josh\lib\phui\phui\Window.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP20B.tmp" 
+Creating command line "link.exe -lib /nologo /out:"phui_Debug\phui.lib"  .\phui_Debug\Button.obj .\phui_Debug\RootFactory.obj .\phui_Debug\RootWidget.obj .\phui_Debug\WidgetContainer.obj .\phui_Debug\Window.obj "
+<h3>Output Window</h3>
+Compiling...
+Skipping... (no relevant changes detected)
+Button.cpp
+RootFactory.cpp
+RootWidget.cpp
+WidgetContainer.cpp
+Window.cpp
+Creating library...
+<h3>
+--------------------Configuration: window - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\TEMP\RSP20C.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"window_Debug/window.pch" /YX /Fo"window_Debug/" /Fd"window_Debug/" /FD /GZ /c 
+"D:\cygwin\home\Administrator\josh\lib\phui\examples\window\window.cpp"
+]
+Creating command line "cl.exe @C:\TEMP\RSP20C.tmp" 
+Creating temporary file "C:\TEMP\RSP20D.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib phui.lib /nologo /subsystem:console /incremental:yes /pdb:"window_Debug/window.pdb" /debug /machine:I386 /out:"window_Debug/window.exe" /pdbtype:sept 
+.\window_Debug\window.obj
+.\phui_Debug\phui.lib
+]
+Creating command line "link.exe @C:\TEMP\RSP20D.tmp"
+<h3>Output Window</h3>
+Compiling...
+window.cpp
+Linking...
+
+
+
+<h3>Results</h3>
+window.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
