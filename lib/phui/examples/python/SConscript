@@ -1,0 +1,15 @@
+Import('baseEnv pkg')
+Import('SetupPython')
+
+sources = Split("""
+   main.cpp
+""")
+
+env = baseEnv.Copy()
+env.Append(LIBPATH      = ['#phui'],
+           LIBS         = Split('phui phuiGLUT util'),
+           LINKFLAGS    = Split('-Xlinker -export-dynamic'))
+SetupPython(env, '2.2')
+prog = pkg.createProgram('py_example', env)
+prog.addIncludes(['#'])
+prog.addSources(sources)
