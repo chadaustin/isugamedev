@@ -40,6 +40,9 @@ void CollisionResponse::ResponseToCollisions(vector<GameObject*> &TheGameObjects
                case NPCTANK:
                      NPCResponse(Collisions[j]);
                      break;
+               case WALL:
+                     WallResponse(Collisions[j]);
+                     break;
                }
 
             }
@@ -98,6 +101,9 @@ void CollisionResponse::BulletResponse(GameObject* &TheGameObject)
 
    case CAMTANK:
       break;
+
+   case WALL:
+      break;
    }
 }
 
@@ -121,6 +127,11 @@ void CollisionResponse::PlayerResponse(GameObject* MainObject, GameObject* &TheG
 
    case CAMTANK:
       break;
+
+   case WALL:
+      MainObject->GetOldPosition(Position);
+      MainObject->SetPosition(Position);
+      MainObject->SetPosition(Position);  
    }
 }
 
@@ -140,8 +151,35 @@ void CollisionResponse::NPCResponse(GameObject* &TheGameObject)
 
    case CAMTANK:
       break;
+
+   case WALL:
+      break;
    }
 }
+
+void CollisionResponse::WallResponse(GameObject* &TheGameObject)
+{
+   ObjectType ResponseObjectName;
+
+   TheGameObject->GetCurrentObjectType(ResponseObjectName);
+
+   switch(ResponseObjectName)
+   {
+   case BULLET:
+      AddToRemoveQueue(TheGameObject);
+      break;
+
+   case NPCTANK:
+      break;
+
+   case CAMTANK:
+      break;
+
+   case WALL:
+      break;
+   }
+}
+
 
 void CollisionResponse::AddToRemoveQueue(GameObject* &TheGameObject)
 {

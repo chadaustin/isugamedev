@@ -143,6 +143,10 @@ SOURCE=.\TheMainProgram.cpp
 
 SOURCE=.\TurretGraphics.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\WallObject.cpp
+# End Source File
 # End Group
 # Begin Group "Header Files"
 

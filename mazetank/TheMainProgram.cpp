@@ -174,7 +174,6 @@ void update()
 	Stoptime = glutGet(GLUT_ELAPSED_TIME);
 	dt = Stoptime - Starttime;
 	Starttime = Stoptime;
-
  
 	if(dt > 200)
 		dt = 200;

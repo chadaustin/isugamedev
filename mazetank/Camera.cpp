@@ -115,6 +115,6 @@ void Camera::Update(int dt)
    float DistY = DestY - MovementTranslations[1];
 
 
-   MovementTranslations[0] += DistX*2*delta;
-   MovementTranslations[1] += DistY*2*delta;
+   MovementTranslations[0] += DistX*3*delta;
+   MovementTranslations[1] += DistY*3*delta;
 }

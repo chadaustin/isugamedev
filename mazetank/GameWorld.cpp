@@ -14,6 +14,7 @@
 #include "SoundManager.h"
 #include "SoundEffectManager.h"
 #include "Jukebox.h"
+#include "WallObject.h"
 
 extern Input GameInput;
 sound::SoundManager* GameSound;
@@ -62,6 +63,11 @@ void GameWorld::Init()
    GameCamera->SetPitch(-8.0);
    GameCamera->SetYaw(0.0);
    GameCamera->SetRoll(0.0);
+
+   GameObject* Wall = new WallObject;
+   float WallPosition[3] = {20.0, 0.0, 1.0};
+   Wall->SetPosition(WallPosition);
+   TheGameObjects.push_back(Wall);
 
    GamePhysics.SetCamera(GameCamera);
    TheFloor.Init();

@@ -1,45 +1,41 @@
 /////////////////////////////////////
-// Copyright Levi VanOort 4-19-2002
+// Copyright Levi VanOort 5-1-2002
 //		lvanoort@aol.com
 //	Released under MIT 
 //
-// TankObject.cpp
+// WallObject.cpp
 /////////////////////////////////////
 
-#include "TankObject.h"
+#include <GL/glut.h>
+#include <stdlib.h>
+#include "WallObject.h"
 
-TankObject::TankObject()
+WallObject::WallObject()
 {
-	Body = new TankGraphics;
-	Turret = new TurretGraphics;
-
-	this->SetCurrentObjectType(CAMTANK);
+	this->SetCurrentObjectType(WALL);
 	this->SetAngularVelocity(0.0);
 	this->SetObjectAngle(0.0);
 
-   this->SetObjectSphere(1.9);
+	this->SetObjectSphere(0.6);
    this->ResetCollisions();
 }
 
-TankObject::~TankObject()
+WallObject::~WallObject()
 {
-	delete Body;
-	delete Turret;
-}
-
-void TankObject::Init()
-{
-	Body->Init();
-   Turret->Init();
 
 }
 
-void TankObject::GetGraphicsPointer(GraphicsObject *& TheGraphics)
+void WallObject::Init()
 {
-   TheGraphics = Turret;
+
 }
 
-void TankObject::Draw()
+void WallObject::GetGraphicsPointer(GraphicsObject *& TheGraphics)
+{
+	TheGraphics = NULL;
+}
+
+void WallObject::Draw()
 {
 	float Translate[3];
 	float Rotate;
@@ -53,19 +49,13 @@ void TankObject::Draw()
 		glRotatef(Rotate, 0.0, 0.0, 1.0);
 		glRotatef(90.0, 0.0, 0.0, 1.0);
 
-		glScalef(2.0, 2.0, 2.0);
-		Body->Draw();
-
-		////////////////////////////////////
-		// Translate Turret to proper spot
-		////////////////////////////////////
-		glTranslatef(0.0, 0.5, 0.5);      
-		Turret->Draw();
+		glutSolidCube(1.0);
 
 	glPopMatrix();
 
-/*	float radius;
-	this->GetObjectSphere(radius);
+ /*  float radius;
+
+   this->GetObjectSphere(radius);
 
 	glPushMatrix();
 		glColor3f(1.0, 0.0, 0.0);
@@ -75,11 +65,8 @@ void TankObject::Draw()
 		glDisable(GL_LIGHTING);
 
       glutSolidSphere(radius, 10, 10);
-
 		glLineWidth(1.0);
 		glEnable(GL_DEPTH);
 		glEnable(GL_LIGHTING);
 	glPopMatrix();*/
-
 }
-
