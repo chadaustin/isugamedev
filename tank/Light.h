@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Light.h,v $
-//    $Date: 2001-09-06 04:17:32 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-10 14:53:18 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -48,7 +48,7 @@ public:
      // values (r, g, and b) in the range [0.0 .. 1.0] defining values for the
      // red, green, and blue components of the indicated attribute of the light
      // source.  By default, the r, g, and b values are all 1.0.
-     void              setColor( const LightType& which, const float& r = 1.0f, const float& g = 1.0f, const float& b = 1.0f );
+     void              setColor( const LightType& which, const float& r, const float& g, const float& b );
      void              getColor( const LightType& which, float& r, float& g, float& b ) const;
 
      // Light::setAtten sets the attenuation parameters of the pfLight. The
