@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,6 +36,7 @@
 #include "cubeGeometry.h"
 #include "SpreadGun.h"
 #include "BaseBullet.h"
+#include "BulletCasing.h"
 #include "GameManager.h"
 #include "Utility.h"
 
@@ -83,6 +84,7 @@ namespace mw
       }
 
       BaseBullet* bullet = createBullet("bullet");
+      bullet->setSource(getSource());
       bullet->setRot(getRot() * barrel_rot);
       bullet->setVel(getRot() * barrel_rot * bullet->getVel());
       g.add(bullet);
@@ -117,7 +119,7 @@ namespace mw
       }
 
       // Create the shell casing
-      BaseBullet* casing = createBullet("casing");
+      BulletCasing* casing = createCasing("casing");
       casing->setRot(getRot() * case_rot);
       casing->setPos(getPos() + casing->getForward() * 1.0f);
       casing->setVel(casing->getRot() * gmtl::Vec3f(0, 0, -5) );

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-10-31 10:02:21 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -126,6 +126,8 @@ namespace mw
    void Player::addWeapon( Weapon* w )
    {
       assert( NULL != w && "bad weapon ptr" );
+      
+      w->setSource("Player");
 
       // make sure this is initialized
       mLastSlot = w->getCategory();

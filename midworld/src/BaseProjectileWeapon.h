@@ -24,20 +24,22 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.h,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#ifndef MW_BASE_CLASS_FOR_PROJECTILE_WEAPONS_H
-#define MW_BASE_CLASS_FOR_PROJECTILE_WEAPONS_H
+#ifndef MW_BASE_PROJECTILE_WEAPON_H
+#define MW_BASE_PROJECTILE_WEAPON_H
 
 #include <gmtl/Math.h>
 #include "Weapon.h"
-#include "BaseBullet.h"
 
 namespace mw
 {
+   class BaseBullet;
+   class BulletCasing;
+
    /**
     * An abstract base class for all projectile weapons.
     */
@@ -103,6 +105,9 @@ namespace mw
        * the bullets leave the gun.
        */
       gmtl::Point3f getBarrelEndPos() const;
+      
+      const std::string& getSource() { return mSource; }
+      void setSource(const std::string& source) { mSource = source; }
 
    protected:
       /**
@@ -118,6 +123,7 @@ namespace mw
 
       /// Creates a new bullet as though fired from this weapon.
       virtual BaseBullet* createBullet(const std::string& model) const;
+      BulletCasing* createCasing(const std::string& model) const;
 
       /**
        * This causes the weapon to cock - as in removing a bullet from the clip
@@ -148,6 +154,9 @@ namespace mw
 
       /// The name of this weapon
       std::string mName;
+      
+      /// The entity firing the weapon
+      std::string mSource;
 
       /// Time left (secs) to wait for reload to complete
       float mReloadCounter;

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-11-03 05:46:09 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,6 +42,7 @@ namespace mw
       : Enemy(gameState)
    {
       gun = new SpreadGun();
+      gun->setSource("Turret");
    }
    
    

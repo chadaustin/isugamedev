@@ -11,9 +11,10 @@ namespace mw
 {
    Droid::Droid(GameState* gameState)
       : Enemy(gameState)
-      {
-         gun = new Pistol();
-      }
+   {
+      gun = new Pistol();
+      gun->setSource("Droid");
+   }
 
    Droid::~Droid()
    {

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Pistol.h,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,6 +33,7 @@
 #define MW_PISTOL_H
 
 #include <gmtl/Math.h>
+#include "BaseBullet.h"
 #include "BaseProjectileWeapon.h"
 
 namespace mw

@@ -24,15 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-10-11 04:00:58 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <SDL_opengl.h>
 #include "Application.h"
-#include "IntroState.h"
 #include "GameManager.h"
+#include "IntroState.h"
 
 namespace mw {
 
@@ -40,7 +40,7 @@ namespace mw {
    {
       mWidth  = 0;
       mHeight = 0;
-      mState  = new IntroState( this );
+      mState  = new IntroState(this);
    }
 
    Application::~Application()

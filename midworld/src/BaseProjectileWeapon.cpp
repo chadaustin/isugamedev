@@ -24,12 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.cpp,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include "BaseBullet.h"
 #include "BaseProjectileWeapon.h"
+#include "BulletCasing.h"
 #include "EntityFactory.h"
 
 namespace mw
@@ -222,12 +224,25 @@ namespace mw
    BaseBullet*
    BaseProjectileWeapon::createBullet(const std::string& model) const
    {
-      
       BaseBullet* bullet = EntityFactory::instance().create<BaseBullet>();
       bullet->setVel(gmtl::Vec3f(0,0,-30));
       bullet->setPos(getBarrelEndPos());
       bullet->setModel(model);
       return bullet;
+   }
+
+   /**
+    * Creates a new bullet as though it were fired from this weapon.
+    * @pre Weapon can be fired and there is a bullet in the chamber
+    */
+   BulletCasing*
+   BaseProjectileWeapon::createCasing(const std::string& model) const
+   {
+      BulletCasing* casing = EntityFactory::instance().create<BulletCasing>();
+      casing->setVel(gmtl::Vec3f(0,10,0));
+      casing->setPos(getBarrelEndPos());
+      casing->setModel(model);
+      return casing;
    }
 
    /**

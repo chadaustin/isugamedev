@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-11-04 19:17:57 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,20 +42,25 @@ namespace mw
    void collideBulletPlayer(BaseBullet* b, Player* p)
    {
       b->expire();
-//      p->damage(b->getDamage());
-      p->damage(1);
+      if (b->getSource() != "Player") {
+         p->damage(1);
+      }
    }
    
-   void collideBulletEnemy(BaseBullet* b, Enemy* e)
+   void collideBulletDroid(BaseBullet* b, Droid* d)
    {
       b->expire();
-      e->damage(b->getDamage());
+      if (b->getSource() != "Droid") {
+         d->damage(b->getDamage());
+      }
    }
    
    void collideBulletTurret(BaseBullet* b, Turret* t)
    {
       b->expire();
-      t->damage(b->getDamage());
+      if (b->getSource() != "Turret") {
+         t->damage(b->getDamage());
+      }
    }
    
    void collidePlayerDroid(Player* p, Droid* d)
@@ -77,7 +82,7 @@ namespace mw
    CollisionResponse::CollisionResponse()
    {
       defineResponse<BaseBullet, Player>(collideBulletPlayer);
-      defineResponse<BaseBullet, Enemy> (collideBulletEnemy);
+      defineResponse<BaseBullet, Droid> (collideBulletDroid);
       defineResponse<BaseBullet, Turret>(collideBulletTurret);
       defineResponse<Player, Droid>(collidePlayerDroid);
       defineResponse<Player, AmmoCrate> (collidePlayerAmmoCrate);

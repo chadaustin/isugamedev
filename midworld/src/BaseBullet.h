@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.h,v $
- * Date modified: $Date: 2002-10-31 18:10:07 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,14 +43,7 @@ namespace mw
    class BaseBullet: public AbstractEntity
    {
    public:
-      /**
-       * Constructor
-       */
       BaseBullet(GameState* gameState);
-
-      /**
-       * Destructor
-       */
       ~BaseBullet();
 
       /**
@@ -70,6 +63,9 @@ namespace mw
       {
          return 10;
       }
+      
+      void setSource(const std::string& source) { mSource = source; }
+      const std::string& getSource() { return mSource; }
 
    protected:
       /// The amount of time that this bullet has existed in the GameState
@@ -77,6 +73,9 @@ namespace mw
 
       /// The amount of time this bullet is allowed to stay in the GameState
       float mTimeOut;
+      
+      /// The type of entity that created it.
+      std::string mSource;
    };
 }
 

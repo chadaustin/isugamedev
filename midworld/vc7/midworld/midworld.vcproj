@@ -135,18 +135,6 @@
 				RelativePath="..\..\src\Application.h">
 			</File>
 			<File
-				RelativePath="..\..\src\BaseBullet.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\BaseBullet.h">
-			</File>
-			<File
-				RelativePath="..\..\src\BaseProjectileWeapon.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\BaseProjectileWeapon.h">
-			</File>
-			<File
 				RelativePath="..\..\src\BodyState.h">
 			</File>
 			<File
@@ -186,12 +174,6 @@
 				RelativePath="..\..\src\CollisionResponse.h">
 			</File>
 			<File
-				RelativePath="..\..\src\CreditsState.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\CreditsState.h">
-			</File>
-			<File
 				RelativePath="..\..\src\Cursor.h">
 			</File>
 			<File
@@ -222,22 +204,10 @@
 				RelativePath="..\..\src\GameManager.h">
 			</File>
 			<File
-				RelativePath="..\..\src\GameOverState.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\GameOverState.h">
-			</File>
-			<File
 				RelativePath="..\..\src\GameScene.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\GameScene.h">
-			</File>
-			<File
-				RelativePath="..\..\src\GameState.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\GameState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\GunPickup.cpp">
@@ -282,12 +252,6 @@
 				RelativePath="..\..\src\InputSymbol.h">
 			</File>
 			<File
-				RelativePath="..\..\src\IntroState.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\IntroState.h">
-			</File>
-			<File
 				RelativePath="..\..\src\Jukebox.cpp">
 			</File>
 			<File
@@ -300,22 +264,10 @@
 				RelativePath="..\..\src\LevelLoader.h">
 			</File>
 			<File
-				RelativePath="..\..\src\LoadState.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\LoadState.h">
-			</File>
-			<File
 				RelativePath="..\..\src\LokiTypeInfo.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Main.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\MenuState.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\MenuState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\ModelManager.cpp">
@@ -402,25 +354,7 @@
 				RelativePath="..\..\src\SpatialIndex.h">
 			</File>
 			<File
-				RelativePath="..\..\src\State.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\State.h">
-			</File>
-			<File
-				RelativePath="..\..\src\StateFactory.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\StateFactory.h">
-			</File>
-			<File
 				RelativePath="..\..\src\StaticEntity.h">
-			</File>
-			<File
-				RelativePath="..\..\src\StoryState.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\StoryState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Texture.cpp">
@@ -456,9 +390,6 @@
 				RelativePath="..\..\src\Version.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Weapon.h">
-			</File>
-			<File
 				RelativePath="..\..\src\cubeGeometry.cpp">
 			</File>
 			<File
@@ -470,6 +401,21 @@
 			Filter="">
 			<File
 				RelativePath="..\..\src\AssaultRifle.h">
+			</File>
+			<File
+				RelativePath="..\..\src\BaseBullet.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\BaseBullet.h">
+			</File>
+			<File
+				RelativePath="..\..\src\BaseProjectileWeapon.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\BaseProjectileWeapon.h">
+			</File>
+			<File
+				RelativePath="..\..\src\BulletCasing.h">
 			</File>
 			<File
 				RelativePath="..\..\src\MissileLauncher.cpp">
@@ -494,6 +440,67 @@
 			</File>
 			<File
 				RelativePath="..\..\src\SpreadGun.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Weapon.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="States"
+			Filter="">
+			<File
+				RelativePath="..\..\src\CreditsState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\CreditsState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\GameOverState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\GameOverState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\GameState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\GameState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\IntroState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\IntroState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\LoadState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\LoadState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\MenuState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\MenuState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\State.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\State.h">
+			</File>
+			<File
+				RelativePath="..\..\src\StateFactory.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\StateFactory.h">
+			</File>
+			<File
+				RelativePath="..\..\src\StoryState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\StoryState.h">
 			</File>
 		</Filter>
 	</Files>

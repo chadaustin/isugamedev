@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: NullWeapon.h,v $
- * Date modified: $Date: 2002-10-01 06:06:13 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -50,6 +50,9 @@ namespace mw
       const WeaponCategory& getCategory() const { return mCategory; }
 
       const std::string& getName() const { return mName; }
+      
+      const std::string& getSource() { return mSource; }
+      void setSource(const std::string& source) { mSource = source; }
 
       /**
        * Creates a new bullet as though it were fired from this weapon.
@@ -100,6 +103,7 @@ namespace mw
    private:
       WeaponCategory mCategory;
       std::string mName;
+      std::string mSource;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.cpp,v $
- * Date modified: $Date: 2002-10-31 08:35:57 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,7 +48,7 @@ namespace mw
    BaseBullet::update(float dt)
    {
       mExistCount += dt;
-      Entity::update(dt);
+      AbstractEntity::update(dt);
    }
 
    bool

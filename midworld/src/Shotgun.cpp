@@ -24,18 +24,20 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-10-30 07:10:36 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-04 22:24:23 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <gmtl/Math.h>
 #include <stdlib.h>
 #include <SDL.h>
-#include "Shotgun.h"
+#include "BaseBullet.h"
+#include "BulletCasing.h"
 #include "cubeGeometry.h"
-#include "GameState.h"
+#include "Shotgun.h"
 #include "GameManager.h"
+#include "GameState.h"
 
 const static unsigned int NUM_PELLETS = 10;
 
@@ -93,7 +95,7 @@ namespace mw
                   0, gmtl::Math::deg2Rad(-90.0f), gmtl::Math::deg2Rad(85.0f))));
 
       // Create the shell casing
-      BaseBullet* casing = createBullet("casing");
+      BulletCasing* casing = createCasing("casing");
       casing->setRot(getRot() * case_rot);
       casing->setPos(getPos() + casing->getForward() * 1.0f);
       casing->setVel(casing->getRot() * casing->getVel() * 0.2f);
