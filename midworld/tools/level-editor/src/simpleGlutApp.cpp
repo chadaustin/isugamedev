@@ -647,44 +647,178 @@ void NowWeCanReallyAddTheLevel(XMLNodePtr& levelNode, XMLContextPtr& context)
    }
 }
 
+std::string trim(const std::string& in)
+{
+   int beg = in.find_first_not_of(' ');
+   int end = in.find_last_not_of(' ');
+   return in.substr(beg, in.size() - end);
+}
+
+void loadStatic(XMLNodePtr node)
+{
+   XMLNodePtr pos = node->getChild("pos");
+   XMLNodePtr rot = node->getChild("pos");
+   std::string model_name = (*node->getChild("model")->getChildren().begin())->getCdata();
+   model_name = trim(model_name);
+
+   // Find the corresponding model type in the model menu list
+   std::cout << "Looking for model '" << model_name << "'" << std::endl;
+   model mod;
+   for (std::vector<model>::iterator itr = modelsInMenu.begin();
+        itr != modelsInMenu.end();
+        ++itr)
+   {
+      model old_model = *itr;
+      if (old_model.name == model_name)
+      {
+         mod = old_model;
+         std::cout << "\tSuccess" << std::endl;
+      }
+   }
+
+
+   mod.worldX = pos->getAttribute("x").getValue<float>();
+   mod.worldZ = pos->getAttribute("y").getValue<float>();
+   mod.worldY = pos->getAttribute("z").getValue<float>();
+   mod.name = model_name;
+
+   std::cout << "Adding model: " << mod.name << std::endl
+             << "low:  (" << mod.xlo << ", " << mod.ylo << ")" << std::endl
+             << "high: (" << mod.xhi << ", " << mod.yhi << ")" << std::endl
+             << "pos:  (" << mod.worldX << ", " << mod.worldZ << ", " << mod.worldY << ")" << std::endl;
+   modelsInWorld.push_back(mod);
+}
+
+void loadGroup(XMLNodePtr node)
+{
+   XMLNodeList children = node->getChildren();
+   for (XMLNodeList::iterator itr = children.begin();
+        itr != children.end();
+        ++itr)
+   {
+      XMLNodePtr node = *itr;
+      if (node->getName() == "static")
+      {
+         loadStatic(node);
+      }
+   }
+}
+
+void loadLevel(const std::string& file)
+{
+   // Clear the existing level
+   modelsInWorld.clear();
+
+   // Read in the level file
+   XMLContextPtr context(new XMLContext());
+   XMLDocument doc(context);
+   std::ifstream in(file.c_str());
+   if (!in)
+   {
+      std::cerr << "bad file: " << file << std::endl;
+      return;
+   }
+
+   try
+   {
+      doc.load(in, context);
+      XMLNodePtr level_node = doc.getChild("game")->getChild("level");
+      XMLNodeList groups = level_node->getChildren("group");
+      for (XMLNodeList::iterator itr = groups.begin();
+           itr != groups.end();
+           ++itr)
+      {
+         loadGroup(*itr);
+      }
+   }
+   catch (XMLError& e)
+   {
+      XMLLocation where( context->getLocation() );
+      std::string errmsg;
+      e.getStrError(errmsg);
+      // print out where the error occured
+      std::cout << file << ":" << std::cout << file << ":" << where.getLine() << " ";
+      std::cout << "at position " << where.getPos();
+      std::cout << ": error: " << errmsg.c_str();
+      std::cout << std::endl;
+
+      // print out line where the error occured
+      std::ifstream errfile( file.c_str() );
+      if(!errfile)
+      {
+         std::cerr << "Can't open file [" << file << "] to output error" << std::endl;
+      }
+
+      int linenr = where.getLine();
+      char linebuffer[1024];
+      for(int i=0; i<linenr && !errfile.eof(); i++)
+         errfile.getline( linebuffer,1024 );
+
+      int pos = where.getPos();
+      if (pos>=80)
+         pos %= 80;
+
+      std::string err_line( linebuffer + (where.getPos()-pos) );
+      if (err_line.length()>=79)
+         err_line.erase(79);
+      std::cout << err_line << std::flush;
+      std::cout << err_line.c_str() << std::endl;
+      std::cout << linebuffer << std::endl;
+      for(int j=2;j<pos;j++)
+         std::cout << " ";
+      std::cout << '^' << std::endl;
+   }
+}
+
 
 void fileFunc(int a)
 {
-   if(a==3)
+   switch (a)
    {
-      std::cout << "parcing" << std::endl;
-      parceobjectsfile(std::string("modelFile.xml"));
-      glutSetMenu(menuGetModels);
-      for(unsigned int i=0;i<modelsInMenu.size();i++)
+   case 3:
       {
-         glutAddMenuEntry(modelsInMenu[i].name.c_str(), i+1);
+         std::cout << "parcing" << std::endl;
+         parceobjectsfile(std::string("modelFile.xml"));
+         glutSetMenu(menuGetModels);
+         for(unsigned int i=0;i<modelsInMenu.size();i++)
+         {
+            glutAddMenuEntry(modelsInMenu[i].name.c_str(), i+1);
+         }
       }
-   }else if(a==1)
-   {
-      std::string tag("<?xml version=\"1.0\"?>\n");
-      XMLContextPtr context( new XMLContext);
-      XMLNodePtr gameNode(new XMLNode(context));
-      XMLNodePtr levelNode(new XMLNode(context));
-      XMLNodePtr groupNode(new XMLNode(context));
-      gameNode->setName("game");
-      gameNode->setType(xml_nt_node);
-      levelNode->setName("level");
-      levelNode->setType(xml_nt_node);
-      groupNode->setName("group");
-      groupNode->setType(xml_nt_node);
-      
-      
-      std::cout << "writing level file...";
-      XMLDocument docNode( context );
-      docNode.addChild(gameNode);
-      gameNode->addChild(levelNode);
-      levelNode->addChild(groupNode);
-      NowWeCanReallyAddTheLevel(groupNode, context);
-      std::ofstream ostr( "level.xml" );
-      ostr << tag;
-      docNode.save( ostr );
-      ostr.close();
-      std::cout << " Complete" << std::endl;
+      break;
+   case 1:
+      {
+         std::string tag("<?xml version=\"1.0\"?>\n");
+         XMLContextPtr context( new XMLContext);
+         XMLNodePtr gameNode(new XMLNode(context));
+         XMLNodePtr levelNode(new XMLNode(context));
+         XMLNodePtr groupNode(new XMLNode(context));
+         gameNode->setName("game");
+         gameNode->setType(xml_nt_node);
+         levelNode->setName("level");
+         levelNode->setType(xml_nt_node);
+         groupNode->setName("group");
+         groupNode->setType(xml_nt_node);
+         
+         
+         std::cout << "writing level file...";
+         XMLDocument docNode( context );
+         docNode.addChild(gameNode);
+         gameNode->addChild(levelNode);
+         levelNode->addChild(groupNode);
+         NowWeCanReallyAddTheLevel(groupNode, context);
+         std::ofstream ostr( "level.xml" );
+         ostr << tag;
+         docNode.save( ostr );
+         ostr.close();
+         std::cout << " Complete" << std::endl;
+      }
+      break;
+   case 2:
+      {
+         loadLevel("level.xml");
+      }
+      break;
    }
 }
 void modelFunc(int a)
@@ -767,6 +901,8 @@ void myInit(int a)
    glutSetMenu(menuGrid);
    glutAddMenuEntry("on", 1);
    glutAddMenuEntry("off", 2);
+
+   fileFunc(3);
 }
 
 int main( int argc, char* argv[] )
