@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-07-29 06:10:29 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-09-23 00:48:05 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,12 +33,7 @@
 #define MW_PLAYER_H
 
 #include <map>
-#include <gmtl/Matrix.h>
-#include <gmtl/Quat.h>
-#include <gmtl/MatrixOps.h>
-#include <gmtl/QuatOps.h>
-#include <gmtl/Generate.h>
-#include <gmtl/Output.h>
+#include <gmtl/Vec.h>
 
 #include "Weapon.h"
 #include "cubeGeometry.h"
