@@ -1,11 +1,11 @@
 
-// MIDI player example
+// MIDI player example (for Win32 and Linux)
 //
 // - demo by Kevin Meinert <kevin@vrsource.org>
 //
 // - Demonstrates how to
 //   - abstract a MIDI output interface
-//   - control MIDI in Win32 through example Win32Midi implementation
+//   - control MIDI in Win32 or Linux through Win32Midi and OssMidi implementations
 //   - write a MIDI Sequencer using discrete events (synced on a MIDI clock)
 //   - read binary data from a midi file into the Sequencer
 //   - deal with endian issues
@@ -28,11 +28,26 @@
 #include <iostream>
 #include <map>
 #include <list>
+#include <string>
 
-#include <windows.h>
-#include <mmsystem.h>
 #include <stdio.h>
 
+///////////////////////////////////////////////////////////////////////////////
+// sleep abstraction
+///////////////////////////////////////////////////////////////////////////////
+#ifdef WIN32
+   #include <windows.h>
+   void msleep( float msec )
+   {
+      ::Sleep( (int) msec );
+   }
+#else
+   #include <unistd.h>
+   void msleep( float msec )
+   {
+      ::usleep( (int)(msec * 1000.0f) );
+   } 
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // Midi abstraction(s)
@@ -41,6 +56,8 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #ifdef WIN32
+   #include <windows.h>
+   #include <mmsystem.h>
 
    /* an implementation of the "Midi" type for Win32 platform
     * (see below for the "typedef win32midi midi" line)
@@ -102,7 +119,7 @@
       virtual void playnote( char note, char channel = 0x0, char velocity = 0x40, int duration_millisec = 100 )
       {
          this->trigger( note, channel, velocity );
-         Sleep( duration_millisec );
+         msleep( duration_millisec );
          this->release( note, channel );
       }
 
@@ -115,7 +132,7 @@
 
          int msg = (program << 8) | status;
 
-         midiOutShortMsg(mHandle, msg);
+         midiOutShortMsg( mHandle, msg );
       }
 
       /* close the midi device. */
@@ -128,9 +145,13 @@
          {
             printf("There was an error closing MIDI Mapper!\r\n");
          }
-
       }
 
+      virtual void midimsg( unsigned long msg )
+      {
+         midiOutShortMsg( mHandle, msg );
+      }      
+      
       /* print to stdout the midi input devices on your win32 system.. */
       virtual void printInDevices()
       {
@@ -199,8 +220,123 @@
 
    // under win32, our "Midi" class is the Win32Midi class...
    typedef Win32Midi Midi;
+   
+
+
 #else
-   "ERROR: the Midi type is not able to be defined"
+   #include <unistd.h>
+   #include <fcntl.h>
+   #include <sys/soundcard.h>
+   #include <sys/ioctl.h>
+
+
+   #define BUFFSIZE	1024
+   
+   // only define this once, otherwise use SEQ_DEFINEEXTBUF
+   SEQ_DEFINEBUF(BUFFSIZE);
+      
+   /* an implementation of the "Midi" type for OSS api in linux
+    *
+    * references:
+    *   sndkit - snd-util-3.8.tar.gz - found on the OSS web site.
+    */
+   class OssMidi
+   {
+   public:
+      OssMidi() : mFile( -1 ), mDevice( 0 )
+      {  
+      }  
+       
+      /* open the midi device
+       * this must be called prior to any other functions in this class 
+       */
+      virtual void open()
+      {
+         // dev/sequencer should also work...
+         if ((mFile = ::open("/dev/music", O_WRONLY, 0))==-1)
+	{
+		perror("/dev/music");
+		return;
+	}
+         
+ 	// Check that the (synth) device to be used is available.
+         int ndevices = -1;
+	if (ioctl(mFile, SNDCTL_SEQ_NRSYNTHS, &ndevices)==-1)
+	{
+	   perror("SNDCTL_SEQ_NRSYNTHS");
+	   exit(-1);
+	}
+
+	if (mDevice >= ndevices)
+	{
+	   fprintf(stderr, 
+		"Error: The requested playback device doesn't exist\n");
+	   exit(-1);
+	}
+      }
+
+      /* trigger the midi note, on channel, with velocity */
+      virtual void trigger( char note, char channel = 0x0, char velocity = 0x40 )
+      {
+         SEQ_START_NOTE( mDevice, channel, note, velocity );
+         SEQ_DUMPBUF(); // write immediately
+      }
+
+      /* release the midi note, velocity is ignored and should be 0 */
+      virtual void release( char note, char channel = 0x0, char velocity = 0x00 )
+      {
+         SEQ_STOP_NOTE( mDevice, channel, note, 0 );
+         SEQ_DUMPBUF(); // write immediately
+      }
+
+      /* just play a note, then release. */
+      virtual void playnote( char note, char channel = 0x0, char velocity = 0x40, int duration_millisec = 100 )
+      {
+         this->trigger( note, channel, velocity );
+         msleep( duration_millisec );
+         this->release( note, channel );
+      }
+
+      /* change the instrument on a given channel */
+      virtual void programchange( char program, char channel = 0x0 )
+      {
+         SEQ_PGM_CHANGE( mDevice, program, channel );
+         SEQ_SET_PATCH( mDevice, channel, program );
+         SEQ_DUMPBUF(); // write immediately
+      }
+
+      /* close the midi device. */
+      virtual void close()
+      {
+         ::close( mFile );
+      }
+
+      virtual void midimsg( unsigned long msg )
+      {
+         // TODO: implement ME!
+         //
+      }    
+            
+  private:
+      // not needed if you have libOSS
+      void seqbuf_dump ()
+      {
+        if (_seqbufptr)
+          if (write (mFile, _seqbuf, _seqbufptr) == -1)
+            {
+	      perror ("write /dev/music");
+	      exit (-1);
+            }
+        _seqbufptr = 0;
+      }
+      int mDevice;
+      int mFile;
+      
+      
+   };
+
+   // under linux/OSS, our "Midi" class is the OssMidi class...
+   typedef OssMidi Midi;
 #endif
 
 
@@ -245,7 +381,6 @@ public:
    void run( Midi& m )
    {
       // as we iterate over each time slot, we then execute all the events for that slot.
-      
       int old_ticks = 0;
       float msec_per_tick = mTickTime * 1000.0f;
       
@@ -256,10 +391,7 @@ public:
          // execute the number of midi clock ticks between events.
          int delta_ticks = (*map_itr).first - old_ticks;
          old_ticks = (*map_itr).first;
-         for (int x = 0; x < delta_ticks; ++x)
-         {
-            this->tick( msec_per_tick );
-         }     
+         msleep( msec_per_tick * delta_ticks );
          
          // execute each event in current time slot (can be 1 to n).
          std::list<Event*>& event_list = (*map_itr).second; // an alias to the list
@@ -276,7 +408,6 @@ public:
    void setTickTime( float sec )
    {
       mTickTime = sec;
-      
    }
 
    /* function that is called on each midi clock tick 
@@ -284,7 +415,7 @@ public:
     */
    virtual void tick( float dt )
    {
-      Sleep( dt );
+      msleep( dt );
    }
 
    /* set the number of pulses per quarter note */
@@ -374,6 +505,21 @@ public:
       m.programchange( prognum, channel );
    }
    int prognum, channel;
+};
+
+/* generic midi event...
+ */
+class MidiEvent : public Event
+{
+public:
+   MidiEvent() : msg( 0 )
+   {
+   }
+   virtual void exec( Midi& m )
+   {
+      m.midimsg( msg );
+   }
+   long msg;
 };
 
 
@@ -484,7 +630,7 @@ void WriteVarLen( std::ofstream& f, unsigned long value )
      buffer |= ((value & 0x7F) | 0x80);
    }
 
-   while (TRUE)
+   while (true)
    {
       f.write( (const char*)&buffer, 1 );
       //putc(buffer,outfile);
@@ -574,11 +720,11 @@ void loadMidFile( Sequencer& s, const std::string& filename )
             kev::byteReverse( division );
          }
 
-         // std::cout << "Format: " << format << "\n" << std::flush;
-         // std::cout << "Numtracks: " << numtracks << "\n" << std::flush;
-         // std::cout << "Division (pulses per quarternote): " << division << " "
-         //           << (int)((char*)&division)[0] << "," << (int)((char*)&division)[1] 
-         //           << "\n" << std::flush;
+          std::cout << "Format: " << format << "\n" << std::flush;
+          std::cout << "Numtracks: " << numtracks << "\n" << std::flush;
+          std::cout << "Division (pulses per quarternote): " << division << " "
+                    << (int)((char*)&division)[0] << "," << (int)((char*)&division)[1] 
+                    << "\n" << std::flush;
 
          // set up seq
          s.setPPQN( division );
@@ -703,6 +849,8 @@ running_status_jump_point:
                {
                   f.read( (char*)&note, 1 );
                }
+
+               // TODO: consider time here...
             }
 
             // MTC Quarter Frame Message
@@ -861,8 +1009,11 @@ int main( int argc, char* argv[] )
 
 
    Midi m;
+   
+   
    Sequencer seq;
    m.open();
+  
    loadMidFile( seq, arg.c_str() );
    seq.run( m );
    m.close();
