@@ -1,16 +1,20 @@
 #include <list>
-#include "Vec3.h"
-#include "Particle.h"
-#include "ParticleSystem.h"
-#include "Force.h"
+#include "Fizix/Operator.h"
+#include "Fizix/DynamicSystem.h"
 
-//: apply this force function to the particle
-void GlobalForce::operator()( ParticleSystem& ps )
+#include "Fizix/operators/Force.h"
+
+namespace ani
 {
-   std::vector<Particle*>::iterator it;
-   for ( it = ps.particles().begin(); it != ps.particles().end(); ++it)
+   
+//: apply this force function to the particle
+template< class __EntityType >
+void GlobalForce<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
+{
+   std::vector<__EntityType*>::iterator it;
+   for ( it = ps.entities().begin(); it != ps.entities().end(); ++it)
    {
-      Particle& p = *(*it);
+      __EntityType& p = *(*it);
       if (this->isIgnored(&p) == false)
       {
          p.applyForce( mForce );
@@ -19,77 +23,81 @@ void GlobalForce::operator()( ParticleSystem& ps )
 }
 
 //: apply this force function to the particle
-void ViscousDrag::operator()( ParticleSystem& ps )
+template< class __EntityType >
+void ViscousDrag<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
 {
-   std::vector<Particle*>::iterator it;
-   for ( it = ps.particles().begin(); it != ps.particles().end(); ++it)
-	{
-		Particle& p = *(*it);
+   std::vector<__EntityType*>::iterator it;
+   for ( it = ps.entities().begin(); it != ps.entities().end(); ++it)
+   {
+      __EntityType& p = *(*it);
       if (this->isIgnored( &p ) == false)
       {
-		   // Calculate the force nesesary to knock of kV velocity
+         // Calculate the force nesesary to knock of kV velocity
 
-		   // get the velocity we need to reduce particles speed
-		   // eqn: V(new) = V - kV, where k is a coeficient between 0..1
-		   Vec3<float> antiVelocity = p.velocity() * (-_dragCoef);
+         // get the velocity we need to reduce entities speed
+         // eqn: V(new) = V - kV, where k is a coeficient between 0..1
+         Vec3<float> antiVelocity = p.linearVelocity() * (-_dragCoef);
 
-		   // how much do we have to decelerate it to achieve 'newDesiredVelocity'
-		   // decelerateAmount = antiVelocity / timeChange;
-		   // NOTE: timeChange is 1.0, so deceleration is just antiVelocity
-		   Vec3<float> force = antiVelocity * p.mass();
-		   p.applyForce( force );
+         // how much do we have to decelerate it to achieve 'newDesiredVelocity'
+         // decelerateAmount = antiVelocity / timeChange;
+         // NOTE: timeChange is 1.0, so deceleration is just antiVelocity
+         Vec3<float> force = antiVelocity * p.mass();
+         p.applyForce( force );
       }
-	}
-}
-
-//: apply this force function to the particle
-void Acceleration::operator()( ParticleSystem& ps )
-{
-   std::vector<Particle*>::iterator it;
-   for ( it = ps.particles().begin(); it != ps.particles().end(); ++it)
-	{
-		Particle& p = *(*it);
-      if (this->isIgnored( &p ) == false)
-		{
-         //                     meters
-		   // Force = kilograms * ------ = kilograms * acceleration
-		   //                     sec^2
-
-		   // calculate how much force it will take to accelerate the particle
-		   Vec3<float> force = mAcceleration * p.mass();
-		   p.applyForce( force );
-         //cout<<"Applied force "<<force[0]<<" "<<force[1]<<" "<<force[2]<<"\n"<<flush;
-	   }
    }
 }
 
 //: apply this force function to the particle
-void Current::operator()( ParticleSystem& ps )
+template< class __EntityType >
+void Acceleration<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
 {
-   std::vector<Particle*>::iterator it;
-   for ( it = ps.particles().begin(); it != ps.particles().end(); ++it)
-	{
-		Particle& p = *(*it);
+   std::vector<__EntityType*>::iterator it;
+   for ( it = ps.entities().begin(); it != ps.entities().end(); ++it)
+   {
+      __EntityType& p = *(*it);
       if (this->isIgnored( &p ) == false)
       {
-		   //                meters   velocity 
+         //                     meters
+         // Force = kilograms * ------ = kilograms * acceleration
+         //                     sec^2
+
+         // calculate how much force it will take to accelerate the particle
+         Vec3<float> force = mAcceleration * p.mass();
+         p.applyForce( force );
+         //cout<<"Applied force "<<force[0]<<" "<<force[1]<<" "<<force[2]<<"\n"<<flush;
+      }
+   }
+}
+
+//: apply this force function to the particle
+template< class __EntityType >
+void Current<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
+{
+   std::vector<__EntityType*>::iterator it;
+   for ( it = ps.entities().begin(); it != ps.entities().end(); ++it)
+   {
+      __EntityType& p = *(*it);
+      if (this->isIgnored( &p ) == false)
+      {
+         //                meters   velocity 
          // acceleration = ------ = --------
          //                sec^2      sec
          Vec3<float>& acc = mSpeed;
 
          //                     meters
-		   // Force = kilograms * ------ = kilograms * acceleration
-		   //                     sec^2
+         // Force = kilograms * ------ = kilograms * acceleration
+         //                     sec^2
 
-		   // calculate how much force it will take to accelerate the particle
-		   Vec3<float> force = acc * p.mass();
-		   p.applyForce( force );
+         // calculate how much force it will take to accelerate the particle
+         Vec3<float> force = acc * p.mass();
+         p.applyForce( force );
       }
    }
 }
 
 //: apply this force function to the particle
-void Spring::operator()( ParticleSystem& ps )
+template< class __EntityType >
+void Spring<__EntityType>::exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
 {
    if (mA == NULL || mB == NULL)
       return;
@@ -103,8 +111,8 @@ void Spring::operator()( ParticleSystem& ps )
       return;
    }
 
-   Particle& a = *mA;
-   Particle& b = *mB;
+   __EntityType& a = *mA;
+   __EntityType& b = *mB;
 
    // ignoring the particle system...
    Vec3<float> spring_offset = a.position() - b.position();
@@ -125,3 +133,6 @@ void Spring::operator()( ParticleSystem& ps )
    a.applyForce( force );
    b.applyForce( -force );
 }
+
+
+} // end namespace

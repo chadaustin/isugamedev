@@ -30,8 +30,9 @@ public:
    }
 
    //: apply this force function to the particle
-   virtual void exec( std::vector<__EntityType*>& entities, float timeDelta )
+   virtual void exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
    {
+      std::vector<__EntityType*>& entities = ps.entities();
       std::vector<__EntityType*>::iterator it;
       for ( it = entities.begin(); it != entities.end(); ++it)
       {
@@ -132,8 +133,9 @@ public:
       frictionForce = -tangentialComponent * friction_coef * mass / timeDelta;
 
    }   
-   virtual void exec( std::vector<__EntityType*>& entities, float timeDelta )
+   virtual void exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
    {
+      std::vector<__EntityType*>& entities = ps.entities();
       std::vector<__EntityType*>::iterator it;
       
       for (it = entities.begin(); it != entities.end(); ++it)
@@ -215,8 +217,9 @@ public:
       mStopping = true;
    }   
    
-   virtual void exec( std::vector<__EntityType*>& entities, float timeDelta )
+   virtual void exec( ani::DynamicSystem<__EntityType>& ps, float timeDelta )
    {
+      std::vector<__EntityType*>& entities = ps.entities();
       std::vector<__EntityType*>::iterator it;
       for (it = entities.begin(); it != entities.end(); ++it)
       {

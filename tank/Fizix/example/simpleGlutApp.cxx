@@ -52,7 +52,7 @@ public:
       Nav()
       {
          //mDynamicSystem = new ani::DynamicSystem<ani::Body, ani::RungeKuttaODEsolver<ani::Body> >;
-         mDynamicSystem = new ani::DynamicSystem<ani::Body, ani::EulerODEsolver<ani::Body> >;
+         mDynamicSystem = new ani::DynamicSystem<ani::Body>;
          mDynamicSystem->ref();
          
          mAvatar = new ani::Body;
@@ -100,7 +100,7 @@ public:
       DriveNavigationOperator<ani::Body>*        mNavigator;
       ani::Operator<ani::Body>*        mCollider;
       ani::Body*        mAvatar;
-      ani::DynamicSystem<ani::Body, ani::EulerODEsolver<ani::Body> >*  mDynamicSystem;
+      ani::DynamicSystem<ani::Body>*  mDynamicSystem;
    };
    
    Nav mNav;

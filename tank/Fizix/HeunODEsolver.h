@@ -1,16 +1,18 @@
 #ifndef SECONDORDER_RUNGEKUTTA_METHOD
 #define SECONDORDER_RUNGEKUTTA_METHOD
 
+#include "Fizix/ODEsolver.h"
+
 namespace ani
 {
 
    //: the second-order Runge-Kutta method 
    template <class _item>
-   class HeunODEsolver
+   class HeunODEsolver : public ODEsolver<_item>
    {
    public:
       HeunODEsolver() {}
-      ~HeunODEsolver() {}
+      virtual ~HeunODEsolver() {}
 
       //: the second-order Runge-Kutta method 
       //
@@ -20,7 +22,7 @@ namespace ani
       //  timeDelta = current stepsize (t(n) - t(n+1)) == time delta
       // returns:
       //  currentState = x(t0 + h) == the next state of the item after taking this step...
-      inline void exec( _item& currentState, float timeDelta )
+      virtual void exec( _item& currentState, float timeDelta )
       {      
          // compute next state.
          

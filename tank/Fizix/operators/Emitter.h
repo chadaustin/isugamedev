@@ -1,12 +1,20 @@
 #ifndef EMITTERS
 #define EMITTERS
 
-class Emitter : public PsOperator
+#include "Defines.h"
+#include "Fizix/Operator.h"
+#include "Fizix/DynamicSystem.h"
+
+namespace ani
+{
+   
+template<class __EntityType>
+class Emitter : public ani::Operator<__EntityType>
 {
 public:
    Emitter() : mAgeOfDeath( 2 ), mRate( 0.1 ) {}
    virtual ~Emitter() {}
-      void setEmissionRate( const float& rate ) { mRate = rate; }      
+   void setEmissionRate( const float& rate ) { mRate = rate; }      
    void setAgeOfDeath( float aod )
    {
       mAgeOfDeath = aod;
@@ -16,18 +24,19 @@ public:
    float mRate;
 };
 
-class FlameEmitter : public Emitter
+template<class __EntityType>
+class FlameEmitter : public Emitter<__EntityType>
 {
 public:
-   FlameEmitter() : kRandMax( RAND_MAX ), x(0), velocitizer(0), Emitter(), mSize( 8 ) { srand( 2); }
+   FlameEmitter() : kRandMax( RAND_MAX ), x(0), velocitizer(0), Emitter<__EntityType>(), mSize( 8 ) { srand( 2); }
    virtual ~FlameEmitter() {}
    void setSize( float size ) { mSize = size; }
-   virtual void operator()( ParticleSystem& ps )
+   virtual void exec( DynamicSystem<__EntityType>& sys, float timeDelta )
    {
-      for (x += ps.timeDelta(); x > mRate; x -= mRate )
+      for (x += sys.timeDelta(); x > mRate; x -= mRate )
       {
-         Particle* p = new Particle;
-	      p->setMass( 1.0f ); // 1 kilogram
+         __EntityType* p = new __EntityType;
+	p->setMass( 1.0f ); // 1 kilogram
          float r1 = rand(), r2 = rand(), r3, r4 = rand(), r5 = rand();
          r1 /= kRandMax;
          r2 /= kRandMax;
@@ -40,7 +49,7 @@ public:
          float posz = -mSize * 0.5f + r5 * mSize;
 
          // make the velocity increase in the middle.
-         float vely = 1.0f - kev::min( kev::ABS(posx / mSize), kev::ABS(posz / mSize) );
+         float vely = 1.0f - kev::MIN( kev::ABS(posx / mSize), kev::ABS(posz / mSize) );
          const float multifactor = 3.0f;
 
          float velx = r1 * 2.0f - 1.0f;
@@ -48,12 +57,12 @@ public:
          Vec3<float> velocity( velx, (r3 * 1.0f + 3.8f) * (vely * multifactor), velz );
 	      
          Vec3<float> position( posx, 0.0f, posz );
-	      ColorRGBA color( 0.0f, 0.0f, 0.0f, 1.0f );
-	      p->setVelocity( velocity );
-	      p->setPosition( position );
-	      p->setColor( color );
+	ColorRGBA color( 0.0f, 0.0f, 0.0f, 1.0f );
+	p->setVelocity( velocity );
+	p->setPosition( position );
+	p->setColor( color );
          p->setAgeOfDeath( mAgeOfDeath );
-	      ps.add( p );
+	sys.add( p );
          p->unrefDelete(); // give up responsibility of this object.
       }
 
@@ -66,24 +75,25 @@ public:
    float mSize;
 };
 
-class SpiralEmitter : public Emitter
+template<class __EntityType>
+class SpiralEmitter : public Emitter<__EntityType>
 {
 public:
-   SpiralEmitter() : velocitizer(0), Emitter(), x(0), pos( 0,0,0 ) {}
+   SpiralEmitter() : velocitizer(0), Emitter<__EntityType>(), x(0), pos( 0,0,0 ) {}
    virtual ~SpiralEmitter() {}
    void setPosition( float x, float y, float z )
    {
       pos.set( x, y, z );
    }         
 
-   virtual void operator() (ParticleSystem& ps )
+   virtual void exec( DynamicSystem<__EntityType>& sys )
    {
-      for (x += ps.timeDelta(); x > mRate; x -= mRate )
+      for (x += sys.timeDelta(); x > mRate; x -= mRate )
       {
          velocitizer += 0.75f * ps.timeDelta();
          if (velocitizer > 1.0f || velocitizer <= 0)
             velocitizer = 0.0f;
-         Particle* p = new Particle;
+         __EntityType* p = new __EntityType;
 	      p->setMass( 1.0f ); // 1 kilogram
 	      Vec3<float> velocity( kev::SIN( velocitizer * TWO_PI_F ) * 5.0f, 19.6f, kev::COS( velocitizer * TWO_PI_F ) * 5.0f );
 	      ColorRGBA color( 0.3f, 0.2f, 1.0f, 1.0f );
@@ -91,7 +101,7 @@ public:
 	      p->setPosition( pos );
 	      p->setColor( color );
          p->setAgeOfDeath( 10 );
-	      ps.add( p );
+	      sys.add( p );
          p->unrefDelete(); // give up responsibility of this object.
       }
 
@@ -103,5 +113,7 @@ public:
    Vec3<float> pos;
 };
 
+
+} // end namespace
 
 #endif

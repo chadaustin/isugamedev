@@ -1,6 +1,8 @@
 #ifndef RUNGEKUTTA_METHOD
 #define RUNGEKUTTA_METHOD
 
+#include "Fizix/ODEsolver.h"
+
 namespace ani
 {
    //: the fourth-order Runge-Kutta method is generally considered to provide an 
@@ -8,11 +10,11 @@ namespace ani
    // Here there are four gradient or ``k'' terms which provide a better approximation 
    // to the behavior of f(t,y) near the midpoint...
    template <class _item>
-   class RungeKuttaODEsolver
+   class RungeKuttaODEsolver : public ODEsolver<_item>
    {
    public:
       RungeKuttaODEsolver() {}
-      ~RungeKuttaODEsolver() {}
+      virtual ~RungeKuttaODEsolver() {}
 
       //: the fourth-order Runge-Kutta method 
       //
@@ -22,7 +24,7 @@ namespace ani
       //  timeDelta = current stepsize (t(n) - t(n+1)) == time delta
       // returns:
       //  currentState = x(t0 + h) == the next state of the item after taking this step...
-      inline void exec( _item& currentState, float timeDelta )
+      virtual void exec( _item& currentState, float timeDelta )
       {
          static const float oneOverSix = (1.0f/6.0f);
 

@@ -1,11 +1,13 @@
 #ifndef MODIFIED_EULER_METHOD
 #define MODIFIED_EULER_METHOD
 
+#include "Fizix/ODEsolver.h"
+
 namespace ani
 {
    //: simple, fast, unstable at times.
    template <class _item>
-   class ModifiedEulerODEsolver
+   class ModifiedEulerODEsolver : public ODEsolver<_item>
    {
    public:
       ModifiedEulerODEsolver() {}
@@ -16,7 +18,7 @@ namespace ani
       // before executing this function, 
       //  - you must have zeroed all forces, 
       //  - run each operator on the particle system
-      inline void exec( _container& currentState, float timeDelta )
+      virtual void exec( _item& currentState, float timeDelta )
       {
          // compute next state.
          

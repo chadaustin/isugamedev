@@ -1,21 +1,42 @@
 
 
-#include "ParticleSystem.h"
-#include "EulerODEsolver.h"
-#include "ModifiedEulerODEsolver.h"
-#include "RungeKuttaODEsolver.h"
-#include "HeunODEsolver.h"
-#include "Force.h"
-#include "Emitter.h"
+#include <ColorRGBA.h>
+
+#include "Fizix/Body.h"
+#include "Fizix/DynamicSystem.h"
+
+#include "Fizix/Operator.h"
+#include "Fizix/operators/Emitter.h"
+#include "Fizix/operators/Force.h"
+#include "Fizix/operators/Operations.h"
 
 #include "stdlib.h"
 #include <vector>
 
-
-class Torch : public ParticleSystem
+namespace ani
+{
+   
+// TODO: change to particle, not body
+class FireParticle : public ani::Body
 {
 public:
-      Torch() : ParticleSystem()
+   FireParticle() : mAge(0), mAgeOfDeath(0)
+   {
+   }
+   
+   void setColor( const ColorRGBA& color ) {}
+   void setAgeOfDeath( float age ) { mAgeOfDeath = age; }
+   float ageOfDeath() const { return mAgeOfDeath; }
+   float age() const { return mAge; }
+   void growOlder( float age ) { ++mAge; }
+   float mAge, mAgeOfDeath;
+};
+
+template<class __EntityType = FireParticle>
+class Torch : public ani::DynamicSystem<__EntityType>
+{
+public:
+      Torch() : ani::DynamicSystem<__EntityType>()
       {
          // colors
          std::vector<ColorRGBA> colorTransitions;
@@ -57,37 +78,34 @@ public:
          SpritesRenderer<glRenderParticleAsSprite>* psr = new SpritesRenderer<glRenderParticleAsSprite>;
          psr->mapName = "fire.tga";
          this->setRenderFunc( psr );
-         psr->deref();
+         psr->unrefDelete();
          */
 
-         //////////////////
-         ODEsolver* solver = new EulerODEsolver;
-         this->setSolver( solver );
-         solver->deref();
+         this->setSolver( "euler" );
 
          // operations
-         ViscousDrag* drag = new ViscousDrag;
+         ViscousDrag<__EntityType>* drag = new ViscousDrag<__EntityType>;
          drag->setDrag( 0.40f ); // ??
          this->add( drag );
          
-         FlameEmitter* fe = new FlameEmitter;
+         FlameEmitter<__EntityType>* fe = new FlameEmitter<__EntityType>;
          fe->setSize( 2.5f );
          fe->setAgeOfDeath( 2.3f );
          fe->setEmissionRate( 0.014 );
          this->add( fe );
          
-         GrimReaper* reaper = new GrimReaper;
+         GrimReaper<__EntityType>* reaper = new GrimReaper<__EntityType>;
          this->add( reaper );
          
-         Current* cur = new Current;
+         Current<__EntityType>* cur = new Current<__EntityType>;
          cur->setSpeed( Vec3<float>( -1,0,0 ) );
          this->add( cur );
 
-         ColorWithAge* cwa = new ColorWithAge;
+         ColorWithAge<__EntityType>* cwa = new ColorWithAge<__EntityType>;
          cwa->setColors( colorTransitions );
          this->add( cwa );
 
-         GrowWithAge* gwa = new GrowWithAge;
+         GrowWithAge<__EntityType>* gwa = new GrowWithAge<__EntityType>;
          std::vector<float> sizes;
          sizes.push_back( 2.5f );
          sizes.push_back( 5.0f );
@@ -95,11 +113,14 @@ public:
          gwa->setVolumes( sizes );
          this->add( gwa );
 
-         //drag->deref();
-         cur->deref();
-         gwa->deref();
-         reaper->deref();
-         cwa->deref();
-         fe->deref();
+         //drag->unrefDelete();
+         cur->unrefDelete();
+         gwa->unrefDelete();
+         reaper->unrefDelete();
+         cwa->unrefDelete();
+         fe->unrefDelete();
       }
 };
+
+
+} // end of namespace..

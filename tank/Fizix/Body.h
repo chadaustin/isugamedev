@@ -76,7 +76,7 @@ namespace ani
 
       Body( const Body& p )
       {
-         this->set( p );
+         this->copy( p );
       }      
 
       virtual ~Body()
@@ -88,13 +88,13 @@ namespace ani
 
       Body& operator=( const Body& p )
       {
-         this->set( p );
+         this->copy( p );
          return *this;
       }   
 
       // this = p
       // copies all attributes.
-      inline void set( const Body& p )
+      inline void copy( const Body& p )
       {
          mPosition = p.mPosition;           
          mRotation = p.mRotation;          
