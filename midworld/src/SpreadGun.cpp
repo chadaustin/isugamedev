@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-11-15 14:25:49 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-26 01:50:09 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,7 +33,6 @@
 #include <gmtl/Math.h>
 #include <gmtl/AxisAngle.h>
 #include <gmtl/EulerAngle.h>
-#include "cubeGeometry.h"
 #include "SpreadGun.h"
 #include "BaseBullet.h"
 #include "BulletCasing.h"

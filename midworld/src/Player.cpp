@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-11-11 08:05:53 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-11-26 01:50:09 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,7 +41,6 @@
 #include "Weapon.h"
 #include "Player.h"
 #include "GameState.h"
-#include "cubeGeometry.h"
 #include "NullWeapon.h"
 
 namespace mw

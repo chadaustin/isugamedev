@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.h,v $
- * Date modified: $Date: 2002-09-09 00:56:25 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-11-26 01:50:09 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,9 +41,6 @@ namespace mw
    {
    public:
       Shotgun();
-
-      /** render the weapon using opengl calls. */
-      virtual void draw() const;
 
    protected:
       void discharge(GameState& g);

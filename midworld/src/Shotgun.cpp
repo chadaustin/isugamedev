@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-11-15 14:48:50 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-26 01:50:09 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,7 +34,6 @@
 #include <SDL.h>
 #include "BaseBullet.h"
 #include "BulletCasing.h"
-#include "cubeGeometry.h"
 #include "Shotgun.h"
 #include "GameManager.h"
 #include "GameState.h"
@@ -55,15 +54,6 @@ namespace mw
 
       mAmmoInClip = mClipSize;
       mAmmoInBag = 20;
-   }
-
-   void Shotgun::draw() const
-   {
-      glPushMatrix();
-         glMultMatrixf(this->matrix().getData());
-         glScalef(0.15f, 0.15f, 0.8f);
-         cubeGeometry().render();
-      glPopMatrix();
    }
 
    void Shotgun::discharge(GameState& g)
