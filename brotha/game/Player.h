@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-03 07:18:34 $
- * Version:       $Revision: 1.27 $
+ * Date modified: $Date: 2002-05-03 07:24:49 $
+ * Version:       $Revision: 1.28 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -188,11 +188,11 @@ namespace game {
       /// This player's position
       gmtl::Vec3f mPosition;
 
-      /// This player's health
-      PRUint32 mHealth;
-
       /// The UID of the object in the world that is this player's vehicle
       Object::UID mVehicle;
+
+      /// This player's health
+      PRUint32 mHealth;
 
       /// The number of kills this player has
       PRUint32 mKills;
