@@ -6,6 +6,13 @@
   #pragma warning(disable: 4786)
 #endif
 
+#ifdef _WIN32
+   #include <windows.h> // make the app win32 friendly. :)
+#endif
+
+#include <GL/gl.h>
+#include <GL/glu.h>
+
 #include <map>
 #include <vector> //remove when bullets are made into entities
 #include <boost/smart_ptr.hpp>
@@ -13,11 +20,13 @@
 #include "World.h"
 #include "HUD.h"
 #include "StopWatch.h"
-#include "Bullet.h"
+//#include "Bullet.h"
+class Bullet;
+#include "Singleton.h"
 
 typedef boost::shared_ptr<Player> PlayerPtr;
 
-class TankGame
+class TankGame : public kev::Singleton<TankGame>
 {
 public:
    TankGame();

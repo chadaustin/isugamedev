@@ -1,4 +1,6 @@
 
+#include "Tank.h"
+#include "Bullet.h"
 #include "glRenderLight.h"
 #include "TankGame.h"
 

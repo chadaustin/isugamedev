@@ -23,6 +23,8 @@
 #include "glRenderLight.h"
 #include "TankGame.h"
 #include "GeodeCache.h"
+#include "Bullet.h"
+#include "Tank.h"
 
 //: Provide functionality to automatically use different lights.
 // Leave the first light (0) alone.
@@ -85,7 +87,7 @@ vjTankApp::init()
    mShootBtn.init( "Shoot" );
 
    // Create the game
-   game = new TankGame();
+   game = &(TankGame::instance());
 
    // Create the new player
    PlayerPtr p( new Player() );

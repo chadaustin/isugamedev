@@ -11,7 +11,8 @@
 #include "TankGame.h"
 #include "AudioSystemFactory.h"
 #include "GeodeCache.h"
-
+#include "Tank.h"
+#include "Bullet.h"
 
 #define SOUND_FIRE "fire.wav"
 #define BACKGROUND_MUSIC "music.mp3"
@@ -21,7 +22,7 @@
 static float sWidth = 640.0f;
 static float sHeight = 640.0f;
 
-static TankGame *game = new TankGame();
+static TankGame *game = &(TankGame::instance());
 static IAudioSystem* audioSystem;
 static int mainWin_contextID;
 
