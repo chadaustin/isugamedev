@@ -21,6 +21,9 @@ namespace net {
       /// The connection ID type.
       typedef int ConnID;
 
+      /// The message list type
+      typedef std::vector< std::pair< net::Message*, ConnID> > MsgList;
+
    public:
       NetMgr() {
       }
@@ -62,7 +65,7 @@ namespace net {
        *
        * @param msgs    filled with the messages read
        */
-      void readAll( std::vector< std::pair<Message*, ConnID> >& msgs ) {
+      void readAll( MsgList& msgs ) {
          // for each connection
          typedef std::map<ConnID, Connection*>::iterator ConnIter;
          for(ConnIter cIter=m_connections.begin();cIter!=m_connections.end();cIter++) {
