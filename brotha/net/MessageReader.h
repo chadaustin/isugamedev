@@ -26,6 +26,9 @@ namespace net {
          PRUint32 tag, size;
          (*mInputStream) >> tag >> size;
 
+         std::cout<<"New message: type=0x"<<std::hex<<std::hex<<tag<<std::dec
+                  <<", size="<<size<<std::endl;
+
          // make sure we read everything (in case of bad message)
          PRUint8* buffer = new PRUint8[size];
          mInputStream->read(buffer, size);
@@ -35,7 +38,7 @@ namespace net {
             case MSG_LOGIN:
                msg = new LoginMessage();
                break;
-               
+
             case MSG_DISCONNECT:
                msg = new DisconnectMessage();
                break;
@@ -45,6 +48,7 @@ namespace net {
                break;
 
             default:
+               std::cout<<"ERROR: unknown message type"<<std::endl;
                delete[] buffer;
                return 0;
          }
@@ -54,7 +58,7 @@ namespace net {
          // stream
          ByteBuffer bb;
          bb.write(buffer, size);
-         delete[] buffer;       
+         delete[] buffer;
 
          // deserialize!
          msg->deserialize(bb);
@@ -64,7 +68,6 @@ namespace net {
    private:
       InputStream* mInputStream;
    };
-
 }
 
 

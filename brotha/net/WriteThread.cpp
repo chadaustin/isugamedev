@@ -27,8 +27,11 @@ namespace net {
                // write each
                typedef std::vector<Message*>::iterator MsgIter;
                for(MsgIter iter=messages.begin();iter!=messages.end();iter++) {
-                  (*oStream) << (*iter)->getType() << (*iter)->getSize();
-                  (*iter)->serialize(*oStream);
+                  Message* msg = (*iter);
+                  (*oStream) << msg->getType() << msg->getSize();
+                  msg->serialize(*oStream);
+                  std::cout<<"Sent Msg: type=0x"<<(msg->getType())
+                           <<", size="<<msg->getSize()<<std::endl;
                }
             } else { // if not, release CPU
                PR_Sleep(PR_INTERVAL_MIN);
