@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-02-11 01:53:43 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -42,16 +42,50 @@
 #include "gk/GameInput.h"
 #include "gk/SystemDriver.h"
 
-namespace gk {
+namespace gk 
+{
 
 /**
- * Facade for all system driver interactions. The application should deal
- * directly with this singleton to avoid talking directly to a SystemDriver
- * implementation.
+ * The GameKernel serves as an effective system platform for a game application.
+ * After defining your application object, use the GameKernel to run your 
+ * application.
+ * 
+ * <h3> "Example (to start your application using GLUT):" </h3>
+ * \code
+ *    class MyApplicationType : public gk::GameApp {};
+ *    int main()
+ *    {
+ *       gk::GameKernelRegister<MyApplicationType> reg;
+ *       gk::SystemDriver* driver = new gk::GlutDriver();
+ *       gk::GameKernel::instance().startup( driver );
+ *       return 1;
+ *    }
+ * \endcode
+ *
+ * <h3> "Example (to start your application using SDL):" </h3>
+ * \code
+ *    class MyApplicationType : public gk::GameApp {};
+ *    int main()
+ *    {
+ *       gk::GameKernelRegister<MyApplicationType> reg;
+ *       gk::SystemDriver* driver = new gk::SdlDriver();
+ *       gk::GameKernel::instance().startup( driver );
+ *       return 1;
+ *    }
+ * \endcode
+ *
+ * GameKernel is a Facade for all system driver interactions. 
+ * An application should deal directly with this singleton to avoid talking 
+ * directly to a SystemDriver implementation.
+ * 
+ * @see GameApp
+ * @see GameKernelRegister
+ * @see Singleton
  */
 class GameKernel : public Singleton<GameKernel>
 {
 public:
+   /** constructor */
    GameKernel();
 
    /**
@@ -62,28 +96,49 @@ public:
     * @return  true if successful, false otherwise
     */
    bool startup( SystemDriver* driver );
+   
+   /** system shutdown. 
+    *  exits the system.  
+    */
    void shutdown();
 
+   /** warp mouse - moves mouse to coord within your app's window.
+    *  x and y are relative to your game's open window.
+    */
    void warpMouse( int x, int y );
+   
+   /** show/hide mouse cursor. */
    void showMouse( bool show );
 
-   /* go fullscreen
-    */
+   /** go fullscreen. */
    void fullscreen( int ctx = 0 );
 
-   /* get the window size */
+   /** get the window size */
    void getWindowSize( int& width, int& height, int ctx = 0 );
 
-   /* for resize of the window
+   /** for resize of the window
     * i.e. use this to restore after a full screen
     *      use this to init the window size in OnAppInit
     */
    void setWindowSize( int width, int height, int ctx = 0 );
 
+   /** set the name of the running application.
+    * you should call this in AppInit with your app's name, 
+    * because some kernels can't set the window title after AppInit.
+    * TODO: consider moving this function to the App baseclass.
+    *       this way if more than one app is registered, then 
+    *       each can be named.
+    */
    void setName( const std::string& name );
 
+   /** get the name of the application
+    * TODO: consider moving this function to the App baseclass.
+    *       this way if more than one app is registered, then 
+    *       each can be named.
+    */
    const std::string& name() const;
 
+   /** what applications are registered. */
    std::vector<GameApp*>& applications();
 
 private:
@@ -93,17 +148,30 @@ private:
    SystemDriver* mDriver;
 };
 
-// create an instance of this type to register your application
-// delete it to unregister it.
+/** registers a new application of type applicationType with the GameKernel.
+ * create an instance of this class to register your application.
+ * delete it to unregister it.
+ *
+ * <h3> "Example (to create and register your application with the kernel):" </h3>
+ * \code
+ *    class MyApplicationType : public gk::GameApp {};
+ *    gk::GameKernelRegister<MyApplicationType> reg;
+ * \endcode
+ *
+ * @see GameKernel
+ */
 template< class applicationType >
 class GameKernelRegister
 {
 public:
+   /** registers a new application of type applicationType with the GameKernel.
+    */
    GameKernelRegister() : mApplication()
    {
       GameKernel::instance().applications().push_back( &mApplication );
    }
 
+   /** unregisters the application from the GameKernel. */
    virtual ~GameKernelRegister()
    {
 
@@ -123,7 +191,7 @@ public:
       // (because application exited)
       // whatever, there wont be any dangling memory anyway.
    }
-
+private:
    applicationType mApplication;
 };
 
