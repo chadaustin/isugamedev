@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-06-06 05:19:46 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,7 +37,9 @@
 namespace mw
 {
    /**
-    * Interface for a physical body that cannot be deformed.
+    * @ingroup Physics
+    *
+    * A physical body that cannot be deformed.
     */
    class RigidBody
    {

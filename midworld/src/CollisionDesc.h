@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionDesc.h,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-06-06 05:19:46 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,8 @@
 namespace mw
 {
    /**
+    * @ingroup CollDet
+    *
     * Describes the details of a collision between two rigid bodies. Objects of
     * this class should provide enough information to calculate the collision
     * response.

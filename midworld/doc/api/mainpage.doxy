@@ -15,3 +15,18 @@ We hope you enjoy the game. Visit us at
 and the games we produce.
 
 */
+
+/**
+ * @defgroup CollDet Collision Detection System
+ *
+ * The subsystem that handles collision detection between rigid bodies. The main
+ * interface, CollisionDetector, provides the ability to detect if a body
+ * collides with any other bodies as it moves along a path.
+ */
+
+/**
+ * @defgroup Physics Physics Engine
+ *
+ * The subsytem that handles updating the properties of physical objects, most
+ * notably rigid bodies, over small increments of time.
+ */

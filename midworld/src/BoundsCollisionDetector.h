@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsCollisionDetector.h,v $
- * Date modified: $Date: 2002-06-06 04:53:59 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-06-06 05:19:46 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,6 +36,8 @@
 namespace mw
 {
    /**
+    * @ingroup CollDet
+    *
     * This implementation of the CollisionDetector interface moves the rigid
     * body to the end of the path and does the collision check there. The check
     * is done by doing only a bounding volume intersection test.
