@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-10-01 04:26:42 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-10-03 03:59:56 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -68,7 +68,7 @@ namespace mw
       mElapsedTime += dt;
       if (mLeavingState && mElapsedTime > 1)
       {
-         invokeTransition("Story");
+         invokeTransition("Menu");
       }
       ::SDL_WarpMouse( this->application().getWidth() / 2, this->application().getHeight() / 2 );
    }

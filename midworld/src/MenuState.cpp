@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-10-01 01:00:28 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-10-03 03:59:56 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -229,7 +229,7 @@ namespace mw
                switch (mCurrentItem)
                {
                   case 0:
-                     invokeTransition("Game");
+                     invokeTransition("Story");
                      break;
                   case 3:
                      invokeTransition("Credits");
