@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-02-08 03:53:13 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2002-02-08 05:34:43 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -77,7 +77,7 @@ public:
    };
 
    /** constructor */
-   Mouse::Mouse() : DigitalDevice(), AnalogDevice()
+   Mouse::Mouse() : AnalogDevice(), DigitalDevice()
    {
       DigitalDevice::setNumInputs( 3 ); // 3 button mouse.
       AnalogDevice::setNumInputs( 2 ); // 2 axis mouse.
