@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-29 03:17:46 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-29 07:46:02 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,90 +40,89 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-
-#ifndef BDATA_PLAYER_H
-#define BDATA_PLAYER_H
+#ifndef DATA_PLAYER_H
+#define DATA_PLAYER_H
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include "stat.h"
 
-namespace dataxml{
+namespace data {
 
+   class Player {
+   private:
+      std::string name;
+      std::string password;
+      carlist cars;
+      statlist stats;
 
-class Player{
-private:
-  std::string name;
-  std::string password; //look, it's private so it's secure :)
-  carlist cars;
-  statlist stats;
+   public:
+      Player(std::string iname, std::string ipasswd) {
+         name = iname;
+         password = ipasswd;
+      }
 
-public:
-  Player(std::string iname, std::string ipasswd){
-    name = iname;
-    password = ipasswd;
-  }
+      void changePassword(std::string npw) {
+         password = npw;
+      }
 
-  void changePassword(std::string npw){
-     password = npw;
-  }
+      std::string getName() {
+         return name;
+      }
 
-  std::string getName(){
-    return name;
-  }
+      std::string getPassword() {
+         return password;
+      }
 
-  std::string getPassword(){
-    return password;
-  }
+      carlist getCars() {
+         return cars;
+      }
 
-  carlist getCars(){
-    return cars;
-  }
+      statlist getStats() {
+         return stats;
+      }
 
-  statlist getStats(){
-	  return stats;
-  }
+      void addCar(Car* c) {
+         cars.push_back(c);
+      }
 
-  void addCar(Car* c){
-    cars.push_back(c);
-  }
-  void addStat(Stat* s){
-	  stats.push_back(s);
-  }
+      void addStat(Stat* s) {
+         stats.push_back(s);
+      }
 
-  std::string getStat(std::string in){
+      std::string getStat(std::string in) {
 
-  }
+      }
 
-  void setStat(std::string in, std::string val){
-	  bool exists = false;;
-	  for(int i = 0; i < stats.size(); i++){
-		  dataxml::Stat* s = stats[i];
-		  if(s->getName() == in){
-			  s->setVal(val);
-			  exists = true;
-		  }
-	  }
-	  if(!exists){
-		  stats.push_back(new Stat(in,val));
-	  }
-  }
+      void setStat(std::string in, std::string val) {
+         bool exists = false;;
+         for (int i = 0; i < stats.size(); ++i) {
+            dataxml::Stat* s = stats[i];
+            if(s->getName() == in) {
+               s->setVal(val);
+               exists = true;
+            }
+         }
+         if (!exists) {
+            stats.push_back(new Stat(in,val));
+         }
+      }
 
-  void xMLify(std::ostream& out){
-    out << "    <player name=\"" << name << "\" password=\"" << password << "\">" << std::endl;
-    for(unsigned int i = 0; i < cars.size(); i++){
-      cars[i]->xMLify(out);
-    }
-    for(unsigned int i = 0; i < stats.size(); i++){
-      stats[i]->xMLify(out);
-    }
-	out << "   </player>" << std::endl;
-  }
+      void xMLify(std::ostream& out) {
+         out << "    <player name=\"" << name << "\" password=\"" << password << "\">" << std::endl;
+         for (unsigned int i = 0; i < cars.size(); ++i) {
+            cars[i]->xMLify(out);
+         }
+         for (unsigned int i = 0; i < stats.size(); ++i) {
+            stats[i]->xMLify(out);
+         }
+         out << "   </player>" << std::endl;
+      }
   
-};
+   };
 
-typedef std::vector<Player*> playerlist;
+   typedef std::vector<Player*> playerlist;
 }
 
 #endif
