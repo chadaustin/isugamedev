@@ -1,7 +1,0 @@
-# Microsoft Developer Studio Generated Dependency File, included by midworld.mak
-
-.\midworld.cpp : \
-	".\AINode.h"\
-	".\behavior.h"\
-	".\unit.h"\
-	
