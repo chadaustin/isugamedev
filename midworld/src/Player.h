@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-07-29 06:10:29 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -92,8 +92,6 @@ public:
     */
    gmtl::Vec3f getBarrelEndPos() const;
    
-   gmtl::Vec3f getForward() const;
-      
    void update( GameState& gs, float timeDelta );
 
 private:

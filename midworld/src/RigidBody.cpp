@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-07-29 00:35:12 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-07-29 06:10:29 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -97,6 +97,11 @@ namespace mw
          glScalef(0.5f, 0.5f, 0.5f);
          cubeGeometry().render();
       glPopMatrix();
+   }
+
+   gmtl::Vec3f RigidBody::getForward() const
+   {
+      return getRot() * gmtl::Vec3f(0,0,-1);
    }
 
    const gmtl::AABoxf& RigidBody::getBounds() const

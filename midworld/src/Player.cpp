@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-07-29 06:10:29 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -204,12 +204,6 @@ namespace mw
    {
       gmtl::Vec3f barrelEndPos = gmtl::Vec3f( 0, 2, -3 );
       return (this->getRot() * barrelEndPos) + this->getPos();
-   }
-
-   gmtl::Vec3f Player::getForward() const
-   {
-      gmtl::Vec3f forward( 0,0,-1 );
-      return this->getRot() * forward;
    }
 
    void Player::update( GameState& gs, float timeDelta )

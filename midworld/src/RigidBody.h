@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-07-29 00:35:12 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-07-29 06:10:29 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -126,6 +126,11 @@ namespace mw
       float getMass() const { return mMass; }
 
       /**
+       * Gets the forward vector for this rigid body.
+       */
+      gmtl::Vec3f getForward() const;
+
+      /**
        * Updates the internal state of this body given the amount of time that
        * has passed.
        *
@@ -156,6 +161,7 @@ namespace mw
 
       float mMass;
 
+   protected:
       /// The bounding volume for this body
       gmtl::AABoxf mBounds;
    };
