@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.h,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-11-25 12:14:24 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,10 +39,8 @@ namespace mw
 {
    class Texture
    {
-   protected:
-      Texture(const std::string& filename);
-
    public:
+      Texture(const std::string& filename);
       ~Texture();
 
       static Texture* create(const std::string& resid);
@@ -51,15 +49,32 @@ namespace mw
       static void unbind();
       void drawRectangle(float x1, float y1, float x2, float y2);
 
-      friend void* createTexture(const std::string& name)
-      {
-         return new Texture(name);
-      }
-
    private:
       GLuint mTexture;
       float mRealWidth;
       float mRealHeight;
+   };
+
+   template< typename T > struct CachePolicy;
+
+   // Cache policy for Texture objects
+   template<>
+   struct CachePolicy<Texture*>
+   {
+      static Texture* copy(Texture* cacheVal)
+      {
+         return cacheVal;
+      }
+
+      static Texture* create(const std::string& name)
+      {
+         return new Texture(name);
+      }
+
+      static void destroy(Texture* val)
+      {
+         delete val;
+      }
    };
 }
 

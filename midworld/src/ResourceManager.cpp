@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.cpp,v $
- * Date modified: $Date: 2002-11-25 10:08:03 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-11-25 12:14:23 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,11 +33,10 @@
 #include <iostream>
 #include <fstream>
 #include "ResourceManager.h"
-#include "Texture.h"
 
 namespace mw
 {
-   ResourceManager::ResourceManager()
+   ResourceManagerBase::ResourceManagerBase()
    {
       // load the model mappings
       std::ifstream in("resources.txt");
@@ -49,15 +48,13 @@ namespace mw
             defineResourceID(name, model);
          }
       }
-
-      defineFactory<Texture*>(&createTexture);
    }
 
-   ResourceManager::~ResourceManager()
+   ResourceManagerBase::~ResourceManagerBase()
    {}
 
    const std::string&
-   ResourceManager::lookup(const std::string& resid) const
+   ResourceManagerBase::lookup(const std::string& resid) const
    {
       if (resid.empty()) {
          static const std::string empty;
@@ -74,7 +71,7 @@ namespace mw
    }
 
    void
-   ResourceManager::defineResourceID(const std::string& resid, const std::string& value)
+   ResourceManagerBase::defineResourceID(const std::string& resid, const std::string& value)
    {
       ResourceIDMap::iterator itr = mResourceIDs.find(resid);
       if (itr == mResourceIDs.end())
@@ -88,7 +85,7 @@ namespace mw
    }
 
    void
-   ResourceManager::removeResourceID(const std::string& resid)
+   ResourceManagerBase::removeResourceID(const std::string& resid)
    {
       ResourceIDMap::iterator itr = mResourceIDs.find(resid);
       if (itr != mResourceIDs.end())
@@ -102,33 +99,15 @@ namespace mw
       }
    }
 
-   ResourceManager::Cache&
-   ResourceManager::getCache(const Loki::TypeInfo& type)
-   {
-      CacheMap::iterator itr = mCaches.find(type);
-      if (itr != mCaches.end())
-      {
-         return itr->second;
-      }
-      else
-      {
-         // Cache doesn't exist, create it now
-         mCaches[type] = Cache();
-         return mCaches[type];
-      }
-   }
+   ResourceManager::ResourceManager()
+   {}
 
-   ResourceManager::Factory
-   ResourceManager::getFactory(const Loki::TypeInfo& type)
+   ResourceManager::~ResourceManager()
    {
-      FactoryMap::iterator itr = mFactories.find(type);
-      if (itr != mFactories.end())
+      for (CacheMap::iterator itr = mCaches.begin(); itr != mCaches.end(); ++itr)
       {
-         return itr->second;
-      }
-      else
-      {
-         return 0;
+         /// XXX: We need to cast this to the right type before deleting ...
+         delete itr->second;
       }
    }
 }

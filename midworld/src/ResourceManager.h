@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.h,v $
- * Date modified: $Date: 2002-11-25 10:08:03 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-25 12:14:23 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,34 +42,11 @@
 
 namespace mw
 {
-   /**
-    * This class maps resource IDs to strings.
-    */
-   class ResourceManager
+   class ResourceManagerBase
    {
-   public:
-      /// A factory function for creating a resource with the given name.
-      typedef void* (*Factory)(const std::string& name);
-
-   private:
-      /// This is a cache of the resource IDs to their string
-      typedef std::map<std::string, void*> Cache;
-
-      /// This is a map of typeids to the cache for the type
-      typedef std::map<Loki::TypeInfo, Cache> CacheMap;
-
-      /// Gets the cache for the given type.
-      Cache& getCache(const Loki::TypeInfo& type);
-
-      /// Gets the factory for the given type.
-      Factory getFactory(const Loki::TypeInfo& type);
-
-   public:
-      ResourceManager();
-
-      ResourceManager(const ResourceManager& resmgr);
-      void operator=(const ResourceManager& resmgr);
-      ~ResourceManager();
+   protected:
+      ResourceManagerBase();
+      virtual ~ResourceManagerBase();
 
    public:
       /**
@@ -83,6 +60,129 @@ namespace mw
        */
       const std::string& lookup(const std::string& resid) const;
 
+      /**
+       * Adds the given resource into this manager such that the given value is
+       * associated with the given resource ID.
+       *
+       * @param resid   the ID of the resource to add
+       * @param value   the string value of the resource
+       *
+       * @throws  std::runtime_error if the resource ID is already in use
+       */
+      void defineResourceID(const std::string& resid, const std::string& value);
+
+      /**
+       * Removes the resource with the given ID.
+       *
+       * @param resid   the ID of the resource to remove
+       *
+       * @throws  std::runtime_error if the resource ID is unknown
+       */
+      void removeResourceID(const std::string& resid);
+
+   private:
+      /// The map of resource IDs to their string.
+      typedef std::map<std::string, std::string> ResourceIDMap;
+
+      /// All known resources IDs
+      ResourceIDMap mResourceIDs;
+   };
+
+   /**
+    * Policy on how to handle cache hits and misses in the ResourceCache. An
+    * implementation must contain the methods copy, create, and destroy.
+    */
+   template< typename T > struct CachePolicy;
+
+   /**
+    * The cache for a specific resource type. It uses the CachePolicy to decide
+    * how to create items not in the cache and how to copy items that are
+    * already in the cache. ResourceCache is a helper class for the
+    * ResourceManager.
+    *
+    * @see ResourceManager
+    */
+   template< typename T >
+   class ResourceCache
+   {
+   public:
+      typedef T ResourceType;
+
+   public:
+      ~ResourceCache()
+      {
+         clear();
+      }
+
+      T find(const std::string& name, Type2Type<T> = Type2Type<T>())
+      {
+         ResMap::iterator itr = mCache.find(name);
+
+         // Cache hit
+         if (itr != mCache.end())
+         {
+            return CachePolicy<T>::copy(itr->second);
+         }
+         // Cache miss
+         else
+         {
+            std::cout << "[ResourceManager] Cache miss for '" << name << "'" << std::endl;
+
+            T resource = CachePolicy<T>::create(name);
+            mCache[name] = resource;
+            return CachePolicy<T>::copy(resource);
+         }
+      }
+
+      void clear()
+      {
+         // Destroy all things in the cache before clearing it
+         for (ResMap::iterator itr = mCache.begin(); itr != mCache.end(); ++itr)
+         {
+            CachePolicy<T>::destroy(itr->second);
+         }
+         mCache.clear();
+      }
+   private:
+      /// This is a cache of the resource IDs to their string
+      typedef std::map<std::string, T> ResMap;
+      ResMap mCache;
+   };
+
+   /**
+    * This class maps resource IDs to strings.
+    */
+   class ResourceManager : public ResourceManagerBase
+   {
+   public:
+      ResourceManager();
+      ResourceManager(const ResourceManager& resmgr);
+      ~ResourceManager();
+      void operator=(const ResourceManager& resmgr);
+
+   private:
+      /// This is a map of typeids to the cache for the type
+      typedef std::map<Loki::TypeInfo, void*> CacheMap;
+
+      /// Gets the cache for the given type.
+      template< typename T >
+      ResourceCache<T>& getCache(const Loki::TypeInfo& type,
+                                 Type2Type<T> = Type2Type<T>())
+      {
+         CacheMap::iterator itr = mCaches.find(type);
+         if (itr != mCaches.end())
+         {
+            return *static_cast<ResourceCache<T>*>(itr->second);
+         }
+         else
+         {
+            // Cache doesn't exist, create it now
+            mCaches[type] = new ResourceCache<T>();
+            return *static_cast<ResourceCache<T>*>(mCaches[type]);
+         }
+      }
+
+   public:
       /**
        * Gets the resource associated with the given resource ID. If the
        * resource is already in cache, the cached version is returned.
@@ -99,33 +199,8 @@ namespace mw
          Loki::TypeInfo type(typeid(T));
          const std::string& resource_name = lookup(resid);
 
-         // Get the cache and check it first
-         Cache& cache = getCache(type);
-         Cache::iterator itr = cache.find(resource_name);
-
-         // Cache hit
-         if (itr != cache.end())
-         {
-            return static_cast<T>(itr->second);
-         }
-         // Cache miss
-         {
-            std::cout << "[ResourceManager] Cache miss for '" << resid << "'" << std::endl;
-
-            // Get the factory for the given type
-            Factory factory = getFactory(type);
-            if (factory == 0)
-            {
-               // No factory available
-               throw std::runtime_error("No factory registered for given type");
-            }
-
-            // Create the resource we need and cache it. This may throw an
-            // exception if the creation fails.
-            T resource = static_cast<T>(factory(resource_name));
-            cache[resource_name] = resource;
-            return resource;
-         }
+         ResourceCache<T>& cache = getCache<T>(type);
+         return cache.find(resource_name);
       }
 
       /**
@@ -161,51 +236,9 @@ namespace mw
          getCache(type).clear();
       }
 
-      /**
-       * Adds the given resource into this manager such that the given value is
-       * associated with the given resource ID.
-       *
-       * @param resid   the ID of the resource to add
-       * @param value   the string value of the resource
-       *
-       * @throws  std::runtime_error if the resource ID is already in use
-       */
-      void defineResourceID(const std::string& resid, const std::string& value);
-
-      /**
-       * Removes the resource with the given ID.
-       *
-       * @param resid   the ID of the resource to remove
-       *
-       * @throws  std::runtime_error if the resource ID is unknown
-       */
-      void removeResourceID(const std::string& resid);
-
-      /**
-       * Defines the factory function for the given type.
-       */
-      template< typename T >
-      void defineFactory(Factory factory, Type2Type<T> = Type2Type<T>())
-      {
-         Loki::TypeInfo type(typeid(T));
-         mFactories[type] = factory;
-      }
-
    private:
-      /// The map of resource IDs to their string.
-      typedef std::map<std::string, std::string> ResourceIDMap;
-
-      /// Mapping of types to the factory that creates those types
-      typedef std::map<Loki::TypeInfo, Factory> FactoryMap;
-
-      /// All known resources IDs
-      ResourceIDMap mResourceIDs;
-
       /// All resource caches
       CacheMap mCaches;
-
-      /// The registered factory functions
-      FactoryMap mFactories;
    };
 
    typedef Singleton<ResourceManager> ResourceManagerSingleton;
