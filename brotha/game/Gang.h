@@ -3,7 +3,7 @@
 
 #include <vector> 
 #include <string>
-#include "game/player.h"
+#include "game/Player.h"
 
 namespace game {
 
