@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionDesc.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-01 12:27:21 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,12 +34,18 @@
 namespace mw
 {
    CollisionDesc::CollisionDesc()
-      : mCollidee(0), mNormal(0,0,0), mDistance(0)
+      : mCollidee(0)
+      , mNormal(0,0,0)
+      , mDistance(0)
+      , mContact(false)
    {}
 
    CollisionDesc::CollisionDesc(RigidBody* collidee, const gmtl::Vec3f& normal,
-                                float distance)
-      : mCollidee(collidee), mNormal(normal), mDistance(distance)
+                                float distance, bool contact)
+      : mCollidee(collidee)
+      , mNormal(normal)
+      , mDistance(distance)
+      , mContact(contact)
    {}
 
    RigidBody*
@@ -58,5 +64,11 @@ namespace mw
    CollisionDesc::getDistance() const
    {
       return mDistance;
+   }
+
+   bool
+   CollisionDesc::isContact() const
+   {
+      return mContact;
    }
 }

@@ -23,6 +23,7 @@ classes = Split("""
    BaseBullet
    BaseProjectileWeapon
    BoundsCollisionDetector
+   BoundsSweepCollisionDetector
    Camera
    CollisionDesc
    CollisionResponse
@@ -30,6 +31,7 @@ classes = Split("""
    Enemy
    EntityFactory
    GameManager
+   GameOverState
    GameScene
    GameState
    HUD

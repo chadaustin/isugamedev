@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-01 12:14:51 $
- * Version:       $Revision: 1.99 $
+ * Date modified: $Date: 2002-11-01 12:27:21 $
+ * Version:       $Revision: 1.100 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,7 +39,7 @@
 #include "AmmoCrate.h"
 #include "Application.h"
 #include "AssaultRifle.h"
-#include "BoundsCollisionDetector.h"
+#include "BoundsSweepCollisionDetector.h"
 #include "Enemy.h"
 #include "EntityFactory.h"
 #include "GameManager.h"
@@ -167,7 +167,7 @@ namespace mw
       mScene->addSceneListener(viewer);
 
       // Init the collision detection system
-      mCollDet = new BoundsCollisionDetector();
+      mCollDet = new BoundsSweepCollisionDetector();
       mCollDet->setSpatialIndex(viewer);
 
       add(&mPlayer);

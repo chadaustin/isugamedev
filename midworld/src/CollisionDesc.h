@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionDesc.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-01 12:27:21 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -60,9 +60,10 @@ namespace mw
        *                      point of collision
        * @param distance      the distance travelled along the path to the point
        *                      of collision
+       * @param contact       true if this is a contact collision
        */
       CollisionDesc(RigidBody* collidee, const gmtl::Vec3f& normal,
-                    float distance);
+                    float distance, bool contact);
 
       /**
        * Gets the body that the collider has hit.
@@ -88,6 +89,13 @@ namespace mw
        */
       float getDistance() const;
 
+      /**
+       * Tests if this is a contact collision.
+       *
+       * @return  true if the objects are merely in contact; false otherwise
+       */
+      bool isContact() const;
+
    private:
       /// The body that the collider hits.
       RigidBody* mCollidee;
@@ -97,6 +105,9 @@ namespace mw
 
       /// The parametric distance travelled along the path to the collision.
       float mDistance;
+
+      /// Flag for whether this is a contact collisions.
+      bool mContact;
    };
 }
 

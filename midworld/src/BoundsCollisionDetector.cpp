@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-10-31 18:10:10 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-11-01 12:27:21 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -75,7 +75,7 @@ namespace mw
             gmtl::Vec3f normal = gmtl::makeNormal(-path);
 
             // In this simple algorithm, we return the first collidee found
-            return new CollisionDesc(collidee, normal, std::max(i - delta, 0.0f));
+            return new CollisionDesc(collidee, normal, std::max(i - delta, 0.0f), false);
          }
          
       }
