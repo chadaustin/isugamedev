@@ -36,7 +36,8 @@ SRCS = \
 
 MK_DIR = ./mk
 PATH_TO_SRCS = .:Fizix/example
-INCLUDE_PATHS += -I. -I./boost -I./regexx -I./boost/boost/compatibility/cpp_c_headers/
+INCLUDE_PATHS += -I. -I./boost -I./regexx 
+#-I./boost/boost/compatibility/cpp_c_headers/
 
 include ${MK_DIR}/mk.hosttype
 include ${MK_DIR}/mk.platform
@@ -72,15 +73,15 @@ else
    SRCS += sys_glut.cxx
 endif
 
-# AUDIOSYSTEM == audio juggler
-ifeq ($(AUDIOSYSTEM), AJ)
+# AUDIOSYSTEM == sonix
+ifeq ($(AUDIOSYSTEM), sonix)
    SRCS += AJaudioSystem.cxx
-   INCLUDE_PATHS += -I$(AJ_BASE_DIR)/include
+   INCLUDE_PATHS += -I$(SNX_BASE_DIR)/include
    CXX_FLAGS +=-DUSE_AJ
    ifeq ($(HOSTTYPE), Win32)
-      LIBS += $(AJ_BASE_DIR)\\lib$(LIBBITSUF)\\AudioJuggler.lib
+      LIBS += $(SNX_BASE_DIR)\\lib$(LIBBITSUF)\\sonix.lib
    else
-      LIBS += -L$(AJ_BASE_DIR)/lib$(LIBBITSUF) -lAudioJuggler -lopenal
+      LIBS += -L$(SNX_BASE_DIR)/lib$(LIBBITSUF) -lsonix -lopenal
    endif
 endif
 
