@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.38 2002-04-09 04:31:34 tamc Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 04:31:34 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.39 2002-04-09 04:36:35 tamc Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 04:36:35 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -149,7 +149,7 @@
                         <para>Doesn't scale well past a thousand connections.</para>
                       </listitem>
                       <listitem>
-                        <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan linearly.</para>
+                        <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan connections linearly.</para>
                       </listitem>
                     </itemizedlist>
                   </listitem>
