@@ -76,7 +76,7 @@ public:
    void drawHighlight(int card){
       int tempx, tempy;
       getCardPos(card, tempx, tempy);
-      glColor3f(0,1,0);
+      glColor3f(0,.5,0);
       glBegin(GL_LINE_LOOP);
          glVertex3f(tempx-3, tempy-3, 0);
          glVertex3f(tempx-3, tempy+123, 0);

@@ -18,6 +18,8 @@
 
 int mouseX, mouseY;
 
+int DIFFI=10;
+
 
 #ifdef WIN32
       void msleep( float msec )
@@ -69,6 +71,8 @@ int mouseX, mouseY;
 
 
 
+
+
 // a place to store application data...
 class App
 {
@@ -79,9 +83,37 @@ public:
    }
    int width, height;
    int mainWin_contextID;
+   double ltime;
 
    deck dek;
    int score;
+   int i;
+
+   int myMeter;
+
+   
+   
+   void drawMeter(){
+	   glPushMatrix();
+	   glLoadIdentity();
+	   for(i=0;i<myMeter;i++){
+		  glPushMatrix();
+		  glTranslatef(20, 50+i*20, 0);
+		  glColor3f(1-i/10,0,i/10);
+		  glBegin(GL_POLYGON);
+		     glVertex3f(0,0,0);
+			 glVertex3f(30,0,0);
+			 glVertex3f(30,15,0);
+			 glVertex3f(0,15,0);
+		  glEnd();
+		  glPopMatrix();
+
+	   }
+	   glPopMatrix();
+   }
+
+   
+
 
 	////////////////////////////////////
 	// I don't have a good place to put
@@ -99,46 +131,54 @@ public:
 		   c3_number,
 		   c3_shape,
 		   count=0;
-		   for(int i=0;i<12;i++){
-			  if(dek.isSelected(i)){
-				 if(count==0){
-					dek.getCardAttribute(i, c1_color, c1_shape, c1_number);
-					count++;
-				 }else if(count==1){
-					dek.getCardAttribute(i, c2_color, c2_shape, c2_number);
-					count++;
-				 }else if(count==2){
-					dek.getCardAttribute(i, c3_color, c3_shape, c3_number);
-					count++;
-				 }
-			  }
+	   ltime=0;
+	   for(int i=0;i<12;i++){
+		  if(dek.isSelected(i)){
+			 if(count==0){
+				dek.getCardAttribute(i, c1_color, c1_shape, c1_number);
+				count++;
+			 }else if(count==1){
+				dek.getCardAttribute(i, c2_color, c2_shape, c2_number);
+				count++;
+			 }else if(count==2){
+				dek.getCardAttribute(i, c3_color, c3_shape, c3_number);
+				count++;
+			 }
+		  }
+	   }
+       if(count!=3){
+		   std::cout << "looser" << std::endl;
+		   score-=30;
+		   return false;
+	   }else{
+	       // std::cout << c1_color << c2_color << c3_color << c1_shape << c2_shape << c3_shape << c1_number << c2_number << c3_number << std::endl;        
+   		   // I decided to calculate the score on the fly here, it is pretty messy
+		   if(((c1_color == c2_color) && (c2_color == c3_color)) || ((c1_color != c2_color) && (c2_color != c3_color) && (c1_color != c3_color))){
+			   if(((c1_number == c2_number) && (c2_number == c3_number)) || ((c1_number != c2_number) && (c2_number != c3_number) && (c1_number != c3_number))){
+				  if(((c1_shape == c2_shape) && (c2_shape == c3_shape)) || ((c1_shape != c2_shape) && (c2_shape != c3_shape) && (c1_shape != c3_shape))){
+					 // if the shapes are teh same add 5 else add 10
+					 if((c1_shape == c2_shape) && (c2_shape == c3_shape)) score+=5;
+					 else score+=10;
+					 
+					 // if the colors are the same add 5, else add 10
+					 if((c1_color == c2_color) && (c2_color == c3_color)) score+=5;
+					 else score+=10;
+					 
+					 // if the numbers are same add 5 else add 10
+					 if((c1_number == c2_number) && (c2_number == c3_number)) score+=5;
+					 else score+=10;
+					 
+					 std::cout << "winner" << std::endl;
+					 return true;
+				  }
+			   }
 		   }
-	//       std::cout << c1_color << c2_color << c3_color << c1_shape << c2_shape << c3_shape << c1_number << c2_number << c3_number << std::endl;        
-	    // I decided to calculate the score on the fly here, it is pretty messy
-		if(((c1_color == c2_color) && (c2_color == c3_color)) || ((c1_color != c2_color) && (c2_color != c3_color) && (c1_color != c3_color))){
-		   if(((c1_number == c2_number) && (c2_number == c3_number)) || ((c1_number != c2_number) && (c2_number != c3_number) && (c1_number != c3_number))){
-			  if(((c1_shape == c2_shape) && (c2_shape == c3_shape)) || ((c1_shape != c2_shape) && (c2_shape != c3_shape) && (c1_shape != c3_shape))){
-				 // if the shapes are teh same add 5 else add 10
-				 if((c1_shape == c2_shape) && (c2_shape == c3_shape)) score+=5;
-				 else score+=10;
-				 
-				 // if the colors are the same add 5, else add 10
-				 if((c1_color == c2_color) && (c2_color == c3_color)) score+=5;
-		         else score+=10;
-				 
-		         // if the numbers are same add 5 else add 10
-			     if((c1_number == c2_number) && (c2_number == c3_number))score+=5;
-			     else score+=10;
-				 
-				 std::cout << "winner" << std::endl;
-				 return true;
-			  }
-		   }
-		}
-	    std::cout << "looser" << std::endl;
-	    score-=30;
-	    return false;
+	   	   std::cout << "looser" << std::endl;
+		   score-=30;
+		   return false;
+	   }
 	}
+
 
 };
 
@@ -179,14 +219,31 @@ static void OnRedisplay()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear The Screen And The Depth Buffer
 	glLoadIdentity();									// Reset The View
 	app.dek.draw();
+	app.drawMeter();
    
    count=0;
-   glutSwapBuffers();
 
    // update the last time
    lasttime = currenttime;
    currenttime = getTime();
    timechange = currenttime - lasttime;
+   app.ltime = app.ltime + timechange;
+   app.myMeter = DIFFI - app.ltime;
+
+   if(app.ltime >= DIFFI){
+	  for(int i=0;i<12;i++){
+         if(app.dek.isSelected(i))
+            app.dek.deselectCard(i);
+            app.dek.setCardAttributeRandom(i);
+         }
+	  
+      app.checkForWinner();
+   }
+
+
+
+   glutSwapBuffers();
+
 }
 
 
@@ -310,7 +367,7 @@ static void OnMouseClick( int button, int state, int x, int y )
                }
             }else{
                std::cout << "loser:" << app.score << std::endl;
-               sleep(2);
+               msleep(100);
                for(j=0;j<12;j++){
                   if(app.dek.isSelected(j))
                      app.dek.deselectCard(j);
@@ -386,6 +443,8 @@ static int OnApplicationInit()
    
 
     app.score=0;
+	app.ltime=0;
+	app.myMeter=10;
 	// !!!TODO!!!: put your initialization code here.
 
 	return 0;
