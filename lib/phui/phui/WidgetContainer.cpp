@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-04-15 09:29:58 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-22 04:34:36 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,6 +42,7 @@
 namespace phui {
 
    WidgetContainer::WidgetContainer() {
+      mCapturedWidget = 0;
    }
 
    WidgetContainer::~WidgetContainer() {
@@ -56,28 +57,102 @@ namespace phui {
    }
 
    void WidgetContainer::remove(Widget* widget) {
-      mWidgets.remove(widget);
-      widget->mParent = NULL;
+      for (int i = 0; i < mWidgets.size(); ++i) {
+         if (mWidgets[i] == widget) {
+            mWidgets.erase(mWidgets.begin() + i);
+            widget->mParent = 0;
+         }
+      }
    }
 
    void WidgetContainer::draw() {
       // draw all children to this widget
-      drawChildren();
-   }
-
-   void WidgetContainer::drawChildren() {
-      // draw all children to this widget
-      std::list<Widget*>::iterator itr;
-      for (itr = mWidgets.begin(); itr != mWidgets.end(); ++itr) {
-         Widget* wgt = *itr;
+      for (int i = 0; i < mWidgets.size(); ++i) {
+         Widget* wgt = mWidgets[i];
+         Point pos = wgt->getPosition();
 
          // only draw if the widget is visible
          if (wgt->isVisible()) {
-            ::glTranslatef( mX, mY, 0 );
+            ::glTranslatef(pos.x, pos.y, 0);
             wgt->draw();
-            ::glTranslatef( -mX, -mY, 0 );
+            ::glTranslatef(-pos.x, -pos.y, 0);
+         }
+      }      
+   }
+
+   void WidgetContainer::onKeyDown(InputKey key) {
+      if (Widget* focus = getFocus()) {
+         focus->onKeyDown(key);
+      }
+   }
+
+   void WidgetContainer::onKeyUp(InputKey key) {
+      if (Widget* focus = getFocus()) {
+         focus->onKeyUp(key);
+      }
+   }
+
+   void WidgetContainer::onMouseDown(InputButton button, const Point& p) {
+
+      // mouse down always releases widget capture
+      capture(0);
+
+      if (Widget* widget = getWidgetAt(p)) {
+         focus(widget);
+         capture(widget);
+         widget->onMouseDown(button, p - widget->getPosition());
+      }
+   }
+
+   void WidgetContainer::onMouseUp(InputButton button, const Point& p) {
+      if (Widget* widget = getMouseWidget(p)) {
+         widget->onMouseUp(button, p - widget->getPosition());
+         capture(0);
+      }
+   }
+
+   void WidgetContainer::onMouseMove(const Point& p) {
+      if (Widget* widget = getMouseWidget(p)) {
+         widget->onMouseMove(p - widget->getPosition());
+      }
+   }
+
+   void WidgetContainer::focus(Widget* widget) {
+      for (int i = 0; i < mWidgets.size(); ++i) {
+         if (mWidgets[i] == widget) {
+            std::swap(mWidgets[0], mWidgets[i]);
+            break;
          }
       }
    }
+
+   Widget* WidgetContainer::getFocus() {
+      return (mWidgets.empty() ? 0 : mWidgets[0]);
+   }
+
+   void WidgetContainer::capture(Widget* widget) {
+      mCapturedWidget = widget;
+   }
+
+   Widget* WidgetContainer::getCapture() {
+      return mCapturedWidget;
+   }
+
+   Widget* WidgetContainer::getWidgetAt(const Point& p) {
+      for (int i = 0; i < mWidgets.size(); ++i) {
+         if (mWidgets[i]->contains(p)) {
+            return mWidgets[i];
+         }
+      }
+   }
+
+   Widget* WidgetContainer::getMouseWidget(const Point& p) {
+      return getWidgetAt(p);
+/*
+      Widget* widget = getCapture();
+      return (widget ? widget : getWidgetAt(p));
+*/
+   }
+
 
 } // namespace phui

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-17 07:25:26 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-04-22 04:34:36 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -55,45 +55,38 @@ namespace phui {
 
    void Button::draw()
    {
+      Point pos = getPosition();
+      int width, height;
+      getSize(width, height);
+
       glPushMatrix();
-      glTranslatef((GLfloat)mX, (GLfloat)mY, 0.0f);
+      glTranslatef(pos.x, pos.y, 0.0f);
+
       // draw the button background
-      if (mButtonDown)
-      {
-         glColor(mForegroundColor);
-      }
-      else
-      {
-         glColor(mBackgroundColor);
-      }
+      glColor(mButtonDown ? getForegroundColor() : getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
-         glVertex2i(0,      0      );
-         glVertex2i(mWidth, 0      );
-         glVertex2i(mWidth, mHeight);
-         glVertex2i(0,      mHeight);
+         glVertex2i(0,     0     );
+         glVertex2i(width, 0     );
+         glVertex2i(width, height);
+         glVertex2i(0,     height);
       glEnd();
 
       // draw text
-      if (mButtonDown)
-      {
-         glColor(mBackgroundColor);
-      }
-      else
-      {
-         glColor(mForegroundColor);
-      }
-      FontRenderer renderer(mFont);
+      glColor(mButtonDown ? getBackgroundColor() : getForegroundColor());
 
-      int w = mWidth - (2*mInsetX);
-      int h = mHeight - (2*mInsetY);
+      FontRenderer renderer(getFont());
+
+      const Insets& i = getInsets();
+      int w = width  - i.getLeft() - i.getRight();
+      int h = height - i.getTop()  - i.getBottom();
       unsigned int fontHeight = renderer.getHeight();
       unsigned int fontWidth = renderer.getWidth(mText);
       unsigned int fontAscent = fontHeight - renderer.getDescent();
 
-      int textRectX = mInsetX + (w/2) - (fontWidth/2);
-      int textRectY = mInsetY + (h/2) - (fontHeight/2);
-      int textRectW = w;
-      int textRectH = h;
+      int textRectX = i.getLeft();
+      int textRectY = i.getTop();
+      int textRectW = width  - (i.getRight()  + textRectX);
+      int textRectH = height - (i.getBottom() + textRectY);
 
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;
@@ -135,11 +128,12 @@ namespace phui {
 
          // Only fire button pressed event if the mouse was released inside
          // this button.
-         if (contains(x, y))
+         if (contains(Point(x, y)))
          {
             std::cout<<"FIRE button pressed"<<std::endl;
             /// @todo fire ButtonPressed event
          }
       }
    }
+
 } // namespace phui

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Insets.h,v $
- * Date modified: $Date: 2002-04-17 07:53:30 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-22 04:34:36 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -87,8 +87,8 @@ namespace phui
       bool operator==(const Insets& insets) const;
 
       /**
-       * Compares this Insets to the given Insets object to see if they are not
-       * equal.
+       * Compares this Insets to the given Insets object to see if
+       * they are not equal.
        *
        * @param insets     the Insets to compare with.
        *
@@ -96,7 +96,35 @@ namespace phui
        */
       bool operator!=(const Insets& insets) const;
 
-   public:
+      /**
+       * Gets width of inset left.
+       */
+      int getLeft() const {
+        return mLeft;
+      }
+      
+      /**
+       * Gets width of inset right.
+       */
+      int getRight() const {
+        return mRight;
+      }
+
+      /**
+       * Gets width of inset top.
+       */
+      int getTop() const {
+        return mTop;
+      }
+
+      /**
+       * Gets width of inset bottom.
+       */
+      int getBottom() const {
+        return mBottom;
+      }
+
+   private:
       /// Inset on the left side.
       int mLeft;
 

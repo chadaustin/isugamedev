@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-17 08:02:52 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-22 04:34:36 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,26 +41,28 @@ namespace phui
 {
 
    Widget::Widget()
-      : mX(0), mY(0), mWidth(0), mHeight(0),
-        mEnabled(true), mVisible(true), mBackgroundColor(0,0,0,0),
-        mForegroundColor(1,1,1,1), mFont("arial", Font::PLAIN, 12),
-        mParent(NULL)
-   {}
-
-   Widget::~Widget()
-   {}
-
-   void Widget::getPosition(int& x, int& y) const
+ : mWidth(0)
+      , mHeight(0)
+      , mEnabled(true)
+      , mVisible(true)
+      , mBackgroundColor(0,0,0,0)
+      , mForegroundColor(1,1,1,1)
+      , mFont("arial", Font::PLAIN, 12)
+      , mParent(NULL)
    {
-      x = mX;
-      y = mY;
    }
 
-   void Widget::setPosition(int x, int y)
-   {
-      mX = x;
-      mY = y;
+   Widget::~Widget() {
    }
+
+   Point Widget::getPosition() const {
+      return mPosition;
+   }
+
+   void Widget::setPosition(const Point& p) {
+      mPosition = p;
+   }
+
    void Widget::getSize(int& width, int& height) const
    {
       width = mWidth;
@@ -108,7 +110,7 @@ namespace phui
       mBackgroundColor = clr;
    }
 
-   const Colorf& Widget::getBackgroundColor() const
+   Colorf Widget::getBackgroundColor() const
    {
       return mBackgroundColor;
    }
@@ -118,7 +120,7 @@ namespace phui
       mForegroundColor = clr;
    }
 
-   const Colorf& Widget::getForegroundColor() const
+   Colorf Widget::getForegroundColor() const
    {
       return mForegroundColor;
    }
@@ -143,22 +145,21 @@ namespace phui
       return mParent;
    }
 
-   bool Widget::contains(int x, int y) const
+   bool Widget::contains(const Point& p) const
    {
+      int x = p.x;
+      int y = p.y;
       return ((x >= 0) && (y >= 0) && (x < mWidth) && (y < mHeight));
    }
 
-   void Widget::getScreenPosition(int& x, int& y) const
+   Point Widget::getScreenPosition() const
    {
+      Point p = getPosition();
       const WidgetContainer* parent = getParent();
-      getPosition(x, y);
-      while (parent)
-      {
-         int px, py;
-         parent->getPosition(px, py);
-         x += px;
-         y += py;
+      while (parent) {
+         p += parent->getPosition();
          parent = parent->getParent();
       }
+      return p;
    }
 }

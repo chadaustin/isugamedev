@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-17 08:02:52 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-04-22 04:34:36 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,9 +39,10 @@
 
 #include "phuiCommon.h"
 #include "Color.h"
-#include "Input.h"
 #include "Font.h"
+#include "Input.h"
 #include "Insets.h"
+#include "Point.h"
 
 namespace phui
 {
@@ -71,7 +72,7 @@ namespace phui
        * @param x    [out]    the x position of this widget
        * @param y    [out]    the y position of this widget
        */
-      virtual void getPosition(int& x, int& y) const;
+      virtual Point getPosition() const;
 
       /**
        * Sets the position of this widget relative to its parent.
@@ -79,7 +80,8 @@ namespace phui
        * @param x    the x position of this widget
        * @param y    the y position of this widget
        */
-      virtual void setPosition(int x, int y);
+      virtual void setPosition(const Point& p);
+      void setPosition(int x, int y) { setPosition(Point(x, y)); }
 
       /**
        * Gets the size of this widget relative to its parent.
@@ -151,7 +153,7 @@ namespace phui
        *
        * @return  the background color
        */
-      virtual const Colorf& getBackgroundColor() const;
+      virtual Colorf getBackgroundColor() const;
 
       /**
        * Sets the foreground color of this widget.
@@ -165,7 +167,7 @@ namespace phui
        *
        * @return  the foreground color
        */
-      virtual const Colorf& getForegroundColor() const;
+      virtual Colorf getForegroundColor() const;
 
       /**
        * Sets the font to use for rendering text in this widget.
@@ -183,41 +185,40 @@ namespace phui
        * Gets the parent container for this widget or NULL if this widget has no
        * container.
        */
-      virtual const WidgetContainer* getParent() const;
-      virtual WidgetContainer* getParent();
+      const WidgetContainer* getParent() const;
+      WidgetContainer* getParent();
 
       /**
        * Tests if the given point is contained within this widget where the
        * point is relative to this widget's coordinate system.
        *
-       * @param x    x position
-       * @param y    y position
+       * @param p  the point to test
+       * @return whether the test succeeded or not
        */
-      virtual bool contains(int x, int y) const;
+      bool contains(const Point& p) const;
 
       /**
        * Gets the position of the upper-left corner of this widget relative to
        * the screen's coordinate system.
        *
-       * @param x [out]    the x position
-       * @param y [out]    the y position
+       * @return  the point
        */
-      void getScreenPosition(int& x, int& y) const;
+      Point getScreenPosition() const;
 
-      virtual bool hasFocus() { return false; }
+      bool hasFocus();
 
       // external events
       virtual void onKeyDown(InputKey key) { }
       virtual void onKeyUp(InputKey key) { }
-      virtual void onMouseDown(InputButton button, int x, int y) { }
-      virtual void onMouseUp(InputButton button, int x, int y) { }
-      virtual void onMouseMove(int x, int y) { }
+      virtual void onMouseDown(InputButton button, const Point& p) { }
+      virtual void onMouseUp(InputButton button, const Point& p) { }
+      virtual void onMouseMove(const Point& p) { }
 
-   protected:
+   private:
       /**
-       * The x position of the widget in pixels relative to its parent.
+       * The position of the widget in pixels relative to its parent.
        */
-      int mX;
+      Point mPosition;
 
       /**
        * The y position of the widget in pixels relative to its parent.

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2002-02-24 11:11:13 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-04-22 04:34:36 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,30 +42,38 @@ namespace phui {
    Window::Window()
       : mTitle("")
    {
-      mVisible = false;
+      setVisible(false);
    }
 
-   Window::Window( const std::string& title )
-      : mTitle( title )
+   Window::Window(const std::string& title)
+      : mTitle(title)
    {
-      mVisible = true;
+      // XXXaegis - why is this different from Window() ?  Shouldn't
+      // they be the same?
+      setVisible(true);
    }
 
    Window::~Window() {
    }
 
    void Window::draw() {
+      int x = getPosition().x;
+      int y = getPosition().y;
+      int width, height;
+      getSize(width, height);
+
+      std::cout << x << " " << y << std::endl;
+
       // render the background
-      glColor( mBackgroundColor );
+      glColor(getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
-         glVertex2i( mX,          mY           );
-         glVertex2i( mX + mWidth, mY           );
-         glVertex2i( mX + mWidth, mY + mHeight );
-         glVertex2i( mX,          mY + mHeight );
+      glVertex2i(0,     0);
+      glVertex2i(width, 0);
+      glVertex2i(width, height);
+      glVertex2i(0,     height);
       glEnd();
 
-      // draw the children on top of us
-      drawChildren();
+      WidgetContainer::draw();
    }
 
 } // namespace phui

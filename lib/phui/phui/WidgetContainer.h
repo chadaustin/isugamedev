@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-04-15 09:20:39 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-22 04:34:36 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,7 +38,7 @@
 #define PHUI_WIDGET_CONTAINER_H
 
 #include "phuiCommon.h"
-#include <list>
+#include <vector>
 #include "Widget.h"
 
 namespace phui {
@@ -53,7 +53,7 @@ namespace phui {
        * This class is abstract. You create a derived instance instead.
        */
       WidgetContainer();
-      virtual ~WidgetContainer();
+      ~WidgetContainer();
 
    public:
       /**
@@ -76,16 +76,28 @@ namespace phui {
        */
       void draw();
 
-   protected:
-      /**
-       * Draws each widget in this container widget. WidgetContainer
-       * implementations will want to call this if they reimplement draw() to
-       * draw the child components correctly.
-       */
-      virtual void drawChildren();
+      void onKeyDown(InputKey key);
+      void onKeyUp(InputKey key);
+      void onMouseDown(InputButton button, const Point& p);
+      void onMouseUp(InputButton button, const Point& p);
+      void onMouseMove(const Point& p);
 
-   protected:
-      std::list<Widget*> mWidgets;
+      void focus(Widget* widget);
+      Widget* getFocus();
+
+      void capture(Widget* widget);
+      Widget* getCapture();
+
+      Widget* getWidgetAt(const Point& p);
+
+      // this name sucks ass
+      Widget* getMouseWidget(const Point& p);
+
+   private:
+      std::vector<Widget*> mWidgets;  // sorted from topmost to bottommost
+                                      // topmost has focus
+
+      Widget* mCapturedWidget;
    };
 
 } // namespace phui
