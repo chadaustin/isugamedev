@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-04-22 05:52:11 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-22 08:15:06 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -181,15 +181,17 @@ namespace server {
    }
 
    void BrothaGame::joinPlayer( net::NetMgr::ConnID cID ) {
+      std::cout<<"Player "<<getUID(cID)<<" on connection "<<cID<<" has joined the game."<<std::endl;
       mPlayers[getUID(cID)] = cID;
 
       /// @todo notify all the other connections that a new player exists
    }
 
    void BrothaGame::resync( net::NetMgr::ConnID cID) {
+      std::cout<<"resync"<<std::endl;
       // send players
       for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
-         bool isYou = (cID == getConnectionID(iter->second));
+         bool isYou = (cID == iter->second);
          net::AddPlayerMessage *msgP = new net::AddPlayerMessage(getPlayer(iter->second), isYou);
          m_netMgr->send(msgP, cID);
       }
