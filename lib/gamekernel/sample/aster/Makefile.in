@@ -22,12 +22,15 @@
 # Boston, MA 02111-1307, USA.
 #
 # -----------------------------------------------------------------
-# File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-20 02:58:40 $
-# Version:       $Revision: 1.2 $
+# File:          $RCSfile: Makefile.in,v $
+# Date modified: $Date: 2002-02-20 05:28:19 $
+# Version:       $Revision: 1.1 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
+
+top_srcdir=@top_srcdir@
+srcdir=@srcdir@
 
 # objects to be included in the project....
 SRCS = main.cpp cubeGeometry.cpp
@@ -38,9 +41,11 @@ PROJECT_NAME = aster
 OBJDIR = .
 DEPDIR =
 
-PATH_TO_SRCS = .
-MK_DIR = ../../mk
-INCLUDE_PATHS = -I. -I../../ -I../../external/xdl
+PATH_TO_SRCS = $(srcdir)
+MK_DIR = $(top_srcdir)/mk
+INCLUDE_PATHS = -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/external/xdl -I$(top_srcdir)/drivers/glut @GLUT_DRIVER_INCLUDES@
+DEFS = @OSTYPE_DEFS@
+LIBS = -L$(top_srcdir)/gk -lgk
 
 ########################################################################
 # system dependent stuff, that users will want to change...
@@ -49,33 +54,15 @@ INCLUDE_PATHS = -I. -I../../ -I../../external/xdl
 include ${MK_DIR}/mk.hosttype
 include ${MK_DIR}/mk.platform
 
-EXTRA = 
-
-# IRIX
-ifeq ($(HOSTTYPE), IRIX)
-   LIBS = $(EXTRA) -lGLU -lGL -lglut -lX11 -lXmu -lm
-   DEFS += -DUSE_UNIX
-endif
-
-#LiNUX
-ifeq ($(HOSTTYPE), linux)
-   LIBS = -L/usr/X11R6/lib -L../../ -lgk -lGLU -lGL -lglut -lX11 -lXmu -lm
-   DEFS += -DUSE_UNIX
-endif
-
-# Win32
-ifeq ($(HOSTTYPE), Win32)
-   LIBS =
-   DEPENDFLAGS = -D__cplusplus -D_WIN32 -DWIN32 $(INCLUDE_PATHS)
-   DEFS += -DUSE_WIN32
-endif
-
 ########################################################################
-
 include ${MK_DIR}/mk.objs
 
+# default targets
+default: all
+all: $(EXE_FILENAME)
+
 # Compile then Link
-build: $(OBJS)
+$(EXE_FILENAME): $(OBJS)
 	-@echo ""
 	-@echo "-------------------------------------------"
 	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .so)"
@@ -92,11 +79,9 @@ clean:
 	-@echo "-------------------------------------------"
 	-@echo "Removing compiled stuff from the system	 "
 	-@echo "-------------------------------------------"
-	-rm -r $(OBJS) $(EXE_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/
-
-
+	rm -rf $(OBJS) $(EXE_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/
 
 clobber: clean
-	-rm *.d
+	rm -f *.d
 
 include ${MK_DIR}/mk.depend
