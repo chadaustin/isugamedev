@@ -4,6 +4,7 @@
 #include "InputInterface.h"
 #include "AnalogInput.h"
 
+// TODO: test me (this hasn't been verified to work yet...)
 class AnalogInterface : public InputInterface
 {
 public:
@@ -14,12 +15,13 @@ public:
    virtual float getAnalogData()
    {
       // this can surely be optimized...
-      AnalogInput* ana = GameInput::instance().getInput( mDevice, mInput );
-
+      Input* in = GameInput::instance().getInput( mAlias );
+      AnalogInput* ana = dynamic_cast<AnalogInput*>( in );
+      
       if (ana == NULL)
          return 0.0f;
 
-      return ana->getAnalogData();
+      return ana->edgeState();
    }
 };
 
