@@ -1,4 +1,4 @@
-<!-- $Id: CollDetDesign.html,v 1.6 2002-06-04 03:23:30 nonchocoboy Exp $ -->
+<!-- $Id: CollDetDesign.html,v 1.7 2002-11-01 10:50:03 nonchocoboy Exp $ -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
  <head>
@@ -21,11 +21,11 @@ pre {
   <table border=0 cellspacing=5 cellpadding=0>
    <tr>
     <td>Last Modified:</td>
-    <td>$Date: 2002-06-04 03:23:30 $</td>
+    <td>$Date: 2002-11-01 10:50:03 $</td>
    </tr>
    <tr>
     <td>Revision:</td>
-    <td>$Revision: 1.6 $</td>
+    <td>$Revision: 1.7 $</td>
    </tr>
   </table>
 
@@ -135,6 +135,40 @@ foreach body in the scene
    if pcs is not empty
    {
       add the first item in the pcs to collisions
+   }
+}
+</pre>
+    </blockquote>
+   </li>
+   <li><b>Bounds Sweep Collider</b>
+    <p>This collider will use an AABox sweep test against all nearby rigid
+    bodies in order to support temporally coherant collision detection.</p>
+    <blockquote>
+     <h4>Pseudocode</h4>
+<pre>
+collisions = empty list
+foreach body in the scene
+{
+   path_bounds = bounding volume around body over its entire path
+   pcs = all bodies in the spatial index who intersect with path_bounds
+   if pcs is not empty
+   {
+      shortest_dist = 1.0
+      closest_body = null
+      foreach pc in pcs
+      {
+         (dist,test_body) = AABox sweep test between body and test_body
+         if dist is less than shortest_dist
+         {
+            shortest_dist = dist;
+            closest_body = test_body
+         }
+      }
+
+      if closest_body is not null
+      {
+         add closest_body to collisions
+      }
    }
 }
 </pre>
