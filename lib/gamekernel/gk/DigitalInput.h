@@ -7,7 +7,7 @@ class DigitalInput : virtual public Input
 {
 public:
    virtual ~DigitalInput() {}
- 
+
    enum BinaryState
    {
       ON, OFF
@@ -16,26 +16,26 @@ public:
    {
       DOWN, EDGE_DOWN, EDGE_UP, UP, FLOATING
    };
-      
+
    DigitalInput() : mEdge( UP ), mBinary( OFF )
    {
    }
-   
+
    virtual EdgeTriggerState edgeState() const
    {
       return mEdge;
    }
-  
+
    const BinaryState& binaryState() const
    {
       return mBinary;
    }
-   
+
    void setBinaryState( const BinaryState& bs )
    {
       mBinary = bs;
    }
-   
+
    virtual void update()
    {
       //find out if...
@@ -63,12 +63,12 @@ public:
          }
       break;
 
-      default: 
+      default:
          //std::cout<<"broken on key: "<<x<<" of "<<mBinarys.size()<<" == "<<mBinarys[x]<<"\n"<<std::flush;
          assert(false);
       }
    }
-   
+
 private:
    EdgeTriggerState mEdge;
    BinaryState mBinary;

@@ -6,34 +6,34 @@
 class AnalogInput : virtual public Input
 {
 public:
-   AnalogInput() : mCurrent( 0 ), mFuture( 0 ), 
+   AnalogInput() : mCurrent( 0 ), mFuture( 0 ),
                    mNeedToCallUpdate( false ), mDelta( 0 )
    {
    }
-   
+
    virtual ~AnalogInput() {}
    virtual void update();
-   
+
    // return the analog data
    virtual float data() const { return mCurrent; }
 
-public:      
+public:
    // Set the position of the Mouse object
    // Call this on a Mouse-Move event (when the mouse moves)
    // give - x and y mouse coordinates
    void        setData( const float& x );
-   
+
    void        addOffset( const float& x );
-   
+
    // return the previous x position of the mouse.
    float         old() const;
-   
+
    // Get the previous position of mouse
    float         previous() const;
 
    // Get the change between mouse's previous and current positions
    float         offset() const;
-   
+
    // Private member data
 private:
    float  mCurrent, mFuture, mDelta;
@@ -80,5 +80,5 @@ inline void AnalogInput::update()
    // save the new current position
    mCurrent = mFuture;
 }
-   
+
 #endif

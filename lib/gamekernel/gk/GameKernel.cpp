@@ -21,7 +21,7 @@
    {
       mDriver->fullscreen();
    }
-   
+
    /* get the window size */
    void GameKernel::getWindowSize( int& width, int& height, int ctx = 0 )
    {
@@ -35,17 +35,17 @@
    {
       mDriver->setWindowSize( width, height, ctx );
    }
-   
+
    void GameKernel::setName( const std::string& name )
    {
       mDriver->setName( name );
    }
-   
+
    const std::string& GameKernel::name() const
    {
       return mDriver->name();
    }
-   
+
    std::vector<GameApp*>& GameKernel::applications()
    {
       static std::vector<GameApp*> registered_applications;

@@ -23,7 +23,7 @@ public:
          return 0.0f;
       }
    }
-   
+
    virtual EdgeTriggerState edgeState() const
    {
       DigitalInput::EdgeTriggerState state = DigitalInput::UP;
@@ -51,10 +51,10 @@ public:
       }
       return state;
    }
-   
-   
-   
-   
+
+
+
+
    void bind( Input* in_put )
    {
       if (in_put)
@@ -71,7 +71,7 @@ public:
          }
       }
    }
-   
+
    std::vector< AnalogInput* > mAnalogBindings;
    std::vector< DigitalInput* > mDigitalBindings;
 };

@@ -6,9 +6,9 @@
 #include <Mouse.h>
 #include <Keyboard.h>
 
-/* Base game application class.  for use with the "GameKernel" 
- * don't modify this class... instead derive a class "MyApp" from this, 
- *  and overload the virtual members.  
+/* Base game application class.  for use with the "GameKernel"
+ * don't modify this class... instead derive a class "MyApp" from this,
+ *  and overload the virtual members.
  *  Derivation goes like this:
  *
  *      class MyApp : public GameApp
@@ -38,7 +38,7 @@ public:
 
    /* called once for each window */
    virtual void OnContextInit() {};
-   
+
    /* called on each window exit */
    virtual void OnContextExit() {};
 };

@@ -29,14 +29,14 @@ public:
     */
    bool startup( SystemDriver* driver );
    void shutdown();
-   
+
    void warpMouse( int x, int y );
    void showMouse( bool show );
-   
+
    /* go fullscreen
     */
    void fullscreen( int ctx = 0 );
-   
+
    /* get the window size */
    void getWindowSize( int& width, int& height, int ctx = 0 );
 
@@ -45,11 +45,11 @@ public:
     *      use this to init the window size in OnAppInit
     */
    void setWindowSize( int width, int height, int ctx = 0 );
-   
+
    void setName( const std::string& name );
 
    const std::string& name() const;
-   
+
    std::vector<GameApp*>& applications();
 
 private:
@@ -74,8 +74,8 @@ public:
    {
 
       std::vector<GameApp*>::iterator it;
-      for (it = GameKernel::instance().applications().begin(); 
-           it != GameKernel::instance().applications().end(); 
+      for (it = GameKernel::instance().applications().begin();
+           it != GameKernel::instance().applications().end();
            ++it)
       {
          if (&mApplication == (*it))
@@ -85,7 +85,7 @@ public:
          }
       }
 
-      // if not found, then the list probably was deallocated 
+      // if not found, then the list probably was deallocated
       // (because application exited)
       // whatever, there wont be any dangling memory anyway.
    }

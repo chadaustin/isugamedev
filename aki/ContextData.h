@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ContextData.h,v $
-//    $Date: 2002-01-28 09:17:12 $
-//    $Revision: 1.1 $
+//    $Date: 2002-01-30 06:18:27 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //    This library is free software; you can redistribute it and/or
@@ -61,7 +61,7 @@ class ContextData
 public:
 	//: Returns reference to user data for the contextId
     ContextDataType& operator() ( const int& contextId );
-    
+
 protected:
     //: Return a ptr to the correct data element in the current context
     //! PRE: We are in the draw function
@@ -76,21 +76,21 @@ private:
 //! PRE: We are in the draw function
 template<class ContextDataType>
 inline ContextDataType& ContextData<ContextDataType>::getItem( const int& contextId )
-{   
+{
     // Make sure that we will reference a valid element
     while(_contextDataVector.size() <= contextId)
     {
 		_contextDataVector.push_back(ContextDataType());
     }
-    
+
     return _contextDataVector[contextId];
 }
 
 //: Returns reference to user data for the contextId
 template<class ContextDataType>
 inline ContextDataType& ContextData<ContextDataType>::operator() ( const int& contextId )
-{ 
-    return this->getItem( contextId ); 
+{
+    return this->getItem( contextId );
 }
 
 #endif

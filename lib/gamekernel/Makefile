@@ -5,7 +5,7 @@ SRCS = aki.cpp GameKernel.cpp GlutDriver.cpp
 PROJECT_NAME = aki
 
 OBJDIR = .
-DEPDIR = 
+DEPDIR =
 
 PATH_TO_SRCS = .
 MK_DIR = mk
@@ -34,7 +34,7 @@ endif
 
 # Win32
 ifeq ($(HOSTTYPE), Win32)
-   LIBS = 
+   LIBS =
    DEPENDFLAGS = -D__cplusplus -D_WIN32 -DWIN32 $(INCLUDE_PATHS)
    include ${MK_DIR}/mk.win32
 endif

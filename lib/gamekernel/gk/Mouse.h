@@ -3,16 +3,16 @@
 //
 //                   -=    Mouse    =-
 //
-// Description: "Useful mouse class, keeps track of button 
-//            states such as edge triggering, 
-//            and keeps track of previous position, 
+// Description: "Useful mouse class, keeps track of button
+//            states such as edge triggering,
+//            and keeps track of previous position,
 //            and change in position"
 //
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //   $RCSfile: Mouse.h,v $
-//   $Date: 2002-01-30 06:07:24 $
-//   $Revision: 1.6 $
+//   $Date: 2002-01-30 06:18:27 $
+//   $Revision: 1.7 $
 //   Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //   This library is free software; you can redistribute it and/or
@@ -52,16 +52,16 @@ public:
    {
      LEFT = 0, MIDDLE = 1, RIGHT = 2
    };
-   
+
    Mouse::Mouse() : DigitalDevice(), AnalogDevice()
    {
       DigitalDevice::setNumInputs( 3 ); // 3 button mouse.
-      AnalogDevice::setNumInputs( 2 ); // 2 axis mouse. 
+      AnalogDevice::setNumInputs( 2 ); // 2 axis mouse.
       Mouse::initialize_map();
    }
-   
+
    virtual ~Mouse() {}
-   
+
    //: Call this on every frame of your simulation
    // Mouse events include position change, and button change
    // you must call update() each frame of your simulation
@@ -71,7 +71,7 @@ public:
       DigitalDevice::update();
       AnalogDevice::update();
    }
-   
+
    virtual Input* getInput( const std::string& input_name )
    {
       Input* in;
@@ -83,8 +83,8 @@ public:
       {
          return AnalogDevice::getInput( input_name );
       }
-   }   
-   
+   }
+
    virtual Input* getInput( const int& id )
    {
       assert( false );
@@ -107,7 +107,7 @@ private:
       DigitalDevice::mMap["MOUSEBUTTON_RIGHT"] = Mouse::RIGHT;
       AnalogDevice::mMap["MOUSEAXIS_X"] = 0;
       AnalogDevice::mMap["MOUSEAXIS_Y"] = 1;
-      
+
       assert( DigitalDevice::mMap.count( "MOUSEAXIS_X" ) == 0 );
       assert( DigitalDevice::mMap.count( "MOUSEAXIS_Y" ) == 0 );
    }

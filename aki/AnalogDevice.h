@@ -13,12 +13,12 @@ class AnalogDevice : public TypedDevice<AnalogInput>
 public:
    AnalogDevice() {}
    AnalogInput& axis( int x )
-   { 
+   {
       Input* in = TypedDevice<AnalogInput>::getInput( x );
       return *dynamic_cast<AnalogInput*>( in );
    }
-   AnalogInput* axis( const std::string& x ) 
-   { 
+   AnalogInput* axis( const std::string& x )
+   {
       Input* in = TypedDevice<AnalogInput>::getInput( x );
       return dynamic_cast<AnalogInput*>( in );
    }

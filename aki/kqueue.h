@@ -4,14 +4,14 @@
 //                         -=     Kevin's Queue     =-
 //
 // Definition: "allows you to see if an item is in the queue,
-//              the STL queue doesn't allow this, that is why 
+//              the STL queue doesn't allow this, that is why
 //              this queue is implemented with an STL list"
 //
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: kqueue.h,v $
-//    $Date: 2002-01-28 09:17:12 $
-//    $Revision: 1.1 $
+//    $Date: 2002-01-30 06:18:27 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //    This library is free software; you can redistribute it and/or
@@ -39,11 +39,11 @@
 namespace kev
 {
 
-   template<class Data> 
+   template<class Data>
    class queue
    {
-   public:   
-       //default constructor. 
+   public:
+       //default constructor.
        queue();
 
        //destructor
@@ -56,20 +56,20 @@ namespace kev
        // get a const reference to the oldest object on the queue.
        const Data& last() const;
 
-       // remove the oldest item from the queue. 
+       // remove the oldest item from the queue.
        // NOTE: does not 'delete' data
-       void dequeue() 
-       { 
-          _queue.pop_front(); 
+       void dequeue()
+       {
+          _queue.pop_front();
        }
 
        // check to see if an item is present in the queue.
        bool isPresent(const Data& item) const;
 
        // insert an item into the queue.
-       void enqueue( const Data& item ) 
+       void enqueue( const Data& item )
        {
-          _queue.push_back(item); 
+          _queue.push_back(item);
        }
 
        //clear the queue.

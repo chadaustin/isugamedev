@@ -38,7 +38,7 @@ public:
       color[0] = r;
       color[1] = g;
       color[2] = b;
-   }   
+   }
    float position[3];
    float color[3];
 };

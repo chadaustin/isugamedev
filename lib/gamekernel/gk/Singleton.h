@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Singleton.h,v $
-//    $Date: 2002-01-28 09:17:12 $
-//    $Revision: 1.1 $
+//    $Date: 2002-01-30 06:18:27 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -42,24 +42,24 @@ namespace kev
    {
    public:
       // access your class with myClass::instance().
-      inline static singleClass& instance( void )        
-      {    
-                                                      
-         static singleClass* the_instance1 = NULL;   
+      inline static singleClass& instance( void )
+      {
+
+         static singleClass* the_instance1 = NULL;
 
          if (the_instance1 == NULL)
-         {                                            
-            if (the_instance1 == NULL)        
+         {
+            if (the_instance1 == NULL)
             { the_instance1 = new singleClass; }
-         }                                      
-         return *the_instance1;    
-         
+         }
+         return *the_instance1;
+
          //static singleClass the_instance1;
          //return the_instance1;
       }
 
    protected:
-      // dont create a singleton with new!  
+      // dont create a singleton with new!
       // use instance()
       Singleton()
       {
