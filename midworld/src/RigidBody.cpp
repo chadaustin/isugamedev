@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-10-10 09:01:15 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-10-10 09:09:32 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,7 +36,12 @@
 namespace mw
 {
    void RigidBody::update(float dt)
-   {}
+   {
+      // Move the bounds along with the body
+      gmtl::Vec3f extents = (mBounds.getMax() - mBounds.getMin()) * 0.5f;
+      mBounds.setMin(getCurrentState().getPos() - extents);
+      mBounds.setMax(getCurrentState().getPos() + extents);
+   }
 
    void RigidBody::addForce(const gmtl::Vec3f& force)
    {
