@@ -6,13 +6,17 @@
 #include "Vec3.h"
 #include "Quat.h"
 #include "Matrix4f.h"
-#include "GeoSet.h"
+#include "Geode.h"
 #include "Behavior.h"
+#include "UIDManager.h"
 
 //: Describes a generic spatial object with a visual appearance charactarized by
 //  geometry sets and a behavior.
 class Entity : public RefObj
 {
+public:
+   typedef UIDManager<Entity>::UID UID;
+
 public:
    Entity();
 
@@ -34,8 +38,14 @@ public:
    //: Rotates this entity deg degrees around the given normalized axis.
    void rotate( float deg, float x, float y, float z);
 
-   //: Adds a new geometry set to the visual appearance of this entity.
-   void addGeoSet( GeoSet *geoSet );
+   //: Sets the geometry describing the visual appearance of this entity. This
+   //  entity will destroy the geode upon when it is released unless you
+   //  maintain a safe_ptr to it.
+   void setGeode( Geode *geode );
+
+   //: Gets the geode associated with this entity.
+   Geode* getGeode();
+   const Geode* getGeode() const;
 
    //: Sets the behavior model for this entity.
    void setBehavior( Behavior *behavior );
@@ -54,13 +64,17 @@ public:
 
    //: Gets the rotation of this entity.
    const Quat<float>& rotation() const;
+   
+   //: Get the unique ID associated with this player
+   const UID& getUID() const;
 
 private:
+   UID mUID;
    Vec3f mPos;
    Quat<float> mRot;
    Matrix4f mXForm;
    safe_ptr<Behavior> mBehavior;
-   std::vector< safe_ptr<GeoSet> > mGeometry;
+   safe_ptr< Geode> mGeometry;
 };
 
 #endif //ENTITY_H_INCLUDED

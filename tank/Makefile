@@ -17,6 +17,7 @@ SRCS = \
    CppImageExporter.cxx \
    Entity.cxx \
    FileHandler.cxx \
+   Geode.cxx \
    glRenderLight.cxx \
    Image.cxx \
    ImageManager.cxx \

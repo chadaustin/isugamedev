@@ -10,8 +10,8 @@
 #include "glRenderTexture.h"
 #include "ImageManager.h"
 #include "ObjImporter.h"
-#include "GeoSet.h"
-#include "glRenderGeoSet.h"
+#include "Geode.h"
+#include "glRenderGeode.h"
 
 
 extern int GetNextLightNum();
@@ -20,7 +20,7 @@ class Bullet
 {
 public:
    Bullet()
-      : mRot(), mRotVel()
+      : mRot(), mRotVel(), mGeometry()
    {
       mXForm.makeIdent();
 
@@ -33,7 +33,7 @@ public:
       mLight.on();
 
       kev::ObjImporter obj;
-      obj.load( geosets, "models/bullet.obj" );
+      obj.load( mGeometry, "models/bullet.obj" );
    }
 
    ~Bullet()
@@ -50,7 +50,7 @@ public:
       
       glPushMatrix();
          glMultMatrixf( mXForm.data() );
-         kev::glRenderGeoSets( geosets );
+         kev::glRenderGeode( mGeometry );
       glPopMatrix();
    }
 
@@ -146,7 +146,7 @@ private:
    Quat<float> mRot;
    float mRotVel;
    Light mLight;
-   std::vector< safe_ptr<GeoSet> > geosets;
+   safe_ptr< Geode > mGeometry;
 };
 
 #endif // ! BULLET_H_INCLUDED

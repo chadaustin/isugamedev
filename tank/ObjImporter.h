@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-30 23:28:37 $
-//    $Revision: 1.11 $
+//    $Date: 2001-10-02 19:02:46 $
+//    $Revision: 1.12 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -45,7 +45,7 @@
 #include "ImageManager.h"
 #include "GState.h"
 
-#include "GeoSet.h"
+#include "Geode.h"
 
 namespace kev
 {
@@ -213,7 +213,7 @@ public:
       GState* mat;
    };
 
-   void load( std::vector< safe_ptr<GeoSet> >& gset, const std::string& filename, bool flat = false )
+   void load( safe_ptr<Geode> geode, const std::string& filename, bool flat = false )
    {
       std::vector< Vec3<float> > verts;
       std::vector< Vec2<float> > texcoords;
@@ -413,7 +413,7 @@ public:
             geoset->setGstate( lookup[(*it).first].mat );
          }
          
-         gset.push_back( geoset );
+         geode->add( geoset );
       }            
    }
    

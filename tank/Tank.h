@@ -8,8 +8,7 @@
 #include "ImageManager.h"
 
 #include "ObjImporter.h"
-#include "GeoSet.h"
-#include "glRenderGeoSet.h"
+#include "glRenderGeode.h"
 #include "convert.h"
 
 #include "iniFile.h"
@@ -17,7 +16,8 @@
 class Tank
 {
 public:
-   Tank() : mPos(), mVel(), mRot(), mRotVel(), mMaterial(), mSpeed( 0.0f ), geosets(), mWeapon0GeoSets()
+   Tank() : mPos(), mVel(), mRot(), mRotVel(), mMaterial(), mSpeed( 0.0f ),
+            mBodyGeometry( NULL ), mWeapon0Geometry( NULL )
    {
       mXForm.makeIdent();
       this->init();
@@ -35,23 +35,24 @@ public:
       assert( result );
 
       kev::ObjImporter obj;
-      obj.load( geosets, filename );
-      assert( geosets.size() > 0 && "load failed" );
-      obj.load( mWeapon0GeoSets, weapon0 );
-      assert( mWeapon0GeoSets.size() > 0 && "load failed" );
+      mBodyGeometry = new Geode();
+      obj.load( mBodyGeometry, filename );
+      assert( mBodyGeometry->getNumGeoSets() > 0 && "load failed" );
+      mWeapon0Geometry = new Geode();
+      obj.load( mWeapon0Geometry, weapon0 );
+      assert( mWeapon0Geometry->getNumGeoSets() > 0 && "load failed" );
    }
    
    void drawShip() const
    {
       glEnable( GL_TEXTURE_2D );
    
-      // compensate for the 3DS scale and rotation...
       glPushMatrix();
       glTranslatef( 0, 2, 0 );
-      kev::glRenderGeoSets( mWeapon0GeoSets );
+      kev::glRenderGeode( mWeapon0Geometry );
       glPopMatrix();
 
-      kev::glRenderGeoSets( geosets );
+      kev::glRenderGeode( mBodyGeometry );
    }
 
    void draw() const
@@ -178,9 +179,8 @@ private:
    Quat<float> mRot, mRotVel;
    Material mMaterial;
    float mSpeed;
-   
-   std::vector< safe_ptr<GeoSet> > geosets;
-   std::vector< safe_ptr<GeoSet> > mWeapon0GeoSets;
+
+   safe_ptr<Geode> mBodyGeometry, mWeapon0Geometry;
 };
 
 #endif

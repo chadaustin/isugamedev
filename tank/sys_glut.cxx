@@ -120,16 +120,13 @@ OnApplicationInit()
    game->getWorld().setLight( light );
 
    kev::ObjImporter importer;
-   std::vector< safe_ptr<GeoSet> > gset;
+   safe_ptr< Geode> geom;
 
    //Load our tank model
-   importer.load( gset, "models/ship.obj" );
+   importer.load( geom, "models/ship.obj" );
 
    Entity *entity = new Entity();
-   std::vector< safe_ptr<GeoSet> >::iterator itr;
-   for (itr = gset.begin(); itr != gset.end(); itr++) {
-      entity->addGeoSet( *itr );
-   }
+   entity->setGeode( geom );
 
    //Put the tank in the world
    game->getWorld().add( entity );

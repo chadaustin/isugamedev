@@ -1,12 +1,12 @@
 
 #include "Entity.h"
-#include "glRenderGeoSet.h"
+#include "glRenderGeode.h"
 #include "convert.h"
 
 /*----------------------------------------------------------------------------*/
 
 Entity::Entity()
-   : mPos( 0,0,0 ), mRot(), mBehavior( NULL )
+   : mPos( 0,0,0 ), mRot(), mBehavior( NULL ), mGeometry( NULL )
 {
 }
 
@@ -15,14 +15,12 @@ Entity::Entity()
 void
 Entity::draw() const
 {
-    glPushMatrix();
-        glMultMatrixf( mXForm.data() );
-        
-        std::vector< safe_ptr<GeoSet> >::const_iterator itr;
-        for (itr = mGeometry.begin(); itr != mGeometry.end(); itr++) {
-            kev::glRenderGeoSet( *(*itr) );
-        }
+   glPushMatrix();
+      glMultMatrixf( mXForm.data() );
 
+      if ( mGeometry ) {
+         kev::glRenderGeode( mGeometry );
+      }
    glPopMatrix();
 }
 
@@ -31,7 +29,7 @@ Entity::draw() const
 void
 Entity::update( float timeDelta )
 {
-    kev::quat2mat( mPos, mRot, mXForm );
+   kev::quat2mat( mPos, mRot, mXForm );
 }
 
 /*----------------------------------------------------------------------------*/
@@ -69,9 +67,25 @@ Entity::rotate( float deg, float x, float y, float z)
 /*----------------------------------------------------------------------------*/
 
 void
-Entity::addGeoSet(GeoSet *geoSet)
+Entity::setGeode( Geode *geode)
 {
-   mGeometry.push_back(geoSet);
+   mGeometry = geode;
+}
+
+/*----------------------------------------------------------------------------*/
+
+Geode*
+Entity::getGeode()
+{
+   return mGeometry;
+}
+
+/*----------------------------------------------------------------------------*/
+
+const Geode*
+Entity::getGeode() const
+{
+   return mGeometry;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -120,6 +134,14 @@ const Quat<float>&
 Entity::rotation() const
 {
    return mRot;
+}
+
+/*----------------------------------------------------------------------------*/
+
+const Entity::UID&
+Entity::getUID() const
+{
+   return mUID;
 }
 
 /*----------------------------------------------------------------------------*/
