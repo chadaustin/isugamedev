@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SDLBridge.h,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,7 +41,7 @@
 #define PHUI_SDL_BRIDGE_H
 
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include "Input.h"
 
 

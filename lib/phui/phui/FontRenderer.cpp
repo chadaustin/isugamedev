@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FontRenderer.cpp,v $
- * Date modified: $Date: 2002-07-14 08:22:37 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,15 +42,16 @@
 
 namespace phui
 {
-   FontRenderer::FontRenderer(const Font& font)
-      : mFont(font)
+   FontRenderer::FontRenderer(const gltext::FontPtr& font)
+      : mFont(font.get())
    {
-      mRenderer = new GLTTPixmapFont(&(mFont.mFace));
-      if ( ! mRenderer->create(mFont.getSize()) )
+      //mRenderer = new GLTTPixmapFont(&(mFont.mFace));
+      mRenderer = new gltext::CreateRenderer(gltext::PIXMAP);
+      if ( ! mRenderer )
       {
-         delete mRenderer;
          throw std::runtime_error("Failed to create font renderer");
       }
+      mRenderer->setFont(font);
    }
 
    FontRenderer::FontRenderer(const FontRenderer& renderer)

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Font.h,v $
- * Date modified: $Date: 2002-05-04 11:56:19 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,7 +42,7 @@
 
 #include "phuiCommon.h"
 #include <string>
-#include <gltt/FTFace.h>
+#include <gltext.h>
 
 namespace phui
 {
@@ -149,8 +149,7 @@ namespace phui
       /// Font point size
       unsigned int mSize;
 
-      /// GLTT font face
-      FTFace mFace;
+      gltext::FontPtr mFace;
    };
 }
 

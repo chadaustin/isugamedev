@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2002-05-01 18:40:02 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,7 +39,7 @@
  ************************************************************** phui-cpr-end */
 #include "TextField.h"
 #include <GL/gl.h>
-#include "FontRendererCache.h"
+//#include "FontRendererCache.h"
 #include "WidgetContainer.h"
 
 namespace phui {
@@ -74,7 +74,7 @@ namespace phui {
       // draw text
       glColor(getForegroundColor());
 
-      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+ /*     FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
 
       const Insets& i = getInsets();
 //      int w = width  - i.getLeft() - i.getRight();
@@ -95,16 +95,16 @@ namespace phui {
          std::string cursor = "|";
          renderer->draw(cursor, fontX+mCursorScreenPosition, fontY);
       }
-      renderer->draw(mText, fontX, fontY);
+      renderer->draw(mText, fontX, fontY);*/
    }
 
    void TextField::setText(const std::string& text)
    {
-      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+/*      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
       mCursorScreenPosition=renderer->getWidth(text);
       mCursorCharacterPosition=text.length();
 
-      mText = text;
+      mText = text;*/
    }
 
    const std::string& TextField::getText() const
@@ -114,7 +114,7 @@ namespace phui {
 
    void TextField::onKeyDown(InputKey key)
    {
-      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+/*      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
       std::string toAdd; // if we are to add anything, put it here
       if(key == KEY_RIGHT) {
          if(mCursorCharacterPosition < mText.length()) {
@@ -150,7 +150,7 @@ namespace phui {
          mText.insert(mCursorCharacterPosition, toAdd);
          mCursorScreenPosition+=renderer->getWidth(toAdd);
          mCursorCharacterPosition++;
-      }
+      }*/
    }
 
 } // namespace phui

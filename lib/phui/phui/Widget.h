@@ -12,8 +12,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-05-04 11:56:19 $
- * Version:       $Revision: 1.28 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.29 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -43,7 +43,7 @@
 
 #include "phuiCommon.h"
 #include "Color.h"
-#include "Font.h"
+#include <gltext.h>
 #include "Input.h"
 #include "Insets.h"
 #include "Point.h"
@@ -190,12 +190,12 @@ namespace phui
        *
        * @param font    the new font
        */
-      virtual void setFont( const Font& font );
+      virtual void setFont( const gltext::FontPtr& font );
 
       /**
        * Gets the font for this widget.
        */
-      virtual const Font& getFont() const;
+      virtual const gltext::FontPtr& getFont() const;
 
       /**
        * Gets the parent container for this widget or NULL if this
@@ -266,7 +266,8 @@ namespace phui
       /**
        * The foreground font.
        */
-      Font mFont;
+      //Font mFont;
+      gltext::FontPtr mFont;
 
       /**
        * The parent container for this widget.

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -50,9 +50,13 @@ namespace phui
       , mVisible(true)
       , mBackgroundColor(BLACK)
       , mForegroundColor(WHITE)
-      , mFont("arial", Font::PLAIN, 12)
       , mParent(NULL)
    {
+      mFont = gltext::CreateFont("arial.ttf", gltext::PLAIN, 12);
+      if(!mFont)
+      {
+         throw std::runtime_error("Font not found");
+      }
    }
 
    Widget::~Widget() {
@@ -115,11 +119,11 @@ namespace phui
       return mForegroundColor;
    }
 
-   void Widget::setFont(const Font& font) {
+   void Widget::setFont(const gltext::FontPtr& font) {
       mFont = font;
    }
 
-   const Font& Widget::getFont() const {
+   const gltext::FontPtr& Widget::getFont() const {
       return mFont;
    }
 

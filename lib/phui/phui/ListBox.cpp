@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-05-03 10:26:38 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,7 +39,7 @@
  ************************************************************** phui-cpr-end */
 #include "ListBox.h"
 #include <GL/gl.h>
-#include "FontRendererCache.h"
+//#include "FontRendererCache.h"
 #include "WidgetContainer.h"
 #include <algorithm>
 #include <assert.h>
@@ -71,7 +71,7 @@ namespace phui {
       // draw text
       glColor(getForegroundColor());
 
-      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+ /*     FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
 
       const Insets& i = getInsets();
 //      int w = width  - i.getLeft() - i.getRight();
@@ -104,7 +104,7 @@ namespace phui {
          if(mSelectedItem == x) {
             glColor(getForegroundColor());
          }
-      }
+      }*/
    }
 
    void ListBox::add(const std::string& text) {
@@ -136,7 +136,7 @@ namespace phui {
    }
 
    void ListBox::onMouseDown(InputButton button, const Point& p) {
-      if (button == BUTTON_LEFT) {
+    /*  if (button == BUTTON_LEFT) {
          FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
          unsigned int selectedIdx = (p.y-(p.y%renderer->getHeight()))/renderer->getHeight();
          // Check that the computed index isn't outside our list of values
@@ -145,7 +145,7 @@ namespace phui {
             std::cout<<"Selected index "<<mSelectedItem<<"/"<<mItems.size()<<std::endl;
             fireListSelectionEvent(mSelectedItem);
          }
-      }
+      }*/
    }
 
    void ListBox::addListSelectionListener(ListSelectionListener* listener) {

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FontRenderer.h,v $
- * Date modified: $Date: 2002-07-14 08:22:37 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,9 +41,8 @@
 #define PHUI_FONTRENDERER_H
 
 #include "phuiCommon.h"
-#include "Font.h"
+#include <gltext.h>
 #include "Size.h"
-#include <gltt/GLTTPixmapFont.h>
 
 namespace phui
 {
@@ -63,7 +62,7 @@ namespace phui
        *
        * @throw std::runtime_error     failure to create the font renderer
        */
-      FontRenderer(const Font& font);
+      FontRenderer(const gltext::FontPtr& font);
 
       /**
        * Creates a copy of the given font renderer.
@@ -141,10 +140,11 @@ namespace phui
 
    private:
       /// The font this renderer uses.
-      Font mFont;
-
+     
+      gltext::FontRendererPtr mRenderer;
+     
       /// The GLTT renderer for the font face.
-      GLTTPixmapFont* mRenderer;
+      //GLTTPixmapFont* mRenderer;
    };
 }
 

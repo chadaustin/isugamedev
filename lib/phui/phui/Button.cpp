@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-07-14 08:22:37 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,7 +39,7 @@
  ************************************************************** phui-cpr-end */
 #include "Button.h"
 #include <GL/gl.h>
-#include "FontRendererCache.h"
+#include <gltext.h>
 #include "WidgetContainer.h"
 #include <algorithm>
 
@@ -65,6 +65,7 @@ namespace phui {
       const int width = size.getWidth();
       const int height = size.getHeight();
 
+      gltext::FontPtr font = getFont();
       // draw the button background
       glColor(mButtonDown ? getForegroundColor() : getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
@@ -77,26 +78,40 @@ namespace phui {
       // draw text
       glColor(mButtonDown ? getBackgroundColor() : getForegroundColor());
 
-      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+      //FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP);
+      renderer->setFont(font.get());
       
-      const Insets& i = getInsets();
-//      int w = width  - i.getLeft() - i.getRight();
-//      int h = height - i.getTop()  - i.getBottom();
-      unsigned int fontHeight = renderer->getHeight();
-//      unsigned int fontWidth = renderer.getWidth(mText);
-      unsigned int fontAscent = fontHeight - renderer->getDescent();
 
-      int textRectX = i.getLeft();
-      int textRectY = i.getTop();
-//      int textRectW = width  - (i.getRight()  + textRectX);
-//      int textRectH = height - (i.getBottom() + textRectY);
+      double labelWidth = double(renderer->getWidth(mText.c_str()));
+      double fontHeight = double(font->getAscent() + font->getDescent());
 
-      int fontX = textRectX;
-      int fontY = textRectY + fontAscent;
-      Size sz = this->getSize();
-      Size *nsz = renderer->draw(mText, fontX, fontY, sz);
-      this->setSize(nsz->getWidth(), nsz->getHeight());
-      delete nsz;
+      //Lets store the Matrix so we don't piss anyone off
+      glPushMatrix();
+
+      //These checks see if the button Label fits inside the
+      //button.  If not start in the lower left-hand corner of
+      //the button and render the text.
+      double yLoc = (height - fontHeight)/2.0;
+      if(yLoc < 0)
+      {
+         yLoc = 0;
+      }
+    
+      double xLoc = (width - labelWidth)/2.0;
+      if(xLoc < 0)
+      {
+         xLoc = 0;
+      }
+      glTranslatef(GLfloat(xLoc), GLfloat(height - yLoc), 0.0f);
+
+      renderer->render(mText.c_str());
+     
+      //Lets restore the Matrix
+      glPopMatrix();
+
+     // this->setSize(nsz->getWidth(), nsz->getHeight());
+     // delete nsz;
       
       if (hasFocus()) {
          glBegin(GL_LINE_LOOP);
@@ -106,6 +121,8 @@ namespace phui {
          glVertex2i(0,     height);
          glEnd();
       }
+
+      
    }
 
    void Button::setText(const std::string& text) {

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-12-31 04:24:58 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,7 +39,7 @@
  ************************************************************** phui-cpr-end */
 #include "Label.h"
 #include <GL/gl.h>
-#include "FontRendererCache.h"
+//#include "FontRendererCache.h"
 #include "WidgetContainer.h"
 
 namespace phui {
@@ -68,7 +68,7 @@ namespace phui {
       // draw text
       glColor(getForegroundColor());
 
-      FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+ /*     FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
 
       const Insets& i = getInsets();
 //      int w = width  - i.getLeft() - i.getRight();
@@ -85,7 +85,7 @@ namespace phui {
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;
 
-      renderer->draw(mText, fontX, fontY);
+      renderer->draw(mText, fontX, fontY);*/
    }
 
    void Label::setText(const std::string& text)
