@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-06 22:47:06 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-02-09 16:57:44 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -40,7 +40,7 @@ DEPDIR =
 
 PATH_TO_SRCS = .
 MK_DIR = ../../mk
-INCLUDE_PATHS = -I. -I../../ -I/home/users/bscott/software/linux/include -I../../xml
+INCLUDE_PATHS = -I. -I../../
 
 ########################################################################
 # system dependent stuff, that users will want to change...
@@ -49,11 +49,11 @@ INCLUDE_PATHS = -I. -I../../ -I/home/users/bscott/software/linux/include -I../..
 include ${MK_DIR}/mk.platform
 include ${MK_DIR}/mk.hosttype
 
-EXTRA = -L/home/users/bscott/software/linux/lib
+EXTRA = 
 
 # IRIX
 ifeq ($(HOSTTYPE), IRIX)
-   LIBS = -L/usr/X11R6/lib $(EXTRA) -lGLU -lGL -lglut -lX11 -lXmu -lm
+   LIBS = $(EXTRA) -lGLU -lGL -lglut -lX11 -lXmu -lm
    include ${MK_DIR}/mk.irix
 endif
 
@@ -70,11 +70,6 @@ ifeq ($(HOSTTYPE), Win32)
    include ${MK_DIR}/mk.win32
 endif
 
-# gnu2
-ifeq ($(HOSTTYPE), GNU)
-   LIBS = -L/usr/X11R6/lib -lGLU -lGL -lglut -lX11 -lXmu -lm
-   include ${MK_DIR}/mk.gnu
-endif
 ########################################################################
 
 include ${MK_DIR}/mk.objs
