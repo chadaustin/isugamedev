@@ -2,6 +2,9 @@
 #define PHUI_POINT_H
 
 
+#include <iostream>
+
+
 class Point {
 public:
    Point()               { x = 0;   y = 0; }
@@ -25,6 +28,11 @@ inline Point operator-(const Point& lhs, const Point& rhs) {
 
 inline Point operator+(const Point& lhs, const Point& rhs) {
    return Point(lhs.x + rhs.x, lhs.y + rhs.y);
+}
+
+inline ostream& operator<<(ostream& os, const Point& p) {
+   os << "(" << p.x << ", " << p.y << ")";
+   return os;
 }
 
 

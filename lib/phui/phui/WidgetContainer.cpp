@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-04-22 05:07:20 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-22 05:28:52 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -94,6 +94,8 @@ namespace phui {
    }
 
    void WidgetContainer::onMouseDown(InputButton button, const Point& p) {
+
+      std::cout << "WidgetContainer::onMouseDown: " << p << std::endl;
 
       // mouse down always releases widget capture
       capture(0);

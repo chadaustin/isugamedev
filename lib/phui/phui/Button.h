@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-04-22 04:43:39 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-22 05:28:52 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -91,7 +91,7 @@ namespace phui {
        * its visual appearance and test if the next MouseUp event will be inside
        * this button.
        */
-      virtual void onMouseDown(InputButton button, int x, int y);
+      virtual void onMouseDown(InputButton button, const Point& p);
 
       /**
        * Called whenever a mouse button has been released after it has been
@@ -99,7 +99,7 @@ namespace phui {
        * button then we will fire a ButtonPressed event, otherwise we'll just
        * toggle the button's down state.
        */
-      virtual void onMouseUp(InputButton button, int x, int y);
+      virtual void onMouseUp(InputButton button, const Point& p);
 
    private:
       /**

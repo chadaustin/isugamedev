@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-22 04:49:15 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-22 05:28:52 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -55,12 +55,8 @@ namespace phui {
 
    void Button::draw()
    {
-      Point pos = getPosition();
       int width, height;
       getSize(width, height);
-
-      glPushMatrix();
-      glTranslatef(pos.x, pos.y, 0.0f);
 
       // draw the button background
       glColor(mButtonDown ? getForegroundColor() : getBackgroundColor());
@@ -92,8 +88,6 @@ namespace phui {
       int fontY = textRectY + fontAscent;
 
       renderer.draw(mText, fontX, fontY);
-
-      glPopMatrix();
    }
 
    void Button::setText(const std::string& text)
@@ -106,9 +100,9 @@ namespace phui {
       return mText;
    }
 
-   void Button::onMouseDown(InputButton button, int x, int y)
+   void Button::onMouseDown(InputButton button, const Point& p)
    {
-      std::cout<<"Button::onMouseDown("<<x<<", "<<y<<")"<<std::endl;
+      std::cout << "Button::onMouseDown " << p << std::endl;
       /// @todo capture the mouse so we can receive the MouseUp event even if
       //        the mouse is no longer inside the button.
       if (button == BUTTON_LEFT)
@@ -118,9 +112,9 @@ namespace phui {
       }
    }
 
-   void Button::onMouseUp(InputButton button, int x, int y)
+   void Button::onMouseUp(InputButton button, const Point& p)
    {
-      std::cout<<"Button::onMouseUp("<<x<<", "<<y<<")"<<std::endl;
+      std::cout << "Button::onMouseUp " << p << std::endl;
       if (button == BUTTON_LEFT)
       {
          std::cout<<"\tLMB"<<std::endl;
@@ -128,7 +122,7 @@ namespace phui {
 
          // Only fire button pressed event if the mouse was released inside
          // this button.
-         if (contains(Point(x, y)))
+         if (contains(p))
          {
             std::cout<<"FIRE button pressed"<<std::endl;
             /// @todo fire ButtonPressed event
