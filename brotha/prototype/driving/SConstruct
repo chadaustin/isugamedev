@@ -1,0 +1,6 @@
+import os
+
+Default('.')
+
+env = Environment(ENV = os.environ, LIBS = 'gk')
+env.Program(target = 'driving', source = 'Main.cpp DrivingApp.cpp')
