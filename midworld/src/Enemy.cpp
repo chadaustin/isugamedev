@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-23 20:54:35 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,37 +45,26 @@ namespace mw
    void Enemy::update(float timeDelta)
    {
       unsigned int randRange = 5;
-      gmtl::Vec3f nVel;
+      gmtl::Vec3f force;
       if (rand() % 100 < 10)
       {
-         switch(rand() % 3)
+         int x = rand() % randRange;
+         int y = rand() % randRange;
+
+         switch (rand() % 4)
          {
-            case 0:
-               nVel.set(static_cast<float>(rand() % randRange),0,
-                             static_cast<float>(rand() % randRange));
-               break;
-            case 1:
-               nVel.set(-(static_cast<float>(rand() % randRange)),0,
-                             static_cast<float>(rand() % randRange));
-               break;
-            case 2:
-               nVel.set(static_cast<float>(rand() % randRange),0,
-                             -(static_cast<float>(rand() % randRange)));
-               break;
-            case 3:
-               nVel.set(-(static_cast<float>(rand() % randRange)),0,
-                             -(static_cast<float>(rand() % randRange)));
-               break;
-            default:
-               std::cerr << "Rand generated a random error." << std::endl;
+            case 0: force.set( x, 0,  y); break;
+            case 1: force.set(-x, 0,  y); break;
+            case 2: force.set( x, 0, -y); break;
+            case 3: force.set(-x, 0, -y); break;
          }
-         this->setVel(nVel);
+         addForce(force);
       }
-      if ( (rand() % 100) < 1)
+      if ((rand() % 100) == 0)
       {
-         gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(gmtl::AxisAnglef(
-                       static_cast<float>(rand() % randRange), 0, 1, 0));
-         this->setRot(nRot);
+         gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(
+            gmtl::AxisAnglef(rand() % randRange, 0, 1, 0));
+         setRot(nRot);
       }
       RigidBody::update(timeDelta);
    }
