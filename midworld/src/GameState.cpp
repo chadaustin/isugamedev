@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-01 12:27:21 $
- * Version:       $Revision: 1.100 $
+ * Date modified: $Date: 2002-11-01 14:44:31 $
+ * Version:       $Revision: 1.101 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -68,8 +68,8 @@ namespace mw
    {
       gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
       gmtl::Vec3f downVec(0.0f,0.0f,-1.0f);
-      gmtl::Quatf currentQuat = mEnemy->getRot(); /// Turret's current orientation
-      gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mEnemy->getPos();
+      gmtl::Quatf currentQuat = mDroid->getRot(); /// Turret's current orientation
+      gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mDroid->getPos();
       gmtl::normalize(vecToPlayer);
       /// quaternion representing the rotation angle it would take to point at the player.
       gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer); 
@@ -80,14 +80,14 @@ namespace mw
       
          
       gmtl::slerp(finalQuat, 0.055f, currentQuat, mQuat);  /// slerp to 4/10 the angle we need to have.
-      mEnemy->setRot(finalQuat); 
+      mDroid->setRot(finalQuat); 
          
       mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
       gmtl::slerp(finalQuat, 1.0f, finalQuat, mQuat);
       gmtl::Vec3f offset(0,0,3);
-      mEnemy->getGun()->setRot(finalQuat);
-      mEnemy->getGun()->setPos(mEnemy->getPos()+(mEnemy->getRot()*offset));
-      mEnemy->getGun()->trigger(true);
+      mDroid->getGun()->setRot(finalQuat);
+      mDroid->getGun()->setPos(mDroid->getPos()+(mDroid->getRot()*offset));
+      mDroid->getGun()->trigger(true);
    }
       
       
@@ -95,8 +95,6 @@ namespace mw
    
    void turretCommand::execute()
    {
-      std::cout << "in execute of Turret" << std::endl;
-      
       gmtl::Vec3f upVec(0.0f, 0.0f, 1.0f);
       gmtl::Vec3f downVec(0.0f,0.0f,-1.0f);
       gmtl::Quatf currentQuat = mTurret->getRot(); /// Turret's current orientation
@@ -115,9 +113,7 @@ namespace mw
       gmtl::slerp(finalQuat, 1.0f, finalQuat, mQuat);
       gmtl::Vec3f offset(0,0,6);
       mTurret->getGun()->setRot(finalQuat);
-      std::cout << mTurret->getGun()->getPos()[0] << std::endl;
       mTurret->getGun()->setPos(mTurret->getPos()+(mTurret->getRot()*offset));
-      std::cout << mTurret->getGun()->getPos()[0] << std::endl << std::endl << std::endl;
       mTurret->shoot();
     
    }  
@@ -751,10 +747,10 @@ namespace mw
       lm::aiNode* node1 = new lm::aiNode(name, NULL, maxChild, level);
       mAInodes.push_back(node1);
 
-      Enemy* enemy = EntityFactory::instance().create<Enemy>();
-      node2sCommand = new lm::simpleCommand<Enemy>(enemy, &Enemy::walkRandom);
-      myTestCommand = new droidTesting(enemy, &mPlayer);
-      shootCommand = new droidCommand(enemy, &mPlayer);
+      Droid* droid = EntityFactory::instance().create<Droid>();
+      node2sCommand = new lm::simpleCommand<Droid>(droid, &Droid::walkRandom);
+      myTestCommand = new droidTesting(droid, &mPlayer);
+      shootCommand = new droidCommand(droid, &mPlayer);
       
       second = new lm::behavior;
       second->addCommand(node2sCommand);
@@ -763,9 +759,9 @@ namespace mw
       node2Instinct = new lm::reflex(node1, second, myTestCommand);
       AI.registerNode(node1);
 
-      mMap[enemy->getUID()] = node1;
+      mMap[droid->getUID()] = node1;
       
-      return enemy;
+      return droid;
    }
    
 

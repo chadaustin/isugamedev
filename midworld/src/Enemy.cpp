@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-11-01 12:14:51 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-01 14:44:32 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,7 +47,6 @@ namespace mw
       : AbstractEntity(gameState)
       , mHealth(100)
    {
-      gun = new Pistol;
    }
    
    Enemy::~Enemy()
@@ -64,53 +63,7 @@ namespace mw
 
    void Enemy::update(float timeDelta)
    {
-/*
-      unsigned int randRange = 5;
-      gmtl::Vec3f force;
-      if (rand() % 100 < 10)
-      {
-         int x = rand() % randRange;
-         int y = rand() % randRange;
-
-         switch (rand() % 4)
-         {
-            case 0: force.set( x, 0,  y); break;
-            case 1: force.set(-x, 0,  y); break;
-            case 2: force.set( x, 0, -y); break;
-            case 3: force.set(-x, 0, -y); break;
-         }
-         addForce(force);
-      }
-      if ((rand() % 100) == 0)
-      {
-         gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(
-            gmtl::AxisAnglef(rand() % randRange, 0, 1, 0));
-         setRot(nRot);
-      }
-*/
-      gun->update(*getGameState(), timeDelta);
       RigidBody::update(timeDelta);
- //     gun->trigger(false);
    }
 
-   void Enemy::walkRandom()
-   {
-
-      std::cout << "in Walk Random" << std::endl;
-      if (rand() % 100 < 5)
-      {
-         gmtl::Vec3f force = randomUnitVector() * 5;
-         force[1] = 0;  // no vertical forces
-         addForce(force);
-      }
-      if ((rand() % 100) == 0)
-      {
-
-         gmtl::Quatf nRot = gmtl::makeRot<gmtl::Quatf>(
-            gmtl::AxisAnglef(3.141/2.0, 0, 1, 0));
-         setRot(nRot);
-      }
-   }
-      
-   
 }

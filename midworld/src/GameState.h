@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-01 12:14:51 $
- * Version:       $Revision: 1.59 $
+ * Date modified: $Date: 2002-11-01 14:44:31 $
+ * Version:       $Revision: 1.60 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,16 +47,17 @@
 
 #include <SDL.h>
 #include "Camera.h"
+#include "Droid.h"
 #include "CollisionDetector.h"
 #include "CollisionResponse.h"
 #include "Entity.h"
 #include "GameScene.h"
 #include "HUD.h"
+#include "InputAction.h"
 #include "PhysicsEngine.h"
 #include "Player.h"
 #include "Scene.h"
 #include "SceneViewer.h"
-#include "InputAction.h"
 #include "State.h"
 #include "Turret.h"
 #include "ParticleEngine.h"
@@ -74,9 +75,9 @@ namespace mw
    class droidTesting : public lm::testing
    {
    public:
-      droidTesting(Enemy* e, Player* p)
+      droidTesting(Droid* e, Player* p)
       {
-         mEnemy = e;
+         mDroid = e;
          mPlayer = p;
       }
 
@@ -93,10 +94,10 @@ namespace mw
             gmtl::AxisAnglef(-45, 0, 1, 0));
 
          
-         drd = mEnemy->getPos();
+         drd = mDroid->getPos();
          plyr = mPlayer->getPos();
-         pA = mEnemy->getPos()+(mEnemy->getRot()*nRot)*reach;
-         pB = mEnemy->getPos()+(mEnemy->getRot()*mRot)*reach;
+         pA = mDroid->getPos()+(mDroid->getRot()*nRot)*reach;
+         pB = mDroid->getPos()+(mDroid->getRot()*mRot)*reach;
 
       //   std::cout << "plyr:" << plyr[0] << "," << plyr[2] << "  drd:" << drd[0] << "," << drd[2] << "  pA:" << pA[0] << "," << pA[2] << "  pB:" << pB[0] << "," << pB[2] << std::endl << std::endl;
 
@@ -118,23 +119,23 @@ namespace mw
          }
       }
    private:
-      Enemy* mEnemy;
+      Droid* mDroid;
       Player* mPlayer;
    };
 
    class droidCommand : public lm::command
    {
    public:
-      droidCommand(Enemy* e, Player* p)
+      droidCommand(Droid* e, Player* p)
       {
          mPlayer = p;
-         mEnemy = e;
+         mDroid = e;
       }
 
       virtual void execute();
 
    private:
-      Enemy* mEnemy;
+      Droid* mDroid;
       Player* mPlayer;
    };
    
@@ -157,7 +158,6 @@ namespace mw
          pos1 = mTurret->getPos();
          pos2 = mPlayer->getPos();
          gmtl::LineSegf dist(pos1, pos2);
-         std::cout << "hi in TurretTesting Turret: " << dist.getLength() << std::endl << std::endl;
          if(dist.getLength() < 20)
             return true;
          else
