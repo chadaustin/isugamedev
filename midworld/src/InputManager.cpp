@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputManager.cpp,v $
- * Date modified: $Date: 2002-11-26 02:09:20 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-26 11:23:05 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -96,6 +96,26 @@ namespace mw
    InputManager::getAction(Uint8 button)
    {
       return getAction(mButtons[button]);
+   }
+
+   SDLKey InputManager::getKey(const std::string& name)
+   {
+      for(KeyMap::iterator itr=mKeys.begin(); itr != mKeys.end(); ++itr)
+      {
+         if(itr->second == name)
+            return itr->first;
+      }
+      return SDLK_UNKNOWN;
+   }
+
+   Uint8 InputManager::getButton(const std::string& name)
+   {
+      for(ButtonMap::iterator itr=mButtons.begin(); itr != mButtons.end(); ++itr)
+      {
+         if(itr->second == name)
+            return itr->first;
+      }
+      return 0;
    }
    
    void

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputManager.h,v $
- * Date modified: $Date: 2002-11-26 01:56:08 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-26 11:23:05 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,6 +49,9 @@ namespace mw
       InputAction* getAction(const std::string& name);
       InputAction* getAction(SDLKey key);
       InputAction* getAction(Uint8 button);
+
+      SDLKey getKey(const std::string& name);
+      Uint8 getButton(const std::string& name);
       
       /// called once every frame
       void update(float dt);

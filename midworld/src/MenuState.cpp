@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-11-26 03:05:19 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-11-26 11:23:05 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -265,6 +265,9 @@ namespace mw
                {
                   case 0:
                      invokeTransition("Story");
+                     break;
+                  case 2:
+                     invokeTransition("Options");
                      break;
                   case 3:
                      invokeTransition("Credits");

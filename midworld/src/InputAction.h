@@ -24,13 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputAction.h,v $
- * Date modified: $Date: 2002-11-05 21:22:16 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-11-26 11:23:04 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_INPUT_ACTION_H
 #define MW_INPUT_ACTION_H
+
 
 namespace mw
 {
@@ -54,7 +55,7 @@ namespace mw
        * a falling edge, or 0 if steady.
        */
       int getEdgeState();
-      
+     
    private:
       int mPressCount;
       int mLastPressCount;

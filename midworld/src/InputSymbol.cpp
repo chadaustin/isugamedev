@@ -9,11 +9,13 @@ namespace mw
 {
    // Our keymap type from string to SDLkey
    typedef std::map<std::string, SDLKey> KeyMap;
+   typedef std::map<std::string, Uint8> ButtonMap;
 
    namespace
    {
       /// Our key mappings
       static KeyMap gKeys;
+      static ButtonMap gButtons;
 
       /**
        * This class inits the list of SDLKey mappings upon construction.
@@ -90,9 +92,18 @@ namespace mw
             gKeys["KEY_KP7"]        = SDLK_KP7;
             gKeys["KEY_KP8"]        = SDLK_KP8;
             gKeys["KEY_KP9"]        = SDLK_KP9;
-            gKeys["KEY_SHIFT"]      = SDLK_LSHIFT;
-            gKeys["KEY_CTRL"]       = SDLK_LCTRL;
-            gKeys["KEY_ALT"]        = SDLK_LALT;
+            gKeys["KEY_KP_DIVIDE"]  = SDLK_KP_DIVIDE;
+            gKeys["KEY_KP_MULTIPLY"]= SDLK_KP_MULTIPLY;
+            gKeys["KEY_KP_MINUS"]   = SDLK_KP_MINUS;
+            gKeys["KEY_KP_PLUS"]    = SDLK_KP_PLUS;
+            gKeys["KEY_KP_PLUS"]    = SDLK_KP_ENTER;
+            gKeys["KEY_KP_EQUALS"]  = SDLK_KP_EQUALS;
+            gKeys["KEY_LSHIFT"]     = SDLK_LSHIFT;
+            gKeys["KEY_RSHIFT"]     = SDLK_RSHIFT;
+            gKeys["KEY_LCTRL"]      = SDLK_LCTRL;
+            gKeys["KEY_RCTRL"]      = SDLK_RCTRL;
+            gKeys["KEY_LALT"]       = SDLK_LALT;
+            gKeys["KEY_RALT"]       = SDLK_RALT;
             gKeys["KEY_SPACE"]      = SDLK_SPACE;
             gKeys["KEY_OPENBRACE"]  = SDLK_LEFTBRACKET;
             gKeys["KEY_CLOSEBRACE"] = SDLK_RIGHTBRACKET;
@@ -100,6 +111,7 @@ namespace mw
             gKeys["KEY_APOSTROPHE"] = SDLK_QUOTE;
             gKeys["KEY_COMMA"]      = SDLK_COMMA;
             gKeys["KEY_PERIOD"]     = SDLK_PERIOD;
+            gKeys["KEY_KP_PERIOD"]  = SDLK_KP_PERIOD;
             gKeys["KEY_SLASH"]      = SDLK_SLASH;
             gKeys["KEY_BACKSLASH"]  = SDLK_BACKSLASH;
             gKeys["KEY_ENTER"]      = SDLK_RETURN;
@@ -113,6 +125,9 @@ namespace mw
             gKeys["KEY_DOWN"]       = SDLK_DOWN;
             gKeys["KEY_LEFT"]       = SDLK_LEFT;
             gKeys["KEY_RIGHT"]      = SDLK_RIGHT;
+            gButtons["MOUSE_LEFT"]  = SDL_BUTTON_LEFT;
+            gButtons["MOUSE_RIGHT"] = SDL_BUTTON_RIGHT;
+            gButtons["MOUSE_MIDDLE"]= SDL_BUTTON_MIDDLE;
          }
       };
 
@@ -144,6 +159,19 @@ namespace mw
       {
          return 0;
       }
+   }
+
+   const std::string& SDLButtonToString(const Uint8& button)
+   {
+      for(ButtonMap::iterator itr = gButtons.begin(); itr != gButtons.end(); ++itr)
+      {
+         if(itr->second == button)
+         {
+            return itr->first;
+         }
+      }
+
+      throw std::runtime_error("Couldn't find a name for the given SDL button");
    }
 
    SDLKey stringToSDLKey(const std::string& name)
