@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-20 03:33:31 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-02-22 04:00:58 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -458,8 +458,14 @@ void
 GlutDriver::OnMousePos( int x, int y )
 {
    Mouse* mouse = sDriver->mMouse->getDevice();
-   mouse->axis( 0 ).setData( x );
-   mouse->axis( 1 ).setData( y );
+
+   int width, height;
+   sDriver->mKernel->getWindowSize( width, height );
+   float normX = ((float)x/(float)width)*2.0f - 1.0f;
+   float normY = ((float)y/(float)height)*2.0f - 1.0f;
+
+   mouse->axis( 0 ).setData( normX );
+   mouse->axis( 1 ).setData( normY );
 }
 
 //------------------------------------------------------------------------------
@@ -493,8 +499,14 @@ GlutDriver::OnMouseClick( int button, int state, int x, int y )
    // Set the mousebutton state and the mouse position
    Mouse* mouse = sDriver->mMouse->getDevice();
    mouse->button( b ).setBinaryState( binaryState );
-   mouse->axis( 0 ).setData( x );
-   mouse->axis( 1 ).setData( y );
+
+   int width, height;
+   sDriver->mKernel->getWindowSize( width, height );
+   float normX = ((float)x/(float)width)*2.0f - 1.0f;
+   float normY = ((float)y/(float)height)*2.0f - 1.0f;
+
+   mouse->axis( 0 ).setData( normX );
+   mouse->axis( 1 ).setData( normY );
 }
 
 //------------------------------------------------------------------------------

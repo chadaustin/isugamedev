@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInput.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-22 04:00:58 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,6 +37,16 @@
 
 namespace gk {
 
+/**
+ * Encapsulates an analog input data state from a device. This state includes
+ * the current data values and the ability to modify those values. Essentially
+ * this class is a mediator between AnalogInputInterface instances and the
+ * system driver implementations. SystemDrivers should set the device input
+ * data on AnalogInput objects and interested AnalogInputInterfaces use this
+ * class to access that data.
+ *
+ * All analog data is required to be in the range [-1,1].
+ */
 class AnalogInput : virtual public Input
 {
 public:
@@ -49,7 +59,9 @@ public:
    virtual void update();
 
    // return the analog data
-   virtual float data() const { return mCurrent; }
+   virtual float data() const {
+      return mCurrent;
+   }
 
 public:
    // Set the position of the Mouse object
