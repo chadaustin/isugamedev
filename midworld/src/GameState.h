@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-29 06:39:17 $
- * Version:       $Revision: 1.47 $
+ * Date modified: $Date: 2002-10-29 08:49:22 $
+ * Version:       $Revision: 1.48 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -106,16 +106,20 @@ namespace mw
 
       virtual void execute()
       {
-         gmtl::Vec3f upVec(0.0, 0.0, -1.0);
-         gmtl::Vec3f vecToPlayer = mTurret->getPos()-mPlayer->getPos();
+         gmtl::Vec3f upVec(0.0, 0.0, 1.0);
+         gmtl::Vec3f downVec(0.0,0.0,-1.0);
+         gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mTurret->getPos();
          gmtl::normalize(vecToPlayer);
          gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer);
          mTurret->setRot(mQuat);
+//
 
-         gmtl::Vec3f offset(0,0,6);
-         mTurret->getGun()->setRot(mTurret->getRot());
-//         mTurret->getGun()->setRot(mQuat);
-         mTurret->getGun()->setPos(mTurret->getPos()-(mTurret->getRot()*offset));
+         mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
+         
+         gmtl::Vec3f offset(0,0,8);
+//         mTurret->getGun()->setRot(mTurret->getRot());
+         mTurret->getGun()->setRot(mQuat);
+         mTurret->getGun()->setPos(mTurret->getPos()+(mTurret->getRot()*offset));
          mTurret->shoot();
       }
 
