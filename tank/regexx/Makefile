@@ -17,16 +17,25 @@ all:
 	@echo "Making regexx"
 	@echo "==============="
 	@echo " "
-	$(MAKE) regexx SRCS='$(SRCS1)' CXX_FLAGS='$(CXX_SHARED_FLAGS)'
+	$(MAKE) regexx-shared SRCS='$(SRCS1)' CXX_FLAGS='$(CXX_SHARED_FLAGS)'
+	$(MAKE) regexx-static SRCS='$(SRCS1)' CXX_FLAGS='$(CXX_STATIC_FLAGS)'
 	$(MAKE) testapp SRCS='$(SRCS2)' CXX_FLAGS='$(CXX_STATIC_FLAGS)'
 
-regexx: $(OBJS)
+regexx-shared: $(OBJS)
 	@echo " "
 	@echo "------------------------------------"
 	@echo "Making regexx lib ($(LIB_FILENAME))"
 	@echo "------------------------------------"
 	@echo " "
 	$(SO_LINKER) $(SO_FLAGS) $(OUTPUT_LIB_FLAG)$(LIB_FILENAME) $(OBJS)
+
+regexx-static: $(OBJS)
+	@echo " "
+	@echo "------------------------------------"
+	@echo "Making regexx lib ($(STATIC_LIB_FILENAME))"
+	@echo "------------------------------------"
+	@echo " "
+	$(STATIC_LINKER) $(STATIC_FLAGS) $(OUTPUT_STATIC_LIB_FLAG)$(STATIC_LIB_FILENAME) $(OBJS)
 
 testapp: $(OBJS)
 	@echo " "
@@ -44,3 +53,14 @@ doclean:
 	-rm -r ii_files
 	-rm $(LIB_FILENAME)
 	-rm testregexx$(EXE_FILE_SUFFIX)
+
+prefix ?= installed
+
+install: 
+	-mkdir $(prefix)
+	-mkdir $(prefix)/include
+	-mkdir $(prefix)/include/regexx
+	-mkdir $(prefix)/lib$(LIBBITSUF)
+	-cp *.h $(prefix)/include/regexx
+	-cp $(LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
+
