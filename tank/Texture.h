@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Texture.h,v $
-//    $Date: 2001-09-10 15:27:29 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-10 15:50:40 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -47,43 +47,43 @@ public:
     
     enum Model 
     {
-	 //The texture color is multiplied by the surface color
+    //The texture color is multiplied by the surface color
          MODULATE, 
-	 
-	 //The texture color replaces the surface color
+    
+    //The texture color replaces the surface color
          DECAL, 
-	 
-	 //Blends between the surface color and current geometry's color
+    
+    //Blends between the surface color and current geometry's color
          BLEND
     };
     
     enum Filtering
     {
-	    NEAREST,
-	    LINEAR,
-	    MIPMAP_NEAREST, 
-	    MIPMAP_LINEAR
+       NEAREST,
+       LINEAR,
+       MIPMAP_NEAREST, 
+       MIPMAP_LINEAR
     };
 
     enum Wrap 
     {
     //Repeats texture outside 0-1 texture coordinate range
          REPEAT, 
-	 
-	 //Clamps texture coordinates to lie within 0-1 range
+    
+    //Clamps texture coordinates to lie within 0-1 range
          CLAMP
     };
 
     //: set the image of the texture.
     // if this is NULL, then texture will not render or compile.
     // Must do this before compile(), or render()
-   void			setImage( const Image* i )
+   void         setImage( const Image* i )
    {
       mImage = i;
    }
     
     //: an alias to this texture's image.
-    //Image* 			image();
+    //Image*          image();
     const Image*  image() const;
     bool imageValid() const { return mImage != NULL; }
    
@@ -103,17 +103,17 @@ public:
     kev::ResourceID<unsigned short> resourceId;
     
 protected:
-	const Image* mImage;
+   const Image* mImage;
    void setResourceID(); 
 };
 
 //: an alias to this texture's image.
-/*inline Image* 	Texture::image()
+/*inline Image*    Texture::image()
 { 
    return mImage; 
 }
 */
-inline const Image* 	Texture::image() const
+inline const Image*    Texture::image() const
 { 
    return mImage; 
 }
