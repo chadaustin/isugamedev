@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-09-07 nonchocoboy  Added version information in Version.h
+                        NEW VERSION: 0.1.0
 2002-09-07 nonchocoboy  Entities now have a UID associated with them. The
                         AbstractEntity class was added to manage UIDs in a
                         common way for most entity implementations.

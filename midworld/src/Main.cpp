@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-09-07 06:05:52 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,7 @@
 #include <SDL_opengl.h>
 #include "Types.h"
 #include "Application.h"
+#include "Version.h"
 
 // make a std::string-compatible version of SDL_GetError
 std::string GetSDLError()
@@ -53,6 +54,8 @@ void ThrowSDLError(const std::string& prefix)
 
 void run()
 {
+   std::cout << "Running Midworld v" << mw::version << std::endl;
+
    // initialize SDL
    int init_flags = SDL_INIT_NOPARACHUTE | SDL_INIT_VIDEO | SDL_INIT_TIMER;
    if (SDL_Init(init_flags) < 0)

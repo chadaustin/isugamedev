@@ -41,6 +41,7 @@ headers = Split("""
    SpatialIndex.h
    UIDManager.h
    VectorSpatialIndex.h
+   Version.h
    Weapon.h
 """)
 
