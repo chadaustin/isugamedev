@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FontRenderer.h,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-07-14 07:16:41 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,6 +42,7 @@
 
 #include "phuiCommon.h"
 #include "Font.h"
+#include "Size.h"
 #include <gltt/GLTTPixmapFont.h>
 
 namespace phui
@@ -78,7 +79,16 @@ namespace phui
        * Draws the given string at the given position.
        */
       void draw(const std::string& text, int x, int y);
-
+      
+      /**
+       * Draws the given string at the given position within the given size
+       * constraints.
+       * @param text the text to draw
+       * @param x x coord to draw at
+       * @param y y coord to draw at
+       * @param size the size constraint of the message
+       */
+      void draw(const std::string& text, int x, int y, Size& size);
       /**
        * Gets the font being used by this renderer.
        */

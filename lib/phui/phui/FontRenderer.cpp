@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FontRenderer.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-07-14 07:16:41 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -74,6 +74,44 @@ namespace phui
       mRenderer->output(x, y, text.c_str());
    }
 
+   void FontRenderer::draw(const std::string& text, int x, int y, Size &size)
+   {
+      /*std::cout << "##Font draw x: " << x << std::endl;
+      std::cout << "##Font draw y: " << y << std::endl;
+      std::cout << "##Font size  : " << size.getWidth() << " "
+                << size.getHeight() << std::endl;*/
+      int xcon = size.getWidth() - x;
+      int ycon = size.getHeight() - y;
+/*      std::cout << "##Font xcon  : " << xcon << std::endl;
+      std::cout << "##Font ycon  : " << ycon << std::endl;*/
+      int textx = mRenderer->getWidth( text.c_str() );
+      int texty = mRenderer->getHeight();
+//      std::cout << "##Font textx : " << textx << std::endl;
+//      std::cout << "##Font texty : " << texty << std::endl;
+      int onew = mRenderer->getWidth( "A" );
+//      std::cout << "##Font onew  : " << onew << std::endl;
+      
+      //Check to see if we need to splice the string a bit.
+      if (textx > xcon)
+      {
+//         std::cout << "##Splicing String..." << std::endl;
+         unsigned int charLim = xcon / onew;
+         for (int i = 0; i < text.size(); i+=charLim)
+         {
+            int splicex = i + charLim;
+//            std::cerr << "##splicex     : " << splicex << std::endl;
+            std::string splice = text.substr(i, charLim);
+//            std::cerr << "##splice         : " << splice << std::endl;
+            mRenderer->output(x, y, splice.c_str() );
+            y += texty;
+         }
+      }
+      else
+      {
+         mRenderer->output(x, y, text.c_str() );
+      }
+   }
+         
    const Font& FontRenderer::getFont() const
    {
       return mFont;
