@@ -43,9 +43,6 @@ public:
 		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
 		glMaterialf(GL_FRONT, GL_SHININESS, shininess);	
 
-//      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-
 		DrawFloor(100.0, 100.0, 1.0);
 	}
 

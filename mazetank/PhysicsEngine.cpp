@@ -30,7 +30,6 @@ bool SortPredicate(GameObject* Lvalue, GameObject* Rvalue)
 
 PhysicsEngine::PhysicsEngine()
 {
-	CurrentCamera = NULL;
    GRAVITY = -.00001981;
 }
 

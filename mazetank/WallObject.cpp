@@ -18,6 +18,24 @@ WallObject::WallObject()
 
 	this->SetObjectSphere(0.6);
    this->ResetCollisions();
+
+	ambient[0] = 0.2;
+	ambient[1] = 0.2;
+	ambient[2] = 0.2;
+	ambient[3] = 1.0;
+
+	diffuse[0] = 0.63;
+	diffuse[1] = 0.65;
+	diffuse[2] = 0.73;
+	diffuse[3] = 1.0;
+
+	specular[0] = 0.0;
+	specular[1] = 0.0;
+	specular[2] = 0.0;
+	specular[3] = 1.0;
+
+	shininess = 40.0;
+
 }
 
 WallObject::~WallObject()
@@ -45,6 +63,11 @@ void WallObject::Draw()
 
 	glPushMatrix();
 
+		glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+		glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+
 		glTranslatef(Translate[0], Translate[1], Translate[2]);	
 		glRotatef(Rotate, 0.0, 0.0, 1.0);
 		glRotatef(90.0, 0.0, 0.0, 1.0);
@@ -53,20 +76,4 @@ void WallObject::Draw()
 
 	glPopMatrix();
 
- /*  float radius;
-
-   this->GetObjectSphere(radius);
-
-	glPushMatrix();
-		glColor3f(1.0, 0.0, 0.0);
-		glTranslatef(Translate[0], Translate[1], Translate[2]);
-		glLineWidth(1.0);
-		glDisable(GL_DEPTH);
-		glDisable(GL_LIGHTING);
-
-      glutSolidSphere(radius, 10, 10);
-		glLineWidth(1.0);
-		glEnable(GL_DEPTH);
-		glEnable(GL_LIGHTING);
-	glPopMatrix();*/
 }

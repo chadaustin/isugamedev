@@ -30,24 +30,19 @@ int dt = 0;
 int Starttime, Stoptime;
 
 GLuint gamefloor[1];
-GLuint	parttext[1];	
+GLuint	parttext[1];
+GLuint clouds[1];	
 /////////////////////////////////////////////////////////////
 
 void Initialize()
 {
-	GLfloat light_position[] = { 10.0, 10.0, 10.0, 0.0 };
     MazeTank.Init();
 
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-	 glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
 
 	loadOpenGL2DTextureBMP("Textures/concrete.bmp", &gamefloor[0]);
 	loadOpenGL2DTextureBMP("Textures/particle.bmp", &parttext[0]);
+	loadOpenGL2DTextureBMP("Textures/clouds2.bmp", &clouds[0]);
 
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);	// Linear Filtering
 	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);	// Linear Filtering

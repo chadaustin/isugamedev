@@ -8,6 +8,8 @@
 #include "CollisionResponse.h"
 #include "SoundManager.h"
 
+extern sound::SoundManager* GameSound;
+
 void CollisionResponse::ResponseToCollisions(vector<GameObject*> &TheGameObjects)
 {
    ObjectType MainObjectName;
@@ -94,7 +96,7 @@ void CollisionResponse::BulletResponse(GameObject* &TheGameObject)
 
    case NPCTANK:
       AddToRemoveQueue(TheGameObject);
-//	  GameSound->getSoundEffectManager()->playSound("music/EXP0.WAV");
+	  GameSound->getSoundEffectManager()->playSound("music/EXP0.WAV");
       break;
 
    case CAMTANK:

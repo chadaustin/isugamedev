@@ -13,8 +13,7 @@
 #include "Camera.h"
 #include "GameObject.h"
 #include "PhysicsEngine.h"
-//Temp
-#include "FloorGraphics.h"
+#include "Shadow.h"
 using namespace std;
 
 class GameWorld
@@ -38,8 +37,9 @@ private:
    vector<GameObject*> TheGameObjects;
    PhysicsEngine GamePhysics;
    Camera* GameCamera;
-   FloorGraphics TheFloor;
    GameObject* Player1;
+
+   Shadow MyShadows;
 
 };
 #endif

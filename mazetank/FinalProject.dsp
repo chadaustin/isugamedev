@@ -121,6 +121,10 @@ SOURCE=.\PhysicsEngine.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\SkyDome.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\SoundEffectManager.cpp
 # End Source File
 # Begin Source File
@@ -206,6 +210,10 @@ SOURCE=.\Jukebox.h
 # Begin Source File
 
 SOURCE=.\PhysicsEngine.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SkyDome.h
 # End Source File
 # Begin Source File
 

@@ -41,11 +41,7 @@ public:
 	//////////////////////////////////////////////////
 	void Update(vector<GameObject*> &TheObjects, int dt);
 
-	void SetCamera(Camera* &TheCamera)
-	{ CurrentCamera = TheCamera;}
-
 private:
-	Camera* CurrentCamera;
    float GRAVITY;
 
    CollisionResponse ObjectsResponse;

@@ -25,6 +25,9 @@ public:
 	void GetGraphicsPointer(GraphicsObject*& TheGraphics);
 
 private:
-	
+	GLfloat ambient[4];
+    GLfloat diffuse[4];
+    GLfloat specular[4];
+    GLfloat shininess;
 };
 #endif

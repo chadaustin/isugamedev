@@ -10,11 +10,11 @@
 #include "GraphicsObject.h"
 #include "GameObject.h"
 #include "BulletObject.h"
-//#include "SoundManager.h"
+#include "SoundManager.h"
 #include "GameWorld.h"
 #include <math.h>
 
-//extern sound::SoundManager* GameSound;
+extern sound::SoundManager* GameSound;
 extern GameWorld MazeTank;
 
 Input::Input()
@@ -118,7 +118,7 @@ void Input::ShootBullet()
    Bullet->SetVelocity(0.03);
 
    MazeTank.AddObjectToGame(Bullet);
-//   GameSound->getSoundEffectManager()->playSound("music/EXP2.WAV");
+   GameSound->getSoundEffectManager()->playSound("music/EXP2.WAV");
 }
 
 void Input::Honk()
