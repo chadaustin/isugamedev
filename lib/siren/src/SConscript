@@ -17,8 +17,8 @@ headers = Split("""
 """)
 sources = []
 
-headers = map(lambda n: n + '.h',   classes)
-sources = map(lambda n: n + '.cpp', classes)
+headers.extend(map(lambda n: n + '.h',   classes))
+sources.extend(map(lambda n: n + '.cpp', classes))
 
 # Clone the environment
 env = baseEnv.Copy()

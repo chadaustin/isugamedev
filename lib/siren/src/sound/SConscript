@@ -13,9 +13,9 @@ classes = Split("""
 headers = []
 sources = []
 
-headers = map(lambda n: n + '.h',   classes)
-sources = map(lambda n: n + '.cpp', classes)
+headers.extend(map(lambda n: n + '.h',   classes))
+sources.extend(map(lambda n: n + '.cpp', classes))
 
 # Clone the environment
 lib.addSources(sources)
-lib.addHeaders(headers, 'siren')
+lib.addHeaders(headers, pj('siren', 'sound'))
