@@ -9,7 +9,8 @@ int gWidth = 640;
 int gHeight = 480;
 
 // Is the left mouse button currently down?
-bool gMouseDown = false;
+bool gLMBDown = false;
+bool gRMBDown = false;
 
 // The last position of the mouse while held down
 int gLastMouse[] = {0,0};
@@ -26,7 +27,10 @@ bool gTexturesEnabled = true;
 // Out light's properties
 GLfloat gDiffuse[] = {1, 1, 1, 0};     // diffuse
 GLfloat gSpecular[] = {0.5f, 0, 0, 1}; // specular
-GLfloat gLightPos[] = {5, 5, -5, 1};   // position
+
+// Our light will be tethered to the cube this far away
+GLfloat gLightTether[] = {0,0,7.0f,1};
+int gLightRot[] = {-45,0,0};
 
 // The ambient light for the scene
 GLfloat gAmbient[] = {0.3f, 0.3f, 0.3f};
@@ -124,7 +128,38 @@ void onRedisplay()
    glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
 
-   glTranslatef(0, 0, -10);
+   // Place our camera
+   glTranslatef(0, -3, -10);
+
+   glPushMatrix();
+      glRotatef(gLightRot[0], 1,0,0);
+      glRotatef(gLightRot[1], 0,1,0);
+      glRotatef(gLightRot[2], 0,0,1);
+      glLightfv(GL_LIGHT0, GL_POSITION, gLightTether);
+
+      // Draw some useful debugging stuff
+      glDisable(GL_LIGHTING);
+
+      // Draw a line from the light to the box
+      glBegin(GL_LINES);
+         glColor3f(1,0,0);
+         glVertex3f(0,0,0);
+         glVertex3fv(gLightTether);
+      glEnd();
+
+      // Draw a sphere where the light is
+      glPushMatrix();
+         glTranslatef(gLightTether[0], gLightTether[1], gLightTether[2]);
+         glColor3f(1,1,0);
+         glutSolidSphere(0.2f, 5, 5);
+      glPopMatrix();
+
+      // Done with debugging, reenable lights if needed
+      if (gLightsEnabled)
+      {
+         glEnable(GL_LIGHTING);
+      }
+   glPopMatrix();
 
    glColor4f(1,1,1,1);
    glPushMatrix();
@@ -223,7 +258,13 @@ void onMouse(int button, int state, int x, int y)
 {
    if (button == GLUT_LEFT_BUTTON)
    {
-      gMouseDown = (state == GLUT_DOWN) ? true : false;
+      gLMBDown = (state == GLUT_DOWN) ? true : false;
+      gLastMouse[0] = x;
+      gLastMouse[1] = y;
+   }
+   if (button == GLUT_RIGHT_BUTTON)
+   {
+      gRMBDown = (state == GLUT_DOWN) ? true : false;
       gLastMouse[0] = x;
       gLastMouse[1] = y;
    }
@@ -232,10 +273,16 @@ void onMouse(int button, int state, int x, int y)
 void onMouseMove(int x, int y)
 {
    // only rotate the cube a mouse button is being held down
-   if (gMouseDown)
+   if (gLMBDown)
    {
-      gRot[1] += (x - gLastMouse[0]);
-      gRot[0] += (y - gLastMouse[1]);
+      gRot[1] += (x - gLastMouse[0]) % 360;
+      gRot[0] += (y - gLastMouse[1]) % 360;
+   }
+   // only rotate the light if the RMB is being held down
+   if (gRMBDown)
+   {
+      gLightRot[1] += (x - gLastMouse[0]) % 360;
+      gLightRot[0] += (y - gLastMouse[1]) % 360;
    }
    gLastMouse[0] = x;
    gLastMouse[1] = y;
@@ -268,23 +315,23 @@ void main(int argc, char** argv)
    glutMotionFunc(onMouseMove);
 
    // Create our textures
-   gTextures[0] = new Texture("face0.tga");
-   gTextures[1] = new Texture("face1.tga");
-   gTextures[2] = new Texture("face2.tga");
-   gTextures[3] = new Texture("face3.tga");
-   gTextures[4] = new Texture("face4.tga");
-   gTextures[5] = new Texture("face5.tga");
+   gTextures[0] = new Texture("face0.png");
+   gTextures[1] = new Texture("face1.png");
+   gTextures[2] = new Texture("face2.png");
+   gTextures[3] = new Texture("face3.png");
+   gTextures[4] = new Texture("face4.png");
+   gTextures[5] = new Texture("face5.png");
 
    // Setup our one light
    glLightfv(GL_LIGHT0, GL_DIFFUSE, gDiffuse);
    glLightfv(GL_LIGHT0, GL_SPECULAR, gSpecular);
-   glLightfv(GL_LIGHT0, GL_POSITION, gLightPos);
 
    // Set the global ambience
    glLightModelfv(GL_LIGHT_MODEL_AMBIENT, gAmbient);
    glEnable(GL_LIGHT0);
 
    glEnable(GL_LIGHTING);
+   glShadeModel(GL_SMOOTH);
 
    // here we go. wheee ....
    glutMainLoop();
