@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Particle.h,v $
-//    $Date: 2001-10-10 21:28:55 $
-//    $Revision: 1.2 $
+//    $Date: 2001-10-10 22:07:50 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -90,7 +90,7 @@ namespace ani
 
       // this = p
       // copies all attributes.
-      inline void copy( const Particle& p )
+      inline virtual void copy( const Particle& p )
       {
          mPosition = p.mPosition;           
          mLinearMomentum = p.mLinearMomentum;  
@@ -117,7 +117,7 @@ namespace ani
       // 
       //
       // this = the time derivitive of "currentState"
-      inline void computeDerivative( const Particle& currentState, const float& currentTime )
+      inline virtual void computeDerivative( const Particle& currentState, const float& currentTime )
       {
          // change in position/rotation over time (first order)
             // x' = v = P(t)/M
@@ -128,13 +128,13 @@ namespace ani
             mLinearMomentum = currentState.mForceAccumulator;
       }
 
-      void normalize()
+      virtual void normalize()
       {
       }
 
       // scale by time.
       // this = a * h
-      inline void multiplyPhase( const Particle& a, float h )
+      inline virtual void multiplyPhase( const Particle& a, float h )
       {
          mPosition = a.mPosition * h;
          mLinearMomentum = a.mLinearMomentum * h;
@@ -142,7 +142,7 @@ namespace ani
 
       // scale by time.
       // this *= h
-      inline void multiplyPhase( float h )
+      inline virtual void multiplyPhase( float h )
       {
          mPosition *= h;
          mLinearMomentum *= h;
@@ -150,7 +150,7 @@ namespace ani
 
       // phase space addition operator
       // this = a + b
-      inline void addPhase( const Particle& a, const Particle& b )
+      inline virtual void addPhase( const Particle& a, const Particle& b )
       {
          mPosition = a.mPosition + b.mPosition;
          mLinearMomentum = a.mLinearMomentum + b.mLinearMomentum;
@@ -158,7 +158,7 @@ namespace ani
 
       // phase space addition operator
       // this += a
-      inline void addPhase( const Particle& a ) //
+      inline virtual void addPhase( const Particle& a ) //
       {
          mPosition += a.mPosition;
          mLinearMomentum += a.mLinearMomentum;
@@ -178,7 +178,7 @@ namespace ani
          mForceAccumulator += force; 
       }
       
-      inline void zeroForce()
+      inline virtual void zeroForce()
       {
          mForceAccumulator.set( 0.0f, 0.0f, 0.0f );
       }
