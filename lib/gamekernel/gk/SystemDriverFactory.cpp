@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.cpp,v $
-// Date modified: $Date: 2002-03-19 01:37:27 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-03-19 01:59:21 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -95,28 +95,10 @@ SystemDriverFactory::unregisterDriver( const std::string& name )
    mRegistry.erase( it );
 
    // now free the memory allocated to the driver
-   if ( lib == NULL )
+   delete driver;
+   if ( lib != NULL )
    {
-      // driver was allocated locally. we can use delete (yay!)
-      delete driver;
-   }
-   // the driver was allocated over a DLL boundary. we have to delete the driver
-   // on that side of the boundary. ick ick ick ick ick ick!
-   else
-   {
-      typedef void (*destroyfunc_t)( ISystemDriver* );
-      destroyfunc_t destroy = (destroyfunc_t)lib->lookup("destroySystemDriver");
-      if ( destroy == NULL )
-      {
-         // crap ... what happend to the DLL? memory leak!!
-         std::cerr << "Error: MEMORY LEAK!! Can't destroy system driver '" << name << "'" << std::endl;
-         lib->close();
-         delete lib;
-         return;
-      }
-
-      // call destoy and hope for the best ... ^_^
-      (*destroy)( driver );
+      // this driver was alloc'd within a library - close it.
       lib->close();
       delete lib;
    }

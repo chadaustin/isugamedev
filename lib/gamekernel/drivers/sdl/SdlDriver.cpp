@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-03-19 01:37:27 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-03-19 01:59:21 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -35,25 +35,11 @@
 
 //Create the drivers that can be probed by the SystemDriverFactory
 #ifdef XDL_BUILD_DLL
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-XDL_FUNC gk::ISystemDriver*
+extern "C" XDL_FUNC gk::ISystemDriver*
 createSystemDriver()
 {
    return new gk::SdlDriver();
 }
-
-XDL_FUNC void
-destroySystemDriver( gk::ISystemDriver* driver )
-{
-   delete driver;
-}
-
-#ifdef __cplusplus
-}
-#endif
 #endif // XDL_BUILD_DLL
 
 namespace gk {

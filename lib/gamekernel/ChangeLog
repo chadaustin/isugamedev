@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  --------------------------------------------------------
+2002-03-18 nonchocoboy  ISystemDriver implementations no longer need to export
+                        a destroySystemDriver function.
 2002-03-18 nonchocoboy  Exported a getVersion function.
 2002-03-18 nonchocoboy  Split GameInput into interface/implementation.
 2002-03-18 nonchocoboy  Moved configuration to the GameKernel interface.
