@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-01 14:44:31 $
- * Version:       $Revision: 1.60 $
+ * Date modified: $Date: 2002-11-02 02:22:41 $
+ * Version:       $Revision: 1.61 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -299,6 +299,7 @@ namespace mw
       Camera mCamera;
       float mSpeed;
       Player mPlayer;
+      std::vector<gmtl::Vec3f> navNodeIndex;
 
 
       //XXX hack for testing AIsystem

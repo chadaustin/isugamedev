@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-01 14:44:31 $
- * Version:       $Revision: 1.101 $
+ * Date modified: $Date: 2002-11-02 02:22:41 $
+ * Version:       $Revision: 1.102 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -630,6 +630,14 @@ namespace mw
                en = setupDroid(name, parent, maxChild, level);
                en->setModel("security_droid");
                e = en;
+            }
+         }
+         else if (type == "navNode")
+         {
+            gmtl::Vec3f node;
+            if(in >> node[0] >> node[1] >> node[2])
+            {
+               navNodeIndex.push_back(node);
             }
          }
          else if (type == "turret")
