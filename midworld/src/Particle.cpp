@@ -27,10 +27,10 @@ namespace mw
       const gmtl::Point3f& pos = getPos();
 
       glBegin(GL_QUADS);
-         glTexCoord2d(1,1); glVertex3f(pos[0]+mSize, pos[1]+mSize, pos[2]); // Top right
-         glTexCoord2d(0,1); glVertex3f(pos[0]-mSize, pos[1]+mSize, pos[2]); // Top left
-         glTexCoord2d(0,0); glVertex3f(pos[0]-mSize, pos[1]-mSize, pos[2]); // Bottom left
-         glTexCoord2d(1,0); glVertex3f(pos[0]+mSize, pos[1]-mSize, pos[2]); // Bottom right
+         glTexCoord2d(1,1); glVertex3f(mSize, mSize, 0); // Top right
+         glTexCoord2d(0,1); glVertex3f(-mSize, mSize, 0); // Top left
+         glTexCoord2d(0,0); glVertex3f(-mSize, -mSize, 0); // Bottom left
+         glTexCoord2d(1,0); glVertex3f(mSize, -mSize, 0); // Bottom right
       glEnd();
    }
 

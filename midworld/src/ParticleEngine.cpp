@@ -2,12 +2,13 @@
 #include "Utility.h"
 #include <gmtl/VecOps.h>
 #include <gmtl/Math.h>
+#include <SDL_opengl.h>
 
 namespace mw
 {
    ParticleEngine::ParticleEngine(const std::string& filename,
                                   const int numParticles,
-                                  const gmtl::Point3f pos,
+								  const gmtl::Point3f pos,
                                   const Camera& gameCamera)
       : mParticleCamera(gameCamera)
    {
@@ -23,6 +24,7 @@ namespace mw
          temp->setMass(0.10);
          temp->setVel(velocity);
          temp->setPos(pos);
+         mPos = pos;
          mParticleGroup.push_back(temp);
       }
    }
@@ -67,9 +69,12 @@ namespace mw
          for(ParticleList::iterator i=mParticleGroup.begin(); i != mParticleGroup.end(); ++i)
          {
             const gmtl::Point3f& part_pos = (*i)->getPos();
+            glPushMatrix();
+            glTranslatef(part_pos[0], part_pos[1], part_pos[2]);
             billboardBegin(camera_pos, part_pos);
             (*i)->draw();
             billboardEnd();
+            glPopMatrix();
          }
       }
       glPopAttrib();
