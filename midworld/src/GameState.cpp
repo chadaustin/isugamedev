@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.29 $
+ * Date modified: $Date: 2002-09-17 10:42:37 $
+ * Version:       $Revision: 1.30 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -77,7 +77,7 @@ namespace mw
 
       // Init some of the model resources
       ResourceManager* res_mgr = GameManager::instance().getResourceManager();
-      res_mgr->add("security_droid",   "models/security_droid.obj");
+      res_mgr->add("security_droid",   "models/security_droid.wrl");
       res_mgr->add("bullet",           "models/bullet.obj");
 
       // Init the collision detection system
