@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-05-03 07:58:49 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-05-03 08:12:34 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -161,7 +161,6 @@ namespace client {
          osg::Quat targetRot;
          game::Player* player = app->getGameWorld().getPlayer(app->getLocalPlayer());
          const game::Object::UID& vehicleUID = player->getVehicle();
-         std::cout<<"Player's vehicle: "<<vehicleUID<<std::endl;
          game::Object* vehicle = app->getGameWorld().getObject(vehicleUID);
 
          targetRot.set(mScene.getNode(*vehicle)->getMatrix());
