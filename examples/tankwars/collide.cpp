@@ -13,7 +13,7 @@ bool ifNCollide(generic *obj1, generic *obj2)
 	GLfloat obj2Extents = obj2->getExtents();
 
 	GLfloat maxLength = obj1Extents + obj2Extents;
-	GLfloat lengthBetween = sqrt(((obj1X + obj2X)*(obj1X + obj2X)) + ((obj1Z + obj2Z)*(obj1Z + obj2Z)));
+	GLfloat lengthBetween = sqrt(((obj1X - obj2X)*(obj1X - obj2X)) + ((obj1Z - obj2Z)*(obj1Z - obj2Z)));
 
 	if ( lengthBetween <= maxLength)
 		nCollide = false;
