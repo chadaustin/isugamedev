@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInterface.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-08 03:53:13 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,12 +38,12 @@
 
 GK_BEGIN_NAMESPACE
 
-/** 
+/**
  * AnalogInterface: Your Interface to all analog inputs.
  * Looking to get axis values from joystick, mouse, other other analog device?
  * This is your interface.  This Interface gives you access to the under
  * lying AnalogInput's float data variable.
- * Doesn't make sense?  Look at the nifty example below for how to get 
+ * Doesn't make sense?  Look at the nifty example below for how to get
  * input from your game engine...
  *
  * <h3> "Example (to sample input):" </h3>
@@ -55,7 +55,7 @@ GK_BEGIN_NAMESPACE
  * \endcode
  *
  * Of course, this assumes that you have set up your key bindings:
- * 
+ *
  * <h3>  "Example (to configure your key bindings):" </h3>
  * \code
  *     GameInput::instance().bind( "MouselookX", "Mouse", "MOUSEAXIS_X" );

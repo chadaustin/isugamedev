@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-02-08 03:53:13 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -51,9 +51,9 @@ GK_BEGIN_NAMESPACE
  *
  * Don't use this device directly (although you could, it isn't recommended).
  * Instead, use the DigitalInterface, and/or AnalogInterface classes
- * to access the button and axis data in the Mouse.  Using the Interface classes 
- * gives your application the ability to bind keys to event identifiers 
- * (keybinding).  If you use this class by itself, you will not get any kind 
+ * to access the button and axis data in the Mouse.  Using the Interface classes
+ * gives your application the ability to bind keys to event identifiers
+ * (keybinding).  If you use this class by itself, you will not get any kind
  * of keybinding ability.
  *
  * @see Keyboard
@@ -67,8 +67,8 @@ class Mouse : public AnalogDevice, public DigitalDevice
 public:
    /** Mouse Buttons.
     * This is the list of mouse button identifiers you can use.
-    * When binding keys in the GameInput class, you can 
-    * prefix each of these with "MOUSEBUTTON_"  
+    * When binding keys in the GameInput class, you can
+    * prefix each of these with "MOUSEBUTTON_"
     * (i.e. LEFT would be "MOUSEBUTTON_LEFT").
     */
    enum Button
@@ -99,7 +99,7 @@ public:
       AnalogDevice::update();
    }
 
-   /** retrieve an input (button or axis) from the Mouse 
+   /** retrieve an input (button or axis) from the Mouse
     * @param keybinding alias: an alias bound to a Device/Input pair that was preconfigured in the GameInput input manager.
     */
    virtual Input* getInput( const std::string& alias )

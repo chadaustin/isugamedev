@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-08 03:53:13 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,12 +38,12 @@
 
 GK_BEGIN_NAMESPACE
 
-/** 
+/**
  * DigitalInterface: Your Interface to all digital inputs.
  * Looking to get button presses and other digital events?
  * This is your interface.  This Interface gives you access to the under
  * lying DigitalInput's DigitalInput::EdgeTriggerState state variable.
- * Doesn't make sense?  Look at the nifty example below for how to get 
+ * Doesn't make sense?  Look at the nifty example below for how to get
  * input from your game engine...
  *
  * <h3> "Example (to sample input):" </h3>
@@ -55,7 +55,7 @@ GK_BEGIN_NAMESPACE
  * \endcode
  *
  * Of course, this assumes that you have set up your key bindings:
- * 
+ *
  * <h3>  "Example (to configure your key bindings):" </h3>
  * \code
  *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_UPARROW" );
@@ -74,7 +74,7 @@ class DigitalInterface : public InputInterface
 public:
    /** Constructor */
    DigitalInterface() {}
-   
+
    /** Destructor */
    virtual ~DigitalInterface() {}
 

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Keyboard.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-02-08 03:53:13 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -45,9 +45,9 @@ GK_BEGIN_NAMESPACE
  *
  * Don't use this device directly (although you could, it isn't recommended).
  * Instead, use the DigitalInterface class
- * to access the button data in the Keyboard.  Using the Interface classes 
- * gives your application the ability to bind keys to event identifiers 
- * (keybinding).  If you use this class by itself, you will not get any kind 
+ * to access the button data in the Keyboard.  Using the Interface classes
+ * gives your application the ability to bind keys to event identifiers
+ * (keybinding).  If you use this class by itself, you will not get any kind
  * of keybinding ability.
  *
  * <H3> TODO: </h3>
@@ -63,7 +63,7 @@ class Keyboard : public DigitalDevice
 public:
    /** Keyboard Buttons.
     * This is the list of keyboard identifiers you can use.
-    * When binding keys in the GameInput class, you can 
+    * When binding keys in the GameInput class, you can
     * prefix each of these with "KEY_"  (i.e. ESC would be "KEY_ESC").
     */
    enum Key

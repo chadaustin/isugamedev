@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-08 03:50:01 $
-// Version:       $Revision: 1.18 $
+// Date modified: $Date: 2002-02-08 03:53:13 $
+// Version:       $Revision: 1.19 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -46,8 +46,8 @@
 
 GK_BEGIN_NAMESPACE
 
-/** 
- * Input manager for game input. 
+/**
+ * Input manager for game input.
  * Try to use the Interface classes instead of this class directly
  * (i.e. use DigitalInterface or AnalogInterface)
  *
@@ -117,7 +117,7 @@ public:
     * Add a device to this input manager.
     *
     * Add the devPtr to the device Array, devPtr should
-    * not already be in the array. 
+    * not already be in the array.
     *
     * @param devPtr     the device to add
     * @param name       the unique name for the device
@@ -199,13 +199,13 @@ public:
    /** get the keyboard device directly */
    inline Keyboard&           keyboard() { return *mKeyboard; }
 
-   /** keyboard modifier key. 
-    * uh, how to deal with this? you might not want to use ... 
+   /** keyboard modifier key.
+    * uh, how to deal with this? you might not want to use ...
     */
    inline char         modifier() const { return mKeyboardModifier; }
 
    /** update function.
-    * if useing the GameInput manager without GameKernel, you will need to 
+    * if useing the GameInput manager without GameKernel, you will need to
     * call this function every frame to ensure valid input
     */
    inline void update()
@@ -213,7 +213,7 @@ public:
       keyboard().update();
       mouse().update();
    }
-   
+
 private:
    std::map<std::string, EventInput> mBindTable;
    std::map<std::string, Device*> mDevices;

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-08 03:53:13 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -41,7 +41,7 @@ GlutDriver* GlutDriver::sDriver = NULL;
 //------------------------------------------------------------------------------
 
 GlutDriver::GlutDriver()
-   : mCurrentContext( 0 ), mMainWin_ContextID( 0 ), mIsStarted( false ), 
+   : mCurrentContext( 0 ), mMainWin_ContextID( 0 ), mIsStarted( false ),
       mWidth( 320 ), mHeight( 240 )
 {
    // because of glut's callback scheme we need to be able to get a pointer to
@@ -73,29 +73,29 @@ GlutDriver::startup()
    ::glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
    mMainWin_ContextID = ::glutCreateWindow( name().c_str() );
 
-      // display callbacks.
-      ::glutDisplayFunc( OnRedisplay );
+   // display callbacks.
+   ::glutDisplayFunc( OnRedisplay );
 
-         ::glutReshapeFunc( OnReshape );
-         ::glutIdleFunc( OnIdle );
+   ::glutReshapeFunc( OnReshape );
+   ::glutIdleFunc( OnIdle );
 
-         // keyboard callback functions.
-         ::glutKeyboardFunc( OnKeyboardDown );
-         ::glutKeyboardUpFunc( OnKeyboardUp );
-         ::glutSpecialFunc( OnSpecialKeyboardDown );
-         ::glutSpecialUpFunc( OnSpecialKeyboardUp );
+   // keyboard callback functions.
+   ::glutKeyboardFunc( OnKeyboardDown );
+   ::glutKeyboardUpFunc( OnKeyboardUp );
+   ::glutSpecialFunc( OnSpecialKeyboardDown );
+   ::glutSpecialUpFunc( OnSpecialKeyboardUp );
 
-         // mouse callback functions...
-         ::glutMouseFunc( OnMouseClick );
-         ::glutMotionFunc( OnMousePos );
-         ::glutPassiveMotionFunc( OnMousePos );
+   // mouse callback functions...
+   ::glutMouseFunc( OnMouseClick );
+   ::glutMotionFunc( OnMousePos );
+   ::glutPassiveMotionFunc( OnMousePos );
 
 
-      // don't call the keyboard callback repeatedly when holding down a key.
-      // (use edge triggering, like the mouse)
-      ::glutIgnoreKeyRepeat( 1 );
+   // don't call the keyboard callback repeatedly when holding down a key.
+   // (use edge triggering, like the mouse)
+   ::glutIgnoreKeyRepeat( 1 );
 
-      mIsStarted = true;
+   mIsStarted = true;
 
    // Sit and spin.
    ::glutMainLoop();
