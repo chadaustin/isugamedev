@@ -65,8 +65,8 @@ namespace net {
        *
        * @return  the response code
        */
-      const ResponseCode& getCode() {
-         return *(ResponseCode*)&mCode;
+      const ResponseCode getCode() {
+         return (ResponseCode)mCode;
       }
 
       /**
