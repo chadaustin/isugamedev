@@ -1,0 +1,157 @@
+a:link
+{
+   color: rgb( 1, 48, 90 );
+}
+
+a:visited
+{
+   color: rgb( 1, 48, 90 );
+}
+
+a:active, a:hover
+{
+   color: rgb( 170, 23, 42 );
+}
+
+a:hover
+{
+   font-style: bold;
+}
+
+a
+{
+}
+
+body, BODY, .BODY, BODY:text, noframes, p
+{
+   background-color: #ffffff;
+   color: #000000;
+   font-size: 12px;
+   vertical-align: top;
+}
+
+.blockborder
+{
+//   background-color: #ebecff;
+//   background-color: #c9cadd;
+   background-color: #b8b9cc;
+   cell-spacing: none;
+   border-spacing: 0;
+}
+
+.blocktitle
+{
+   font-family: sans-serif;
+//   background-color: #f7f7e7;
+//   background-color: #e7e7d7;
+   background-color: rgb( 145, 214, 145 );
+   background-color: rgb( 189, 229, 185 );
+   font-size: 14px;
+   font-style: bold;
+   vertical-align: top;
+   text-align: center;
+}
+
+.blockbody
+{
+   font-family: sans-serif;
+   background-color: #ffffff;
+   color: #000000;
+   font-size: 12px;
+}
+
+.docbody
+{
+   font-family: sans-serif;
+   background-color: #ffffff;
+   color: #000000;
+   vertical-align: top;
+   font-size: 12px;
+}
+
+.sitetitle
+{
+   font-family: sans-serif;
+   font-size: 45px;
+   font-style: bold;
+   vertical-align: bottom;
+   margin-bottom: 0cm;
+   color: rgb( 0, 51, 102 );
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6,
+b h1, b h2, b h3, b h4, b h5, b h6,
+p h1, p h2, p h3, p h4, p h5, p h6,
+a h1, a h2, a h3, a h4, a h5, a h6,
+td h1, td h2, td h3, td h4, td h5, td h6
+{
+   vertical-align: bottom;
+   font-family: sans-serif;
+   font-style: bold;
+   margin-bottom: 0cm;
+}
+
+h1, .h1, b h1, td h3
+{
+   font-size: 13pt;
+   color: rgb( 0, 51, 102 );
+}
+
+h2, .h2, b h2, td h3
+{
+   font-size: 12pt;
+   color: rgb( 113, 34, 55 );
+}
+
+h3, .h3, b h3, td h3
+{
+   font-size: 12pt;
+   color: rgb( 96, 72, 130 );
+}
+
+h4, .h4, b h4, td h4
+{
+   font-size: 12pt;
+   color: rgb( 0, 55, 92 );
+}
+
+h5, .h5, b h5, td h5
+{
+   font-size: 12pt;
+   color: rgb( 145, 60, 29 );
+}
+
+h6, .h6, b h6, td h6
+{
+   font-size: 12pt;
+   color: rgb( 60, 0, 0 );
+}
+
+PRE, pre
+{
+   font-family: monospace,courier;
+   color: rgb( 0, 0, 40 );
+   font-size: 11px;
+}
+
+.small, small, td small
+{
+   font-family: sans-serif;
+   font-size: 10px;
+   font-style: normal;
+}
+
+small small, td small small
+{
+   font-family: sans-serif;
+   font-size: 9px;
+   font-style: normal;
+}
+
+small small small, td small small small
+{
+   font-family: sans-serif;
+   font-size: 8px;
+   font-style: normal;
+}
