@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-06-10 03:39:04 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-06-10 04:29:40 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,6 +53,13 @@ namespace mw {
    Application::update(u64 elapsedTime)
    {
       mState->update(elapsedTime);
+
+      State* next = mState->getNext();
+      if (next)
+      {
+         delete mState;
+         mState = next;
+      }
    }
 
    void
