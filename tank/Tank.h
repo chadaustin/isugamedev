@@ -10,14 +10,9 @@ public:
       mXForm.makeIdentity();
    }
    
-   void draw()
+   void drawPyramidThing()
    {
-      glPushMatrix();
-
-         glMultMatrixf( mXForm.data() );
-         glColor3f( 1,0,1 );
-         glScalef( 10,10,25 );
-         glBegin( GL_TRIANGLES );
+      glBegin( GL_TRIANGLES );
          
               glNormal3f( -1.0f, 1.0f, -1.0f );
               glVertex3f( -1.0f, 0.0f, 0.0f );
@@ -34,7 +29,28 @@ public:
               glVertex3f( -1.0f, 0.0f, 0.0f );
               glVertex3f(  1.0f, 0.0f, 0.0f );
          glEnd();
+   }   
+   
+   void draw()
+   {
+      glPushMatrix();
+         glMultMatrixf( mXForm.data() );
 
+         // vehicle (tank)
+         glPushMatrix();
+            glColor3f( 1,0,1 );
+            glScalef( 10,10,25 );
+            drawPyramidThing();
+         glPopMatrix();
+         
+         // gun
+         glPushMatrix();
+            glScalef( 1,1,25 );
+            glTranslatef( 0,8,0 );
+            glColor3f( 0,0,1 );
+            drawPyramidThing();
+         glPopMatrix();
+         
       glPopMatrix();
    }
   
