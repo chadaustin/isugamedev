@@ -1,0 +1,8 @@
+Import('env')
+
+sources = [
+   'xmlpersist.cpp',
+]
+
+env.Library(target = 'data',
+            source = sources)
