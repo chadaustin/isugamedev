@@ -73,8 +73,8 @@ void Input::TurretRotate(int ChangeX, int ChangeY)
 	if(Rotate[0] < -70)
 		Rotate[0] = -70;
 
-	if(Rotate[0] > 15)
-		Rotate[0] = 15;
+	if(Rotate[0] > -1)
+		Rotate[0] = -1;
 
 	TurretPointer->SetRotate(Rotate); 
 }
