@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="docbook.css" type="text/css"?>
+<?xml-stylesheet href="file://localhost/home9/users/aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.4 2002-04-08 04:26:03 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 04:26:03 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.5 2002-04-08 04:57:51 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 04:57:51 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -219,7 +219,9 @@
     </section>
     <section>
       <title>Sound Module</title>
-      <para>Description of what this module does here ...</para>
+      <para>The sound module is responsible for managing background music and sound effects within the game. Brotha uses Audiere, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound module consists of two concepts: the background music <emphasis>Jukebox</emphasis> object and the <emphasis>SoundEffectManager</emphasis> object.</para>
+      <para>The jukebox is responsible for maintaining a list of background music tracks. It provides functionality for adding tracks, removing tracks, starting playback, stopping or pausing playback, and changing the background music volume. It also provides functionality for getting the current track name and how long it's been playing. Since Audiere files are streamed from disk, the jukebox does not have to load entire songs into memory.</para>
+      <para>The sound effect manager is responsible for playing sound effects, which are referred to by name. The sound effect manager has one method, Trigger, which loads a sound effect if it hasn't already been loaded and plays it at a specified volume. Since sound effects can be played often and at unpredictable times, the sound effect manager should keep them in memory to prevent unpredictable latency.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
