@@ -68,12 +68,12 @@ glut_lib.addSources(['GLUTBridge.cpp'])
 glut_lib.addHeaders(['GLUTBridge.h'], 'phui')
 
 # Define the Python module
-py_env = baseEnv.Copy()
-py_env.Append(LIBPATH   = ['#phui'],
-              LIBS      = ['phui'])
-SetupPython(py_env, '2.2')
-SetupBoostPython(py_env)
-py_env.SharedLibrary('phui', 'PythonAPI.cpp', SHLIBPREFIX='')
+#py_env = baseEnv.Copy()
+#py_env.Append(LIBPATH   = ['#phui'],
+#              LIBS      = ['phui'])
+#SetupPython(py_env, '2.2')
+#SetupBoostPython(py_env)
+#py_env.SharedLibrary('phui', 'PythonAPI.cpp', SHLIBPREFIX='')
 
 # Recurse
 SConscript(dirs = ['layout'])
