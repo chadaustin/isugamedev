@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: glRenderTexture.h,v $
-//    $Date: 2001-09-10 15:27:29 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-10 15:49:57 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -335,13 +335,13 @@ namespace kev
       }
    }
    
-   inline void glRenderTextureBind( const Texture& texture )
+   inline void glRenderAndBind( const Texture& texture )
    {
       if (texture.imageValid() == false)
          return;
       
       glTextureBind( texture );
-      glRenderTexture( texture );
+      glRender( texture );
    }
 };
 
