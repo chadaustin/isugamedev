@@ -1,4 +1,4 @@
-# $Id: Makefile,v 1.6 2002-04-12 07:47:52 nonchocoboy Exp $
+# $Id: Makefile,v 1.7 2002-04-12 07:54:38 nonchocoboy Exp $
 
 NAME=design
 default: pdf
@@ -22,7 +22,8 @@ SVG_IMAGES= \
 	network_classes \
 	reportserver_classes \
 	sound_classes \
-	thread_classes
+	thread_classes \
+	texture_classes
 
 SVG_IMAGES := $(addprefix figures/, $(addsuffix .svg, $(SVG_IMAGES)))
 

@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.68 2002-04-12 07:47:52 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 07:47:52 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.69 2002-04-12 07:54:38 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 07:54:38 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -1119,6 +1119,14 @@
       <para><classname>Texture</classname> objects provide a <methodname>bind</methodname> method which calls <methodname>glBindTexture</methodname>, changing OpenGL's current texture. It also provides a mechanism for changing texture parameters, such as whether to use <constant>NEAREST</constant> or <constant>LINEAR</constant> texel interpolation.</para>
       <section>
         <title>Module Interfaces</title>
+        <figure>
+          <title>Report Server Module Interface Specification</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="figures/texture_classes.png" format="PNG" scalefit="1"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
         <classsynopsis>
           <ooclass>
             <classname>TextureManager</classname>
