@@ -1,22 +1,25 @@
+/* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil c-basic-offset: 3 -*- */
+// vim:cindent:ts=3:sw=3:et:tw=80:sta:
 /**************************************************************** phui-head beg
  *
  * phui - flexible user interface subsystem
  *
  * Original Authors:
  *    Chad Austin <aegis@aegisknight.org>
+ *    Josh Carlson <josh@chegg.com>
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Size.h,v $
- * Date modified: $Date: 2002-04-26 06:26:27 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-28 15:51:59 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
- * phui is (C) Copyright 2002 by Chad Austin, Ben Scott
+ * phui is (C) Copyright 2002 by Chad Austin, Josh Carlson, Ben Scott
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
