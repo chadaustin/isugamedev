@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-11 04:49:57 $
- * Version:       $Revision: 1.54 $
+ * Date modified: $Date: 2002-10-15 05:04:56 $
+ * Version:       $Revision: 1.55 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -565,7 +565,6 @@ namespace mw
          // No more collisions, let the body update for the remaining distance
          if (!desc)
          {
-            mPhysics.update(body, remaining_dt);
             body->moveToNextState();
 
             // Make sure entities never go below the ground.
