@@ -23,11 +23,13 @@ namespace server {
             m_brothaGame->joinPlayer(cID);
             m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
 
-            /// @todo implement garage so I can tell the player to go there
-            // for now just send them straight to the game
-            m_netMgr->send(new net::EnterMessage(net::EnterMessage::GAME), cID);
+            // tell the player to enter the garage
+            m_netMgr->send(new net::EnterMessage(net::EnterMessage::GARAGE), cID);
+//            /// @todo implement garage so I can tell the player to go there
+//            // for now just send them straight to the game
+//            m_netMgr->send(new net::EnterMessage(net::EnterMessage::GAME), cID);
             // assuming we did send the enter game, lets forward this to the resync operation
-            m_brothaGame->resync(cID);
+//            m_brothaGame->resync(cID);
          } else if (jMsg->getCode() == net::JoinAsMessage::SPECTATOR) {
             /// @todo join the spectator to the game and not error
             m_netMgr->send(new net::OKMessage(net::OKMessage::GENERIC_ERROR), cID);
