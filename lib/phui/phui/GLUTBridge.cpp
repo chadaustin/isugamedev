@@ -66,14 +66,11 @@ namespace phui {
 
 
    InputButton GlutToPhuiButton(int button) {
-      if (button == GLUT_LEFT_BUTTON) {
-         return BUTTON_LEFT;
-      } else if (button == GLUT_MIDDLE_BUTTON) {
-         return BUTTON_MIDDLE;
-      } else if (button == GLUT_RIGHT_BUTTON) {
-         return BUTTON_RIGHT;
-      } else {
-         return BUTTON_UNKNOWN;
+      switch (button) {
+         case GLUT_LEFT_BUTTON:   return BUTTON_LEFT;
+         case GLUT_MIDDLE_BUTTON: return BUTTON_MIDDLE;
+         case GLUT_RIGHT_BUTTON:  return BUTTON_RIGHT;
+         default:                 return BUTTON_UNKNOWN;
       }
    }
 

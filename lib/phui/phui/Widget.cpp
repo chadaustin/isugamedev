@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-22 09:27:01 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-24 05:57:33 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -45,8 +45,8 @@ namespace phui
       , mHeight(0)
       , mEnabled(true)
       , mVisible(true)
-      , mBackgroundColor(0,0,0,0)
-      , mForegroundColor(1,1,1,1)
+      , mBackgroundColor(BLACK)
+      , mForegroundColor(WHITE)
       , mFont("arial", Font::PLAIN, 12)
       , mParent(NULL)
    {

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2002-04-24 01:54:17 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-24 05:57:33 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -43,11 +43,13 @@ namespace phui {
 
    Label::Label()
       : mText("")
-   {}
+   {
+   }
 
    Label::Label(const std::string& text)
       : mText(text)
-   {}
+   {
+   }
 
    Label::~Label()
    {

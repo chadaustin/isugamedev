@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-04-24 03:57:52 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-04-24 05:57:32 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -133,6 +133,7 @@ int main( int argc, char** argv )
       glutSetCursor(GLUT_CURSOR_NONE);
 
       gUI = phui::CreateRoot( gWidth, gHeight );
+
       gWnd = new phui::Window( "my contacts blow" );
       gWnd->setPosition( 150, 75 );
       gWnd->setSize( 300, 250 );
