@@ -3,48 +3,108 @@ import sys
 import os
 import string
 
+# Check for optimize option
+optimize = 0
+if ARGUMENTS.get('opt', 0):
+   optimize = 1
 
-# debug or release build?
-CXXFLAGS = ['-Wall']
-LINKFLAGS = []
-if ARGUMENTS.get('debug'):
-   CXXFLAGS.append('-g -DDEBUG')
-else:
-   CXXFLAGS.append('-DNDEBUG')
+# Check for profile option
+profile = 0
+if ARGUMENTS.get('profile', 0):
+   profile = 1
 
-if ARGUMENTS.get('profile'):
-   CXXFLAGS.append('-pg')
-   LINKFLAGS.append('-pg')
-
-
-# get install prefix for install target
+# Check for an install prefix
 PREFIX = '/usr/local'
 if ARGUMENTS.get('prefix'):
    PREFIX = ARGUMENTS['prefix']
 Export('PREFIX')
 
 
-# link with external libraries
-SDL_LIBS    = ['SDL']
-GL_LIBS     = ['GL', 'GLU']
-CORONA_LIBS = ['corona']
-LIBS = SDL_LIBS + GL_LIBS + CORONA_LIBS
+def BuildBaseEnvironment():
+   global optimize, profile
 
+   "Builds a base environment for other modules to build on."
+
+   CXXFLAGS = ['-Wall']
+   LINKFLAGS = []
+
+   if optimize:
+      CXXFLAGS.extend(['-DNDEBUG', '-O2'])
+   else:
+      CXXFLAGS.extend(['-DDEBUG', '-g'])
+
+   if profile:
+      CXXFLAGS.extend(['-pg'])
+      LINKFLAGS.extend(['-pg'])
+
+   env = Environment(
+      ENV = os.environ,
+      CPPPATH = [],
+      LIBPATH = [],
+      LIBS = [],
+      CXXFLAGS = CXXFLAGS,
+      LINKFLAGS = LINKFLAGS,
+   )
+
+   return env
+
+
+def ParseConfig(env, command, options):
+   "Parses xxx-config style output for compilation directives"
+
+   # Run the command
+   cmd = WhereIs(command) + ' ' + string.join(options)
+   params = string.split(os.popen(cmd).read())
+
+   # Parse its output
+   for arg in params:
+      switch = arg[0:1]
+      option = arg[1:2]
+      if switch == '-':
+         if option == 'I':
+            env['CPPPATH'].append(arg[2:])
+         elif option == 'L':
+            env['LIBPATH'].append(arg[2:])
+         elif option == 'l':
+            env['LIBS'].append(arg[2:])
+         else:
+            env['CXXFLAGS'].append(arg)
+      else:
+         # Must be a static library, add it to the libs
+         env['LIBS'].append(arg)
+
+def SetupSDL(env):
+   "Sets up the given environment for SDL"
+   ParseConfig(env, 'sdl-config', Split('--cflags --libs'))
+
+def SetupCorona(env):
+   "Sets up the given environment for Corona"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['corona'])
+
+def SetupAudiere(env):
+   "Sets up the given environment for Audiere"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['audiere'])
+
+def SetupOpenGL(env):
+   "Sets up the given environment for OpenGL"
+   if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
+   env['LIBS'].extend(['GL', 'GLU'])
+
+Export('ParseConfig')
+Export('SetupSDL SetupCorona SetupAudiere SetupOpenGL')
 
 # create the base environment
-env = Environment(LIBPATH = '#src',
-                  CPPPATH = ['#', '#src'],
-                  ENV = os.environ,
-                  LINKFLAGS = LINKFLAGS,
-                  CXXFLAGS = CXXFLAGS,
-                  LIBS = LIBS)
+baseEnv = BuildBaseEnvironment()
+Export('baseEnv')
 
-Export('env')
-SConscript(dirs = Split('src test'))
-
+# recurse
+subdirs = Split('src test')
+SConscript(dirs = subdirs)
 
 # install target
-env.Alias('install', PREFIX)
+baseEnv.Alias('install', PREFIX)
 
 # build all sources by default but not the tests
 Default('src')

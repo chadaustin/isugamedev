@@ -1,24 +1,25 @@
 from os import path
 
-Import('env PREFIX')
+Import('baseEnv PREFIX')
+Import('SetupSDL SetupCorona SetupAudiere SetupOpenGL')
 
 classes = Split("""
    Application
    BoundsCollisionDetector
+   Camera
    CollisionDesc
    GameManager
+   GameState
    IntroState
    Jukebox
    MenuState
+   Player
    RigidBody
    State
    SoundEffectManager
    SoundManager
    Texture
    cubeGeometry
-   GameState
-   Player
-   Camera
 """)
 
 sources = Split("""
@@ -34,11 +35,14 @@ headers = Split("""
 sources.extend(map(lambda n: n + '.cpp', classes))
 headers.extend(map(lambda n: n + '.h', classes))
 
-env2 = env.Copy()
-env2['LIBS'][0:0] = ['audiere']
+env = baseEnv.Copy()
+SetupSDL(env)
+SetupCorona(env)
+SetupAudiere(env)
+SetupOpenGL(env)
 
 programs = [
-    env2.Program(target = 'midworld', source = sources)
+    env.Program(target = 'midworld', source = sources)
 ]
 
-env2.Install(path.join(PREFIX, 'bin'), programs)
+env.Install(path.join(PREFIX, 'bin'), programs)
