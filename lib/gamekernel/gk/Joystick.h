@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Joystick.h,v $
-// Date modified: $Date: 2003-02-10 05:01:26 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2003-02-10 05:39:21 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -172,7 +172,7 @@ private:
          char temp[512];
          sprintf( temp, "JOYSTICKBUTTON_%d", i );
          std::string tmp( temp );
-         std::cout<<"Mapping joystick button: "<<tmp<<std::endl;
+         //std::cout<<"Mapping joystick button: "<<tmp<<std::endl;
          DigitalDevice::mMap[ tmp.c_str() ] = i;
       }
 
@@ -191,7 +191,7 @@ private:
          char temp[512];
          sprintf( temp, "JOYSTICKAXIS_%d", i );
          std::string tmp( temp );
-         std::cout<<"Mapping joystick axis: "<<tmp<<std::endl;
+         //std::cout<<"Mapping joystick axis: "<<tmp<<std::endl;
          AnalogDevice::mMap[ tmp.c_str() ] = i;
       }
    }
