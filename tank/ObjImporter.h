@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-20 19:08:22 $
-//    $Revision: 1.5 $
+//    $Date: 2001-09-20 19:20:28 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -353,19 +353,19 @@ public:
                   {
                      lookup[currentGState->mapName.c_str()].cindex.push_back( v - 1 );
                      lookup[currentGState->mapName.c_str()].tindex.push_back( vt - 1 );
-                     if ( (vn - 1) < normals.size() )
+                     //if ( (vn - 1) < normals.size() )
                         lookup[currentGState->mapName.c_str()].nindex.push_back( vn - 1 );
-                     else
-                        std::cout<<"not enough normals\n"<<std::flush;
+                     //else
+                     //   std::cout<<"not enough normals\n"<<std::flush;
                   }
                   else
                   {
                      lookup["notex"].cindex.push_back( v - 1 );
                      lookup["notex"].tindex.push_back( vt - 1 );
-                     if ( (vn - 1) < normals.size() )
+                     //if ( (vn - 1) < normals.size() )
                         lookup["notex"].nindex.push_back( vn - 1 );
-                     else
-                     std::cout<<"not enough normals\n"<<std::flush;
+                     //else
+                     //   std::cout<<"not enough normals\n"<<std::flush;
                   }               
                }
             }
@@ -393,6 +393,10 @@ public:
 
          Vec4<float> color( 1.0f,1.0f,1.0f,1.0f );
 
+         std::cout<<"- coords == "<<lookup[(*it).first].cindex.size()<<"\n"<<std::flush;
+         std::cout<<"- normals == "<<lookup[(*it).first].nindex.size()<<"\n"<<std::flush;
+         std::cout<<"- texcoords == "<<lookup[(*it).first].tindex.size()<<"\n"<<std::flush;
+         
          geoset->setPrimType( GeoSet::TRIS );
          geoset->setNumPrims( lookup[(*it).first].cindex.size() / 4 );
          geoset->allocate();
