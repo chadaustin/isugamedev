@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageDataMessage.h,v $
- * Date modified: $Date: 2002-05-01 22:57:36 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-01 23:35:19 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -201,11 +201,11 @@ namespace net {
       }
 
    private:
-      /// All car types in the database.
-      data::CarTypeList* mCarTypes;
-
       /// The player
       data::Player* mPlayer;
+
+      /// All car types in the database.
+      data::CarTypeList* mCarTypes;
    };
 
 }
