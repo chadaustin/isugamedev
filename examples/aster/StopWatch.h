@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: StopWatch.h,v $
-//    $Date: 2002-02-10 23:52:20 $
-//    $Revision: 1.2 $
+//    $Date: 2002-04-17 17:30:53 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -164,10 +164,8 @@ inline StopWatch::StopWatch( const int& averageFpsRefreshRate ) :
 }
 
 //: get the current time
-//  useful for profiling
-//  returns - a number of any scalar type (see top for time format)
-// TODO: does compiler optimize the 
-//       case where T = double???, if not, then un-template this.
+//  useful for profiling, or doing time based animation
+//  returns - number in seconds...
 #ifndef WIN32
 	inline void StopWatch::getTime( double& num )
 	{
