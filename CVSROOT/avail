@@ -1,4 +1,4 @@
-# $Id: avail,v 1.2 2003-08-05 07:49:30 daren Exp $
+# $Id: avail,v 1.3 2003-08-18 06:08:24 daren Exp $
 #
 # This can be used to implement finer grain access controls beyond
 # being in access.  Look in cvs_acls.pl for details on this file's
@@ -9,7 +9,7 @@ group|officers|nonchocoboy,aegis,areinot,browner10,daren,louman6,lvanoort,subato
 
 avail
 unavail||darenland
-unavail||darenland/cs309
+unavail||darenland/metropolis
 unavail||CVSROOT
 avail|:officers|CVSROOT
 avail|daren|darenland
