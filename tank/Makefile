@@ -99,7 +99,7 @@ tank$(EXE_FILE_SUFFIX): $(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX)
 	@echo " "
 
 build_tank: ${OBJS} imageIoReg$(OBJ_FILE_SUFFIX) 
-	@echo " "
+	@echo "  "
 	@echo "----------------------"
 	@echo "Making $(EXE_FILENAME)"
 	@echo "----------------------"
@@ -124,7 +124,7 @@ clean:
 	@echo "Cleaning TANK"
 	@echo "================="
 	@echo " "
-	-rm -rf $(OBJS) $(EXE_FILENAME) ii_files
+	-rm -rf $(OBJS) $(EXE_FILENAME) ii_files imageIoReg$(OBJ_FILE_SUFFIX)
 	-rm $(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX)
 
 ifeq ($(USE_DEPEND),Y)
