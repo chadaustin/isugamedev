@@ -1,8 +1,3 @@
-#ifdef WIN32
-    #include <windows.h>
-#endif
-#include <GL/gl.h>    // OpenGL
-
 #include "cubeGeometry.h"
 
 // number of verticies
