@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-07-14 07:16:41 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-07-14 08:22:37 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -94,7 +94,9 @@ namespace phui {
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;
       Size sz = this->getSize();
-      renderer->draw(mText, fontX, fontY, sz);
+      Size *nsz = renderer->draw(mText, fontX, fontY, sz);
+      this->setSize(nsz->getWidth(), nsz->getHeight());
+      delete nsz;
       
       if (hasFocus()) {
          glBegin(GL_LINE_LOOP);

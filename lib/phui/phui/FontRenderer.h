@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FontRenderer.h,v $
- * Date modified: $Date: 2002-07-14 07:16:41 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-07-14 08:22:37 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -82,13 +82,16 @@ namespace phui
       
       /**
        * Draws the given string at the given position within the given size
-       * constraints.
+       * constraints.  If the string will not fit into the constraints, a new
+       * size object that contains values that will fit to the string is 
+       * returned
        * @param text the text to draw
        * @param x x coord to draw at
        * @param y y coord to draw at
        * @param size the size constraint of the message
+       * @return the size of the object necessary for the text to fit inside
        */
-      void draw(const std::string& text, int x, int y, Size& size);
+      Size* draw(const std::string& text, int x, int y, const Size& size);
       /**
        * Gets the font being used by this renderer.
        */

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FontRenderer.cpp,v $
- * Date modified: $Date: 2002-07-14 07:16:41 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-07-14 08:22:37 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -74,42 +74,38 @@ namespace phui
       mRenderer->output(x, y, text.c_str());
    }
 
-   void FontRenderer::draw(const std::string& text, int x, int y, Size &size)
+   Size* FontRenderer::draw(const std::string& text, int x, int y, const Size &size)
    {
-      /*std::cout << "##Font draw x: " << x << std::endl;
-      std::cout << "##Font draw y: " << y << std::endl;
-      std::cout << "##Font size  : " << size.getWidth() << " "
-                << size.getHeight() << std::endl;*/
+      //TODO:  It'd be nice if the splicer woudld splice at the last available
+      //       whitespace.
+      Size *newsize;
       int xcon = size.getWidth() - x;
       int ycon = size.getHeight() - y;
-/*      std::cout << "##Font xcon  : " << xcon << std::endl;
-      std::cout << "##Font ycon  : " << ycon << std::endl;*/
       int textx = mRenderer->getWidth( text.c_str() );
       int texty = mRenderer->getHeight();
-//      std::cout << "##Font textx : " << textx << std::endl;
-//      std::cout << "##Font texty : " << texty << std::endl;
       int onew = mRenderer->getWidth( "A" );
-//      std::cout << "##Font onew  : " << onew << std::endl;
-      
-      //Check to see if we need to splice the string a bit.
       if (textx > xcon)
       {
-//         std::cout << "##Splicing String..." << std::endl;
+         int newy = 0;
          unsigned int charLim = xcon / onew;
-         for (int i = 0; i < text.size(); i+=charLim)
+         for (unsigned int i = 0; i < text.size(); i+=charLim)
          {
-            int splicex = i + charLim;
-//            std::cerr << "##splicex     : " << splicex << std::endl;
             std::string splice = text.substr(i, charLim);
-//            std::cerr << "##splice         : " << splice << std::endl;
             mRenderer->output(x, y, splice.c_str() );
             y += texty;
          }
+         if (y > size.getHeight() + ycon)
+         {
+            newy = y - size.getHeight();
+         }
+         newsize = new Size(size.getWidth(), size.getHeight() + newy);
       }
       else
       {
          mRenderer->output(x, y, text.c_str() );
+         newsize = new Size(size.getWidth(), size.getHeight());
       }
+      return newsize;
    }
          
    const Font& FontRenderer::getFont() const
