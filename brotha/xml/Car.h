@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-04-29 07:29:27 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-29 08:21:50 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,7 +48,8 @@
 #include <vector>
 
 #include "Cartype.h"
-#include "brothadata.h"
+#include "BrothaData.h"
+#include "Mod.h"
 
 namespace data {
    class Car {
