@@ -22,26 +22,31 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: PythonAPI.cpp,v $
+ * File:          $RCSfile: PyAvatar.cpp,v $
  * Date modified: $Date: 2003-02-14 08:25:25 $
- * Version:       $Revision: 1.2 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
 #include <boost/python.hpp>
+#include <siren/siren.h>
 
 using namespace boost::python;
+using namespace siren;
 
-extern void exportAvatar();
-extern void exportKernel();
-extern void exportState();
-extern void exportStateFactory();
-
-
-BOOST_PYTHON_MODULE(siren)
+void exportAvatar()
 {
-   exportAvatar();
-   exportKernel();
-   exportState();
-   exportStateFactory();
+   // Avatar
+   class_<Avatar, bases<>, boost::noncopyable>("Avatar", no_init)
+      .def("triggerAnimation", (bool(Avatar::*)(int))&Avatar::triggerAnimation)
+      .def("triggerAnimation", (bool(Avatar::*)(const std::string&))&Avatar::triggerAnimation)
+      .def("triggerAnimationCycle", (bool(Avatar::*)(int))&Avatar::triggerAnimationCycle)
+      .def("triggerAnimationCycle", (bool(Avatar::*)(const std::string&))&Avatar::triggerAnimationCycle)
+      .def("stopAnimation", (bool(Avatar::*)(int))&Avatar::stopAnimation)
+      .def("stopAnimation", (bool(Avatar::*)(const std::string&))&Avatar::stopAnimation)
+      .def("update", &Avatar::update)
+      .def("render", (bool(Avatar::*)())&Avatar::render)
+   ;
+
+   def("Avatar", &Avatar::create, return_value_policy<reference_existing_object>());
 }

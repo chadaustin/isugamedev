@@ -6,6 +6,7 @@ Import('SetupSDL SetupPython SetupBoostPython')
 
 sources = Split("""
    PythonAPI.cpp
+   PyAvatar.cpp
    PyKernel.cpp
    PyState.cpp
    PyStateFactory.cpp

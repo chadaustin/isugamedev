@@ -12,9 +12,12 @@ class PyAvatarState(State):
       State.__init__(self)
       self.rotX = 0
       self.rotY = 0
+      self.avatar = Avatar('John')
+      self.avatar.triggerAnimationCycle('DANCE')
 
    def update(self, dt):
-      print 'dt: '+str(dt)
+#      print 'dt: '+str(dt)
+      self.avatar.update(dt)
 
    def draw(self):
       glClearColor(0,0,1,0);
@@ -29,7 +32,10 @@ class PyAvatarState(State):
       glRotatef(deg2Rad(self.rotX)*5.0, 1,0,0)
       glRotatef(deg2Rad(self.rotY)*5.0, 0,1,0)
 
-      glTranslate(0, -5.0, -10.0)
+      glTranslate(0, 5.0, -10.0)
+
+      glEnable(GL_DEPTH_TEST)
+      self.avatar.render()
 
    def onMousePress(self, button, down, x, y):
       if down:
