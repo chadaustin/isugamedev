@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2002-02-24 07:38:38 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-02-24 08:48:18 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -37,6 +37,7 @@
 #ifndef PHUI_COLOR_H
 #define PHUI_COLOR_H
 
+#include "phuiCommon.h"
 #include <GL/gl.h>
 
 namespace phui {

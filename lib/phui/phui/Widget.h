@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 07:02:58 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-02-24 08:48:18 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -37,6 +37,7 @@
 #ifndef PHUI_WIDGET_H
 #define PHUI_WIDGET_H
 
+#include "phuiCommon.h"
 #include "Color.h"
 
 namespace phui {

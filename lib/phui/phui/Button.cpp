@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-02-24 07:26:20 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-02-24 08:48:18 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -64,6 +64,16 @@ namespace phui {
       glEnd();
 
       // @todo draw label text
+   }
+
+   void Button::setLabel( const std::string& label )
+   {
+      mLabel = label;
+   }
+
+   const std::string& Button::getLabel() const
+   {
+      return mLabel;
    }
 
 } // namespace phui
