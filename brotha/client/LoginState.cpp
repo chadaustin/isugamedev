@@ -24,8 +24,14 @@ namespace client {
       spectator->setSize(20, 20);
       spectator->show();
 
+      phui::Label* spectatorLbl = new phui::Label("Login as Spectator");
+      spectatorLbl->setPosition(110, 120);
+      spectatorLbl->setSize(150,20);
+      spectatorLbl->show();
+
       window->add(connect);
       window->add(spectator);
+      window->add(spectatorLbl);
 
       mRoot->add(window);
    }
