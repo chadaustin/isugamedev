@@ -45,7 +45,7 @@ namespace net {
       int i = 0;
       while (length > 0) {
          int read = std::min(length, BUFFER_SIZE);
-         is.read(BUFFER_SIZE, read);
+         is.read(buffer, read);
          std::copy_n(str.begin() + i, read, buffer);
          i += read;
          length -= read;

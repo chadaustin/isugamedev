@@ -18,7 +18,14 @@ namespace net {
    public:
       // XXXaegis this should probably be private
       Socket(PRFileDesc* fd) {
+         mOutputStream = 0;
          mSocket = fd;
+      }
+
+      ~Socket() {
+         if(mOutputStream == 0) {
+            delete mOutputStream;
+         }
       }
 
       Socket(const char* hostname, int port) {
@@ -45,17 +52,31 @@ namespace net {
       }
 
       InputStream* getInputStream() {
-         /// @todo implement getInputStream
-         return 0;
+         if(mInputStream == 0) {
+            mInputStream = new SocketInputStream(this);
+         }
+         return mInputStream;
       }
 
       OutputStream* getOutputStream() {
-         /// @todo implement getOutputStream
-         return 0;
+         if(mOutputStream == 0) {
+            mOutputStream = new SocketOutputStream(this);
+         }
+         return mOutputStream;
       }
 
+      void read(void* buffer, int size) {
+         PR_Recv(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
+      }
+
+      void write(void* buffer, int size) {
+         PR_Send(mSocket, buffer, size, 0, PR_INTERVAL_NO_WAIT);
+      }
    private:
       PRFileDesc* mSocket;
+      SocketOutputStream* mOutputStream;
+      SocketInputStream* mInputStream;
+
    };
 
 }
