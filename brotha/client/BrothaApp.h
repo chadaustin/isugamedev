@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-21 23:38:33 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-22 03:43:28 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -69,6 +69,27 @@ namespace client
       void processInput(SDLKey sym, bool keyDown);
 
       /**
+       * Sets which player is on the local machine. If player is NULL, then it is
+       * assumed that there is no local player and this is a dedicated server.
+       *
+       * @param player     the player corresponding to the local player
+       */
+      void setLocalPlayer(game::Player* player) {
+         mLocalPlayer = player;
+      }
+
+      /**
+       * Gets the player on the local machine. If there is no local player, as
+       * could be the case on a dedicated server, this method will return NULL.
+       *
+       * @return  the local player or NULL if there is no player on the local
+       *          machine
+       */
+      game::Player* getLocalPlayer() {
+         return mLocalPlayer;
+      }
+
+      /**
        * Gets the network manager for this app.
        */
       net::NetMgr* getNetMgr() {
@@ -92,18 +113,6 @@ namespace client
       game::BrothaGame& getGame() { return mGame; }
 
    public:
-   /*
-      gk::DigitalInterface
-         mAccelerate,
-         mBrake,
-         mTurnLeft,
-         mTurnRight,
-         mPause,
-         mQuit;
-
-      /// The kernel running this app
-      gk::IGameKernel* mKernel;
-   */
       /// Our lovely game instance
       game::BrothaGame mGame;
 
@@ -125,6 +134,9 @@ namespace client
       
       int mWidth;
       int mHeight;
+
+      /// The local player
+      game::Player* mLocalPlayer;
    };
 }
 

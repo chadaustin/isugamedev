@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-22 02:09:04 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-04-22 03:43:28 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -57,6 +57,7 @@ namespace client
       , mSoundMgr(NULL)
       , mWidth(0)
       , mHeight(0)
+      , mLocalPlayer(NULL)
    {
       // init the sound subsystem
       try {
@@ -121,7 +122,7 @@ namespace client
 
       // Only draw if we're in the game
       if ( isInGame() ) {
-         game::Player* player = mGame.getLocalPlayer();
+         game::Player* player = getLocalPlayer();
          const gmtl::Vec<PRFloat64,3>& pos = player->getObject()->getPosition();
 
          glColor4f( 1.0, 0.0, 0.0, 1.0f );
@@ -153,7 +154,7 @@ namespace client
 
    void BrothaApp::processInput(SDLKey sym, bool keyDown)
    {
-      game::Player* player = mGame.getLocalPlayer();
+      game::Player* player = getLocalPlayer();
       net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
       PRFloat64 to;
 

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-30 21:04:26 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-22 03:43:28 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -56,7 +56,7 @@ namespace client
             app->getGame().add( pMsg->getPlayer() );
             // reset the local player if necessary
             if (pMsg->isYou()) {
-               app->getGame().setLocalPlayer(pMsg->getPlayer());
+               app->setLocalPlayer(pMsg->getPlayer());
             }
             break;
          }
@@ -101,7 +101,7 @@ namespace client
          app->getGame().add( pMsg->getPlayer() );
          // set the local player if necessary
          if(pMsg->isYou()) {
-            app->getGame().setLocalPlayer(pMsg->getPlayer());
+            app->setLocalPlayer(pMsg->getPlayer());
          }
          return std::auto_ptr<AppState>(NULL);
       } else if(msg->getType() == net::UpdatePlayer) {
