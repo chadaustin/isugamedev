@@ -4,6 +4,7 @@ Import('env')
 classes = [
    'GameThread',
    'ListenServer',
+   'WebServer',
 ]
 
 headers = [
