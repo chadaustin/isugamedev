@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StateFactory.cpp,v $
- * Date modified: $Date: 2002-10-01 02:12:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-01 04:21:38 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,12 +42,7 @@ namespace mw
    {}
 
    StateFactory::~StateFactory()
-   {
-      for (CreatorMap::iterator itr = mCreators.begin(); itr != mCreators.end(); ++itr)
-      {
-         delete itr->second;
-      }
-   }
+   {}
 
    StateFactory& StateFactory::getInstance()
    {
