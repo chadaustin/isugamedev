@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: phui.h,v $
- * Date modified: $Date: 2002-04-22 05:08:25 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-22 05:45:20 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -39,6 +39,7 @@
 
 #include "Button.h"
 #include "Label.h"
+#include "TextField.h"
 #include "Font.h"
 #include "FontRenderer.h"
 #include "RootFactory.h"

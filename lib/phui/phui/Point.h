@@ -30,7 +30,7 @@ inline Point operator+(const Point& lhs, const Point& rhs) {
    return Point(lhs.x + rhs.x, lhs.y + rhs.y);
 }
 
-inline ostream& operator<<(ostream& os, const Point& p) {
+inline std::ostream& operator<<(std::ostream& os, const Point& p) {
    os << "(" << p.x << ", " << p.y << ")";
    return os;
 }

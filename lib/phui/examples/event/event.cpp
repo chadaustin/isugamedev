@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-22 05:28:51 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-22 05:45:20 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -70,6 +70,9 @@ void reshape(int width, int height) {
 
 phui::InputKey GlutToPhuiKey(char key) {
    printf("%d\n", (int)key);
+   if(key >= 'a' && key <= 'z') {
+      return (phui::InputKey)(phui::KEY_A + (key - 'a'));
+   }
 
    return phui::KEY_UNKNOWN;
 /*
@@ -211,12 +214,20 @@ int main(int argc, char** argv) {
       w->setBackgroundColor(phui::Colorf(0, 1, 0, 0.75f));
       wnd->add(w);
 
-      phui::Button* button(new phui::Button("Icky"));
+      phui::Button* button(new phui::Button("Icky very very very icky"));
       button->setPosition(20, 20);
       button->setSize(100,50);
       button->setVisible(true);
       button->setBackgroundColor(phui::Colorf(0,0,1,0.5f));
       window->add(button);
+
+      phui::TextField* txt(new phui::TextField());
+      txt->setPosition(20,100);
+      txt->setSize(100,50);
+      txt->setVisible(true);
+      txt->setBackgroundColor(phui::Colorf(1,1,1,1.0f));
+      txt->setForegroundColor(phui::Colorf(0,0,0,1.0f));
+      window->add(txt);
 
       gRoot->add(window);
       gRoot->add(wnd);
