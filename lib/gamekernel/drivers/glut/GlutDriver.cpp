@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-03-30 23:36:15 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-05-14 15:05:33 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -246,35 +246,59 @@ GlutDriver::name() const
 
 //------------------------------------------------------------------------------
 
+/** order of callback:
+ *
+ * sample input
+ * preframe
+ * intraframe / draw
+ * postframe
+ */
 void
 GlutDriver::OnIdle()
 {
-   // the current window is not set in glut's idle func
-   if ( glutGetWindow() != sDriver->mMainWin_ContextID )
-   {
-      glutSetWindow( sDriver->mMainWin_ContextID );
-   }
-   postRedisplay();
-
+   // cache some values...
    IGameKernel* kernel = sDriver->mKernel;
    IGameApp* app = kernel->getApp();
-
-   // do an app frame
-   assert( app != NULL && "you can't run a NULL application" );
+   
+   // get input
    kernel->getInput()->update();
-   app->onUpdate();
-
+   
    // force a poll on the joystick
    if ( sDriver->mJoystick != NULL )
    {
       glutForceJoystickFunc();
    }
+   
+   // pre frame
+   app->onPreUpdate();
+
+   // ---- in the frame now ----
+   
+   // draw
+   // if the current window is not set in glut's idle func
+   if ( glutGetWindow() != sDriver->mMainWin_ContextID )
+   {
+      glutSetWindow( sDriver->mMainWin_ContextID );
+   }
+   // @todo is this gaurenteed to call OnRedisplay immediately???
+   //       we're hoping so... if not, then some of OnIdle need to 
+   //       be moved there.
+   postRedisplay();
+
+   // intra frame
+   assert( app != NULL && "you can't run a NULL application" );
+   app->onUpdate();
+
+   // ---- frame done ----
+   
+   // post frame
+   app->onPostUpdate();
 }
 
 //------------------------------------------------------------------------------
 
 void
-GlutDriver::initCurrentContext()
+GlutDriver::initCurrentContextOneTimeOnly()
 {
    // Initialize the context once and only once for every opengl window.
    bool hasInitialized = oneTimeOnly( mCurrentContext ).truth();
@@ -294,7 +318,7 @@ GlutDriver::initCurrentContext()
 void
 GlutDriver::OnRedisplay()
 {
-   sDriver->initCurrentContext();
+   sDriver->initCurrentContextOneTimeOnly();
 
    // draw the app
    IGameKernel* kernel = sDriver->mKernel;
