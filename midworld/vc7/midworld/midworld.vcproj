@@ -149,12 +149,6 @@
 				RelativePath="..\..\src\BodyState.h">
 			</File>
 			<File
-				RelativePath="..\..\src\BoundsCollisionDetector.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\BoundsCollisionDetector.h">
-			</File>
-			<File
 				RelativePath="..\..\src\BoundsSweepCollisionDetector.cpp">
 			</File>
 			<File
@@ -285,9 +279,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\NavNodeTree.h">
-			</File>
-			<File
-				RelativePath="..\..\src\NullCollisionDetector.h">
 			</File>
 			<File
 				RelativePath="..\..\src\OpenSGSceneViewer.cpp">
