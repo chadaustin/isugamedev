@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-29 02:13:03 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -114,6 +114,10 @@ namespace phui {
       if (idx <= mItems.size()) {
          mItems.erase(mItems.begin() + idx - 1);
       }
+   }
+
+   void ListBox::clear() {
+      mItems.clear();
    }
 
    const std::string& ListBox::get(unsigned int idx) const {

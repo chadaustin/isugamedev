@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.h,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-29 02:13:03 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -78,6 +78,11 @@ namespace phui {
        * Removes the item at the given index.
        */
       void remove(unsigned int idx);
+
+      /**
+       * Removes all items in the list.
+       */
+      void clear();
 
       /**
        * Gets the item at the selected index.
