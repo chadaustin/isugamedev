@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: mk.irix,v $
-# Date modified: $Date: 2002-01-30 06:47:59 $
-# Version:       $Revision: 1.2 $
+# Date modified: $Date: 2002-02-20 04:01:15 $
+# Version:       $Revision: 1.3 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -48,7 +48,7 @@ SO_LINKER = $(CXX_COMPILE)
 SO_FLAGS = -LANG:std -n32 -mips3 $(DEBUG_FLAGS) -shared -KPIC
 STATIC_LINKER = ar
 STATIC_FLAGS = -ruv
-DEFS =
+DEFS ?=
 LIBBITSUF=32
 
 # cannot be specified with the -c option

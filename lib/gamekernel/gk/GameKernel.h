@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-18 03:30:31 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2002-02-20 04:01:15 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,7 +34,6 @@
 
 #include "gk/gkCommon.h"
 #include <vector>
-#include <GL/glut.h>                   // gl utility library
 
 #include "gk/ContextData.h"
 #include "gk/GameApp.h"      // the base application type

@@ -24,13 +24,15 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Grid.h,v $
-// Date modified: $Date: 2002-02-06 22:47:06 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-20 04:01:16 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GRID_H
 #define GRID_H
+
+#include <GL/gl.h>
 
 class Grid
 {

@@ -1,0 +1,15 @@
+SUBDIRS = input
+
+default: all
+all: all-recursive
+clean: clean-recursive
+clobber: clobber-recursive
+
+all-recursive clean-recursive clobber-recursive:
+	@dot_seen=no; \
+	target=`echo $@ | sed s/-recursive//`; \
+	list='$(SUBDIRS)'; for subdir in $$list; do \
+		echo "Making $$target in $$subdir"; \
+		(cd $$subdir && $(MAKE) $$target) \
+		 || case "$$amf" in *=*) exit 1;; *k*) fail=yes;; *) exit 1;; esac; \
+	done;

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-20 02:58:41 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-20 04:01:16 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,9 +36,11 @@
 #include <gk/GameInputConfigure.h>
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
-#include <gk/GlutDriver.h>
+#include <GlutDriver.h>
 #include <gk/SystemDriverFactory.h>
 #include "Grid.h"
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 GK_USING_NAMESPACE
 

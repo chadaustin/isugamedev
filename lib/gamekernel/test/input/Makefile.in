@@ -1,0 +1,87 @@
+################### <GK heading BEGIN do not edit this line> #################
+#
+# gamekernel - a platform for running games
+# gamekernel is (C) Copyright 2001-2002 by Kevin Meinert, Ben Scott
+#
+# Authors: Kevin Meinert <kevin@vrsource.org>
+#          Ben Scott <bscott@iastate.edu>
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Library General Public
+# License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+#
+# You should have received a copy of the GNU Library General Public
+# License along with this library; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+# Boston, MA 02111-1307, USA.
+#
+# -----------------------------------------------------------------
+# File:          $RCSfile: Makefile.in,v $
+# Date modified: $Date: 2002-02-20 04:01:16 $
+# Version:       $Revision: 1.1 $
+# -----------------------------------------------------------------
+#
+################## <GK heading END do not edit this line> ###################
+
+top_srcdir=@top_srcdir@
+srcdir=@srcdir@
+
+# objects to be included in the project....
+SRCS = main.cpp
+
+# project name...
+PROJECT_NAME = input
+
+OBJDIR = .
+DEPDIR =
+
+PATH_TO_SRCS = $(srcdir)
+MK_DIR = $(top_srcdir)/mk
+INCLUDE_PATHS = -I$(srcdir) -I$(top_srcdir) -I$(top_srcdir)/external/xdl -I$(top_srcdir)/drivers/glut @GLUT_DRIVER_INCLUDES@
+DEFS = @OSTYPE_DEFS@
+LIBS = -L$(top_srcdir)/gk -lgk
+
+########################################################################
+# system dependent stuff, that users will want to change...
+# stuff that cant be abstracted in the build system...
+##########################################################################
+include ${MK_DIR}/mk.hosttype
+include ${MK_DIR}/mk.platform
+
+########################################################################
+include ${MK_DIR}/mk.objs
+
+# default targets
+default: all
+all: $(EXE_FILENAME)
+
+# Compile then Link
+$(EXE_FILENAME): $(OBJS)
+	-@echo ""
+	-@echo "-------------------------------------------"
+	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .so)"
+	-@echo "-------------------------------------------"
+	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS) $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIBS)
+	-@echo ""
+	-@echo "-------------------------------------------"
+	-@echo "$(EXE_FILENAME) done"
+	-@echo "-------------------------------------------"
+
+# Remove the compiled stuff from the system
+clean:
+	-@echo ""
+	-@echo "-------------------------------------------"
+	-@echo "Removing compiled stuff from the system	 "
+	-@echo "-------------------------------------------"
+	rm -rf $(OBJS) $(EXE_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/
+
+clobber: clean
+	rm -f *.d
+
+include ${MK_DIR}/mk.depend

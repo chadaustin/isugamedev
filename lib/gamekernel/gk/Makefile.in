@@ -1,10 +1,10 @@
-################### <GK heading BEGIN do not edit this line> #################
+################### <MK heading BEGIN do not edit this line> #################
 #
-# gamekernel - a platform for running games
-# gamekernel is (C) Copyright 2001-2002 by Kevin Meinert, Ben Scott
+# mk build system - really simple build system using GNU make
+# mk is (C) Copyright 2001-2002 by Kevin Meinert, Patrick Hartling
 #
 # Authors: Kevin Meinert <kevin@vrsource.org>
-#          Ben Scott <bscott@iastate.edu>
+#          Patrick Hartling <patrick@vrac.iastate.edu>
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Library General Public
@@ -22,25 +22,34 @@
 # Boston, MA 02111-1307, USA.
 #
 # -----------------------------------------------------------------
-# File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-20 02:58:41 $
-# Version:       $Revision: 1.4 $
+# File:          $RCSfile: Makefile.in,v $
+# Date modified: $Date: 2002-02-20 04:01:15 $
+# Version:       $Revision: 1.1 $
 # -----------------------------------------------------------------
 #
-################## <GK heading END do not edit this line> ###################
+################## <MK heading END do not edit this line> ###################
+
+srcdir=@srcdir@
+top_srcdir=@top_srcdir@
 
 # objects to be included in the project....
-SRCS = main.cpp
+SRCS = \
+	GameKernel.cpp \
+	SystemDriverFactory.cpp \
+	xmlparser.cpp xmlpp.cpp xmltokenizer.cpp
 
 # project name...
-PROJECT_NAME = input
+PROJECT_NAME = gk
+
 
 OBJDIR = .
-DEPDIR =
+DEPDIR = 
 
-PATH_TO_SRCS = .
-MK_DIR = ../../mk
-INCLUDE_PATHS = -I. -I../../ -I../../external/xdl
+PATH_TO_SRCS = $(srcdir):$(top_srcdir)/xmlpp
+MK_DIR = $(top_srcdir)/mk
+INCLUDE_PATHS = -I$(top_srcdir) -I$(top_srcdir)/external/xdl @INCLUDES@
+LIBS=@LIBS@
+DEFS=@GK_DEFS@
 
 ########################################################################
 # system dependent stuff, that users will want to change...
@@ -49,41 +58,32 @@ INCLUDE_PATHS = -I. -I../../ -I../../external/xdl
 include ${MK_DIR}/mk.hosttype
 include ${MK_DIR}/mk.platform
 
-EXTRA = 
-
-# IRIX
-ifeq ($(HOSTTYPE), irix)
-   LIBS = $(EXTRA) -lGLU -lGL -lglut -lX11 -lXmu -lm
-   DEFS += -DUSE_UNIX
-endif
-
-#LiNUX
-ifeq ($(HOSTTYPE), linux)
-   LIBS = -L/usr/X11R6/lib -L../../ -lgk -lGLU -lGL -lglut -lX11 -lXmu -lm
-   DEFS += -DUSE_UNIX
-endif
-
-# Win32
-ifeq ($(HOSTTYPE), Win32)
-   LIBS =
-   DEFS += -DUSE_WIN32
-endif
-
 ########################################################################
-
 include ${MK_DIR}/mk.objs
 
+# default targets
+default: all
+all: $(LIB_FILENAME) $(STATIC_LIB_FILENAME)
+	-@echo ""
+	-@echo "-------------------------------------------"
+	-@echo "$(FILENAME) done"
+	-@echo "-------------------------------------------"
+
+
 # Compile then Link
-build: $(OBJS)
+$(LIB_FILENAME): $(OBJS)
 	-@echo ""
 	-@echo "-------------------------------------------"
 	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .so)"
 	-@echo "-------------------------------------------"
-	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS) $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIBS)
+	$(SO_LINKER) $(SO_FLAGS) $(OBJS) $(OUTPUT_LIB_FLAG)$(LIB_FILENAME) $(LIBS)
+
+$(STATIC_LIB_FILENAME): $(OBJS)
 	-@echo ""
 	-@echo "-------------------------------------------"
-	-@echo "$(EXE_FILENAME) done"
+	-@echo "Linking... (.$(OBJ_FILE_SUFFIX)'s --> .a)"
 	-@echo "-------------------------------------------"
+	$(STATIC_LINKER) $(STATIC_FLAGS) $(OUTPUT_STATIC_LIB_FLAG)$(STATIC_LIB_FILENAME) $(OBJS) 
 
 # Remove the compiled stuff from the system
 clean:
@@ -91,9 +91,7 @@ clean:
 	-@echo "-------------------------------------------"
 	-@echo "Removing compiled stuff from the system	 "
 	-@echo "-------------------------------------------"
-	-rm -r $(OBJS) $(EXE_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/
-
-
+	-rm -r $(OBJS) $(STATIC_LIB_FILENAME) $(LIB_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/
 
 clobber: clean
 	-rm *.d
