@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-06-10 05:33:46 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-06-10 05:41:04 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -142,7 +142,7 @@ void run()
       /// @todo Use a high-res timer to actually get in us rather than ms
       mw::u64 now = (mw::u64)SDL_GetTicks();
       // convert from ms to us for now
-      now *= 2;
+      now *= 1000;
       
       // ignore wraparound
       if (now >= last_time)
