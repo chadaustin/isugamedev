@@ -107,10 +107,10 @@ private:
       textures[9].LoadFromFile("art/blue-circle.bmp");
       textures[10].LoadFromFile("art/blue-triangle.bmp");
       textures[11].LoadFromFile("art/blue-squiggle.bmp");
-      textures[12].LoadFromFile("C:/gamedev/set/art/green-square.bmp");
-      textures[13].LoadFromFile("C:/gamedev/set/art/green-circle.bmp");
-      textures[14].LoadFromFile("C:/gamedev/set/art/green-triangle.bmp");
-      textures[15].LoadFromFile("C:/gamedev/set/art/green-squiggle.bmp");
+      textures[12].LoadFromFile("art/green-square.bmp");
+      textures[13].LoadFromFile("art/green-circle.bmp");
+      textures[14].LoadFromFile("art/green-triangle.bmp");
+      textures[15].LoadFromFile("art/green-squiggle.bmp");
 	   glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
       return true;
 
