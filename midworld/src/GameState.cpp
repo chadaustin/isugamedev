@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-11 08:39:39 $
- * Version:       $Revision: 1.120 $
+ * Date modified: $Date: 2002-11-11 09:20:43 $
+ * Version:       $Revision: 1.121 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -116,7 +116,7 @@ namespace mw
       mCamera.setMinFollowDistance(2.0f);
 
       //THis is the generation of the skydome
-      GenerateDome(200.0f, 5.0f, 5.0f, 1.0f, 1.0f);
+      GenerateDome(400.0f, 5.0f, 5.0f, 1.0f, 1.0f);
       mSkydomeTex = new Texture("images/nebula.bmp");
    }
 
@@ -125,7 +125,7 @@ namespace mw
    {
       AI.update();
       mInputManager.update(dt);
-      mGameScene.update(dt);
+      mSnowSystem.update(dt);
 
       mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
@@ -261,6 +261,7 @@ namespace mw
       glEnable(GL_DEPTH_TEST);
       glEnable(GL_BLEND);
       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      glEnable(GL_CULL_FACE);
 
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
@@ -274,6 +275,8 @@ namespace mw
 
       glPushMatrix();
          mCamera.draw();
+
+         mGameScene.draw();
 
          mSkydomeTex->bind();
          RenderSkyDome();
@@ -290,7 +293,8 @@ namespace mw
 
          drawEntities();
 
-         mGameScene.draw();
+         // Draw this last for correct depth testing
+         mSnowSystem.draw();
 
 //         drawBounds();
       glPopMatrix();

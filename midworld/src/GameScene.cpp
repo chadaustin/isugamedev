@@ -51,13 +51,5 @@ namespace mw
          glEnd();
          mGroundTexture->unbind();
       glPopMatrix();
-
-      mSnowSystem.draw();
-   }
-
-   void
-   GameScene::update(float dt)
-   {
-      mSnowSystem.update(dt);
    }
 }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-11 08:06:38 $
- * Version:       $Revision: 1.71 $
+ * Date modified: $Date: 2002-11-11 09:20:44 $
+ * Version:       $Revision: 1.72 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,6 +58,7 @@
 #include "Testing.h"
 #include "Turret.h"
 #include "PhysicsEngine.h"
+#include "SnowSystem.h"
 
 namespace gmtl
 {
@@ -215,8 +216,11 @@ namespace mw
       /// The heads up display used to give the user feedback about the world.
       HUD mHUD;
 
-      // This is the skydome texture
+      /// This is the skydome texture
       Texture* mSkydomeTex;
+
+      /// The system that controls the snow in the level
+      SnowSystem mSnowSystem;
 
       // Actions
       InputManager mInputManager;
