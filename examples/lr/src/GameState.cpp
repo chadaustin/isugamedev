@@ -243,7 +243,7 @@ namespace lr
 
    void GameState::onKeyPress(SDLKey sym, bool down)
    {
-      if(sym == SDLK_RETURN && down)
+      if(sym == SDLK_ESCAPE && down)
       {
          transition = true;
       }

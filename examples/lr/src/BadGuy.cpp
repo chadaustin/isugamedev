@@ -362,6 +362,7 @@ namespace lr
       if(isMoney())
       {
          mLevel->setEmpty(getGridPos(), getGridHeight());
+         mLevel->numBagsDecr();
       }
 
       if((initTime+=dt)>.08 && updateTex==true)
@@ -563,6 +564,7 @@ namespace lr
       }
 */      if(mPlayer->getGridHeight()==getGridHeight() && mPlayer->getGridPos()==getGridPos())
       {
+         std::cout << "cuaght player" << std::endl;
          mLevel->readLevelFile(mPlayer, this);
          mPlayer->setLives(mPlayer->getLives()-1);
          mPlayer->caught();

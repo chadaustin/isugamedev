@@ -141,6 +141,7 @@ namespace lr
 
    void Level::readLevelFile(Player* p, BadGuy* b)
    {
+      numBags=0;
       std::ifstream in;
       in.open(currentLevelFile.c_str());
       int temp;
