@@ -1,0 +1,4 @@
+Read the makefile for ideas of how auto-copyright works.
+
+It should be setup for you already, so that it will automatically add/replace
+the copyright on all source files in the project.
