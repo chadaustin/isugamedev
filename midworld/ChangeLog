@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-07-28 nonchocoboy  Integrated basic collision detection into the game.
 2002-07-28 nonchocoboy  Added Entity abstraction on top of RigidBody.
                         Generalized GrimReaper and GameState to only manage
                         entities in order to simplify game resource management.
