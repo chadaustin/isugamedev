@@ -9,7 +9,7 @@ Mutex::Mutex(char *name) : m_mutex(NULL) {
 Mutex::~Mutex() {
    if(m_mutex != NULL) {
       unlock();
-	   ::CloseHandle( m_mutex );
+      ::CloseHandle( m_mutex );
       m_mutex = NULL;
    }
 }

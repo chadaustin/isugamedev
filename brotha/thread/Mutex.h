@@ -8,11 +8,11 @@ namespace thread {
 class Mutex {
 public:
    Mutex(char *name = 0);
-	virtual ~Mutex();
+   virtual ~Mutex();
 
-	bool attemptLock();
-	bool lock(DWORD waitfor = INFINITE);
-	void unlock();
+   bool attemptLock();
+   bool lock(DWORD waitfor = INFINITE);
+   void unlock();
 private:
    HANDLE m_mutex;
 };

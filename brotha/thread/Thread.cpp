@@ -14,7 +14,7 @@ bool Thread::create() {
    if(m_thread == 0)
       return false;
 
-	return true;
+   return true;
 }
 
 void Thread::release() {
@@ -22,8 +22,8 @@ void Thread::release() {
       ::CloseHandle(m_thread);
 
       m_thread  = NULL;
-		m_id = 0;
-	}
+      m_id = 0;
+   }
 }
 
 DWORD WINAPI Thread::process(LPVOID parameter) {
@@ -31,11 +31,11 @@ DWORD WINAPI Thread::process(LPVOID parameter) {
       return -1;
 
    Thread* thread = (Thread*)parameter;
-	int ret = thread->run();
+   int ret = thread->run();
 
-	ExitThread(-1);
+   ExitThread(-1);
 
-	return ret;
+   return ret;
 }
 
 long Thread::run() {
