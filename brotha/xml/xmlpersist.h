@@ -7,7 +7,6 @@
 #include "brothadata.h"
 
 
-
 namespace dataxml{
 	Bdata b;
 
@@ -22,6 +21,8 @@ namespace dataxml{
         while (it != cursor.end()){
             xmlpp::XMLAttributes& attr = (*it)->get_attrmap();
 			Gang* g = new Gang(attr.get("name"));
+			xmlpp::xmlnode* info =  (*it)->getChild("info");
+			g->setInfo( info->get_cdata());
 			b.addGang(g);
 		    xmlpp::xmlnodelist cursor2 = (*it)->getChildren("player");
             xmlpp::XMLNodeListIterator it2 = cursor2.begin();

@@ -1,5 +1,6 @@
 <wbdata>
   <gang name="reflect">
+    <info>Reflection engine characters</info>
     <player name="ama" password="kuriyama">
       <car cartype="tercel">
         <mod name="breaks" level="4" />
@@ -17,6 +18,7 @@
     </player>
   </gang>
   <gang name="brothaTeam">
+    <info>the game's developers</info>
     <player name="chadO" password="p1">
       <car name="tercel" />
     </player>

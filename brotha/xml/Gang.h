@@ -14,6 +14,7 @@ namespace dataxml{
 class Gang{
 private:
   std::string name;
+  std::string info;
   playerlist players;
 public:
   Gang(std::string iname){
@@ -27,12 +28,21 @@ public:
     return players;
   }
 
+  void setInfo(std::string in){
+    info = in;
+  }
+
+  std::string getInfo(){
+	  return info;
+  }
+
   std::string getName(){
     return name;
   }
 
   void xMLify(std::ostream& out){
    out << "  <gang name=\"" << name << "\">" << std::endl;
+   out << "    <info>" << info << "</info>";
    for(int i = 0; i < players.size(); i++){
       players[i]->xMLify(out);
     }

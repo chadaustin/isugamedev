@@ -147,6 +147,9 @@
 				RelativePath="Gang.h">
 			</File>
 			<File
+				RelativePath="HtmlGen.h">
+			</File>
+			<File
 				RelativePath="Mod.h">
 			</File>
 			<File
