@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.exe.template,v $
-# Date modified: $Date: 2002-01-30 06:47:59 $
-# Version:       $Revision: 1.3 $
+# Date modified: $Date: 2002-02-20 04:03:50 $
+# Version:       $Revision: 1.4 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -46,32 +46,28 @@ INCLUDE_PATHS = -I.
 # system dependent stuff, that users will want to change...
 # stuff that cant be abstracted in the build system...
 ##########################################################################
-include ${MK_DIR}/mk.platform
 include ${MK_DIR}/mk.hosttype
+include ${MK_DIR}/mk.platform
 
 # IRIX
 ifeq ($(HOSTTYPE), IRIX)
    LIBS = 
-   include ${MK_DIR}/mk.irix
 endif
 
 #LiNUX
 ifeq ($(HOSTTYPE), Linux)
    LIBS = 
-   include ${MK_DIR}/mk.gnu
 endif
 
 # Win32
 ifeq ($(HOSTTYPE), Win32)
    LIBS = 
    DEPENDFLAGS = -D__cplusplus -D_WIN32 -DWIN32 $(INCLUDE_PATHS)
-   include ${MK_DIR}/mk.win32
 endif
 
 # gnu2
 ifeq ($(HOSTTYPE), GNU)
    LIBS = 
-   include ${MK_DIR}/mk.gnu
 endif
 ########################################################################
 
