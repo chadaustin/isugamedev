@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.cpp,v $
- * Date modified: $Date: 2002-10-31 07:22:17 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-13 09:14:23 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,6 +48,7 @@ namespace mw
       , mTexturesComplete(0)
    {
       mLoadImage = new Texture("images/loading.jpeg");
+      mLoadingBar = new Texture("images/loadingbar.png");
 
       mModels.push_back("ammo_crate");
       mModels.push_back("barrel");
@@ -67,6 +68,7 @@ namespace mw
    LoadState::~LoadState()
    {
       delete mLoadImage;
+      delete mLoadingBar;
    }
 
    void
@@ -113,29 +115,12 @@ namespace mw
          0, 0, application().getWidth(), application().getHeight());
 
       // Draw the status bar
-      unsigned int half_width = application().getWidth() / 2;
-      unsigned int bar_size = 200;
+      unsigned int bar_width = 456;
+      unsigned int bar_height = 85;
       unsigned int total_complete = mModelsComplete + mTexturesComplete;
       unsigned int total_size = mModels.size() + mTextures.size();
-      unsigned int value = (unsigned int)((float)total_complete / total_size * 200.0f);
+      unsigned int value = (unsigned int)((float)total_complete / total_size * bar_width);
 
-      glPushMatrix();
-      {
-         glTranslatef(half_width - bar_size/2, application().getHeight() - 50, 0);
-         glBegin(GL_QUADS);
-            glColor3f(1,0,0);
-            glVertex2f(0,     0);
-            glVertex2f(0,     20);
-            glVertex2f(value, 20);
-            glVertex2f(value, 0);
-
-            glColor3f(0,0,0);
-            glVertex2f(value, 0);
-            glVertex2f(value, 20);
-            glVertex2f(bar_size,   20);
-            glVertex2f(bar_size,   0);
-         glEnd();
-      }
-      glPopMatrix();
+      mLoadingBar->drawRectangle(250, 660, 250 + value, 660 + bar_height);
    }
 }

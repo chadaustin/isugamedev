@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.h,v $
- * Date modified: $Date: 2002-10-31 07:22:17 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-13 09:14:23 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -54,6 +54,7 @@ namespace mw
       unsigned int mModelsComplete;
       unsigned int mTexturesComplete;
       Texture* mLoadImage;
+      Texture* mLoadingBar;
 
       typedef std::vector<std::string> ModelList;
       ModelList mModels;
