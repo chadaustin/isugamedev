@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-02-10 nonchocoboy  States now can get information about the size of the
+                        window they are being run in.
 2003-01-16 nonchocoboy  Kernel is now a singleton.
 2003-01-15 nonchocoboy  Added basic type definitions.
 2003-01-15 nonchocoboy  Use Loki as an external library rather than copying the
