@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-29 08:49:22 $
- * Version:       $Revision: 1.48 $
+ * Date modified: $Date: 2002-10-29 11:02:06 $
+ * Version:       $Revision: 1.49 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,7 +43,7 @@
 #include <gmtl/Point.h>
 #include <gmtl/LineSeg.h>
 #include <gmtl/Generate.h>
-#include <gmtl/Quat.h>
+//#include <gmtl/QuatOps.h>
 
 #include <SDL.h>
 #include "Camera.h"
@@ -104,24 +104,8 @@ namespace mw
          mPlayer = p;
       }
 
-      virtual void execute()
-      {
-         gmtl::Vec3f upVec(0.0, 0.0, 1.0);
-         gmtl::Vec3f downVec(0.0,0.0,-1.0);
-         gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mTurret->getPos();
-         gmtl::normalize(vecToPlayer);
-         gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer);
-         mTurret->setRot(mQuat);
-//
-
-         mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
+      virtual void execute();
          
-         gmtl::Vec3f offset(0,0,8);
-//         mTurret->getGun()->setRot(mTurret->getRot());
-         mTurret->getGun()->setRot(mQuat);
-         mTurret->getGun()->setPos(mTurret->getPos()+(mTurret->getRot()*offset));
-         mTurret->shoot();
-      }
 
 
 

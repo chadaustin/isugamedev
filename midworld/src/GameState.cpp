@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 09:29:18 $
- * Version:       $Revision: 1.82 $
+ * Date modified: $Date: 2002-10-29 11:02:06 $
+ * Version:       $Revision: 1.83 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,6 +33,9 @@
 #include <stdexcept>
 #include <sstream>
 #include <SDL_opengl.h>
+
+#include <gmtl/QuatOps.h>
+
 #include "AmmoCrate.h"
 #include "Application.h"
 #include "AssaultRifle.h"
@@ -61,6 +64,30 @@ namespace mw
       StateCreatorImpl<GameState> creator("Game");
    }
 
+   void turretCommand::execute()
+   {
+      gmtl::Vec3f upVec(0.0, 0.0, 1.0);
+      gmtl::Vec3f downVec(0.0,0.0,-1.0);
+      gmtl::Quatf currentQuat = mTurret->getRot(); /// Turret's current orientation
+      gmtl::Vec3f vecToPlayer = mPlayer->getPos()-mTurret->getPos();
+      gmtl::normalize(vecToPlayer);
+      gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer); /// quaternion representing the rotation angle it would take to point at the player.
+      gmtl::Quatf finalQuat;  /// the quat that we are actually going to rotate the turret by.
+      
+      
+         
+      std::cout << "TimeDelta: " << mTurret->getTimeDelta() << std::endl;
+      gmtl::slerp(finalQuat, mTurret->getTimeDelta()*1.5f, currentQuat, mQuat);  /// slerp to 7/10 the angle we need to have.
+      mTurret->setRot(finalQuat); 
+         
+      mQuat = gmtl::makeRot<gmtl::Quatf>(downVec, vecToPlayer);
+      gmtl::slerp(finalQuat, 1.0f, finalQuat, mQuat);
+      gmtl::Vec3f offset(0,0,6);
+      mTurret->getGun()->setRot(finalQuat);
+      mTurret->getGun()->setPos(mTurret->getPos()+(mTurret->getRot()*offset));
+      mTurret->shoot();
+    
+   }  
    GameState::GameState( Application* a )
       : State( a )
       , mSpeed(10)
@@ -126,8 +153,8 @@ namespace mw
       mCursor.update(application().getWidth(),
                      application().getHeight());
 
-//      mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
-      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
+      mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
+//      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
       const gmtl::Vec3f accel  (0, 0, -mSpeed);
       const gmtl::Vec3f reverse(0, 0, mSpeed * 0.7f);
@@ -704,9 +731,9 @@ namespace mw
 
 
       Enemy* enemy2 = EntityFactory::instance().create<Enemy>();
-      gmtl::Point3f inPos1(15.0,0.0,-10.0);
+      gmtl::Point3f inPos1(20.0,10.0,-20.0);
       enemy1->setPos(inPos1);
-      gmtl::Point3f inPos2(0.0,0.0,-5.0);
+      gmtl::Point3f inPos2(30.0,0.0,-30.0);
       enemy2->setPos(inPos2);
 
 
@@ -715,7 +742,7 @@ namespace mw
       enemy2->setModel("security_droid");
 
       add(enemy1);
-      add(enemy2);
+//      add(enemy2);
 
 
       node1sCommand = new lm::simpleCommand<Turret>(enemy1, &Turret::aim);

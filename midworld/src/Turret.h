@@ -39,8 +39,11 @@ public:
    void shoot();
 
    Weapon* getGun();
+
+   float getTimeDelta();
    
 private:
+   float timeDelta;
    Weapon* gun;
 };
 

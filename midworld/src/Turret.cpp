@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-10-29 08:55:20 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-29 11:02:07 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -50,8 +50,14 @@ namespace mw
    
    }
 
+   float Turret::getTimeDelta()
+   {
+      return timeDelta;
+   }
+   
    void Turret::update(float dt)
    {
+      timeDelta = dt;
       Enemy::update(dt);
       gun->update(*getGameState(), dt);
       gun->trigger(false);
