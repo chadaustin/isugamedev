@@ -1,10 +1,19 @@
 #include "collide.h"
 
-bool ifNCollide(const generic& obj1, const generic& obj2)
+bool ifNCollide(generic obj1, generic obj2)
 {
 	bool nCollide = true;
 
-	
+	GLfloat obj1X = obj1.getX();
+	GLfloat obj1Z = obj1.getZ();
+	GLfloat obj1Extents = obj1.getExtents();
+
+	GLfloat obj2X = obj2.getX();
+	GLfloat obj2Z = obj2.getZ();
+	GLfloat obj2Extents = obj2.getExtents();
+
+
+
 
 
 	return nCollide;

@@ -28,6 +28,7 @@ public:
 	void draw();
 	void setx(GLfloat x);
 	void setz(GLfloat z);
+
 	GLuint *terrainTex;
 
 private:

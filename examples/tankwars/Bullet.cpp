@@ -15,7 +15,8 @@ Bullet::Bullet()
 	yPos = 3.5;
 	zPos = 0;
 	angle = 0;
-	speed = 0.9;
+	speed = 1.5;
+	extents = 0.25;
 
 	next = NULL;
 

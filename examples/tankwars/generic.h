@@ -9,11 +9,23 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
+#include <windows.h>
+#include <stdio.h>
+#include <math.h>
+#include <gl\gl.h>
+#include <gl\glu.h>
+#include <gl\glaux.h>
+
 class generic  
 {
 public:
 	generic();
 	virtual ~generic();
+
+	virtual GLfloat getX() { return 0.0;};
+	virtual GLfloat getY() { return 0.0;};
+	virtual GLfloat getZ() { return 0.0;};
+	virtual GLfloat getExtents() { return 0.0;};
 
 };
 

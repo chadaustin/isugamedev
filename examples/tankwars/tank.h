@@ -35,6 +35,7 @@ public:
 	GLfloat getY() { return yPos; };
 	GLfloat getZ() { return zPos; };
 	GLfloat getAngle() { return angle; };
+	GLfloat getExtents() {return extents; };
 
 	GLuint *treadTex;
 
@@ -46,6 +47,7 @@ private:
 	GLfloat zPos;
 	GLfloat speed;
 	GLfloat rotateSpeed;
+	GLfloat extents;
 
 	GLint shotsLeft;
 	bool alive;

@@ -30,6 +30,11 @@ public:
 	void move(GLint dir);
 	void initialize(GLfloat x, GLfloat z, GLfloat theta);
 
+	GLfloat getX() { return xPos; };
+	GLfloat getY() { return yPos; };
+	GLfloat getZ() { return zPos; };
+	GLfloat getExtents() { return extents; };
+
 	Weapon *next;
 	GLuint *weaponTex;
 
@@ -40,6 +45,7 @@ protected:
 	GLfloat zPos;
 	GLfloat speed;
 	GLfloat angle;
+	GLfloat extents;
 
 };
 

@@ -19,9 +19,7 @@ Weapon::~Weapon()
 }
 
 void Weapon::initialize(GLfloat x, GLfloat z, GLfloat theta)
-{	
-	GLfloat xAdd, yAdd;
-
+{
 	angle = theta;
 
 	theta = theta * 3.14159 / 180;
