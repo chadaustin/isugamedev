@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.cpp,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-03-22 04:55:10 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -127,7 +127,7 @@ SystemDriverFactory::probe( const std::string& library,
                             const std::string& name )
 {
    // tweak the library name
-   std::string libFile = library + ".drv";
+   std::string libFile = library + ".gkd";
 
    std::cout << "Probing " << libFile << " for a system driver ... ";
 
