@@ -12,7 +12,7 @@ namespace mw
 
 		for(int i = 0; i < numParticles; i++)
 		{
-			gmtl::Vec3f velocity=RandomUnitVector();
+			gmtl::Vec3f velocity = randomUnitVector();
 			velocity *= gmtl::Math::rangeRandom(2.0, 5.0);
 
 			Particle* temp = new Particle(gmtl::Math::rangeRandom(1.0, 2.0));
