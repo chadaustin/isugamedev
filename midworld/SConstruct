@@ -53,7 +53,11 @@ def ParseConfig(env, command, options):
    "Parses xxx-config style output for compilation directives"
 
    # Run the command
-   cmd = WhereIs(command) + ' ' + string.join(options)
+   where = WhereIs(command)
+   if not where:
+      print '%s not found in PATH' % command
+      sys.exit(-1)
+   cmd = where + ' ' + string.join(options)
    params = string.split(os.popen(cmd).read())
 
    # Parse its output
