@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-06-09 nonchocoboy  Play theme music in the intro!
 2002-06-09 aegis        State architecture
 2002-06-09 nonchocoboy  Added sound framework.
 2002-06-06 aegis        Render an intro image
