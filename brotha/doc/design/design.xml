@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="file://localhost/J:/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
+<?xml-stylesheet href="docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-
-
-
-
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.28 2002-04-09 01:46:51 takanara Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 01:46:51 $</pubdate>
-
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.29 2002-04-09 01:55:17 jjhnsn Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 01:55:17 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -146,64 +141,35 @@
     </section>
     <section>
       <title>Data/XML Module</title>
-      <para><classname></classname><classname></classname>The Data/XML module provides access to a persistent, data structure that stores game related data such as cars and players and gangs. One root node <classname>BrothaData</classname>, is used to hold all the data. <classname>BrothaData</classname> provides a method to load and save the data, as well as a convenience function to validate a player based on their password. <classname>BrothaData</classname> also exposes a collection of <classname>Gang</classname> objects, and a collection of <classname>Gang</classname> and <classname>CarType</classname> objects. The <classname>CarType</classname> objects store basic information on a "type" of car, the gangs, basically have a name and a collection of <classname>Player</classname> objects, which in turn hold a name, password and a collection of <classname>Car</classname> objects. Each car has an associated type (from <classname>CarTypes</classname> in the root <classname>BrothaData</classname> node) as well as a collection of <classname>Mod</classname>s. Mods have a "type" and "level" of modification.</para>
-      <para></para>
-      <para></para>
+      <para>Description of what this module does here ...</para>
+      <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
       <section>
         <title>Module Interfaces</title>
-        <para></para>
-        <para>Gang {</para>
-        <para>Property string name; </para>
-        <para>Property collection&lt;Player&gt; players;</para>
-        <para> }</para>
-        <para> </para>
-        <para>Player {</para>
-        <para> String name; </para>
-        <para> String password; </para>
-        <para> Property collection&lt;Car&gt; cars; </para>
-        <para>}</para>
-        <para></para>
-        <para>CarType {</para>
-        <para>string model_file;</para>
-        <para>string name; </para>
-        <para>} </para>
-        <para></para>
-        <para>Car {</para>
-        <para>CarType cartype; </para>
-        <para>Property collection&lt;Mod&gt; mods; </para>
-        <para>} </para>
-        <para></para>
-        <para>ModType { </para>
-        <para>// ModType defines actual modification like WeaponModType or something </para>
-        <para>// depends on the mod type</para>
-        <para>string name; </para>
-        <para>string mount_point;</para>
-        <para>int amount; } </para>
-        <para></para>
-        <para>Mod {</para>
-        <para>ModType modtype;</para>
-        <para>int level;</para>
-        <para>}</para>
-        <para></para>
-        <para>BrothaData {</para>
-        <para>Property collection&lt;Gang&gt; gangs; </para>
-        <para>boolean validatePlayer(string player, password passwd);</para>
-        <para>static BrothaData load(string filename) throws DataException</para>
-        <para>Void save(string filename) throws DataException</para>
-        <para>} </para>
+        <para>blah blah</para>
       </section>
       <section>
         <title>Design Issues</title>
-        <para>The BrothaData object needed to be able to store all the information persistantly. Do do that, we decided to use XML and an off the shelf parser. We also decided to use one that supported Xpath and XSL for the report server.</para>
+        <para>blah blah</para>
         <section>
-          <title>Loading</title>
-          <para>One thing we decided to do was to load all the data into memory and create simple wrapper classes around it, rather then using something like SAX and only loading data on demand (and creating wrapper collections and the like). This was done to save time, especially since it won't really end up holding all that much data.</para>
+          <title>Issue 1</title>
+          <para>blah</para>
+        </section>
+        <section>
+          <title>Issue 2</title>
+          <para>blah</para>
         </section>
       </section>
     </section>
     <section>
       <title>Game Logic Module</title>
-      <para>Description of what this module does here ...</para>
+      <para>The Game Logic module is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic module manages game specific interactions between object in the world such as cars, buildings and projectiles.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
@@ -276,6 +242,34 @@
       </section>
       <section>
         <title>Design Issues</title>
+        <para>Networking code is often the hardest to design in nontrivial systems. One decision we had to make was whether socket reads and writes were blocking or nonblocking. Blocking socket calls do not return until the I/O operation has completed. Nonblocking calls simply do as much as work as they can and return the number of bytes they read or wrote.</para>
+        <section>
+          <title>Blocking vs. Nonblocking I/O</title>
+          <para>Blocking I/O</para>
+          <para>Pros</para>
+          <para>- easy to implement and understand</para>
+          <para>Cons</para>
+          <para>- requires threads for interactivity</para>
+          <para></para>
+          <para>Nonblocking I/O</para>
+          <para>Pros</para>
+          <para>- does not require threading or involve synchronization issues</para>
+          <para>Cons</para>
+          <para>- requires a lot of complex code (involving many loops and state machines) for conceptually simple operations</para>
+          <para></para>
+          <para>Since blocking I/O is so much simpler to use than nonblocking I/O, we chose to use it for all game message passing. However, since blocking I/O requires knowing how much data you need to read or write at a time, we cannot use it for the http server. Therefore, the socket objects will also support a nonblocking mode.</para>
+        </section>
+      </section>
+    </section>
+    <section>
+      <title>Report Server Module</title>
+      <para>The Report Server module is responsible for generating dynamic reports requested by HTTP 1.0 standards complient clients. The reports will be generated based on data gathered from the Data/XML module. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This module depends on the Data/XML module for the gathering of data and the Network module for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
+      <section>
+        <title>Module Interfaces</title>
+        <para>blah blah</para>
+      </section>
+      <section>
+        <title>Design Issues</title>
         <para>blah blah</para>
         <section>
           <title>Issue 1</title>
@@ -288,37 +282,26 @@
       </section>
     </section>
     <section>
-      <title>Report Server Module</title>
-      <para>The Report Server module is responsible for generating dynamic reports requested by HTTP 1.0 standards complient clients. The reports will be generated based on data gathered from the Data/XML module. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This module depends on the Data/XML module for the gathering of data and the Network module for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
-      <section>
-        <title>Module Interfaces</title>
-        <para>ReportServer.Start():bool </para>
-        <para>ReportServer.Stop():void </para>
-      </section>
-      <section>
-        <title>Design Issues</title>
-        <para>One of the design decisions made was to use "high tech" XML processing systems to create and format the data, this means using things like XSL and XPath to select the data. Rather then writing a bunch of custom routines to generate the HTML, we'll use a style sheet to create it directly from XML, and use XPath to select arbitrary data from the tree.</para>
-        <section>
-          <title>XML parser</title>
-          <para>The design requirements for the Reporter server influenced the choice of XML parser used. We had started with XMLpp, but moved to Apache Xerces</para>
-        </section>
-      </section>
-    </section>
-    <section>
       <title>Sound Module</title>
-      <para>The sound module is responsible for managing background music and sound effects within the game. Brotha uses <emphasis>Audiere</emphasis>, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound module consists of two concepts: the background music <classname>Jukebox</classname> object and the <classname>SoundEffectManager</classname> object.</para>
-      <para>The jukebox is responsible for maintaining a list of background music tracks. It provides functionality for adding tracks, removing tracks, starting playback, stopping or pausing playback, and changing the background music volume. It also provides functionality for getting the current track name and how long it's been playing. Since Audiere files are streamed from disk, the jukebox does not have to load entire songs into memory.</para>
-      <para>The sound effect manager is responsible for playing sound effects, which are referred to by name. The <classname>SoundEffectManager</classname> has one method, <methodname>trigger</methodname>, which loads a sound effect if it hasn't already been loaded and plays it at a specified volume. Since sound effects can be played often and at unpredictable times, the sound effect manager should keep them in memory to prevent unpredictable latency.</para>
+      <para>The sound module is responsible for managing background music and sound effects within the game. Brotha uses <emphasis>Audiere</emphasis>, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound module consists of two subsystems: the background music <classname>Jukebox</classname> object and the <classname>SoundEffectManager</classname> object.</para>
       <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
+        <title>Jukebox Subsystem</title>
+        <para>The <classname>Jukebox</classname> is responsible for maintaining a list of background music <classname>Track</classname>s. It provides functionality for adding <classname>Track</classname>s, removing <classname>Track</classname>s, starting playback, stopping or pausing playback and changing the background music volume. It also provides functionality for getting the current track name and how long it has been playing. Since Audiere files are streamed from disk, the <classname>Jukebox</classname> does not have to load entire songs into memory.</para>
       </section>
       <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
+        <title>Sound Effect Manager Subsystem</title>
+        <para>The sound effect manager is responsible for playing sound effects, which are referred to by name. The <classname>SoundEffectManager</classname> has one method, <methodname>trigger</methodname>, which loads a sound effect if it hasn't already been loaded and plays it at a specified volume. Since sound effects can be played often and at unpredictable times, the sound effect manager should keep them in memory to prevent unpredictable latency.</para>
       </section>
       <section>
         <title>Module Interfaces</title>
+        <figure>
+          <title>Sound Module Interface Specification</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="figures/sound_classes.png" format="PNG" scalefit="1"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
         <para>The interface for the Sound module consists of the <classname>Jukebox</classname> and <classname>SoundEffectManager</classname> classes.</para>
         <classsynopsis>
           <ooclass>
@@ -378,14 +361,25 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>From the outside, the sound module directly satisfies the audio needs of the application. However, it can be implemented using one of several audio decoding and playback libraries.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Audiere vs. FMOD</title>
+          <para>Alternative 1 - Audiere</para>
+          <para>Pros</para>
+          <para>- open source</para>
+          <para>- developed by a member of the Brotha team</para>
+          <para>- very simple and straightforward API</para>
+          <para>Cons</para>
+          <para>- not as mature as some other libraries</para>
+          <para></para>
+          <para>Alternative 2 - FMOD</para>
+          <para>Pros</para>
+          <para>- mature and stable library</para>
+          <para>Cons</para>
+          <para>- needlessly complex API</para>
+          <para>- closed source</para>
+          <para></para>
+          <para>We chose Audiere for a couple reasons. The members of the team are more familiar with it than FMOD. Since Audiere is open source, we can update it to include any functionality we need.</para>
         </section>
       </section>
     </section>
@@ -395,27 +389,39 @@
       <para>The <classname>TextureManager</classname>, given the name of a <classname>Texture</classname>, will load the texture from disk, possibly process the image until it is in a format suitable for OpenGL, and create a new <classname>Texture</classname> object representing that texture. The <classname>TextureManager</classname> remembers and caches loaded textures so that it never loads a texture twice. </para>
       <para><classname>Texture</classname> objects provide a <methodname>bind</methodname> method which calls <methodname>glBindTexture</methodname>, changing OpenGL's current texture. It also provides a mechanism for changing texture parameters, such as whether to use <constant>NEAREST</constant> or <constant>LINEAR</constant> texel interpolation.</para>
       <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
-      <section>
         <title>Module Interfaces</title>
         <para>blah blah</para>
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>Like the sound module, the texture module sits on top of low-level libraries and provides a convenient mechanism for accessing textures within the context of the Warn-a-Brotha game. Since the interface to the module is so general, it can be implemented internally in many different ways.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
+          <title>Corona vs. Other Image Libraries</title>
+          <para>Corona</para>
+          <para>Pros</para>
+          <para>- portable</para>
+          <para>- very easy to install and use</para>
+          <para>- developed by a member of the team</para>
+          <para>Cons</para>
+          <para>- not as mature as it could be</para>
+          <para></para>
+          <para>Other Image Libraries (FreeImage, DevIL, SDL_Image)</para>
+          <para>Pros</para>
+          <para>- APIs are usually more stable</para>
+          <para>- more widely used</para>
+          <para>Cons</para>
+          <para>- often not portable</para>
+          <para>- difficult to interact with</para>
+          <para>- difficult to install</para>
+          <para></para>
+          <para>Because Corona is easier to use and the developers are more familiar with it, we chose to implement the texture subsystem on top of it. We don't plan to use file formats that Corona does not support.</para>
         </section>
         <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Texture Caching Policy</title>
+          <para></para>
+          <para>The texture manager can cache loaded textures in many ways. It could remember the most recently used textures and not load them twice. It could also cache every texture so that an image is never loaded from disk more than once. It could even not cache them at all.</para>
+          <para></para>
+          <para>We decided the ease of implementation vs. performance traceoff is optimal in the case where we cache everything. Therefore, that is what we will implement.</para>
         </section>
       </section>
     </section>
@@ -602,3 +608,4 @@
     </variablelist>
   </appendix>
 </book>
+
