@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.h,v $
- * Date modified: $Date: 2002-05-03 07:18:33 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-05-03 07:32:28 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,13 +43,13 @@
 #ifndef CLIENT_SCENE_H
 #define CLIENT_SCENE_H
 
+#include "game/Object.h"
 #include <osg/Vec3>
 #include <osg/Matrix>
 #include <osg/Transform>
 #include <osgUtil/SceneView>
 #include "ModelManager.h"
 #include "Camera.h"
-#include "game/Object.h"
 
 namespace client {
    /**
