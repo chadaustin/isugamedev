@@ -1,8 +1,17 @@
+import os
+import sys
+import string
+
 # build with 'scons'
 
 Default('.')        # build everything by default
+
+CPPPATH= ['#', '#external/boost']
+if string.find(sys.platform, 'irix' ) != -1:
+   CPPPATH.extend(['#external/boost/boost/compatibility/cpp_c_headers'])
+
 # setup the environment
-env = Environment(CPPPATH=Dir('.'))
+env = Environment(CPPPATH=CPPPATH, ENV=os.environ, CXXFLAGS=['-DDEBUG_MEMORY=1'])
 Export('env')
 SConscript('phui/SConscript')
 SConscript('examples/SConscript')

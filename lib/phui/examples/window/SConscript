@@ -1,6 +1,5 @@
 import sys
-
-#Import('env')
+Import('env')
 
 headers = [
 ]
@@ -13,11 +12,12 @@ sources = [
 headers = map(lambda fn: fn + '.h', headers)
 sources = map(lambda fn: fn + '.cpp', sources)
 
-LIBS = ['phui']
+LIBS = ['phui', 'gltt', 'ttf']
 if sys.platform == 'cygwin':
     LIBS.extend(['glut32', 'opengl32', 'glu32'])
 else:
     LIBS.extend(['glut', 'GLU', 'GL'])
 
-env = Environment(CPPPATH='#', LIBPATH='#phui', LIBS=LIBS)
-env.Program(target = 'window', source = headers + sources)
+env2 = env.Copy( LIBPATH=['#phui'], LIBS=LIBS );
+#env = Environment(CPPPATH='#', LIBPATH=['#phui', '/home/users/bscott/software/linux/lib'], LIBS=LIBS)
+env2.Program(target = 'window', source = headers + sources)

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-02-24 08:52:12 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-02-25 04:35:43 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,8 +41,8 @@
 static int gWidth  = 640;
 static int gHeight = 480;
 static int mainWin_contextID;
-static phui::RootWidget* gUI = NULL;
-static phui::Window* gWnd = NULL;
+static phui::RootWidgetPtr gUI;
+static phui::WindowPtr gWnd;
 
 //-----------------------------------------------------------------------------
 
@@ -125,13 +125,13 @@ int main( int argc, char** argv )
    glutKeyboardFunc( OnKeyboardDown );
 
    gUI = phui::CreateRoot( gWidth, gHeight );
-   gWnd = new phui::Window();
+   gWnd.reset( new phui::Window( "my contacts blow" ) );
    gWnd->setPosition( 150, 75 );
    gWnd->setSize( 300, 250 );
    gWnd->setVisible( true );
    gWnd->setBackgroundColor( phui::Colorf(1,0,0,0.5) );
 
-   phui::Button* btn = new phui::Button();
+   phui::ButtonPtr btn( new phui::Button() );
    btn->setPosition( 10, 10 );
    btn->setSize( 75, 30 );
    btn->setVisible( true );
@@ -140,8 +140,7 @@ int main( int argc, char** argv )
 
    gUI->add( gWnd );
 
-
    glutMainLoop();
-	
+
    return 0;
 }

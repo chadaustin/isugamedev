@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-02-24 08:48:18 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-02-25 04:35:43 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -85,8 +85,13 @@ namespace phui {
       const std::string& getLabel() const;
 
    private:
+      /**
+       * The label on this button.
+       */
       std::string mLabel;
    };
+
+   typedef boost::shared_ptr<Button> ButtonPtr;
 
 } // namespace phui
 

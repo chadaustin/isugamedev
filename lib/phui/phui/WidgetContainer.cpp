@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-02-24 12:20:21 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-02-25 04:35:43 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -47,11 +47,11 @@ namespace phui {
    WidgetContainer::~WidgetContainer() {
    }
 
-   void WidgetContainer::add(Widget* widget) {
+   void WidgetContainer::add(const WidgetPtr& widget) {
       mWidgets.push_back(widget);
    }
 
-   void WidgetContainer::remove(Widget* widget) {
+   void WidgetContainer::remove(const WidgetPtr& widget) {
       mWidgets.remove(widget);
    }
 
@@ -62,9 +62,9 @@ namespace phui {
 
    void WidgetContainer::drawChildren() {
       // draw all children to this widget
-      std::list<Widget*>::iterator itr;
+      std::list<WidgetPtr>::iterator itr;
       for (itr = mWidgets.begin(); itr != mWidgets.end(); ++itr) {
-         Widget* wgt = *itr;
+         WidgetPtr& wgt = *itr;
 
          // only draw if the widget is visible
          if (wgt->isVisible()) {

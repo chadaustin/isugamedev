@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-02-24 08:52:12 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-25 04:35:43 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,13 +41,11 @@ namespace phui {
 
    Button::Button()
       : mLabel("")
-   {
-   }
+   {}
 
    Button::Button( const std::string& label )
       : mLabel( label )
-   {
-   }
+   {}
 
    Button::~Button() {
    }
@@ -63,7 +61,9 @@ namespace phui {
          glVertex2i( mX,          mY + mHeight );
       glEnd();
 
-      // @todo draw label text
+      // draw label text
+      glColor( mForegroundColor );
+      /** @todo draw label text */
    }
 
    void Button::setLabel( const std::string& label )

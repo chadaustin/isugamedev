@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2002-02-24 11:11:13 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-02-25 04:35:43 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -57,7 +57,7 @@ namespace phui {
        */
       Window( const std::string& title );
 
-      ~Window();
+      virtual ~Window();
 
       void draw();
 
@@ -66,7 +66,9 @@ namespace phui {
        * The title of the window.
        */
       std::string mTitle;
-  };
+   };
+
+   typedef boost::shared_ptr<Window> WindowPtr;
 
 } // namespace phui
 

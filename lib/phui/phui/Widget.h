@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 09:49:38 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-02-25 04:35:43 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,7 +42,8 @@
 
 namespace phui {
 
-   class Widget {
+   class Widget
+   {
    protected:
       /**
        * Creates a new widget with width and height 0 and size (0,0).
@@ -53,8 +54,7 @@ namespace phui {
       {}
 
       virtual ~Widget()
-      {
-      }
+      {}
 
    public:
       /**
@@ -233,6 +233,8 @@ namespace phui {
        */
       Colorf mForegroundColor;
    };
+
+   typedef boost::shared_ptr<Widget> WidgetPtr;
 
 } // namespace phui
 
