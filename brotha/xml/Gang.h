@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Gang.h,v $
- * Date modified: $Date: 2002-04-29 03:17:46 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-04-29 07:34:58 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,69 +40,67 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef BDATA_GANG_H
-#define BDATA_GANG_H
+#ifndef DATA_GANG_H
+#define DATA_GANG_H
 
 #include <iostream>
 #include <string>
 #include <vector>
-
-
 #include "Player.h"
 
+namespace data {
 
-namespace dataxml{
+   class Gang {
+   private:
+      std::string name;
+      std::string info;
+      playerlist players;
+   public:
+      Gang(std::string iname) {
+         name = iname;
+      }
+      void addPlayer(Player* i) {
+         players.push_back(i);
+      }
 
-class Gang{
-private:
-  std::string name;
-  std::string info;
-  playerlist players;
-public:
-  Gang(std::string iname){
-    name = iname;
-  }
-  void addPlayer(Player* i){
-    players.push_back(i);
-  }
+      playerlist getPlayerList() {
+         return players;
+      }
 
-  playerlist getPlayerList(){
-    return players;
-  }
+      void setInfo(std::string in) {
+         info = in;
+      }
 
-  void setInfo(std::string in){
-    info = in;
-  }
+      std::string getInfo() {
+         return info;
+      }
 
-  std::string getInfo(){
-	  return info;
-  }
+      std::string getName() {
+         return name;
+      }
+ 
+      Player* getPlayerByName(std::string name) {
+         for(int i = 0; i < players.size(); i++) {
+            Player* p = players[i];
+            if(p->getName() == name) {
+               return p;
+            }
+         }
+         return NULL;
+      }
 
-  std::string getName(){
-    return name;
-  }
-  
-  Player* getPlayerByName(std::string name){
-	  for(int i = 0; i < players.size(); i++){
-		  Player* p = players[i]; 
-		  if(p->getName() == name){
-			  return p;
-		  }
-	  }
-	  return NULL;
-  }
-
-  void xMLify(std::ostream& out){
-   out << "  <gang name=\"" << name << "\">" << std::endl;
-   out << "    <info>" << info << "</info>" <<std::endl;
-   for(unsigned int i = 0; i < players.size(); i++){
-      players[i]->xMLify(out);
-    }
-   out << "  </gang>" <<std::endl;
-  }
-};
+      void xMLify(std::ostream& out) {
+         out << "  <gang name=\"" << name << "\">" << std::endl;
+         out << "    <info>" << info << "</info>" <<std::endl;
+         for(unsigned int i = 0; i < players.size(); i++) {
+            players[i]->xMLify(out);
+         }
+         out << "  </gang>" <<std::endl;
+      }
+   };
 
 
-typedef std::vector<Gang*> ganglist;
+   typedef std::vector<Gang*> ganglist;
+
 }
 #endif
