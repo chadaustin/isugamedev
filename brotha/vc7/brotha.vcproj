@@ -92,10 +92,10 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="..\game\BrothaGame.cpp">
+				RelativePath="..\net\Connection.cpp">
 			</File>
 			<File
-				RelativePath="..\net\Connection.cpp">
+				RelativePath="..\game\GameLogic.cpp">
 			</File>
 			<File
 				RelativePath="..\util\HWNDstream.cpp">
@@ -153,12 +153,6 @@
 				RelativePath="..\net\AddPlayerMessage.h">
 			</File>
 			<File
-				RelativePath="..\xml\BrothaData.h">
-			</File>
-			<File
-				RelativePath="..\game\BrothaGame.h">
-			</File>
-			<File
 				RelativePath="..\net\ByteBuffer.h">
 			</File>
 			<File
@@ -175,6 +169,9 @@
 			</File>
 			<File
 				RelativePath="..\net\EnterMessage.h">
+			</File>
+			<File
+				RelativePath="..\game\GameLogic.h">
 			</File>
 			<File
 				RelativePath="..\game\GameTimer.h">
