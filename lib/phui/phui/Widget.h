@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-24 02:25:38 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-04-26 06:44:13 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -43,6 +43,7 @@
 #include "Input.h"
 #include "Insets.h"
 #include "Point.h"
+#include "Size.h"
 
 namespace phui
 {
@@ -84,20 +85,29 @@ namespace phui
       void setPosition(int x, int y) { setPosition(Point(x, y)); }
 
       /**
-       * Gets the size of this widget relative to its parent.
+       * Gets the size of this widget.
        *
-       * @param width   [out]    the width of this widget
-       * @param height  [out]    the height of this widget
+       * @return  the size of this widget
        */
-      virtual void getSize(int& width, int& height) const;
+      virtual const Size& getSize() const;
 
       /**
-       * Sets the position of this widget relative to its parent.
+       * Sets the size of this widget.
+       *
+       * @param size    the new size of the widget
+       */
+      void setSize(const Size& size);
+
+      /**
+       * Sets the size of this widget.
        *
        * @param width   the width of this widget
        * @param height  the height of this widget
        */
-      virtual void setSize(int width, int height);
+      virtual void setSize(int width, int height)
+      {
+         setSize(Size(width,height));
+      }
 
       /**
        * Gets the insets for this widget.
@@ -227,15 +237,8 @@ namespace phui
        */
       int mY;
 
-      /**
-       * The width of the widget in pixels.
-       */
-      int mWidth;
-
-      /**
-       * The height of the widget in pixels.
-       */
-      int mHeight;
+      /// The size of the widget in pixels.
+      Size mSize;
 
       /**
        * The insets for this widget.

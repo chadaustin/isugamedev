@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-24 05:57:33 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-26 06:44:13 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,8 +41,7 @@ namespace phui
 {
 
    Widget::Widget()
-      : mWidth(0)
-      , mHeight(0)
+      : mSize(0,0)
       , mEnabled(true)
       , mVisible(true)
       , mBackgroundColor(BLACK)
@@ -63,14 +62,12 @@ namespace phui
       mPosition = p;
    }
 
-   void Widget::getSize(int& width, int& height) const {
-      width = mWidth;
-      height = mHeight;
+   const Size& Widget::getSize() const {
+      return mSize;
    }
 
-   void Widget::setSize(int width, int height) {
-      mWidth = width;
-      mHeight = height;
+   void Widget::setSize(const Size& size) {
+      mSize = size;
    }
 
    const Insets& Widget::getInsets() const {
@@ -128,8 +125,8 @@ namespace phui
 
    bool Widget::contains(const Point& p) const {
       Point s = p - getPosition();
-      return (s.x >= 0 && s.x < mWidth &&
-              s.y >= 0 && s.y < mHeight);
+      return (s.x >= 0 && s.x < mSize.getWidth() &&
+              s.y >= 0 && s.y < mSize.getHeight());
    }
 
    Point Widget::getScreenPosition() const {

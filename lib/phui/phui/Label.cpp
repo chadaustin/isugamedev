@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2002-04-24 12:17:13 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-26 06:44:13 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -49,8 +49,9 @@ namespace phui {
 
    void Label::draw()
    {
-      int width, height;
-      getSize(width, height);
+      const Size& size = getSize();
+      const int width = size.getWidth();
+      const int height = size.getHeight();
 
       // draw the label background
       glColor(getBackgroundColor());

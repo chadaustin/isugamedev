@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2002-04-22 05:07:20 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-26 06:44:13 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -57,8 +57,9 @@ namespace phui {
    }
 
    void Window::draw() {
-      int width, height;
-      getSize(width, height);
+      const Size& size = getSize();
+      const int width = size.getWidth();
+      const int height = size.getHeight();
 
       // render the background
       glColor(getBackgroundColor());

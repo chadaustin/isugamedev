@@ -8,8 +8,9 @@ namespace phui {
    }
 
    void CheckBox::draw() {
-      int width, height;
-      getSize(width, height);
+      const Size& size = getSize();
+      const int width = size.getWidth();
+      const int height = size.getHeight();
 
       glColor(getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
