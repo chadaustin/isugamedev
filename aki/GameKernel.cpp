@@ -231,7 +231,7 @@
        int keyboardModifier = glutGetModifiers();
 
        Mouse::Button b;
-       Mouse::BinaryState binaryState;
+       DigitalInput::BinaryState binaryState;
 
        switch(button)
        {
@@ -243,8 +243,8 @@
 
        switch(state)
        {
-	   case GLUT_DOWN: binaryState = Mouse::ON; break;
-	   case GLUT_UP: binaryState = Mouse::OFF;  break;
+	   case GLUT_DOWN: binaryState = DigitalInput::ON; break;
+	   case GLUT_UP: binaryState = DigitalInput::OFF;  break;
 	   default: assert(false);
        }
 

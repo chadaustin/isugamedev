@@ -47,10 +47,15 @@ public:
    {
       if (GameInput::instance().keyboard().edgeState( Keyboard::ESC ) == DigitalInput::DOWN ||
           GameInput::instance().keyboard().edgeState( Keyboard::Q ) == DigitalInput::DOWN || 
-            GameInput::instance().keyboard().edgeState( Keyboard::q ) == DigitalInput::DOWN)
+          GameInput::instance().keyboard().edgeState( Keyboard::q ) == DigitalInput::DOWN)
       {
          GameKernel::instance().shutdown();
-      }      
+      }     
+      
+      std::cout<< "Mouse: "
+               << GameInput::instance().mouse().edgeState( Mouse::LEFT ) << " "
+               << GameInput::instance().mouse().edgeState( Mouse::MIDDLE ) << " "
+               << GameInput::instance().mouse().edgeState( Mouse::RIGHT ) << std::endl;
    }   
    
 public:
