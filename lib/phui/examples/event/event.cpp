@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-15 09:20:38 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-15 19:59:13 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -162,37 +162,39 @@ void OnMouseMove(int x, int y) {
 }
 
 int main(int argc, char** argv) {
-   glutInitWindowSize(640, 480);
-   glutInit(&argc, argv);
-   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+   try {
+      glutInitWindowSize(640, 480);
+      glutInit(&argc, argv);
+      glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 
-   glutCreateWindow("Event Example");
+      glutCreateWindow("Event Example");
 
-   glutDisplayFunc(display);
-   glutReshapeFunc(reshape);
+      glutDisplayFunc(display);
+      glutReshapeFunc(reshape);
 
-   // register input callbacks
-   glutKeyboardFunc(OnKeyboardDown);
-   glutKeyboardUpFunc(OnKeyboardUp);
-   glutSpecialFunc(OnSpecialDown);
-   glutSpecialUpFunc(OnSpecialUp);
-   glutMouseFunc(OnMouseClick);
-   glutMotionFunc(OnMouseMove);
-   glutPassiveMotionFunc(OnMouseMove);
+      // register input callbacks
+      glutKeyboardFunc(OnKeyboardDown);
+      glutKeyboardUpFunc(OnKeyboardUp);
+      glutSpecialFunc(OnSpecialDown);
+      glutSpecialUpFunc(OnSpecialUp);
+      glutMouseFunc(OnMouseClick);
+      glutMotionFunc(OnMouseMove);
+      glutPassiveMotionFunc(OnMouseMove);
 
-   gRoot = phui::CreateRoot(
-      glutGet(GLUT_WINDOW_WIDTH),
-      glutGet(GLUT_WINDOW_HEIGHT));
-   phui::Window* window(new phui::Window());
-   window->setPosition(150, 75);
-   window->setSize(300, 250);
-   window->setVisible(true);
-   window->setBackgroundColor(phui::Colorf(1, 0, 0, 0.5f));
+      gRoot = phui::CreateRoot(
+         glutGet(GLUT_WINDOW_WIDTH),
+         glutGet(GLUT_WINDOW_HEIGHT));
+      phui::Window* window(new phui::Window());
+      window->setPosition(150, 75);
+      window->setSize(300, 250);
+      window->setVisible(true);
+      window->setBackgroundColor(phui::Colorf(1, 0, 0, 0.5f));
 
-   gRoot->add(window);
+      gRoot->add(window);
 
-   glutMainLoop();
-
-   // VC++ 6 sucks
-   return 0;
+      glutMainLoop();
+   }
+   catch (std::exception& e) {
+      std::cerr << "caught exception: " << e.what() << std::endl;
+   }
 }

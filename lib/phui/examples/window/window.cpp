@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-04-15 09:49:56 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-15 19:59:13 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -113,34 +113,39 @@ void OnKeyboardDown( unsigned char key, int x, int y )
 
 int main( int argc, char** argv )
 {
-   glutInitWindowSize( gWidth, gHeight );
-   glutInit( &argc, argv );
-   glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
-   mainWin_contextID = glutCreateWindow( "Window Example" );
+   try {
 
-   // callbacks
-   glutDisplayFunc( OnRedisplay );
-   glutReshapeFunc( OnReshape );
-   glutIdleFunc( OnIdle );
-   glutKeyboardFunc( OnKeyboardDown );
+      glutInitWindowSize( gWidth, gHeight );
+      glutInit( &argc, argv );
+      glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
+      mainWin_contextID = glutCreateWindow( "Window Example" );
 
-   gUI = phui::CreateRoot( gWidth, gHeight );
-   gWnd = new phui::Window( "my contacts blow" );
-   gWnd->setPosition( 150, 75 );
-   gWnd->setSize( 300, 250 );
-   gWnd->setVisible( true );
-   gWnd->setBackgroundColor( phui::Colorf(1,0,0,0.5) );
+      // callbacks
+      glutDisplayFunc( OnRedisplay );
+      glutReshapeFunc( OnReshape );
+      glutIdleFunc( OnIdle );
+      glutKeyboardFunc( OnKeyboardDown );
 
-   phui::Button* btn( new phui::Button("Push me!") );
-   btn->setPosition( 10, 10 );
-   btn->setSize( 75, 30 );
-   btn->setVisible( true );
-   btn->setBackgroundColor( phui::Colorf(0,0,1,0.7) );
-   gWnd->add( btn );
+      gUI = phui::CreateRoot( gWidth, gHeight );
+      gWnd = new phui::Window( "my contacts blow" );
+      gWnd->setPosition( 150, 75 );
+      gWnd->setSize( 300, 250 );
+      gWnd->setVisible( true );
+      gWnd->setBackgroundColor( phui::Colorf(1,0,0,0.5) );
 
-   gUI->add( gWnd );
+      phui::Button* btn( new phui::Button("Push me!") );
+      btn->setPosition( 10, 10 );
+      btn->setSize( 75, 30 );
+      btn->setVisible( true );
+      btn->setBackgroundColor( phui::Colorf(0,0,1,0.7) );
+      gWnd->add( btn );
 
-   glutMainLoop();
+      gUI->add( gWnd );
 
-   return 0;
+      glutMainLoop();
+   
+   }
+   catch (std::exception& e) {
+      std::cerr << "caught exception: " << e.what() << std::endl;
+   }
 }
