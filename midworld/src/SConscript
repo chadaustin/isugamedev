@@ -61,7 +61,6 @@ buildInfo.addHeaders(map(lambda n: File(n + '.h'),    classes))
 buildInfo.addSources(map(lambda n: File(n + '.cpp'),  classes))
 
 env = baseEnv.Copy()
-env['LIBS'].extend(['OSGSystem', 'OSGBase'])
 SetupSDL(env)
 SetupCorona(env)
 SetupAudiere(env)
