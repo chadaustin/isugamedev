@@ -13,6 +13,8 @@ Default('.')        # build everything by default
 # Setup a debug target
 if ARGUMENTS.get('debug'):
    CXXFLAGS=['-g']
+else:
+   CXXFLAGS=[]
 
 # setup the environment
 env = Environment(CPPPATH = '#',
