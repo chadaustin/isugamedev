@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.00"
 	Name="glut"
+	ProjectGUID="{827E4573-AFD5-45BF-B569-DF7D58A60F3A}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -22,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../..,../../external/xdl"
-				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_USRDLL;GLUT_EXPORTS;XDL_BUILD_DLL"
+				PreprocessorDefinitions="GK_BUILD_DLL;_DEBUG;WIN32;_WINDOWS;_USRDLL;GLUT_EXPORTS;XDL_BUILD_DLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				RuntimeTypeInfo="TRUE"
@@ -83,7 +84,7 @@
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="../..,../../external/xdl"
-				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_USRDLL;GLUT_EXPORTS;XDL_BUILD_DLL"
+				PreprocessorDefinitions="GK_BUILD_DLL;NDEBUG;WIN32;_WINDOWS;_USRDLL;GLUT_EXPORTS;XDL_BUILD_DLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"

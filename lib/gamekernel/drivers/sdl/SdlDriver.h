@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-06-14 10:24:54 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2003-02-09 07:44:11 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -35,6 +35,7 @@
 #include "gk/ISystemDriver.h"
 #include "gk/IGameKernel.h"
 #include "gk/Keyboard.h"
+#include "gk/Joystick.h"
 #include "gk/Mouse.h"
 #include "gk/ContextData.h"
 #include <SDL/SDL.h>
@@ -142,7 +143,7 @@ private:
 	IGameApp *mApp;					//The Application that is using this driver.
 	DeviceHandle<Mouse>* mMouse;			//Mouse Device
 	DeviceHandle<Keyboard>* mKeyboard;		//Keyboard Device
-	//DeviceHandle<Joystick>* mJoystick;		//Joystick Device
+	DeviceHandle<Joystick>* mJoystick;		//Joystick Device
 	SDL_Event mEvent;					//Event Structure
 	//bool mPress;					//Hack to work with the DigitalInput devices.	
 	//bool mPressDown;					//Hack to work with the DigitalInput devices.

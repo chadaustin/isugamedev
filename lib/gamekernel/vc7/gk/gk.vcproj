@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.00"
 	Name="gk"
+	ProjectGUID="{B392B513-50A1-47CC-829D-C6079208940C}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -22,7 +23,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="../..;../../external/xdl;../../cppdom"
-				PreprocessorDefinitions="_DEBUG;WIN32;_WINDOWS;_USRDLL;GK_EXPORTS;XDL_BUILD_DLL"
+				PreprocessorDefinitions="GK_BUILD_DLL;_DEBUG;WIN32;_WINDOWS;_USRDLL;GK_EXPORTS;XDL_BUILD_DLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				RuntimeTypeInfo="TRUE"
@@ -41,7 +42,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile="../../dist/dbg/gk.dll"
+				OutputFile="Debug\gk.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
@@ -56,8 +57,8 @@
 				TypeLibraryName=".\Debug/gk.tlb"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="copy ..\..\test\input\config.xml ."
-				CommandLine="copy ..\..\test\input\config.xml ."/>
+				Description="copy Debug\gk.dll ..\..\dist\dbg\gk.dll"
+				CommandLine="copy Debug\gk.dll ..\..\dist\dbg\gk.dll"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
@@ -83,7 +84,7 @@
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="../..;../../external/xdl;../../cppdom"
-				PreprocessorDefinitions="NDEBUG;WIN32;_WINDOWS;_USRDLL;GK_EXPORTS;XDL_BUILD_DLL"
+				PreprocessorDefinitions="GK_BUILD_DLL;NDEBUG;WIN32;_WINDOWS;_USRDLL;GK_EXPORTS;XDL_BUILD_DLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
@@ -102,7 +103,7 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="odbc32.lib odbccp32.lib"
-				OutputFile="../../dist/opt/gk.dll"
+				OutputFile="Release\gk.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				ProgramDatabaseFile=".\Release/gk.pdb"
@@ -116,7 +117,7 @@
 				TypeLibraryName=".\Release/gk.tlb"/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy Release\gk.lib $(TargetDir)gk.lib"/>
+				CommandLine="copy Release\gk.dll ..\..\dist\opt\gk.dll"/>
 			<Tool
 				Name="VCPreBuildEventTool"/>
 			<Tool
