@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Utility.h,v $
- * Date modified: $Date: 2002-10-01 04:26:42 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-08 05:39:37 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,7 +46,7 @@ namespace mw
       return (i & (i - 1)) == 0;
    }
 
-   inline gmtl::Vec3f RandomUnitVector()
+   inline gmtl::Vec3f randomUnitVector()
    {
       float z = gmtl::Math::rangeRandom(-1.0f, 1.0f);
       float a = gmtl::Math::rangeRandom(0.0f, gmtl::Math::PI * 2);

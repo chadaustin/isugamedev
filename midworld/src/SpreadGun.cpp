@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-10-01 08:35:28 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-08 05:39:36 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -131,7 +131,7 @@ namespace mw
       casing->setRot(getRot() * case_rot);
       casing->setPos(getPos() + casing->getForward() * 1.0f);
       casing->setVel(casing->getRot() * gmtl::Vec3f(0, 0, -5) );
-      casing->setRotVel(RandomUnitVector() * 4);
+      casing->setRotVel(randomUnitVector() * 4);
       g.add(casing);
    }
 }
