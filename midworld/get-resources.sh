@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# repository:  :pserver:anonymous@pyrallis.aegisknight.org://pyrallis/cvsroot
+# repository:  :pserver:anonymous@pyrallis.aegisknight.org:/cvsroot
 # password:    <nothing>
 # module:      midworld-resources
 #
@@ -8,7 +8,7 @@
 # instead.  Make a file called resources.cvsroot in the current directory
 # and add the CVSROOT to that.  For example:
 #
-# echo ":pserver:aegis@pyrallis.aegisknight.org:D:/cvsroot" > resources.cvsroot
+# echo ":pserver:aegis@pyrallis.aegisknight.org:/cvsroot" > resources.cvsroot
 
 if [ -f resources.cvsroot ]; then
     CVSROOT=`cat resources.cvsroot`
