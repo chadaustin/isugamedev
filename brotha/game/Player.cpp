@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-03-29 14:46:01 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-03-29 15:18:01 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -102,14 +102,16 @@ namespace game {
 
    PRUint32 Player::getSize() {
       return getVarSize(mName) + getVarSize(mAccelerate) + getVarSize(mBrake)
-           + getVarSize(mTurnLeft) + getVarSize(mTurnRight);
+         + getVarSize(mTurnLeft) + getVarSize(mTurnRight) + Object::getSize();
    }
 
    void Player::serialize(net::OutputStream& os) {
+      Object::serialize(os);
       os << mName << mAccelerate << mBrake << mTurnLeft << mTurnRight;
    }
 
    void Player::deserialize(net::InputStream& is) {
+      Object::deserialize(is);
       is >> mName >> mAccelerate >> mBrake >> mTurnLeft >> mTurnRight;
    }
 
