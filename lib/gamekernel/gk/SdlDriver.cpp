@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-02-10 10:36:37 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-02-11 02:47:21 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,7 +36,7 @@
 
 namespace gk {
 
-SdlDriver::SdlDriver() : mWidth(640), mHeight(480), mBpp(16), mvideoFlags(0), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
+SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(16), mvideoFlags(0), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
 {
 	misRunning = false;
 	mName = "SDL with OpenGL";	
@@ -133,12 +133,12 @@ void SdlDriver::shutdown()
 	GameInput::instance().removeDevice("Mouse");
 	if (mKeyboard != NULL)
 	{
-		mKeyboard == NULL;
+		mKeyboard = NULL;
 		delete mKeyboard;
 	}
 	if (mKeyboard != NULL)
 	{
-		mKeyboard == NULL;
+		mKeyboard = NULL;
 		delete mKeyboard;
 	}
 	//GameInput::instance().removeDevice("Joystick");
@@ -314,7 +314,7 @@ void SdlDriver::onMouseUp()
 }
 
 //FIXME:  Yuck!  There has to be a better way...
-std::string getKeyID(SDL_keysym& key)
+std::string SdlDriver::getKeyID(SDL_keysym& key)
 {
 	if (key.sym == SDLK_BACKSPACE)
 	{
@@ -704,6 +704,9 @@ std::string getKeyID(SDL_keysym& key)
 	{
 		return "KEY_F12";
 	}
+
+   assert( false && "SDL Driver Error: Unknown key pressed." );
+   return "";
 }
 		
 	
