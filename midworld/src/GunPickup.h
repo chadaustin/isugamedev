@@ -2,8 +2,9 @@
 #define MW_GUN_PICKUP_H
 
 
-#include "AbstractEntity.h"
+#include <stdexcept>
 
+#include "AbstractEntity.h"
 
 namespace mw
 {

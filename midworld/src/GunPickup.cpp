@@ -3,7 +3,7 @@
 #include "AssaultRifle.h"
 #include "Pistol.h"
 #include "Shotgun.h"
-#include "Spreadgun.h"
+#include "SpreadGun.h"
 
 
 namespace mw
