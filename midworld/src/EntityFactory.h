@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: EntityFactory.h,v $
- * Date modified: $Date: 2002-10-29 18:50:35 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-04 19:17:57 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,19 +49,17 @@ namespace mw
    {
    public:
       /// Creates a new Entity of the given type.
-      template< class T >
-      T* create(Type2Type<T> t = Type2Type<T>())
+      template<class T>
+      T* create(Type2Type<T> = Type2Type<T>())
       {
          // Create the typeinfo object to search with
          return new T(mGameState);
       }
       
-      template< typename T >
-      T* createAndAdd(Type2Type<T> t = Type2Type<T>())
+      template<typename T, typename P1>
+      T* create(P1 p1, Type2Type<T> = Type2Type<T>())
       {
-         T* result = create<T>();
-         mGameState->add(result);
-         return result;
+         return new T(mGameState, p1);
       }
       
       void add(Entity* e)

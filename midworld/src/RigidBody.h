@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-10-29 05:39:09 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-11-04 19:17:59 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -74,8 +74,8 @@ namespace mw
       void setScale(const gmtl::Vec3f& scale) { getCurrentState().setScale(scale); }
       
 
-	  const gmtl::Vec3f& getScale() const { return getCurrentState().getScale(); }
-	  gmtl::Vec3f& getScale() { return getCurrentState().getScale(); }
+      const gmtl::Vec3f& getScale() const { return getCurrentState().getScale(); }
+      gmtl::Vec3f& getScale() { return getCurrentState().getScale(); }
 
 
 	  /**

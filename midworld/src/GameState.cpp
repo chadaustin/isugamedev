@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-04 07:37:17 $
- * Version:       $Revision: 1.107 $
+ * Date modified: $Date: 2002-11-04 19:17:58 $
+ * Version:       $Revision: 1.108 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -144,12 +144,13 @@ namespace mw
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          mGunSlots[x] = UP;
 
+/*
       mPlayer.addWeapon( new Pistol );
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
       mPlayer.addWeapon( new MissileLauncher );
-
+*/
 
       // Change the music as appropriate for gaming. :)
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.h,v $
- * Date modified: $Date: 2002-10-09 06:57:19 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-11-04 19:17:59 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,7 +37,6 @@
 
 namespace mw
 {
-   /*PISTOL,a basic weapon*/
    class SpreadGun : public BaseProjectileWeapon
    {
    public:

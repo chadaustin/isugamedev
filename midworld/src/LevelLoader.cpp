@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.cpp,v $
- * Date modified: $Date: 2002-11-03 05:18:54 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-11-04 19:17:58 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,6 +39,7 @@
 #include "AmmoCrate.h"
 #include "Enemy.h"
 #include "Droid.h"
+#include "GunPickup.h"
 #include "StaticEntity.h"
 #include "Turret.h"
 
@@ -54,11 +55,22 @@ namespace mw
       }
 
       std::string type;
-      double x, y, z;
-      double h, p, r;
-
-      while (in >> type >> x >> y >> z >> h >> p >> r)
+      while (in >> type)
       {
+         if (type == "#")
+         {
+            std::string dummy;
+            std::getline(in, dummy);
+            continue;
+         }
+         
+         double x, y, z;
+         double h, p, r;
+         if (!(in >> x >> y >> z >> h >> p >> r))
+         {
+            break;
+         }
+       
          // THIS SUCKS ASS
          // VC++ 7 does not compile this right unless it's static
          // Internal Compiler Error
@@ -102,6 +114,15 @@ namespace mw
             e = EntityFactory::instance().create<AmmoCrate>();
             e->setModel("ammo_crate");
          }
+         else if (type == "gun")
+         {
+            std::string guntype;
+            if (in >> guntype)
+            {
+               e = EntityFactory::instance().create<GunPickup>(guntype);
+               e->setModel("ammo_crate");
+            }
+         }
          else if (type == "static")
          {
             std::string model;
@@ -117,22 +138,19 @@ namespace mw
                e->setScale(gmtl::Vec3f(sx, sy, sz));
             }
          }
-         else if (type == "#")
-         {
-            // read the rest of the line
-            std::string dummy;
-            std::getline(in, dummy);
-         }
          else
          {
             throw std::runtime_error("Unknown entity type: " + type);
          }
 
-         e->setPos(gmtl::Point3f(x, y, z));
-         e->setRot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(
+         gmtl::Point3f pos(x, y, z);
+         gmtl::Quatf rot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(
             gmtl::Math::deg2Rad(p),
             gmtl::Math::deg2Rad(h),
             gmtl::Math::deg2Rad(r))));
+
+         e->setPos(pos);
+         e->setRot(rot);
          gameState->add(e);
       }
    }

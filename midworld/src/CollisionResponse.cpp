@@ -24,13 +24,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-11-03 08:04:46 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-04 19:17:57 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include "CollisionResponse.h"
+#include "AmmoCrate.h"
 #include "BaseBullet.h"
+#include "CollisionResponse.h"
+#include "Droid.h"
+#include "GunPickup.h"
 #include "Player.h"
 #include "Turret.h"
 
@@ -55,17 +58,30 @@ namespace mw
       t->damage(b->getDamage());
    }
    
-   void collidePlayerTurret(Player* p, Turret* t)
+   void collidePlayerDroid(Player* p, Droid* d)
    {
+      __asm int 3
    }
-
+   
+   void collidePlayerAmmoCrate(Player* p, AmmoCrate* c)
+   {
+      c->giveTo(p);
+   }
+   
+   void collidePlayerGunPickup(Player* p, GunPickup* g)
+   {
+      g->giveTo(p);
+   }
+   
 
    CollisionResponse::CollisionResponse()
    {
       defineResponse<BaseBullet, Player>(collideBulletPlayer);
       defineResponse<BaseBullet, Enemy> (collideBulletEnemy);
       defineResponse<BaseBullet, Turret>(collideBulletTurret);
-      defineResponse<Player,     Turret>(collidePlayerTurret);
+      defineResponse<Player, Droid>(collidePlayerDroid);
+      defineResponse<Player, AmmoCrate> (collidePlayerAmmoCrate);
+//      defineResponse<Player, GunPickup> (collidePlayerGunPickup);
    }
    
    CollisionResponse::~CollisionResponse()

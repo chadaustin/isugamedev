@@ -135,9 +135,6 @@
 				RelativePath="..\..\src\Application.h">
 			</File>
 			<File
-				RelativePath="..\..\src\AssaultRifle.h">
-			</File>
-			<File
 				RelativePath="..\..\src\BaseBullet.cpp">
 			</File>
 			<File
@@ -243,6 +240,12 @@
 				RelativePath="..\..\src\GameState.h">
 			</File>
 			<File
+				RelativePath="..\..\src\GunPickup.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\GunPickup.h">
+			</File>
+			<File
 				RelativePath="..\..\src\HUD.cpp">
 			</File>
 			<File
@@ -315,12 +318,6 @@
 				RelativePath="..\..\src\MenuState.h">
 			</File>
 			<File
-				RelativePath="..\..\src\MissileLauncher.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\MissileLauncher.h">
-			</File>
-			<File
 				RelativePath="..\..\src\ModelManager.cpp">
 			</File>
 			<File
@@ -328,9 +325,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\NullCollisionDetector.h">
-			</File>
-			<File
-				RelativePath="..\..\src\NullWeapon.h">
 			</File>
 			<File
 				RelativePath="..\..\src\OpenSGSceneViewer.cpp">
@@ -355,12 +349,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\PhysicsEngine.h">
-			</File>
-			<File
-				RelativePath="..\..\src\PickupItem.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Pistol.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Player.cpp">
@@ -399,12 +387,6 @@
 				RelativePath="..\..\src\SceneViewer.h">
 			</File>
 			<File
-				RelativePath="..\..\src\Shotgun.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\Shotgun.h">
-			</File>
-			<File
 				RelativePath="..\..\src\SoundEffectManager.cpp">
 			</File>
 			<File
@@ -418,12 +400,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\SpatialIndex.h">
-			</File>
-			<File
-				RelativePath="..\..\src\SpreadGun.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\SpreadGun.h">
 			</File>
 			<File
 				RelativePath="..\..\src\State.cpp">
@@ -487,6 +463,37 @@
 			</File>
 			<File
 				RelativePath="..\..\src\cubeGeometry.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Weapons"
+			Filter="">
+			<File
+				RelativePath="..\..\src\AssaultRifle.h">
+			</File>
+			<File
+				RelativePath="..\..\src\MissileLauncher.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\MissileLauncher.h">
+			</File>
+			<File
+				RelativePath="..\..\src\NullWeapon.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Pistol.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Shotgun.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Shotgun.h">
+			</File>
+			<File
+				RelativePath="..\..\src\SpreadGun.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\SpreadGun.h">
 			</File>
 		</Filter>
 	</Files>

@@ -24,22 +24,26 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AmmoCrate.h,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-04 19:17:57 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_AMMO_CRATE_H
 #define MW_AMMO_CRATE_H
 
-#include "PickupItem.h"
+#include "AbstractEntity.h"
+#include "AmmoBag.h"
+#include "Weapon.h"
 
 namespace mw
 {
+   class Player;
+
    /**
     * Defines a pickup item containing a bunch of ammo.
     */
-   class AmmoCrate : public PickupItem
+   class AmmoCrate : public AbstractEntity
    {
    public:
       AmmoCrate(GameState* gameState);
@@ -60,15 +64,8 @@ namespace mw
        * The ammo crate expires once it has been picked up.
        */
       bool isExpired() const;
-
-   protected:
-      /**
-       * Notifies this pickup item that it has been picked up by the given
-       * player.
-       *
-       * @param player     the player that picked up the item
-       */
-      void pickedUp(Player* player);
+      
+      void giveTo(Player* p);
 
    private:
       /// The ammo stored in this crate.

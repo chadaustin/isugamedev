@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-03 08:04:46 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-11-04 19:17:58 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -128,7 +128,7 @@ namespace mw
                   mCollisionDetector->checkCollisions(body, path);
 
          // No collisions, let the body update for the remaining distance
-         if (collisions.size() == 0)
+         if (collisions.empty())
          {
             body->moveToNextState();
          }

@@ -24,20 +24,22 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AmmoCrate.cpp,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-04 19:17:57 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <algorithm>
 #include "AmmoCrate.h"
+#include "Player.h"
 
 namespace mw
 {
    AmmoCrate::AmmoCrate(GameState* gameState)
-      : PickupItem(gameState)
+      : AbstractEntity(gameState)
       , mExpired(false)
-   {}
+   {
+   }
 
    void
    AmmoCrate::setAmmo(const Weapon::WeaponCategory& category, unsigned int ammo)
@@ -58,7 +60,7 @@ namespace mw
    }
 
    void
-   AmmoCrate::pickedUp(Player* player)
+   AmmoCrate::giveTo(Player* player)
    {
       std::cout<<"Player picked up the ammo bag!"<<std::endl;
       player->getAmmoBag().add(mAmmoBag);
