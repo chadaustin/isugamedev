@@ -11,7 +11,7 @@ Audiere	1.9.0		http://audiere.sourceforge.net
 Corona	0.2.0 		http://corona.sourceforge.net
 GLText	0.1.0		http://gltext.sourceforge.net
 GMTL	0.1.10		http://ggt.sourceforge.net
-Loom	0.0.2		http://ailoom.sourceforge.net
+Loom	0.0.4		http://ailoom.sourceforge.net
 OpenSG	1.1.0		http://www.opensg.org
 SCons	0.08		http://www.scons.org
 SDL	1.2.4		http://www.libsdl.org
