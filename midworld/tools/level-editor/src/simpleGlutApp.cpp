@@ -51,7 +51,7 @@ GLint menuGrid;
 float rd,gn,bl;
 float transX;
 
-float mouseX, mouseY;
+int mouseX, mouseY;
 
 class model
 {
@@ -277,25 +277,34 @@ void getWorldCoords(float& x, float& y){
 //replaced by the windows coordinates
 void getMouseCoords(float& x, float& y)
 {
-   x=x/(SCALE/2)+cameraPan[0]-(app.width/2)/(SCALE/2);
-   y=y/(SCALE/2)-cameraPan[1]-(app.height/2)/(SCALE/2);
+   x=x+cameraPan[0]*(SCALE/2)+(app.width/2);
+   y=(y-cameraPan[1]*(SCALE/2)+(app.height/2));
+   
 }
+
+
 
 void drawObjAtMouse()
 {
    float TEMPSCALE=SCALE/2;
+   int snapOffsetX;
+   int snapOffsetY;
    glColor3f(modelsInMenu[drawOnMouse-1].r, modelsInMenu[drawOnMouse-1].g, modelsInMenu[drawOnMouse-1].b);
+   
+   std::cout << "win coords: " << SCALE << std::endl;
+   
    if(snapOn)
    {
-      float tX, tY;
-      tX = mouseX;
-      tY = mouseY;
-      getMouseCoords(tX, tY);
-      
-      glTranslatef(mouseX, mouseY, 0);
-   }else{
-      glTranslatef(mouseX, mouseY, 0);
+      snapOffsetX=app.width/(app.width/SCALE*2);
+      snapOffsetY=app.height/(app.height/SCALE*2);
+      mouseX=mouseX-mouseX%snapOffsetX;
+      mouseY=mouseY-mouseY%snapOffsetY;
    }
+      
+   
+   
+   
+   glTranslatef(mouseX, mouseY, 0);
    glBegin(GL_POLYGON);
       glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
       glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
@@ -512,8 +521,8 @@ static void OnSpecialKeyboardUp( int k, int x, int y )
 static void OnMousePos( int x, int y ) 
 {
    // !!!todo!!!: do something based on mouse position
-   mouseX = (float)x;
-   mouseY = (float)y;
+   mouseX = x;
+   mouseY = y;
 }
 
 void addObjToWorld(float& x, float& y)
@@ -699,7 +708,6 @@ void getModelFunc(int a)
 }
 void snapFunc(int a)
 {
-   std::cout << "changing snapOn to: " << a << std::endl;
    if(a==1)
       snapOn=true;
    else
