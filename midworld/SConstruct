@@ -91,7 +91,7 @@ def MakeDist(target = None, source = None, env = None):
    distSources = map(str, source)
 
    if distTarget[-len(env['DISTSUFFIX'])] != env['DISTSUFFIX']:
-      distTarget += env['DISTSUFFIX']
+      distTarget = distTarget + env['DISTSUFFIX']
 
 
    # Create the dist directory
