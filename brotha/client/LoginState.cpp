@@ -10,24 +10,45 @@ namespace client {
       /// if we want the UI to be resolution-dependent or not...
       mRoot = phui::CreateRoot(640, 480);
 
+      const int border_w = 50;
+      const int border_h = 50;
+
+      // main window
       phui::Window* window = new phui::Window();
-      window->setPosition(100, 100);
-      window->setSize(300, 200);
+      window->setPosition(border_w, border_h);
+      window->setSize(640 - border_w * 2, 480 - border_h * 2);
       window->setBackgroundColor(phui::Colorf(0.2, 0.3, 0.8, 0.8));
       window->show();
 
+      mRoot->add(window);
+
+      mUsername = addLabeledField(window, "Username", 1);
+      mPassword = addLabeledField(window, "Password", 2);
+      mServer   = addLabeledField(window, "Server",   3);
+      mPort     = addLabeledField(window, "Port",     4);
+
+      mUsername->setText("aegis");
+      mPassword->setText(":)");
+      mServer->setText("localhost");
+      mPort->setText("35791");
+
       phui::Button* connect = new phui::Button("Connect");
-      connect->setPosition(200, 100);
-      connect->setSize(50, 20);
-      connect->show();
+      connect->setPosition(50, 300);
+      connect->setSize(100, 20);
+      window->add(connect);
+
+      phui::Button* quit = new phui::Button("Quit");
+      quit->setPosition(200, 300);
+      quit->setSize(100, 20);
+      window->add(quit);
 
       phui::CheckBox* spectator = new phui::CheckBox();
-      spectator->setPosition(80, 120);
+      spectator->setPosition(50, 250);
       spectator->setSize(20, 20);
       spectator->show();
 
       phui::Label* spectatorLbl = new phui::Label("Login as Spectator");
-      spectatorLbl->setPosition(110, 120);
+      spectatorLbl->setPosition(80, 250);
       spectatorLbl->setSize(150,20);
       spectatorLbl->show();
 
@@ -74,6 +95,24 @@ namespace client {
    void
    LoginState::onMouseMove(int x, int y) {
       mRoot->onMouseMove(phui::Point(x, y));
+   }
+
+   phui::TextField*
+   LoginState::addLabeledField(phui::WidgetContainer* container,
+                               const std::string& label,
+                               int index)
+   {
+      phui::Label* labelWidget = new phui::Label(label.c_str());
+      labelWidget->setPosition(50, 50 * index);
+      labelWidget->setSize(100, 20);
+      labelWidget->setBackgroundColor(phui::Colorf(0, 0, 0, 0.1f));
+      container->add(labelWidget);
+
+      phui::TextField* textWidget = new phui::TextField;
+      textWidget->setPosition(200, 50 * index);
+      textWidget->setSize(150, 20);
+      container->add(textWidget);
+      return textWidget;
    }
 
 }

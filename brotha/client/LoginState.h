@@ -20,7 +20,15 @@ namespace client {
       void onMouseMove(int x, int y);
 
    private:
+      phui::TextField* addLabeledField(phui::WidgetContainer* container,
+                                       const std::string& label,
+                                       int index);
+
       phui::RootWidget* mRoot;
+      phui::TextField*  mUsername;
+      phui::TextField*  mPassword;
+      phui::TextField*  mServer;
+      phui::TextField*  mPort;
    };
 
 }
