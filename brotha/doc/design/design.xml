@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.51 2002-04-10 03:56:32 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-10 03:56:32 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.52 2002-04-10 04:19:06 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-10 04:19:06 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -407,31 +407,103 @@
     </section>
     <section>
       <title>Input Module</title>
-      <para>The Client Input module is responsible for the retrieval of input from the devices. Since the application must run at an approximately consistent frame-rate, the input is polled once every frame by the application. This module has effectively already been implemented using the external GameKernel library developed by Kevin Meinert and Ben Scott. In this library, each device's input is classified as either a digital input or an analog input. Thus inputs can be bound to application specific commands at runtime. GameKernel is also designed to be platform independent making portability as simple as recompiling the application.</para>
-      <para>The GameKernel library is broken into three parts - the input manager (<classname>IGameInput</classname>), the system driver (<classname>ISystemDriver</classname>) and the application callbacks (<classname>IGameApp</classname>). The <classname>IGameKernel</classname> interface is the facade on top of all of these subsystems through which the application is managed by the GameKernel library.</para>
-      <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
-      <section>
-        <title>Module Interfaces</title>
-        <para>blah blah</para>
-      </section>
+      <para>The Client Input module is responsible for the retrieval of input from the devices. Since the application must run at an approximately consistent frame-rate, the input is polled once every frame by the application. For this module, we will rely on a COTS library suitable for our application.</para>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
-        <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
-        </section>
+        <qandaset>
+          <qandaentry>
+            <question>
+              <para>Which COTS input library should we use?</para>
+            </question>
+            <answer>
+              <para>There are many libraries available to manage input in a platform-neutral way.</para>
+              <formalpara>
+                <title>Alternative 1 - <emphasis>GLUT</emphasis></title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Easy to use, straightforward API.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Platform-neutral.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Very simple and straightforward API.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Mature and stable library.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Closed source.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Doesn't easily support device polling.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Not object-oriented.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Alternative 2 - <emphasis>GameKernel</emphasis></title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Developed by a member of the Brotha team.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Extremely simple object-oriented API.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Open source.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Platform-neutral.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Supports runtime keybinding to application specific commands.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Interface is not completely stable.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Doesn't yet support input ordering semantics.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Conclusion</title>
+                <para>We chose GameKernel for a couple reasons. First, the members of the team are more familiar with it than GLUT. Additionally, it handles keybinding for us as well as having a superior API to GLUT. Also, since GameKernel is open source, we can update it to include any functionality we may need.</para>
+              </formalpara>
+            </answer>
+          </qandaentry>
+        </qandaset>
       </section>
     </section>
     <section>
@@ -747,7 +819,7 @@
                   </variablelist></para>
               </formalpara>
               <formalpara>
-                <title>Alternative 1 - <emphasis>FMOD</emphasis></title>
+                <title>Alternative 2 - <emphasis>FMOD</emphasis></title>
                 <para><variablelist>
                     <varlistentry>
                       <term>Pros</term>
