@@ -21,11 +21,14 @@
  *
  * -----------------------------------------------------------------------------
  * File:          $RCSfile: xdl.h,v $
- * Last modified: $Date: 2002-01-11 16:10:11 $
- * Version:       $Revision: 1.1.1.1 $
+ * Last modified: $Date: 2002-02-13 16:48:57 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------------------
  *
  ******************************************************************************/
+#ifndef XDL_XDL_H
+#define XDL_XDL_H
+
 #include <iostream>  // for debug output..
 #include <string>    // for std::string
 #include <memory.h>  // for NULL
@@ -300,4 +303,6 @@ namespace xdl
    typedef LibraryUnix Library;
 #endif
 
-};
+} // namespace xdl
+
+#endif
