@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.h,v $
- * Date modified: $Date: 2002-07-07 03:50:01 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-08-14 20:27:26 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -80,9 +80,6 @@ namespace mw
       void discharge(GameState& g)
       {
          // add the bullet to the gamestate...
-         BaseBullet** bullet;
-         bullet = new BaseBullet*[NUM_PELLETS];
-
          for(unsigned int i=0; i<NUM_PELLETS; i++)
          {
             //TODO:  seed this according to world time?
@@ -94,13 +91,13 @@ namespace mw
 
             gmtl::Quatf r(gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(angle, 0.0f, 1.0f, 0.0f)));
 
-            bullet[i] = this->createBullet();
+            BaseBullet* bullet = this->createBullet();
 
-            bullet[i]->setRot(this->getRot() * r); //shoot off at a limited random angle
-            bullet[i]->setPos(this->getPos());
-            bullet[i]->setVel(this->getRot() * r * bullet[i]->getVel());
+            bullet->setRot(this->getRot() * r); //shoot off at a limited random angle
+            bullet->setPos(this->getPos());
+            bullet->setVel(this->getRot() * r * bullet->getVel());
 
-            g.add(bullet[i]); // bullet is not mine anymore, belongs to GameState
+            g.add(bullet); // bullet is not mine anymore, belongs to GameState
 
          }
       }
