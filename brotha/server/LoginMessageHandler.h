@@ -6,10 +6,10 @@
 
 #include "MessageHandler.h"
 
-class LoginMessageHandler {
+class LoginMessageHandler : public MessageHandler {
 public:
    LoginMessageHandler(game::BrothaGame* game, net::NetMgr* netMgr)
-      : MessageHandler(game, netMgr {
+      : MessageHandler(game, netMgr) {
    }
 
    ~LoginMessageHandler() {}
@@ -17,9 +17,9 @@ public:
    virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
       /// @actual authentication
       if(1) {
-         m_netMgr->send(new net::OKMessage(net::OKMessage::ResponseCode::OKAY));
+         m_netMgr->send(new net::OKMessage(net::OKMessage::ResponseCode::OKAY), cID);
       } else {
-         m_netMgr->send(new net::OKMessage(net::OKMessage::ResponseCode::ERROR));
+         m_netMgr->send(new net::OKMessage(net::OKMessage::ResponseCode::GENERIC_ERROR), cID);
       }
    };
 };

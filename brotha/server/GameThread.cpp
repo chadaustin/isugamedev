@@ -3,11 +3,16 @@
 
 #include "GameThread.h"
 
+
 namespace server {
    GameThread::GameThread(net::NetMgr *netMgr) {
       m_netMgr = netMgr;
 
       m_brothaGame = new game::BrothaGame();
+
+      #define reg(a) m_messageHandlers[net::a] = new a##MessageHandler(m_brothaGame, netMgr)
+      reg(Login);
+      #undef reg
    }
 
    GameThread::~GameThread() {

@@ -7,6 +7,8 @@
 #include "thread/Thread.h"
 #include "net/NetMgr.h"
 #include "game/BrothaGame.h"
+#include "net/MessageTypes.h"
+#include "LoginMessageHandler.h"
 #include "MessageHandler.h"
 
 namespace server {
