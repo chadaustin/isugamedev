@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="file://localhost/home9/users/aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
+<?xml-stylesheet href="../../../../../../aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.9 2002-04-08 06:14:05 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 06:14:05 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.10 2002-04-08 07:09:22 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 07:09:22 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -388,18 +388,47 @@
   </chapter>
   <chapter>
     <title>Putting It All Together</title>
-    <para>Since <emphasis>Warn-a-Brotha</emphasis> has an overall client/server design, the project can be split into two distinctly seperate applications that use the modules differently. The server is the main workhorse, responsible for managing multiple client connections and their requests, updating the state of the game on a regular basis and sending messages to connected clients with updates on the state of the game. The client on the other hand is really just a relatively dumb display which allows the user to connect to the server. Once connected, it processes input from the attached devices and when device inputs are triggered, forwards the corresponding request to the server. The client also provides a visual view onto the game world based on the update data received from the server.</para>
+    <para>Since <emphasis>Warn-a-Brotha</emphasis> has an overall client/server design, the project can be split into two distinctly seperate applications that use the modules differently.</para>
     <section>
       <title>The Server Application</title>
-      <para>blah blah. blah blah blah blah.</para>
+      <para>The server is the main workhorse, responsible for managing multiple client connections and their requests, updating the state of the game on a regular basis and sending message to connected clients with the updates on the state of the game.</para>
     </section>
     <section>
       <title>The Client Application</title>
-      <para>blah blah. blah blah blah blah.</para>
+      <para>The client application is simply the glue that binds the various modules it requires - namely Connection Manager, Input, Sound, Texture and UI. It is really just a dumb display which allows the user to connect to the server. Once connected, it processes input from the attached and configured devices and which device inputs are triggered, forwards the corresponding request to the server. The client also provides a visual view onto the game world based on the update data received from the server.</para>
     </section>
   </chapter>
   <chapter>
     <title>Traceability Matrix</title>
     <para>probably figure out how to create a table or else stuff a pic in here</para>
   </chapter>
+  <appendix>
+    <title>External Dependencies</title>
+    <variablelist>
+      <varlistentry>
+        <term><application>Audiere</application></term>
+        <listitem>
+          <para>Audiere is a high-level audio API, somewhat analogous to FMOD. Built on top of Acoustique, it supports MP3, Ogg Vorbis, uncompressed WAV, IT, XM, S3M and MOD. It can use DirectSound 8, DirectSound 3 or arbitrary DLLs for audio output. In Linux, it can use OSS or OpenAL. At the moment, Audiere only works under Win32 and Linux. It is licensed under the LGPL.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><application>Corona</application></term>
+        <listitem>
+          <para>Corona is a high-level, portable I/O library usable from C++. It can read PNG, JPEG, PCX and BMP images, and can write PNGs. It's licensed under the zlib license.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><application>Game Kernel</application></term>
+        <listitem>
+          <para>GameKernel is a flexible, open-source platform for running games being developed by members of the Iowa State Univerisy Game Developers Club. Designed with pluggable DLL drivers, GameKernel can currently operate using GLUT or SDL. It is supported on Windows, Linux and IRIX. Game Kernel is licensed under the LGPL.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><application>Netscape Portable Runtime (NSPR)</application></term>
+        <listitem>
+          <para>NSPR provides a platform-neutral API for system level and libc like functions. The API is used in the Mozilla client, many of Netscape/AOL/iPlanet's and other software offerings.</para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </appendix>
 </book>
