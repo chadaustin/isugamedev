@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-26 06:08:19 $
- * Version:       $Revision: 1.44 $
+ * Date modified: $Date: 2002-10-26 06:12:22 $
+ * Version:       $Revision: 1.45 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -246,17 +246,6 @@ namespace mw
       /// The collision detection algorithm
       CollisionDetector* mCollDet;
 
-      // actions :*)
-//      EdgeState mAccelerate;
-//      EdgeState mReverse;
-//      EdgeState mStrafeRight, mStrafeLeft;
-      EdgeState mShoot, mCycleWeapon;
-//      EdgeState mCameraZoomIn, mCameraZoomOut;
-//      EdgeState mCameraPitchDown, mCameraPitchUp;
-//      EdgeState mCameraYawLeft, mCameraYawRight;
-
-      std::vector<EdgeState> mGunSlots;
-
       /**
        * Input data for the Player object.
        * @note    in local screen space, not actual player vel
@@ -278,7 +267,7 @@ namespace mw
       PhysicsEngine mPhysics;
       ParticleEngine* mExplosion;
 
-      // Keybindings
+      // Actions
       InputAction* mActionUp;
       InputAction* mActionDown;
       InputAction* mActionRight;
@@ -290,6 +279,11 @@ namespace mw
       InputAction* mActionPitchDown;
       InputAction* mActionYawLeft;
       InputAction* mActionYawRight;
+
+      // "Actions" that have not yet been converted over to use the InputBinder
+      EdgeState mShoot, mCycleWeapon;
+      std::vector<EdgeState> mGunSlots;
+
    };
 }
 
