@@ -12,6 +12,8 @@ namespace reports{
 	class request;
 
 	std::string renderPlayerList(dataxml::playerlist, reports::request);
+	std::string renderGangList(dataxml::ganglist, reports::request);
+	std::string renderStatList(dataxml::statlist);
 
 	class request{
 	public:
@@ -63,13 +65,13 @@ namespace reports{
 	};
 
 	std::string GenerateReport(std::string query){
-		request r(query);
+		reports::request r(query);
 		dataxml::ganglist gl = dataxml::b.getGangList();
-		return "hi";
+		return renderGangList(gl,r);
 	}
 
-	std::string renderCarList(dataxml::carlist cl){
-      ostringstream out;
+	std::string renderCarList(dataxml::carlist cl, request schema){
+	  std::ostringstream out;
       out << "<table><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
 		for(unsigned int i = 0; i < cl.size(); i++){
 			dataxml::Car* c = cl[i];
@@ -81,23 +83,22 @@ namespace reports{
 	}
 
 	std::string renderGangList(dataxml::ganglist gl, reports::request schema){
-		std::string html = "";
+		std::ostringstream html;
 		for(int i = 0; i < gl.size(); i++){
 			dataxml::Gang* g = gl[i];
 			if(schema.gang.find(g->getName())!= -1 || schema.gang == "*"){
 				if(schema.gangD == 2){
-					html += "<h1>" + g->getName() + "</h1>";
-					html += "<div class=\"ganginfo\">" + g->getInfo() + "</div>";
-					html += "<div class=\"gangplayers\"> number of players: " + std::string(itoa(g->getPlayerList().size(),new char[30],30))+ "</div>";
+					 "<h1>" + g->getName() + "</h1>";
+					html << "<div class=\"ganginfo\">" << g->getInfo() << "</div>";
+					html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
 				}
 				if(schema.gangD == 1){
-					html += "<h1>" + g->getName() + "</h1>";
+					html << "<h1>" << g->getName() << "</h1>";
 				}
-				html += renderPlayerList(g->getPlayerList(), schema);
-
+				html << renderPlayerList(g->getPlayerList(), schema);
 			}
 		}
-		return html;
+		return html.str();
 	}
 
 	std::string renderCarTypeList(dataxml::cartypelist ctl){
@@ -110,14 +111,30 @@ namespace reports{
 	}
 
 	std::string renderPlayerList(dataxml::playerlist pl, reports::request schema){
-		std::string html = "";
-		html += "<table><th>Name</th><th># of cars</th>";
+		std::ostringstream html;
+		if(schema.playerD == 1)
+			html << "<table><th>Name</th><th># of cars</th>";
 		for(unsigned int i = 0; i < pl.size(); i++){
 			dataxml::Player* p = pl[i];
-			html +="<tr><td>" + p->getName() + "</td><td>" + std::string(itoa(p->getCars().size(),new char[30],30)) + "</td></tr>";
+			if(schema.player.find(p->getName())!= -1 || schema.player == "*"){
+				if(schema.playerD == 1){
+			        html << "<tr><td>" << p->getName() << "</td><td>" << p->getCars().size() << "</td></tr>";
+					html << "<tr><td colspan=2>" << renderCarList(p->getCars(), schema) << "</td></tr>";
+				}
+				if(schema.playerD == 2){
+					html << "<div class=\"playerinfo\">";
+					html << "<table><tr><td valign=top>";
+					html << "<img src=\"" << p->getName() << ".jpg\"></td>";
+					html << "<td><h2>" << p->getName() << "</h2>";
+					html << renderStatList(p->getStats());
+					html << renderCarList(p->getCars(),schema);
+					html << "</td></table></div>";
+				}
+			}
 		}
-		html += "</table>";
-		return html;
+		if(schema.playerD == 1)
+			html << "</table>";
+		return html.str();
 	}
 
 	std::string renderModList(dataxml::modlist ml){
