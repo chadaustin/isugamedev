@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SellModMessage.h,v $
- * Date modified: $Date: 2002-05-03 07:01:48 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-03 10:24:26 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -65,7 +65,7 @@ namespace net {
       }
 
       PRUint32 getType() const {
-         return BuyMod;
+         return SellMod;
       }
 
       PRUint32 getSize() {
