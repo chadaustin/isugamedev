@@ -15,6 +15,17 @@
 /* input manager for game input
  * try to use the Interface classes instead of this class directly
  * (i.e. use DigitalInterface or AnalogInterface)
+ * 
+ * Usage (to sample input):
+ *    DigitalInterface accelerate;
+ *    accelerate.init( "Accelerate" );
+ *    if (accelerate.getDigitalData() == DigitalInput::DOWN)
+ *       ... do something ...
+ * 
+ * Usage (to configure):
+ *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_UPARROW" );
+ *     GameInput::instance().bind( "StraefLeft", "Keyboard", "KEY_LEFTARROW" );
+ *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_RIGHTARROW" );
  */
 class GameInput : public kev::Singleton<GameInput>
 {
@@ -53,7 +64,7 @@ public:
       return dev->getInput( input );
    }   
 
-   /* Add a device to InputManager.
+   /** Add a device to InputManager.
     *
     * Add the devPtr to the device Array, devPtr should
     * not already be in the array.  Returns -1 on failure
@@ -62,23 +73,27 @@ public:
     */
    bool addInput( Input* devPtr );
    
+   /**
+    *  bind an alias to a device's input
+    */
    void bind( const std::string& alias, const std::string& device, const std::string& input )
    {
       Input* in_put = GameInput::instance().getInput( device, input );
       mBindTable[alias].bind( in_put );
-   }   
-   
+   }
+
+// NOTE: the preferred
 public:
-   /* get the device directly */
+   /* get the mouse device directly */
    inline const Mouse&        mouse() const { return *mMouse; }
    
-   /* get the device directly */
+   /* get the mouse device directly */
    inline Mouse&              mouse() { return *mMouse; }
    
-   /* get the device directly */
+   /* get the keyboard device directly */
    inline const Keyboard&     keyboard() const { return *mKeyboard; }
    
-   /* get the device directly */
+   /* get the keyboard device directly */
    inline Keyboard&           keyboard() { return *mKeyboard; }
    
    /* uh... how to deal with this? */

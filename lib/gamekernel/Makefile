@@ -9,7 +9,7 @@ DEPDIR =
 
 PATH_TO_SRCS = .
 MK_DIR = mk
-INCLUDE_PATHS = -I.
+INCLUDE_PATHS = -I. -I/home/users/kevn/software/irix/include
 
 ########################################################################
 # system dependent stuff, that users will want to change...
@@ -18,9 +18,11 @@ INCLUDE_PATHS = -I.
 include ${MK_DIR}/mk.platform
 include ${MK_DIR}/mk.hosttype
 
+EXTRA = -L/home/users/kevn/software/irix/lib32
+
 # IRIX
 ifeq ($(HOSTTYPE), IRIX)
-   LIBS = -L/usr/X11R6/lib -lGLU -lGL -lglut -lX11 -lXmu -lm
+   LIBS = -L/usr/X11R6/lib $(EXTRA) -lGLU -lGL -lglut -lX11 -lXmu -lm
    include ${MK_DIR}/mk.irix
 endif
 

@@ -19,9 +19,11 @@ public:
       AnalogInput* ana = dynamic_cast<AnalogInput*>( in );
       
       if (ana == NULL)
+      {
          return 0.0f;
-
-      return ana->edgeState();
+      }
+      
+      return ana->data();
    }
 };
 

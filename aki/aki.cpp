@@ -1,9 +1,9 @@
 #include "GameApp.h"      // the base application type
 #include "GameKernel.h"
 #include "GameInput.h"
+#include "AnalogInterface.h"
 #include "DigitalInterface.h"
 #include "GlutDriver.h"
-           
 #include "Grid.h"
                   
 class AkiGame : public GameApp
@@ -11,13 +11,15 @@ class AkiGame : public GameApp
 public:
    virtual void OnAppInit()
    {
-      GameKernel::instance().setName( "Aki's Quest" );
-      mQuit.init( "Quit" );
-      mAccelerate.init( "Accelerate" );
-      
+      GameInput::instance().bind( "MouseX", "Mouse", "MOUSEAXIS_X" );
       GameInput::instance().bind( "Quit", "Keyboard", "KEY_Q" );
       GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_SPACE" );
       GameInput::instance().bind( "Accelerate", "Mouse", "MOUSEBUTTON_LEFT" );
+      
+      GameKernel::instance().setName( "Aki's Quest" );
+      mQuit.init( "Quit" );
+      mAccelerate.init( "Accelerate" );
+      mMouseX.init( "MouseX" );
    }
    
    virtual void OnContextInit()
@@ -59,11 +61,13 @@ public:
       }     
       
       std::cout<< "Accelerate: "
-               << mAccelerate.getDigitalData() << std::endl;
+               << mAccelerate.getDigitalData() << " "
+               << " MouseX: " << mMouseX.getAnalogData() << std::endl;
    }   
    
 public:
    Grid grid;
+   AnalogInterface mMouseX;
    DigitalInterface mAccelerate, mQuit;
 };
 

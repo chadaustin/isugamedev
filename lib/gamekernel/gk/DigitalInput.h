@@ -3,7 +3,7 @@
 
 #include "Input.h"
 
-class DigitalInput : public Input
+class DigitalInput : virtual public Input
 {
 public:
    virtual ~DigitalInput() {}

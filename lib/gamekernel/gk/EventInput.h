@@ -2,11 +2,27 @@
 #define EVENT_INPUT
 
 #include "DigitalInput.h"
+#include "AnalogInput.h"
 
-class EventInput : public DigitalInput
+class EventInput : public DigitalInput, AnalogInput
 {
 public:
+   EventInput() : DigitalInput(), AnalogInput()
+   {
+   }
    virtual ~EventInput() {}
+   virtual void update() {}
+   virtual float data() const
+   {
+      if (mAnalogBindings.size() > 0)
+      {
+         return mAnalogBindings[0]->data();
+      }
+      else
+      {
+         return 0.0f;
+      }
+   }
    
    virtual EdgeTriggerState edgeState() const
    {
@@ -36,16 +52,23 @@ public:
       return state;
    }
    
+   
+   
+   
    void bind( Input* in_put )
    {
       if (in_put)
       {
          DigitalInput* dig = dynamic_cast<DigitalInput*>( in_put );
          if (dig)
+         {
             mDigitalBindings.push_back( dig );
+         }
          AnalogInput* ana = dynamic_cast<AnalogInput*>( in_put );
          if (ana)
+         {
             mAnalogBindings.push_back( ana );
+         }
       }
    }
    

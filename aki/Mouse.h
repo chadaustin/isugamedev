@@ -11,8 +11,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //   $RCSfile: Mouse.h,v $
-//   $Date: 2002-01-30 00:13:38 $
-//   $Revision: 1.5 $
+//   $Date: 2002-01-30 06:07:24 $
+//   $Revision: 1.6 $
 //   Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //   This library is free software; you can redistribute it and/or
@@ -39,194 +39,78 @@
 #include <assert.h>
 
 #include "DigitalDevice.h"
-//#include "AnalogDevice.h"
+#include "AnalogDevice.h"
 
 //: Mouse class
 // keeps track of mouse position and button state in a simulation
 // you must call update() each frame of your simulation
 // before you read any data from Mouse (like position and button states)
-class Mouse : public DigitalDevice//, public AnalogDevice
+class Mouse : public AnalogDevice, public DigitalDevice
 {
-// Types
 public:
    enum Button
    {
      LEFT = 0, MIDDLE = 1, RIGHT = 2
    };
    
-// Required methods for promised functionality:
-public:
-   //Constructor.
-   Mouse();
+   Mouse::Mouse() : DigitalDevice(), AnalogDevice()
+   {
+      DigitalDevice::setNumInputs( 3 ); // 3 button mouse.
+      AnalogDevice::setNumInputs( 2 ); // 2 axis mouse. 
+      Mouse::initialize_map();
+   }
+   
+   virtual ~Mouse() {}
    
    //: Call this on every frame of your simulation
    // Mouse events include position change, and button change
    // you must call update() each frame of your simulation
    // before you read any data from Mouse (like position and button states)
+   virtual void Mouse::update()
+   {
+      DigitalDevice::update();
+      AnalogDevice::update();
+   }
+   
+   virtual Input* getInput( const std::string& input_name )
+   {
+      Input* in;
+      if (NULL != (in = DigitalDevice::getInput( input_name )))
+      {
+          return in;
+      }
+      else
+      {
+         return AnalogDevice::getInput( input_name );
+      }
+   }   
+   
+   virtual Input* getInput( const int& id )
+   {
+      assert( false );
+      Input* in;
+      if (NULL != (in = DigitalDevice::getInput( id )))
+      {
+         return in;
+      }
+      else
+      {
+         return AnalogDevice::getInput( id );
+      }
+   }
 
-   void      update();
-   
-   // Set the position of the Mouse object
-   // Call this on a Mouse-Move event (when the mouse moves)
-   // give - x and y mouse coordinates
-   void      setPosition( const int& x, const int& y );
-   
-   void      addOffset( const int& x, const int& y );
-   
-// Preferred methods - total flexibility
-public:
-   // return the x position of the mouse.
-   const int&        x() const;
-   
-   // return the y position of the mouse.
-   const int&        y() const;
-   
-   // return the previous x position of the mouse.
-   int           xOld() const;
-   
-   // return the previous y position of the mouse.
-   int           yOld() const;
-   
-   // get the change between mouse's previous and current x positions
-   const int&        dx() const;
-   
-   // get the change between mouse's previous and current y positions
-   const int&        dy() const;
-
-// Alternate Methods
-public:
-   // Get the mouse position
-   // result - x and y are in viewport coordinates
-   void        getPosition( int& x, int& y ) const;
-   
-   // Get the previous position of mouse
-   void        getPreviousPosition( int& x, int& y ) const;
-
-   // Get the change between mouse's previous and current positions
-   void getOffset( int& xOffset, int& yOffset ) const;
-
-// Private member data
 private:
-   int          _xCurrent, _xFuture, _xDelta;
-   int          _yCurrent, _yFuture, _yDelta;
-   bool mNeedToCallUpdate;
-   
    void initialize_map()
    {
-      mMap["MOUSEBUTTON_LEFT"] = Mouse::LEFT;
-      mMap["MOUSEBUTTON_MIDDLE"] = Mouse::MIDDLE;
-      mMap["MOUSEBUTTON_RIGHT"] = Mouse::RIGHT;
+      DigitalDevice::mMap["MOUSEBUTTON_LEFT"] = Mouse::LEFT;
+      DigitalDevice::mMap["MOUSEBUTTON_MIDDLE"] = Mouse::MIDDLE;
+      DigitalDevice::mMap["MOUSEBUTTON_RIGHT"] = Mouse::RIGHT;
+      AnalogDevice::mMap["MOUSEAXIS_X"] = 0;
+      AnalogDevice::mMap["MOUSEAXIS_Y"] = 1;
+      
+      assert( DigitalDevice::mMap.count( "MOUSEAXIS_X" ) == 0 );
+      assert( DigitalDevice::mMap.count( "MOUSEAXIS_Y" ) == 0 );
    }
 };
-
-
-
-//Constructor.
-inline Mouse::Mouse() : DigitalDevice(), 
-      _xCurrent( 0 ), _yCurrent( 0 ), _xFuture( 0 ), _yFuture( 0 ), 
-      mNeedToCallUpdate( false )
-{
-   this->setNumInputs( 3 ); // 3 button mouse. 
-}
-
-// return the x position of the mouse.
-inline const int& Mouse::x() const
-{
-   assert( mNeedToCallUpdate == false && "you need to call Mouse::update once per frame" );
-   return _xCurrent;
-}
-
-// return the y position of the mouse.
-inline const int& Mouse::y() const
-{
-   assert( mNeedToCallUpdate == false && "you need to call Mouse::update once per frame" );
-   return _yCurrent;
-}
-
-// get the mouse position
-// you must call update() before you are ready to "get" position
-inline void Mouse::getPosition( int& x, int& y ) const
-{
-   x = this->x();
-   y = this->y();
-}
-
-// return the previous x position of the mouse.
-inline int Mouse::xOld() const
-{
-   assert( mNeedToCallUpdate == false && "you need to call Mouse::update once per frame" );
-   return _xCurrent - _xDelta;
-}
-
-// return the previous y position of the mouse.
-inline int Mouse::yOld() const
-{
-   assert( mNeedToCallUpdate == false && "you need to call Mouse::update once per frame" );
-   return _yCurrent - _yDelta;
-}
-
-// get the change between mouse's previous and current x positions
-inline const int& Mouse::dx() const
-{
-   assert( mNeedToCallUpdate == false && "you need to call Mouse::update once per frame" );
-   return _xDelta;
-}
-
-// get the change between mouse's previous and current y positions
-inline const int& Mouse::dy() const
-{
-   assert( mNeedToCallUpdate == false && "you need to call Mouse::update once per frame" );
-   return _yDelta;
-}
-
-// set the position that the mouse is currently
-// you must call update() before you are ready to "get" position
-inline void Mouse::setPosition( const int& x, const int& y )
-{
-   mNeedToCallUpdate = true;
-   _xFuture = x;
-   _yFuture = y;
-}
-
-inline void Mouse::addOffset( const int& x, const int& y )
-{
-   mNeedToCallUpdate = true;
-   _xFuture += x;
-   _yFuture += y;
-}
-
-// get the previous position of mouse
-inline void Mouse::getPreviousPosition( int& x, int& y ) const
-{
-   x = this->xOld();
-   y = this->yOld();
-}
-
-// get the offset between mouse's previous and current positions
-inline void Mouse::getOffset( int& xOffset, int& yOffset ) const
-{
-   xOffset = this->dx();
-   yOffset = this->dy();
-}
-
-//: Call this on every frame of your simulation
-// Mouse events include position change, and button change
-inline void Mouse::update()
-{
-   mNeedToCallUpdate = false;
-   
-   DigitalDevice::update();
-   //AnalogDevice::update();
-   
-   // do the position update...
-   
-   //get the offset the mouse has moved
-   _xDelta = _xFuture - _xCurrent;
-   _yDelta = _yFuture - _yCurrent;
-   
-   // save the new current position
-   _xCurrent = _xFuture;
-   _yCurrent = _yFuture;
-}
 
 #endif

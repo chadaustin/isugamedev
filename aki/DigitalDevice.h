@@ -12,8 +12,16 @@ class DigitalDevice : public TypedDevice<DigitalInput>
 {
 public:
    DigitalDevice() {}
-   DigitalInput& button( int x ) { return *((DigitalInput*)TypedDevice<DigitalInput>::getInput( x )); }
-   DigitalInput* button( const std::string& x ) { return (DigitalInput*)TypedDevice<DigitalInput>::getInput( x ); }
+   DigitalInput& button( int x )
+   { 
+      Input* in = TypedDevice<DigitalInput>::getInput( x );
+      return *dynamic_cast<DigitalInput*>( in );
+   }
+   DigitalInput* button( const std::string& x ) 
+   { 
+      Input* in = TypedDevice<DigitalInput>::getInput( x );
+      return dynamic_cast<DigitalInput*>( in );
+   }
 };
 
 #endif

@@ -4,8 +4,8 @@
  *
  * -----------------------------------------------------------------------------
  * File:          $RCSfile: GlutDriver.cpp,v $
- * Last modified: $Date: 2002-01-30 04:51:47 $
- * Version:       $Revision: 1.1 $
+ * Last modified: $Date: 2002-01-30 06:07:24 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------------------
  *
  *******************************************************************************
@@ -364,7 +364,8 @@ GlutDriver::OnSpecialKeyboardUp( int k, int x, int y )
 void
 GlutDriver::OnMousePos( int x, int y )
 {
-   GameInput::instance().mouse().setPosition( x, y );
+   GameInput::instance().mouse().axis( 0 ).setData( x );
+   GameInput::instance().mouse().axis( 1 ).setData( y );
 }
 
 //------------------------------------------------------------------------------
@@ -397,7 +398,8 @@ GlutDriver::OnMouseClick( int button, int state, int x, int y )
 
    // Set the mousebutton state and the mouse position
    GameInput::instance().mouse().button( b ).setBinaryState( binaryState );
-   GameInput::instance().mouse().setPosition( x, y );
+   GameInput::instance().mouse().axis( 0 ).setData( x );
+   GameInput::instance().mouse().axis( 1 ).setData( y );
 }
 
 //------------------------------------------------------------------------------

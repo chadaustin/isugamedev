@@ -8,20 +8,19 @@ class Device
 public:
    Device() {}
    virtual ~Device() {}
-   virtual void setNumInputs( int n ) = 0;
    virtual Input* getInput( const std::string& s ) = 0;
    virtual Input* getInput( const int& id ) = 0;
    virtual void update() = 0;
 };
 
 template< typename bok >
-class TypedDevice : public Device
+class TypedDevice : virtual public Device
 {
 public:
    TypedDevice() {}
    virtual ~TypedDevice() {}
    
-   virtual void setNumInputs( int n )
+   void setNumInputs( int n )
    {
       mInput.resize( n );
    }  
@@ -30,13 +29,17 @@ public:
    {
       int k = 0;
       if (mMap.count( input_name ) > 0)
+      {
          k = (*(mMap.find( input_name ))).second;
-      return &mInput[k];
+         return &mInput[k];
+      }
+      else
+         return NULL;
    }   
    
    virtual Input* getInput( const int& id )
    { 
-      return &mInput[id]; 
+      return &mInput[id];
    }
    
    virtual void update()
