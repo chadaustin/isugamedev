@@ -8,14 +8,19 @@
 namespace game {
 
    class Car {
-      public:
+   public:
 
       /**
        * Creates a new player with the given name.
        */
       Car(const std::string& name);
 
-      private:
+      /**
+       * Gets the name of this car.
+       */
+      const std::string& getName() const;
+
+   private:
       /// This player's name
       std::string mName;
 
