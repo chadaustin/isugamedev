@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  --------------------------------------------------------
+2002-03-28 tamc         Web server added to server, mostly works
 2002-03-28 tamc         NetMgr facade for wrapping of said threading/stream crap
 2002-03-26 aegis        Lots of threading/stream crap...
 2002-02-25 nonchocoboy  Initial version

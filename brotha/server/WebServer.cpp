@@ -42,10 +42,9 @@ namespace server {
    void WebServer::processRequest(net::Socket *socket, std::string &str) {
       /// @todo actually process request and generate dynamic response :)
 
-      std::string response = "HTTP/1.0 200\r\nDate: Thu, 28 Mar 2002 12:54:45 GMT\r\nServer: \
-                              Warn-A-Brotha Web Server\r\nContent-Length: 46\r\nContent-Type: \
-                              text/html\r\n\r\n<HTML><FONT size=7><CENTER>No!!!</CENTER></FONT>\
-                              </HTML>";
+      std::string response = "HTTP/1.0 200\r\nDate: Thu, 28 Mar 2002 12:54:45\
+GMT\r\nServer: Warn-A-Brotha Web Server\r\nContent-Length: 46\r\nContent-Type: \
+text/html\r\n\r\n<HTML><FONT size=7><CENTER>No!!!</CENTER></FONT></HTML>";
       sendResponse(socket, response);
    }
 
