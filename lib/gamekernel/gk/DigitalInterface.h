@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2003-02-09 07:43:03 $
-// Version:       $Revision: 1.16 $
+// Date modified: $Date: 2003-02-10 05:12:23 $
+// Version:       $Revision: 1.17 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -95,6 +95,8 @@ public:
     */
    virtual DigitalInput::EdgeTriggerState getDigitalData()
    {
+      if (NULL == mKernel) return DigitalInput::UP;
+
       // this can surely be optimized...
       Input* in = mKernel->getInput()->getInput( mAlias );
       DigitalInput* dig = dynamic_cast<DigitalInput*>( in );

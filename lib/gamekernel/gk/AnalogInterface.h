@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInterface.h,v $
-// Date modified: $Date: 2003-02-09 07:43:03 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2003-02-10 05:12:23 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -95,6 +95,8 @@ public:
     */
    virtual float getAnalogData()
    {
+      if (NULL == mKernel) return 0.0f;
+
       // this can surely be optimized...
       Input* in = mKernel->getInput()->getInput( mAlias );
       AnalogInput* ana = dynamic_cast<AnalogInput*>( in );
