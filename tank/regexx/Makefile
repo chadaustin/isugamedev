@@ -36,6 +36,9 @@ testapp: $(OBJS)
 	$(EXE_LINKER) $(EXE_FLAGS) $(OUTPUT_EXE_FLAG)testregexx$(EXE_FILE_SUFFIX) $(OBJS) $(LIB_FILENAME)
 
 clean:
+	$(MAKE) clean SRCS='$(SRCS1) $(SRCS2)'
+
+doclean:
 	-rm $(OBJS)
 	-rm -r ii_files
 	-rm $(LIB_FILENAME)

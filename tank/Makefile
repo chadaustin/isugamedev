@@ -54,7 +54,7 @@ endif
 include ${MK_DIR}/mk.objs
 
 ifeq ($(HOSTTYPE), Win32)
-   LIBS += regexx.lib Glut32.lib Glu32.lib OpenGL32.lib 
+   LIBS += .\\regexx\\regexx.lib Glut32.lib Glu32.lib OpenGL32.lib 
 else
    LIBS += -L./regexx -lregexx -lglut -lGLU -lGL -L/usr/X11R6/lib -lXmu -lXext -lX11 -lXi -lm
 endif
@@ -68,15 +68,15 @@ default:
 	@echo "Making TANK"
 	@echo "================="
 	@echo " "
-	$(MAKE) tank
-         
-tank: ${OBJS}
+	$(MAKE) USE_DEPEND='Y' tank
+
+tank: ${OBJS} imageIoReg.$(OBJ_FILE_SUFFIX)
 	@echo " "
 	@echo "----------------------"
 	@echo "Making TANK executable"
 	@echo "----------------------"
 	@echo " "
-	$(EXE_LINKER) $(EXE_FLAGS) ${OBJS} $(LINKALL_ON) imageIoReg.cxx $(LINKALL_OFF) $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIB_PATHS) $(LIBS)
+	$(EXE_LINKER) $(EXE_FLAGS) ${OBJS} $(LINKALL_ON) imageIoReg.$(OBJ_FILE_SUFFIX) $(LINKALL_OFF) $(OUTPUT_EXE_FLAG)$(EXE_FILENAME) $(LIB_PATHS) $(LIBS)
 
 
 
@@ -100,4 +100,6 @@ clean:
 	@echo " "
 	-rm -rf $(OBJS) $(FILENAME) ii_files
 
+ifeq (USE_DEPEND,Y)
 include ${MK_DIR}/mk.depend
+endif
