@@ -12,10 +12,11 @@ namespace dataxml{
 
 class Car{
 private:
-  std::string name;
+
   modlist mods;
 
 public:
+  std::string name;
   Car(std::string iname){
     name = iname;
   }

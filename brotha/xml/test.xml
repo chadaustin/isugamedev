@@ -20,19 +20,19 @@
   <gang name="brothaTeam">
     <info>the game's developers</info>
     <player name="chadO" password="p1">
-      <car name="tercel" />
+      <car cartype="tercel" />
     </player>
     <player name="chadA" password="p1">
-      <car name="civic" />
+      <car cartype="civic" />
     </player>
     <player name="ben" password="p4">
-      <car name="vrac simulator" />
+      <car cartype="vrac simulator" />
     </player>
     <player name ="josh" password="sup?">
-      <car name="civic" />
+      <car cartype="civic" />
     </player>
     <player name="jermy" password="note">
-      <car name="fiesta" />
+      <car cartype="fiesta" />
     </player>
   </gang>
   <cartype name="tercel" file="car.model" />

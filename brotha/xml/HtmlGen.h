@@ -50,7 +50,7 @@ namespace reports{
 					}
 					else if(state == 2){
 						carD = tem[0] - '0';
-						player = tem.substr(1,tem.size()-1);
+						car = tem.substr(1,tem.size()-1);
 						state++;
 					}
 
@@ -74,22 +74,29 @@ namespace reports{
 	std::string renderCarList(dataxml::carlist cl, request schema){
 	  std::ostringstream out;
 	  if(schema.carD == 1)
-		  out << "<table><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
+		  out << "<table border=1><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
 	  for(unsigned int i = 0; i < cl.size(); i++){
 		  dataxml::Car* c = cl[i];
-		  if(schema.car.find(c->getName())!=  std::string::npos || schema.car == "*"){
-			  if(schema.carD = 1){
-				  out << "<tr><td><img src=car.jpg></td><td>" << c->getName() << "</td><td>";
+		  if(schema.car.find(c->getName()) !=  std::string::npos || schema.car == "*"){
+			  if(schema.carD == 1){
+				  out << "<tr><td><img src=car.jpg></td><td>name:" << c->getName() << "</td><td>";
 				  out << c->getMods().size() << "</td></tr>";
 			  }
-			  if(schema.carD = 2){
-				  out << "<h3>" << c->getName() << "</h3>";
+			  if(schema.carD == 2){
+				  out << "<div class=\"car2\">";
+				  out << "<font size=+2>" << c->getName() << "<font>";
+				  out << "<table><tr><td valign=top>";
 				  out << "<div><img src=" << c->getName() << ".jpg></div>";
+				  out << "</td><td valign=top>";
 				  out << "<div>" << renderModList(c->getMods()) << "</div>";
+				  out << "</td></tr></table>";
+				  out << "</div>";
 			  }
 		  }
 	  }
-	  out << "</table>";
+	  if(schema.carD == 1){
+	    out << "</table>";
+	  }
 	  return out.str();
 	}
 
@@ -139,7 +146,9 @@ namespace reports{
 					html << "<table><tr><td valign=top>";
 					html << "<img src=\"" << p->getName() << ".jpg\"></td>";
 					html << "<td><h2>" << p->getName() << "</h2>";
+					html << "stats:<br>";
 					html << renderStatList(p->getStats());
+					html << "cars:<br>";
 					html << renderCarList(p->getCars(),schema);
 					html << "</td></table></div>";
 				}
@@ -155,7 +164,7 @@ namespace reports{
 
 	std::string renderModList(dataxml::modlist ml){
 		std::ostringstream html;
-		html << "<table>tr><th>mod</th><th>level</th></tr>";
+		html << "<table><tr><th>mod</th><th>level</th></tr>";
 		for(unsigned int i = 0; i < ml.size(); i++){
 			dataxml::Mod* m = ml[i];
 			html << "<tr><td>" << m->getType() << "</td><td>" << m->getLevel() << "</td></tr>";
@@ -173,6 +182,13 @@ namespace reports{
 		}
 		html << "</table>";
 		return html.str();
+	}
+
+	std::string inlineStyle(){
+		std::string CSS = "<style>";
+		CSS += "div.car2{background-color: white;}";
+		CSS += "</style>";
+		return CSS;
 	}
 
 }

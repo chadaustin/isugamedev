@@ -2,12 +2,14 @@
 //
 
 
-//
+/*/
 #define WIN32_LEAN_AND_MEAN		// Exclude rarely-used stuff from Windows headers
 #include <stdio.h>
 #include <tchar.h>
 
-//
+/*/
+
+#include <sstream>
 #include <iostream>
 #include "xmlpersist.h"
 #include "HtmlGen.h"
@@ -19,15 +21,20 @@ int main(int argc, char* argv[])
 	//dataxml::b.xMLify(std::cout);
 	//reports::request r("2*/2*/2*");
 	//r.print(std::cout);
-	std::cout << "some examples:<hr>";
-	std::cout << "2*/2*/2*<br>";
-	std::cout << reports::GenerateReport("2*/2*/2*");
-	std::cout << "<hr>1*/1*/1*<hr>";
-	std::cout << reports::GenerateReport("1*/1*/1*");
-	std::cout << "<hr>0*/2*/2*<hr>";
-	std::cout << reports::GenerateReport("0*/2*/2*");
-	std::cout << "<hr>0*/2reflect/0*<hr>";
-	std::cout << reports::GenerateReport("0*/2reflect/0*");
+	std::ostringstream zhende;
+	std::cout << "enter brothaPath code:";
+	std::string a;
+	std::cin >> a;
+	zhende << reports::inlineStyle();
+	zhende << "<font face=verdana><h1>Example:" << a << "</h1>";
+	zhende << "<hr><pre>";
+	reports::request r(a);
+	r.print(zhende);
+	zhende << "</pre><hr>";
+	zhende << reports::GenerateReport(a);
+	std::ofstream f("test.htm");
+	f << zhende.str();
+	f.close();
  	return 0;   
 }
 
