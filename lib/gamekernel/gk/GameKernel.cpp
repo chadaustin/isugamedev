@@ -1,56 +1,56 @@
 #include "GameKernel.h"
 
-   GameKernel::GameKernel()
-      : mDriver( NULL )
-   {
-   }
+GameKernel::GameKernel()
+   : mDriver( NULL )
+{
+}
 
-   void GameKernel::warpMouse( int x, int y )
-   {
-      mDriver->warpMouse( x, y );
-   }
+void GameKernel::warpMouse( int x, int y )
+{
+   mDriver->warpMouse( x, y );
+}
 
-   void GameKernel::showMouse( bool show )
-   {
-      mDriver->showMouse( show );
-   }
+void GameKernel::showMouse( bool show )
+{
+   mDriver->showMouse( show );
+}
 
-   /* go fullscreen
-    */
-   void GameKernel::fullscreen( int ctx = 0 )
-   {
-      mDriver->fullscreen();
-   }
+/* go fullscreen
+ */
+void GameKernel::fullscreen( int ctx = 0 )
+{
+   mDriver->fullscreen();
+}
 
-   /* get the window size */
-   void GameKernel::getWindowSize( int& width, int& height, int ctx = 0 )
-   {
-      mDriver->getWindowSize( width, height, ctx );
-   }
-   /* for resize of the window
-    * i.e. use this to restore after a full screen
-    *      use this to init the window size in OnAppInit
-    */
-   void GameKernel::setWindowSize( int width, int height, int ctx = 0 )
-   {
-      mDriver->setWindowSize( width, height, ctx );
-   }
+/* get the window size */
+void GameKernel::getWindowSize( int& width, int& height, int ctx = 0 )
+{
+   mDriver->getWindowSize( width, height, ctx );
+}
+/* for resize of the window
+ * i.e. use this to restore after a full screen
+ *      use this to init the window size in OnAppInit
+ */
+void GameKernel::setWindowSize( int width, int height, int ctx = 0 )
+{
+   mDriver->setWindowSize( width, height, ctx );
+}
 
-   void GameKernel::setName( const std::string& name )
-   {
-      mDriver->setName( name );
-   }
+void GameKernel::setName( const std::string& name )
+{
+   mDriver->setName( name );
+}
 
-   const std::string& GameKernel::name() const
-   {
-      return mDriver->name();
-   }
+const std::string& GameKernel::name() const
+{
+   return mDriver->name();
+}
 
-   std::vector<GameApp*>& GameKernel::applications()
-   {
-      static std::vector<GameApp*> registered_applications;
-      return registered_applications;
-   }
+std::vector<GameApp*>& GameKernel::applications()
+{
+   static std::vector<GameApp*> registered_applications;
+   return registered_applications;
+}
 
 bool GameKernel::startup( SystemDriver* driver )
 {
