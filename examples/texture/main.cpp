@@ -257,6 +257,14 @@ void onKeyboardDown(unsigned char key, int x, int y)
    case 'd':
       gDebugEnabled = ! gDebugEnabled;
       break;
+   case 's':
+      // do smooth shading
+      glShadeModel(GL_SMOOTH);
+      break;
+   case 'f':
+      // do flat shading
+      glShadeModel(GL_FLAT);
+      break;
    default:
       // do nothing if no key is pressed
       break;
