@@ -18,6 +18,7 @@ SRCS = \
    Entity.cxx \
    FileHandler.cxx \
    Geode.cxx \
+   GeodeCache.cxx \
    glRenderLight.cxx \
    Image.cxx \
    ImageManager.cxx \

@@ -10,7 +10,7 @@ namespace kev
    //: Renders the given geode and all of its container geosets.
    inline void glRenderGeode( const Geode *geode )
    {
-      assert( geode != NULL && "glRenderGeode was given a NULL geode ptr" );
+      assert( geode && "glRenderGeode was given a NULL geode ptr" );
       glRenderGeoSets( geode->getGeoSets() );
    }
 }

@@ -7,7 +7,7 @@
 #include "glRenderMaterial.h"
 #include "ImageManager.h"
 
-#include "ObjImporter.h"
+#include "GeodeCache.h"
 #include "glRenderGeode.h"
 #include "convert.h"
 
@@ -34,12 +34,11 @@ public:
       ini.getKey( "tank", "weapon0", weapon0, result );
       assert( result );
 
-      kev::ObjImporter obj;
-      mBodyGeometry = new Geode();
-      obj.load( mBodyGeometry, filename );
+      mBodyGeometry = NULL;
+      GeodeCache::instance().load( mBodyGeometry, filename );
       assert( mBodyGeometry->getNumGeoSets() > 0 && "load failed" );
-      mWeapon0Geometry = new Geode();
-      obj.load( mWeapon0Geometry, weapon0 );
+      
+      GeodeCache::instance().load( mWeapon0Geometry, weapon0 );
       assert( mWeapon0Geometry->getNumGeoSets() > 0 && "load failed" );
    }
    

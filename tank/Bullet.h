@@ -9,7 +9,7 @@
 
 #include "glRenderTexture.h"
 #include "ImageManager.h"
-#include "ObjImporter.h"
+#include "GeodeCache.h"
 #include "Geode.h"
 #include "glRenderGeode.h"
 
@@ -32,8 +32,7 @@ public:
       mLight.setAtten( 1.0f, 0.001f );
       mLight.on();
 
-      kev::ObjImporter obj;
-      obj.load( mGeometry, "models/bullet.obj" );
+      GeodeCache::instance().load( mGeometry, "models/bullet.obj" );
    }
 
    ~Bullet()

@@ -8,9 +8,9 @@
 #include <iostream>
 #include <stdlib.h>
 
-#include "glRenderLight.h"
 #include "TankGame.h"
 #include "AudioSystemFactory.h"
+#include "GeodeCache.h"
 
 //: App width/height
 static float sWidth = 640.0f;
@@ -119,11 +119,9 @@ OnApplicationInit()
    light.on();
    game->getWorld().setLight( light );
 
-   kev::ObjImporter importer;
-   safe_ptr<Geode> geom = new Geode;
-
    //Load our tank model
-   importer.load( geom, "models/ship.obj" );
+   safe_ptr<Geode> geom = NULL;
+   GeodeCache::instance().load( geom, "models/ship.obj" );
 
    Entity *entity = new Entity();
    entity->setGeode( geom );
