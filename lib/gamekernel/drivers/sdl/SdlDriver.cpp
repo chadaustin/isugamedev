@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-03-12 02:18:48 $
-// Version:       $Revision: 1.25 $
+// Date modified: $Date: 2003-08-29 05:19:25 $
+// Version:       $Revision: 1.26 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -363,8 +363,17 @@ void SdlDriver::handleEvent()
 		case SDL_KEYDOWN:
 			onKeyDown();
 			break;
+      //case SDL_VIDEOEXPOSE:
+      //   break;
+      //case SDL_APPACTIVE:
+      //   break;
 		case SDL_VIDEORESIZE:
-			setWindowSize(mEvent.resize.w, mEvent.resize.h);
+         // prevent a surface that is too small
+         std::cout << "Resizing: " << mEvent.resize.w << " " << mEvent.resize.h << std::endl;
+         if (mEvent.resize.w > 1 && mEvent.resize.h > 1)
+         {
+			   //setWindowSize(mEvent.resize.w, mEvent.resize.h);
+         }
 			break;
 		case SDL_MOUSEMOTION:
 			onMouseMove();
