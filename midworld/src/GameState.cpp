@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-02 07:49:03 $
- * Version:       $Revision: 1.42 $
+ * Date modified: $Date: 2002-10-02 09:05:06 $
+ * Version:       $Revision: 1.43 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -349,7 +349,6 @@ namespace mw
 
       glPushMatrix();
          mCamera.draw();
-         mPlayer.draw();
          mGameScene.draw();
 
          // Make sure we clean up after OpenSG until they fix their bugs
