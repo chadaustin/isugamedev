@@ -18,6 +18,11 @@ ifeq ($(HOSTTYPE), IRIX)
 HOSTTYPE=irix
 endif
 
+# Cygwin / Windows 2000
+ifeq ($(HOSTTYPE), CYGWIN_NT-5.0)
+HOSTTYPE=Win32
+endif
+
 # win98 second edition (4.10)
 ifeq ($(HOSTTYPE), CYGWIN_98-4.10)
 HOSTTYPE=Win32
