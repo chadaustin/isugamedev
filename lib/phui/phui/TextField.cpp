@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-05-01 18:40:02 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -142,6 +142,8 @@ namespace phui {
          toAdd+=(char)(key-KEY_A)+'a';
       } else if(key >= KEY_0 && key <= KEY_9) {
          toAdd+=(char)(key-KEY_0)+'0';
+      } else if(key == KEY_PERIOD) {
+         toAdd+='.';
       }
 
       if(!toAdd.empty()) {
