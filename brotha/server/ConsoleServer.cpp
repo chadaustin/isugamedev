@@ -33,7 +33,7 @@ bool processcmd(const std::string& cmd) {
       println("stopserver, stop        - stop brothaserva");
       println("startwebserver, startws - start webserva");
       println("stopwebserver, stopws   - stop webserva");
-      println("help, quit              - exit server");
+      println("exit, quit              - exit server");
       println("");
       println("You may also pass commands as arguments to the program.");
       println("");
