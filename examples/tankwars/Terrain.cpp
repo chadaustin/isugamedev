@@ -12,12 +12,18 @@ Terrain::Terrain()
 {
 	xsize = 5.0f;
 	zsize = 5.0f;
+	xPos = 0.0;
+	zPos = 0.0;
+
+	extents = 28.0;
 }
 
 Terrain::~Terrain()
 {
 
 }
+
+
 
 void Terrain::draw()
 {

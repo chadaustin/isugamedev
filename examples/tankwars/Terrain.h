@@ -31,10 +31,17 @@ public:
 
 	GLuint *terrainTex;
 
+	GLfloat getX() {return xPos;};
+	GLfloat getZ() {return zPos;};
+	GLfloat getExtents() {return extents;};
+
 private:
 
 	GLfloat xsize;
 	GLfloat zsize;
+	GLfloat xPos;
+	GLfloat zPos;
+	GLfloat extents;
 
 };
 
