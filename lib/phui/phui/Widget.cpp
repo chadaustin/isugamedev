@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2002-04-22 04:34:36 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-22 05:07:20 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -147,9 +147,9 @@ namespace phui
 
    bool Widget::contains(const Point& p) const
    {
-      int x = p.x;
-      int y = p.y;
-      return ((x >= 0) && (y >= 0) && (x < mWidth) && (y < mHeight));
+      Point s = p - getPosition();
+      return (s.x >= 0 && s.x < mWidth &&
+              s.y >= 0 && s.y < mHeight);
    }
 
    Point Widget::getScreenPosition() const

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-22 04:34:36 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-22 05:07:20 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -196,7 +196,13 @@ int main(int argc, char** argv) {
       window->setPosition(150, 75);
       window->setSize(300, 250);
       window->setVisible(true);
-      window->setBackgroundColor(phui::Colorf(1, 0, 0, 0.5f));
+      window->setBackgroundColor(phui::Colorf(1, 0, 0, 0.75f));
+
+      phui::Window* wnd(new phui::Window());
+      wnd->setPosition(250, 175);
+      wnd->setSize(300, 250);
+      wnd->setVisible(true);
+      wnd->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
 
       phui::Button* button(new phui::Button("Icky"));
       button->setPosition(75, 100);
@@ -206,6 +212,7 @@ int main(int argc, char** argv) {
       window->add(button);
 
       gRoot->add(window);
+      gRoot->add(wnd);
 
       glutMainLoop();
    }

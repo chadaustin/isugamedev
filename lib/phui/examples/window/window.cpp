@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-04-15 19:59:13 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-22 05:07:20 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -131,7 +131,13 @@ int main( int argc, char** argv )
       gWnd->setPosition( 150, 75 );
       gWnd->setSize( 300, 250 );
       gWnd->setVisible( true );
-      gWnd->setBackgroundColor( phui::Colorf(1,0,0,0.5) );
+      gWnd->setBackgroundColor(phui::Colorf(1, 0, 0, 0.75f));
+
+      phui::Window* window = new phui::Window("other window");
+      window->setPosition(250, 175);
+      window->setSize(300, 250);
+      window->setVisible(true);
+      window->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
 
       phui::Button* btn( new phui::Button("Push me!") );
       btn->setPosition( 10, 10 );
@@ -141,6 +147,7 @@ int main( int argc, char** argv )
       gWnd->add( btn );
 
       gUI->add( gWnd );
+      gUI->add( window );
 
       glutMainLoop();
    

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-04-22 04:49:15 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-22 05:07:20 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -67,7 +67,8 @@ namespace phui {
 
    void WidgetContainer::draw() {
       // draw all children to this widget
-      for (size_t i = 0; i < mWidgets.size(); ++i) {
+      // draw them backwards so it's from the back to the front, visually
+      for (int i = int(mWidgets.size()) - 1; i >= 0; --i) {
          Widget* wgt = mWidgets[i];
          Point pos = wgt->getPosition();
 
@@ -141,7 +142,6 @@ namespace phui {
    Widget* WidgetContainer::getWidgetAt(const Point& p) {
       for (size_t i = 0; i < mWidgets.size(); ++i) {
          if (mWidgets[i]->contains(p)) {
-            std::cout << i << " " << mWidgets[i] << std::endl;
             return mWidgets[i];
          }
       }
