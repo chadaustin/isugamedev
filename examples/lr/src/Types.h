@@ -10,6 +10,12 @@ namespace lr
     */
    enum positionType {empty, brick, ladder, wire};
 
+   /**
+    * an enumeration for the various states the player could be in
+    */
+   enum playerState {runRight, runLeft, climbRight, climbLeft, hangRight, hangLeft};
+
+   enum textureState {run1, run2, climb1, climb2, hang1, hang2};
    
    // typedefs for a bunch of the major sizes in c++
    typedef   signed char      i8;

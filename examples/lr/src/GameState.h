@@ -8,7 +8,9 @@
 namespace lr
 {
    class Application;
-   
+   class Level;
+   class Player;
+   class Texture;
 
    class GameState : public State
    {
@@ -29,7 +31,7 @@ namespace lr
        */
       void update(float dt);
 
-      /** 
+      /** libs
        * overload the draw method from State
        */
       void draw();
@@ -43,7 +45,8 @@ namespace lr
       void switchStates();
       
    private:
-      
+      Level* mLevel;
+      Player* mPlayer;
    };
 
 } // end namespace

@@ -43,6 +43,13 @@ namespace lr
        */
       positionType mLevel[32][24];
 
+      /**
+       * various textures that we need
+       */
+      Texture* brickImage;
+      Texture* ladderImage;
+      Texture* wireImage;
+
    };
 
 

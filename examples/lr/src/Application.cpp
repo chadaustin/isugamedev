@@ -12,7 +12,7 @@ namespace lr
    {
       intro = new IntroState(this);
       game = new GameState(this);
-      currentState = intro;
+      currentState = game;
    }
 
    Application::~Application()

@@ -14,6 +14,7 @@ classes = Split("""
    IntroState
    Level
    GameState
+   Player
    State
    Texture
 """)
