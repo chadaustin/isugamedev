@@ -1,0 +1,15 @@
+#Import('env')
+
+headers = [
+]
+
+sources = [
+   'window'
+]
+
+# add proper extensions to filenames
+headers = map(lambda fn: fn + '.h', headers)
+sources = map(lambda fn: fn + '.cpp', sources)
+
+env = Environment(CPPPATH='#', LIBPATH='#phui', LIBS=['phui', 'glut', 'GLU', 'GL'])
+env.Program(target = 'window', source = headers + sources)
