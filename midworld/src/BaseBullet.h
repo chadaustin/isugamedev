@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.h,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-14 11:28:12 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -65,7 +65,7 @@ namespace mw
       }
       
       void setSource(const std::string& source) { mSource = source; }
-      const std::string& getSource() { return mSource; }
+      const std::string& getSource() const { return mSource; }
 
    protected:
       /// The amount of time that this bullet has existed in the GameState
