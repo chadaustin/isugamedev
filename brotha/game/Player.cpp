@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-03-26 20:45:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-26 21:31:58 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,15 +43,23 @@
 Player::Player()
    : mName("Player")
 {
+   mUID = UIDManager<Player>::getInstance().reserveID();
 }
 
 Player::Player( const std::string& name )
    : mName(name)
 {
+   mUID = UIDManager<Player>::getInstance().reserveID();
 }
 
 Player::~Player()
 {
+   UIDManager<Player>::getInstance().releaseID( mUID );
+}
+
+const Player::UID& Player::getUID() const
+{
+   return mUID;
 }
 
 const std::string& Player::getName() const
