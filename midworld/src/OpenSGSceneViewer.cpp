@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-10-30 06:52:07 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-03 08:02:44 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -220,10 +220,10 @@ namespace mw
          }
       }
 
-      if (matches.size() > 1)
-      {
-         std::cout<<"Found "<<matches.size()<<" intersections"<<std::endl;
-      }
+//      if (matches.size() > 1)
+//      {
+//         std::cout<<"Found "<<matches.size()<<" intersections"<<std::endl;
+//      }
 
       return matches;
    }
