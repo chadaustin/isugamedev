@@ -19,6 +19,9 @@
  *  @section Philosophy Philosophy
  *  The philosophy of isym is to create locally unique symbols for use in 
  *  input systems for virtual environments (games, vr, etc..).
+ *  This symbol table should be extendable, meaning that 3rd party libs
+ *  and applications should be able to add their own symbols to isym without
+ *  recompiling isym.
  *
  *  @section Extendability Extendability
  *  Using the getUID() function you can extend isym with your own unique IDs.
