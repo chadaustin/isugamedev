@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.h,v $
- * Date modified: $Date: 2002-08-14 20:28:43 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-09-08 22:17:45 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,7 @@
 #include <gmtl/EulerAngle.h>
 #include "BaseProjectileWeapon.h"
 #include "BaseBullet.h"
+#include "GameManager.h"
 
 namespace mw
 {
@@ -102,6 +103,11 @@ namespace mw
          g.add( bullet0 );
          g.add( bullet1 );
          g.add( bullet2 );
+
+         // Do the sound effect
+         SoundEffectManager* sfxmgr = GameManager::instance().getSoundManager()->
+                                          getSoundEffectManager();
+         sfxmgr->playSound("sfx/spreadgun.wav");
       }
 
       void ejectCasing(GameState& g)
