@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameApp.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-22 05:14:09 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -40,41 +40,84 @@
 
 namespace gk {
 
-/* Base game application class.  for use with the "GameKernel"
- * don't modify this class... instead derive a class "MyApp" from this,
- *  and overload the virtual members.
- *  Derivation goes like this:
+/**
+ * Base game application class for use with the GameKernel. Application writers
+ * should derive a class from this and overload the virtual members.
  *
- *      class MyApp : public GameApp
+ * <h4>Example GameApp Derivation</h4>
+ * \code
+ *    class MyApp : public GameApp
+ *    {
+ *       virtual ~MyAp();
+ *       virtual void OnContextDraw( int context );
+ *       virtual void OnPreFrame();
+ *       // other overridden functions if necessary...
+ *    };
+ * \endcode
  */
 class GameApp
 {
-public:
+protected:
+   /**
+    * This class is abstract, you should derive from GameApp instead.
+    */
    GameApp() {}
+
+public:
+   /**
+    * Destroys this game application object. Implementations should remember to
+    * implement a virtual destructor so destruction works correctly.
+    */
    virtual ~GameApp() {}
 
-   /*  draw function, called each frame once per window */
+   /**
+    * This is the draw function. The GameKernel calls this each frame once per
+    * window. The context is used to support multiple windows such as what you
+    * might find in a VR environment. For PC applications, this can be ignored.
+    *
+    * @param context    the current OpenGL context
+    */
    virtual void OnContextDraw( int context = 0 ) {}
 
-   /*  called before draw */
+   /**
+    * This is called immediately before onContextDraw(). You may do any
+    * application specific pre-frame processing within this function.
+    */
    virtual void OnPreFrame() {}
 
-   /*  called during draw (on some platforms..) */
+   /**
+    * This is called during a call to onContextDraw if the GameKernel driver is
+    * multi-threaded. Otherwise it's call time is unspecified and may happen
+    * either before or after a draw.
+    */
    virtual void OnIntraFrame() {}
 
-   /*  called after draw */
+   /**
+    * This is called immediately after onContextDraw(). You may do any
+    * application specific post-frame processing within this function.
+    */
    virtual void OnPostFrame() {}
 
 // Init methods
 public:
-   /* called before any windows are opened */
+   /**
+    * This is called by the GameKernel after the system driver is initialized
+    * but before it is started. This function is called before any windows are
+    * opened, thus it is NOT safe to make any OpenGL calls within this function.
+    */
    virtual void OnAppInit() {}
 
-   /* called once for each window */
-   virtual void OnContextInit() {};
+   /**
+    * This is called once for each context (window) after the window has been
+    * opened, but before the onContextDraw().
+    */
+   virtual void OnContextInit() {}
 
-   /* called on each window exit */
-   virtual void OnContextExit() {};
+   /**
+    * This is called once for each context (window) immediately before the
+    * window has been closed.
+    */
+   virtual void OnContextExit() {}
 };
 
 } // namespace gk
