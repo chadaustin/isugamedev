@@ -8,9 +8,9 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Image.cxx,v $
-//    $Date: 2001-09-10 15:27:29 $
-//    $Revision: 1.1 $
-//    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
+//    $Date: 2001-09-10 15:38:54 $
+//    $Revision: 1.2 $
+//    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
 //    modify it under the terms of the GNU Library General Public
@@ -29,7 +29,6 @@
 ///////////////// <auto-copyright END do not edit this line> ///////////////////
 #include <math.h>
 #include <iostream>
-#include <Defines.h>
 #include <assert.h>
 
 #include "Image.h"
