@@ -7,6 +7,7 @@
 #include "GameScene.h"
 #include "Camera.h"
 #include "Player.h"
+#include "IntroState.h"
 
 namespace mw
 {
@@ -14,7 +15,7 @@ namespace mw
    class GameState : public State
    {
    public:
-      GameState() : mSpeed( 0 )
+      GameState() : mSpeed( 150 )
       {
       }
       
@@ -67,11 +68,11 @@ namespace mw
          // map keys to events... yay.
          switch (sym)
          {
-         case SDLK_m: case SDLK_UP:
+         case SDLK_w: case SDLK_UP:
             mAccelerate = down;
             break;
          case SDLK_ESCAPE: case SDLK_q:
-            quit();
+            if (down) this->invokeTransition( new IntroState ); 
             break;
          }
       }
