@@ -9,6 +9,7 @@
 
 namespace reports {
    std::string urlBase = "http://hatori42.com/wb/";
+   std::string inlineStyle();
 
    class request {
    public:
@@ -19,6 +20,7 @@ namespace reports {
       std::string gang;
       std::string player;
       std::string car;
+	  std::string err;
 
       request(std::string brothaPath) {
          valid = false;
@@ -35,10 +37,12 @@ namespace reports {
             else{
                if (state == 0) {
                   if (tem.size() < 2) {
+					  err = "gang path to short";
                      break;
                   }
                   gangD = tem[0] - '0';
-                  if (tem[0] < 0 || tem[0] > 3) {
+                  if (gangD < 0 || gangD > 3) {
+					  err = "invalid level in gang part";
                      break;
                   }
                   gang = tem.substr(1,tem.size()-1);
@@ -47,10 +51,12 @@ namespace reports {
                }
                else if (state == 1) {
                   if (tem.size() < 2) {
+					  err = "player path to short";
                      break;
                   }
                   playerD = tem[0] - '0';
-                  if (tem[0] < 0 || tem[0] > 3) {
+                  if (playerD < 0 || playerD > 3) {
+					  err = "invalid level on player";
                      break;
                   }
                   player = tem.substr(1,tem.size()-1);
@@ -59,10 +65,11 @@ namespace reports {
                }
                else if (state == 2) {
                   if (tem.size() < 2) {
+					  err = "carpath to short";
                      break;
                   }
                   carD = tem[0] - '0';
-                  if (tem[0] < 0 || tem[0] > 3) {
+				  if (carD < 0 || carD > 3) {
                      break;
                   }
                   car = tem.substr(1,tem.size()-1);
@@ -100,7 +107,7 @@ namespace reports {
       reports::request r(query);
       if (r.valid) {
          data::ganglist gl = data::b.getGangList();
-         return renderGangList(gl,r);
+         return inlineStyle() +  renderGangList(gl,r);
       }
       return "error";
 
@@ -147,15 +154,22 @@ namespace reports {
          data::Gang* g = gl[i];
          if (schema.gang.find(g->getName())!= std::string::npos || schema.gang == "*") {
             if (schema.gangD == 2) {
+			   html << "<div class=\"gang2\">";
                html << "<h1>" + g->getName() + "</h1>";
                html << "<div class=\"ganginfo\">" << g->getInfo() << "</div>";
                html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
+			   html << "<div class=\"playerlist\">";
+			   html << renderPlayerList(g->getPlayerList(), schema);
+			   html << "</div>"
+			   html << "</div>";
             }
-            if (schema.gangD == 1) {
+            else if (schema.gangD == 1) {
                html << "<h1>" << g->getName() << "</h1>";
+			   html << renderPlayerList(g->getPlayerList(), schema);
 
             }
-            html << renderPlayerList(g->getPlayerList(), schema);
+			else
+			   html << renderPlayerList(g->getPlayerList(), schema);
          }
       }
       return html.str();
@@ -227,9 +241,9 @@ namespace reports {
    }
 
    std::string inlineStyle() {
-      std::string CSS = "<style>";
-      CSS += "div.car2{background-color: white;}";
-      CSS += "</style>";
+      std::string CSS = "";
+      CSS += "<link rel=\"STYLESHEET\" type=\"text/css\" href=\"http://hatori42.com/br.css\" />";
+      CSS += "";
       return CSS;
    }
 
