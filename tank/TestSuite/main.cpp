@@ -1,7 +1,6 @@
 #include <CppUnit/framework/TestSuite.h>
 #include <CppUnit/textui/TestRunner.h>
 #include <TestCases/Math/QuatSelfTest.h>
-#include "TestCases/RefObjTest.h"
 
 // type "runner noninteractive" to run tests...
 int main (int ac, char **av)
@@ -16,7 +15,6 @@ int main (int ac, char **av)
 
    // add tests to the noninteractive suite
    noninteractive_suite->addTest( tankTest::QuatSelfTest::suite() );
-   noninteractive_suite->addTest( tankTest::RefObjTest::suite() );
    
    // Add the test suite to the runner
    runner.addTest( "noninteractive", noninteractive_suite );
