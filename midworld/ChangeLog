@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-06-10 subatomic    Render player/camera, steer with mouse like abuse
 2002-06-09 aegis        Main menu and good transitions
 2002-06-09 nonchocoboy  Play theme music in the intro!
 2002-06-09 aegis        State architecture
