@@ -3,8 +3,10 @@ pj = os.path.join
 
 Import('GetPlatform')
 
-builddir = 'build.' + GetPlatform()
-BuildDir(builddir, 'sdl')
+#builddir = 'build.' + GetPlatform()
 
-SConscript(dirs = builddir)
+#BuildDir(builddir, 'sdl', 0)
+SConscript('sdl/SConscript')
 
+#BuildDir(builddir, 'glut', 0)
+SConscript('glut/SConsctipt')

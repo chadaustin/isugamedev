@@ -4,25 +4,21 @@ pj = os.path.join
 Import('pkg baseEnv PREFIX GetPlatform')
 
 headers = Split("""
-SdlDriver.h
+Grid.h
 """)
 
 sources = Split("""
-SdlDriver.cpp
+main.cpp
 """)
 
 env = baseEnv.Copy()
 env.Append(CPPPATH = Split('# #gk #cppdom #external/xdl'),
            LIBPATH = Split('#cppdom/cppdom #gk /usr/local/lib'),
-           LIBS = Split('cppdom SDL gk') )
+           LIBS = Split('SDL gk cppdom opengl32 glu32') )
 
 if GetPlatform() == 'irix':
    env['SHCXXFLAGS'] = '${CXXFLAGS}'
 
-#lib = pkg.createStaticLibrary('sdl.gk', env)
 
-lib = pkg.createSharedLibrary('sdl.gk', env)
-lib.addSources(sources)
-lib.addHeaders(headers, 'sdl.gk')
-
+env.Program('input', sources)
 

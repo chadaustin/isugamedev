@@ -1,0 +1,10 @@
+import os
+pj = os.path.join
+
+Import('GetPlatform')
+
+builddir = 'build.' + GetPlatform()
+BuildDir(builddir, 'input')
+
+SConscript(dirs = builddir)
+
