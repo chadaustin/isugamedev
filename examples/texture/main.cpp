@@ -20,8 +20,19 @@ int gRot[] = {0,0,0};
 // Array of texture object pointers
 Texture* gTextures[6];
 
-// Flag so we can toggle the drawing of the texture
+// Flag so we can toggle the drawing of the textures
 bool gTexturesEnabled = true;
+
+// Out light's properties
+GLfloat gDiffuse[] = {1, 1, 1, 0};     // diffuse
+GLfloat gSpecular[] = {0.5f, 0, 0, 1}; // specular
+GLfloat gLightPos[] = {5, 5, -5, 1};   // position
+
+// The ambient light for the scene
+GLfloat gAmbient[] = {0.3f, 0.3f, 0.3f};
+
+// Flag so we can toggle lighting
+bool gLightsEnabled = true;
 
 //-----------------------------------------------------------------------------
 
@@ -185,6 +196,17 @@ void onKeyboardDown(unsigned char key, int x, int y)
    case 't':
       gTexturesEnabled = ! gTexturesEnabled;
       break;
+   case 'l':
+      gLightsEnabled = ! gLightsEnabled;
+      if (gLightsEnabled)
+      {
+         glEnable(GL_LIGHTING);
+      }
+      else
+      {
+         glDisable(GL_LIGHTING);
+      }
+      break;
    default:
       // do nothing if no key is pressed
       break;
@@ -246,6 +268,17 @@ void main(int argc, char** argv)
    gTextures[3] = new Texture("face3.tga");
    gTextures[4] = new Texture("face4.tga");
    gTextures[5] = new Texture("face5.tga");
+
+   // Setup our one light
+   glLightfv(GL_LIGHT0, GL_DIFFUSE, gDiffuse);
+   glLightfv(GL_LIGHT0, GL_SPECULAR, gSpecular);
+   glLightfv(GL_LIGHT0, GL_POSITION, gLightPos);
+
+   // Set the global ambience
+   glLightModelfv(GL_LIGHT_MODEL_AMBIENT, gAmbient);
+   glEnable(GL_LIGHT0);
+
+   glEnable(GL_LIGHTING);
 
    // here we go. wheee ....
    glutMainLoop();
