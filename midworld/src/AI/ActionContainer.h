@@ -1,19 +1,21 @@
-#ifndef ACTIONCON
-#define ACTIONCON
+#ifndef MW_ACTION_CONTAINER_H
+#define MW_ACTION_CONTAINER_H
 
 
 #include <iostream>
 
+
+namespace mw{
 
 /**
  * this class is a container class for a single action for an object to perform
  * either through a reactionary behavior (an instinct) or an assignment behavior 
  * (a behavior).
  */
-class ActionContainer
+class actionContainer
 {
 public:
-   ActionContainer(){};
+   actionContainer(){};
 
    /** 
     * as a user of this system when you create concrete classes with 
@@ -21,12 +23,14 @@ public:
     * call with your own action, which will be the action that is performed
     */
     
-   virtual void Perform()
+   virtual void perform()
    {
-      std::cout << "default Action - you didn't override this did you" << std::endl;  
+      std::cout << "actionContainer::perform - debug output" << std::endl;  
    }
 
 private:
 };
+
+}
 
 #endif

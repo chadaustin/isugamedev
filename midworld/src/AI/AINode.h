@@ -9,10 +9,15 @@
 #include "InstinctManager.h"
 #include <math.h>
 #include <iostream>
+#include <string>
 #include "BehaviorMachine.h"
 #include "Instinct.h"
 #include "Action.h"
 #include "AIManager.h"
+#include "../EnemyUnit.h"
+
+namespace mw
+{
 
 
 /**
@@ -113,6 +118,26 @@ public:
     */ 
    Action* MyAction; 
 
+   virtual void attachUnit(EnemyUnit* mEnemyUnit)
+   {
+      myUnit = mEnemyUnit;
+   }
+
+   virtual EnemyUnit* getUnit()
+   {
+      return myUnit;
+   }
+   
+   
+private:
+   /**
+    * this is the handle to the Unit.
+    */
+   EnemyUnit* myUnit;
+
+   
 };
+
+}
 
 #endif

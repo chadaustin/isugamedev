@@ -1,27 +1,61 @@
-#ifndef BEHAVIOR
-#define BEHAVIOR
+#ifndef MW_BEHAVIOR_H
+#define MW_BEHAVIOR_H
 
 #include <iostream>
 #include "ActionContainer.h"
+#include "TestActionContainer.h"
 
+namespace mw
+{
+
+/**
+ * Base behavior class
+ */
 class Behavior 
 {
 public:
    Behavior(){};
-   
-   virtual void AddActionContainer(ActionContainer* AC)
+    
+   virtual void addActionContainer(actionContainer* AC)
    {
-      Actions = AC;
+      actions.push_back(AC);
    }
-   ActionContainer* GetAction(){
-      return Actions;
+
+   /**
+    * TODO: reimplement this function so that it handles multiple actions
+    */
+   std::vector<actionContainer*> getAction(){
+      return actions;
    }
 
 private:
-   ActionContainer* Actions;
+   std::vector<actionContainer*> actions;
 };
 
+/**
+ * testBehavior class is used in an instinct function
+ * the user of the system should add the testactioncontainer for the
+ * test they are performing.
+ */
+class testBehavior
+{
+public:
+   testBehavior(){};
 
+   virtual void addTestActionContainer(testActionContainer TAC)
+   {
+      testAction = TAC;
+   }
+
+   bool test()
+   {
+      return testAction.perform();
+   }
+private:
+   testActionContainer testAction;
+};
+
+/*
 class BehaviorFactory
 {
 public:
@@ -36,9 +70,9 @@ public:
       return new ActionContainer;
    }
 };
+*/
 
-
-
+/*
 Behavior* CreateBehavior(BehaviorFactory &Factory){
    Behavior* TheBehavior = Factory.MakeBehavior();
    ActionContainer* TheAction = Factory.MakeActionContainer();
@@ -46,8 +80,8 @@ Behavior* CreateBehavior(BehaviorFactory &Factory){
    return TheBehavior;
 }
 
-
-
+*/
+}
 
 
 #endif

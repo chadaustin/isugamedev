@@ -7,6 +7,9 @@
 #include "AINode.h"
 
 
+namespace mw
+{
+
 class Action : public Observer
 {
 public:
@@ -24,7 +27,7 @@ public:
    /**
     * observer function for updating me of changes to the AiQueue
     * but we don't care when we recieve update we only update it
-    * it overrides observer base class operation
+    * this method overrides observer base class operation
     *
     * So what I need to do is peek at the first element in the queue
     * and start performing that behavior.
@@ -33,10 +36,10 @@ public:
    {
       if (_subject->Size() == 1)
       {
-         _subject->Peek().GetAction()->Perform();
+         _subject->Peek().getAction().front()->perform();
       }else
       {
-         _subject->Peek().GetAction()->Perform();
+         _subject->Peek().getAction().front()->perform();
          _subject->Pop();         
       }
    }    
@@ -47,6 +50,6 @@ private:
    
 };
 
-
+}
 
 #endif
