@@ -1,6 +1,7 @@
 #include "GameApp.h"      // the base application type
 #include "GameKernel.h"
 #include "GameInput.h"
+#include "DigitalInterface.h"
            
 #include "Grid.h"
                   
@@ -10,6 +11,13 @@ public:
    virtual void OnAppInit()
    {
       GameKernel::instance().setName( "Aki's Quest" );
+      mQuit.init( "Quit" );
+      mAccelerate.init( "Accelerate" );
+      
+      GameInput::instance().bind( "Quit", "Keyboard", "KEY_Q" );
+      GameInput::instance().bind( "Quit", "Keyboard", "KEY_q" );
+      GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_SPACE" );
+      GameInput::instance().bind( "Accelerate", "Mouse", "MOUSEBUTTON_LEFT" );
    }
    
    virtual void OnContextInit()
@@ -45,21 +53,18 @@ public:
    
    virtual void OnPostFrame()
    {
-      if (GameInput::instance().keyboard().button( Keyboard::ESC ).edgeState() == DigitalInput::DOWN ||
-          GameInput::instance().keyboard().button( Keyboard::Q ).edgeState() == DigitalInput::DOWN || 
-          GameInput::instance().keyboard().button( Keyboard::q ).edgeState() == DigitalInput::DOWN)
+      if (mQuit.getDigitalData() == DigitalInput::DOWN)
       {
          GameKernel::instance().shutdown();
       }     
       
-      std::cout<< "Mouse: "
-               << GameInput::instance().mouse().button( Mouse::LEFT ).edgeState() << " "
-               << GameInput::instance().mouse().button( Mouse::MIDDLE ).edgeState() << " "
-               << GameInput::instance().mouse().button( Mouse::RIGHT ).edgeState() << std::endl;
+      std::cout<< "Accelerate: "
+               << mAccelerate.getDigitalData() << std::endl;
    }   
    
 public:
    Grid grid;
+   DigitalInterface mAccelerate, mQuit;
 };
 
 void main( int argc, char *argv[] )

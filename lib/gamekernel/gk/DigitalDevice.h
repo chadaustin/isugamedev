@@ -50,6 +50,15 @@ public:
       }
    }
    
+   virtual Input* getInput( const std::string& input )
+   {
+      int k = 0;
+      if (mMap.count( input ) > 0)
+         k = (*(mMap.find( input ))).second;
+      return &mButton[k];
+   }   
+   
+   
 protected:
    std::vector< DigitalInput > mButton;
    std::map< std::string, unsigned int > mMap;

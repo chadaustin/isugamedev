@@ -1,10 +1,10 @@
 #ifndef ANALOG_INTERFACE
 #define ANALOG_INTERFACE
 
-#include "DeviceInterface.h"
+#include "InputInterface.h"
 #include "AnalogInput.h"
 
-class AnalogInterface : public DeviceInterface
+class AnalogInterface : public InputInterface
 {
 public:
    AnalogInterface() {}
@@ -14,7 +14,7 @@ public:
    virtual float getAnalogData()
    {
       // this can surely be optimized...
-      AnalogInput* ana = GameInput::instance().getDevice( mName );
+      AnalogInput* ana = GameInput::instance().getInput( mDevice, mInput );
 
       if (ana == NULL)
          return 0.0f;
