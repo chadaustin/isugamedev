@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-02-24 06:47:01 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-02-24 06:59:59 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -128,7 +128,7 @@ int main( int argc, char** argv )
    gWnd = new phui::Window();
    gWnd->setPosition( 150, 75 );
    gWnd->setSize( 300, 250 );
-   phui::Colorf c = { 1, 0, 0, 0.5 };
+   phui::Colorf c( 1, 0, 0, 0.5 );
    gWnd->setBackgroundColor( c );
    gUI->add( gWnd );
 

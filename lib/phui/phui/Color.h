@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2002-02-24 06:09:12 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-24 07:00:00 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -47,6 +47,23 @@ namespace phui {
    template< class TYPE >
    struct Color
    {
+      /**
+       * Creates a new uninitialized color.
+       */
+      Color() {}
+
+      /**
+       * Creates a color with the given color values.
+       *
+       * @param r_   the red part of the color
+       * @param g_   the green part of the color
+       * @param b_   the blue part of the color
+       * @param a_   the alpha/transparent part of the color
+       */
+      Color( TYPE r_, TYPE g_, TYPE b_, TYPE a_ )
+         : r(r_), g(g_), b(b_), a(a_)
+      {}
+
       TYPE r;
       TYPE g;
       TYPE b;
