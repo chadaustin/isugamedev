@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-04-28 18:03:14 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-28 18:07:42 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -84,7 +84,7 @@ namespace client {
       mDealerWnd = new phui::Window();
       mDealerWnd->setSize(540, 380);
       mDealerWnd->setPosition(50, 50);
-      mDealerWnd->setBackgroundColor(phui::Colorf(0.8f, 0.3f, 0.2f, 0.8f));
+      mDealerWnd->setBackgroundColor(phui::Colorf(0.3f, 0.8f, 0.2f, 0.8f));
 
       phui::Label* mDealerTitle = new phui::Label("Mini-Dealer");
       mDealerTitle->setSize(100, 20);
@@ -133,7 +133,7 @@ namespace client {
       mChopShopWnd = new phui::Window();
       mChopShopWnd->setSize(540, 380);
       mChopShopWnd->setPosition(50, 50);
-      mDealerWnd->setBackgroundColor(phui::Colorf(0.3f, 0.8f, 0.2f, 0.8f));
+      mChopShopWnd->setBackgroundColor(phui::Colorf(0.8f, 0.3f, 0.2f, 0.8f));
 
       // start with the main window
       mRoot->add(mDealerWnd);
