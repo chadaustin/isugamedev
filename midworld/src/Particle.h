@@ -8,23 +8,22 @@ namespace mw
    class Particle: public RigidBody
    {
    public:
-	   Particle(float particleLife);
-
-	   ~Particle();
+      Particle(float life);
+      ~Particle();
 
       bool isExpired() const;
 
-	  void update(float dt);
+      void update(float dt);
 
-	  void size(float particleSize);
+      void size(float size);
 
-	  void draw();
+      void draw();
 
    private:
-	   float life;
-	   bool dead;
-	   float theSize;
-	   float elapsedTime;
+      float mLife;
+      bool mDead;
+      float mSize;
+      float mElapsedTime;
    };
 }
 
