@@ -40,8 +40,7 @@ classes = Split("""
    HomingMissile
    IntroState
    InputAction
-   InputBinder
-   InputParser
+   InputManager
    InputSymbol
    Jukebox
    LevelLoader

@@ -1,5 +1,3 @@
-
-
 #include <gmtl/Generate.h>
 #include <gmtl/LineSeg.h>
 #include <gmtl/Point.h>

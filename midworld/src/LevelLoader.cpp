@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.cpp,v $
- * Date modified: $Date: 2002-11-04 19:17:58 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-11-05 22:35:43 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -40,6 +40,7 @@
 #include "Enemy.h"
 #include "Droid.h"
 #include "GunPickup.h"
+#include "NavNodeTree.h"
 #include "StaticEntity.h"
 #include "Turret.h"
 
@@ -75,7 +76,7 @@ namespace mw
          // VC++ 7 does not compile this right unless it's static
          // Internal Compiler Error
          // this is not threadsafe
-         static Entity* e;
+         static Entity* e = 0;
 
          if (type == "droid")
          {
@@ -91,12 +92,28 @@ namespace mw
          }
          else if (type == "navNode")
          {
-            gmtl::Vec3f node;
-            if(in >> node[0] >> node[1] >> node[2])
+            Node* node;
+            node = new Node;
+            if(in >> node->name)
             {
+               node->loc[0] = x;
+               node->loc[1] = y;
+               node->loc[2] = z;
                gameState->addNavNode(node);
             }
+            e = EntityFactory::instance().create<StaticEntity>();
+            e = 0;
          }
+         else if (type == "navLink")
+         {
+            std::string n1, n2;
+            if(in >> n1 >> n2)
+            {
+               gameState->addNavNodeLink(n1, n2);
+            }
+            e = EntityFactory::instance().create<StaticEntity>();
+            e = 0;
+         }  
          else if (type == "turret")
          {
             std::string name, parent;
@@ -143,15 +160,18 @@ namespace mw
             throw std::runtime_error("Unknown entity type: " + type);
          }
 
-         gmtl::Point3f pos(x, y, z);
-         gmtl::Quatf rot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(
-            gmtl::Math::deg2Rad(p),
-            gmtl::Math::deg2Rad(h),
-            gmtl::Math::deg2Rad(r))));
+         // Only setup the entity if it is not null
+         if(e!=0){
+            gmtl::Point3f pos(x, y, z);
+            gmtl::Quatf rot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(
+               gmtl::Math::deg2Rad(p),
+               gmtl::Math::deg2Rad(h),
+               gmtl::Math::deg2Rad(r))));
 
-         e->setPos(pos);
-         e->setRot(rot);
-         gameState->add(e);
+            e->setPos(pos);
+            e->setRot(rot);
+            gameState->add(e);
+         }
       }
    }
 }

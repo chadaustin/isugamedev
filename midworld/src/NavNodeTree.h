@@ -21,7 +21,6 @@ namespace mw
       std::vector<Node*> links;
    };
 
-
    /**
     * class to handle the navigation capabilities of the driods
     */
@@ -32,16 +31,19 @@ namespace mw
        * constructor
        */
       NavNodeTree();
+      
       /**
        * adds a node to the tree
        * returns true if successfully added node
        */
       bool addNode(Node* newNode);
+      
       /** 
        * adds a link between two nodes
        * returns true if sucessful
        */
       bool addLink(std::string node1, std::string node2);
+      
       /** 
        * removes a node 
        * the specified node must not have any links currently 
@@ -60,6 +62,6 @@ namespace mw
    };
 
       
-}     
+} // namespace mw     
 
 #endif

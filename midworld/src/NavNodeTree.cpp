@@ -4,6 +4,11 @@
 namespace mw
 {
    
+   NavNodeTree::NavNodeTree()
+   {
+   
+   }
+   
 
    bool NavNodeTree::addNode(Node* newNode)
    {
@@ -43,12 +48,10 @@ namespace mw
    }
 
 
-   // caution use with extreme caution the node defined by name
-   // must have no links currently in it
    std::vector<Node*>* NavNodeTree::allLinks(std::string node)
    {
       Node* n;
-      std::vector<Node*>* nodes = new std::vector<Node*>;
+   //   std::vector<Node*>* nodes = new std::vector<Node*>;
       for(int i=0;i<Tree.size();i++)
       {
          if(Tree[i]->name == node)

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-05 21:22:16 $
- * Version:       $Revision: 1.68 $
+ * Date modified: $Date: 2002-11-05 22:35:43 $
+ * Version:       $Revision: 1.69 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -68,7 +68,8 @@ namespace mw
 {
    class Application;
    class testing;
-
+   class NavNodeTree;
+   class Node;
    /**
     * The state in which the game is played.
     */
@@ -104,8 +105,14 @@ namespace mw
        * Adds in a new navigation node to be used by the AI system for efficient
        * pathfinding.
        */
-      void addNavNode(const gmtl::Vec3f& node);
+      void addNavNode(Node* node);
 
+      /** 
+       * adds in a new link between navigation nodes to be used by loom for
+       * efficient pathfinding.
+       */
+      void addNavNodeLink(std::string n1, std::string n2);
+      
       /**
        * Get the player
        */
@@ -145,8 +152,9 @@ namespace mw
       Camera mCamera;
       float mSpeed;
       Player mPlayer;
-      std::vector<gmtl::Vec3f> navNodeIndex;
 
+      // navigation tree for the droids
+      NavNodeTree* droidNavTree;
 
       //XXX hack for testing AIsystem
 

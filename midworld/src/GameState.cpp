@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-05 21:22:15 $
- * Version:       $Revision: 1.110 $
+ * Date modified: $Date: 2002-11-05 22:35:42 $
+ * Version:       $Revision: 1.111 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,6 +51,7 @@
 #include "InputManager.h"
 #include "LevelLoader.h"
 #include "MissileLauncher.h"
+#include "NavNodeTree.h"
 #include "OpenSGSceneViewer.h"
 #include "Pistol.h"
 #include "Shotgun.h"
@@ -81,6 +82,7 @@ namespace mw
       // Tell the EntityFactory to use this as the GameState
       EntityFactory::instance().setGameState(this);
       
+      
       // Change the music as appropriate for gaming. :)
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       jukebox->clear();
@@ -103,14 +105,15 @@ namespace mw
 
       add(&mPlayer);
 
-
       // Initialize the various game subsystems
       initializeInput();
 
+      droidNavTree = new NavNodeTree();
       LevelLoader::load("levels/level1.txt", this);
 
       mCamera.setMaxFollowDistance(50.0f);
       mCamera.setMinFollowDistance(2.0f);
+      
    }
 
    void
@@ -423,9 +426,15 @@ namespace mw
    }
 
    void
-   GameState::addNavNode(const gmtl::Vec3f& node)
+   GameState::addNavNode(Node* node)
    {
-      navNodeIndex.push_back(node);
+      droidNavTree->addNode(node);
+   }
+
+   void 
+   GameState::addNavNodeLink(std::string n1, std::string n2)
+   {
+      droidNavTree->addLink(n1, n2);
    }
 
    void GameState::initializeInput()
