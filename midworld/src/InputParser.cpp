@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 namespace mw
 {
@@ -40,7 +41,7 @@ namespace mw
             std::cerr << "Action: " << action << std::endl;
             InputKey key = StringtoISym(skey);
             std::cerr << "Insterting action: " << action << " key: " << key << std::endl;
-            mActionKeys.insert(make_pair(action, key));
+			mActionKeys.insert(std::make_pair(action, key));
          }
          bParseFile = true;
       }
