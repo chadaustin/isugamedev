@@ -18,7 +18,13 @@ namespace net {
     */
    class EnterMessage : public Message {
    public:
-      EnterMessage() {
+      enum EnterCode {
+         GAME, ///< Tell client to go to the game
+         GARAGE ///< Tell client to go to the garage
+      };
+   public:
+      EnterMessage(const EnterCode& code = GARAGE) 
+         : mCode( code ) {
       }
 
       PRUint32 getType() {
@@ -35,6 +41,10 @@ namespace net {
 
       void deserialize(InputStream& is) {
          is >> mCode;
+      }
+
+      const EnterCode getCode() {
+         return (EnterCode)mCode;
       }
    private:
       PRUint32 mCode;

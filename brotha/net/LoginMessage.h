@@ -39,6 +39,9 @@ namespace net {
          is >> mUsername >> mPassword;
       }
 
+      const std::string& getUsername() {
+         return mUsername;
+      }
    private:
       std::string mUsername;
       std::string mPassword;

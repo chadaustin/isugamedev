@@ -27,7 +27,7 @@ namespace net {
        * Creates a new JoinAs message with the default join as code SPECTATOR.
        */
       JoinAsMessage(const JoinAsCode& code = SPECTATOR)
-         : mCode( SPECTATOR ) {
+         : mCode( code ) {
       }
 
       PRUint32 getType() {
