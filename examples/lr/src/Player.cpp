@@ -69,7 +69,7 @@ namespace lr
       float beforeHeight=realHeight;
       float remainingHeight;
       realHeight-=(128*dt);
-      std::cout << "real: " << realHeight << "  before: " << beforeHeight << std::endl;
+      // if we have fallen through bricks then we need to bring us back up.
       if(((int)realHeight%32)>((int)beforeHeight%32) && (int)beforeHeight%32!=0)
       {
          remainingHeight=(int)beforeHeight%32;
@@ -182,7 +182,6 @@ namespace lr
 
       if((initTime+=dt)>.08 && updateTex==true)
       {
-         std::cout << "change texture" << std::endl;
          if(tempState==hangright)  // are we hanging
          {
             if(mTextureState==hangright1){
@@ -278,7 +277,6 @@ namespace lr
    
    bool Player::solidUnder()
    {
-      std::cout << "player: " << (int)realHeight%32 << "  " << (int)realPos%16 << std::endl;
       // if the block below us is a ladder or brick and we are at the bottom of
       // our current block then return true else return false
       if((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==brick) || (mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==ladder) && (int)realHeight%32==0) 

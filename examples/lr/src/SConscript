@@ -43,11 +43,12 @@ buildInfo.addSources(map(lambda n: File(n + '.cpp'),  classes))
 
 env = baseEnv.Copy()
 
+env ['LIBS'].extend(['Loom'])
+
 SetupSDL(env)
 SetupCorona(env)
 # SetupAudiere(env)
 SetupGLText(env)
-# SetupOpenSG(env)
 SetupOpenGL(env)
 
 buildInfo.addPrograms([

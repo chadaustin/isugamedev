@@ -3,6 +3,8 @@
 
 #include <SDL_opengl.h>
 
+
+
 #include "Application.h"
 #include "BadGuy.h"
 #include "GameState.h"
@@ -30,11 +32,45 @@ namespace lr
 
       // initialize transitions to false
       transition = false;
+
+      /** now get the AI ready to go */
+      badGuy1 = new lm::aiNode("Ben", NULL, 0, 1);
+      badGuy2 = new lm::aiNode("Josh", NULL, 0, 1);
+      
+      moveLeftCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveLeft); 
+      moveRightCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveRight);
+      moveUpCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveUp);
+      moveDownCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveDown);
+
+      moveLeftBehavior = new lm::behavior;
+      moveRightBehavior = new lm::behavior;
+      moveUpBehavior = new lm::behavior;
+      moveDownBehavior = new lm::behavior;
+
+      moveLeftBehavior->addCommand(moveLeftCommand);
+      moveRightBehavior->addCommand(moveRightCommand);
+      moveUpBehavior->addCommand(moveUpCommand);
+      moveDownBehavior->addCommand(moveDownCommand);
+      
+      playerIsLeftTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerLeft);
+      playerIsRightTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerRight);
+      playerIsUpTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerAbove);
+      playerIsDownTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerBelow);
+      
+      mReflex1 = new lm::reflex(badGuy1, moveLeftBehavior, playerIsLeftTest);
+      mReflex2 = new lm::reflex(badGuy1, moveRightBehavior, playerIsRightTest);
+//      mReflex3 = new lm::reflex(badGuy1, moveUpBehavior, playerIsUpTest);
+//      mReflex4 = new lm::reflex(badGuy1, moveDownBehavior, playerIsDownTest);
+  
+      
+
+      AI.registerNode(badGuy1);
    }
 
    GameState::~GameState()
    {
       delete mLevel;
+
    }
 
    void GameState::draw()
@@ -108,7 +144,8 @@ namespace lr
       mPlayer->update(dt);
       mScoreBoard->update(mPlayer->getScore(), mPlayer->getLives());
       mLevel->update(dt);
-      //mBadGuy->update(dt);
+      mBadGuy->update(dt);
+      AI.update();
    }
 
    int GameState::switchStates()

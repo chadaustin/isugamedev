@@ -29,22 +29,46 @@ namespace lr
       keyup = keydown = keyleft = keyright = false;
 
       // create the textures
-      run1Image = Texture::create(std::string("lr-bg-1.png"));
-      run2Image = Texture::create(std::string("lr-bg-2.png"));
+      run1leftImage = Texture::create(std::string("lr1-bg-left.png"));
+      run2leftImage = Texture::create(std::string("lr2-bg-left.png"));
+      run3leftImage = Texture::create(std::string("lr3-bg-left.png"));
+      run1rightImage = Texture::create(std::string("lr1-bg-right.png"));
+      run2rightImage = Texture::create(std::string("lr2-bg-right.png"));
+      run3rightImage = Texture::create(std::string("lr3-bg-right.png"));
       climb1Image = Texture::create(std::string("lr-bg-climb1.png"));
       climb2Image = Texture::create(std::string("lr-bg-climb2.png"));
-      hang1Image = Texture::create(std::string("lr-bg-hang1.png"));
-      hang2Image = Texture::create(std::string("lr-bg-hang2.png"));
+      hang1leftImage = Texture::create(std::string("lr-bg-hang1-left.png"));
+      hang2leftImage = Texture::create(std::string("lr-bg-hang2-left.png"));
+      hang3leftImage = Texture::create(std::string("lr-bg-hang3-left.png"));
+      hang1rightImage = Texture::create(std::string("lr-bg-hang1-right.png"));
+      hang2rightImage = Texture::create(std::string("lr-bg-hang2-right.png"));
+      hang3rightImage = Texture::create(std::string("lr-bg-hang3-right.png"));
 
-      currentTexture = run1Image;
+      currentTexture = run1rightImage;
       initTime = 0.0;
+
+      atGoal=true;
+   }
+
+   void BadGuy::fall(float dt)
+   {
+      float beforeHeight=realHeight;
+      float remainingHeight;
+      realHeight-=(128*dt);
+      // if we have fallen through bricks then we need to bring us back up here
+      if(((int)realHeight%32)>((int)beforeHeight%32) && (int)beforeHeight%32!=0)
+      {
+         remainingHeight=(int)beforeHeight%32;
+         realHeight=beforeHeight-remainingHeight;
+      }
+      atGoal=true;
    }
 
    void BadGuy::update(float dt)
    {
       if(dt>(1.0/128.0))
          dt=(1.0/128.0);
-      textureState tempState;
+      playerState tempState;
       bool updateTex=false;
       // if it's not solid under us and we're not on a wire and we're not on a
       // ladder then we should be falling and if there is something solid under
@@ -57,7 +81,7 @@ namespace lr
       else if(keyup && onLadder()) // we want to go up and we're on a ladder
       {
          realHeight+=((128*dt));
-         tempState=climb1;
+         tempState=climb;
          updateTex=true;
       }
       else if(keydown && ((onLadder() || ladderUnder()) && (!brickUnder() || brickUnder() && (int)realHeight%32!=0)))
@@ -65,7 +89,7 @@ namespace lr
       // us, or if there is we're not at the bottom of this block
       {
          realHeight-=((128*dt));
-         tempState=climb1;
+         tempState=climb;
          updateTex=true;
       }
       else if(keydown && onWire() && !solidUnder() && !onLadder() && realHeight>0)
@@ -79,7 +103,7 @@ namespace lr
       // to our left and we aren't running off the screen
       {
          realPos-=((128*dt));
-         tempState=runright1;
+         tempState=runleft;
          updateTex=true;
       }
       else if(keyright && (solidUnder() || onLadder()) && !brickRight() && realPos<1008)
@@ -87,7 +111,7 @@ namespace lr
       // to our right and we aren't running off the screen
       { 
          realPos+=((128*dt));
-         tempState=runright1;
+         tempState=runright;
          updateTex=true;
       }
       else if(keyleft && onWire() && !brickLeft() && realPos>0)
@@ -95,7 +119,7 @@ namespace lr
       // our left and we are not running off the screen
       {
          realPos-=((128*dt));
-         tempState=hangright1;
+         tempState=hangleft;
          updateTex=true;
       }
       else if(keyright && onWire() && !brickRight() && realPos<1008)
@@ -103,7 +127,7 @@ namespace lr
       // to our right and we are not running off the screen
       {
          realPos+=((128*dt));
-         tempState=hangright1;
+         tempState=hangright;
          updateTex=true;
       }
 
@@ -112,33 +136,58 @@ namespace lr
          mLevel->setEmpty(getGridPos(), getGridHeight());
       }
 
-      std::cout << "fps: " << 1/dt << std::endl;
       if((initTime+=dt)>.08 && updateTex==true)
       {
-         std::cout << "change texture" << std::endl;
-         if(tempState==hangright1)
+         if(tempState==hangright)
          {
-            std::cout << "hanging" << std::endl;
-            if(mTextureState!=hangright1){
-               mTextureState=hangright1;
-               currentTexture = hang1Image;
-            }else{
+            if(mTextureState==hangright1){
                mTextureState=hangright2;
-               currentTexture = hang2Image;
-            }
-         }else if(tempState==runright1)
-         {
-            std::cout << "running" << std::endl;
-            if(mTextureState!=runright1){
-               mTextureState=runright1;
-               currentTexture = run1Image;
+               currentTexture = hang2rightImage;
+            }else if(mTextureState==hangright2){
+               mTextureState=hangright3;
+               currentTexture = hang3rightImage;
             }else{
-               mTextureState=runright2;
-               currentTexture = run2Image;
+               mTextureState=hangright1;
+               currentTexture = hang1rightImage;
             }
-         }else if(tempState==climb1)
+         }else if(tempState==hangleft)
          {
-            std::cout << "climbing" << std::endl;
+            if(mTextureState==hangleft1){
+               mTextureState=hangleft2;
+               currentTexture = hang2leftImage;
+            }else if(mTextureState==hangleft2){
+               mTextureState=hangleft3;
+               currentTexture = hang3leftImage;
+            }else{
+               mTextureState=hangleft1;
+               currentTexture = hang1leftImage;
+            }
+         }else if(tempState==runright)
+         {
+            if(mTextureState==runright1){
+               mTextureState=runright2;
+               currentTexture = run2rightImage;
+            }else if(mTextureState==runright2){
+               mTextureState=runright3;
+               currentTexture = run3rightImage;
+            }else{
+               mTextureState=runright1;
+               currentTexture = run1rightImage;
+            }
+         }else if(tempState==runleft)
+         {
+            if(mTextureState==runleft1){
+               mTextureState=runleft2;
+               currentTexture = run2leftImage;
+            }else if(mTextureState==runleft2){
+               mTextureState=runleft3;
+               currentTexture = run3leftImage;
+            }else{
+               mTextureState=runleft1;
+               currentTexture = run1leftImage;
+            }
+         }else if(tempState==climb)
+         {
             if(mTextureState!=climb1){
                mTextureState=climb1;
                currentTexture = climb1Image;
@@ -175,7 +224,6 @@ namespace lr
    
    bool BadGuy::solidUnder()
    {
-      std::cout <<"Badguy: "<< (int)realHeight%32 << "  " << (int)realPos%16 << std::endl;
       // if the block below us is a ladder or brick and we are at the bottom of
       // our current block then return true else return false
       if((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==brick) || (mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==ladder) && (int)realHeight%32==0) 
@@ -251,10 +299,10 @@ namespace lr
     */
    void BadGuy::handleKeyPress(SDLKey sym, bool down)
    {
-      // our (albeit stupid) ai works like this we see which directions the
+      // our (albeit stupid) ai works like this: we see which directions the
       // player is from us (up,down,left,right) then we set those keys to be
       // true.
-      if(mPlayer->getGridPos()>getGridPos()) // the player is right of us
+/*      if(mPlayer->getGridPos()>getGridPos()) // the player is right of us
       {
          keyright = true;
          keyleft = false;
@@ -272,11 +320,13 @@ namespace lr
          keydown = true;
          keyup = false;
       }
-      if(mPlayer->getGridHeight()==getGridHeight() && mPlayer->getGridPos()==getGridPos())
+*/      if(mPlayer->getGridHeight()==getGridHeight() && mPlayer->getGridPos()==getGridPos())
       {
          mLevel->readLevelFile(std::string("level1.lvl"), mPlayer, this);
          mPlayer->setLives(mPlayer->getLives()-1);
       }
 
+      
    }
+   
 } // end namespace
