@@ -55,6 +55,7 @@ classes = Split("""
    Particle
    ParticleEngine
    PhysicsEngine
+   Pistol
    Player
    ResourceManager
    RigidBody

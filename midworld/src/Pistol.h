@@ -24,17 +24,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Pistol.h,v $
- * Date modified: $Date: 2002-11-04 22:24:23 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-11-25 09:25:15 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_PISTOL_H
 #define MW_PISTOL_H
 
-#include <gmtl/Math.h>
-#include "BaseBullet.h"
 #include "BaseProjectileWeapon.h"
+#include "GameState.h"
 
 namespace mw
 {
@@ -42,24 +41,11 @@ namespace mw
    class Pistol : public BaseProjectileWeapon
    {
    public:
-      Pistol()
-         : BaseProjectileWeapon( Weapon::HANDGUN, "Pistol" )
-      {}
+      Pistol();
 
    protected:
-      void discharge(GameState& g)
-      {
-         // add the bulllet to the gamestate...
-         BaseBullet* bullet = createBullet("bullet");
-         bullet->setRot(getRot());
-         bullet->setVel(getRot() * bullet->getVel());
-         g.add(bullet); // bullet is not mine anymore, belongs to GameState
-      }
-
-      void ejectCasing(GameState& g)
-      {
-         /// @todo eject a casing
-      }
+      void discharge(GameState& g);
+      void ejectCasing(GameState& g);
    };
 }
 
