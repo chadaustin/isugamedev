@@ -190,7 +190,7 @@ public:
       projVelocity( 20.0f ), projSize( 0.1f ), projTimeToLive( 0.75f ), 
       rotVelocity( 60.0f ), shipAccel( 10.0f ), 
       roidSize( 3.0f ), roidMaxSpeed( 3.0f ), 
-      mousesens( 0.15f )
+      mousesens( 96.0f )
    {
       Roid r; 
       r.size = roidSize;
@@ -287,8 +287,7 @@ public:
       float shipUp[3] = { 0.0f, 1.0f, 0.0f };
       
       // do rotation based on a mouse axis.
-      float center = (float)width * 0.5f;
-      float dx = center - mMouseYaxis.getAnalogData();
+      float dx = -(mMouseYaxis.getAnalogData());
       ship.rotation += dx * mousesens;
       
       // handle button input
