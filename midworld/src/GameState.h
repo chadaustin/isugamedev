@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-13 07:35:28 $
- * Version:       $Revision: 1.73 $
+ * Date modified: $Date: 2002-12-01 21:55:29 $
+ * Version:       $Revision: 1.74 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,6 +47,7 @@
 #include "Droid.h"
 #include "CollisionDetector.h"
 #include "Entity.h"
+#include "FPSCounter.h"
 #include "GameScene.h"
 #include "HUD.h"
 #include "InputAction.h"
@@ -72,6 +73,7 @@ namespace mw
    class testing;
    class NavNodeTree;
    class Node;
+   
    /**
     * The state in which the game is played.
     */
@@ -132,7 +134,7 @@ namespace mw
       
       float getFPS()
       {
-         return mFPS;
+         return mFPSCounter.getFPS();
       }
 
       Turret* setupTurret(const std::string& name, const std::string& parent,
@@ -244,10 +246,7 @@ namespace mw
        */
       gmtl::Vec3f mPlayerVel;
 
-      /// This state's FPS
-      float mFPS;
-      float mFrameCount;
-      float mFrameTime;
+      FPSCounter mFPSCounter;
 
       /// The change in angle of the player's yaw for the next frame
       float mPlayerYawChange;
@@ -257,7 +256,7 @@ namespace mw
 
       /// The heads up display used to give the user feedback about the world.
       HUD mHUD;
-
+      
       /// This is the skydome texture
       Texture* mSkydomeTex;
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.128 $
+ * Date modified: $Date: 2002-12-01 21:55:28 $
+ * Version:       $Revision: 1.129 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -73,9 +73,6 @@ namespace mw
       : State(app)
       , mSpeed(10)
       , mPlayer(this)
-      , mFPS(0)
-      , mFrameCount(0)
-      , mFrameTime(0)
       , mPlayerYawChange(0)
       , mIgnoreMouseMove(true)
    {
@@ -238,17 +235,8 @@ namespace mw
       {
          invokeTransition("Ending");
       }
-
-
-      // Update the FPS stat
-      ++mFrameCount;
-      mFrameTime += dt;
-      if (mFrameTime > 0.5f)
-      {
-         mFPS = mFrameCount / mFrameTime;
-         mFrameCount = 0;
-         mFrameTime = 0;
-      }
+      
+      mFPSCounter.update(dt);
    }
 
    void GameState::draw()
@@ -297,7 +285,7 @@ namespace mw
       glPopMatrix();
 
       mHUD.draw(application().getWidth(), application().getHeight(),
-                mPlayer, mFPS);
+                mPlayer, mFPSCounter.getFPS());
    }
 
    void

@@ -200,6 +200,9 @@
 				RelativePath="..\..\src\EntityFactory.h">
 			</File>
 			<File
+				RelativePath="..\..\src\FPSCounter.h">
+			</File>
+			<File
 				RelativePath="..\..\src\GameManager.cpp">
 			</File>
 			<File
@@ -266,6 +269,12 @@
 				RelativePath="..\..\src\Main.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\ModelManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\ModelManager.h">
+			</File>
+			<File
 				RelativePath="..\..\src\NavNodeTree.cpp">
 			</File>
 			<File
@@ -294,9 +303,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\PhysicsEngine.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Pistol.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\Player.cpp">
@@ -377,6 +383,12 @@
 				RelativePath="..\..\src\Texture.h">
 			</File>
 			<File
+				RelativePath="..\..\src\TextureManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\TextureManager.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Turret.cpp">
 			</File>
 			<File
@@ -393,9 +405,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\VectorSpatialIndex.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Version.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\Version.h">
@@ -500,12 +509,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\MenuState.h">
-			</File>
-			<File
-				RelativePath="..\..\src\OptionsState.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\OptionsState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\State.cpp">
