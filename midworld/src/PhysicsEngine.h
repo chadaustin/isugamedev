@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.h,v $
- * Date modified: $Date: 2002-10-03 05:26:50 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-03 05:54:49 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,6 +51,9 @@ namespace mw
    public:
       /// Epsilon value for time value testing.
       const static float TIME_EPSILON;
+
+      /// Normal gravity vector (acceleration) in meters/sec.
+      const static gmtl::Vec3f GRAVITY;
 
    public:
       /**

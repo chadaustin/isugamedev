@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-03 05:26:50 $
- * Version:       $Revision: 1.44 $
+ * Date modified: $Date: 2002-10-03 05:54:49 $
+ * Version:       $Revision: 1.45 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -313,7 +313,13 @@ namespace mw
       for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
       {
          const Entity::UID& uid = itr->first;
-         updateDynamics(mScene->get(uid), dt);
+         Entity* entity = mScene->get(uid);
+
+         // Allow the entity to update itself
+         entity->update(dt);
+
+         // Update the physical properties of the entity
+         updateDynamics(entity, dt);
       }
 
       mCamera.update(dt);
@@ -495,7 +501,7 @@ namespace mw
    void GameState::updateDynamics(Entity* body, float dt)
    {
       // Apply gravity to every body
-      body->addForce(gmtl::Vec3f(0, -9.81f, 0) * body->getMass());
+      body->addForce(PhysicsEngine::GRAVITY * body->getMass());
 
       float remaining_dt = dt;
 
@@ -513,7 +519,6 @@ namespace mw
          if (!desc)
          {
             mPhysics.update(body, remaining_dt);
-            body->update(remaining_dt);   // XXX: remove this
             body->moveToNextState();
 
             // Make sure entities never go below the ground.
@@ -527,7 +532,6 @@ namespace mw
          // There was a collision!
          else
          {
-            std::cout<<"Collision!"<<std::endl;
             // Figure out how much time passed to get to the collision. We do this
             // by scaling back the remaining dt by the % of the distance that was
             // travelled.
@@ -535,7 +539,6 @@ namespace mw
 
             // Update the body to the point of the collision
             mPhysics.update(body, time_to_collision);
-            body->update(remaining_dt);   // XXX: remove this
             body->moveToNextState();
 
             // Notify the collider of the collision
