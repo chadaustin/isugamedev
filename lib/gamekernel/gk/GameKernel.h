@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-22 02:04:27 $
-// Version:       $Revision: 1.27 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.28 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -43,7 +43,7 @@ namespace gk
  *
  * @see IGameKernel
  */
-class GameKernel : public DLLImpl< IGameKernel >
+class GK_DLL GameKernel : public DLLImpl< IGameKernel >
 {
 public:
    /**
@@ -68,6 +68,11 @@ public:
     * @return  true if successful, false otherwise
     */
    bool run( ISystemDriver* driver );
+
+   /**
+    * give a driver name (sdl, glut).  kernel will load the plugin and call it the regName you give.
+    */
+   bool run( const std::string& driverName, const std::string& regName );
 
    /**
     * Configures this kernel based on the given configuration file.

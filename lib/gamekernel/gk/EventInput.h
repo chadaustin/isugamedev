@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: EventInput.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -41,7 +41,7 @@ namespace gk {
 
 /** helper class, don't use directly.  for use by GameInput...
  */
-class EventInput : public DigitalInput, AnalogInput
+class GK_DLL EventInput : public DigitalInput, AnalogInput
 {
 public:
    EventInput() : DigitalInput(), AnalogInput()

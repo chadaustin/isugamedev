@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalDevice.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -42,7 +42,7 @@ namespace gk {
  * a keyboard, mouse, or joystick (for example) may be a digital device
  * a digital device can contain many inputs (or buttons)
  */
-class DigitalDevice : public TypedDevice<DigitalInput>
+class GK_DLL DigitalDevice : public TypedDevice<DigitalInput>
 {
 public:
    DigitalDevice() {}

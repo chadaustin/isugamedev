@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInput.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,7 +38,7 @@
 
 namespace gk {
 
-class DigitalInput : virtual public Input
+class GK_DLL DigitalInput : virtual public Input
 {
 public:
    virtual ~DigitalInput() {}

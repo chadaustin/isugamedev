@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Joystick.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -55,7 +55,7 @@ namespace gk {
  * @see DigitalDevice
  * @see Device
  */
-class Joystick : public AnalogDevice, public DigitalDevice
+class GK_DLL Joystick : public AnalogDevice, public DigitalDevice
 {
 public:
    /**

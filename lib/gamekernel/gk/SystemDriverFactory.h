@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -47,7 +47,7 @@ namespace gk {
  * generally also serves as a repository in which system drivers may register
  * themselves.
  */
-class SystemDriverFactory : public Singleton<SystemDriverFactory>
+class GK_DLL SystemDriverFactory : public Singleton<SystemDriverFactory>
 {
 public:
    /**

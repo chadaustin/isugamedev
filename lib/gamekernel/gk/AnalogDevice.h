@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-03-21 06:02:12 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -46,7 +46,7 @@ namespace gk {
  * @see AnalogInput
  * @see Device
  */
-class AnalogDevice : public TypedDevice<AnalogInput>
+class GK_DLL AnalogDevice : public TypedDevice<AnalogInput>
 {
 protected:
    /**

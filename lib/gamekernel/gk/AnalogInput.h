@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInput.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -47,7 +47,7 @@ namespace gk {
  *
  * All analog data is required to be in the range [-1,1].
  */
-class AnalogInput : virtual public Input
+class GK_DLL AnalogInput : virtual public Input
 {
 public:
    AnalogInput() : mCurrent( 0 ), mFuture( 0 ),

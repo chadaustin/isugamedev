@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -47,7 +47,7 @@ namespace gk
  * implementation to gain access to input data rather than work through the
  * GameInput singleton yourself.
  */
-class InputInterface
+class GK_DLL InputInterface
 {
 public:
    /**

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Input.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,7 +36,7 @@
 
 namespace gk {
 
-class Input
+class GK_DLL Input
 {
 public:
    void setName( const std::string& name )

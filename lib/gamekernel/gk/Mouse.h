@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.20 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.21 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -62,7 +62,7 @@ namespace gk {
  * @see DigitalDevice
  * @see Device
  */
-class Mouse : public AnalogDevice, public DigitalDevice
+class GK_DLL Mouse : public AnalogDevice, public DigitalDevice
 {
 public:
    /** Mouse Buttons.

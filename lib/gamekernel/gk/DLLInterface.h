@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DLLInterface.h,v $
-// Date modified: $Date: 2002-03-22 02:55:48 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -51,7 +51,7 @@ namespace gk {
     *
     * @see DLLImpl
     */
-   class DLLInterface
+   class GK_DLL DLLInterface
    {
    protected:
       /**

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameInput.h,v $
-// Date modified: $Date: 2002-03-21 05:57:16 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -40,7 +40,7 @@
 #include <gk/IDevice.h>
 
 namespace gk {
-class IGameKernel;
+class GK_DLL IGameKernel;
 
 /**
  * Interface for the input manager. The input manager is resposible for managing
@@ -73,7 +73,7 @@ class IGameKernel;
  * @see AnalogInterface
  * @see DigitalInterface
  */
-class IGameInput : public DLLInterface
+class GK_DLL IGameInput : public DLLInterface
 {
 public:
    /**
@@ -172,7 +172,8 @@ public:
       : mName( name ), mKernel( kernel )
    {
       mDevice = new Type();
-      mKernel->getInput()->addDevice( mDevice, name );
+      IGameInput* input = mKernel->getInput();
+      input->addDevice( mDevice, mName );
    }
 
    /**

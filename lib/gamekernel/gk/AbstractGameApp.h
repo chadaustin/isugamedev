@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AbstractGameApp.h,v $
-// Date modified: $Date: 2002-05-14 14:40:30 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -44,7 +44,7 @@ namespace gk {
  *
  * @see IGameApp
  */
-class AbstractGameApp : public DLLImpl< IGameApp >
+class GK_DLL AbstractGameApp : public DLLImpl< IGameApp >
 {
 protected:
    /**

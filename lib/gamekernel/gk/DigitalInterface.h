@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -68,7 +68,7 @@ namespace gk {
  * @see AnalogInterface
  * @author Kevin Meinert <kevin@vrsource.org>
  */
-class DigitalInterface : public InputInterface
+class GK_DLL DigitalInterface : public InputInterface
 {
 public:
    /**

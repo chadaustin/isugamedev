@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gkCommon.h,v $
-// Date modified: $Date: 2002-03-22 02:59:32 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,6 +37,26 @@
 #  pragma warning(disable: 4786)
 #  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
+#endif
+
+/**
+ * Macros for declaring whether we are exporting or importing symbols from a
+ * library when we compile. This is really only needed for Win32 libraries.
+ */
+#ifdef WIN32
+#  define GK_EXPORT __declspec( dllexport )
+#  define GK_IMPORT __declspec( dllimport )
+#else
+#  define GK_EXPORT
+#  define GK_IMPORT
+#endif
+
+#ifdef GK_BUILD_DLL
+#  define GK_DLL     GK_EXPORT
+#elif defined( GK_USE_DLL )
+#  define GK_DLL     GK_IMPORT
+#else
+#  define GK_DLL
 #endif
 
 #endif

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Keyboard.h,v $
-// Date modified: $Date: 2002-03-21 06:02:13 $
-// Version:       $Revision: 1.16 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.17 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -58,7 +58,7 @@ namespace gk {
  * @see DigitalDevice
  * @see Device
  */
-class Keyboard : public DigitalDevice
+class GK_DLL Keyboard : public DigitalDevice
 {
 public:
    /** Keyboard Buttons.

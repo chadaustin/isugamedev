@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameKernel.h,v $
-// Date modified: $Date: 2002-03-22 02:20:14 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -59,7 +59,7 @@ namespace gk {
  *    }
  * \endcode
  */
-class IGameKernel : public DLLInterface
+class GK_DLL IGameKernel : public DLLInterface
 {
 public:
    /**
@@ -74,6 +74,11 @@ public:
     * @return  true if successful, false otherwise.
     */
    virtual bool run( ISystemDriver* driver = NULL ) = 0;
+
+   /**
+    * give a driver name (sdl, glut).  kernel will load the plugin and call it the regName you give.
+    */
+   virtual bool run( const std::string& driverName, const std::string& regName ) = 0;
 
    /**
     * Shuts down the application and the system driver. The kernel will stop and

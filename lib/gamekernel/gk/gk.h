@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.h,v $
-// Date modified: $Date: 2002-03-18 08:35:22 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2003-02-09 07:43:03 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -50,6 +50,8 @@
 #else
 #  define GK_CALL
 #endif
+
+
 
 #define GK_APIFUNC(ret, decl) extern "C" XDL_FUNC ret GK_CALL decl
 
