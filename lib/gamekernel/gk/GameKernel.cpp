@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2002-02-13 07:53:44 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -69,6 +69,14 @@ void GameKernel::setWindowSize( int width, int height, int ctx )
    mDriver->setWindowSize( width, height, ctx );
 }
 
+/*
+ * adds the given app to the end of the vector
+ */
+void GameKernel::add( GameApp* app )
+{
+   mApps.push_back( app );
+}
+
 void GameKernel::setName( const std::string& name )
 {
    mDriver->setName( name );
@@ -81,8 +89,7 @@ const std::string& GameKernel::name() const
 
 std::vector<GameApp*>& GameKernel::applications()
 {
-   static std::vector<GameApp*> registered_applications;
-   return registered_applications;
+   return mApps;
 }
 
 bool GameKernel::startup( SystemDriver* driver )
@@ -94,7 +101,7 @@ bool GameKernel::startup( SystemDriver* driver )
    mDriver = driver;
 
    // initialize the driver
-   if ( ! mDriver->init() ) {
+   if ( ! mDriver->init( this ) ) {
       std::cout<<"Failed to initialize the system driver."<<std::endl;
       return false;
    }

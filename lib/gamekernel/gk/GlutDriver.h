@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-02-11 01:57:21 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-02-13 07:53:44 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,6 +34,7 @@
 
 #include "gk/gkCommon.h"
 #include "gk/SystemDriver.h"
+#include "gk/GameKernel.h"
 #include "gk/GameInput.h"
 #include "gk/Mouse.h"
 #include "gk/Keyboard.h"
@@ -57,11 +58,13 @@ public:
     * Initializes this driver. Glut specific drivers are added to the input
     * manager.
     *
+    * @param kernel     the kernel which is managing this driver
+    *
     * @return  true if successful, false otherwise
     *
     * @see GameInput::addDevice( Device*, const std::string& )
     */
-   virtual bool init();
+   virtual bool init( GameKernel* kernel );
 
    /**
     * Starts the driver through its main loop.
@@ -200,6 +203,11 @@ private:
     * Our joystick device.
     */
    DeviceHandle<Joystick>* mJoystick;
+
+   /**
+    * The kernel which is handling this driver.
+    */
+   GameKernel* mKernel;
 
    /**
     * There should only be 1 GLUT driver at any given time, but we don't want

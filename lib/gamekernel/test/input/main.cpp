@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-10 19:03:42 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-02-13 07:53:45 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -41,12 +41,14 @@
 
 GK_USING_NAMESPACE
 
+GameKernel* kernel = NULL;
+
 class InputApp : public GameApp
 {
 public:
    virtual void OnAppInit()
    {
-      GameKernel::instance().setName( "Input Test" );
+      kernel->setName( "Input Test" );
       mQuit.init( "Quit" );
       mAccelerate.init( "Accelerate" );
       mMouseX.init( "MouseLookX" );
@@ -55,13 +57,13 @@ public:
 
    virtual void OnContextInit()
    {
-      GameKernel::instance().setWindowSize( 640, 480 );
+      kernel->setWindowSize( 640, 480 );
    }
 
    virtual void OnContextDraw( int context = 0 )
    {
       int width, height;
-      GameKernel::instance().getWindowSize( width, height );
+      kernel->getWindowSize( width, height );
       glViewport( 0, 0, width, height );
 
       glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
@@ -88,7 +90,7 @@ public:
    {
       if (mQuit.getDigitalData() == DigitalInput::DOWN)
       {
-         GameKernel::instance().shutdown();
+         kernel->shutdown();
       }
 
       std::cout<< "Accelerate: "
@@ -105,9 +107,16 @@ public:
 
 int main( int argc, char *argv[] )
 {
+   // create the kernel and add our app in
+   kernel = new GameKernel();
+   kernel->add( new InputApp() );
+
+   // configure our application
    loadInputConfig( "config.xml" );
-   GameKernelRegister<InputApp> reg;
+
+   // create our system driver and let's go!
    SystemDriver* driver = new GlutDriver();
-   GameKernel::instance().startup( driver );
+   kernel->startup( driver );
+
    return 1;
 }

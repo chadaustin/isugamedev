@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-11 01:53:43 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-02-13 07:53:44 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,7 +37,6 @@
 #include <GL/glut.h>                   // gl utility library
 
 #include "gk/ContextData.h"
-#include "gk/Singleton.h"
 #include "gk/GameApp.h"      // the base application type
 #include "gk/GameInput.h"
 #include "gk/SystemDriver.h"
@@ -82,7 +81,7 @@ namespace gk
  * @see GameKernelRegister
  * @see Singleton
  */
-class GameKernel : public Singleton<GameKernel>
+class GameKernel
 {
 public:
    /** constructor */
@@ -122,6 +121,15 @@ public:
     */
    void setWindowSize( int width, int height, int ctx = 0 );
 
+   /**
+    * Adds an application to this kernel. The application will be managed
+    * through this kernel. The kernel will own the memory associated with the
+    * application
+    *
+    * @param app     the application to run
+    */
+   void add( GameApp* app );
+
    /** set the name of the running application.
     * you should call this in AppInit with your app's name, 
     * because some kernels can't set the window title after AppInit.
@@ -146,6 +154,11 @@ private:
     * This is the system driver implementation that runs our apps.
     */
    SystemDriver* mDriver;
+
+   /**
+    * The list of applications being managed by this kernel.
+    */
+   std::vector<GameApp*> mApps;
 };
 
 /** registers a new application of type applicationType with the GameKernel.

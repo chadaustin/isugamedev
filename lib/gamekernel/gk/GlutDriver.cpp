@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-11 01:57:21 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2002-02-13 07:53:44 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -43,10 +43,11 @@ GlutDriver* GlutDriver::sDriver = NULL;
 GlutDriver::GlutDriver()
    : mWidth( 320 ), mHeight( 240 ), mCurrentContext( 0 ),
      mMainWin_ContextID( 0 ), mIsStarted( false ), mMouse( NULL ),
-     mKeyboard( NULL ), mJoystick( NULL )
+     mKeyboard( NULL ), mJoystick( NULL ), mKernel( NULL )
 {
    // because of glut's callback scheme we need to be able to get a pointer to
    // the current GLUTDriver instance.
+   assert( sDriver == NULL && "initializing a second instance of GlutDriver" );
    sDriver = this;
 }
 //------------------------------------------------------------------------------
@@ -58,8 +59,11 @@ GlutDriver::~GlutDriver()
 //------------------------------------------------------------------------------
 
 bool
-GlutDriver::init()
+GlutDriver::init( GameKernel* kernel )
 {
+   assert( kernel != NULL );
+   mKernel = kernel;
+
    // Set the window title
    if ( name() == "" )
    {
@@ -238,14 +242,16 @@ GlutDriver::OnIdle()
 {
    postRedisplay();
 
+   GameKernel* kernel = sDriver->mKernel;
+
    unsigned int x;
-   for ( x = 0; x < GameKernel::instance().applications().size(); ++x )
+   for ( x = 0; x < kernel->applications().size(); ++x )
    {
-      assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );
+      assert( kernel->applications()[x] != NULL && "you registered a NULL application" );
       GameInput::instance().update();
-      GameKernel::instance().applications()[x]->OnPreFrame();
-      GameKernel::instance().applications()[x]->OnIntraFrame();
-      GameKernel::instance().applications()[x]->OnPostFrame();
+      kernel->applications()[x]->OnPreFrame();
+      kernel->applications()[x]->OnIntraFrame();
+      kernel->applications()[x]->OnPostFrame();
    }
 
    // force a poll on the joystick
@@ -268,10 +274,10 @@ GlutDriver::initCurrentContext()
 
       // init each application
       unsigned int x;
-      for ( x = 0; x < GameKernel::instance().applications().size(); ++x )
+      for ( x = 0; x < mKernel->applications().size(); ++x )
       {
-         assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );
-         GameKernel::instance().applications()[x]->OnContextInit( );
+         assert( mKernel->applications()[x] != NULL && "you registered a NULL application" );
+         mKernel->applications()[x]->OnContextInit( );
       }
    }
 }
@@ -284,12 +290,14 @@ GlutDriver::OnRedisplay()
 {
    sDriver->initCurrentContext();
 
+   GameKernel* kernel = sDriver->mKernel;
+
    // draw each application
    unsigned int x;
-   for ( x = 0; x < GameKernel::instance().applications().size(); ++x )
+   for ( x = 0; x < kernel->applications().size(); ++x )
    {
-      assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );
-      GameKernel::instance().applications()[x]->OnContextDraw( sDriver->mCurrentContext );
+      assert( kernel->applications()[x] != NULL && "you registered a NULL application" );
+      kernel->applications()[x]->OnContextDraw( sDriver->mCurrentContext );
    }
 
    glutSwapBuffers();

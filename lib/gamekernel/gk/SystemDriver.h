@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriver.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-13 07:53:44 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,6 +36,9 @@
 #include <string>
 
 namespace gk {
+
+// forward declaration
+class GameKernel;
 
 /**
  * Interface to a driver that will run a graphical application. You should
@@ -51,13 +54,17 @@ public:
 
    /**
     * Initializes this driver. At the very least, implementations should
-    * register their drivers with the input manager.
+    * register their drivers with the input manager. The kernel which is
+    * managing this driver is passed in so that the driver can report events
+    * back to the kernel.
+    *
+    * @param kernel     the kernel which is managing this driver
     *
     * @return  true if successful, false otherwise
     *
     * @see GameInput::addDevice( Device*, const std::string& )
     */
-   virtual bool init() = 0;
+   virtual bool init( GameKernel* kernel ) = 0;
 
    /**
     * Starts the driver through its main loop.
