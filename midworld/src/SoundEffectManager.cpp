@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-08 03:04:51 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,35 +33,22 @@
 
 namespace mw
 {
-   SoundEffectManager::SoundEffectManager(audiere::Context* context)
+   SoundEffectManager::SoundEffectManager(audiere::AudioDevice* device)
    {
-      mContext = context;
+      mDevice = device;
       mNextStream = 0;
-      for (int i = 0; i < MAX_SOUNDS; ++i)
-      {
-         mStreams[i] = 0;
-      }
-   }
-
-   SoundEffectManager::~SoundEffectManager()
-   {
-      for (int i = 0; i < MAX_SOUNDS; ++i)
-      {
-         delete mStreams[i];
-      }
    }
 
    void
    SoundEffectManager::playSound(const std::string& sound)
    {
-      delete mStreams[mNextStream];
-      audiere::Stream* stream = mContext->openStream(sound.c_str());
+      audiere::OutputStream* stream = adr::OpenSound(
+         mDevice.get(), sound.c_str(), false);
       if (stream)
       {
          stream->play();
+         mStreams[mNextStream] = stream;
+         mNextStream = (mNextStream + 1) % MAX_SOUNDS;
       }
-      mStreams[mNextStream] = stream;
-
-      mNextStream = (mNextStream + 1) % MAX_SOUNDS;
    }
 }

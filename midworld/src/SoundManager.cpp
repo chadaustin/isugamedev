@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundManager.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-08 03:04:51 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,21 +36,20 @@ namespace mw
 {
    SoundManager::SoundManager()
    {
-      mContext = audiere::CreateContext(0);
-      if (!mContext)
+      adr::RefPtr<adr::AudioDevice> device(adr::OpenDevice());
+      if (!device)
       {
-         throw std::runtime_error("Error creating Audiere context");
+         throw std::runtime_error("Error opening Audiere device");
       }
 
-      mJukebox            = new Jukebox(mContext);
-      mSoundEffectManager = new SoundEffectManager(mContext);
+      mJukebox            = new Jukebox(device.get());
+      mSoundEffectManager = new SoundEffectManager(device.get());
    }
 
    SoundManager::~SoundManager()
    {
       delete mJukebox;
       delete mSoundEffectManager;
-      delete mContext;
    }
 
    Jukebox*

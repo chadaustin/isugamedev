@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Jukebox.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-08 03:04:51 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,16 +33,11 @@
 
 namespace mw
 {
-   Jukebox::Jukebox(audiere::Context* context)
+   Jukebox::Jukebox(adr::AudioDevice* device)
    {
-      mContext = context;
+      mDevice = device;
       mCurrentTrack = 0;
       mIsPlaying = false;
-   }
-
-   Jukebox::~Jukebox()
-   {
-      delete mCurrentTrack;
    }
 
    unsigned int
@@ -99,8 +94,6 @@ namespace mw
    void
    Jukebox::stop()
    {
-      /// @todo make this stop() better...  it has really stupid logic
-      delete mCurrentTrack;
       mCurrentTrack = 0;
       mCurrentIndex = 0;
       mIsPlaying = false;
@@ -137,8 +130,10 @@ namespace mw
       // validate index
       mCurrentIndex = mCurrentIndex % getTrackCount();
 
-      delete mCurrentTrack;
-      mCurrentTrack = mContext->openStream(mTracks[mCurrentIndex].c_str());
+      mCurrentTrack = adr::OpenSound(
+         mDevice.get(),
+         mTracks[mCurrentIndex].c_str(),
+         true);
       if (mCurrentTrack)
       {
          mCurrentTrack->play();
@@ -151,13 +146,13 @@ namespace mw
       if (getTrackCount() >= 0)
       {
          mCurrentIndex = (mCurrentIndex + 1) % getTrackCount();
-
-         delete mCurrentTrack;
-         mCurrentTrack = mContext->openStream(mTracks[mCurrentIndex].c_str());
+         mCurrentTrack = adr::OpenSound(
+            mDevice.get(),
+            mTracks[mCurrentIndex].c_str(),
+            true);
       }
       else
       {
-         delete mCurrentTrack;
          mCurrentTrack = 0;
       }
    }

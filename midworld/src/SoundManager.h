@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundManager.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-08 03:04:51 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,6 +38,8 @@
 
 namespace mw
 {
+   namespace adr = audiere;
+
    /**
     * The SoundManager is a facade for creating and manipulating music and sound
     * effects in an application using Audiere as the backend. The SoundManager
@@ -101,7 +103,6 @@ namespace mw
       SoundEffectManager* getSoundEffectManager();
 
    private:
-      audiere::Context*   mContext;
       Jukebox*            mJukebox;
       SoundEffectManager* mSoundEffectManager;
    };

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Jukebox.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-08 03:04:51 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,6 +38,8 @@
 
 namespace mw
 {
+   namespace adr = audiere;
+
    /**
     * Describes a collection of music tracks that may be queued up so that they
     * are played in succession. You generally want to get your Jukebox instance
@@ -59,13 +61,7 @@ namespace mw
       /**
        * The Jukebox uses a specified context to create audio streams.
        */
-      Jukebox(audiere::Context* context);
-
-      /**
-       * Destroys this jukebox. The currently playing track will be stopped and
-       * all memory released.
-       */
-      ~Jukebox();
+      Jukebox(adr::AudioDevice* device);
 
       /**
        * Return current size of playlist.
@@ -114,11 +110,11 @@ namespace mw
       void tryOpenTrack();
       void nextTrack();
 
-      audiere::Context* mContext;
+      adr::RefPtr<adr::AudioDevice> mDevice;
       std::vector<std::string> mTracks;
 
       int mCurrentIndex;
-      audiere::Stream* mCurrentTrack;
+      adr::RefPtr<adr::OutputStream> mCurrentTrack;
       bool mIsPlaying;
    };
 }

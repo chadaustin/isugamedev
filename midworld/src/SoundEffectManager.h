@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-08 03:04:51 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,8 @@
 
 namespace mw
 {
+   namespace adr = audiere;
+
    /**
     * Handles the triggering of sound effects for an application. Sounds played
     * through the SoundEffectManager are generally loaded into memory and played
@@ -50,13 +52,7 @@ namespace mw
        *
        * @param context    the Audiere context to use
        */
-      SoundEffectManager(audiere::Context* context);
-
-      /**
-       * Destroys this manager and terminates all sounds currently being played
-       * by this manager.
-       */
-      ~SoundEffectManager();
+      SoundEffectManager(adr::AudioDevice* device);
 
       /**
        * Plays the sound contained within the given file.
@@ -67,9 +63,9 @@ namespace mw
 
    private:
       enum { MAX_SOUNDS = 8 };
-    
-      audiere::Context* mContext;
-      audiere::Stream* mStreams[MAX_SOUNDS];
+
+      adr::RefPtr<adr::AudioDevice> mDevice;
+      adr::RefPtr<adr::OutputStream> mStreams[MAX_SOUNDS];
       int mNextStream;
    };
 }
