@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.44 2002-04-09 05:47:49 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 05:47:49 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.45 2002-04-09 05:52:27 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 05:52:27 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -600,27 +600,34 @@
       <title>Thread Module</title>
       <para>The thread module provides a suite of utility classes for creating threads and synchronizing them. It is built on top of NSPR (Netscape Portable Runtime) which is a portable system abstraction layer for C provided by mozilla.org. It consists of several classes: a base <classname>Thread</classname> class, a <classname>Lockable</classname> interface, a <classname>Mutex</classname> implementation of the <classname>Lockable</classname> interface, a <classname>ConditionVariable</classname> class, and a <classname>Synchronized</classname> mix-in class which provides functionality similar to Java's synchronized method semantics.</para>
       <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
-      <section>
         <title>Module Interfaces</title>
-        <para>blah blah</para>
+        <para>class Thread {</para>
+        <para> void start();</para>
+        <para> abstract void run();</para>
+        <para>}</para>
+        <para>interface Lockable {</para>
+        <para> void lock();</para>
+        <para> void unlock();</para>
+        <para>}</para>
+        <para>class Mutex implements Lockable;</para>
+        <para>class Synchronized implements Lockable;</para>
+        <para>class Lock {</para>
+        <para> Lock(Lockable* lock);</para>
+        <para> ~Lock();</para>
+        <para>}</para>
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>Since almost all threading APIs are the same, we simply had to mimic the semantics of another threading model. For this project, we chose to build C++ objects around the NSPR threading objects. They also behave similarly to Java's threading objects.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
+          <title>NSPR vs. Common C++ vs. Vapor vs. Win32/pthreads</title>
+          <para>We had several possibilities for getting support for threads in our C++ application. We could use NSPR which we know is supported on a vast range of platforms, but is low-level and C-based. Common C++ looked like a nice framework conceptually, but it wasn't as mature as the others. Vapor is a VRAC-developed wrapper for NSPR. Another possibility was using the low-level threading APIs on each platform and wrapping them with our own classes. However, we realized that testing and debugging this home-grown library would take valuable time.</para>
+          <para>We decided on using NSPR, as it is well-tested, portable to many platforms, documented well, and very mature.</para>
         </section>
         <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Threading Class Design</title>
+          <para>The thread, mutex, and lock classes are modeled after boost.org's boost.Threads thread model and the multithreaded framework described in Modern C++ Design. The Lock object takes and locks a Lockable object on construction. On destruction, the Lock unlocks its Lockable object. This allows for code that is exception-safe and easy to follow. The Lockable object is guaranteed to be unlocked whenever the Lock's scope is exited.</para>
+          <para>The Synchronized class is designed so that classes in C++ can mimic the 'synchronized' attribute of Java. Simply derive a class from Synchronized and instantiate a Lock object at the beginning of each method, passing 'this' as the Lockable.</para>
         </section>
       </section>
     </section>
