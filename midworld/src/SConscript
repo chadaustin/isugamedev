@@ -5,6 +5,7 @@ Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenGL')
 
 classes = Split("""
    Application
+   BaseProjectileWeapon
    BoundsCollisionDetector
    Camera
    CollisionDesc
@@ -15,7 +16,6 @@ classes = Split("""
    MenuState
    Player
    RigidBody
-   BaseProjectileWeapon
    State
    SoundEffectManager
    SoundManager
