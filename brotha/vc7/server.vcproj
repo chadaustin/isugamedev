@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;external/nspr/include;external/SDL/include;external/audiere/include"
+				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -32,9 +32,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="external/nspr/lib/nspr4.lib"
+				AdditionalDependencies="nspr4.lib"
 				OutputFile="../bin/win32/server-dbg.exe"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="external/lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/server.pdb"
 				SubSystem="1"
@@ -65,7 +66,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="..;external/nspr/include;external/SDL/include;external/audiere/include"
+				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -81,6 +82,7 @@
 				AdditionalDependencies="external/nspr/lib/nspr4.lib"
 				OutputFile="../bin/win32/server.exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="external"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"

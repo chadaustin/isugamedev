@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..;external/nspr/include;external/SDL/include;external/audiere/include"
+				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -33,11 +33,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib glu32.lib external/nspr/lib/nspr4.lib external/SDL/lib/SDL.lib external/audiere/lib/audiere.lib"
+				AdditionalDependencies="opengl32.lib glu32.lib nspr4.lib SDL.lib audiere.lib osg.lib osgDB.lib osgUtil.lib gltt.lib freetype.lib phui.lib"
 				ShowProgress="0"
 				OutputFile="../bin/win32/client-dbg.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories=""
+				AdditionalLibraryDirectories="external/lib"
 				IgnoreAllDefaultLibraries="FALSE"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/client.pdb"
@@ -69,7 +69,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="..;external/nspr/include;external/SDL/include;external/audiere/include"
+				AdditionalIncludeDirectories="..;external/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -83,11 +83,11 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib glu32.lib external/nspr/lib/nspr4.lib external/SDL/lib/SDL.lib external/audiere/lib/audiere.lib"
+				AdditionalDependencies="opengl32.lib glu32.lib nspr4.lib SDL.lib audiere.lib osg.lib osgDB.lib osgUtil.lib gltt.lib freetype.lib phui.lib"
 				ShowProgress="0"
 				OutputFile="../bin/win32/client.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="../external ../../nspr/lib/ ../external/GK"
+				AdditionalLibraryDirectories="external/lib"
 				IgnoreDefaultLibraryNames="LIBCMT"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
@@ -115,10 +115,22 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="..\client\AppState.cpp">
+				RelativePath="..\client\BrothaApp.cpp">
 			</File>
 			<File
-				RelativePath="..\client\BrothaApp.cpp">
+				RelativePath="..\client\Camera.cpp">
+			</File>
+			<File
+				RelativePath="..\client\LoginState.cpp">
+			</File>
+			<File
+				RelativePath="..\client\ModelManager.cpp">
+			</File>
+			<File
+				RelativePath="..\client\Scene.cpp">
+			</File>
+			<File
+				RelativePath="..\client\ServerConnection.cpp">
 			</File>
 			<File
 				RelativePath="..\client\main.cpp">
@@ -135,6 +147,24 @@
 			</File>
 			<File
 				RelativePath="..\client\BrothaApp.h">
+			</File>
+			<File
+				RelativePath="..\client\Camera.h">
+			</File>
+			<File
+				RelativePath="..\client\LoginState.h">
+			</File>
+			<File
+				RelativePath="..\client\ModelManager.h">
+			</File>
+			<File
+				RelativePath="..\client\Scene.h">
+			</File>
+			<File
+				RelativePath="..\client\ServerConnection.h">
+			</File>
+			<File
+				RelativePath="..\client\State.h">
 			</File>
 			<File
 				RelativePath="..\client\main.h">
