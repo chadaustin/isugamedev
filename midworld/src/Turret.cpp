@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-11-01 12:14:51 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-11-03 05:46:09 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #include "EntityFactory.h"
 #include "SpreadGun.h"
 #include "Turret.h"
+#include "ParticleEngine.h"
 
 namespace mw
 {

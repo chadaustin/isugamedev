@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-03 05:18:54 $
- * Version:       $Revision: 1.64 $
+ * Date modified: $Date: 2002-11-03 05:46:09 $
+ * Version:       $Revision: 1.65 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,7 +58,6 @@
 #include "SceneViewer.h"
 #include "State.h"
 #include "Turret.h"
-#include "ParticleEngine.h"
 #include "PhysicsEngine.h"
 
 namespace gmtl

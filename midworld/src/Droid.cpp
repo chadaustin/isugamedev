@@ -5,6 +5,7 @@
 #include "EntityFactory.h"
 #include "Pistol.h"
 #include "Droid.h"
+#include "ParticleEngine.h"
 
 namespace mw
 {
