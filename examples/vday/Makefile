@@ -20,7 +20,7 @@ endif
 
 ifeq ($(HOSTTYPE), irix)
 all:
-	CC vday.cpp -o vday -lglut -lGL -lGLU -lX11 -lXmu
+	CC vday.cpp -o vday -lglut -lGL -lGLU -lX11 -lXmu -lm
 endif
 
 ifeq ($(HOSTTYPE), linux)
