@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-11-08 09:27:32 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-11-15 14:44:26 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -85,7 +85,8 @@ void run()
       ThrowSDLError("Setting video mode failed");
    }
 
-   SDL_WM_SetCaption("Midworld", 0);
+   std::string title = std::string("Midworld v") + mw::version;
+   SDL_WM_SetCaption(title.c_str(), 0);
    std::auto_ptr<mw::Application> app(new mw::Application);
    // init the mouse state...
    ::SDL_WarpMouse( width / 2, height / 2 );
