@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WebServer.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-29 03:59:13 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,6 +42,9 @@
  ************************************************************ brotha-cpr-end */
 
 #include "WebServer.h"
+#include "..\xml\xmlpersist.h"
+#include "..\xml\brothadata.h"
+#include "..\xml\HtmlGen.h"
 
 namespace server {
    WebServer::WebServer()
@@ -52,6 +55,7 @@ namespace server {
    }
 
    void WebServer::run() {
+	   dataxml::load("test.xml"); //remove this
       while(PR_AtomicIncrement(&mKillMe)) {
          // accept new client connections, inform the NetMgr about them
          net::Socket *sock = m_serverSocket.accept();
@@ -82,9 +86,9 @@ namespace server {
    void WebServer::processRequest(net::Socket *socket, const std::string &str) {
       /// @todo actually process request and generate dynamic response :)
 
-      std::string response = "HTTP/1.0 200\r\nDate: Thu, 28 Mar 2002 12:54:45\
-GMT\r\nServer: Warn-A-Brotha Web Server\r\nContent-Length: 46\r\nContent-Type: \
-text/html\r\n\r\n<frameset rows=\"100%\"><frame src=\"http://hatori42.com/wb/test.htm\"></frameset>";
+      std::string response = "HTTP/1.0 200\r\n";
+	  response += "Content-Type: text/html\r\n\r\n";
+	  response += reports::GenerateReportFromHTTP(str);
       sendResponse(socket, response);
    }
 
