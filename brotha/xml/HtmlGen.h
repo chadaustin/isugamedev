@@ -6,7 +6,7 @@
 #include <sstream>
 #include <vector>
 #include "BrothaData.h"
-#include "stat.h"
+#include "Stat.h"
 
 namespace reports {
    std::string urlBase = "http://hatori42.com/wb/";
