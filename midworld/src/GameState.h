@@ -72,6 +72,8 @@ namespace mw
 
       // This state's FPS
       float mFPS;
+      float mFrameCount;
+      float mFrameTime;
    };
 }
 

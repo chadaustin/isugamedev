@@ -19,6 +19,8 @@ namespace mw
       , mShoot(UP)
       , mCycleWeapon(UP)
       , mFPS(0)
+      , mFrameCount(0)
+      , mFrameTime(0)
    {
       mPlayer.addWeapon( new Pistol );
       mPlayer.addWeapon( new SpreadGun );
@@ -132,7 +134,15 @@ namespace mw
 
       mCamera.update( dt );
       mPlayer.update( *this, dt);
-      mFPS = 1.0f / dt;
+
+      ++mFrameCount;
+      mFrameTime += dt;
+      if (mFrameTime > 0.5f)
+      {
+         mFPS = mFrameCount / mFrameTime;
+         mFrameCount = 0;
+         mFrameTime = 0;
+      }
    }
 
    void GameState::add( RigidBody* b )
@@ -213,6 +223,12 @@ namespace mw
             str << (int)mFPS;
             mFontRenderer->render(str.str().c_str());
          }
+         glPopMatrix();
+
+         glPushMatrix();
+         glTranslatef(20, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
+         glColor4f(1,0,0,1);
+         mFontRenderer->render(mPlayer.weapon().getName().c_str());
          glPopMatrix();
 
          glPopMatrix();
