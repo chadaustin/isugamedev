@@ -24,14 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-10-11 04:00:58 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <SDL_opengl.h>
 #include "Application.h"
 #include "IntroState.h"
+#include "GameManager.h"
 
 namespace mw {
 
@@ -44,7 +45,7 @@ namespace mw {
 
    Application::~Application()
    {
-      /// @todo  think about state management: who owns the memory? 
+      /// @todo  think about state management: who owns the memory?
       ///        are states allocated in a pool?  should states even
       ///        have state or should they be purely behavior?
       delete mState;
@@ -55,8 +56,14 @@ namespace mw {
    {
       // Convert change in time to seconds
       float dt = static_cast<float>(elapsedTime) / 1000000.0f;
+
+      // Make sure the jukebox gets updated
+      GameManager::instance().getSoundManager()->getJukebox()->update();
+
+      // Let the current state do its update
       mState->update(dt);
 
+      // Check if we need to transition to the next state
       State* next = mState->getNext();
       if (next)
       {
