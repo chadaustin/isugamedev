@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Particle.h,v $
-//    $Date: 2001-10-10 12:50:50 $
-//    $Revision: 1.1 $
+//    $Date: 2001-10-10 21:28:55 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -215,16 +215,16 @@ namespace ani
       }
        
    // other things needed by ODE to compute changes in the "phase space"
-      inline const Vec3<float>&       accumulatedForce() const { return mForceAccumulator; }
-      inline const float&        mass() const { return mMass; }
-      inline const Vec3<float>&       volume() const { return mVolume; }
+      inline const Vec3<float>& accumulatedForce() const { return mForceAccumulator; }
+      inline const float&       mass() const { return mMass; }
+      inline const Vec3<float>& volume() const { return mVolume; }
 
    public:
    //:: "phase space" (see note above)
       // state variables:
       Vec3<float> mPosition;           // meters        - x(t)
       Vec3<float> mLinearMomentum;     // linear momentum P(t)
-                                  // mLinearMomentum = mMass * mVelocity
+                                       // mLinearMomentum = mMass * mVelocity
 
       // derived quantities (aux variables)
       //Vec3<float> mVelocity;         // v(t) (meters/second)
@@ -232,11 +232,11 @@ namespace ani
    //:: other things needed by ODE to compute changes in the "phase space"
 
       // accumulation buffers:
-      Vec3<float>      mForceAccumulator;  // newtons - F(t)
+      Vec3<float> mForceAccumulator;  // newtons - F(t)
       
       // constant (set) quantities
       float       mMass, mInvMass;    // kilograms
-      Vec3<float>      mVolume;            // 3D volume (a box)
+      Vec3<float> mVolume;            // 3D volume (a box)
 
    // other attribs for the particle.
       float       mDragCoef;          // just a coef from 0 (no drag) to 1 (drag)

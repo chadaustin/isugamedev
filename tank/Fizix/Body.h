@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Body.h,v $
-//    $Date: 2001-10-10 13:42:13 $
-//    $Revision: 1.4 $
+//    $Date: 2001-10-10 21:28:55 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -97,9 +97,9 @@ namespace ani
                mAngularMomentum( 0.0f, 0.0f, 0.0f ),
 
                mForceAccumulator( 0.0f, 0.0f, 0.0f ),
-               mTorqueAccumulator( 0.0f, 0.0f, 0.0f ),
+               mTorqueAccumulator( 0.0f, 0.0f, 0.0f )//,
 
-               mDragCoef(1.0f)//, mColor
+               //mDragCoef(1.0f)//, mColor
       {
       }
 
@@ -112,6 +112,11 @@ namespace ani
       {
       }
 
+      void setParticle( bool val = false )
+      {
+         mParticle = val;
+      }
+      
    // operations/operators:
    public:
 
@@ -126,20 +131,25 @@ namespace ani
       inline void copy( const Body& p )
       {
          mPosition = p.mPosition;           
-         mRotation = p.mRotation;          
          mLinearMomentum = p.mLinearMomentum;  
-         mAngularMomentum = p.mAngularMomentum;   
-         //mWorldSpaceInertiaTensorInv = p.mWorldSpaceInertiaTensorInv; 
-         //mVelocity = p.mVelocity;       
-         //mAngularVelocity = p.mAngularVelocity;   
          mForceAccumulator = p.mForceAccumulator;  
-         mTorqueAccumulator = p.mTorqueAccumulator; 
          mMass = p.mMass;
          mInvMass = p.mInvMass; 
          mVolume = p.mVolume;         
-         mBodySpaceInertiaTensor = p.mBodySpaceInertiaTensor;
-         mBodySpaceInertiaTensorInv = p.mBodySpaceInertiaTensorInv; 
-         mDragCoef = p.mDragCoef;
+         
+         if (!mParticle)
+         {
+            mRotation = p.mRotation;          
+            mAngularMomentum = p.mAngularMomentum;   
+            //mWorldSpaceInertiaTensorInv = p.mWorldSpaceInertiaTensorInv; 
+            //mVelocity = p.mVelocity;       
+            //mAngularVelocity = p.mAngularVelocity;   
+            mTorqueAccumulator = p.mTorqueAccumulator; 
+            mBodySpaceInertiaTensor = p.mBodySpaceInertiaTensor;
+            mBodySpaceInertiaTensorInv = p.mBodySpaceInertiaTensorInv; 
+         }
+         
+         //mDragCoef = p.mDragCoef;
       }
 
       //: computeDerivative
@@ -164,6 +174,13 @@ namespace ani
             // x' = v = P(t)/M
             mPosition = currentState.linearVelocity();
 
+         // change in momentum over time (second order)
+            // P'(t) = F(t)
+            mLinearMomentum = currentState.mForceAccumulator;
+
+         if (!mParticle)
+         {
+         // change in position/rotation over time (first order)
             // R'(t) = w(t)*' R(t)   (matrix version)
             // q'(t) = 1/2 w(t) q(t) (quaternion version)
             //mRotation = 0.5f * currentState.angularVelocity() * currentState.mRotation;
@@ -172,16 +189,17 @@ namespace ani
             mRotation.mult( ang_vel_quat, currentState.mRotation );
 
          // change in momentum over time (second order)
-            // P'(t) = F(t)
-            mLinearMomentum = currentState.mForceAccumulator;
-
             // L'(t) = T(t)
             mAngularMomentum = currentState.mTorqueAccumulator;
+         }
       }
 
       void normalize()
       {
-         mRotation.normalize();
+         if (!mParticle)
+         {
+            mRotation.normalize();
+         }
       }
 
       // scale by time.
@@ -189,9 +207,13 @@ namespace ani
       inline void multiplyPhase( const Body& a, float h )
       {
          mPosition = a.mPosition * h;
-         mRotation.mult( a.mRotation, h );
          mLinearMomentum = a.mLinearMomentum * h;
-         mAngularMomentum = a.mAngularMomentum * h;
+         
+         if (!mParticle)
+         {
+            mRotation.mult( a.mRotation, h );
+            mAngularMomentum = a.mAngularMomentum * h;
+         }
       }
 
       // scale by time.
@@ -199,9 +221,13 @@ namespace ani
       inline void multiplyPhase( float h )
       {
          mPosition *= h;
-         mRotation.mult( mRotation, h );
          mLinearMomentum *= h;
-         mAngularMomentum *= h;
+         
+         if (!mParticle)
+         {
+            mRotation.mult( mRotation, h );
+            mAngularMomentum *= h;
+         }
       }
 
       // phase space addition operator
@@ -209,9 +235,13 @@ namespace ani
       inline void addPhase( const Body& a, const Body& b )
       {
          mPosition = a.mPosition + b.mPosition;
-         mRotation.add( a.mRotation, b.mRotation );
          mLinearMomentum = a.mLinearMomentum + b.mLinearMomentum;
-         mAngularMomentum = a.mAngularMomentum + b.mAngularMomentum;
+         
+         if (!mParticle)
+         {
+            mRotation.add( a.mRotation, b.mRotation );
+            mAngularMomentum = a.mAngularMomentum + b.mAngularMomentum;
+         }         
       }
 
       // phase space addition operator
@@ -219,9 +249,13 @@ namespace ani
       inline void addPhase( const Body& a ) //
       {
          mPosition += a.mPosition;
-         mRotation.add( a.mRotation, mRotation );
          mLinearMomentum += a.mLinearMomentum;
-         mAngularMomentum += a.mAngularMomentum;
+         
+         if (!mParticle)
+         {
+            mRotation.add( a.mRotation, mRotation );
+            mAngularMomentum += a.mAngularMomentum;
+         }
       }
 
    // state setting/accumulation
@@ -235,7 +269,10 @@ namespace ani
       // PRE: mass and vol should be set first.
       void setAngularVelocity( Vec3<float>& angularVel )
       {
-         mAngularMomentum = mBodySpaceInertiaTensor * angularVel;
+         if (!mParticle)
+         {
+            mAngularMomentum = mBodySpaceInertiaTensor * angularVel;
+         }
       }
 
       //: Apply a force to the particle
@@ -251,7 +288,10 @@ namespace ani
       // this results in a rotation (torque)
       void applyTorque( const Vec3<float>& force, const Vec3<float>& location, const Vec3<float>& center )
       {
-         mTorqueAccumulator += (location - center).cross( force );
+         if (!mParticle)
+         {
+            mTorqueAccumulator += (location - center).cross( force );
+         }
       }
 
       //: Apply a torque to the particle
@@ -259,7 +299,10 @@ namespace ani
       //  |torque| is the magnitude (i.e. don't normalize this vec!)
       void applyTorque( const Vec3<float>& torque )
       {
-         mTorqueAccumulator += torque;
+         if (!mParticle)
+         {
+            mTorqueAccumulator += torque;
+         }
       }
 
       inline void zeroForce()
@@ -278,7 +321,7 @@ namespace ani
          mInvMass = 1.0f / kilograms;  
          
          // precompute the body-space inertia tensor
-         this->precalcBodyInertiaTensorForBlock();
+         if (!mParticle) this->precalcBodyInertiaTensorForBlock();
       }
       
       void setVolume( Vec3<float> vol )
@@ -286,7 +329,7 @@ namespace ani
          mVolume = vol;
          
          // precompute the body inertia tensor
-         this->precalcBodyInertiaTensorForBlock();
+         if (!mParticle) this->precalcBodyInertiaTensorForBlock();
       }
       
    // aliases (getters)
@@ -307,7 +350,8 @@ namespace ani
       inline Vec3<float> angularVelocity( const Matrix4f& ws_tensor_inv ) const
       {
          Vec3<float> temp;
-         temp = ws_tensor_inv * mAngularMomentum;
+         if (!mParticle) 
+            temp = ws_tensor_inv * mAngularMomentum;
          return temp;
       }
       
@@ -316,7 +360,7 @@ namespace ani
       inline Vec3<float> angularVelocity() const
       {
          Matrix4f world_space_inertia_tensor_inv;
-         calcWorldSpaceInertiaTensor( world_space_inertia_tensor_inv );
+         if (!mParticle) calcWorldSpaceInertiaTensor( world_space_inertia_tensor_inv );
          
          return this->angularVelocity( world_space_inertia_tensor_inv );
       }
@@ -334,7 +378,7 @@ namespace ani
    // other things needed by ODE to compute changes in the "phase space"
       inline const Vec3<float>&       accumulatedForce() const { return mForceAccumulator; }
       inline const Vec3<float>&       accumulatedTorque() const { return mTorqueAccumulator; }
-      inline const float&        mass() const { return mMass; }
+      inline const float&             mass() const { return mMass; }
       inline const Vec3<float>&       volume() const { return mVolume; }
 
    public:
@@ -380,7 +424,8 @@ namespace ani
 
    // other attribs for the particle.
       float       mDragCoef;          // just a coef from 0 (no drag) to 1 (drag)
-   
+      bool        mParticle;          // don't calc rotations...
+         
    // recalc funcs
    private:
       //: Precompute the inertia tensor in local (body) coordinates

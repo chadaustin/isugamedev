@@ -149,6 +149,13 @@ static void OnIdle()
    
    app.torch.step( app.stopWatch.timeInstant() );
 
+   static int output_cnt = 0;
+   output_cnt++;
+   if (output_cnt % 30)
+   {
+      std::cout<<"fps: "<<app.stopWatch.fpsAverage()<<"\n"<<std::flush;;
+   }   
+   
    ////////////////////////////
    // According to the GLUT specification, the current window is
    // undefined during an idle callback.  So we need to explicitly change

@@ -18,11 +18,12 @@ namespace ani
 {
    
 // TODO: change to particle, not body
-class FireParticle : public ani::Particle
+class FireParticle : public ani::Body//ani::Particle
 {
 public:
    FireParticle() : mAge(0), mAgeOfDeath(0)
    {
+      this->setParticle( true );
    }
    
    const ColorRGBA& color() const { return mColor; }
