@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: UIDManager.h,v $
- * Date modified: $Date: 2002-03-26 21:30:10 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-26 23:31:19 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,6 +42,7 @@
 #define UIDMANAGER_H
 
 #include <queue>
+#include <assert.h>
 
 /**
  * A singleton class that manages unique ids for a particular object class.
@@ -147,7 +148,7 @@ private:
 };
 
 template < class managedClass,
-           class id_t = unsigned long >
+           class id_t >
 UIDManager<managedClass, id_t>* UIDManager<managedClass, id_t>::mInstance = NULL;
 
 #endif
