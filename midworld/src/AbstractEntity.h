@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AbstractEntity.h,v $
- * Date modified: $Date: 2002-10-29 04:13:43 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-29 05:34:04 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -84,6 +84,10 @@ namespace mw
        * Gets the unique ID of this entity.
        */
       const UID& getUID() const;
+
+   protected:
+      /// Gets the game state this entity is associated with.
+      GameState* getGameState() const;
 
    private:
       /**

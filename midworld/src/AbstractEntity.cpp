@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AbstractEntity.cpp,v $
- * Date modified: $Date: 2002-10-29 04:13:43 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-29 05:34:04 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,9 +58,15 @@ namespace mw
       mModel = model;
    }
 
-   const
-   Entity::UID& AbstractEntity::getUID() const
+   const Entity::UID&
+   AbstractEntity::getUID() const
    {
       return mUID;
+   }
+
+   GameState*
+   AbstractEntity::getGameState() const
+   {
+      return mGameState;
    }
 }
