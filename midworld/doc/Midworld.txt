@@ -29,7 +29,15 @@ Design Document
 
 4.  Weapons
 
-	The main character has a variety of weapons at his disposal.  Some of which are:  
+	The main character has a variety of weapons at his disposal.  
+	The weapons are rated from one to five on speed, crosshair distance,
+	shot power, and reload time.  A one indicates a low score; this 
+	translates over into a slow speed, short crosshair distance from 
+	the player, weak shot, and a slow reload time respectively.  A five 
+	indicates a hight score; this translates over into a fast shot, long
+	crosshair distance from player, strong shot, and a fast reload time 
+	respectively. Finally, rounds can either bounce off of walls and 
+	objects or not bounce.  This is a yes/no value.
 	
 	4.1  Homing Missiles
 	
@@ -38,27 +46,108 @@ Design Document
 	oppenent in a circular fashion, or to have the rotate around the player
 	first, and then swirl around on the screen after the opponent.
 	
+	Speed:  	4
+	Crosshair:  	2
+	Power:		3
+	Reload: 	2
+	Bounce:		No
+	
 	4.2  Grenades
 	
 	Grenades are lobbed by the player in the air and bounce a few times on
 	the ground before detonating.
+
+	Speed:		2
+	Crosshair:	4
+	Power:		4
+	Reload:		2
+	Bounce:		Yes
 	
 	4.3  Plasma
 	
 	Plasma shoots a plasma ball towards the enemies; nothing special here,
 	just a standard shot.  
 
+	Speed:  	3
+	Crosshair:	3
+	Power:		2
+	Reload:		3
+	Bounce:		No
+	
 	4.4  Spread Shot
 	
 	Think Contra :)  The spread shot will shoot several smaller plasma 
 	shots in a spread formation.  
 
+	Speed:		3
+	Crosshair:	3
+	Power:		3
+	Reload:		3
+	Bounce:		Yes
+	
+	4.5  LR Rifle
+
+	Long range rifle; useful for making those distance shots.  Fires a 
+	single round very quickly to a point a long distance away.  
+
+	Speed:		4
+	Crosshair:	5
+	Power:		4
+	Reload:		1
+	Bounce:		No
+
+	4.6  BFG
+
+	BIG Gun.  Very strong, average speed, very slow reloading time, 
+	VERY hard to aim.  Blows anything and everything out of its path.  
+
+	Speed:		3
+	Crosshair:	1	
+	Power:		5
+	Reload:		1
+	Bounce:		Yes
+
+	4.7  Counter-column Shot
+
+	Shots that zig-zig across each other in a counter-column arc.  
+
+	Speed:		4
+	Crosshair:	3
+	Power:		3
+	Reload:		3
+	Bounce:		No
+
+	4.8  Boomerang Shot
+
+	Shots that fire out a set distance from the player (to the crosshair),
+	and then return to him.  Up to three boomerang shots can be fired 
+	simultaneously.
+
+	Speed:		3
+	Crosshair:	4
+	Power:		3
+	Reload:		2
+	Bounce:		No
+	
+	4.8  Assault Rife
+
+	Modified M-16 Assualt Rifle that fires energy burst rounds.  Very fast,
+	very weak, nasty reload.
+
+	Speed:		5
+	Crosshair:	3
+	Power:		2
+	Relaod:		1
+	Bounce:		Yes
+	
 5.  Controls
 
 	The controls will move both the character and the crosshair.  The
 	player can rotate the crosshair, and move the character forward and 
 	backward.  Additionally, the player will be able to make the character
-	strafe to the left and to the right.  
+	strafe to the left and to the right.  The player should also be able to
+	select his current weapon from his list of all possessed weapons, and
+	finally, fire the selected weapons.  
 
 6.  First Revision Goals
 
