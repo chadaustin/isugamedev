@@ -2,12 +2,15 @@
 #define TANK_DEFINED
 
 #include "Matrix4f.h"
+#include "Quat.h"
 #include "glRenderTexture.h"
+#include "glRenderMaterial.h"
 #include "ImageManager.h"
 
 #include "ObjImporter.h"
 #include "GeoSet.h"
 #include "glRenderGeoSet.h"
+#include "convert.h"
 
 #include "iniFile.h"
 
@@ -27,6 +30,7 @@ public:
       ini.load( "tank.ini" );
       ini.getKey( "tank", "model", filename, result );
       assert( result );
+      std::cout<<"model='"<<(filename.c_str())<<"'\n"<<std::flush;
 
       result = ImageManager::instance().load( "atomic.tga", image );
       assert( result && "cannot load image" );
@@ -39,20 +43,21 @@ public:
       assert( geosets.size() > 0 && "load failed" );
    }
    
-   void drawShip()
+   void drawShip() const
    {
       glEnable( GL_TEXTURE_2D );
    
       // compensate for the 3DS scale and rotation...
-      glScalef( .2,.2,.2 );
+      glScalef( 0.2f, 0.2f, 0.2f );
       glRotatef( 90, -1,0,0 );
       kev::glRenderGeoSets( geosets );
-      
+
       //glColor3f( 1.0f, 0.5f, 1.0f );
       //glScalef( 10,10,25 );
       //drawPyramidThing()
    }
-   void drawPyramidThing()
+
+   void drawPyramidThing() const
    {
       glEnable( GL_TEXTURE_2D );
    
@@ -91,7 +96,7 @@ public:
       glPopMatrix();
    }   
    
-   void draw()
+   void draw() const
    {
       kev::glRender( mMaterial );
       glPushMatrix();

@@ -16,12 +16,16 @@ SRCS = \
    CppImageExporter.cxx \
    Entity.cxx \
    FileHandler.cxx \
+   glRenderLight.cxx \
    Image.cxx \
    ImageManager.cxx \
+   iniFile.cxx \
    Light.cxx \
    Material.cxx \
    Matrix4f.cxx \
-   simpleGlutApp.cxx \
+   Player.cxx \
+   sys_glut.cxx \
+   TankGame.cxx \
    Texture.cxx \
    TgaImporter.cxx \
    World.cxx

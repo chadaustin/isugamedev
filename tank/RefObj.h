@@ -1,6 +1,7 @@
 #ifndef REFOBJ_H_INCLUDED
 #define REFOBJ_H_INCLUDED
 
+#include <stdlib.h> //for NULL
 #include <assert.h>
 
 //: A reference counted object that will delete itself when it determines that
