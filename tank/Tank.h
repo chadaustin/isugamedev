@@ -48,10 +48,7 @@ public:
       glEnable( GL_TEXTURE_2D );
    
       kev::glRenderAndBind( tex );
-      
-      kev::ResourceID<unsigned int> texObjectID = ContextManager::instance().lookup( tex.resourceId );
-      assert( texObjectID.valid == true );
-      
+
       glPushMatrix();
          glTranslatef( 0.0f, 0.0f, 0.25f );
          glBegin( GL_TRIANGLES );
