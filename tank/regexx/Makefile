@@ -49,18 +49,19 @@ clean:
 	$(MAKE) doclean SRCS='$(SRCS1) $(SRCS2)'
 
 doclean:
-	-rm $(OBJS)
-	-rm -r ii_files
-	-rm $(LIB_FILENAME)
-	-rm testregexx$(EXE_FILE_SUFFIX)
+	-rm -f $(OBJS)
+	-rm -rf ii_files
+	-rm -f $(LIB_FILENAME) $(STATIC_LIB_FILENAME)
+	-rm -f testregexx$(EXE_FILE_SUFFIX)
 
 prefix ?= installed
 
-install: 
-	-mkdir $(prefix)
-	-mkdir $(prefix)/include
-	-mkdir $(prefix)/include/regexx
-	-mkdir $(prefix)/lib$(LIBBITSUF)
+install: all
+	-install -d $(prefix)/include
+	-install -d $(prefix)/include/regexx
+	-install -d $(prefix)/lib$(LIBBITSUF)
+	-install -d $(prefix)/share/regexx
 	-cp *.h $(prefix)/include/regexx
 	-cp $(LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
+	-cp testregexx$(EXE_FILE_SUFFIX) $(prefix)/share/regexx
 
