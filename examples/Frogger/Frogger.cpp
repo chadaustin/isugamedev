@@ -6,7 +6,8 @@
 // Frogger.cpp
 /////////////////////////////////////////////////////
 #include <stdlib.h>
-#include <GL/glut.h>
+#include <SDL.h>
+#include <SDL_opengl.h>
 #include "GameWorld.h"
 
 
@@ -25,28 +26,23 @@ Movement FrogMove = NONE;
 ///////////////////////
 
 
-int start_clock_count = glutGet(GLUT_ELAPSED_TIME);
+int start_clock_count = SDL_GetTicks();
 int temp = 0;
 
 // Game Object
 GameWorld Frogger;
 
-
-void init()
-{
-	glClearColor(0.0,0.0,0.0, 0.0);
-}
+void display();
 
 
 void update()
 {
-	while(glutGet(GLUT_ELAPSED_TIME)-start_clock_count < 30)
-	{
-		glClear(GL_COLOR_BUFFER_BIT);
-		Frogger.Draw();
-		glutSwapBuffers();
-	}
-	start_clock_count = glutGet(GLUT_ELAPSED_TIME);
+	//Need to fix this being frame locked on 30 fps
+	//while(SDL_GetTicks()-start_clock_count < 30)
+	//{
+	    display();
+	//}
+	start_clock_count = SDL_GetTicks();
 	Frogger.Update();
 
 }
@@ -56,80 +52,121 @@ void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	Frogger.Draw();
-	glutSwapBuffers();
+	SDL_GL_SwapBuffers();
 }
 
 
-void reshape(int w, int h)
+void init()
 {
 	glViewport(0,0,(GLsizei) WindowSizeX, (GLsizei) WindowSizeY);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluOrtho2D(0.0,(GLdouble) WindowSizeX, 0.0, (GLdouble) WindowSizeY);
+	glMatrixMode(GL_MODELVIEW);
+	glClearColor(0.0,0.0,0.0,0.0);
 }
 
 
-void FrogInput(int key, int x, int y)
+int main()
 {
-	switch (key)
+    bool quit = false; 
+  
+    /* Dimensions of our window. */
+    int width = 0;
+    int height = 0;
+    /* Color depth in bits of our window. */
+    int bpp = 24;
+    /* Flags we will pass into SDL_SetVideoMode. */
+    int flags = 0;
+
+    /* First, initialize SDL's video subsystem. */
+    SDL_Init(SDL_INIT_VIDEO);
+
+    /*
+     * Now, we want to setup our requested
+     * window attributes for our OpenGL window.
+     * We want *at least* 5 bits of red, green
+     * and blue. We also want at least a 16-bit
+     * depth buffer.
+     *
+     * The last thing we do is request a double
+     * buffered window. '1' turns on double
+     * buffering, '0' turns it off.
+     *
+     * Note that we do not use SDL_DOUBLEBUF in
+     * the flags to SDL_SetVideoMode. That does
+     * not affect the GL attribute state, only
+     * the standard 2D blitting setup.
+     */
+    SDL_GL_SetAttribute( SDL_GL_RED_SIZE, 8 );
+    SDL_GL_SetAttribute( SDL_GL_GREEN_SIZE, 8 );
+    SDL_GL_SetAttribute( SDL_GL_BLUE_SIZE, 8 );
+    SDL_GL_SetAttribute( SDL_GL_DEPTH_SIZE, 16 );
+    SDL_GL_SetAttribute( SDL_GL_DOUBLEBUFFER, 1 );
+
+    /*
+     * We want to request that SDL provide us
+     * with an OpenGL window, in a fullscreen
+     * video mode.
+     *
+     * EXERCISE:
+     * Make starting windowed an option, and
+     * handle the resize events properly with
+     * glViewport.
+     */
+    flags = SDL_OPENGL;
+
+    /*
+     * Set the video mode
+     */
+    SDL_SetVideoMode( WindowSizeX, WindowSizeY, bpp, flags );
+
+    SDL_Event event;
+    
+    init(); 
+    while(!quit)
+    {
+	while( SDL_PollEvent( &event ) )
 	{
-		case GLUT_KEY_LEFT : 
-			FrogMove = LEFT;
-			break;
+	    switch( event.type )
+	    {
+		case SDL_KEYDOWN:
+		/* Check the SDLKey values and move change the coords */
+		    switch( event.key.keysym.sym )
+		    {
+			case SDLK_LEFT:
+			    FrogMove = LEFT;
+			    break;
+			case SDLK_RIGHT:
+			    FrogMove = RIGHT;
+			    break;
+			case SDLK_UP:
+			    FrogMove = UP;
+			    FrogZone++;
+			    break;
+			case SDLK_DOWN:
+			    if (FrogZone == 0)
+			    	FrogMove = NONE;
 
-		case GLUT_KEY_RIGHT: 
-			FrogMove = RIGHT;
-			break;
-
-		case GLUT_KEY_UP : 
-			FrogMove = UP;
-			FrogZone++;
-			break;
-
-		case GLUT_KEY_DOWN :
-			if (FrogZone == 0)
-				FrogMove = NONE;
-
-			else
-			{
+			    else
+			    {
 				FrogMove = DOWN;
 				FrogZone--;
-			}
-			break;
-
-		default : 
-			break;
+			    }
+			    break;
+			case SDLK_ESCAPE:
+			    quit = true;
+                    default:
+                        break;
+		    }
+		 break;
+	
+		default:
+		    break;
+	    }
 	}
-
+	update();
+    }
+    SDL_Quit();
 }
-
-void Input(unsigned char key, int x, int y)
-{
-	switch(key)
-	{
-	case 27:
-		exit(0);
-		break;
-	}
-}
-
-int main (int argc, char** argv)
-{
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-	glutInitWindowSize(WindowSizeX,WindowSizeY);
-	glutInitWindowPosition(100,100);
-	glutCreateWindow("Frogger");
-	init();
-
-	glutDisplayFunc(display);
-	glutReshapeFunc(reshape);
-	glutSpecialFunc(FrogInput);
-	glutKeyboardFunc(Input);
-	glutIdleFunc(update);
-	glutMainLoop();
-
-	return 0;
-}
-
 

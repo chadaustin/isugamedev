@@ -12,7 +12,7 @@
 #include "LogObject.h"
 #include "LilypadObject.h"
 #include "GameWorld.h"
-#include <GL/glut.h>
+#include <SDL_opengl.h>
 #include <stdlib.h>
 #include <fstream>
 
@@ -280,7 +280,6 @@ void GameWorld::ResetGame()
 {
 	Destroy();
 	Create();
-	glutPostRedisplay();
 }
 
 ///////////////////////////////////////

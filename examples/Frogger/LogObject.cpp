@@ -6,7 +6,7 @@
 // 4-5-2002
 //////////////////////////////////////////////////////
 #include <stdlib.h>
-#include <GL/glut.h>
+#include <SDL_opengl.h>
 #include "LogObject.h"
 
 extern int WindowSizeX, WindowSizeY;
