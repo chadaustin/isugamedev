@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.35 2002-04-09 03:54:31 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 03:54:31 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.36 2002-04-09 04:03:53 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 04:03:53 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -278,6 +278,31 @@
       <section>
         <title>Serialization Subsystem</title>
         <para>The serialization aspect of the network module is responsible for converting objects into streams of bytes and reconstructing the original objects from the stored bytes. It provides a set of operator overloads (mimicking standard C++ iostreams) which simplify writing objects to and reading objects from OutputStreams and InputStreams, respectively.</para>
+      </section>
+      <section>
+        <title>Module Interfaces</title>
+        <para>class Socket {</para>
+        <para> Socket(string hostname, int port);</para>
+        <para> int write(buffer, size);</para>
+        <para> void read(buffer, size);</para>
+        <para> void close();</para>
+        <para> InputStream getInputStream();</para>
+        <para> OutputStream getOutputStream();</para>
+        <para>}</para>
+        <para>class ServerSocket {</para>
+        <para> ServerSocket(int port);</para>
+        <para> Socket accept();</para>
+        <para>}</para>
+        <para>interface InputStream {</para>
+        <para> void read(buffer, size);</para>
+        <para>}</para>
+        <para>interface OutputStream {</para>
+        <para> void write(buffer, size);</para>
+        <para>}</para>
+        <para>class ByteBuffer implements InputStream, OutputStream;</para>
+        <para></para>
+        <para>template&lt;typename T&gt; OutputStream&amp; operator&lt;&lt;(OutputStream&amp; os, T value);</para>
+        <para>template&lt;typename T&gt; InputStream&amp; operator&gt;&gt;(InputStream&amp; os, T&amp; value);</para>
       </section>
       <section>
         <title>Design Issues</title>
