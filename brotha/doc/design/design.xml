@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.6 2002-04-08 05:12:48 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 05:12:48 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.7 2002-04-08 05:19:34 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 05:19:34 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -300,7 +300,9 @@
     </section>
     <section>
       <title>Texture Module</title>
-      <para>Description of what this module does here ...</para>
+      <para>The texture module is responsible for loading image files from the disk and creating OpenGL texture objects out of them. It uses the third-party Corona image library (externally developed by Chad Austin). The texture module has two object types: one TextureManager and several Texture objects.</para>
+      <para>The texture manager, given the name of a texture, will load the texture from disk, possibly process the image until it's in a format suitable for OpenGL, and create a new Texture object representing that texture. The TextureManager remembers and caches loaded textures so that it never loads a texture twice. </para>
+      <para>Texture objects provide a bind method which calls <emphasis>glBindTexture</emphasis>, changing OpenGL's current texture. It also provides a mechanism for changing texture parameters, such as whether to use NEAREST or LINEAR texel interpolation.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
