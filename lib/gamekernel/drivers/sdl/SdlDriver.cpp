@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-03-12 02:09:23 $
-// Version:       $Revision: 1.24 $
+// Date modified: $Date: 2003-03-12 02:18:48 $
+// Version:       $Revision: 1.25 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -44,7 +44,7 @@ createSystemDriver()
 
 namespace gk {
 
-SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(16), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
+SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(32), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
 {
 	misRunning = false;
 	mName = "SDL with OpenGL";	
@@ -296,6 +296,11 @@ void SdlDriver::showMouse( bool show )
 void SdlDriver::fullscreen(int ctx )
 {
 	mvideoFlags |= SDL_FULLSCREEN;
+   if (!mKernel)
+   {
+      // let init do it
+      return;
+   }
 	SDL_SetVideoMode(mWidth, mHeight, 0, mvideoFlags);
 }
 
@@ -307,11 +312,19 @@ void SdlDriver::getWindowSize(int& width, int& height, int ctx)
 
 void SdlDriver::setWindowSize(int width, int height, int ctx)
 {
+   mWidth = width;
+	mHeight = height;
+   if (!mKernel)
+   {
+      // let init do it
+      return;
+   }
+
    mvideoFlags &= ~SDL_FULLSCREEN; // not full screen
 
 	//suggested bpp
 	int sbpp;
-	sbpp = SDL_VideoModeOK(width, height, 0, mvideoFlags);
+	sbpp = SDL_VideoModeOK(width, height, mBpp, mvideoFlags);
 	if (sbpp == 0)
 	{
 		std::cerr << "SDL Driver Error:  The requested window size of " << width << " by " << height
@@ -319,9 +332,7 @@ void SdlDriver::setWindowSize(int width, int height, int ctx)
 	}
 	else
 	{
-		SDL_SetVideoMode(width, height, 0, mvideoFlags);
-		mWidth = width;
-		mHeight = height;
+		SDL_SetVideoMode( width, height, 0, mvideoFlags );	
 	}
 }
 
