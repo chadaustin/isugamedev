@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundManager.cpp,v $
- * Date modified: $Date: 2002-04-27 05:04:12 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-05-23 05:57:44 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -38,26 +38,32 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
+#ifdef _MSC_VER
+#pragma warning(disable : 4786)
+#endif
+
+
+
 #include <stdexcept>
 #include "SoundManager.h"
+
 
 namespace sound {
 
    SoundManager::SoundManager() {
-      mContext = audiere::CreateContext(0);
+      mContext = audiere::OpenDevice();
       if (!mContext) {
          throw std::runtime_error("Error creating Audiere context");
       }
 
-      mJukebox            = new Jukebox(mContext);
-      mSoundEffectManager = new SoundEffectManager(mContext);
+      mJukebox            = new Jukebox(mContext.get());
+      mSoundEffectManager = new SoundEffectManager(mContext.get());
    }
 
 
    SoundManager::~SoundManager() {
       delete mJukebox;
       delete mSoundEffectManager;
-      delete mContext;
    }
 
 

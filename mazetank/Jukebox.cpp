@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Jukebox.cpp,v $
- * Date modified: $Date: 2002-04-27 05:04:12 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-05-23 05:57:44 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,15 +42,10 @@
 
 namespace sound {
 
-   Jukebox::Jukebox(audiere::Context* context) {
+   Jukebox::Jukebox(audiere::AudioDevice* context) {
       mContext = context;
       mCurrentTrack = 0;
       mIsPlaying = false;
-   }
-
-
-   Jukebox::~Jukebox() {
-      delete mCurrentTrack;
    }
 
 
@@ -105,7 +100,6 @@ namespace sound {
    void
    Jukebox::stop() {
       /// @todo make this stop() better...  it has really stupid logic
-      delete mCurrentTrack;
       mCurrentTrack = 0;
       mCurrentIndex = 0;
       mIsPlaying = false;
@@ -137,8 +131,7 @@ namespace sound {
       // validate index
       mCurrentIndex = mCurrentIndex % getTrackCount();
 
-      delete mCurrentTrack;
-      mCurrentTrack = mContext->openStream(mTracks[mCurrentIndex].c_str());
+      mCurrentTrack = audiere::OpenSound(mContext.get(), mTracks[mCurrentIndex].c_str(), false);
       if (mCurrentTrack) {
          mCurrentTrack->play();
       }
@@ -151,11 +144,8 @@ namespace sound {
    Jukebox::nextTrack() {
       if (getTrackCount() >= 0) {
          mCurrentIndex = (mCurrentIndex + 1) % getTrackCount();
-
-         delete mCurrentTrack;
-         mCurrentTrack = mContext->openStream(mTracks[mCurrentIndex].c_str());
+         mCurrentTrack = audiere::OpenSound(mContext.get(), mTracks[mCurrentIndex].c_str(), false);
       } else {
-         delete mCurrentTrack;
          mCurrentTrack = 0;
       }
    }

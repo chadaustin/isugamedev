@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundManager.h,v $
- * Date modified: $Date: 2002-04-27 05:04:12 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-05-23 05:57:44 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -109,9 +109,9 @@ namespace sound {
       SoundEffectManager* getSoundEffectManager();
 
    private:
-      audiere::Context*   mContext;
-      Jukebox*            mJukebox;
-      SoundEffectManager* mSoundEffectManager;
+      audiere::AudioDevicePtr mContext;
+      Jukebox*                mJukebox;
+      SoundEffectManager*     mSoundEffectManager;
    };
 }
 

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.h,v $
- * Date modified: $Date: 2002-04-27 05:04:12 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-05-23 05:57:44 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,6 +41,11 @@
 #ifndef SOUND_SOUND_EFFECT_MANAGER_H
 #define SOUND_SOUND_EFFECT_MANAGER_H
 
+#ifdef _MSC_VER
+#pragma warning(disable : 4786)
+#endif
+
+
 #include <string>
 #include "audiere.h"
 
@@ -58,13 +63,7 @@ namespace sound {
        *
        * @param context    the Audiere context to use
        */
-      SoundEffectManager(audiere::Context* context);
-
-      /**
-       * Destroys this manager and terminates all sounds currently being played
-       * by this manager.
-       */
-      ~SoundEffectManager();
+      SoundEffectManager(audiere::AudioDevice* context);
 
       /**
        * Plays the sound contained within the given file.
@@ -76,8 +75,8 @@ namespace sound {
    private:
       enum { MAX_SOUNDS = 8 };
     
-      audiere::Context* mContext;
-      audiere::Stream* mStreams[MAX_SOUNDS];
+      audiere::AudioDevicePtr mContext;
+      audiere::OutputStreamPtr mStreams[MAX_SOUNDS];
       int mNextStream;
    };
 }

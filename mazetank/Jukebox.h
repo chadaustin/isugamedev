@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Jukebox.h,v $
- * Date modified: $Date: 2002-04-27 05:04:12 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-05-23 05:57:44 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -67,13 +67,7 @@ namespace sound {
       /**
        * The Jukebox uses a specified context to create audio streams.
        */
-      Jukebox(audiere::Context* context);
-
-      /**
-       * Destroys this jukebox. The currently playing track will be stopped and
-       * all memory released.
-       */
-      ~Jukebox();
+      Jukebox(audiere::AudioDevice* context);
 
       /**
        * Return current size of playlist.
@@ -122,11 +116,11 @@ namespace sound {
       void tryOpenTrack();
       void nextTrack();
 
-      audiere::Context* mContext;
+      audiere::AudioDevicePtr mContext;
       std::vector<std::string> mTracks;
 
       int mCurrentIndex;
-      audiere::Stream* mCurrentTrack;
+      audiere::OutputStreamPtr mCurrentTrack;
       bool mIsPlaying;
    };
 }
