@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.20 2002-04-08 21:42:52 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 21:42:52 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.21 2002-04-08 23:23:45 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 23:23:45 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -275,19 +275,25 @@
     </section>
     <section>
       <title>Sound Module</title>
-      <para>The sound module is responsible for managing background music and sound effects within the game. Brotha uses <emphasis>Audiere</emphasis>, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound module consists of two concepts: the background music <classname>Jukebox</classname> object and the <classname>SoundEffectManager</classname> object.</para>
-      <para>The jukebox is responsible for maintaining a list of background music tracks. It provides functionality for adding tracks, removing tracks, starting playback, stopping or pausing playback, and changing the background music volume. It also provides functionality for getting the current track name and how long it's been playing. Since Audiere files are streamed from disk, the jukebox does not have to load entire songs into memory.</para>
-      <para>The sound effect manager is responsible for playing sound effects, which are referred to by name. The <classname>SoundEffectManager</classname> has one method, <methodname>trigger</methodname>, which loads a sound effect if it hasn't already been loaded and plays it at a specified volume. Since sound effects can be played often and at unpredictable times, the sound effect manager should keep them in memory to prevent unpredictable latency.</para>
+      <para>The sound module is responsible for managing background music and sound effects within the game. Brotha uses <emphasis>Audiere</emphasis>, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound module consists of two subsystems; the background music <classname>Jukebox</classname> object and the <classname>SoundEffectManager</classname> object.</para>
       <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
+        <title>Jukebox Subsystem</title>
+        <para>The <classname>Jukebox</classname> is responsible for maintaining a list of background music <classname>Track</classname>s. It provides functionality for adding <classname>Track</classname>s, removing <classname>Track</classname>s, starting playback, stopping or pausing playback and changing the background music volume. It also provides functionality for getting the current track name and how long it has been playing. Since Audiere files are streamed from disk, the <classname>Jukebox</classname> does not have to load entire songs into memory.</para>
       </section>
       <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
+        <title>Sound Effect Manager Subsystem</title>
+        <para>The sound effect manager is responsible for playing sound effects, which are referred to by name. The <classname>SoundEffectManager</classname> has one method, <methodname>trigger</methodname>, which loads a sound effect if it hasn't already been loaded and plays it at a specified volume. Since sound effects can be played often and at unpredictable times, the sound effect manager should keep them in memory to prevent unpredictable latency.</para>
       </section>
       <section>
         <title>Module Interfaces</title>
+        <figure>
+          <title>Sound Module Interface Specification</title>
+          <mediaobject>
+            <imageobject>
+              <imagedata align="center" fileref="figures/sound_classes.png" format="PNG" scalefit="1"/>
+            </imageobject>
+          </mediaobject>
+        </figure>
         <para>The interface for the Sound module consists of the <classname>Jukebox</classname> and <classname>SoundEffectManager</classname> classes.</para>
         <classsynopsis>
           <ooclass>
