@@ -1,0 +1,15 @@
+The directory tree for the module is planned to be structured like so:
+root/
+        doc/
+        src/
+        test/
+
+Most of the files should be in InterCaps.
+
+Examples:
+  SomeDocument.txt
+  ImageLoader.cpp
+  BMPExporter.h
+
+Avoid hard tabs in files.  When they exist, they should be eight
+characters.

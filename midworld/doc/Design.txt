@@ -1,0 +1,22 @@
+Right now, this is just cut and pasted from our e-mails.  Refactor as
+necessary.
+
+We decided to make a game that was sort of like Target Quake.  We agreed upon 
+2D, and I believe on top down view as well.  The setting is a post nuclear 
+setting with retro fifties car, and the user interface will be Gattaca style. 
+Controls will be done with the mouse via a crosshair that appears out in 
+front of the player on screen.  
+
+Some of the item ideas:
+Homing Missiles
+Grenades
+Plasma
+Spread Shot
+
+We also decided to use variable time step as opposed to terrain, and we will 
+be using flat terrain.  
+
+For the first revision, we will use square baddies (possible cubes), and hope 
+to get the movement and some of the animation underway, as well as some of 
+the collision detection.
+
