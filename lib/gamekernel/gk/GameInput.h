@@ -5,8 +5,31 @@
 #include "Keyboard.h"
 #include "Singleton.h"
 
+class Input
+{
+public:
+};
+class DigitalInput : public Input
+{
+public:
+   
+};
+
 class GameInput : public kev::Singleton<GameInput>
 {
+public:
+   // Return a Input ptr to a deviced named
+   //!RETURN: NULL - Not found
+   Input* getDevice( std::string deviceName );
+
+   //: Add a device to InputManager.
+   //
+   // Add the devPtr to the device Array, devPtr should
+   // not already be in the array.  Returns -1 on failure
+   //
+   //! MODIFIES: self
+   bool addDevice( Input* devPtr );
+   
 public:
    /* Poll for input state: */
    inline const Mouse&        mouse() const { return mMouse; }

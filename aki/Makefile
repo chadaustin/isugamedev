@@ -1,5 +1,5 @@
 # objects to be included in the project....
-SRCS = aki.cpp
+SRCS = aki.cpp GameKernel.cpp
 
 # project name...
 PROJECT_NAME = aki
