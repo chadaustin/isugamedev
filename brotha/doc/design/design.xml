@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.76 2002-04-12 16:12:56 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 16:12:56 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.77 2002-04-12 18:18:46 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 18:18:46 $</pubdate>
     <copyright>
       <year>2002</year>
       <holder>Chad Austin, </holder>
@@ -53,10 +53,10 @@
   </bookinfo>
   <preface>
     <title>Introduction</title>
-    <para> Warn-a-Brother uses a client server architecture to allow for multiple people to play a game at the same time. The client is a relatively simple system, which does little more then display the world and move around as the server tells it to. The client uses the networking components(connection mgr, networking, threading) as well as the input, sound, texture and UI components. The server is much more sophisticated, responsible for managing the state of the world, calculating all the physics, storing all game world related data, as well as handling requests for reports based on the data. It uses the connection manager, the data/XML module, the game logic module, the network module, the report server, and of course the thread module </para>
-    <para> The client/server networking will be over TCP/IP using our own networking object library, which will include a socket, stream, and serialization subsystem. The report server will use the same socket libraries, but be based on HTTP, so that you'll just need a web server to query against it. </para>
-    <para> The client side graphics will be displayed using OpenGL 3d rendering. Input will be handled using GameKernel, and will be converted into command requests, which will be sent to the server to be processed. </para>
-    <para> Once they are received by the server, the Game Logic module processes user commands by attempting to apply to them to the game world and seeing what happens. The results are then sent back to every player's computer as updated positions.</para>
+    <para><emphasis>Warn-a-Brotha</emphasis> uses a client server architecture to allow for multiple people to play a game at the same time. The client is a relatively simple system, which does little more then display the world and move around as the server tells it to. The client uses the networking components(connection mgr, networking, threading) as well as the input, sound, texture and UI components. The server is much more sophisticated, responsible for managing the state of the world, calculating all the physics, storing all game world related data, as well as handling requests for reports based on the data. It uses the Connection Manager, Data/XML, Game Logic, Network, Report Server, and of course Thread subsystems.</para>
+    <para>The client/server networking will be over TCP/IP using our own networking object library, which will include a socket, stream, and serialization subsystem. The report server will use the same socket libraries, but be based on HTTP, so that you'll just need a web server to query against it.</para>
+    <para>The client side graphics will be displayed using OpenGL 3D rendering. Input will be handled using <emphasis>GameKernel</emphasis>, and will be converted into command requests, which will be sent to the server to be processed.</para>
+    <para>Once they are received by the server, the Game Logic subsystem processes user commands by attempting to apply to them to the game world and seeing what happens. The results are then sent back to each player's computer as updated positions.</para>
   </preface>
   <chapter>
     <title>Subsystems</title>
@@ -192,7 +192,7 @@
     </section>
     <section>
       <title>Data/XML Subsystem</title>
-      <para><classname></classname><classname></classname>The Data/XML subsystem provides access to a persistent, data structure that stores game related data such as cars and players and gangs. One root node <classname>BrothaData</classname>, is used to hold all the data. <classname>BrothaData</classname> provides a method to load and save the data, as well as a convenience function to validate a player based on their password. <classname>BrothaData</classname> also exposes a collection of <classname>Gang</classname> objects, and a collection of <classname>Gang</classname> and <classname>CarType</classname> objects. The <classname>CarType</classname> objects store basic information on a "type" of car, the gangs, basically have a name and a collection of <classname>Player</classname> objects, which in turn hold a name, password and a collection of <classname>Car</classname> objects. Each car has an associated type (from <classname>CarTypes</classname> in the root <classname>BrothaData</classname> node) as well as a collection of <classname>Mod</classname>s. Mods have a "type" and "level" of modification.</para>
+      <para>The Data/XML subsystem provides access to a persistent, data structure that stores game related data such as cars and players and gangs. One root node <classname>BrothaData</classname>, is used to hold all the data. <classname>BrothaData</classname> provides a method to load and save the data, as well as a convenience function to validate a player based on their password. <classname>BrothaData</classname> also exposes a collection of <classname>Gang</classname> objects, and a collection of <classname>Gang</classname> and <classname>CarType</classname> objects. The <classname>CarType</classname> objects store basic information on a "type" of car, the gangs, basically have a name and a collection of <classname>Player</classname> objects, which in turn hold a name, password and a collection of <classname>Car</classname> objects. Each car has an associated type (from <classname>CarTypes</classname> in the root <classname>BrothaData</classname> node) as well as a collection of <classname>Mod</classname>s. Mods have a "type" and "level" of modification.</para>
       <section>
         <title>Subsystem Interfaces</title>
         <figure>
@@ -341,7 +341,7 @@
               <para>What COTS XML parser should we use?</para>
             </question>
             <answer>
-              <para> The XML parser we used needed be able to support advanced features like XPath and XSL. </para>
+              <para>The XML parser we used needed be able to support advanced features like XPath and XSL.</para>
               <formalpara>
                 <title>Alternative 1 - <emphasis>Apache Xerces</emphasis></title>
                 <para><variablelist>
@@ -365,14 +365,10 @@
                       <listitem>
                         <itemizedlist>
                           <listitem>
-                            <itemizedlist spacing="compact">
-                              <listitem>
-                                <para>lightweight</para>
-                              </listitem>
-                              <listitem>
-                                <para>well known in the group</para>
-                              </listitem>
-                            </itemizedlist>
+                            <para>lightweight</para>
+                          </listitem>
+                          <listitem>
+                            <para>well known in the group</para>
                           </listitem>
                         </itemizedlist>
                       </listitem>
@@ -382,14 +378,10 @@
                       <listitem>
                         <itemizedlist>
                           <listitem>
-                            <itemizedlist spacing="compact">
-                              <listitem>
-                                <para>doesn't support XPath</para>
-                              </listitem>
-                              <listitem>
-                                <para>lacking in good documentation</para>
-                              </listitem>
-                            </itemizedlist>
+                            <para>doesn't support XPath</para>
+                          </listitem>
+                          <listitem>
+                            <para>lacking in good documentation</para>
                           </listitem>
                         </itemizedlist>
                       </listitem>
@@ -407,19 +399,19 @@
     </section>
     <section>
       <title>Game Logic Subsystem</title>
-      <para>The Game Logic subsystem is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic subsystem manages game specific interactions between object in the world such as cars, buildings and projectile. </para>
-      <para>This subsystem supports many different objects that exist in the game. Vehicles are allowed to interact with other vehicles by colliding with them or shooting ammunition at the enemy. When this happens, a vehicle takes on damage and loses health. Both cars lose health in the event of a collision, but only the vehicle that gets shot loses health in the event of a shooting. When a player loses health, coins are dropped onto the map where the damage occured. These coins can be collected by other players by colliding with them. Coins can be used later in order to purchase modifications to the players vehicle. </para>
-      <para>Players also interact with inanimate objects such as buildings and walls. When a collision occurs with a building or wall, health is lost and coins are dropped much in the same way as interactions between players except that buildings and wall do not take on damage.When a players health is equal to zero, that player is dead and must be sent back to the garage. The player is allowed back into the game after purchasing repairs for the vehicle. </para>
-      <para>The player is given an option after starting the program to enter the garage or just going straight into the game. If the player decides to go to the garage, he has the option to buy upgrades, repair damage to the vehicle, or enter the game. </para>
+      <para>The Game Logic subsystem is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic subsystem manages game specific interactions between object in the world such as cars, buildings and projectile.</para>
+      <para>This subsystem supports many different objects that exist in the game. Vehicles are allowed to interact with other vehicles by colliding with them or shooting ammunition at the enemy. When this happens, a vehicle takes on damage and loses health. Both cars lose health in the event of a collision, but only the vehicle that gets shot loses health in the event of a shooting. When a player loses health, coins are dropped onto the map where the damage occured. These coins can be collected by other players by colliding with them. Coins can be used later in order to purchase modifications to the players vehicle.</para>
+      <para>Players also interact with inanimate objects such as buildings and walls. When a collision occurs with a building or wall, health is lost and coins are dropped much in the same way as interactions between players except that buildings and wall do not take on damage.When a players health is equal to zero, that player is dead and must be sent back to the garage. The player is allowed back into the game after purchasing repairs for the vehicle.</para>
+      <para>The player is given an option after starting the program to enter the garage or just going straight into the game. If the player decides to go to the garage, he has the option to buy upgrades, repair damage to the vehicle, or enter the game.</para>
       <para>After entering the game, the player is then entered into a race where destroying his opponents or alternate gangs is highly recommended. It a player forces another players health down to zero, that player is credited with a frag, and and that will be saved in the player's statistics.</para>
       <para>The game progresses for a certain time or frag limit, with no clear winner to the race. The person with the most frags wins the game.</para>
       <para>The Game Logic Subsystem depends on the Connection Manager and specified data in order to send messages in order to update player information.</para>
       <section>
-        <title>Game Core</title>
+        <title>Game Core Module</title>
         <para>The Game Core is the system that handles all of the in-game rules. It handles collision detection, damage creation, and player interactions. The game core also makes sure that updates player statistics and keeps track of everything to send to the server for record keeping. </para>
       </section>
       <section>
-        <title>Network Message Handling</title>
+        <title>Network Message Handling Module</title>
         <para>The Network Message Handler handles messages recieved from the Network Manager and sends them to the appropriate players. If the message is sent to all players the game will broadcast the message to everyone. If it is a personal message, only the player the message was sent to will receive it.</para>
         <para>Messages will also be sent regarding a players statistics, including kills, money and health.</para>
       </section>
@@ -522,76 +514,73 @@
       <section>
         <title>Design Issues</title>
         <para>The GameLogic subsystem needs an efficient way to update player statistics. To do this we decided to use the capabilities of the Connection Manager and its message queues.</para>
-        <section>
-          <title>Update</title>
-          <qandaset>
-            <qandaentry>
-              <question>
-                <para>How can the update procedure be simplified in order that empty messages do not flood the network?</para>
-              </question>
-              <answer>
-                <para>The update procedure needs to be quick and painless while not causing too much network traffic.</para>
-                <formalpara>
-                  <title>Alternative 1 - <emphasis>Sending messages out after a certain time has passed.</emphasis></title>
-                  <para><variablelist>
-                      <varlistentry>
-                        <term>Pros</term>
-                        <listitem>
-                          <itemizedlist spacing="compact">
-                            <listitem>
-                              <para>Easy to implement.</para>
-                            </listitem>
-                            <listitem>
-                              <para>Just send out information in a loop.</para>
-                            </listitem>
-                          </itemizedlist>
-                        </listitem>
-                      </varlistentry>
-                      <varlistentry>
-                        <term>Cons</term>
-                        <listitem>
-                          <itemizedlist spacing="compact">
-                            <listitem>
-                              <para>May cause unneccesary network traffic.</para>
-                            </listitem>
-                          </itemizedlist>
-                        </listitem>
-                      </varlistentry>
-                    </variablelist></para>
-                </formalpara>
-                <formalpara>
-                  <title>Alternative 2 - <emphasis>Send a message whenever a statistic is updated</emphasis></title>
-                  <para><variablelist>
-                      <varlistentry>
-                        <term>Pros</term>
-                        <listitem>
-                          <itemizedlist spacing="compact">
-                            <listitem>
-                              <para>Network is not flooded with unneccesary messages.</para>
-                            </listitem>
-                          </itemizedlist>
-                        </listitem>
-                      </varlistentry>
-                      <varlistentry>
-                        <term>Cons</term>
-                        <listitem>
-                          <itemizedlist spacing="compact">
-                            <listitem>
-                              <para>Must be able to test to see when a statistic has been updated.</para>
-                            </listitem>
-                          </itemizedlist>
-                        </listitem>
-                      </varlistentry>
-                    </variablelist></para>
-                </formalpara>
-                <formalpara>
-                  <title>Conclusion</title>
-                  <para>We decided to send a message whenever a statistic is updated. It is not to hard to check and see if a stat has been updated and the network traffic should be much less.</para>
-                </formalpara>
-              </answer>
-            </qandaentry>
-          </qandaset>
-        </section>
+        <qandaset>
+          <qandaentry>
+            <question>
+              <para>How can the update procedure be simplified in order that empty messages do not flood the network?</para>
+            </question>
+            <answer>
+              <para>The update procedure needs to be quick and painless while not causing too much network traffic.</para>
+              <formalpara>
+                <title>Alternative 1 - <emphasis>Sending messages out after a certain time has passed.</emphasis></title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Easy to implement.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Just send out information in a loop.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>May cause unneccesary network traffic.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Alternative 2 - <emphasis>Send a message whenever a statistic is updated</emphasis></title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Network is not flooded with unneccesary messages.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Must be able to test to see when a statistic has been updated.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Conclusion</title>
+                <para>We decided to send a message whenever a statistic is updated. It is not to hard to check and see if a stat has been updated and the network traffic should be much less.</para>
+              </formalpara>
+            </answer>
+          </qandaentry>
+        </qandaset>
       </section>
     </section>
     <section>
@@ -699,17 +688,17 @@
       <title>Network Subsystem</title>
       <para>The network subsystem is responsible for creating sockets and server sockets. It also provides stream classes which simplify access to stream-like objects such as network connections and files. It is built on top of NSPR, a portable system abstraction library provided by mozilla.org.</para>
       <section>
-        <title>Socket Subsystem</title>
-        <para>The socket subsystem consists of two classes: <classname>Socket</classname> and <classname>ServerSocket</classname>. <classname>ServerSocket</classname> listens on a network port and returns new <classname>Socket</classname> objects when connections are made. <classname>Socket</classname> objects provide methods for reading from, writing to, and closing the socket.</para>
-        <para>Sockets also have associated <classname>SocketInputStream</classname> and <classname>SocketOutputStream</classname> objects. See the Stream Subsystem documentation for more details.</para>
+        <title>Socket Module</title>
+        <para>The Socket module consists of two classes: <classname>Socket</classname> and <classname>ServerSocket</classname>. <classname>ServerSocket</classname> listens on a network port and returns new <classname>Socket</classname> objects when connections are made. <classname>Socket</classname> objects provide methods for reading from, writing to, and closing the socket.</para>
+        <para>Sockets also have associated <classname>SocketInputStream</classname> and <classname>SocketOutputStream</classname> objects. See the Stream module documentation for more details.</para>
       </section>
       <section>
-        <title>Stream Subsystem</title>
-        <para>The stream subsystem provides objects that represent streams of bytes. Specifically, streams are split into two concepts: InputStreams and OutputStreams. InputStreams have a single <methodname>read</methodname> method and OutputStreams have a single <methodname>write</methodname> method. For example, Sockets have associated <classname>InputStream</classname> and <classname>OutputStream</classname> objects which facilitate reading from and writing to the network connection. The <classname>ByteBuffer</classname> class implements both <classname>InputStream</classname> and <classname>OutputStream</classname> and represents a growable array of bytes.</para>
+        <title>Stream Module</title>
+        <para>The stream module provides objects that represent streams of bytes. Specifically, streams are split into two concepts: InputStreams and OutputStreams. InputStreams have a single <methodname>read</methodname> method and OutputStreams have a single <methodname>write</methodname> method. For example, Sockets have associated <classname>InputStream</classname> and <classname>OutputStream</classname> objects which facilitate reading from and writing to the network connection. The <classname>ByteBuffer</classname> class implements both <classname>InputStream</classname> and <classname>OutputStream</classname> and represents a growable array of bytes.</para>
       </section>
       <section>
-        <title>Serialization Subsystem</title>
-        <para>The serialization aspect of the network subsystem is responsible for converting objects into streams of bytes and reconstructing the original objects from the stored bytes. It provides a set of operator overloads (mimicking standard C++ iostreams) which simplify writing objects to and reading objects from OutputStreams and InputStreams, respectively.</para>
+        <title>Serialization Module</title>
+        <para>The serialization aspect of the network module is responsible for converting objects into streams of bytes and reconstructing the original objects from the stored bytes. It provides a set of operator overloads (mimicking standard C++ iostreams) which simplify writing objects to and reading objects from OutputStreams and InputStreams, respectively.</para>
       </section>
       <section>
         <title>Subsystem Interfaces</title>
@@ -1037,11 +1026,11 @@
       <title>Sound Subsystem</title>
       <para>The sound subsystem is responsible for managing background music and sound effects within the game. Brotha uses <emphasis>Audiere</emphasis>, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound subsystem consists of two subsystems: the background music <classname>Jukebox</classname> object and the <classname>SoundEffectManager</classname> object.</para>
       <section>
-        <title>Jukebox Subsystem</title>
+        <title>Jukebox Module</title>
         <para>The <classname>Jukebox</classname> is responsible for maintaining a list of background music <classname>Track</classname>s. It provides functionality for adding <classname>Track</classname>s, removing <classname>Track</classname>s, starting playback, stopping or pausing playback and changing the background music volume. It also provides functionality for getting the current track name and how long it has been playing. Since Audiere files are streamed from disk, the <classname>Jukebox</classname> does not have to load entire songs into memory.</para>
       </section>
       <section>
-        <title>Sound Effect Manager Subsystem</title>
+        <title>Sound Effect Manager Module</title>
         <para>The sound effect manager is responsible for playing sound effects, which are referred to by name. The <classname>SoundEffectManager</classname> has one method, <methodname>trigger</methodname>, which loads a sound effect if it hasn't already been loaded and plays it at a specified volume. Since sound effects can be played often and at unpredictable times, the sound effect manager should keep them in memory to prevent unpredictable latency.</para>
       </section>
       <section>
