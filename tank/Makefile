@@ -42,7 +42,7 @@ endif
 endif
 
 ifeq ($(WHOAMI), bscott)
-ifeq ($(HOSTTYPE), Linux)
+ifeq ($(HOSTTYPE), linux)
    INCLUDE_PATHS += -I/usr/X11R6/include
    LIBPATHS += -L/usr/X11R6/lib
 endif
