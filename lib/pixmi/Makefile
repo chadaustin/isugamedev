@@ -92,8 +92,11 @@ install: build
 	-mkdir $(prefix)/include
 	-mkdir $(prefix)/include/pixmi
 	-mkdir $(prefix)/lib$(LIBBITSUF)
+	-mkdir $(prefix)/share
+	-mkdir $(prefix)/share/pixmi
 	-cp pixmi/*.h $(prefix)/include/pixmi
 	-cp $(LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
+	-cp data/* $(prefix)/share/pixmi
 
 
 # Remove the compiled stuff from the system
