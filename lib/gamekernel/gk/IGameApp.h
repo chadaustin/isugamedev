@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameApp.h,v $
-// Date modified: $Date: 2002-03-19 01:19:56 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-30 23:36:16 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -50,8 +50,8 @@ class IGameKernel;
  *    class MyApp : public AbstractGameApp
  *    {
  *       virtual ~MyApp();
- *       virtual void onContextDraw( int context );
- *       virtual void onPreFrame();
+ *       virtual void onDraw( int context );
+ *       virtual void onUpdate();
  *       // other overridden functions ...
  *    };
  * \endcode
@@ -63,29 +63,24 @@ public:
     * This is the draw function. The GameKernel calls this each frame once per
     * window. The context is used to support multiple windows such as what you
     * might find in a VR environment. For PC applications, this can be ignored.
+    * If there are multiple contexts currently open, onDraw will be called once
+    * for each context.
     *
     * @param context    the current OpenGL context
     */
-   virtual void onContextDraw( int context = 0 ) = 0;
+   virtual void onDraw( int context = 0 ) = 0;
 
    /**
-    * This is called immediately before onContextDraw(). You may do any
-    * application specific pre-frame processing within this function.
+    * This is called repeatedly to let your application update it's state. You
+    * cannot rely on a 1-1 correspondance between onDraw() and onUpdate() calls.
+    * In a single-threaded GameKernel, onDraw() will always immediately follow
+    * onUpdate(). However, in a multi-threaded GameKernel, there may be more
+    * than one onUpdate() call per onDraw() call since they will be called from
+    * different threads.
+    *
+    * <p>You should do any application specific processing within this function.
     */
-   virtual void onPreFrame() = 0;
-
-   /**
-    * This is called during a call to onContextDraw if the GameKernel driver is
-    * multi-threaded. Otherwise it's call time is unspecified and may happen
-    * either before or after a draw.
-    */
-   virtual void onIntraFrame() = 0;
-
-   /**
-    * This is called immediately after onContextDraw(). You may do any
-    * application specific post-frame processing within this function.
-    */
-   virtual void onPostFrame() = 0;
+   virtual void onUpdate() = 0;
 
 // Init methods
 public:
@@ -98,19 +93,23 @@ public:
     *
     * @param kernel     the IGameKernel instance running this app
     */
-   virtual void onAppInit( IGameKernel* kernel) = 0;
+   virtual void onAppInit( IGameKernel* kernel ) = 0;
 
    /**
     * This is called once for each context (window) after the window has been
     * opened, but before the onContextDraw().
+    *
+    * @param context    the current OpenGL context
     */
-   virtual void onContextInit() = 0;
+   virtual void onContextInit( int context = 0 ) = 0;
 
    /**
     * This is called once for each context (window) immediately before the
     * window has been closed.
+    *
+    * @param context    the current OpenGL context
     */
-   virtual void onContextExit() = 0;
+   virtual void onContextExit( int context = 0 ) = 0;
 };
 
 } // namespace gk

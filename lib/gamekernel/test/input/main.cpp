@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-22 02:59:32 $
-// Version:       $Revision: 1.19 $
+// Date modified: $Date: 2002-03-30 23:36:16 $
+// Version:       $Revision: 1.20 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -55,12 +55,12 @@ public:
       mMouseY.init( "MouseLookY", mKernel );
    }
 
-   virtual void onContextInit()
+   virtual void onContextInit( int context )
    {
       mKernel->setWindowSize( 640, 480 );
    }
 
-   virtual void onContextDraw( int context = 0 )
+   virtual void onDraw( int context )
    {
       int width, height;
       mKernel->getWindowSize( width, height );
@@ -86,7 +86,7 @@ public:
       grid.draw();
    }
 
-   virtual void onPostFrame()
+   virtual void onUpdate()
    {
       if (mQuit.getDigitalData() == DigitalInput::DOWN)
       {

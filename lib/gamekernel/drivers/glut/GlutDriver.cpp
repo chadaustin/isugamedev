@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-03-19 01:59:21 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-03-30 23:36:15 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -249,6 +249,11 @@ GlutDriver::name() const
 void
 GlutDriver::OnIdle()
 {
+   // the current window is not set in glut's idle func
+   if ( glutGetWindow() != sDriver->mMainWin_ContextID )
+   {
+      glutSetWindow( sDriver->mMainWin_ContextID );
+   }
    postRedisplay();
 
    IGameKernel* kernel = sDriver->mKernel;
@@ -257,9 +262,7 @@ GlutDriver::OnIdle()
    // do an app frame
    assert( app != NULL && "you can't run a NULL application" );
    kernel->getInput()->update();
-   app->onPreFrame();
-   app->onIntraFrame();
-   app->onPostFrame();
+   app->onUpdate();
 
    // force a poll on the joystick
    if ( sDriver->mJoystick != NULL )
@@ -281,7 +284,7 @@ GlutDriver::initCurrentContext()
 
       // init the app
       assert( mKernel->getApp() != NULL && "you can't run a NULL application" );
-      mKernel->getApp()->onContextInit();
+      mKernel->getApp()->onContextInit( ::glutGetWindow() );
    }
 }
 
@@ -296,7 +299,7 @@ GlutDriver::OnRedisplay()
    // draw the app
    IGameKernel* kernel = sDriver->mKernel;
    assert( kernel->getApp() != NULL && "you can't run a NULL application" );
-   kernel->getApp()->onContextDraw( sDriver->mCurrentContext );
+   kernel->getApp()->onDraw( sDriver->mCurrentContext );
 
    glutSwapBuffers();
 }

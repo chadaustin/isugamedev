@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-03-28 09:51:29 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-03-30 23:36:16 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -152,10 +152,9 @@ bool SdlDriver::run()
 		std::cerr << "##SD Driver Debug: Inside event loop" << std::endl;
 #endif
 		//TODO:  Support Multiple Windows
-		mApp->onPreFrame();
-		mApp->onContextDraw(0);
+      mApp->onUpdate();
+		mApp->onDraw(0);
 		SDL_GL_SwapBuffers();
-		mApp->onPostFrame();	
 		error = SDL_WaitEvent(&mEvent);
 		if (error == 0)
 		{
