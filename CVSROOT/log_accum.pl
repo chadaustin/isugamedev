@@ -21,7 +21,7 @@
 #
 
 #
-# $Id: log_accum.pl,v 1.1 2001-09-06 00:41:54 subatomic Exp $
+# $Id: log_accum.pl,v 1.2 2001-09-11 18:51:17 subatomic Exp $
 #
 
 require 5.005;		# might work with older perl5
@@ -86,7 +86,7 @@ my $FILE_PREFIX = "#cvs.files";
 #	$MAILADDRS = $meister if $DEBUG;
 #}
 
-$MAILADDRS = 'gamedev@iastate.edu';
+$MAILADDRS = 'isugamedev-commits@lists.sf.net';
 
 ############################################################
 #
