@@ -51,6 +51,7 @@ classes = Split("""
    MissileLauncher
    NavNodeTree
    OpenSGSceneViewer
+   OptionsState
    Particle
    ParticleEngine
    PhysicsEngine
