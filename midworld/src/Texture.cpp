@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2002-10-09 07:42:45 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-17 06:57:26 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -62,13 +62,14 @@ namespace mw
 
    Texture::Texture(const std::string& filename)
    {
+      std::cerr << "auto_ptr(image)" << std::endl;
       std::auto_ptr<Image> image(
          OpenImage(filename.c_str(), FF_AUTODETECT, PF_R8G8B8A8));
       if (!image.get())
       {
          ThrowTextureError("Could not load image '" + filename + "'");
       }
-
+      std::cerr << "After auto_ptr(image)" << std::endl;
       // remember the actual size of the image so we know how much of the
       // texture to use when calculating texture coordinates
       int  real_width  = image->getWidth();

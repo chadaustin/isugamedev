@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-17 05:51:22 $
- * Version:       $Revision: 1.58 $
+ * Date modified: $Date: 2002-10-17 06:57:26 $
+ * Version:       $Revision: 1.59 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,8 +43,9 @@
 #include "Application.h"
 #include "OpenSGSceneViewer.h"
 #include "GameManager.h"
-
-
+#include "InputBinder.h"
+#include "InputManager.h"
+#include "InputAction.h"
 #include "Enemy.h"
 #include "Turret.h"
 #include "AmmoCrate.h"
@@ -108,6 +109,51 @@ namespace mw
       /// XXX: If the player gets reaped it will segfault since mPlayer is a member
       add(&mPlayer);
 
+      //Setup Key Bindings
+      std::cerr << "Setting up keybindings" << std::endl;
+      InputBinder *binder = InputBinder::instance();
+      InputManager *manager = InputManager::instance();
+      std::cerr << "Got binder & manager" << std::endl;
+      //Set Up
+      std::cerr << "Creating actions" << std::endl;
+      mActUp = manager->createAction();
+      binder->bindAction(mActUp, SDLK_w);
+      binder->bindAction(mActUp, SDLK_UP);
+      //Set Down
+      mActDn = manager->createAction();
+      binder->bindAction(mActDn, SDLK_s);
+      binder->bindAction(mActDn, SDLK_DOWN);
+      //Set Right
+      mActRt = manager->createAction();
+      binder->bindAction(mActRt, SDLK_d);
+      binder->bindAction(mActRt, SDLK_RIGHT);
+      //Set Left
+      mActLt = manager->createAction();
+      binder->bindAction(mActLt, SDLK_a);
+      binder->bindAction(mActLt, SDLK_LEFT);
+      //Set Quit
+      mActQuit = manager->createAction();
+      binder->bindAction(mActQuit, SDLK_q);
+      binder->bindAction(mActQuit, SDLK_ESCAPE);
+      //Set Zoom In
+      mActZIn = manager->createAction();
+      binder->bindAction(mActZIn, SDLK_KP9);
+      //Set Zoom Out
+      mActZOut = manager->createAction();
+      binder->bindAction(mActZOut, SDLK_KP3);
+      //Set Pitch Up
+      mActPUp = manager->createAction();
+      binder->bindAction(mActPUp, SDLK_KP2);
+      //Set Pitch Down
+      mActPDn = manager->createAction();
+      binder->bindAction(mActPDn, SDLK_KP8);
+      //Set Yaw Left
+      mActYLt = manager->createAction();
+      binder->bindAction(mActYLt, SDLK_KP4);
+      //Set Yaw Right
+      mActYRt = manager->createAction();
+      binder->bindAction(mActYRt, SDLK_KP6);
+      std::cerr << "Finished creating actions." << std::endl;
       // XXX hack for testing aisystem
       appTest = new testing;
 
@@ -484,44 +530,59 @@ namespace mw
    {
       // todo replace this with a keymapper.
       // map keys to events... yay.
-      switch (sym)
+      InputBinder *binder = InputBinder::instance();
+      InputAction *act = binder->getAction(sym);
+      if (act == NULL)
       {
-      case SDLK_w: case SDLK_UP:
+         return;
+      }
+      unsigned long id = act->getID();
+      if (id == mActUp->getID())
+      {
          updateEdgeState(mAccelerate, down);
-         break;
-      case SDLK_s: case SDLK_DOWN:
+      }
+      else if(id == mActDn->getID())
+      {
          updateEdgeState(mReverse, down);
-         break;
-      case SDLK_a: case SDLK_LEFT:
+      }
+      else if(id == mActLt->getID())
+      {
          updateEdgeState(mStrafeLeft, down);
-         break;
-      case SDLK_d: case SDLK_RIGHT:
+      }
+      else if(id == mActRt->getID())
+      {
          updateEdgeState(mStrafeRight, down);
-         break;
-      case SDLK_ESCAPE: case SDLK_q:
+      }
+      else if(id == mActQuit->getID())
+      {
          if (down)
          {
             this->invokeTransition("Menu");
          }
-         break;
-      case SDLK_KP9:
+      }
+      else if(id == mActZIn->getID())
+      {
          updateEdgeState(mCameraZoomIn, down);
-         break;
-      case SDLK_KP3:
+      }
+      else if(id == mActZOut->getID())
+      {
          updateEdgeState(mCameraZoomOut, down);
-         break;
-      case SDLK_KP8:
+      }
+      else if(id == mActPDn->getID())
+      {
          updateEdgeState(mCameraPitchDown, down);
-         break;
-      case SDLK_KP2:
+      }
+      else if(id == mActPUp->getID())
+      {
          updateEdgeState(mCameraPitchUp, down);
-         break;
-      case SDLK_KP4:
+      }
+      else if(id == mActYLt->getID())
+      {
          updateEdgeState(mCameraYawLeft, down);
-         break;
-      case SDLK_KP6:
+      }
+      else if(id == mActYRt->getID())
+      {
          updateEdgeState(mCameraYawRight, down);
-         break;
       }
    }
 
@@ -536,7 +597,7 @@ namespace mw
       if (button == SDL_BUTTON_RIGHT)
       {
          updateEdgeState(mCycleWeapon, down);
-         //std::cout<<"LMB "<<down<<std::endl;
+         //std::cout<<"RMB "<<down<<std::endl;
       }
    }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-09-07 06:05:52 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-10-17 06:57:26 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -55,7 +55,7 @@ void ThrowSDLError(const std::string& prefix)
 void run()
 {
    std::cout << "Running Midworld v" << mw::version << std::endl;
-
+   
    // initialize SDL
    int init_flags = SDL_INIT_NOPARACHUTE | SDL_INIT_VIDEO | SDL_INIT_TIMER;
    if (SDL_Init(init_flags) < 0)
@@ -68,7 +68,6 @@ void run()
    {
       ThrowSDLError("Retrieving video information failed");
    }
-
    // define our minimum requirements for the GL window
    SDL_GL_SetAttribute(SDL_GL_RED_SIZE,     5);
    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,   5);
@@ -78,24 +77,20 @@ void run()
 
    const int width  = 640;
    const int height = 480;
-
    if (!SDL_SetVideoMode(width, height, info->vfmt->BitsPerPixel, SDL_OPENGL))
    {
       ThrowSDLError("Setting video mode failed");
    }
-
+   
    SDL_WM_SetCaption("Midworld", 0);
    std::auto_ptr<mw::Application> app(new mw::Application);
-   
    // init the mouse state...
    ::SDL_WarpMouse( width / 2, height / 2 );
    ::SDL_ShowCursor( SDL_DISABLE );
          
    // let the app know what size it is
    app->resize(width, height);
-      
    mw::u64 last_time = SDL_GetTicks();
-
    while (!app->shouldQuit())
    {      
       SDL_Event event;

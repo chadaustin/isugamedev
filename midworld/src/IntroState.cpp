@@ -24,13 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-10-11 05:01:55 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-10-17 06:57:26 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <algorithm>
 #include <memory>
+#include <iostream>
 #include "IntroState.h"
 #include "GameManager.h"
 #include "Application.h"
@@ -50,7 +51,6 @@ namespace mw
       , mLeavingState(false)
    {
       mIntroImage = new Texture("images/intro.jpeg");
-
       // Start playing the theme song.
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
       jukebox->clear();
