@@ -1,14 +1,15 @@
-import sys
 Import('env')
 
 classes = [
+    'Player',
 ]
 
 headers = [
+    'GameTimer',
+    'UIDManager',
 ]
 
 sources = [
-   'main'
 ]
 
 # add proper extensions to filenames
@@ -19,12 +20,4 @@ sources = map(lambda fn: fn + '.cpp', sources)
 headers.extend( map(lambda fn: fn + '.h', classes) )
 sources.extend( map(lambda fn: fn + '.cpp', classes) )
 
-
-LIBS = ['gk']
-if sys.platform == 'cygwin':
-    LIBS.extend(['glut32', 'opengl32', 'glu32'])
-else:
-    LIBS.extend(['glut', 'GLU', 'GL'])
-
-env2 = env.Copy( LIBPATH=['#net'], LIBS=LIBS );
-env2.Program(target = 'brotha', source = headers + sources)
+env.Library(target = 'game', source = sources)

@@ -11,5 +11,6 @@ CPPPATH=['#']
 env = Environment(CPPPATH=CPPPATH, ENV=os.environ)
 Export('env')
 SConscript('client/SConscript')
+SConscript('game/SConscript')
 SConscript('net/SConscript')
 SConscript('thread/SConscript')
