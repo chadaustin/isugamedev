@@ -24,19 +24,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BoundsSweepCollisionDetector.cpp,v $
- * Date modified: $Date: 2002-11-11 04:39:47 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-11 05:03:21 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <vector>
-#include "BoundsSweepCollisionDetector.h"
 #include <gmtl/VecOps.h>
 #include <gmtl/Generate.h>
 #include <gmtl/Containment.h>
 #include <gmtl/Intersection.h>
-
-#include "Entity.h" // for debugging only
+#include "BoundsSweepCollisionDetector.h"
 
 namespace mw
 {
@@ -64,15 +62,6 @@ namespace mw
          return 0;
       }
 
-      if (pcs.size() == 1)
-      {
-         std::cout<<"PCS is empty"<<std::endl;
-      }
-      else
-      {
-         std::cout<<"PCS is not empty"<<std::endl;
-      }
-
       for (std::list<RigidBody*>::iterator itr = pcs.begin(); itr != pcs.end(); ++itr)
       {
          RigidBody* collidee = *itr;
@@ -85,16 +74,11 @@ namespace mw
 
          // Do a sweep test between body and the potential collidee.
          // XXX: We need some way to get the path for collidee!
-//         float first_contact, second_contact;
-         float first_contact = -1;
-         float second_contact = -2;
-         const gmtl::AABoxf& collideeBounds = collidee->getBounds();
+         float first_contact, second_contact;
          if (gmtl::intersect(bounds, path,
                              collidee->getBounds(), gmtl::Vec3f(0,0,0),
                              first_contact, second_contact))
          {
-            std::cout<<"first_contact="<<first_contact<<std::endl;
-            std::cout<<"second_contact="<<second_contact<<std::endl;
             // There was a possible collision! Check this collisions against the
             // current best solution.
             if (first_contact < min_dist)
@@ -103,21 +87,13 @@ namespace mw
                closest_body = collidee;
             }
          }
-
-         std::cout<<"first_contact="<<first_contact<<std::endl;
-         std::cout<<"second_contact="<<second_contact<<std::endl;
       }
 
       // Pick the best collision if there was one
       if (closest_body)
       {
-         std::cout<<"Collision: "<<((Entity*)body)->getUID()<<" => "<<((Entity*)closest_body)->getUID()<<std::endl;
          // Back up the body a little so that it is no longer in a colliding
          // state.
-         if (min_dist != 0.0f)
-         {
-            std::cout<<"min_dist="<<min_dist<<std::endl;
-         }
          min_dist -= 0.05f;
          if (min_dist < 0.0f) min_dist = 0.0f;
 

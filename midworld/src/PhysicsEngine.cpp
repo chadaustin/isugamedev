@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-11-11 04:39:47 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-11-11 05:03:21 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -145,6 +145,9 @@ namespace mw
             // by scaling back the remaining dt by the % of the distance that was
             // travelled.
             float time_to_collision = dt * desc->getDistance();
+            std::cout << "Collision: " << ((Entity*)body)->getUID() << " => "
+                      << ((Entity*)desc->getCollidee())->getUID()
+                      << ", Time to collision: " << time_to_collision << std::endl;
 
             // Update the body to the point of the collision
             PhysicsEngine::update(body, time_to_collision);
@@ -171,12 +174,6 @@ namespace mw
                assert(false && "We left the body in a bad state");
             }
          }
-
-         // Make sure entities never go below the ground.
-         // XXX: This is such a hack. We need to get ground collision
-         // detection to be done in the collision detector.
-//         float& y = body->getPos()[1];
-//         y = std::max(y, 0.0f);
       }
    }
 
