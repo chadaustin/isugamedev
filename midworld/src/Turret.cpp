@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-10-29 07:05:44 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-29 08:55:20 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -54,6 +54,7 @@ namespace mw
    {
       Enemy::update(dt);
       gun->update(*getGameState(), dt);
+      gun->trigger(false);
    }
    
    Weapon* Turret::getGun()
