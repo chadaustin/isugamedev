@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-01-31 15:58:51 $
-# Version:       $Revision: 1.7 $
+# Date modified: $Date: 2002-01-31 16:15:39 $
+# Version:       $Revision: 1.8 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -39,9 +39,9 @@ PROJECT_NAME = aki
 OBJDIR = .
 DEPDIR =
 
-PATH_TO_SRCS = .:xmlpp
+PATH_TO_SRCS = .:xml
 MK_DIR = mk
-INCLUDE_PATHS = -I. -I/home/users/kevn/software/irix/include -Ixmlpp
+INCLUDE_PATHS = -I. -I/home/users/kevn/software/irix/include -Ixml
 
 ########################################################################
 # system dependent stuff, that users will want to change...
