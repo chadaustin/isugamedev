@@ -12,6 +12,7 @@ namespace mw
    bool isMouseSymbol(const std::string& symbol);
    Uint8 stringToSDLButton(const std::string& symbol);
    SDLKey stringToSDLKey(const std::string& name);
+   const std::string& SDLKeyToString(const SDLKey& key);
 }
 
 #endif
