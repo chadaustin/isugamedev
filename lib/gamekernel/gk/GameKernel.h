@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.21 $
+// Date modified: $Date: 2002-03-18 06:34:55 $
+// Version:       $Revision: 1.22 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -52,7 +52,7 @@ public:
     *
     * @param app  the app to manage with this kernel
     */
-   GameKernel( GameApp* app );
+   GameKernel( IGameApp* app );
 
    /**
     * Initializes and runs this kernel with the given system driver.
@@ -95,7 +95,7 @@ public:
     *
     * @param app     the application to run
     */
-   void add( GameApp* app );
+   void add( IGameApp* app );
 
    /**
     * Gets the input manager associated with this kernel.
@@ -125,7 +125,7 @@ public:
     *
     * @return the application managed by this kernel
     */
-   GameApp* getApp();
+   IGameApp* getApp();
 
 private:
    /**
@@ -141,7 +141,7 @@ private:
    /**
     * The application being managed by this kernel.
     */
-   GameApp* mApp;
+   IGameApp* mApp;
 };
 
 } // namespace gk

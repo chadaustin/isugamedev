@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-03-18 06:34:55 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -41,7 +41,7 @@
 #include <xdl.h>
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
-#include <gk/GameApp.h>
+#include <gk/AbstractGameApp.h>
 #include <gk/IGameKernel.h>
 #include <gk/GameInputConfigure.h>
 #include <gk/SystemDriverFactory.h>
@@ -54,5 +54,43 @@
 #endif
 
 #define GK_APIFUNC(ret, decl) extern "C" XDL_FUNC ret GK_CALL decl
+
+namespace gk {
+
+   // Functions defined in the gk::Private namespace should not be used by
+   // applications and should be considered private to the GameKernel library.
+   namespace Private {
+
+      // The following functions are extern "C" to prevent the compiler from
+      // mangling the symbols since they are exported from the library.
+
+      /**
+       * Creates a new IGameKernel instance that manages the given application.
+       *
+       * @param app     the application to manage with the kernel
+       *
+       * @return  a new IGameKernel implementation if sucessful, NULL otherwise
+       *
+       * @private
+       */
+      GK_APIFUNC(IGameKernel*, GK_createGameKernel(IGameApp* app));
+
+   } // namespace Private
+
+   //--------------------------------------------------------------------------
+
+   /**
+    * Creates a new IGameKernel instance that manages the given application.
+    *
+    * @param app     the application to manage with the kernel
+    *
+    * @return  a new IGameKernel implementation if successful, NULL otherwise
+    */
+   inline IGameKernel* createGameKernel( IGameApp* app )
+   {
+      return Private::GK_createGameKernel( app );
+   }
+
+} // namespace gk
 
 #endif

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-03-18 04:19:59 $
-// Version:       $Revision: 1.23 $
+// Date modified: $Date: 2002-03-18 06:34:55 $
+// Version:       $Revision: 1.24 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,7 +34,7 @@
 
 namespace gk {
 
-GameKernel::GameKernel( GameApp* app )
+GameKernel::GameKernel( IGameApp* app )
    : mDriver( NULL ), mApp( app )
 {
    assert( app != NULL && "You must pass in a valid application" );
@@ -119,7 +119,7 @@ void GameKernel::shutdown()
    mDriver = NULL;
 }
 
-GameApp* GameKernel::getApp()
+IGameApp* GameKernel::getApp()
 {
    return mApp;
 }

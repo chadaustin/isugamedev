@@ -24,14 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-03-18 06:34:56 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 
 #include <gk/gk.h>
-#include <gk/GameKernel.h>
 #include <GlutDriver.h>
 #include <gk/SystemDriverFactory.h>
 #include "Grid.h"
@@ -40,7 +39,7 @@
 
 GK_USING_NAMESPACE
 
-class InputApp : public GameApp
+class InputApp : public AbstractGameApp
 {
 public:
    InputApp()
@@ -113,7 +112,7 @@ public:
 int main( int argc, char *argv[] )
 {
    // create the kernel and add our app in
-   IGameKernel* kernel = new GameKernel( new InputApp() );
+   IGameKernel* kernel = gk::createGameKernel( new InputApp() );
 
    // configure the system
    loadInputConfig( "config.xml", kernel );

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-03-18 06:34:55 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -266,7 +266,7 @@ GlutDriver::OnIdle()
    postRedisplay();
 
    IGameKernel* kernel = sDriver->mKernel;
-   GameApp* app = kernel->getApp();
+   IGameApp* app = kernel->getApp();
 
    // do an app frame
    assert( app != NULL && "you can't run a NULL application" );

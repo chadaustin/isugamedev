@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameKernel.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-03-18 06:34:55 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,7 +34,7 @@
 
 #include <gk/gkCommon.h>
 #include <gk/DLLInterface.h>
-#include <gk/GameApp.h>
+#include <gk/IGameApp.h>
 #include <gk/GameInput.h>
 #include <gk/SystemDriver.h>
 
@@ -50,7 +50,7 @@ namespace gk {
  *
  * <h3>Example: Starting your application</h3>
  * \code
- *    class MyAppType : public gk::GameApp() {};
+ *    class MyAppType : public gk::AbstractGameApp() {};
  *    int main() {
  *       gk::IGameKernel* kernel = gk::CreateGameKernel( new MyAppType() );
  *       gk::loadInputConfig( "config.xml", kernel );
@@ -140,7 +140,7 @@ public:
     *
     * @return the application managed by this kernel
     */
-   virtual GameApp* getApp() = 0;
+   virtual IGameApp* getApp() = 0;
 };
    
 } // namespace gk
