@@ -237,6 +237,12 @@
 				RelativePath="..\..\src\OpenSGSceneViewer.h">
 			</File>
 			<File
+				RelativePath="..\..\src\PhysicsEngine.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\PhysicsEngine.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Pistol.h">
 			</File>
 			<File
