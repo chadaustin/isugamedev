@@ -34,10 +34,8 @@ namespace mw
       glPushMatrix();
          glMultMatrixf( this->matrix().getData() );
          glTranslatef( 0, 1, 0 );
-         glPushMatrix();
-            glScalef( 0.5f, 0.3f, 0.4f );
-            cubeGeometry().render();
-         glPopMatrix();
+         glScalef( 0.5f, 0.3f, 0.4f );
+         cubeGeometry().render();
       glPopMatrix();
       
       this->weapon().draw();
