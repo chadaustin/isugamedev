@@ -99,11 +99,11 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject, int dt)
 	//////////////////
 	// Update Camera
 	//////////////////
-	if(CurrentCamera != NULL)
+/*	if(CurrentCamera != NULL)
 	{
 		CurrentCamera->Move(-MoveX, -MoveY);
 		CurrentCamera->SetObjectYaw(-ObjectAngle);
-	}
+	}*/
 
 }
 

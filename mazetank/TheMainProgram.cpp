@@ -39,7 +39,7 @@ void Initialize()
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	 glLightfv(GL_LIGHT0, GL_POSITION, light_position);
     glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
     glEnable(GL_DEPTH_TEST);

@@ -83,11 +83,19 @@ void GameWorld::Init()
 void GameWorld::Update(int dt)
 {
    float TankPosition[3];
+   float OldTankPosition[3];
+   float TankAngle;
 
    GameSound->getJukebox()->update();
    GamePhysics.Update(TheGameObjects, dt);
+   
+   Player1->GetPosition(TankPosition);
+   Player1->GetOldPosition(OldTankPosition);
+   Player1->GetObjectAngle(TankAngle);
 
    // update camera
+   GameCamera->Move(OldTankPosition[0]-TankPosition[0], OldTankPosition[1]-TankPosition[1]);
+   GameCamera->SetObjectYaw(-TankAngle);
    GameCamera->Update(dt);
 
 }

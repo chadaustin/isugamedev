@@ -116,6 +116,7 @@ void CollisionResponse::PlayerResponse(GameObject* MainObject, GameObject* &TheG
    case NPCTANK:
       MainObject->GetOldPosition(Position);
       MainObject->SetPosition(Position);
+      MainObject->SetPosition(Position);
       break;
 
    case CAMTANK:
