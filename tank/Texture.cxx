@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Texture.cxx,v $
-//    $Date: 2001-09-10 15:27:29 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-28 19:01:49 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -35,14 +35,14 @@
 //	Constructor.
 Texture::Texture() : mImage( NULL ), model( MODULATE ), 
 		    wrapS( REPEAT ), wrapT( REPEAT ), 
-		    filtering( NEAREST )
+		    filtering( MIPMAP_LINEAR )
 {
    this->setResourceID();
 }
 
 Texture::Texture( const Texture &texture ) : model( MODULATE ), 
 		    wrapS( REPEAT ), wrapT( REPEAT ), 
-		    filtering( NEAREST ), mImage(NULL)
+		    filtering( MIPMAP_LINEAR ), mImage(NULL)
 {
     // reference the image.
     this->setImage( texture.mImage );
