@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Joystick.h,v $
-// Date modified: $Date: 2003-02-09 07:43:03 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2003-02-10 05:01:26 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -133,15 +133,29 @@ public:
       }
    }
 
-   /**
-    * Don't use this function. It is not implemented.
-    *
-    * @see Mouse
+   /** ambiguous call, not implemented
+    *  cast Joystick to one of the base types or call getXxxxxInput( int )
     */
    virtual Input* getInput( const int& id )
    {
-      assert( false );
+      assert( false && "ambiguous call to getInput, cannot determine source type (AnalogDevice or DigitalDevice)" );
       return NULL;
+   }
+
+   /** 
+    * get analog input based on the index
+    */
+   virtual Input* getAnalogInput( const int& id )
+   {
+      return AnalogDevice::getInput( id );
+   }
+
+   /** 
+    * get digital input based on the index
+    */
+   virtual Input* getDigitalInput( const int& id )
+   {
+      return DigitalDevice::getInput( id );
    }
 
 private:
@@ -150,14 +164,14 @@ private:
     */
    void initializeButtonMap()
    {
-      const std::string btnPrefix( "JOYSTICKBUTTON_" );
       int i;
 
       // Map the buttons
       for ( i = 0; i < numButtons(); ++i )
       {
-         std::string tmp( btnPrefix );
-         tmp += i;
+         char temp[512];
+         sprintf( temp, "JOYSTICKBUTTON_%d", i );
+         std::string tmp( temp );
          std::cout<<"Mapping joystick button: "<<tmp<<std::endl;
          DigitalDevice::mMap[ tmp.c_str() ] = i;
       }
@@ -169,14 +183,14 @@ private:
     */
    void initializeAxisMap()
    {
-      const std::string axisPrefix( "JOYSTICKAXIS_" );
       int i;
 
       // Map the axes
       for ( i = 0; i < numAxes(); ++i )
       {
-         std::string tmp( axisPrefix );
-         tmp += i;
+         char temp[512];
+         sprintf( temp, "JOYSTICKAXIS_%d", i );
+         std::string tmp( temp );
          std::cout<<"Mapping joystick axis: "<<tmp<<std::endl;
          AnalogDevice::mMap[ tmp.c_str() ] = i;
       }
