@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: iniFile.h,v $
-//    $Date: 2001-10-10 13:01:16 $
-//    $Revision: 1.4 $
+//    $Date: 2001-10-12 03:12:30 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -29,6 +29,8 @@
 ///////////////// <auto-copyright END do not edit this line> ///////////////////
 #ifndef INI_FILE
 #define INI_FILE
+
+#include <stdio.h>
 
 #include "iniSection.h"
 #include "iniUtils.h"
