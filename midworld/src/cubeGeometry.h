@@ -24,18 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: cubeGeometry.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-23 19:45:15 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef CUBE_GEOM___
 #define CUBE_GEOM___
 
-#ifdef WIN32
-#  include <windows.h>
-#endif
-#include <GL/gl.h>
+#include <SDL_opengl.h>
 
 class cubeGeometry
 {

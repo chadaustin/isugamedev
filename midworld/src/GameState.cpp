@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-09-23 04:00:15 $
- * Version:       $Revision: 1.33 $
+ * Date modified: $Date: 2002-09-23 19:45:15 $
+ * Version:       $Revision: 1.34 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,6 +43,7 @@
 #include "GameManager.h"
 
 #include "Enemy.h"
+
 
 namespace mw
 {
@@ -136,10 +137,10 @@ namespace mw
       mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
 //      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
-      const gmtl::Vec3f accel(   gmtl::Vec3f(0, 0, -mSpeed)      );
-      const gmtl::Vec3f reverse( gmtl::Vec3f(0, 0,  mSpeed*0.7f) );
-      const gmtl::Vec3f sleft(   gmtl::Vec3f(-mSpeed*0.9f, 0, 0) );
-      const gmtl::Vec3f sright(  gmtl::Vec3f( mSpeed*0.9f, 0, 0) );
+      const gmtl::Vec3f accel  (0, 0, -mSpeed);
+      const gmtl::Vec3f reverse(0, 0, mSpeed * 0.7f);
+      const gmtl::Vec3f sleft  (mSpeed * -0.9f, 0, 0);
+      const gmtl::Vec3f sright (mSpeed * 0.9f,  0, 0);
 
       const float camera_zoom_vel(10.0f);
       const float camera_pitch_vel(gmtl::Math::deg2Rad(100.0f));
@@ -186,18 +187,16 @@ namespace mw
       }
 
       // set velocity of player based on the computed inputs
-      mPlayer.setVel( mPlayer.getRot() * mPlayerVel );
+      mPlayer.setVel(mPlayer.getRot() * mPlayerVel);
 
       // Shoot
       if (mShoot == EDGE_DOWN)
       {
          mPlayer.weapon().trigger( true );
-         //std::cout<<"Trigger Down"<<std::endl;
       }
       else if (mShoot == EDGE_UP)
       {
          mPlayer.weapon().trigger( false );
-         //std::cout<<"Trigger Up"<<std::endl;
       }
 
       if (mCycleWeapon == EDGE_DOWN)
@@ -346,13 +345,19 @@ namespace mw
       float remaining_dt = dt;
       const gmtl::Vec3f& orig_vel = body->getVel();
 
+      body->addForce(gmtl::Vec3f(0, -9.81f, 0));
+
       // Check for collisions
       CollisionDesc* desc = mCollDet->checkCollision(body, orig_vel * dt);
 
       // No more collisions, let the body update the remaining distance
-      if (! desc)
+      if (!desc)
       {
          body->update(remaining_dt);
+
+         // Make sure entities never go below the ground.
+         float& y = body->getPos()[1];
+         y = std::max(y, 0.0f);
       }
       // We had a collision
       else
