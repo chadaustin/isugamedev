@@ -8,7 +8,7 @@
 #ifndef __TANKOBJECT_H__
 #define __TANKOBJECT_H__
 
-#include <gl/glut.h>
+#include <GL/glut.h>
 #include "GraphicsObject.h"
 #include "TankGraphics.h"
 #include "TurretGraphics.h"

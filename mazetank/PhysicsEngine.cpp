@@ -1,6 +1,6 @@
 #include "PhysicsEngine.h"
 #include <math.h>
-#include <gl/glut.h>
+#include <GL/glut.h>
 
 #define PI 3.1415926535
 

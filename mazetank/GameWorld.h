@@ -8,7 +8,7 @@
 #ifndef __GAMEWORLD_H__
 #define __GAMEWORLD_H__
 
-#include <gl/glut.h>
+#include <GL/glut.h>
 #include <vector>
 #include "Camera.h"
 #include "GameObject.h"

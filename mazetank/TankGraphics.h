@@ -10,7 +10,7 @@
 
 #include "GraphicsObject.h"
 #include "glm.h"
-#include <gl/glut.h>
+#include <GL/glut.h>
 
 class TankGraphics:public GraphicsObject
 {
