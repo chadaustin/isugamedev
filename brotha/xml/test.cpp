@@ -5,7 +5,7 @@
 #include "xmlpersist.h"
 #include "HtmlGen.h"
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
 
 	dataxml::load("test.xml");

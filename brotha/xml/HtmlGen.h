@@ -9,7 +9,9 @@
 
 namespace reports{
 
+	class request;
 
+	std::string renderPlayerList(dataxml::playerlist, reports::request);
 
 	class request{
 	public:
@@ -80,12 +82,19 @@ namespace reports{
 
 	std::string renderGangList(dataxml::ganglist gl, reports::request schema){
 		std::string html = "";
-		for(unsigned int i = 0; i < gl.size(); i++){
-			if(schema.gangD == 0){
-				dataxml::Gang* g = gl[i];
-				html += "<h1>" + g->getName() + "</h1>";
-				html += "<div class=\"ganginfo\">" + g->getInfo() + "</div>";
-				html += "<div class=\"gangplayers\"> number of players: " + std::string(itoa(g->getPlayerList().size(),new char[30],30))+ "</div>";
+		for(int i = 0; i < gl.size(); i++){
+			dataxml::Gang* g = gl[i];
+			if(schema.gang.find(g->getName())!= -1 || schema.gang == "*"){
+				if(schema.gangD == 2){
+					html += "<h1>" + g->getName() + "</h1>";
+					html += "<div class=\"ganginfo\">" + g->getInfo() + "</div>";
+					html += "<div class=\"gangplayers\"> number of players: " + std::string(itoa(g->getPlayerList().size(),new char[30],30))+ "</div>";
+				}
+				if(schema.gangD == 1){
+					html += "<h1>" + g->getName() + "</h1>";
+				}
+				html += renderPlayerList(g->getPlayerList(), schema);
+
 			}
 		}
 		return html;
@@ -100,7 +109,7 @@ namespace reports{
 		return html;
 	}
 
-	std::string renderPlayerList(dataxml::playerlist pl){
+	std::string renderPlayerList(dataxml::playerlist pl, reports::request schema){
 		std::string html = "";
 		html += "<table><th>Name</th><th># of cars</th>";
 		for(unsigned int i = 0; i < pl.size(); i++){
