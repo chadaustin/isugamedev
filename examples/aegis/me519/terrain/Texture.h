@@ -13,7 +13,10 @@ public:
     mWhat = what;
   }
 
-  const char* what() const {
+  ~TextureException() throw() {
+  }
+
+  const char* what() const throw() {
     return mWhat.c_str();
   }
 
