@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameScene.h,v $
- * Date modified: $Date: 2002-09-23 21:25:23 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-09-24 04:43:37 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -55,7 +55,7 @@ namespace mw
       void draw()
       {
          /** draw the scene. */
-         static const cubeGeometry cube;
+         static cubeGeometry cube;
 
          const int size = 500;
          const int spacing = 10;
