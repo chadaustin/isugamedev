@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.cpp,v $
- * Date modified: $Date: 2002-04-22 06:15:26 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-24 02:56:07 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -61,20 +61,23 @@ namespace phui {
       glPushMatrix();
       glLoadIdentity();
 
-      /// @todo  replace these all with the attrib stack
-      ///        who are we to specify what the client state should be?
+      // Make sure the client isn't affected by our changes to OpenGL state.
+      glPushAttrib(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |
+                   GL_ENABLE_BIT | GL_SCISSOR_BIT);
 
-      // disable depth testing since all draws occur at the same level
-      glDisable(GL_DEPTH_TEST);
-      // we need to clip widgets
-      glEnable(GL_SCISSOR_TEST);
+         // disable depth testing since all draws occur at the same level
+         glDisable(GL_DEPTH_TEST);
+         // we need to clip widgets
+         glEnable(GL_SCISSOR_TEST);
 
-      // draw children
-      WidgetContainer::draw();
+         // turn on alpha blending
+         glEnable(GL_BLEND);
+         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-      // re-enable depth testing
-      glEnable(GL_DEPTH_TEST);
-      glDisable(GL_SCISSOR_TEST);
+         // draw children
+         WidgetContainer::draw();
+
+      glPopAttrib();
 
       glMatrixMode(GL_MODELVIEW);
       glPopMatrix(); // modelview
