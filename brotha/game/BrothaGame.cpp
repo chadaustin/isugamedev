@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-27 05:18:31 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-22 02:26:18 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -39,54 +39,47 @@
  *
  ************************************************************ brotha-cpr-end */
 #include "BrothaGame.h"
+#include <algorithm>
 
 namespace game
 {
-   BrothaGame::BrothaGame()
-      : mLocalPlayer(NULL)
-   {
+   void BrothaGame::update(){
+      
    }
 
-   void BrothaGame::update()
-   {
-      /// @todo update the game state
+   void BrothaGame::addPlayer(Player* player){
+      assert (player != NULL && "Cannot add a NULL player!");
+
+      std::cout << "About to add player!" << std::endl;
+      mPlayer.push_back(player);
+      std::cout << "Player added." << std::endl;
    }
 
-   void BrothaGame::add( Player* player )
-   {
-      assert( player != NULL && "Cannot add a NULL player!" );
-      mPlayers[player->getUID()] = player;
-   }
-
-   void BrothaGame::setLocalPlayer( Player* player )
-   {
-      mLocalPlayer = player;
-   }
-
-   Player* BrothaGame::getLocalPlayer()
-   {
-      return mLocalPlayer;
-   }
-
-   void BrothaGame::setPaused( bool pause )
-   {
-      if ( pause )
-      {
-         mGameTime.stop();
-      }
-      else
-      {
-         mGameTime.start();
+   void BrothaGame::removePlayer(Player* player){
+      PlayerListItr Itr;
+      Itr = std::find(mPlayer.begin(),mPlayer.end(),player);
+      if (Itr != mPlayer.end()){
+         mPlayer.erase(Itr);
       }
    }
 
-   bool BrothaGame::isPaused() const
-   {
-      return ( ! mGameTime.isStopped() );
+   void BrothaGame::addObject(Object* object){
+      assert ( object != NULL && "Cannot add a Null object!" );
+      mObject.push_back(object);
    }
 
-   const GameTimer& BrothaGame::getGameTimer() const
-   {
-      return mGameTime;
+   void BrothaGame::removeObject(Object* object){
+      ObjectListItr Itr;
+      Itr = std::find(mObject.begin(), mObject.end(), object);
+      if(Itr != mObject.end()){
+         mObject.erase(Itr);
+      }
    }
+   
+   void BrothaGame::outputList(){
+      for (int i=0; i < mPlayer.size(); i++){
+         std::cout << mPlayer[i]->getName() << std::endl;
+      }
+   }
+
 }

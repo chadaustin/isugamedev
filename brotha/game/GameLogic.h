@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-03-29 21:29:49 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-22 02:26:18 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,6 +44,7 @@
 #include <map>
 #include "game/GameTimer.h"
 #include "game/Player.h"
+#include <vector>
 
 namespace game
 {
@@ -54,15 +55,8 @@ namespace game
    class BrothaGame
    {
    public:
-      /**
-       * Creates a new game with no players.
-       */
-      BrothaGame();
 
-      /**
-       * Updates the state of all objects in the game.
-       */
-      void update();
+     void update();
 
       /**
        * Adds the given player to the game.
@@ -70,65 +64,41 @@ namespace game
        * @param player     the player to add
        * @pre  player != NULL
        */
-      void add( Player* player);
+     void addPlayer(Player* player);
+        
+     /**
+      * Removes a player from the current game
+      * 
+      * @param player      the player to remove
+      */
+     void removePlayer(game::Player* player);
 
-      Player* getPlayer( Player::UID uid )
-      {
-         std::map<Player::UID, Player*>::iterator itr;
-         itr = mPlayers.find( uid );
-         if ( itr != mPlayers.end() ) {
-            return itr->second;
-         }
-         return NULL;
-      }
+	  /**
+	   * Adds a given object in the game
+	   *
+	   * @param object     the object to add
+	   * @pre object != NULL
+	   */
+	  void addObject(game::Object* object);
 
-      /**
-       * Sets which player is on the local machine. If player is NULL, then it is
-       * assumed that there is no local player and this is a dedicated server.
-       *
-       * @param player     the player corresponding to the local player
-       */
-      void setLocalPlayer( Player* player );
+     /**
+      * Removes the given object
+      *
+      * @param object     the object to remove
+      */
+	  void removeObject(game::Object* object);
 
-      /**
-       * Gets the player on the local machine. If there is no local player, as
-       * could be the case on a dedicated server, this method will return NULL.
-       *
-       * @return  the local player or NULL if there is no player on the local
-       *          machine
-       */
-      Player* getLocalPlayer();
-
-      /**
-       * Pauses or unpauses the game.
-       *
-       * @param pause   true to pause the game, false to unpause the game
-       */
-      void setPaused( bool pause );
-
-      /**
-       * Tests if the game is paused.
-       *
-       * @return  true if the game is paused, false otherwise
-       */
-      bool isPaused() const;
-
-      /**
-       * Gets the game timer
-       */
-      const GameTimer& getGameTimer() const;
+     void outputList();
 
    private:
-      typedef std::map<Player::UID, Player*> PlayerMap;
+      //vector for players in the game.
+      typedef std::vector<Player*> PlayerList;
+      PlayerList mPlayer;
+      typedef PlayerList::iterator PlayerListItr;
 
-      /// The game timer.
-      GameTimer mGameTime;
-
-      /// All players in the game.
-      PlayerMap mPlayers;
-
-      /// The local player.
-      Player* mLocalPlayer;
+      typedef std::vector<Object*> ObjectList;
+      ObjectList mObject;
+      typedef ObjectList::iterator ObjectListItr;
    };
 }
 
