@@ -35,6 +35,7 @@ classes = Split("""
    GameOverState
    GameScene
    GameState
+   GunPickup
    HUD
    HomingMissile
    IntroState
