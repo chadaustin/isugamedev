@@ -14,6 +14,10 @@ namespace lr
 
    void Player::draw(){
       currentTexture->drawRectangle(realPos, realHeight+32, realPos+16, realHeight);
+      if(die)
+      {
+         dieTexture->drawRectangle(0,756,1024,0);
+      }
    }
 
    Player::Player(Level& theLevel){
@@ -40,6 +44,7 @@ namespace lr
       hang1rightImage = Texture::create(std::string("lr-hang1-right.png"));
       hang2rightImage = Texture::create(std::string("lr-hang2-right.png"));
       hang3rightImage = Texture::create(std::string("lr-hang3-right.png"));
+      dieTexture = Texture::create(std::string("die.png"));
       
 
       currentTexture = run1rightImage;
@@ -50,6 +55,9 @@ namespace lr
 
       // set the score to 0
       score = 0;
+
+      die=false;
+      dieTime=0.0;
 
    }
 
@@ -95,6 +103,28 @@ namespace lr
    
    void Player::update(float dt)
    {   
+      if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
+      {
+         setLives(getLives()-1);
+         realPos=initPos;
+         realHeight=initHeight;
+         dieTime=0.0;
+         die=true;
+      }
+      
+      if(dieTime<3)
+      {
+         dieTime+=dt;
+         return;
+      }
+      else
+      {
+         die=false;
+      }
+      
+
+      
+      
       if(dt>(1.0/128.0))
          dt=(1.0/128.0);
       playerState tempState;
@@ -178,6 +208,7 @@ namespace lr
       {
          mLevel->setEmpty(getGridPos(), getGridHeight());
          score+=100;
+         mLevel->numBagsDecr();
       }
 
       if((initTime+=dt)>.08 && updateTex==true)
@@ -255,6 +286,16 @@ namespace lr
    void Player::setHeight(int h)
    {
       realHeight = h;
+   }
+
+   void Player::setInitPos(int pos)
+   {
+      initPos = pos;
+   }
+
+   void Player::setInitHeight(int h)
+   {
+      initHeight = h;
    }
    
    Player::~Player()

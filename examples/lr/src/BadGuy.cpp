@@ -15,6 +15,7 @@ namespace lr
    }
 
    void BadGuy::draw(){
+      if(!mPlayer->amDead())
       currentTexture->drawRectangle(realPos, realHeight+32, realPos+16, realHeight);
    }
 
@@ -286,6 +287,11 @@ namespace lr
          realHeight = initHeight;
          realPos = initPos;
          return;
+      }
+
+      if(mPlayer->amDead())
+      {
+         mLevel->readLevelFile(std::string("level1.lvl"), mPlayer, this);
       }
          
       
@@ -560,6 +566,7 @@ namespace lr
       {
          mLevel->readLevelFile(std::string("level1.lvl"), mPlayer, this);
          mPlayer->setLives(mPlayer->getLives()-1);
+         mPlayer->caught();
       }
 
       

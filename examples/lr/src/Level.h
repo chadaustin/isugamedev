@@ -70,7 +70,21 @@ namespace lr
        */
       void draw();
 
+      void numBagsDecr()
+      {
+         numBags--;
+      }
 
+      void setNumBags(int i)
+      {
+         numBags=i;
+      }
+
+      int getNumBags()
+      {
+         return numBags;
+      }
+         
    private:
       /**
        * this is a multi dimensional array for the representation of the level.

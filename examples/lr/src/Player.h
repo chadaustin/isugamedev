@@ -79,6 +79,9 @@ namespace lr
        * @params h is the actual height NOT the grid height
        */
       void setHeight(int h);
+
+      void setInitPos(int pos);
+      void setInitHeight(int h);
            
       
       /**
@@ -124,13 +127,25 @@ namespace lr
       void burnOutRightBrick(float dt);
 
       void burnOutLeftBrick(float dt);
+
+      void caught()
+      {
+         die=true;
+      }
+
+      bool amDead()
+      {
+         return die;
+      }
       
    private:
       float realPos;    // players real position on the screen from 0 to 1024
       float realHeight; // players real height on the screen from 0 to 768
+      float initPos;
+      float initHeight;
       
       playerState mState;			// players current state either hang1,2, climb1,2, or run1,2,
-      Texture* run1leftImage, *run2leftImage, *run3leftImage, *run1rightImage, *run2rightImage, *run3rightImage, *climb1Image, *climb2Image, *hang1rightImage, *hang2rightImage, *hang3rightImage, *hang1leftImage, *hang2leftImage, *hang3leftImage;
+      Texture* run1leftImage, *run2leftImage, *run3leftImage, *run1rightImage, *run2rightImage, *run3rightImage, *climb1Image, *climb2Image, *hang1rightImage, *hang2rightImage, *hang3rightImage, *hang1leftImage, *hang2leftImage, *hang3leftImage, *dieTexture;
       
       /** 
        * now we create a currentTexture pointer that just points at the one we
@@ -164,6 +179,9 @@ namespace lr
        */
       Level* mLevel;
 
+      bool die;
+      float dieTime;
+      
       /** players score */
       int score;
 

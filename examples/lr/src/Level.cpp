@@ -176,6 +176,8 @@ namespace lr
                mLevel[j][i] = empty;
                p->setHeight(i*32);
                p->setPos(j*32);
+               p->setInitHeight(i*32);
+               p->setInitPos(j*32);
             }
          }
       }
