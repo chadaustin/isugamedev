@@ -31,7 +31,7 @@ namespace mw
 
          const float pillar_height = 0.5f;
          const float pillar_width = 0.4f;
-         const int size_2 = 500 / 2;
+         const int size_2 = 100 / 2;
          for (int x = -size_2; x < size_2; x += spacing)
          {
             for (int y = -size_2; y < size_2; y += spacing)
