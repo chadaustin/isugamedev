@@ -6,20 +6,18 @@
 
 #include "thread/Thread.h"
 #include "net/ServerSocket.h"
-#include "net/OutputStream.h"
-#include "Client.h"
-#include <vector>
+#include "net/NetMgr.h"
 
 namespace server {
    class ListenServer : public thread::Thread {
    public:
-      ListenServer(std::vector<Client> *clients);
+      ListenServer(net::NetMgr *netMgr);
       virtual ~ListenServer();
 
       virtual void run();
    private:
       net::ServerSocket m_serverSocket;
-      std::vector<Client> *m_clients;
+      net::NetMgr *m_netMgr;
    };
 } // namespace server
 

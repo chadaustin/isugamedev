@@ -4,9 +4,9 @@
 #include "ListenServer.h"
 
 namespace server {
-   ListenServer::ListenServer(std::vector<Client> *clients)
+   ListenServer::ListenServer(net::NetMgr *netMgr)
       : m_serverSocket(35791) {
-         m_clients = clients;
+      m_netMgr = netMgr;
    }
 
    ListenServer::~ListenServer() {
@@ -14,6 +14,12 @@ namespace server {
 
    void ListenServer::run() {
       while(PR_AtomicIncrement(&mKillMe)) {
+         // accept new client connections, inform the NetMgr about them
+         net::Socket *sock = m_serverSocket.accept();
+         if(sock != NULL) {
+            m_netMgr->handleSocket(sock);
+         }
+
          PR_AtomicDecrement(&mKillMe);
       }
    }

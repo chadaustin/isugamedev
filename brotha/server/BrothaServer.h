@@ -4,24 +4,16 @@
 #ifndef BROTHA_SERVER_H
 #define BROTHA_SERVER_H
 
-#include "net/MessageQueue.h"
-#include "GameServer.h"
 #include "ListenServer.h"
-#include "WriteServer.h"
+#include "GameThread.h"
 #include <vector>
 
 namespace server {
    class BrothaServer {
    public:
       BrothaServer() {
-         m_writeQueue = 0;
-         m_readQueue = 0;
-
-         m_clients = 0;
-
-         m_gameServer = 0;
+         m_gameThread = 0;
          m_listenServer = 0;
-         m_writeServer = 0;
       }
 
       ~BrothaServer() {
@@ -30,42 +22,27 @@ namespace server {
       }
 
       void StartServer() {
-         m_writeQueue = new net::MessageQueue();
-         m_readQueue  = new net::MessageQueue();
+         m_netMgr = new net::NetMgr();
 
-         m_clients = new std::vector<Client>;
+         m_gameThread   = new GameThread(m_netMgr);
+         m_listenServer = new ListenServer(m_netMgr);
 
-         m_gameServer   = new GameServer(m_writeQueue, m_readQueue);
-         m_listenServer = new ListenServer(m_clients);
-         m_writeServer  = new WriteServer(m_clients, m_writeQueue);
-
-         m_gameServer->start();
+         m_gameThread->start();
          m_listenServer->start();
-         m_writeServer->start();
       }
 
       void StopServer() {
-         if(m_gameServer != 0) {
-            m_gameServer->stop();
+         if(m_gameThread != 0) {
+            m_gameThread->stop();
          }
          if(m_listenServer != 0) {
             m_listenServer->stop();
          }
-         if(m_writeServer != 0) {
-            m_writeServer->stop();
-         }
 
-         m_gameServer   = 0;
+         delete m_netMgr;
+
+         m_gameThread   = 0;
          m_listenServer = 0;
-         m_writeServer  = 0;
-
-         delete m_writeQueue;
-         delete m_readQueue;
-         m_writeQueue = 0;
-         m_readQueue = 0;
-
-         delete m_clients;
-         m_clients = 0;
       }
 
       void StartWebServer() {
@@ -76,13 +53,10 @@ namespace server {
          // TODO: jcjcjcjc
       }
    private:
-      net::MessageQueue *m_writeQueue;
-      net::MessageQueue *m_readQueue;
-      std::vector<Client> *m_clients;
-
-      GameServer *m_gameServer;
+      GameThread *m_gameThread;
       ListenServer *m_listenServer;
-      WriteServer *m_writeServer;
+
+      net::NetMgr *m_netMgr;
    };
 } // namespace server
 
