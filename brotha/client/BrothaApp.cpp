@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 12:54:18 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-03-29 12:58:42 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -108,14 +108,14 @@ namespace client
       for( net::NetMgr::MsgListIter iter = msgs.begin(); iter != msgs.end(); ++iter ) {
          net::Message* msg = (*iter).first;
          // tell the current state to handle the message
-         auto_ptr<AppState> newState = mAppState->handleMessage( msg, this );
+         std::auto_ptr<AppState> newState = mAppState->handleMessage( msg, this );
          if ( newState.get() != NULL ) {
             mAppState = newState;
          }
          /// @todo delete msg?
       }
 
-      auto_ptr<AppState> newState = mAppState->update( this );
+      std::auto_ptr<AppState> newState = mAppState->update( this );
       if ( newState.get() != NULL ) {
          mAppState = newState;
       }

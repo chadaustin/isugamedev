@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-03-29 12:54:18 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-29 12:58:42 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -134,7 +134,7 @@ namespace client
       net::NetMgr::ConnID mConnID;
 
       /// The application state
-      auto_ptr<AppState> mAppState;
+      std::auto_ptr<AppState> mAppState;
 
       std::string mName, mPass;
       bool mIsConnected;

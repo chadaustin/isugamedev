@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.h,v $
- * Date modified: $Date: 2002-03-29 12:54:18 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-29 12:58:42 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -68,9 +68,9 @@ namespace client
        * @return  the pointer to the next state or NULL if there should be no
        *          change
        */
-      virtual auto_ptr<AppState> handleMessage(const net::Message* msg,
+      virtual std::auto_ptr<AppState> handleMessage(const net::Message* msg,
                                                BrothaApp* app) {
-         return auto_ptr<AppState>(NULL);
+         return std::auto_ptr<AppState>(NULL);
       }
 
       /**
@@ -80,8 +80,8 @@ namespace client
        * @return  the pointer to the next state or NULL if there should be no
        *          change
        */
-      virtual auto_ptr<AppState> update(BrothaApp* app) {
-         return auto_ptr<AppState>(NULL);
+      virtual std::auto_ptr<AppState> update(BrothaApp* app) {
+         return std::auto_ptr<AppState>(NULL);
       }
    };
 
@@ -95,9 +95,9 @@ namespace client
    public:
       virtual ~LoggedInState() {}
 
-      virtual auto_ptr<AppState> update(BrothaApp* app) {
+      virtual std::auto_ptr<AppState> update(BrothaApp* app) {
          std::cout<<"Blah"<<std::endl;
-         return auto_ptr<AppState>(NULL);
+         return std::auto_ptr<AppState>(NULL);
       }
    };
 
@@ -111,7 +111,7 @@ namespace client
       /**
        * Process the ack from the login request. Error out all other messages.
        */
-      virtual auto_ptr<AppState> handleMessage(const net::Message* msg,
+      virtual std::auto_ptr<AppState> handleMessage(const net::Message* msg,
                                                BrothaApp* app);
    };
 
@@ -123,7 +123,7 @@ namespace client
       virtual ~ConnectedState() {}
 
       /// Start the login process with the server
-      virtual auto_ptr<AppState> update(BrothaApp* app);
+      virtual std::auto_ptr<AppState> update(BrothaApp* app);
    };
 
    /**
@@ -138,7 +138,7 @@ namespace client
        *
        * @todo Check for error conditions
        */
-      virtual auto_ptr<AppState> update(BrothaApp* app);
+      virtual std::auto_ptr<AppState> update(BrothaApp* app);
    };
 
 }
