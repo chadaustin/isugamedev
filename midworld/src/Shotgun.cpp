@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-09-09 01:18:03 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-09 02:00:22 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -75,7 +75,6 @@ namespace mw
          //degrees
          float angle = gmtl::Math::deg2Rad((mSpreadAngle * float(rand())/RAND_MAX) - (mSpreadAngle/2));
 
-         std::cout<<"Pellet angle: "<<gmtl::Math::rad2Deg(angle)<<std::endl;
          gmtl::Quatf barrel_rot(gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(angle, 0.0f, 1.0f, 0.0f)));
 
          BaseBullet* bullet = createBullet();
