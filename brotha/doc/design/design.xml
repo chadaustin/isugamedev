@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.41 2002-04-09 05:09:48 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 05:09:48 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.42 2002-04-09 05:32:15 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 05:32:15 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -360,10 +360,6 @@
       <section>
         <title>Design Issues</title>
         <para>One of the design decisions made was to use "high tech" XML processing systems to create and format the data, this means using things like XSL and XPath to select the data. Rather then writing a bunch of custom routines to generate the HTML, we'll use a style sheet to create it directly from XML, and use XPath to select arbitrary data from the tree.</para>
-        <section>
-          <title>XML parser</title>
-          <para>The design requirements for the Reporter server influenced the choice of XML parser used. We had started with XMLpp, but moved to Apache Xerces</para>
-        </section>
       </section>
     </section>
     <section>
@@ -446,26 +442,79 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>From the outside, the sound module directly satisfies the audio needs of the application. However, it can be implemented using one of several audio decoding and playback libraries.</para>
-        <section>
-          <title>Audiere vs. FMOD</title>
-          <para>Alternative 1 - Audiere</para>
-          <para>Pros</para>
-          <para>- open source</para>
-          <para>- developed by a member of the Brotha team</para>
-          <para>- very simple and straightforward API</para>
-          <para>Cons</para>
-          <para>- not as mature as some other libraries</para>
-          <para></para>
-          <para>Alternative 2 - FMOD</para>
-          <para>Pros</para>
-          <para>- mature and stable library</para>
-          <para>Cons</para>
-          <para>- needlessly complex API</para>
-          <para>- closed source</para>
-          <para></para>
-          <para>We chose Audiere for a couple reasons. The members of the team are more familiar with it than FMOD. Since Audiere is open source, we can update it to include any functionality we need.</para>
-        </section>
+        <qandaset>
+          <qandaentry>
+            <question>
+              <para>Which COTS audio library should we use?</para>
+            </question>
+            <answer>
+              <para>From the outside, the sound module directly satisfies the audio needs of the application. However, it can be implemented using one of several audio decoding and playback libraries.</para>
+              <formalpara>
+                <title>Alternative 1 - <emphasis>Audiere</emphasis></title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist>
+                          <listitem>
+                            <para>Open source.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Developed by a member of the Brotha team.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Very simple and straightforward API.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist>
+                          <listitem>
+                            <para>Not as mature as some other libraries.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Alternative 1 - <emphasis>FMOD</emphasis></title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist>
+                          <listitem>
+                            <para>Mature and stable library</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist>
+                          <listitem>
+                            <para>Needlessly complex API</para>
+                          </listitem>
+                          <listitem>
+                            <para>Closed source</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Conclusion</title>
+                <para>We chose Audiere for a couple reasons. The members of the team are more familiar with it than FMOD. Since Audiere is open source, we can update it to include any functionality we need.</para>
+              </formalpara>
+            </answer>
+          </qandaentry>
+        </qandaset>
       </section>
     </section>
     <section>
