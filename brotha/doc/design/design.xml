@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="docbook.css" type="text/css"?>
+<?xml-stylesheet href="file://localhost/home9/users/aegisk/isugamedev/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.21 2002-04-08 23:23:45 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 23:23:45 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.22 2002-04-09 00:20:39 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 00:20:39 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -275,7 +275,7 @@
     </section>
     <section>
       <title>Sound Module</title>
-      <para>The sound module is responsible for managing background music and sound effects within the game. Brotha uses <emphasis>Audiere</emphasis>, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound module consists of two subsystems; the background music <classname>Jukebox</classname> object and the <classname>SoundEffectManager</classname> object.</para>
+      <para>The sound module is responsible for managing background music and sound effects within the game. Brotha uses <emphasis>Audiere</emphasis>, an external audio library independently developed by Chad Austin, for reading and playing streams of audio. The sound module consists of two subsystems: the background music <classname>Jukebox</classname> object and the <classname>SoundEffectManager</classname> object.</para>
       <section>
         <title>Jukebox Subsystem</title>
         <para>The <classname>Jukebox</classname> is responsible for maintaining a list of background music <classname>Track</classname>s. It provides functionality for adding <classname>Track</classname>s, removing <classname>Track</classname>s, starting playback, stopping or pausing playback and changing the background music volume. It also provides functionality for getting the current track name and how long it has been playing. Since Audiere files are streamed from disk, the <classname>Jukebox</classname> does not have to load entire songs into memory.</para>
@@ -353,14 +353,25 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>From the outside, the sound module directly satisfies the audio needs of the application. However, it can be implemented using one of several audio decoding and playback libraries.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Audiere vs. FMOD</title>
+          <para>Alternative 1 - Audiere</para>
+          <para>Pros</para>
+          <para>- open source</para>
+          <para>- developed by a member of the Brotha team</para>
+          <para>- very simple and straightforward API</para>
+          <para>Cons</para>
+          <para>- not as mature as some other libraries</para>
+          <para></para>
+          <para>Alternative 2 - FMOD</para>
+          <para>Pros</para>
+          <para>- mature and stable library</para>
+          <para>Cons</para>
+          <para>- needlessly complex API</para>
+          <para>- closed source</para>
+          <para></para>
+          <para>We chose Audiere for a couple reasons. The members of the team are more familiar with it than FMOD. Since Audiere is open source, we can update it to include any functionality we need.</para>
         </section>
       </section>
     </section>
@@ -369,14 +380,6 @@
       <para>The texture module is responsible for loading image files from the disk and creating OpenGL texture objects out of them. It uses the third-party <emphasis>Corona</emphasis> image library (externally developed by Chad Austin). The texture module has two object types: one <classname>TextureManager</classname> and several <classname>Texture</classname> objects.</para>
       <para>The <classname>TextureManager</classname>, given the name of a <classname>Texture</classname>, will load the texture from disk, possibly process the image until it is in a format suitable for OpenGL, and create a new <classname>Texture</classname> object representing that texture. The <classname>TextureManager</classname> remembers and caches loaded textures so that it never loads a texture twice. </para>
       <para><classname>Texture</classname> objects provide a <methodname>bind</methodname> method which calls <methodname>glBindTexture</methodname>, changing OpenGL's current texture. It also provides a mechanism for changing texture parameters, such as whether to use <constant>NEAREST</constant> or <constant>LINEAR</constant> texel interpolation.</para>
-      <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
       <section>
         <title>Module Interfaces</title>
         <para>blah blah</para>
