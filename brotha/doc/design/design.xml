@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.70 2002-04-12 08:06:29 tamc Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 08:06:29 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.71 2002-04-12 08:17:06 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 08:17:06 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -36,6 +36,10 @@
         <date>03 Apr 2002</date>
         <revremark>Created document skeleton.</revremark>
       </revision>
+      <revision>
+        <revnumber>1.2</revnumber>
+        <date>12 Apr 2002</date>
+        <revremark>First draft completed.</revremark>
     </revhistory>
   </bookinfo>
   <preface>
