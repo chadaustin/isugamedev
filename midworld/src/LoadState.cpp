@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.cpp,v $
- * Date modified: $Date: 2002-10-09 08:35:14 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-31 07:22:17 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,15 +44,24 @@ namespace mw
 
    LoadState::LoadState(Application* a)
       : State(a)
-      , mComplete(0)
+      , mModelsComplete(0)
+      , mTexturesComplete(0)
    {
       mLoadImage = new Texture("images/loading.jpeg");
 
+      mModels.push_back("ammo_crate");
+      mModels.push_back("barrel");
+      mModels.push_back("barrel_tipped");
       mModels.push_back("bullet");
       mModels.push_back("casing");
-      mModels.push_back("security_droid");
       mModels.push_back("player");
-      mModels.push_back("ammo_crate");
+      mModels.push_back("security_droid");
+      mModels.push_back("tent");
+      mModels.push_back("turret");
+      mModels.push_back("wall_straight");
+      mModels.push_back("wall_corner");
+
+      mTextures.push_back("images/explosive_particle.png");
    }
 
    LoadState::~LoadState()
@@ -63,13 +72,19 @@ namespace mw
    void
    LoadState::update(float dt)
    {
-      if (mComplete < mModels.size())
+      if (mModelsComplete < mModels.size())
       {
          ResourceManager* resmgr = GameManager::instance().getResourceManager();
          ModelManager* mdlmgr = GameManager::instance().getModelManager();
 
-         mdlmgr->preload(resmgr->get(mModels[mComplete]));
-         ++mComplete;
+         mdlmgr->preload(resmgr->get(mModels[mModelsComplete]));
+         ++mModelsComplete;
+      }
+      else if (mTexturesComplete < mTextures.size())
+      {
+         TextureManager* texmgr = GameManager::instance().getTextureManager();
+         texmgr->preload(mTextures[mTexturesComplete]);
+         ++mTexturesComplete;
       }
       else
       {
@@ -100,7 +115,10 @@ namespace mw
       // Draw the status bar
       unsigned int half_width = application().getWidth() / 2;
       unsigned int bar_size = 200;
-      unsigned int value = (unsigned int)((float)mComplete / mModels.size() * 200.0f);
+      unsigned int total_complete = mModelsComplete + mTexturesComplete;
+      unsigned int total_size = mModels.size() + mTextures.size();
+      unsigned int value = (unsigned int)((float)total_complete / total_size * 200.0f);
+
       glPushMatrix();
       {
          glTranslatef(half_width - bar_size/2, application().getHeight() - 50, 0);
