@@ -24,14 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WindowAdapter.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-08 08:19:50 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WINDOW_ADAPTER_H
 #define PHUI_WINDOW_ADAPTER_H
 
+#include <iostream>
 #include "WindowListener.h"
 
 namespace phui
@@ -77,6 +78,8 @@ namespace phui
        */
       void onWindowUnfocused(const WindowEvent& evt) {}
    };
+
+   typedef boost::shared_ptr<WindowAdapter> WindowAdapterPtr;
 }
 
 #endif

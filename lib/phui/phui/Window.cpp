@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2003-01-08 08:19:49 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -88,10 +88,12 @@ namespace phui
       {
          glColor(getForegroundColor());
          glBegin(GL_LINE_LOOP);
-         glVertex2i(0,     0);
-         glVertex2i(width, 0);
-         glVertex2i(width, height);
-         glVertex2i(0,     height);
+         {
+            glVertex2i(0,     0);
+            glVertex2i(width, 0);
+            glVertex2i(width, height);
+            glVertex2i(0,     height);
+         }
          glEnd();
       }
 
