@@ -25,10 +25,11 @@ namespace mw
        * @param body    the body that is the collider
        * @param path    the path along which the body must travel
        *
-       * @return  a description of the collision, null if there is no collision
+       * @return  a description of the collision, null if there is no collision.
+       *          The caller is responsible for freeing the CollisionDesc.
        */
-      virtual CollisionDesc checkCollision(const RigidBody* body,
-                                           const gmtl::Vec3f& path) = 0;
+      virtual CollisionDesc* checkCollision(const RigidBody* body,
+                                            const gmtl::Vec3f& path) = 0;
 
       /**
        * Sets the spatial index to use with this detector.
