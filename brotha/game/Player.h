@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-02 05:27:08 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-05-03 01:39:35 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -80,7 +80,7 @@ namespace game {
        *
        * @return the health of the player
        */
-      int getHealth() const {
+      PRUint32 getHealth() const {
          return mHealth;
       }
 
@@ -89,7 +89,7 @@ namespace game {
        *
        * @return the health of the player
        */
-      int getKills() const{
+      PRUint32 getKills() const{
          return mKills;
       }
 
@@ -98,28 +98,28 @@ namespace game {
        *
        * @return the health of the player
        */
-      int getCoins() const{
+      PRUint32 getCoins() const{
          return mCoins;
       }
 
       /**
        * Sets the players health
        */
-      void setHealth(int health) {
+      void setHealth(PRUint32 health) {
          mHealth = health;
       }
 
       /**
        * Sets the players health
        */
-      void setKills(int kills) {
+      void setKills(PRUint32 kills) {
          mKills = kills;
       }
 
       /**
        * Sets the players health
        */
-      void setCoins(int coins){
+      void setCoins(PRUint32 coins){
          mCoins = coins;
       }
 
@@ -162,16 +162,16 @@ namespace game {
       gmtl::Vec3f mPosition;
 
       /// This player's health
-      int mHealth;
+      PRUint32 mHealth;
 
       /// The object in the world that is this player's vehicle
       Object* mVehicle;
 
       /// The number of kills this player has
-      int mKills;
+      PRUint32 mKills;
 
       /// The number of coins this player has
-      int mCoins;
+      PRUint32 mCoins;
 
    public: // accessors wouldn't be worth the effor here
       /// whether or not player is doing something (not serialized, server side only)
