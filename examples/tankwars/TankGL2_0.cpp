@@ -40,6 +40,9 @@ Tank test2(-20.0, 0.0, 20.0, -135.0);
 
 Terrain eatMe;
 
+Tank *tank1;
+Tank *tank2;
+
 
 Weapon *tank1Shot;
 Weapon *shotCursor;
@@ -745,54 +748,57 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,		// Handle For This Window
 //-----------------------------------------------------
 void GameLoop()
 {
+	tank1 = &test;
+	tank2 = &test2;
 
-	if (keys[VK_UP])	// move tank1 forward
+	if (keys[VK_UP] && ifNCollide(tank1, tank2) && test.DorA())	// move tank1 forward
 	{
 		test.move(FORWARD);
 	}
 
-	if (keys['W'])		// move tank2 forward
+	if (keys['W'] && ifNCollide(tank1, tank2) && test2.DorA())		// move tank2 forward
 	{
 		test2.move(FORWARD);
 	}
 
-	if (keys[VK_DOWN])	// move tank1 back
+	if (keys[VK_DOWN] && test.DorA())	// move tank1 back
 	{
 		test.move(BACK);
 	}
 
-	if (keys['S'])		// move tank1 back
+	if (keys['S'] && test2.DorA())		// move tank1 back
 	{
 		test2.move(BACK);
 	}
 
-	if (keys[VK_RIGHT])	// turn tank1 to the left
+	if (keys[VK_RIGHT] && test.DorA())	// turn tank1 to the left
 	{
 		test.turn(RIGHT);
 	}
 
-	if (keys['D'])		// turn tank2 to the left
+	if (keys['D'] && test2.DorA())		// turn tank2 to the left
 	{
 		test2.turn(RIGHT);
 	}
 
-	if (keys[VK_LEFT])	// turn tank1 to the right
+	if (keys[VK_LEFT] && test.DorA())	// turn tank1 to the right
 	{
 		test.turn(LEFT);
 	}
 
-	if (keys['A'])		// turn tank2 to the right
+	if (keys['A'] && test2.DorA())	// turn tank2 to the right
 	{
 		test2.turn(LEFT);
 	}
 
-	if (keys[VK_CONTROL]) // tank1 fire weapon
+	if (keys[VK_CONTROL] && test.DorA()) // tank1 fire weapon
 	{
 		if (shotCursor == NULL )	// no shots fired
 		{
 			tank1Shot = new Bullet;
 			tank1Shot->initialize(test.getX(), test.getZ(), test.getAngle());
 			tank1Shot->weaponTex = weaponTex;
+			tank1Shot->next = NULL;
 
 			shotCursor = tank1Shot;
 			lastShot = tank1Shot;
@@ -810,13 +816,14 @@ void GameLoop()
 		
 	}
 
-	if (keys[VK_TAB]) // tank2 fire weapon
+	if (keys[VK_TAB] && test2.DorA()) // tank2 fire weapon
 	{
 		if (shot2Cursor == NULL )	// no shots fired
 		{
 			tank2Shot = new Bullet;
 			tank2Shot->initialize(test2.getX(), test2.getZ(), test2.getAngle());
 			tank2Shot->weaponTex = weaponTex;
+			tank2Shot->next = NULL;
 
 			shot2Cursor = tank2Shot;
 			lastShot2 = tank2Shot;
@@ -828,6 +835,7 @@ void GameLoop()
 			tank2Shot->initialize(test2.getX(), test2.getZ(), test2.getAngle());
 			tank2Shot->weaponTex = weaponTex;
 
+
 			lastShot2->next = tank2Shot;
 			lastShot2 = tank2Shot;
 		}
@@ -837,17 +845,61 @@ void GameLoop()
 
 	if ( shotCursor != NULL ) // move bullets
 	{
+		// Check first case to see if it's the 1st bullet in the list hitting the tank
+		while ( shotCursor != NULL && !ifNCollide(tank2, shotCursor))
+		{
+			test2.deathDraw();
+			Weapon *foo = shotCursor;
+
+			shotCursor = shotCursor->next;
+
+			delete foo;
+		}
+
+		Weapon *prev_ptr = shotCursor;
+
 		for(Weapon *cursor = shotCursor; cursor != NULL; cursor = cursor->next)
 		{
-			cursor->move(FORWARD);
+			if (ifNCollide(tank2, cursor))
+			{// ok to move the bullet
+				cursor->move(FORWARD);
+				//prev_ptr = cursor;
+			}
+			else
+			{// bullet has hit tank2, destroy it
+				//prev_ptr->next = cursor->next;
+				//delete cursor;
+				//cursor = prev_ptr;
+				test2.deathDraw();
+			}
 		}
 	}
 
 	if ( shot2Cursor != NULL ) // move bullets
 	{
-		for(Weapon *cursor = shot2Cursor; cursor != NULL; cursor = cursor->next)
+		while ( shot2Cursor != NULL && !ifNCollide(tank1, shot2Cursor))
 		{
-			cursor->move(FORWARD);
+			test.deathDraw();
+
+			Weapon *foo2 = shot2Cursor;
+
+			shot2Cursor = shot2Cursor->next;
+
+			delete foo2;
+		}
+
+		Weapon *prev_ptr2 = shot2Cursor;
+
+		for(Weapon *cursor2 = shot2Cursor; cursor2 != NULL; cursor2 = cursor2->next)
+		{
+			if (ifNCollide(tank1, cursor2))
+			{// ok to move the bullet
+				cursor2->move(FORWARD);
+			}
+			else
+			{// bullet has hit tank1, destroy it
+				test.deathDraw();
+			}
 		}
 	}
 
