@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-10-03 05:54:49 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-23 07:15:45 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -40,13 +40,13 @@ namespace mw
    const gmtl::Vec3f PhysicsEngine::GRAVITY(0, -9.81f, 0);
 
    void
-   PhysicsEngine::update(RigidBody* body, float dt)
+   PhysicsEngine::update(RigidBody* body, float dt, bool rotation)
    {
-      update(body, dt, body->getNextState());
+      update(body, dt, body->getNextState(), rotation);
    }
 
    void
-   PhysicsEngine::update(const RigidBody* body, float dt, BodyState& state)
+   PhysicsEngine::update(const RigidBody* body, float dt, BodyState& state, bool rotation)
    {
       // Ensure the mass is not zero
       float mass = body->getMass();
@@ -68,28 +68,33 @@ namespace mw
       // change in position over time (first order)
       // x' = v = P(t)/M
       gmtl::Vec3f pos_delta = vel * dt;
-      
+
       // change in lin momentum over time (second order)
       // P'(t) = F(t)
       gmtl::Vec3f linear_momentum_delta = force * dt;
-      
-      // change in rotation over time (first order)
-      // R'(t) = w(t)*' R(t)   (matrix version)
-      // q'(t) = 1/2 w(t) q(t) (quaternion version)
-      gmtl::Quatf rot_delta, temp;
-      gmtl::Quatf one_half_wt = gmtl::makePure( gmtl::Vec3f( rotVel * 0.5f ) );
-      gmtl::mult( temp, one_half_wt, rot );
-      gmtl::mult( rot_delta, temp, dt );  // scale by time...
-      
-      // change in ang momentum over time (second order)
-      // L'(t) = T(t)
-      gmtl::Vec3f ang_momentum_delta = torque;
 
       // add the derivitives to the current rigidbody state
       state.setPos(pos + pos_delta);
       state.setVel(vel + (linear_momentum_delta / mass));
-      state.setRot(rot + rot_delta);
-      gmtl::normalize(state.getRot()); // rot quats always normalized
-      state.setRotVel(rotVel + ang_momentum_delta); // @todo this is wrong (needs inertia tensor)
+
+      // Only calculate rotational changes if requested
+      if (rotation)
+      {
+         // change in rotation over time (first order)
+         // R'(t) = w(t)*' R(t)   (matrix version)
+         // q'(t) = 1/2 w(t) q(t) (quaternion version)
+         gmtl::Quatf rot_delta, temp;
+         gmtl::Quatf one_half_wt = gmtl::makePure( gmtl::Vec3f( rotVel * 0.5f ) );
+         gmtl::mult( temp, one_half_wt, rot );
+         gmtl::mult( rot_delta, temp, dt );  // scale by time...
+
+         // change in ang momentum over time (second order)
+         // L'(t) = T(t)
+         gmtl::Vec3f ang_momentum_delta = torque;
+
+         state.setRot(rot + rot_delta);
+         gmtl::normalize(state.getRot()); // rot quats always normalized
+         state.setRotVel(rotVel + ang_momentum_delta); // @todo this is wrong (needs inertia tensor)
+      }
    }
 }

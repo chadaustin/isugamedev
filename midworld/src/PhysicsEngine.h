@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.h,v $
- * Date modified: $Date: 2002-10-03 05:54:49 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-23 07:15:44 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -61,21 +61,23 @@ namespace mw
        * The body's state is updated to reflect the changes. This is equivalent
        * to calling update(body, dt, body->getNextState()).
        *
-       * @param body    the RigidBody to update
-       * @param dt      the time delta in seconds
+       * @param body       the RigidBody to update
+       * @param dt         the time delta in seconds
+       * @param rotation   true if rotational calculations should be done
        */
-      void update(RigidBody* body, float dt);
+      void update(RigidBody* body, float dt, bool rotation = true);
 
       /**
        * Applies all the forces to the given body over the given change of time
        * and stores the result in the given state. The source body is not
        * modified.
        *
-       * @param body    the RigidBody to update
-       * @param dt      the time delta in seconds
-       * @param state   the state to modify with the result of the update
+       * @param body       the RigidBody to update
+       * @param dt         the time delta in seconds
+       * @param state      the state to modify with the result of the update
+       * @param rotation   true if rotational calculations should be done
        */
-      void update(const RigidBody* body, float dt, BodyState& state);
+      void update(const RigidBody* body, float dt, BodyState& state, bool rotation = true);
    };
 }
 

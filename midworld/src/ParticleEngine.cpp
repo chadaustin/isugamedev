@@ -83,9 +83,9 @@ namespace mw
 
          particle->addForce(PhysicsEngine::GRAVITY * particle->getMass());
          particle->update(dt);
-         mParticlePhysics->update(particle, dt);
+         mParticlePhysics->update(particle, dt, false);
          particle->moveToNextState();
-         if(particle->isExpired())
+         if (particle->isExpired())
          {
             delete particle;
             i = mParticleGroup.erase(i);
