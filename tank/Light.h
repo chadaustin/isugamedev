@@ -3,7 +3,7 @@
 #define LIGHT_OBJECT
 
 #include "Vec4.h"
-#include "ColorRGBA.h"
+#include "Vec3.h"
 
 class Light
 {
@@ -100,9 +100,9 @@ private:
     bool                mIsOn;
 
     // color properties
-    ColorRGBA           mAmbient;
-    ColorRGBA           mDiffuse;
-    ColorRGBA           mSpecular;
+    Vec3<float>           mAmbient;
+    Vec3<float>           mDiffuse;
+    Vec3<float>           mSpecular;
 
     // set position[3] == 1 for positional light
     // set position[3] == 0 for directional light

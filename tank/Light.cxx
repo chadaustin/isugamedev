@@ -2,9 +2,9 @@
 #include "Light.h"
 
 Light::Light() : mLightnumber( 0 ),
-                mAmbient( 0.1f, 0.1f, 0.1f, 0.1f ),
-                mDiffuse( 0.1f, 0.1f, 0.1f, 0.1f ),
-                mSpecular( 0.1f, 0.1f, 0.1f, 0.1f ),
+                mAmbient( 0.1f, 0.1f, 0.1f ),
+                mDiffuse( 0.1f, 0.1f, 0.1f ),
+                mSpecular( 0.1f, 0.1f, 0.1f ),
                 mConstantAttenuation( 1.0f ),
                 mLinearAttenuation( 0.0f ),
                 mQuadraticAttenuation( 0.0f ),
@@ -15,11 +15,12 @@ Light::Light() : mLightnumber( 0 ),
 {
 
 }
-     // Light::setColor accepts a token for the color attribute to set (-
-     // Light::ambient, Light::diffuse, or Light::specular) and three floating point
-     // values (r, g, and b) in the range [0.0 .. 1.0] defining values for the
-     // red, green, and blue components of the indicated attribute of the light
-     // source.  By default, the r, g, and b values are all 1.0.
+
+// Light::setColor accepts a token for the color attribute to set (-
+// Light::ambient, Light::diffuse, or Light::specular) and three floating point
+// values (r, g, and b) in the range [0.0 .. 1.0] defining values for the
+// red, green, and blue components of the indicated attribute of the light
+// source.  By default, the r, g, and b values are all 1.0.
 void Light::setColor( const Light::LightType& which, const float& r, const float& g, const float& b )
 {
    switch( which )
@@ -28,7 +29,7 @@ void Light::setColor( const Light::LightType& which, const float& r, const float
    case diffuse: mDiffuse.set( r, g, b ); break;
    case specular: mSpecular.set( r, g, b ); break;
    default:
-   assert( which != ambient && which != diffuse && which != specular && "invalid LightType" );
+      assert( false && "invalid LightType" );
    }
 }
 
@@ -40,7 +41,7 @@ void Light::getColor( const LightType& which, float& r, float& g, float& b ) con
    case diffuse: mDiffuse.get( r, g, b ); break;
    case specular: mSpecular.get( r, g, b ); break;
    default:
-   assert( which != ambient && which != diffuse && which != specular && "invalid LightType" );
+      assert( false && "invalid LightType" );
    }
 }
 // Light::setAtten sets the attenuation parameters of the pfLight. The
@@ -105,42 +106,44 @@ void Light::setSpotDir( const float& x, const float& y, const float& z )
    mDirection.set( x, y, z );
 }
 
-     // Light::getSpotDir copies the x, y, and z direction vectors into
-     // the parameters x, y, and z.
-     void Light::getSpotDir( float& x, float& y, float& z ) const
+// Light::getSpotDir copies the x, y, and z direction vectors into
+// the parameters x, y, and z.
+void Light::getSpotDir( float& x, float& y, float& z ) const
 {
    mDirection.get( x, y, z );
 }
 
-     // Light::setSpotCone specifies the exponent and spread of the spot light
-     // cone, and receives two floating point values, f1 and f2, to set the
-     // exponent for the intensity, and the spread of the cone, respectively.
-     void Light::setSpotCone( const float& exponent, const float& spread )
+// Light::setSpotCone specifies the exponent and spread of the spot light
+// cone, and receives two floating point values, f1 and f2, to set the
+// exponent for the intensity, and the spread of the cone, respectively.
+void Light::setSpotCone( const float& exponent, const float& spread )
 {
-if ((spread >= 0.0f && spread <= 90.0f) || spread == 180.0f)
-   mCutoff = spread;
+   if ((spread >= 0.0f && spread <= 90.0f) || spread == 180.0f)
+      mCutoff = spread;
 
-if (spread >= 0.0f && spread <= 128.0f)
-   mExponent = exponent;
-}
-
-     // Light::getSpotCone copies the current exponent and spread of the cone
-     // into the parameters f1 and f2.
-     void Light::getSpotCone( float& exponent, float& spread ) const
-{
-spread = mCutoff;
-exponent = mExponent;
+   if (spread >= 0.0f && spread <= 128.0f)
+      mExponent = exponent;
 }
 
-     void Light::on()
+// Light::getSpotCone copies the current exponent and spread of the cone
+// into the parameters f1 and f2.
+void Light::getSpotCone( float& exponent, float& spread ) const
 {
-     mIsOn = true;
+   spread = mCutoff;
+   exponent = mExponent;
 }
-     void Light::off()
+
+void Light::on()
 {
-mIsOn = false;
+   mIsOn = true;
 }
-     bool Light::isOn() const
+
+void Light::off()
 {
-return mIsOn;
+   mIsOn = false;
+}
+
+bool Light::isOn() const
+{
+   return mIsOn;
 }
