@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-03-21 04:54:59 $
-// Version:       $Revision: 1.26 $
+// Date modified: $Date: 2002-03-22 02:04:27 $
+// Version:       $Revision: 1.27 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -67,7 +67,7 @@ public:
     *
     * @return  true if successful, false otherwise
     */
-   bool startup( ISystemDriver* driver );
+   bool run( ISystemDriver* driver );
 
    /**
     * Configures this kernel based on the given configuration file.

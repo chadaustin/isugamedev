@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-03-18 08:24:20 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2002-03-22 02:04:27 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -114,7 +114,7 @@ int main( int argc, char *argv[] )
    // create the kernel and add our app in
    IGameKernel* kernel = gk::createGameKernel( new InputApp() );
    kernel->config( "config.xml" );
-   kernel->startup();
+   kernel->run();
 
    return 0;
 }

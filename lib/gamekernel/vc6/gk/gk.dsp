@@ -132,10 +132,6 @@ SOURCE=..\..\gk\ContextData.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\gk\Device.h
-# End Source File
-# Begin Source File
-
 SOURCE=..\..\gk\DigitalDevice.h
 # End Source File
 # Begin Source File
@@ -173,6 +169,10 @@ SOURCE=..\..\gk\gk.h
 # Begin Source File
 
 SOURCE=..\..\gk\gkCommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\gk\IDevice.h
 # End Source File
 # Begin Source File
 
@@ -217,6 +217,10 @@ SOURCE=..\..\gk\Singleton.h
 # Begin Source File
 
 SOURCE=..\..\gk\SystemDriverFactory.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\gk\TypedDevice.h
 # End Source File
 # End Group
 # Begin Group "Resource Files"

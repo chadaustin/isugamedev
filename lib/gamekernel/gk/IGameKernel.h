@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameKernel.h,v $
-// Date modified: $Date: 2002-03-21 04:54:59 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-03-22 02:04:27 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -54,7 +54,7 @@ namespace gk {
  *    int main() {
  *       gk::IGameKernel* kernel = gk::CreateGameKernel( new MyAppType() );
  *       kernel->config( "config.xml" );
- *       kernel->startup();
+ *       kernel->run();
  *       return 0;
  *    }
  * \endcode
@@ -73,7 +73,7 @@ public:
     *
     * @return  true if successful, false otherwise.
     */
-   virtual bool startup( ISystemDriver* driver = NULL ) = 0;
+   virtual bool run( ISystemDriver* driver = NULL ) = 0;
 
    /**
     * Shuts down the application and the system driver. The kernel will stop and
