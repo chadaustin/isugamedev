@@ -19,11 +19,16 @@ public:
       mText->setName( "HUD text" );
       mPlayerPos = new GeoSet;
       mPlayerPos->setName( "HUD PlayerPos" );
+      mFPS = new GeoSet;
+      mFPS->setName( "FPS" );
    }
    
    void init()
    {
       kev::PixmapFontImporter::import( "models/quake3.font", mFont );
+      
+      Vec3<float> fps_color( 0.7f, 1.0f, 0.7f );
+      kev::TextToGeoSet::convert( "FPS", mFont, fps_color, *mFPS );
       
       Vec3<float> text_color( 0.7f, 0.7f, 1.0f );
       kev::TextToGeoSet::convert( "SpaceTank", mFont, text_color, *mText );
@@ -49,6 +54,11 @@ public:
                glLoadIdentity();
                glTranslatef( 0, -1, 0 );
                glPushMatrix();
+                  glTranslatef( 550, 0, 0 );
+                  glScalef( 2, 2, 2 );
+                  kev::glRenderGeoSet( *mFPS );
+               glPopMatrix();
+               glPushMatrix();
                   glScalef( 2, 2, 2 );
                   kev::glRenderGeoSet( *mText );
                glPopMatrix();
@@ -67,6 +77,14 @@ public:
       glPopAttrib();
    }
    
+   void setFPS( float fps )
+   {
+      char buf[40];
+      sprintf( buf, "FPS: %d", (int)fps );
+      Vec3<float> fps_color( 0.7f, 1.0f, 0.7f );
+      kev::TextToGeoSet::convert( buf, mFont, fps_color, *mFPS );
+   }
+   
    void setPlayerPos( float x, float y, float z )
    {
       char buf[40];
@@ -75,7 +93,7 @@ public:
       kev::TextToGeoSet::convert( buf, mFont, text_color, *mPlayerPos );
    }   
    
-   safe_ptr<GeoSet> mText, mPlayerPos;
+   safe_ptr<GeoSet> mText, mFPS, mPlayerPos;
    kev::PixmapFont mFont;
 };
 

@@ -229,7 +229,8 @@ static void OnIdle()
    
    // update the hud
    app->hud.setPlayerPos( app->tank.position()[0], app->tank.position()[1], app->tank.position()[2] );
-   
+   app->hud.setFPS( app->stopWatch.fpsAverage() );
+
    //Update the bullets
    std::vector<Bullet *>::iterator itr;
    for (itr = app->bullets.begin(); itr != app->bullets.end(); itr++) 
