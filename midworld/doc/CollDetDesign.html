@@ -12,11 +12,36 @@
 
   <h2>Algorithm Discussion</h2>
   <p>We need a utility that will detect collisions between many moving rigid
-  bodies in order to apply realistic physics to those bodies. It is assumed that
-  the bodies are being moved in real-time using small time steps. Thus we shall
-  make the assumption that with sufficiently small time steps, a given
-  application will only want to test each moving body against all other bodies
-  in the scene as though they are static.</p>
+  bodies in order to apply realistic physics to those bodies.
+
+  <h3>Assumptions</h3>
+  <p>The following assumptions are made of the physical system.</p>
+  <ul>
+   <li>Bodies are being moved in real-time using small time steps.</li>
+   <li>A given application will only need to test each moving body against all
+       other bodies in the scene as though they are static. In other words,
+       since the time steps are small, the application does not care about time
+       dependent collisions such as when two bodies collide with each other. We
+       will assume that body A collides with body B and then body B collides
+       with body A; the collisions do not happen at the same time.</li>
+  </ul>
+
+  <h3>High Level Overview</h3>
+  <p>Given the above assumptions, we shall use a two-pass collision detection
+  system to solve the problem.</p>
+  <ol>
+   <li><b>Fast, rough cull</b>
+    <p>All objects whose bounding volumes intersect with the current object's
+    bounding volume will be culled for further examination. This shall be
+    implemented using a spatial index implemented using a scene graph, R-Tree,
+    Oct Tree, OBB Tree, etc.</p>
+   </li>
+   <li><b>Slow, exact intersection</b>
+    <p>Each object's polygonal bounds will be intersected in detail with the
+    current object's polygonal bounds. This shall be implemented using a
+    low-level intersection algorithm such as V-Clip.</p>
+   </li>
+  </ol>
 
   <h2>Algorithm Interfaces</h2>
   <p><pre>
