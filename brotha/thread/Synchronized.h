@@ -11,7 +11,7 @@ namespace thread {
     // wee, nothing here!
   };
 
-}
+} // namespace thread
 
 
-#endif
+#endif // THREAD_SYNCHRONIZED_H

@@ -4,15 +4,15 @@
 
 namespace thread {
 
-  class Lockable {
-  public:
-    virtual ~Lockable() { }
+   class Lockable {
+   public:
+      virtual ~Lockable() { }
 
-    virtual void lock() = 0;
-    virtual void unlock() = 0;
-  };
+      virtual void lock() = 0;
+      virtual void unlock() = 0;
+   };
 
-}
+} // namespace thread
 
 
-#endif
+#endif // THREAD_LOCKABLE_H

@@ -8,53 +8,53 @@
 
 namespace thread {
 
-  class Thread {
-    Thread() {
+   class Thread {
+      Thread() {
 
-      mRunning = false;
-      mMutex.lock();
+         mRunning = false;
+         mMutex.lock();
 
-      // create the thread object
-      mThread = PR_CreateThread(
-        PR_USER_THREAD,
-        routine,
-        this,
-        PR_PRIORITY_NORMAL,
-        PR_GLOBAL_THREAD,
-        PR_JOINABLE_THREAD,
-        0);
-    }
-
-    virtual ~Thread() {
-    }
-
-    virtual void run() = 0;
-
-    void start() {
-      if (!mRunning) {
-        mMutex.unlock();
-        mRunning = true;
+         // create the thread object
+         mThread = PR_CreateThread(
+            PR_USER_THREAD,
+            routine,
+            this,
+            PR_PRIORITY_NORMAL,
+            PR_GLOBAL_THREAD,
+            PR_JOINABLE_THREAD,
+            0);
       }
-    }
 
-    void join() {
-      PR_JoinThread(mThread);
-    }
+      virtual ~Thread() {
+      }
 
-  private:
-    static void routine(void* arg) {
-      Thread* thread = (Thread*)arg;
-      thread->mMutex.lock();
-      thread->run();
-    }
+      virtual void run() = 0;
 
-  private:
-    PRThread* mThread;  // NSPR thread handle
-    Mutex mMutex;       // lets start() actually work properly
-    bool mRunning;      // has start() been called yet?
-  };
+      void start() {
+         if (!mRunning) {
+            mMutex.unlock();
+            mRunning = true;
+         }
+      }
 
-}
+      void join() {
+         PR_JoinThread(mThread);
+      }
+
+   private:
+      static void routine(void* arg) {
+         Thread* thread = (Thread*)arg;
+         thread->mMutex.lock();
+         thread->run();
+      }
+
+   private:
+      PRThread* mThread;  // NSPR thread handle
+      Mutex mMutex;       // lets start() actually work properly
+      bool mRunning;      // has start() been called yet?
+   };
+
+} // namespace thread
 
 
-#endif
+#endif // THREAD_THREAD_H

@@ -8,30 +8,30 @@
 
 namespace thread {
 
-  class Mutex : public Lockable {
-  public:
-    Mutex() {
-      mLock = PR_NewLock();
-      // XXXaegis throw an exception if this fails?
-    }
+   class Mutex : public Lockable {
+   public:
+      Mutex() {
+         mLock = PR_NewLock();
+         // XXXaegis throw an exception if this fails?
+      }
 
-    ~Mutex() {
-      PR_DestroyLock(mLock);
-    }
+      ~Mutex() {
+         PR_DestroyLock(mLock);
+      }
 
-    void lock() {
-      PR_Lock(mLock);
-    }
+      void lock() {
+         PR_Lock(mLock);
+      }
 
-    void unlock() {
-      PR_Unlock(mLock);
-    }
+      void unlock() {
+         PR_Unlock(mLock);
+      }
 
-  private:
-    PRLock* mLock;
-  };
+   private:
+      PRLock* mLock;
+   };
 
-}
+} // namespace thread
 
 
-#endif
+#endif // THREAD_MUTEX_H

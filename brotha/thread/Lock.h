@@ -7,22 +7,22 @@
 
 namespace thread {
 
-  class Lock {
-  public:
-    Lock(Lockable* lockable) {
-      mLockable = lockable;
-      mLockable->lock();
-    }
+   class Lock {
+   public:
+      Lock(Lockable* lockable) {
+         mLockable = lockable;
+         mLockable->lock();
+      }
 
-    ~Lock() {
-      mLockable->unlock();
-    }
+      ~Lock() {
+         mLockable->unlock();
+      }
 
-  private:
-    Lockable* mLockable;
-  };
+   private:
+      Lockable* mLockable;
+   };
 
-}
+} // namespace thread
 
 
-#endif
+#endif // THREAD_LOCK_H
