@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-02-18 04:42:44 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-18 04:55:53 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -127,8 +127,8 @@ bool SdlDriver::init(GameKernel *kernel)
 	mWidth = screen->w;
 	mHeight = screen->h;
 	screen = NULL;
-	mMouse = new DeviceHandle<Mouse>("Mouse");
-	mKeyboard = new DeviceHandle<Keyboard>("Keyboard");
+	mMouse = new DeviceHandle<Mouse>("Mouse", mKernel);
+	mKeyboard = new DeviceHandle<Keyboard>("Keyboard", mKernel);
 	//odds of this happening are pretty slim, but might as well check...
 	if (!mMouse)
 	{
