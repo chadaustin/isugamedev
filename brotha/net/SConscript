@@ -1,18 +1,22 @@
 Import('env')
 
 classes = [
+   'Connection',
    'MessageQueue',
    'SocketInputStream',
    'SocketOutputStream',
+   'WriteThread',
 ]
 
 headers = [
    'ByteBuffer',
+   'DisconnectMessage',
    'InputStream',
    'LoginMessage',
    'Message',
    'MessageReader',
    'MessageTypes',
+   'NetMgr',
    'OKMessage',
    'OutputStream',
    'Serialize',
