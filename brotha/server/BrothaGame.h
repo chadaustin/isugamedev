@@ -1,3 +1,5 @@
+/* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil c-basic-offset: 3 -*- */
+// vim:cindent:ts=3:sw=3:et:tw=80:sta:
 /************************************************************** brotha-head beg
  *
  * Warn-a-Brotha
@@ -11,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-04-21 21:25:55 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-28 16:41:06 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */

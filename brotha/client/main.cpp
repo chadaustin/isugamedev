@@ -1,3 +1,5 @@
+/* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil c-basic-offset: 3 -*- */
+// vim:cindent:ts=3:sw=3:et:tw=80:sta:
 /************************************************************** brotha-head beg
  *
  * Warn-a-Brotha
@@ -11,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-04-24 05:59:04 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-28 16:41:03 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
