@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: aki.cpp,v $
-// Date modified: $Date: 2002-01-31 16:00:06 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-01-31 16:20:10 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -46,8 +46,8 @@ public:
       GameKernel::instance().setName( "Aki's Quest" );
       mQuit.init( "Quit" );
       mAccelerate.init( "Accelerate" );
-      mMouseX.init( "MouseX" );
-      mMouseY.init( "MouseY" );
+      mMouseX.init( "MouseLookX" );
+      mMouseY.init( "MouseLookY" );
    }
 
    virtual void OnContextInit()

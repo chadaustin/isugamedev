@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 
 <gameinput>
-   <bind action="Quit" device="Keyboard" input="KEY_Q" />
    <bind action="Quit" device="Keyboard" input="KEY_ESC" />
    <bind action="Accelerate" device="Keyboard" input="KEY_UPARROW" />
    <bind action="Backstep" device="Keyboard" input="KEY_DOWNARROW" />
