@@ -1,8 +1,9 @@
 #include "Matrix4f.h"
 #include "Vec3.h"
+#ifdef WIN32
 #include <windows.h>
-#include <gl/gl.h>
-
+#endif
+#include <GL/gl.h>
  
 class camera{
 public:

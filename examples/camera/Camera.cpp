@@ -1,6 +1,6 @@
-#include "camera.h"
-#include "c:\gamedev\tank\Vec3.h"
-#include "c:\gamedev\tank\Matrix4f.h"
+#include "Camera.h"
+#include "Vec3.h"
+#include "Matrix4f.h"
 #include <math.h>
 
 

@@ -13,8 +13,8 @@
 
 #include <iostream>
 #include <stdlib.h>
-#include "camera.h"
-#include "c:/gamedev/tank/Vec3.h"
+#include "Camera.h"
+#include "Vec3.h"
 
 int temp;
 

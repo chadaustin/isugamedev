@@ -35,3 +35,16 @@ left arrow	=	rotate camera left
 down arrow	=	tilt camera up
 right arrow =	rotate camera right
 up arrow	=	tilt camera down	
+
+
+
+REQUIREMENTS TO COMPILE:
+
+to compile this you will need to dump glut.h glut.dll and glut.lib into this directory (or 
+have it installed on your system in the usual place).
+
+get glut:
+
+  http://www.opengl.org/developers/documentation/glut/index.html
+
+or search on google.com or opengl.org for "glut" and "download"
