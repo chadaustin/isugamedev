@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-09-08 22:46:02 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-01 01:00:29 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -113,17 +113,17 @@ namespace mw
       if (mBarrel == 0)
       {
          case_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
-                  0, gmtl::Math::deg2Rad(90.0f), gmtl::Math::deg2Rad(85.0f)));
+            0, gmtl::Math::deg2Rad(90.0f), gmtl::Math::deg2Rad(88.0f)));
       }
       else if (mBarrel == 1)
       {
          case_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
-                  0, gmtl::Math::deg2Rad(90.0f), gmtl::Math::deg2Rad(90.0f)));
+            0, gmtl::Math::deg2Rad(90.0f), gmtl::Math::deg2Rad(90.0f)));
       }
       else if (mBarrel == 2)
       {
          case_rot = gmtl::make<gmtl::Quatf>(gmtl::EulerAngleZYXf(
-                  0, gmtl::Math::deg2Rad(-90.0f), gmtl::Math::deg2Rad(85.0f)));
+            0, gmtl::Math::deg2Rad(-90.0f), gmtl::Math::deg2Rad(88.0f)));
       }
 
       // Create the shell casing
@@ -131,6 +131,7 @@ namespace mw
       casing->setRot(getRot() * case_rot);
       casing->setPos(getPos() + casing->getForward() * 1.0f);
       casing->setVel(casing->getRot() * casing->getVel() * 0.50f );
+      casing->setRotVel(gmtl::Vec3f(2, 3, 4));
       g.add(casing);
    }
 }

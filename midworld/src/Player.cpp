@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-07-29 06:10:29 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-10-01 01:00:28 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -50,10 +50,10 @@ namespace mw
    Player::Player() : RigidBody(), mCurrentWeapon( mWeapons.end() )
    {
       // add default weapon...
-      this->addWeapon( new NullWeapon );
-      assert( !this->isWeaponSlotEmpty( NullWeapon().getCategory() ) && "NullWeapon not registered, no default weapon!");
+      addWeapon( new NullWeapon );
+      assert( !isWeaponSlotEmpty( NullWeapon().getCategory() ) && "NullWeapon not registered, no default weapon!");
 
-      this->init();
+      init();
    }
 
    void Player::init()
@@ -64,13 +64,13 @@ namespace mw
    {
       //glEnable( GL_TEXTURE_2D );
       glPushMatrix();
-         glMultMatrixf( this->matrix().getData() );
+         glMultMatrixf(matrix().getData());
          glTranslatef( 0, 1, 0 );
          glScalef( 0.5f, 0.3f, 0.4f );
          cubeGeometry().render();
       glPopMatrix();
 
-      this->weapon().draw();
+      weapon().draw();
    }
 
    bool Player::isWeaponSlotEmpty( int slot )
@@ -113,7 +113,7 @@ namespace mw
     */
    void Player::setWeapon( int slot )
    {
-      if (!this->isWeaponSlotEmpty( slot ))
+      if (!isWeaponSlotEmpty( slot ))
       {
          // if requesting to change to the same slot
          if (mLastSlot == slot)
@@ -171,7 +171,7 @@ namespace mw
       mLastWeapon[mLastSlot] = c - 1;
       
       // if not already in the inventory, then add it.
-      if (false == foundit)
+      if (!foundit)
       {
          // also set current weapon to the newly added one.
          mCurrentWeapon = mWeapons.insert(
@@ -203,7 +203,7 @@ namespace mw
    gmtl::Vec3f Player::getBarrelEndPos() const
    {
       gmtl::Vec3f barrelEndPos = gmtl::Vec3f( 0, 2, -3 );
-      return (this->getRot() * barrelEndPos) + this->getPos();
+      return (getRot() * barrelEndPos) + getPos();
    }
 
    void Player::update( GameState& gs, float timeDelta )
@@ -211,8 +211,8 @@ namespace mw
       RigidBody::update(timeDelta);
 
       // update the current weapon
-      this->weapon().setPos( this->getPos() + this->getRot() * gmtl::Vec3f( 0, 0, -0.5f ) );
-      this->weapon().setRot( this->getRot() );
-      this->weapon().update( gs, timeDelta );
+      weapon().setPos( getPos() + getRot() * gmtl::Vec3f( 0, 0, -0.5f ) );
+      weapon().setRot( getRot() );
+      weapon().update( gs, timeDelta );
    }
 }

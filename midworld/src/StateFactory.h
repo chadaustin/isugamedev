@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StateFactory.h,v $
- * Date modified: $Date: 2002-09-09 07:06:04 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-01 01:00:29 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -90,6 +90,8 @@ namespace mw
       void unregisterCreator(const std::string& name);
 
    private:
+      static void destroyInstance();
+
       typedef std::map<std::string, StateCreator*> CreatorMap;
 
       /// A mapping of names to Creator implementations

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-09-24 04:14:58 $
- * Version:       $Revision: 1.35 $
+ * Date modified: $Date: 2002-10-01 01:00:28 $
+ * Version:       $Revision: 1.36 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -100,8 +100,7 @@ namespace mw
       for (int i = 0; i < 10; i++)
       {
          Enemy* enemy = new Enemy();
-         gmtl::Point3f inPos(static_cast<float>(5 + i*4), 0, 0);
-         enemy->setPos(inPos);
+         enemy->setPos(gmtl::Point3f(5 + i * 4, 0, 0));
          enemy->setModel("security_droid");
          add(enemy);
       }
@@ -457,8 +456,7 @@ namespace mw
          mSceneViewer->draw();
       glPopMatrix();
 
-      mCursor.draw( this->application().getWidth(),
-                    this->application().getHeight() );
+      mCursor.draw(application().getWidth(), application().getHeight());
 
       // Draw the HUD
       if (mFontRenderer)
@@ -466,7 +464,7 @@ namespace mw
          glMatrixMode(GL_PROJECTION);
          glPushMatrix();
          glLoadIdentity();
-         glOrtho(0, this->application().getWidth(), this->application().getHeight(), 0, 1, -1);
+         glOrtho(0, application().getWidth(), application().getHeight(), 0, 1, -1);
 
          glMatrixMode(GL_MODELVIEW);
          glPushMatrix();

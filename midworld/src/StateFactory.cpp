@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StateFactory.cpp,v $
- * Date modified: $Date: 2002-09-09 07:06:04 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-01 01:00:29 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,6 +53,7 @@ namespace mw
       if (mSingleton == 0)
       {
          mSingleton = new StateFactory();
+         atexit(destroyInstance);
       }
       return *mSingleton;
    }
@@ -65,7 +66,10 @@ namespace mw
       {
          return itr->second->create(app);
       }
-      return 0;
+      else
+      {
+         throw std::runtime_error("Could not instantiate state: " + name);
+      }
    }
 
    void
@@ -91,5 +95,11 @@ namespace mw
          delete itr->second;
          mCreators.erase(itr);
       }
+   }
+
+   void
+   StateFactory::destroyInstance()
+   {
+      delete mInstance;
    }
 }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-09-17 02:36:11 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-10-01 01:00:28 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -241,11 +241,6 @@ namespace mw
                break;
          }
       }
-   }
-
-   void
-   MenuState::onMousePress(Uint8 button, bool down, int x, int y)
-   {
    }
 
    void

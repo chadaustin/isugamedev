@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.h,v $
- * Date modified: $Date: 2002-07-07 03:31:52 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-01 01:00:28 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -112,7 +112,6 @@ namespace mw
       void update(float dt);
       void draw();
       void onKeyPress(SDLKey sym, bool down);
-      void onMousePress(Uint8 button, bool down, int x, int y);
       void onMouseMove(int x, int y);
 
    private:

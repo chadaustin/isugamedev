@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.h,v $
- * Date modified: $Date: 2002-09-10 02:54:40 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-01 01:00:28 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,6 +41,7 @@
 namespace mw
 {
    class Application;
+
    class IntroState : public State
    {
    public:
@@ -51,14 +52,14 @@ namespace mw
       void draw();
       void onKeyPress(SDLKey sym, bool down);
       void onMousePress(Uint8 button, bool down, int x, int y);
-      void onMouseMove(int x, int y);
 
    private:
+      void startTransition();
+
       Texture* mIntroImage;
       float mElapsedTime;  // seconds
       bool mLeavingState;
    };
-
 }
 
 

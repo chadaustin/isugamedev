@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-09-23 19:45:15 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-10-01 01:00:28 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -68,7 +68,7 @@ namespace mw
       mElapsedTime += dt;
       if (mLeavingState && mElapsedTime > 1)
       {
-         invokeTransition("Menu");
+         invokeTransition("Story");
       }
       ::SDL_WarpMouse( this->application().getWidth() / 2, this->application().getHeight() / 2 );
    }
@@ -102,22 +102,29 @@ namespace mw
    void
    IntroState::onKeyPress(SDLKey sym, bool down)
    {
-      if (down && !mLeavingState)
+      if (down)
       {
-         mLeavingState = true;
-         mElapsedTime = std::max(0.0f, 1.0f - mElapsedTime);
+         startTransition();
       }
    }
 
    void
    IntroState::onMousePress(Uint8 button, bool down, int x, int y)
    {
+      if (down)
+      {
+         startTransition();
+      }
    }
 
    void
-   IntroState::onMouseMove(int x, int y)
+   IntroState::startTransition()
    {
+      if (!mLeavingState)
+      {
+         mLeavingState = true;
+         mElapsedTime = std::max(0.0f, 1.0f - mElapsedTime);
+      }
    }
-
 
 }
