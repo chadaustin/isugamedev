@@ -30,6 +30,7 @@ headers = Split("""
    CollisionDetector.h
    NullCollisionDetector.h
    SpatialIndex.h
+   Weapon.h
 """)
 
 sources.extend(map(lambda n: n + '.cpp', classes))
