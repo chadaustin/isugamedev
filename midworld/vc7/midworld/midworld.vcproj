@@ -33,7 +33,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="loom.lib OSGBaseD.lib OSGSystemD.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
+				AdditionalDependencies="loom_d.lib OSGBaseD.lib OSGSystemD.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
 				OutputFile="$(OutDir)/midworld.exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(SolutionDir)../third-party/lib&quot;"
@@ -216,6 +216,42 @@
 				RelativePath="..\..\src\HUD.h">
 			</File>
 			<File
+				RelativePath="..\..\src\HomingMissile.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\HomingMissile.h">
+			</File>
+			<File
+				RelativePath="..\..\src\InputAction.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\InputAction.h">
+			</File>
+			<File
+				RelativePath="..\..\src\InputBinder.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\InputBinder.h">
+			</File>
+			<File
+				RelativePath="..\..\src\InputManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\InputManager.h">
+			</File>
+			<File
+				RelativePath="..\..\src\InputParser.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\InputParser.h">
+			</File>
+			<File
+				RelativePath="..\..\src\InputSymbol.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\InputSymbol.h">
+			</File>
+			<File
 				RelativePath="..\..\src\IntroState.cpp">
 			</File>
 			<File
@@ -241,6 +277,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\MenuState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\MissileLauncher.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\MissileLauncher.h">
 			</File>
 			<File
 				RelativePath="..\..\src\ModelManager.cpp">
@@ -367,6 +409,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\Texture.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Turret.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Turret.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Types.h">

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-21 17:22:38 $
- * Version:       $Revision: 1.66 $
+ * Date modified: $Date: 2002-10-21 19:15:37 $
+ * Version:       $Revision: 1.67 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -204,12 +204,8 @@ namespace mw
       
       first->addCommand(aimCommand);
       
-     node1Instinct = new lm::reflex(node1->mReflexManager, first, aimTestCommand);
-
-      //node1Instinct = new lm::instinct(node1->mInstinctManager, first, myTestCommand);
-
- //     node2Instinct = new lm::reflex(node2, second, myTestCommand);
-      node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
+      node1Instinct = new lm::reflex(node1, first, aimTestCommand);
+      node2Instinct = new lm::reflex(node2, second, myTestCommand);
 
       AI.registerNode(node1);
       AI.registerNode(node2);
