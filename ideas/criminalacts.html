@@ -1,0 +1,224 @@
+<html>
+<head>
+ <title>Criminal Acts Design</title>
+</head>
+
+<body bgcolor="#ffffff" text="#000000">
+<h1>Criminal Acts Design</h1>
+
+<p><i>Game design copyright 2001 Ben Scott,
+<a href="mailto::bscott@iastate.edu">bscott@iastate.edu</a>. This design is
+freely avaiable only to members of the ISU Game Developers Club. For outside
+use, please ask permission from the authors. Revisions are welcome.</i>
+
+<h2>1. Intro</h2>
+<p>Criminal Acts is a strategy game at heart intermixed with fast first-person
+action. The game revolves around the player trying to either take control of the
+city as a criminal or to keep the peace as a cop.
+
+<h2>2. Gameplay Overview</h2>
+<p>Criminal Acts can be generalized to two main modes of gameplay - strategy and
+action.
+
+<p>The strategy part of the game is fulfilled through the player trying to gain
+control of the city as a criminal. The action game derives from the intense
+action and high tension usually found when performing a criminal act such as
+holding up a bank, stealing a vehicle or evading the cops in a car chase.
+
+<p>Initially the player starts as a rather unskilled street thug strapped for
+cash with dreams of controlling the city. The player can make money and build
+skills by committing small time crimes such as pickpocketing or by performing
+jobs for local gangs.
+
+<p>Once the player begins to gain power within a gang, they are gradually given
+control over the actions of that gang. This is where the strategic element comes
+into play. The player will direct his cronies to perform some action on a person
+or at a location and allow them to go do the dirty work. The player is of course
+allowed (if not encouraged) to go along. The focus of this part of the game will
+be for the player to expand his turf. This is achieved through instilling fear
+and submission into the citizens of the neighborhoods you control. The most
+common way to achieve this will be through bullying the local businesses to pay
+for "protection." This way the player can make money as well as maintain their
+turf. Of course the shopkeepers will need to be frequently reminded as to why
+they need protection.
+
+<p>All through this time it is imperitive that the player is not killed or
+arrested by the cops. The more notorious a player gets through their actions on
+the street, the more wanted he becomes. It will then become in the player's best
+interest to either avoid the cops, surround himself with bodyguards, pay off the
+cops or kill the cops.
+
+<p>All this time, the environment is a real living, breathing city. Citizens are
+goal oriented with schedules to keep and lives to lead. The player should be
+able to notice patterns of a persons behavior just as they would in the real
+world. Thus if rich Granny Irene walks along Main St. to meet her friends for
+lunch every thursday at 11am after making a withdrawl from her bank, the player
+can take advantage of this knowledge to snatch her purse one week. Another
+noticable schedule will be that of public transportation such as buses and
+trains.
+
+<p>Since the player is interacting in a fully dynamic world, the citizens will
+react to the player's actions. If the player blows up a building, the police,
+firefighters and paramedics arrive to clean up the mess. Firefighters also
+respond to any fire and try to put it out quickly. Paremedics respond to any
+reports of injury. Victims are either rushed to the hospital or the morque. If
+the player destroys a building or other structure, cleanup and construction
+crews will arrive to clean up the mess and build new structures in its place.
+
+<p>A world only feels real if physical events cause expected results. Thus
+Criminal Acts allows the player to destroy anything. People, cars, lampposts,
+signs, fire hydrants and buildings are at the player's mercy.
+
+<h2>3. Platforms</h2>
+<p>Initial target platforms will be Win32, Linux and Irix (SGI). The core of the
+graphics engine will be written with OpenGL in mind. However, since it would be
+nice to port the game to platforms such as the X-Box, it would be advisable not
+to hardcode the graphics API to OpenGL so that we can easily move to DirectX.
+Target platforms will be assumed to have 3D accelerated video hardware.
+
+<p>If possible it would be nice to allow Criminal Acts to support using
+VRJuggler as well as OpenGL for the graphics API. This will allow the game to
+run in the C6 virtual reality cave. However, this is obviously not a
+high-priority item.
+
+<h2>4. Graphics</h2>
+<p>There are three primary views in Criminal Acts: Walking, Driving and City
+views. All views are implemented as 3D scenes. Transitions between views are
+handled seamlessly in order to maximize the player's immersion in the game. Of
+course, all view are configurable. 
+
+<h3>4.1 Walking View</h3>
+<p>Whenever the player is freely walking about the city the game will take on
+the feel of a first-person shooter. In this view, the player may navigate about
+the world using <i>Quake</i> style navigation. Hand-held weapons may be used in
+this view.
+
+<h3>4.2 Driving View</h3>
+<p>While the player drives a vehicle the camera will reside at a third-person
+perspective a ways above and behind the vehicle similar to that seen in
+<i>Driver</i> and <i>Midtown Madness</i>. In this case however, as the vehicle's
+velocity increases, the chase camera will pull back from the vehicle in order to
+show more of the terrain ahead of the player so they can navigate more easily.
+
+<h3>4.3 City View</h3>
+<p>The city view is composed of a map of the city. To make this view as seamless
+as possible with the other views, this view is implemented as the player holding
+up a paper map into the Walking View (see S4.1). It is through this view that
+the player is able to give high-level instructions to his cronies so that they
+may wreak havok on the city. Using the mouse, the player may select the
+buildings on the map that his thugs should interact with as well as select the
+action that should be performed.
+
+
+
+
+<hr>
+<h2>---TO DO---</h2>
+<ul>
+ <li>How do you spread your turf?
+ <li>personalities
+ <li>small group uprisings
+ <li>crime types ( purse snatching, pickpocketing, murder 1, GTA, ... )
+ <li>special events based on the actual date ( halloween, etc )
+ <li>day/night cycles ( lighting, scheduled events )
+ <li>weather modeled after local weather info gather from the net
+ <li>shop payoffs
+ <li>bootlegging
+ <li>weapons
+ <li>resources =&gt; money
+ <li>goal =&gt; crime god / take over the city
+ <li>different mafias
+ <li>thugs gain experience
+ <li>skill sets ( driving, explosives, shooting ... )
+ <li>buildings with security systems
+ <li>backstabbing your superiors
+ <li>graffiti ( can be created by NPCs to show heavily used gang areas )
+ <li>break stuff ( buildings, cars, scenery ... )
+ <li>rumors
+ <li>TP buildings
+ <li>Eggings
+ <li>skin your player with your face
+ <li>steal cops uniforms
+ <li>Small multiplayer (not massively multiplayer) {2 modes}
+ <ul>
+  <li>Storyline/Ongoing (Living city) {savable multiplayer game}
+  <li>Skirmish games
+  <ul>
+   <li>Free for all
+   <li>Teams
+   <li>"Get the other gang arrested"
+   <li>Cops and robbers
+   <li>Plant the bomb
+   <li>Get the most cash/drugs/etc
+  </ul>
+ </ul>
+</ul>
+
+<hr>
+<h2>---Misc Stuff to work in---</h2>
+<ul>
+ <li>Ice Cream Truck
+ <li>Hot Dog Truck
+ <li>Fire Hydrants
+ <li>Fire Truck
+ <li>Maintenance Trucks ( Electrical / H2O / Sewer / etc )
+ <li>Cop Cars
+ <li>Ambulances
+ <li>Hearses
+ <li>Graveyards
+ <li>Construction ( roads / buildings/ etc )
+ <li>Car Dealerships
+ <li>Car Shows
+ <li>Fair ( i.e. State Fair ) - Lots of people
+ <li>Casinos
+ <li>Chop shops
+ <li>Cats / Dogs / Rabbits / etc.
+ <li>Icy / Snowy / Rainy conditions
+ <li>Bridges and Drawbridges
+ <li>Boats
+ <li>Tanks
+ <li>Planes
+ <li>Cement Trucks
+ <li>Armored Cars
+ <li>Banks
+ <li>Tanker ( w/ Jet Fuel )
+ <li>SWAT Teams
+ <li>Bank Holdups
+ <li>Store Holdups
+ <li>National Guard
+ <li>Thieves
+ <li>Rap Sheet
+</ul>
+
+<hr>
+<h2>---BRAINSTORMING---</h2>
+<ul>
+ <li>Can be on side of police or gangs
+ <ul>
+  <li>Split up city into police precincts
+  <li>Police may compete against each other
+ </ul>
+ <li>Have a dynamic city population
+ <li>Weapon mods
+ <ul>
+  <li>Silencers / Suppressors
+  <li>Mix and match ( shotgun w/ grenade launcher attached! )
+ </ul>
+ <li>Weapons
+ <ul>
+  <li>Fists
+  <li>Knife
+  <li>Pistol
+  <li>Machine gun
+  <li>Grendades (frag, flash-band ... )
+  <li>Rocket launcher (small)
+ </ul>
+ <li>Vehicle Weapons
+ <ul>
+  <li>Lean out window w/ gun
+  <li>Box of tacks
+ </ul>
+</ul>
+
+</body>
+</html>
