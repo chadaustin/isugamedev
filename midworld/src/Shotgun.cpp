@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-10-29 18:50:36 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-30 07:10:36 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -96,7 +96,7 @@ namespace mw
       BaseBullet* casing = createBullet("casing");
       casing->setRot(getRot() * case_rot);
       casing->setPos(getPos() + casing->getForward() * 1.0f);
-      casing->setVel(casing->getRot() * casing->getVel() * 0.50f);
+      casing->setVel(casing->getRot() * casing->getVel() * 0.2f);
       g.add(casing);
    }
 }
