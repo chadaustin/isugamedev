@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-04-22 03:34:02 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-22 04:53:58 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -88,7 +88,7 @@ namespace game
    }
 
    void BrothaGame::outputList() {
-      for (int i=0; i < mPlayer.size(); i++){
+      for (unsigned int i=0; i < mPlayer.size(); i++){
          std::cout << mPlayer[i]->getName() << std::endl;
       }
    }
