@@ -8,7 +8,7 @@
 class Camera
 {
 public:
-   Camera() : mTargetPos(0,0,0), mTargetPosOld( 0,0,100 ), mShouldFollow( false ), 
+   Camera() : mTargetPos(0,0,0), mTargetPosOld( 0,0,-100 ), mShouldFollow( false ), 
               mYaw(0.0f),
               mYawVel(0.0f), 
               mPitch( 70.0f ), 
