@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-01-30 18:02:20 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-01-30 18:13:43 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,8 +36,8 @@
  *
  * -----------------------------------------------------------------------------
  * File:          $RCSfile: GlutDriver.cpp,v $
- * Last modified: $Date: 2002-01-30 18:02:20 $
- * Version:       $Revision: 1.4 $
+ * Last modified: $Date: 2002-01-30 18:13:43 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------------------
  *
  *******************************************************************************
@@ -221,8 +221,7 @@ GlutDriver::OnIdle()
    for ( x = 0; x < GameKernel::instance().applications().size(); ++x )
    {
       assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );
-      GameInput::instance().keyboard().update();
-      GameInput::instance().mouse().update();
+      GameInput::instance().update();
       GameKernel::instance().applications()[x]->OnPreFrame();
       GameKernel::instance().applications()[x]->OnIntraFrame();
       GameKernel::instance().applications()[x]->OnPostFrame();

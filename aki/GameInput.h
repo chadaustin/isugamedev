@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-01-30 17:42:56 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-01-30 18:13:43 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -146,6 +146,16 @@ public:
     */
    inline char         modifier() const { return mKeyboardModifier; }
 
+   /** update function.
+    * if useing the GameInput manager without GameKernel, you will need to 
+    * call this function every frame to ensure valid input
+    */
+   inline void update()
+   {
+      keyboard().update();
+      mouse().update();
+   }
+   
 private:
    std::map<std::string, EventInput> mBindTable;
    std::map<std::string, Device*> mDevices;
