@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-07-04 nonchocoboy  Added a simple HUD. We now depend on GLText.
 2002-07-01 areinot      Added Shotgun weapon.
 2002-06-18 nonchocoboy  Weapon framework started. Player can now shoot by
            areinot      clicking about with the mouse with accurate reload
