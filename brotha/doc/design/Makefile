@@ -1,10 +1,12 @@
-# $Id: Makefile,v 1.1 2002-04-05 04:33:59 nonchocoboy Exp $
+# $Id: Makefile,v 1.2 2002-04-08 09:02:44 nonchocoboy Exp $
 
 NAME=design
 default: html pdf
 
 XSLT_TOOL=Saxon
-FO_VERSION=XEP
+SAXON_VERSION=7.0
+XSL_DIR=$(HOME)/software/src/docbook-xsl-1.50.0
+#FO_VERSION=XEP
 
 TXT_FILES=	$(NAME).txt
 HTML_FILES=	$(NAME).html
