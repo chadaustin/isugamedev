@@ -53,7 +53,13 @@ int GetNextLightNum()
 class App
 {
 public:
-   App() : width( 0 ), height( 0 ), mainWin_contextID( -1 )
+   App() : width( 0 ), height( 0 ), mainWin_contextID( -1 ), 
+   tank(),bullets(),
+   camera(),
+   light(),
+   stopWatch(),
+   world(),
+   hud()
    {
       
    }
