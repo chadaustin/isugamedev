@@ -95,6 +95,12 @@ public:
    int numSel(){
       return numSelected;
    }
+  
+   bool isSelected(int card){
+      if(selectedCards[card]==1)
+         return true;
+      return false;
+   }
    
    void selectCard(int card){
       if(numSelected+1<=3){

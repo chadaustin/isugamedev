@@ -82,6 +82,57 @@ int i,j;
 deck dek;
 
 
+////////////////////////////////////
+// I don't have a good place to put
+// this so I'm putting it here for now
+// TODO: move this to a more appropriate place
+////////////////////////////////////
+void checkForWinner(){
+   int c1_color, 
+       c1_number, 
+       c1_shape, 
+       c2_color, 
+       c2_number, 
+       c2_shape,
+       c3_color,
+       c3_number,
+       c3_shape,
+       count=0;
+       for(int i=0;i<12;i++){
+          if(dek.isSelected(i)){
+             if(count==0){
+                dek.getCardAttribute(i, c1_color, c1_shape, c1_number);
+                count++;
+             }else if(count==1){
+                dek.getCardAttribute(i, c2_color, c2_shape, c2_number);
+                count++;
+             }else if(count==2){
+                dek.getCardAttribute(i, c3_color, c3_shape, c3_number);
+                count++;
+             }
+          }
+       }
+       std::cout << "got here" << std::endl;        
+   if(((c1_color == c2_color) && (c2_color == c3_color)) || ((c1_color != c2_color) && (c2_color != c3_color) && (c1_color != c3_color))){
+      if(((c1_number == c2_number) && (c2_number == c3_number)) || ((c1_number != c2_number) && (c2_number != c3_number) && (c1_number != c3_number))){
+         if(((c1_shape == c2_shape) && (c2_shape == c3_shape)) || ((c1_shape != c2_shape) && (c2_shape != c3_shape) && (c1_shape != c3_shape))){
+            std::cout << "winner" << std::endl;
+            exit(0);
+         }else{
+         }
+      }
+   }
+   std::cout << "looser" << std::endl;
+   exit(0);
+}
+
+
+
+
+
+
+
+
 //////////////////////////////////////////////////
 // This is called on a glutPostRedisplay
 //////////////////////////////////////////////////
@@ -231,9 +282,13 @@ static void OnMouseClick( int button, int state, int x, int y )
    //             you may have to get this from the glut website 
    //             (use www.google.com to search for it)
    if (button==GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-      if((temp=dek.isACard(mouseX, mouseY))!=-1)
+      if((temp=dek.isACard(mouseX, mouseY))!=-1){
          std::cout << temp << std::endl;
          dek.selectCard(temp);
+         if(dek.numSel()==3){
+            checkForWinner();
+         }
+      }
    }
 }
 
