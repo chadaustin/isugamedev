@@ -26,6 +26,7 @@ namespace mw
          glTexCoord2f(0,  50); glVertex2f(-size,  size);
          glTexCoord2f(50, 50); glVertex2f(size,   size);
          glTexCoord2f(50, 0);  glVertex2f(size,  -size);
+         mTexture->unbind();
          glEnd();
       glPopMatrix();
    }
