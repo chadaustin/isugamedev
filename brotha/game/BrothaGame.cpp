@@ -10,9 +10,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: Player.cpp,v $
+ * File:          $RCSfile: BrothaGame.cpp,v $
  * Date modified: $Date: 2002-03-27 00:51:33 $
- * Version:       $Revision: 1.3 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -38,78 +38,52 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#include "Player.h"
+#include "BrothaGame.h"
 
-Player::Player()
-   : mName("Player"), mAccelerate(false), mBrake(false), mTurnLeft(false),
-     mTurnRight(false)
+BrothaGame::BrothaGame()
+   : mLocalPlayer(NULL)
 {
-   mUID = UIDManager<Player>::getInstance().reserveID();
 }
 
-Player::Player( const std::string& name )
-   : mName(name), mAccelerate(false), mBrake(false), mTurnLeft(false),
-     mTurnRight(false)
+void BrothaGame::update()
 {
-   mUID = UIDManager<Player>::getInstance().reserveID();
+   /// @todo update the game state
 }
 
-Player::~Player()
+void BrothaGame::add( Player* player )
 {
-   UIDManager<Player>::getInstance().releaseID( mUID );
+   assert( player != NULL && "Cannot add a NULL player!" );
+   mPlayers[player->getUID()] = player;
 }
 
-void Player::setAccelerate( bool flag )
+void BrothaGame::setLocalPlayer( Player* player )
 {
-   mAccelerate = flag;
+   mLocalPlayer = player;
 }
 
-bool Player::isAccelerating() const
+Player* BrothaGame::getLocalPlayer()
 {
-   return mAccelerate;
+   return mLocalPlayer;
 }
 
-void Player::setBrake( bool flag )
+void BrothaGame::setPaused( bool pause )
 {
-   mBrake = flag;
+   if ( pause )
+   {
+      mGameTime.stop();
+   }
+   else
+   {
+      mGameTime.start();
+   }
 }
 
-bool Player::isBraking() const
+bool BrothaGame::isPaused() const
 {
-   return mBrake;
+   return ( ! mGameTime.isStopped() );
 }
 
-void Player::setTurnLeft( bool flag )
+const GameTimer& BrothaGame::getGameTimer() const
 {
-   mTurnLeft = flag;
-}
-
-bool Player::isTurningLeft() const
-{
-   return mTurnLeft;
-}
-
-void Player::setTurnRight( bool flag )
-{
-   mTurnRight = flag;
-}
-
-bool Player::isTurningRight() const
-{
-   return mTurnRight;
-}
-
-const Player::UID& Player::getUID() const
-{
-   return mUID;
-}
-
-const std::string& Player::getName() const
-{
-   return mName;
-}
-
-void Player::setName( const std::string& name )
-{
-   mName = name;
+   return mGameTime;
 }

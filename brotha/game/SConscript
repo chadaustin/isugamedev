@@ -1,12 +1,13 @@
 Import('env')
 
 classes = [
-    'Player',
+   'BrothaGame',
+   'Player',
 ]
 
 headers = [
-    'GameTimer',
-    'UIDManager',
+   'GameTimer',
+   'UIDManager',
 ]
 
 sources = [

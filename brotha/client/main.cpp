@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-03-25 21:23:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-27 00:51:33 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,7 +41,11 @@
 #include <gk/gk.h>   // pull in GameKernel
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include "game/BrothaGame.h"
 
+/**
+ * Warn-a-Brotha interface with GameKernel.
+ */
 class BrothaApp : public gk::AbstractGameApp
 {
 public:
@@ -56,12 +60,14 @@ public:
 
    virtual void onAppInit( gk::IGameKernel* kernel )
    {
-	  mKernel = kernel;
+      mKernel = kernel;
       mKernel->setName( "Warn-a-Brotha" );
       mQuit.init( "Quit", mKernel );
       mAccelerate.init( "Accelerate", mKernel );
-      mMouseX.init( "MouseLookX", mKernel );
-      mMouseY.init( "MouseLookY", mKernel );
+      mBrake.init( "Brake", mKernel );
+      mTurnLeft.init( "TurnLeft", mKernel );
+      mTurnRight.init( "TurnRight", mKernel );
+      mPause.init( "Pause", mKernel );
    }
 
    virtual void onContextInit()
@@ -89,37 +95,84 @@ public:
 
       // initialize your matrix stack used for transforming your models
       glMatrixMode( GL_MODELVIEW );
-      glLoadIdentity();
+         glLoadIdentity();
 
-      glScalef( 15, 15, 1 );
-      glTranslatef( 0, -4, -50 );
-      glColor4f( 0, 0, 1, 1 );
-      glBegin( GL_TRIANGLE_FAN );
-         glVertex3f(-1,-1, 0);
-         glVertex3f( 1,-1, 0);
-         glVertex3f( 1, 1, 0);
-         glVertex3f(-1, 1, 0);
-      glEnd();
+      /// @todo draw the game!
    }
 
    virtual void onPostFrame()
    {
+      Player* player = mGame.getLocalPlayer();
+
+      // test for quit
       if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
       {
          mKernel->shutdown();
       }
 
-      std::cout<< "Accelerate: "
-               << mAccelerate.getDigitalData() << " "
-               << " MouseX: " << mMouseX.getAnalogData() << ","
-               << mMouseY.getAnalogData() << "\r" << std::flush;
+      // accelerate
+      if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+      {
+         player->setAccelerate( true );
+      }
+      else if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_UP)
+      {
+         player->setAccelerate( false );
+      }
+
+      // brake
+      if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+      {
+         player->setBrake( true );
+      }
+      else if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_UP)
+      {
+         player->setBrake( false );
+      }
+
+      // turn left
+      if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+      {
+         player->setTurnLeft( true );
+      }
+      else if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_UP)
+      {
+         player->setTurnLeft( false );
+      }
+
+      // turn right
+      if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+      {
+         player->setTurnRight( true );
+      }
+      else if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_UP)
+      {
+         player->setTurnRight( false );
+      }
+
+      // un/pause game
+      if (mPause.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
+      {
+         mGame.setPaused( ! mGame.isPaused() );
+      }
+
+      // update the state of the game
+      mGame.update();
    }
 
 public:
    gk::AnalogInterface mMouseX, mMouseY;
-   gk::DigitalInterface mAccelerate, mQuit;
+   gk::DigitalInterface
+      mAccelerate,
+      mBrake,
+      mTurnLeft,
+      mTurnRight,
+      mPause,
+      mQuit;
 
    gk::IGameKernel* mKernel;
+
+   BrothaGame mGame;
 };
 
 int main( int argc, char *argv[] )
