@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-22 04:45:58 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-02-27 02:39:32 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -135,7 +135,7 @@ GlutDriver::init( GameKernel* kernel )
       // register glut callback. a poll interval of -1 is used to tell glut that
       // we want to manually poll the joystick using glutForceJoystickFunc()
       // from our idle callback.
-      ::glutJoystickFunc( OnJoystick, 100 );
+      ::glutJoystickFunc( OnJoystick, -1 );
 
       // add a joystick device
       int numButtons = glutGet( GLUT_JOYSTICK_BUTTONS );
