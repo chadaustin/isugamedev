@@ -38,6 +38,9 @@ GLfloat gAmbient[] = {0.3f, 0.3f, 0.3f};
 // Flag so we can toggle lighting
 bool gLightsEnabled = true;
 
+// Flag so we can toggle drawing the debugging aids.
+bool gDebugEnabled = false;
+
 //-----------------------------------------------------------------------------
 
 void
@@ -137,27 +140,30 @@ void onRedisplay()
       glRotatef(gLightRot[2], 0,0,1);
       glLightfv(GL_LIGHT0, GL_POSITION, gLightTether);
 
-      // Draw some useful debugging stuff
-      glDisable(GL_LIGHTING);
-
-      // Draw a line from the light to the box
-      glBegin(GL_LINES);
-         glColor3f(1,0,0);
-         glVertex3f(0,0,0);
-         glVertex3fv(gLightTether);
-      glEnd();
-
-      // Draw a sphere where the light is
-      glPushMatrix();
-         glTranslatef(gLightTether[0], gLightTether[1], gLightTether[2]);
-         glColor3f(1,1,0);
-         glutSolidSphere(0.2f, 5, 5);
-      glPopMatrix();
-
-      // Done with debugging, reenable lights if needed
-      if (gLightsEnabled)
+      if (gDebugEnabled)
       {
-         glEnable(GL_LIGHTING);
+         // Draw some useful debugging stuff
+         glDisable(GL_LIGHTING);
+   
+         // Draw a line from the light to the box
+         glBegin(GL_LINES);
+            glColor3f(1,0,0);
+            glVertex3f(0,0,0);
+            glVertex3fv(gLightTether);
+         glEnd();
+   
+         // Draw a sphere where the light is
+         glPushMatrix();
+            glTranslatef(gLightTether[0], gLightTether[1], gLightTether[2]);
+            glColor3f(1,1,0);
+            glutSolidSphere(0.2f, 5, 5);
+         glPopMatrix();
+   
+         // Done with debugging, reenable lights if needed
+         if (gLightsEnabled)
+         {
+            glEnable(GL_LIGHTING);
+         }
       }
    glPopMatrix();
 
@@ -247,6 +253,9 @@ void onKeyboardDown(unsigned char key, int x, int y)
       {
          glDisable(GL_LIGHTING);
       }
+      break;
+   case 'd':
+      gDebugEnabled = ! gDebugEnabled;
       break;
    default:
       // do nothing if no key is pressed
