@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2003-01-05 07:13:45 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -88,6 +88,12 @@ namespace phui
    typedef Color<float>    Colorf;
    typedef Color<double>   Colord;
    typedef Color<int>      Colori;
+
+   template< typename T >
+   inline std::ostream& operator<<(std::ostream& out, const Color<T>& clr)
+   {
+      out<<"("<<clr.r<<", "<<clr.g<<", "<<clr.b<<", "<<clr.a<<")";
+   }
 
    //@{
    /**
