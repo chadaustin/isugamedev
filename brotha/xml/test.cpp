@@ -19,12 +19,13 @@ int main(int argc, char* argv[])
 {
 
 	data::BrothaData* b = data::load("test.xml");
+	data::save(b,std::string("test2.xml"));
 	b->xMLify(std::cout);
 	//reports::request r("2*/2*/2*");
 	/*/r.print(std::cout);
 	std::cout << reports::parseHTTPRequest("get /123456790 http/1.0\r\n bla: quag\r\n\r\n") << std::endl;
 	*/std::ostringstream zhende;
-	std::cout << "enter brothaPath code:";
+	//std::cout << "enter brothaPath code:";
 	std::string a;
 	std::cin >> a;/*
 	zhende << "<font face=verdana><h1>Example:" << a << "</h1>";

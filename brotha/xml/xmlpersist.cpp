@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-05-01 21:40:09 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-05-03 01:02:02 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,6 +42,7 @@
  ************************************************************ brotha-cpr-end */
 #include "xmlpersist.h"
 #include <iostream>
+#include <fstream>
 #include <xmlpp/xmlpp.h>
 
 namespace data {
@@ -115,7 +116,7 @@ namespace data {
 
       while (itTypes != types.end()) {
          xmlpp::XMLAttributes& attr = (*itTypes)->get_attrmap();
-         CarType* c = new CarType(attr.get("name"),attr.get("model"));
+         CarType* c = new CarType(attr.get("name"),attr.get("file"));
          data->addCarType(c);
          itTypes++;
       }
@@ -129,6 +130,14 @@ namespace data {
 		  itModTyps++;
 	  }
       return data;
+   }
+
+
+   void save(BrothaData* bx, std::string& filename){
+	   std::ofstream o;
+	   o.open(filename.c_str());
+	   bx->xMLify(o);
+	   o.close();
    }
 
 

@@ -272,6 +272,15 @@ namespace reports {
       if(query.size() < 3){
         query = "2*/1*/0*";
       }
+	  if(query == "test"){
+		  std::string html = "";
+		  html += "<a href=/2*/1*/0*>one</a><br>";
+		  html += "<a href=/0reflect/2*/1*>one</a><br>";
+		  html += "<a href=/0reflect/2ama/1*>one</a><br>";
+		  html += "<a href=/1*/2*/0*>one</a><br>";
+		  html += "<a href=/0*/0*/2*>one</a><br>";
+		  return html;
+	  }
       reports::request r(query);
       if (r.valid) {
          data::GangList gl = data.getGangList();
