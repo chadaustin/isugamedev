@@ -10,7 +10,7 @@ You will need the following external libraries:
 Audiere	1.9.0		http://audiere.sourceforge.net
 Corona	0.2.0 		http://corona.sourceforge.net
 GLText	0.1.0		http://gltext.sourceforge.net
-GMTL	0.1.11		http://ggt.sourceforge.net
+GMTL	0.1.12		http://ggt.sourceforge.net
 Loom	0.0.4		http://ailoom.sourceforge.net
 OpenSG	1.1.0		http://www.opensg.org
 SCons	0.08		http://www.scons.org
