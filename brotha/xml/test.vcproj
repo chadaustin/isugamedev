@@ -105,6 +105,9 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
+				RelativePath="DataManager.cpp">
+			</File>
+			<File
 				RelativePath="test.cpp">
 			</File>
 			<File
@@ -130,6 +133,9 @@
 				RelativePath="Cartype.h">
 			</File>
 			<File
+				RelativePath="DataManager.h">
+			</File>
+			<File
 				RelativePath="Gang.h">
 			</File>
 			<File
@@ -137,6 +143,9 @@
 			</File>
 			<File
 				RelativePath="Mod.h">
+			</File>
+			<File
+				RelativePath="ModType.h">
 			</File>
 			<File
 				RelativePath="Player.h">

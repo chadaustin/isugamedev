@@ -76,4 +76,6 @@
 	<cartype name="civic" file="car.model" />
 	<cartype name="vrac simulator" file="car.model" />
 	<cartype name="fiesta" file="car.model" />
+	<modtype name="brakes" min="0" max="10"/>
+	<modtype name="tiers" min="0" max="10" />
 </wbdata>

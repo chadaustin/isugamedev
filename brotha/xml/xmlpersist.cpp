@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-05-01 07:31:21 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-01 21:40:09 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -109,18 +109,29 @@ namespace data {
          }
 
          it++;
-         xmlpp::xmlnodelist types = rootp->getChildren("cartype");
-         xmlpp::XMLNodeListIterator itTypes = types.begin();
+     }
+      xmlpp::xmlnodelist types = rootp->getChildren("cartype");
+      xmlpp::XMLNodeListIterator itTypes = types.begin();
 
-         while (itTypes != types.end()) {
-            xmlpp::XMLAttributes& attr = (*itTypes)->get_attrmap();
-            CarType* c = new CarType(attr.get("name"),attr.get("model"));
-            data->addCarType(c);
-            itTypes++;
-         }
+      while (itTypes != types.end()) {
+         xmlpp::XMLAttributes& attr = (*itTypes)->get_attrmap();
+         CarType* c = new CarType(attr.get("name"),attr.get("model"));
+         data->addCarType(c);
+         itTypes++;
       }
+
+	  xmlpp::xmlnodelist mods = rootp->getChildren("modtype");
+	  xmlpp::XMLNodeListIterator itModTyps = mods.begin();
+	  while(itModTyps != mods.end()){
+		  xmlpp::XMLAttributes attr = (*itModTyps)->get_attrmap();
+		  ModType*  m = new ModType(attr.get("name"),atoi(attr.get("min").c_str()),atoi(attr.get("max").c_str()));
+		  data->addModType(m);
+		  itModTyps++;
+	  }
       return data;
    }
+
+
 
    void fillWithFakeData(BrothaData* b) {
       Gang* g = new Gang("emigia");

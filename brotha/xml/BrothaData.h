@@ -9,6 +9,7 @@
 #include "Gang.h"
 #include "CarType.h"
 #include "Player.h"
+#include "ModType.h"
 
 namespace data {
 
@@ -24,10 +25,17 @@ namespace data {
          return mCarTypes;
       }
 
+	  ModTypeList& getModTypes(){
+		  return mModTypes;
+	  }
       /// Adds the given car type to the database.
       void addCarType(CarType* c) {
          mCarTypes.push_back(c);
       }
+
+	  void addModType(ModType* m){
+		  mModTypes.push_back(m);
+	  }
 
       /// Adds the given gang to the database.
       void addGang(Gang* g) {
@@ -42,6 +50,9 @@ namespace data {
          for (unsigned int i = 0; i < mCarTypes.size(); ++i) {
             mCarTypes[i]->xMLify(out);
          }
+		 for (unsigned int i = 0; i < mModTypes.size(); ++i){
+			   mModTypes[i]->xMLify(out);
+		 }
          out << "</wbdata>";
       }
 
@@ -73,6 +84,8 @@ namespace data {
 
       /// All car types in the database.
       CarTypeList mCarTypes;
+
+	  ModTypeList mModTypes;
    };
 }
 
