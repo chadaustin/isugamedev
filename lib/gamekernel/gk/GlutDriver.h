@@ -24,13 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-01-30 06:48:25 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-01-30 16:39:55 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #ifndef GLUTDRIVER_H
-#define GLUTDRIVER_H 1
+#define GLUTDRIVER_H
 
 #include "SystemDriver.h"
 #include "Keyboard.h"
