@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2003-01-06 02:52:58 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-01-08 09:10:11 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -90,7 +90,7 @@ int main(int argc, char** argv)
       Py_Initialize();
       PySys_SetArgv(argc, argv);
       PyRun_SimpleString("import sys");
-      PyRun_SimpleString("sys.path.append('../../phui')");
+      PyRun_SimpleString("sys.path.append('../../phui/python')");
 
       // Init GLUT
       glutInitWindowSize(640, 480);

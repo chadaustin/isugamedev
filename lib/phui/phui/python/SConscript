@@ -1,0 +1,36 @@
+import os
+pj = os.path.join
+
+Import('baseEnv pkg')
+Import('SetupPython SetupBoostPython')
+
+sources = Split("""
+   PythonAPI.cpp
+   PyActionEvent.cpp
+   PyActionListener.cpp
+   PyButton.cpp
+   PyCheckBox.cpp
+   PyColor.cpp
+   PyInsets.cpp
+   PyLabel.cpp
+   PyLayoutConstraint.cpp
+   PyListBox.cpp
+   PyPoint.cpp
+   PyRootWidget.cpp
+   PySize.cpp
+   PyTextField.cpp
+   PyWidget.cpp
+   PyWidgetContainer.cpp
+   PyWindow.cpp
+   PyWindowEvent.cpp
+   PyWindowListener.cpp
+""")
+
+
+# Define the Python module
+env = baseEnv.Copy()
+env.Append(LIBPATH   = ['#phui'],
+           LIBS      = ['phui'])
+SetupPython(env, '2.2')
+SetupBoostPython(env)
+env.SharedLibrary('phui', sources, SHLIBPREFIX='')

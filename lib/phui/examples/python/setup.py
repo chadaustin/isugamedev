@@ -18,18 +18,6 @@ class MyWindowListener(WindowListener):
    def onWindowUnfocused(self, evt):
       print 'window unfocused'
 
-class MyWndAdapter(WindowAdapter):
-   def __init__(self):
-      WindowAdapter.__init__(self)
-   def onWindowOpened(self, evt):
-      print 'windowAdapter opened'
-   def onWindowClosed(self, evt):
-      print 'window closed'
-   def onWindowFocused(self, evt):
-      print 'window focused'
-   def onWindowUnfocused(self, evt):
-      print 'window unfocused'
-
 # Get the root widget of the UI
 ui = appconnect.getUI()
 
@@ -39,8 +27,7 @@ wnd.position.set(10, 10)
 wnd.size.set(300, 45)
 wnd.backgroundColor.set(0,1,0,1)
 wnd.backgroundColor.set(0,1,0,1)
-#wnd.addWindowListener(MyWindowListener())
-wnd.addWindowListener(MyWndAdapter())
+wnd.addWindowListener(MyWindowListener())
 wnd.show()
 
 # Create a new button
