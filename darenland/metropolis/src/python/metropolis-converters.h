@@ -3,9 +3,15 @@
 #ifndef _METRO_METROPOLIS_CONVERTERS_H_
 #define _METRO_METROPOLIS_CONVERTERS_H_
 
+#include <boost/shared_ptr.hpp>
 #include <boost/python.hpp>
+#include <boost/python/borrowed.hpp>
+#include <boost/python/handle.hpp>
+#include <boost/python/lvalue_from_pytype.hpp>
 #include <boost/python/module.hpp>
 #include <gmtl/Point.h>
+#include <cassert>
+#include <iostream>
 
 using namespace boost::python;
 
@@ -25,6 +31,25 @@ namespace metro
 				PyTuple_SetItem(result, i, PyInt_FromLong(p[i]));
 			}
 			return result;
+		}
+	};
+
+	template <unsigned int SIZE>
+	struct tuple_to_pointi
+	{
+		static gmtl::Point<int, SIZE>& execute(PyObject& src)
+		{
+			//assert(NULL != src);
+			//std::cout << src << std::endl;
+			assert(PyTuple_Check(&src));
+			assert(SIZE == PyTuple_Size(&src));
+			boost::shared_ptr< gmtl::Point<int, SIZE> > point( new gmtl::Point<int, SIZE>());
+			for (unsigned int i = 0; i < SIZE; ++i)
+			{
+				long value = PyInt_AsLong(PyTuple_GET_ITEM(&src, i));
+				(*point)[i] = value;
+			}
+			return *point;
 		}
 	};
 }

@@ -2,7 +2,7 @@ import string, sys
 
 def loadConverters(src, dest):
 	"""
-	Loads the to_python_converters from the source file to the
+	Loads the converter registration from the source file to the
 	boost python module found in the dest file.
 	"""
 	src_file = open(src, 'r')

@@ -72,6 +72,7 @@ else:
 	]
 	pyste_env.Pyste('metropolis', source = map(lambda x: x+'.pyste', sources))
 	#AddPostAction(pyste_env.target, '$PYTHON $CONVERTER $CONVERTER_SRC $CONVERTER_DEST')
+	pyste_env.Depends('metropolis', 'converters.in')
 	pymet_env = baseEnv.Copy(CPPPATH = CPPPATH,
 	 								 LIBPATH = LIBPATH)
 	pymet_env.Append(LIBS = ['boost_python', 'metropolis'])

@@ -15,12 +15,12 @@ def getSrcFiles(dir, src):
 baseEnv = Environment(ENV = os.environ)
 
 # setup any elements of the environment that we want
-DEBUG = 0
-if ARGUMENTS.has_key('debug'):
-	baseEnv.Append(CXXFLAGS = ['-g'])
-	DEBUG = 1
-else:
+DEBUG = 1
+if ARGUMENTS.has_key('optimize'):
 	baseEnv.Append(CXXFLAGS = ['-O3', '-march=pentium4', '-mfpmath=sse'])
+	DEBUG = 0
+else:
+	baseEnv.Append(CXXFLAGS = ['-g'])
 Export('DEBUG')
 baseEnv.Append(LIBS = ['GL', 'GLU', 'glut', 'SDL', 'pthread'])
 baseEnv.Append(CPPPATH = ['src/', '/usr/include/python2.2/', '#external/GMTL'])

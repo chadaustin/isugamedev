@@ -26,6 +26,7 @@ use_shared_ptr(Entity)
 World = Class('metro::World', 'reality/World.h')
 # Necessary for the Singleton to behave as expected
 set_policy(World.instance, return_value_policy(reference_existing_object))
+set_policy(World.addEntity, with_custodian_and_ward(1, 2))
 # Python shouldn't need these functions
 exclude(World.draw)
 # These aren't implemented right now

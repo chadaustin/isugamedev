@@ -62,6 +62,23 @@ namespace metro
 		 * 			   if the id doesn't exist.
 		 */
 		boost::shared_ptr< Entity > getEntity( EntityID id );
+
+		/**
+		 * Cleans up the memory allocated by this object; this is a temporary
+		 * workaround until I can find a nice solution to my Singleton problem.
+		 */
+		 ///FIXME
+		/**
+		 * Basically, static objects are guaranteed to be initialized at the
+		 * startup of a program, and uninitialized upon exiting the program;
+		 * however, exactly WHEN this happens relative to other objects or static
+		 * entities is unpecified, and therefore, undefined.  Apparently, the
+		 * python interpreter is COMPLETELY shutdown before static entities
+		 * have their destructors called.  This must be taken into account when
+		 * using the static singleton implementation.  Perhaps we should look
+		 * into using one of Andrei Alexandrescu's Singleton Lifetime policies.
+		 */
+		void cleanup( void );
 		
 		//access to lock and edge state information
 		//TODO:  Implement these.

@@ -56,3 +56,4 @@ c.printString()
 w = World.instance()
 print w
 w.addEntity(c)
+w.cleanup()

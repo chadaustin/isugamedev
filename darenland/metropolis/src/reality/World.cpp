@@ -85,6 +85,16 @@ namespace metro
 		return empty;
 	}
 	
+	void
+	World::cleanup()
+	{
+		///de-allocate boost::shared_ptrs
+		for (EntityItr itr = mEntities.begin(); itr != mEntities.end(); ++itr)
+		{
+			itr->second.reset();
+		}
+	}
+	
 	//draws a hexagon outline, given an edge state, colors open edges green,
 	//closed ones red
 	//north is negative Z axis, East is positive X axis
