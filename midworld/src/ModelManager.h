@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ModelManager.h,v $
- * Date modified: $Date: 2002-09-18 00:30:39 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-09 08:09:39 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -80,6 +80,22 @@ namespace mw
        * @return  the model's node; NULL if there was an error
        */
       osg::NodePtr get(const std::string& model);
+
+      /**
+       * Preloads the model stored in the given file and stores it in the cache
+       * for later use.
+       *
+       * @param model      the name of the file containig the model to load into
+       *                   the cache
+       *
+       * @return  true if the model was loaded successfully, false otherwise
+       */
+      bool preload(const std::string& model);
+
+      /**
+       * Removes all models contained in the cache.
+       */
+      void emptyCache();
 
    private:
       /**

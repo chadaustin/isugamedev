@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ModelManager.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-09 08:09:39 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -56,6 +56,18 @@ namespace mw
    ModelManager::get(const std::string& model)
    {
       return getModel(model);
+   }
+
+   bool
+   ModelManager::preload(const std::string& model)
+   {
+      return (getModel(model) != osg::NullFC);
+   }
+
+   void
+   ModelManager::emptyCache()
+   {
+      mCache.clear();
    }
 
    osg::NodePtr
