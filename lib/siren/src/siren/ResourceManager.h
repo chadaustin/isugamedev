@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.h,v $
- * Date modified: $Date: 2003-02-13 06:38:28 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-02-13 06:55:55 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -140,7 +140,7 @@ namespace siren
        */
       T find(const std::string& name, Type2Type<T> = Type2Type<T>())
       {
-         ResMap::iterator itr = mCache.find(name);
+         typename ResMap::iterator itr = mCache.find(name);
 
          // Cache hit
          if (itr != mCache.end())
@@ -164,7 +164,7 @@ namespace siren
       void clear()
       {
          // Destroy all things in the cache before clearing it
-         for (ResMap::iterator itr = mCache.begin(); itr != mCache.end(); ++itr)
+         for (typename ResMap::iterator itr = mCache.begin(); itr != mCache.end(); ++itr)
          {
             CachePolicy<T>::destroy(itr->second);
          }
