@@ -14,11 +14,11 @@ namespace data {
 
    class BrothaData {
    private:
-      ganglist gangs;
+      GangList gangs;
       CarTypeList cars;
 
    public:
-      ganglist getGangList() {
+      GangList& getGangList() {
          return gangs;
       }
 
@@ -56,7 +56,7 @@ namespace data {
       }
 
       Player* getPlayer(const std::string& name) {
-         ganglist::iterator itr;
+         GangList::iterator itr;
          for (itr = gangs.begin(); itr != gangs.end(); ++itr) {
             if (Player* p = (*itr)->getPlayer(name)) {
                return p;

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Gang.h,v $
- * Date modified: $Date: 2002-05-01 07:55:33 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-01 08:10:01 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -51,37 +51,37 @@
 namespace data {
 
    class Gang {
-   private:
-      std::string name;
-      std::string info;
-      PlayerList players;
    public:
-      Gang(const std::string& iname) {
-         name = iname;
-      }
-      void addPlayer(Player* i) {
-         players.push_back(i);
+      /// Creates a new gang with the given name.
+      Gang(const std::string& name)
+         : mName(name)
+      {}
+
+      /// Adds the given player to this gang.
+      void addPlayer(Player* player) {
+         mPlayers.push_back(player);
       }
 
-      PlayerList getPlayerList() {
-         return players;
+      PlayerList& getPlayerList() {
+         return mPlayers;
       }
 
-      void setInfo(const std::string& in) {
-         info = in;
+      void setInfo(const std::string& info) {
+         mInfo = info;
       }
 
-      std::string getInfo() {
-         return info;
+      const std::string& getInfo() const {
+         return mInfo;
       }
 
-      std::string getName() {
-         return name;
+      const std::string& getName() const {
+         return mName;
       }
 
       Player* getPlayer(const std::string& name) {
-         for(unsigned int i = 0; i < players.size(); i++) {
-            Player* p = players[i];
+         PlayerList::iterator itr;
+         for (itr = mPlayers.begin(); itr != mPlayers.end(); ++itr) {
+            Player* p = *itr;
             if(p->getName() == name) {
                return p;
             }
@@ -90,17 +90,26 @@ namespace data {
       }
 
       void xMLify(std::ostream& out) {
-         out << "  <gang name=\"" << name << "\">" << std::endl;
-         out << "    <info>" << info << "</info>" <<std::endl;
-         for(unsigned int i = 0; i < players.size(); i++) {
-            players[i]->xMLify(out);
+         out << "  <gang name=\"" << mName << "\">" << std::endl;
+         out << "    <info>" << mInfo << "</info>" <<std::endl;
+         for(unsigned int i = 0; i < mPlayers.size(); i++) {
+            mPlayers[i]->xMLify(out);
          }
          out << "  </gang>" <<std::endl;
       }
+
+   private:
+      /// The name of this gang.
+      std::string mName;
+
+      /// An description of this gang.
+      std::string mInfo;
+
+      /// The list of players that are members of this gang.
+      PlayerList mPlayers;
    };
 
-
-   typedef std::vector<Gang*> ganglist;
+   typedef std::vector<Gang*> GangList;
 
 }
 #endif
