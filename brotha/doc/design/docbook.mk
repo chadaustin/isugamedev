@@ -1,4 +1,34 @@
-# $Id: docbook.mk,v 1.1 2002-04-05 04:33:59 nonchocoboy Exp $
+# ************** <auto-copyright.pl BEGIN do not edit this line> **************
+#
+# VR Juggler is (C) Copyright 1998, 1999, 2000 by Iowa State University
+#
+# Original Authors:
+#   Allen Bierbaum, Christopher Just,
+#   Patrick Hartling, Kevin Meinert,
+#   Carolina Cruz-Neira, Albert Baker
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Library General Public
+# License as published by the Free Software Foundation; either
+# version 2 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Library General Public License for more details.
+#
+# You should have received a copy of the GNU Library General Public
+# License along with this library; if not, write to the
+# Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+# Boston, MA 02111-1307, USA.
+#
+# -----------------------------------------------------------------
+# File:          $RCSfile: docbook.mk,v $
+# Date modified: $Date: 2002-04-08 04:24:55 $
+# Version:       $Revision: 1.2 $
+# -----------------------------------------------------------------
+#
+# *************** <auto-copyright.pl END do not edit this line> ***************
 
 .SUFFIXES: .html .xml .pdf .tex .fo .txt
 
@@ -47,7 +77,8 @@ endif # PASSIVE_TEX
 endif # XEP
 endif # FOP
 
-XALAN_HTML_PARAMS=	
+SAXON_HTML_PARAMS=	html.stylesheet=base_style.css
+XALAN_HTML_PARAMS=	-PARAM html.stylesheet "base_style.css"
 
 XALAN_TXT_PARAMS=	-PARAM page.margin.bottom "0in"	\
 			-PARAM page.margin.inner "0in"	\
@@ -62,9 +93,13 @@ DB_SGML_DTD?=	$(DOCBOOK_ROOT)/docbook-sgml-4.1.dtd
 DSSSL_DIR?=	$(DOCBOOK_ROOT)/docbook-dsssl-1.76
 XSL_DIR?=	$(DOCBOOK_ROOT)/docbook-xsl-1.49
 
+ifdef NEED_DB_IMAGES
+LINK_DEPS=	images
+endif
+
 txt: $(TXT_FILES)
 
-html: images $(HTML_FILES)
+html: $(LINK_DEPS) $(HTML_FILES)
 
 chunk-html:
 	for file in $(XML_FILES) ; do \
@@ -77,8 +112,6 @@ chunk-html:
             cd $$cur_dir ; \
         done
 
-LINK_DEPS=	images # pdfxmltex.fmt
-
 pdf: $(LINK_DEPS) $(PDF_FILES)
 
 # The method for specifying a path to the images that come with the DocBook
@@ -88,10 +121,62 @@ pdf: $(LINK_DEPS) $(PDF_FILES)
 images:
 	ln -s $(XSL_DIR)/images ./
 
-ifeq ($(FO_VERSION), PASSIVE_TEX)
-pdfxmltex.fmt:
-	ln -s $(DOCBOOK_ROOT)/latex/base/pdfxmltex.fmt ./
+install-txt: $(TXT_FILES)
+ifndef prefix
+	$(error "No prefix set!")
+else
+	if [ ! -d "$(prefix)" ]; then mkdir -p $(prefix); fi
+	cp $(TXT_FILES) $(prefix)/
 endif
+
+install-html: $(LINK_DEPS) $(HTML_FILES)
+ifndef prefix
+	$(error "No prefix set!")
+else
+	if [ ! -d "$(prefix)" ]; then mkdir -p $(prefix); fi
+	cp $(HTML_FILES) $(prefix)/
+ifdef INSTALL_FILES
+	cp $(INSTALL_FILES) $(prefix)/
+endif
+ifdef INSTALL_DIRS
+	cp -r $(INSTALL_DIRS) $(prefix)
+endif
+ifdef NEED_DB_IMAGES
+	cp -rH images $(prefix)/
+endif
+endif
+
+install-chunk-html:
+ifndef prefix
+	$(error "No prefix set!")
+else
+	if [ ! -d "$(prefix)" ]; then mkdir -p $(prefix); fi
+	for file in $(XML_FILES) ; do \
+            dir=`echo $$file | sed -e 's/\.xml//'` ; \
+            cp -r $$dir $(prefix)/ ; \
+            if [ ! -z "$(INSTALL_FILES)" ]; then \
+                cp $(INSTALL_FILES) $(prefix)/$$dir ; \
+            fi ; \
+            if [ ! -z "$(NEED_DB_IMAGES)" ]; then \
+                cp -rH images $(prefix)/$$dir ; \
+            fi ; \
+            if [ ! -z "$(INSTALL_DIRS)" ]; then \
+                cp -r $(INSTALL_DIRS) $(prefix)/$$dir ; \
+            fi ; \
+          done
+endif
+
+install-pdf: $(PDF_FILES)
+ifndef prefix
+	$(error "No prefix set!")
+else
+	cp $(PDF_FILES) $(prefix)/
+endif
+
+install install-all:
+	$(MAKE) install-html
+	$(MAKE) install-chunk-html
+	$(MAKE) install-pdf
 
 # Image conversions -----------------------------------------------------------
 
