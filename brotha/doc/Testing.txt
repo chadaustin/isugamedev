@@ -477,16 +477,14 @@ Black box testing will be used to test functionality for    colliding objects.
 
        3.5 Sound subsystem.
 
-          (for each test)
-
           1 Requirements
 
             4.3.1, 4.3.2
 
           2 Methods
 
-            Black box testing will be used to test to see if the
-            application plays sound or not.  The internals of the
+            Manual black box testing will be used to test to see if
+            the application plays sound or not.  The internals of the
             sound module are generally too complex to have every
             branch and instruction tested.
 
@@ -506,9 +504,20 @@ Black box testing will be used to test functionality for    colliding objects.
                1.1, 1.2
 
             
-            
+           Methods
+
+           We will use manual black box testing to verify that the
+           login process works as expected.
 
 
+           Test Procedures
+
+           Given a correct username and password combination and an
+           incorrect username and password, try to log in with each.
+           Verify that the correct combination validates and
+           successfully logs in.  Verify that the invalid combination
+           does not log in, and displays an error message informing
+           the user of that fact.
 
 
 -- p7 Traceability Matrix (sorted by Requirements)
