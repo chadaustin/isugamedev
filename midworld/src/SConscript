@@ -71,7 +71,6 @@ buildInfo.addHeaders(map(File, Split("""
    AssaultRifle.h
    BodyState.h
    CollisionEvent.h
-   LokiTypeInfo.h
    NullCollisionDetector.h
    UIDManager.h
    VectorSpatialIndex.h
