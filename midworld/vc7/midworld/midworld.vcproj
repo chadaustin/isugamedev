@@ -159,6 +159,12 @@
 				RelativePath="..\..\src\BoundsCollisionDetector.h">
 			</File>
 			<File
+				RelativePath="..\..\src\BoundsSweepCollisionDetector.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\BoundsSweepCollisionDetector.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Camera.cpp">
 			</File>
 			<File
