@@ -33,13 +33,17 @@ o------------------------------------------------------------------------------o
   list of the minimum requirements.
 
     * A good C++ compiler
-    * Python 2.2
-    * SCons 0.09
+    * SCons 0.11
     * Audiere 1.9.1
     * Boost 1.29.0
+    * Cal3D from CVS
     * Corona 0.2.0
     * GMTL 0.1.13
     * SDL 1.2.5
+
+  Planned requirements include:
+
+    * Python 2.2
 
 o------------------------------------------------------------------------------o
 | Questions
