@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec2.h,v $
-//    $Date: 2001-09-13 23:09:17 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-21 17:59:44 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -70,11 +70,10 @@ public:
 	_dataType				lengthSquared() const;
 	
 	// Linear Interpolation between two vectors.
-	static void			Lerp(const Vec2<_dataType>& from, 
-					    const Vec2<_dataType>& to, 
-					    const _dataType &lerp, 
-					    Vec2<_dataType>& lerpedValue );
-				    
+         void            lerp(const _dataType& lerpVal,
+                              const Vec2<_dataType>& from, 
+                              const Vec2<_dataType>& to );
+		    
 	_dataType			normalize();
 
 	inline _dataType* 			data() { return _v; }
@@ -421,13 +420,12 @@ inline void Vec2<_dataType>::setLength( const _dataType& newLength )
 
 // Linear Interpolation between two vectors.
 template<class _dataType>
-inline void Vec2<_dataType>::Lerp(const Vec2<_dataType>& from, 
-		const Vec2<_dataType>& to, 
-		const _dataType &lerp, 
-		Vec2<_dataType>& lerpedValue )
+inline void Vec2<_dataType>::lerp(const _dataType &lerpVal,
+                        const Vec2<_dataType>& from, 
+                        const Vec2<_dataType>& to )
 {
-    Vec2<_dataType> offset = to - from;
-    lerpedValue = from + offset*lerp;
+   Vec2<_dataType> offset = to - from;
+   (*this) = from + offset*lerpVal;
 }
 
 //Typedef some commonly used vector types

@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec4.h,v $
-//    $Date: 2001-09-13 23:09:17 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-21 17:59:44 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -73,6 +73,11 @@ public:
 
    Type            length() const;
 
+   // Linear Interpolation between two vectors.
+   void            lerp(const Type& lerpVal,
+                        const Vec4<Type>& from, 
+                        const Vec4<Type>& to );
+   
    Type            normalize();
 
    inline Type*          data() { return _v; }
@@ -656,6 +661,16 @@ inline void Vec4<Type>::setLength( Type newLength )
    _v[1] *= factor;
    _v[2] *= factor;
    _v[3] *= factor;
+}
+
+// Linear Interpolation between two vectors.
+template<class Type>
+inline void Vec4<Type>::lerp(const Type &lerpVal,
+                        const Vec4<Type>& from, 
+                        const Vec4<Type>& to )
+{
+   Vec4<Type> offset = to - from;
+   (*this) = from + offset*lerpVal;
 }
 
 //Typedef some commonly used vector types
