@@ -104,6 +104,7 @@ public:
    //  pointer of the object we have stored.
    obj_t& operator*() const
    {
+      assert( mPtr != NULL && "Dereferencing a NULL smart pointer" );
       return *mPtr;
    }
 
@@ -111,6 +112,7 @@ public:
    //  to allow access to the members of the real object.
    obj_t* operator->() const
    {
+      assert( mPtr != NULL && "Accessing member of a NULL smart pointer" );
       return mPtr;
    }
 
