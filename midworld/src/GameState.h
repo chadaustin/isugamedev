@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-26 05:04:34 $
- * Version:       $Revision: 1.43 $
+ * Date modified: $Date: 2002-10-26 06:08:19 $
+ * Version:       $Revision: 1.44 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -148,11 +148,6 @@ namespace mw
    public:
       GameState( Application* a );
 
-      enum EdgeState
-      {
-         DOWN, UP, EDGE_DOWN, EDGE_UP
-      };
-
       void update(float dt);
       void draw();
       void onKeyPress(SDLKey sym, bool down);
@@ -184,9 +179,11 @@ namespace mw
    private:
       /// Called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);
+      void updateEdgeState(InputAction& action, bool absoluteState);
 
       /// Called on update for each button
       void updateEdgeState(EdgeState& state);
+      void updateEdgeState(InputAction& action);
 
       /**
        * Updates the dynamics of the given rigid body over the given time
@@ -250,13 +247,13 @@ namespace mw
       CollisionDetector* mCollDet;
 
       // actions :*)
-      EdgeState mAccelerate;
-      EdgeState mReverse;
-      EdgeState mStrafeRight, mStrafeLeft;
+//      EdgeState mAccelerate;
+//      EdgeState mReverse;
+//      EdgeState mStrafeRight, mStrafeLeft;
       EdgeState mShoot, mCycleWeapon;
-      EdgeState mCameraZoomIn, mCameraZoomOut;
-      EdgeState mCameraPitchDown, mCameraPitchUp;
-      EdgeState mCameraYawLeft, mCameraYawRight;
+//      EdgeState mCameraZoomIn, mCameraZoomOut;
+//      EdgeState mCameraPitchDown, mCameraPitchUp;
+//      EdgeState mCameraYawLeft, mCameraYawRight;
 
       std::vector<EdgeState> mGunSlots;
 
@@ -281,20 +278,18 @@ namespace mw
       PhysicsEngine mPhysics;
       ParticleEngine* mExplosion;
 
-
       // Keybindings
-      InputAction *mActionUp;
-      InputAction *mActionDown;
-      InputAction *mActionRight;
-      InputAction *mActionLeft;
-      InputAction *mActionQuit;
-      InputAction *mActionZoomIn;
-      InputAction *mActionZoomOut;
-      InputAction *mActionPitchUp;
-      InputAction *mActionPitchDown;
-      InputAction *mActionYawLeft;
-      InputAction *mActionYawRight;
-
+      InputAction* mActionUp;
+      InputAction* mActionDown;
+      InputAction* mActionRight;
+      InputAction* mActionLeft;
+      InputAction* mActionQuit;
+      InputAction* mActionZoomIn;
+      InputAction* mActionZoomOut;
+      InputAction* mActionPitchUp;
+      InputAction* mActionPitchDown;
+      InputAction* mActionYawLeft;
+      InputAction* mActionYawRight;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-26 05:35:11 $
- * Version:       $Revision: 1.73 $
+ * Date modified: $Date: 2002-10-26 06:08:19 $
+ * Version:       $Revision: 1.74 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -62,18 +62,8 @@ namespace mw
    GameState::GameState( Application* a )
       : State( a )
       , mSpeed(10)
-      , mAccelerate(UP)
-      , mReverse(UP)
-      , mStrafeRight(UP)
-      , mStrafeLeft(UP)
       , mShoot(UP)
       , mCycleWeapon(UP)
-      , mCameraZoomIn(UP)
-      , mCameraZoomOut(UP)
-      , mCameraPitchDown(UP)
-      , mCameraPitchUp(UP)
-      , mCameraYawLeft(UP)
-      , mCameraYawRight(UP)
       , mFPS(0)
       , mFrameCount(0)
       , mFrameTime(0)
@@ -150,6 +140,9 @@ namespace mw
       mActionYawRight = new InputAction();
       parser->bindAction("YAW RIGHT", mActionYawRight);
       std::cerr << "Finished creating actions." << std::endl;
+
+
+
       // XXX hack for testing aisystem
       appTest = new testing;
 
@@ -244,41 +237,41 @@ namespace mw
       const float camera_yaw_vel(gmtl::Math::deg2Rad(100.0f));
 
       // Accelerate
-      if (mAccelerate == EDGE_DOWN)
+      if (mActionUp->getState() == EDGE_DOWN)
       {
          mPlayerVel += accel;
       }
-      else if (mAccelerate == EDGE_UP)
+      else if (mActionUp->getState() == EDGE_UP)
       {
          mPlayerVel -= accel;
       }
 
       // Reverse
-      if (mReverse == EDGE_DOWN)
+      if (mActionDown->getState() == EDGE_DOWN)
       {
          mPlayerVel += reverse;
       }
-      else if (mReverse == EDGE_UP)
+      else if (mActionDown->getState() == EDGE_UP)
       {
          mPlayerVel -= reverse;
       }
 
       // Strafe left
-      if (mStrafeLeft == EDGE_DOWN)
+      if (mActionLeft->getState() == EDGE_DOWN)
       {
          mPlayerVel += sleft;
       }
-      else if (mStrafeLeft == EDGE_UP)
+      else if (mActionLeft->getState() == EDGE_UP)
       {
          mPlayerVel -= sleft;
       }
 
       // Strafe right
-      if (mStrafeRight == EDGE_DOWN)
+      if (mActionRight->getState() == EDGE_DOWN)
       {
          mPlayerVel += sright;
       }
-      else if (mStrafeRight == EDGE_UP)
+      else if (mActionRight->getState() == EDGE_UP)
       {
          mPlayerVel -= sright;
       }
@@ -310,56 +303,56 @@ namespace mw
       }
 
       // Camera zoom in
-      if (mCameraZoomIn == EDGE_DOWN)
+      if (mActionZoomIn->getState() == EDGE_DOWN)
       {
          mCamera.setFollowDistanceVel(-camera_zoom_vel);
       }
-      else if (mCameraZoomIn == EDGE_UP)
+      else if (mActionZoomIn->getState() == EDGE_UP)
       {
          mCamera.setFollowDistanceVel(0);
       }
       // Camera zoom out
-      if (mCameraZoomOut == EDGE_DOWN)
+      if (mActionZoomOut->getState() == EDGE_DOWN)
       {
          mCamera.setFollowDistanceVel(camera_zoom_vel);
       }
-      else if (mCameraZoomOut == EDGE_UP)
+      else if (mActionZoomOut->getState() == EDGE_UP)
       {
          mCamera.setFollowDistanceVel(0);
       }
       // Camera pitch down
-      if (mCameraPitchDown == EDGE_DOWN)
+      if (mActionPitchDown->getState() == EDGE_DOWN)
       {
          mCamera.setPitchVel(camera_pitch_vel);
       }
-      else if (mCameraPitchDown == EDGE_UP)
+      else if (mActionPitchDown->getState() == EDGE_UP)
       {
          mCamera.setPitchVel(0);
       }
       // Camera pitch up
-      if (mCameraPitchUp == EDGE_DOWN)
+      if (mActionPitchUp->getState() == EDGE_DOWN)
       {
          mCamera.setPitchVel(-camera_pitch_vel);
       }
-      else if (mCameraPitchUp == EDGE_UP)
+      else if (mActionPitchUp->getState() == EDGE_UP)
       {
          mCamera.setPitchVel(0);
       }
       // Camera yaw left
-      if (mCameraYawLeft == EDGE_DOWN)
+      if (mActionYawLeft->getState() == EDGE_DOWN)
       {
          mCamera.setYawVel(camera_yaw_vel);
       }
-      else if (mCameraYawLeft == EDGE_UP)
+      else if (mActionYawLeft->getState() == EDGE_UP)
       {
          mCamera.setYawVel(0);
       }
       // Camera yaw right
-      if (mCameraYawRight == EDGE_DOWN)
+      if (mActionYawRight->getState() == EDGE_DOWN)
       {
          mCamera.setYawVel(-camera_yaw_vel);
       }
-      else if (mCameraYawRight == EDGE_UP)
+      else if (mActionYawRight->getState() == EDGE_UP)
       {
          mCamera.setYawVel(0);
       }
@@ -398,18 +391,20 @@ namespace mw
       }
 
       // update edge states...
-      updateEdgeState(mAccelerate);
-      updateEdgeState(mReverse);
-      updateEdgeState(mStrafeRight);
-      updateEdgeState(mStrafeLeft);
       updateEdgeState(mShoot);
       updateEdgeState(mCycleWeapon);
-      updateEdgeState(mCameraZoomIn);
-      updateEdgeState(mCameraZoomOut);
-      updateEdgeState(mCameraPitchDown);
-      updateEdgeState(mCameraPitchUp);
-      updateEdgeState(mCameraYawLeft);
-      updateEdgeState(mCameraYawRight);
+
+      // update action states
+      updateEdgeState(*mActionUp);
+      updateEdgeState(*mActionDown);
+      updateEdgeState(*mActionLeft);
+      updateEdgeState(*mActionRight);
+      updateEdgeState(*mActionZoomIn);
+      updateEdgeState(*mActionZoomOut);
+      updateEdgeState(*mActionPitchDown);
+      updateEdgeState(*mActionPitchUp);
+      updateEdgeState(*mActionYawLeft);
+      updateEdgeState(*mActionYawRight);
 
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          updateEdgeState( mGunSlots[x] );
@@ -538,53 +533,15 @@ namespace mw
       {
          return;
       }
-      const InputAction::UID& id = act->getUID();
-      if (id == mActionUp->getUID())
-      {
-         updateEdgeState(mAccelerate, down);
-      }
-      else if(id == mActionDown->getUID())
-      {
-         updateEdgeState(mReverse, down);
-      }
-      else if(id == mActionLeft->getUID())
-      {
-         updateEdgeState(mStrafeLeft, down);
-      }
-      else if(id == mActionRight->getUID())
-      {
-         updateEdgeState(mStrafeRight, down);
-      }
-      else if(id == mActionQuit->getUID())
+      updateEdgeState(*act, down);
+
+      // Quit immediately if requested
+      if (act == mActionQuit)
       {
          if (down)
          {
-            this->invokeTransition("Menu");
+            invokeTransition("Menu");
          }
-      }
-      else if(id == mActionZoomIn->getUID())
-      {
-         updateEdgeState(mCameraZoomIn, down);
-      }
-      else if(id == mActionZoomOut->getUID())
-      {
-         updateEdgeState(mCameraZoomOut, down);
-      }
-      else if(id == mActionPitchDown->getUID())
-      {
-         updateEdgeState(mCameraPitchDown, down);
-      }
-      else if(id == mActionPitchUp->getUID())
-      {
-         updateEdgeState(mCameraPitchUp, down);
-      }
-      else if(id == mActionYawLeft->getUID())
-      {
-         updateEdgeState(mCameraYawLeft, down);
-      }
-      else if(id == mActionYawRight->getUID())
-      {
-         updateEdgeState(mCameraYawRight, down);
       }
    }
 
@@ -781,5 +738,21 @@ namespace mw
          case EDGE_UP:   state = UP;   break;
          default: break;
       }
+   }
+
+   void
+   GameState::updateEdgeState(InputAction& action, bool absoluteState)
+   {
+      EdgeState action_state = action.getState();
+      updateEdgeState(action_state, absoluteState);
+      action.setState(action_state);
+   }
+
+   void
+   GameState::updateEdgeState(InputAction& action)
+   {
+      EdgeState action_state = action.getState();
+      updateEdgeState(action_state);
+      action.setState(action_state);
    }
 }
