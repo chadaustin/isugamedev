@@ -8,7 +8,7 @@
 namespace client {
    std::map<std::string, bool> input;
 
-   const float PI = 3.141579;
+   const float PI = 3.141579f;
    
    template< class T >
    T deg2rad(const T& deg) {
@@ -27,7 +27,7 @@ namespace client {
       phui::Window* window = new phui::Window();
       window->setPosition(border_w, border_h);
       window->setSize(640 - border_w * 2, 480 - border_h * 2);
-      window->setBackgroundColor(phui::Colorf(0.2, 0.3, 0.8, 0.8));
+      window->setBackgroundColor(phui::Colorf(0.2f, 0.3f, 0.8f, 0.8f));
       window->show();
 
       mRoot->add(window);
@@ -42,15 +42,17 @@ namespace client {
       mServer->setText("localhost");
       mPort->setText("35791");
 
-      phui::Button* connect = new phui::Button("Connect");
-      connect->setPosition(50, 300);
-      connect->setSize(100, 20);
-      window->add(connect);
+      mConnect = new phui::Button("Connect");
+      mConnect->setPosition(50, 300);
+      mConnect->setSize(100, 20);
+      mConnect->addActionListener(this);
+      window->add(mConnect);
 
-      phui::Button* quit = new phui::Button("Quit");
-      quit->setPosition(200, 300);
-      quit->setSize(100, 20);
-      window->add(quit);
+      mQuit = new phui::Button("Quit");
+      mQuit->setPosition(200, 300);
+      mQuit->setSize(100, 20);
+      mQuit->addActionListener(this);
+      window->add(mQuit);
 
       phui::CheckBox* spectator = new phui::CheckBox();
       spectator->setPosition(50, 250);
@@ -62,7 +64,6 @@ namespace client {
       spectatorLbl->setSize(150,20);
       spectatorLbl->show();
 
-      window->add(connect);
       window->add(spectator);
       window->add(spectatorLbl);
 
@@ -186,4 +187,12 @@ namespace client {
       return textWidget;
    }
 
+   void LoginState::onAction(const phui::ActionEvent& evt) {
+      phui::Widget* src = evt.getSource();
+      if(src == mConnect) {
+         ///@todo handle connect
+      } else if(src == mQuit) {
+         ///@todo handle quit
+      }
+   }
 }
