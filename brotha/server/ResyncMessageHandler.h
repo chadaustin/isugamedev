@@ -16,7 +16,7 @@ namespace server {
       ~ResyncMessageHandler() {}
 
       virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
-         net::ResyncMessageHandler* jMsg = (net::ResyncMessageHandler*)msg;
+         m_brothaGame->resync(cID);
       };
    };
 }

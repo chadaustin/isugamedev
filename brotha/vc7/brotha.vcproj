@@ -90,9 +90,6 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="..\game\BrothaGame.cpp">
-			</File>
-			<File
 				RelativePath="..\net\Connection.cpp">
 			</File>
 			<File
@@ -121,7 +118,10 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc">
 			<File
-				RelativePath="..\game\BrothaGame.h">
+				RelativePath="..\net\AddObjMessage.h">
+			</File>
+			<File
+				RelativePath="..\net\AddPlayerMessage.h">
 			</File>
 			<File
 				RelativePath="..\net\ByteBuffer.h">
@@ -130,7 +130,16 @@
 				RelativePath="..\net\Connection.h">
 			</File>
 			<File
+				RelativePath="..\net\DelObjMessage.h">
+			</File>
+			<File
+				RelativePath="..\net\DelPlayerMessage.h">
+			</File>
+			<File
 				RelativePath="..\net\DisconnectMessage.h">
+			</File>
+			<File
+				RelativePath="..\net\EnterMessage.h">
 			</File>
 			<File
 				RelativePath="..\game\GameTimer.h">
@@ -140,6 +149,9 @@
 			</File>
 			<File
 				RelativePath="..\net\InputStream.h">
+			</File>
+			<File
+				RelativePath="..\net\JoinAsMessage.h">
 			</File>
 			<File
 				RelativePath="..\thread\Lock.h">
@@ -181,6 +193,9 @@
 				RelativePath="..\net\ReadThread.h">
 			</File>
 			<File
+				RelativePath="..\net\ResyncMessage.h">
+			</File>
+			<File
 				RelativePath="..\net\Serialize.h">
 			</File>
 			<File
@@ -212,6 +227,15 @@
 			</File>
 			<File
 				RelativePath="..\game\UIDManager.h">
+			</File>
+			<File
+				RelativePath="..\net\UpdateObjMessage.h">
+			</File>
+			<File
+				RelativePath="..\net\UpdatePlayerInfoMessage.h">
+			</File>
+			<File
+				RelativePath="..\net\UpdatePlayerMessage.h">
 			</File>
 			<File
 				RelativePath="..\net\WriteThread.h">
