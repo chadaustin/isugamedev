@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.23 2002-04-09 00:28:30 jjhnsn Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 00:28:30 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.24 2002-04-09 00:59:41 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 00:59:41 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -386,14 +386,34 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>Like the sound module, the texture module sits on top of low-level libraries and provides a convenient mechanism for accessing textures within the context of the Warn-a-Brotha game. Since the interface to the module is so general, it can be implemented internally in many different ways.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
+          <title>Corona vs. Other Image Libraries</title>
+          <para>Corona</para>
+          <para>Pros</para>
+          <para>- portable</para>
+          <para>- very easy to install and use</para>
+          <para>- developed by a member of the team</para>
+          <para>Cons</para>
+          <para>- not as mature as it could be</para>
+          <para></para>
+          <para>Other Image Libraries (FreeImage, DevIL, SDL_Image)</para>
+          <para>Pros</para>
+          <para>- APIs are usually more stable</para>
+          <para>- more widely used</para>
+          <para>Cons</para>
+          <para>- often not portable</para>
+          <para>- difficult to interact with</para>
+          <para>- difficult to install</para>
+          <para></para>
+          <para>Because Corona is easier to use and the developers are more familiar with it, we chose to implement the texture subsystem on top of it. We don't plan to use file formats that Corona does not support.</para>
         </section>
         <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Texture Caching Policy</title>
+          <para></para>
+          <para>The texture manager can cache loaded textures in many ways. It could remember the most recently used textures and not load them twice. It could also cache every texture so that an image is never loaded from disk more than once. It could even not cache them at all.</para>
+          <para></para>
+          <para>We decided the ease of implementation vs. performance traceoff is optimal in the case where we cache everything. Therefore, that is what we will implement.</para>
         </section>
       </section>
     </section>
