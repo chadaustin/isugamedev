@@ -1,0 +1,41 @@
+# build with 'scons'
+import sys
+import os
+import string
+
+# build all sources by default but not the tests
+Default('src')
+
+# debug or release build?
+CXXFLAGS = ['-Wall']
+LINKFLAGS = []
+if ARGUMENTS.get('debug'):
+   CXXFLAGS.append('-g -DDEBUG')
+else:
+   CXXFLAGS.append('-DNDEBUG')
+
+if ARGUMENTS.get('profile'):
+   CXXFLAGS.append('-pg')
+   LINKFLAGS.append('-pg')
+
+
+# get install prefix for install target
+PREFIX = '/usr/local'
+if ARGUMENTS.get('prefix'):
+   PREFIX = ARGUMENTS['prefix']
+Export('PREFIX')
+
+
+# create the base environment
+env = Environment(LIBPATH = '#src',
+                  CPPPATH = ['#', '#src'],
+                  ENV = os.environ,
+                  LINKFLAGS = LINKFLAGS,
+                  CXXFLAGS = CXXFLAGS)
+
+Export('env')
+SConscript(dirs = Split('src test'))
+
+
+# install target
+env.Alias('install', PREFIX)

@@ -1,0 +1,23 @@
+from os import path
+
+Import('env PREFIX')
+
+classes = Split("""
+   CollisionDesc
+""")
+
+sources = []
+
+headers = Split("""
+   CollisionDetector.h
+   RigidBody.h
+   SpatialIndex.h
+""")
+
+sources.extend(map(lambda n: n + '.cpp', classes))
+headers.extend(map(lambda n: n + '.h',   classes))
+
+programs = []
+programs.append(env.Program(target = 'midworld', source = sources))
+
+env.Install(path.join(PREFIX, 'bin'), programs)
