@@ -28,7 +28,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#       $Id: auto-copyright.pl,v 1.5 2002-02-24 03:46:21 nonchocoboy Exp $
+#       $Id: auto-copyright.pl,v 1.6 2002-04-26 11:17:17 nonchocoboy Exp $
 #
 
 use File::Basename;
@@ -179,7 +179,7 @@ sub recurseFunc {
             makeRegexSafe( $begintag, \$begintag_regex_safe );
             makeRegexSafe( $endtag, \$endtag_regex_safe );
             
-            if ( $file_contents =~ s/($begintag_regex_safe.*?$endtag_regex_safe)/$copyrights_plus_delimiters/s ) # not global, only first one...
+            if ( $file_contents =~ s/($begintag_regex_safe*.*?$endtag_regex_safe[\r]?[\n]?)/$copyrights_plus_delimiters/s ) # not global, only first one...
             {
                 print "Replacing the copyright in $filename ...\n";
                 
