@@ -4,11 +4,11 @@
 namespace mw
 {
    
-   bool NavNodeTree::addLink(std::string node1, std::string node2)
+   bool NavNodeTree::addLink(const std::string& node1, const std::string& node2)
    {
       Node* n1 = 0;
       Node* n2 = 0;;
-      for(int i=0;i<Tree.size();i++)
+      for(unsigned int i=0;i<Tree.size();i++)
       {
          if(Tree[i]->name == node1)
          {
@@ -32,10 +32,10 @@ namespace mw
    }
 
 
-   std::vector<Node*>& NavNodeTree::allLinks(std::string node)
+   std::vector<Node*>& NavNodeTree::allLinks(const std::string& node)
    {
       Node* n = 0;
-      for(int i=0;i<Tree.size();i++)
+      for(unsigned int i=0;i<Tree.size();i++)
       {
          if(Tree[i]->name == node)
          {
@@ -53,6 +53,4 @@ namespace mw
          return empty;
       }
    }
-
-
 }

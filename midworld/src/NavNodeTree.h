@@ -37,7 +37,7 @@ namespace mw
       void addNode(Node* newNode)
       {
          Tree.push_back(newNode);
-         for(int i=0;i<newNode->links.size();i++)
+         for(unsigned int i=0;i<newNode->links.size();i++)
          {
             newNode->links[i]->links.push_back(newNode);
          }
@@ -47,20 +47,20 @@ namespace mw
        * adds a link between two nodes
        * returns true if sucessful
        */
-      bool addLink(std::string node1, std::string node2);
+      bool addLink(const std::string& node1, const std::string& node2);
       
       /** 
        * removes a node 
        * the specified node must not have any links currently 
        * active.  returns false if there are still links alive.
        */
-      bool removeNode(std::string name);
+      bool removeNode(const std::string& name);
       
       /**
        * returns a reference to a vector containing references to all the 
        * nodes that node has a link to.
        */
-      std::vector<Node*>& allLinks(std::string node);
+      std::vector<Node*>& allLinks(const std::string& node);
       
    private:
       std::vector<Node*> Tree;
