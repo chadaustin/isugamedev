@@ -9,10 +9,10 @@ import javax.vecmath.*;
  */
 public class Entity implements Serializable {
 
-  int id;
-  Vector3f position = new Vector3f(0, 0, 0);
-  float velocity = 0;
-  float axis_velocity = 0;
-  float axis_angle;
-  String text = "";
+  public int id;
+  public Vector3f position = new Vector3f(0, 0, 0);
+  public float velocity = 0;
+  public float axis_velocity = 0;
+  public float axis_angle;
+  public String text = "";
 }

@@ -1,5 +1,5 @@
 <project name="ChadWorld" default="compile" basedir=".">
   <target name="compile">
-    <javac srcdir="src" destdir="." debug="on"/>
+    <javac srcdir="src:test" destdir="." debug="on"/>
   </target>
 </project>

@@ -19,7 +19,7 @@ public class EntityDatabase {
    * getEntity() would return a new Entity object with the position
    * set to the previous position of the user.
    */
-  synchronized Entity getEntity(String usename) {
+  public synchronized Entity getEntity(String usename) {
     Entity e = new Entity();
     e.id = m_id++;
     m_database.add(e);
@@ -27,19 +27,19 @@ public class EntityDatabase {
     return e;
   }
 
-  synchronized void remove(Entity e) {
+  public synchronized void remove(Entity e) {
     System.out.println("removing entity from database");
     m_database.remove(e);
   }
 
-  synchronized void updateAll(EntityUpdater e) {
+  public synchronized void updateAll(EntityUpdater e) {
     for (int i = 0; i < m_database.size(); ++i) {
       Entity en = (Entity)m_database.get(i);
       e.update(en);
     }
   }
 
-  synchronized void update(int id, Entity e) {
+  public synchronized void update(int id, Entity e) {
     boolean removed = false;
     for (int i = 0; i < m_database.size(); ++i) {
       Entity en = (Entity)m_database.get(i);

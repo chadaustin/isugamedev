@@ -1,0 +1,3 @@
+ChadWorld uses Jakarta-Ant for the build system.  Visit
+http://jakarta.apache.org/ant/ for information and downloads.
+

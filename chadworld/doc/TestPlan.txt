@@ -1,0 +1,24 @@
+ChadWorld Test Plan
+
+
+Since the bulk of the operations in ChadWorld are user-initiated, it
+is difficult to build accurate unit tests for the system.
+Fortunately, manual testing is not (at this stage) very difficult.
+Whenever the software changes, I run through the following steps:
+
+1) start the server
+2) connect to the server with one client
+3) walk forwards and backwards
+4) turn around in a circle
+5) connect with another client
+6) type text into both clients
+7) position the views such that each player can view the other player's text
+8) disconnect one player from the server, verify that the player is removed
+   from the world
+9) disconnect the other player from the server, verify that both players are
+   removed from the database and the server does not crash
+
+
+Unit Tests:
+
+chadworld/test contains a single unit test for the entity database class.
