@@ -17,7 +17,7 @@
 class Tank
 {
 public:
-   Tank() : mRot(), mRotVel(), mSpeed( 0.0f ), mMaterial()
+   Tank() : mPos(), mVel(), mRot(), mRotVel(), mMaterial(), mSpeed( 0.0f ), geosets(), mWeapon0GeoSets()
    {
       mXForm.makeIdent();
       this->init();
