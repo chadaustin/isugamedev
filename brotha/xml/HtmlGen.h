@@ -6,6 +6,7 @@
 #include <sstream>
 #include <vector>
 #include "BrothaData.h"
+#include "stat.h"
 
 namespace reports {
    std::string urlBase = "http://hatori42.com/wb/";
@@ -120,14 +121,14 @@ namespace reports {
    std::string renderCarList(data::carlist cl, request schema) {
       std::ostringstream out;
       if (schema.carD == 1) {
-         out << "<table border=1><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
+         out << "<table width=70%><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
       }
       for (unsigned int i = 0; i < cl.size(); i++) {
          data::Car* c = cl[i];
          if (schema.car.find(c->getName()) !=  std::string::npos || schema.car == "*") {
             if (schema.carD == 1) {
-               out << "<tr><td><img src=" + urlBase + "car.jpg></td><td>name:" << c->getName() << "</td><td>";
-               out << c->getMods().size() << "</td></tr>";
+               out << "<tr><td><img src=" + urlBase + "car.jpg></td><td><center>" << c->getName() << "</center></td><td><center>";
+               out << c->getMods().size() << "</center></td></tr>";
             }
             if (schema.carD == 2) {
                out << "<div class=\"car2\">";
@@ -160,7 +161,7 @@ namespace reports {
                html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
 			   html << "<div class=\"playerlist\">";
 			   html << renderPlayerList(g->getPlayerList(), schema);
-			   html << "</div>"
+			   html << "</div>";
 			   html << "</div>";
             }
             else if (schema.gangD == 1) {
@@ -193,18 +194,27 @@ namespace reports {
          data::Player* p = pl[i];
          if (schema.player.find(p->getName())!=  std::string::npos || schema.player == "*") {
             if (schema.playerD == 1) {
-               html << "<tr><td>" << p->getName() << "</td><td>" << p->getCars().size() << "</td></tr>";
+               html << "<tr><td>" << p->getName() << "</td><td><center>" << p->getCars().size() << "</center></td></tr>";
                html << "<tr><td colspan=2>" << renderCarList(p->getCars(), schema) << "</td></tr>";
             }
             if (schema.playerD == 2) {
                html << "<div class=\"playerinfo\">";
-               html << "<table><tr><td valign=top>";
+               html << "<table width=100%><tr><td valign=top>";
                html << "<img src=\"" << urlBase << p->getName() << ".jpg\"></td>";
-               html << "<td><h2>" << p->getName() << "</h2>";
+               html << "<td width=100%><h2>" << p->getName() << "</h2>";
                html << "stats:<br>";
-               html << renderStatList(p->getStats());
-               html << "cars:<br>";
-               html << renderCarList(p->getCars(),schema);
+			   if(p->getStats().size() > 0){
+			      html << "<div class=\"statlist\">";
+				  html << renderStatList(p->getStats());
+				  html << "</div>";
+			   }
+
+			   if(schema.carD > 0){
+                 html << "cars:<br>";
+				 html << "<div class=\"carlist\">";
+			     html << renderCarList(p->getCars(),schema);
+				 html << "</div>";
+			   }
                html << "</td></table></div>";
             }
             if (schema.playerD == 0) {
@@ -223,7 +233,7 @@ namespace reports {
       html << "<table><tr><th>mod</th><th>level</th></tr>";
       for (unsigned int i = 0; i < ml.size(); i++) {
          data::Mod* m = ml[i];
-         html << "<tr><td>" << m->getType() << "</td><td>" << m->getLevel() << "</td></tr>";
+         html << "<tr><td>" << m->getType() << "</td><td><center>" << m->getLevel() << "</center></td></tr>";
       }
       html << "</table>";
       return html.str();
