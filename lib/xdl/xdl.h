@@ -21,8 +21,8 @@
  *
  * -----------------------------------------------------------------------------
  * File:          $RCSfile: xdl.h,v $
- * Last modified: $Date: 2002-03-15 09:21:47 $
- * Version:       $Revision: 1.3 $
+ * Last modified: $Date: 2002-03-21 02:35:12 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------------------
  *
  ******************************************************************************/
@@ -34,13 +34,11 @@
 #include <memory.h>  // for NULL
 #include <assert.h>  // for assert
 
-#ifdef USE_UNIX
-#include <dlfcn.h>   // for dlopen functions...
-#endif
-
-#ifdef USE_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#ifndef WIN32
+#  include <dlfcn.h>   // for dlopen functions...
+#else
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
 #endif
 
 // for libraries: UNIX needs -ldl, Win32 needs Kernel32.lib
@@ -49,10 +47,10 @@
  * Macros for declaring whether we are exporting or importing symbols from a
  * library when we compile. This is really only needed for Win32 libraries.
  */
-#ifdef USE_WIN32
+#ifdef WIN32
 #  define XDL_EXPORT __declspec( dllexport )
 #  define XDL_IMPORT __declspec( dllimport )
-#elif defined( USE_UNIX )
+#else
 #  define XDL_EXPORT
 #  define XDL_IMPORT
 #endif
@@ -60,7 +58,7 @@
 /**
  * Specify our calling convention for win32 DLLs.
  */
-#ifdef USE_WIN32
+#ifdef WIN32
 #  define XDL_CALL __stdcall
 #else
 #  define XDL_CALL
@@ -158,7 +156,7 @@ namespace xdl
       virtual bool close() = 0;
    };
 
-#ifdef USE_WIN32
+#ifdef WIN32
    /**
     * Win32 implementation of xdl::ILibrary.
     */
@@ -232,9 +230,9 @@ namespace xdl
    };
 
    typedef LibraryWin32 Library;
-#endif
 
-#ifdef USE_UNIX
+#else
+
    /**
     * Unix implementation of xdl::ILibrary
     */
