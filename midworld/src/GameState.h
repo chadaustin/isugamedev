@@ -18,7 +18,7 @@ namespace mw
    class GameState : public State
    {
    public:
-      GameState() : mSpeed( 150 )
+      GameState() : mSpeed( 3 )
       {
       }
       
@@ -28,16 +28,18 @@ namespace mw
 
       virtual void update( u64 elapsedTime )
       {
-         mStopWatch.pulse();
+         double time_delta = ((double)elapsedTime) / 1000.0;
          mCamera.setPlayerPos( mPlayer.position() );
          if (mAccelerate == true)
          {
-            mPlayer.setVelocity( gmtl::Vec3f( 0,0, -mSpeed * mStopWatch.timeDelta() ) );
+            mPlayer.setVelocity( gmtl::Vec3f( 0,0, -mSpeed ) );
          }
          else
          {
             mPlayer.setVelocity( gmtl::Vec3f( 0, 0, 0 ) );
          }
+         mCamera.update( time_delta );
+         mPlayer.update( time_delta );
       }
 
       virtual void draw()

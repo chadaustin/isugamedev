@@ -18,23 +18,27 @@ namespace mw
          static cubeGeometry cube;
 
          glBegin( GL_LINES );
-            for (int x = -1000; x < 1000; x += 50)
+            const int size = 500;
+            const int spacing = 10;
+            for (int x = -size; x < size; x += spacing)
             {
-               glVertex3f( -1000, 0, x );
-               glVertex3f(  1000, 0, x );
-               glVertex3f( x, 0, -1000 );
-               glVertex3f( x, 0,  1000 );
+               glVertex3f( -size, 0, x );
+               glVertex3f(  size, 0, x );
+               glVertex3f( x, 0, -size );
+               glVertex3f( x, 0,  size );
             }
          glEnd();
 
-         const float height = 3;
-         for (int x = -500; x < 500; x += 50)
+         const float pillar_height = 0.5;
+         const float pillar_width = 0.4;
+         const int size_2 = 500 / 2;
+         for (int x = -size_2; x < size_2; x += spacing)
          {
-            for (int y = -500; y < 500; y += 50)
+            for (int y = -size_2; y < size_2; y += spacing)
             {
                glPushMatrix();
-               glTranslatef( x, height, y );
-               glScalef( 3, height, 3 );
+               glTranslatef( x, pillar_height, y );
+               glScalef( pillar_width, pillar_height, pillar_width );
                if (!(x == 0 && y == 0))
                   cube.render();
                glPopMatrix();

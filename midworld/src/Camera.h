@@ -5,6 +5,7 @@
 #define CAMERA_H
 
 #include <gmtl/Vec.h>
+#include <gmtl/VecOps.h>
 
 namespace mw
 {
@@ -17,17 +18,17 @@ namespace mw
       
       void setPlayerPos( const gmtl::Vec3f& pos )
       {
-         mPos = pos;
+         mPos = -pos;
       }
       
-      void update()
+      void update( float timeDelta )
       {
       }
       
       void draw()
       {
          glRotatef( 90, 1,0,0 );
-         glTranslatef( mPos[0], mPos[1] - 70, mPos[2] );
+         glTranslatef( mPos[0], mPos[1] - 30, mPos[2] );
       }
    private:
       gmtl::Vec3f mPos;

@@ -1,11 +1,12 @@
 #ifndef PLAYER_DEFINED
 #define PLAYER_DEFINED
 
-#include "gmtl/Matrix.h"
-#include "gmtl/Quat.h"
-#include "gmtl/MatrixOps.h"
-#include "gmtl/QuatOps.h"
-#include "gmtl/Generate.h"
+#include <gmtl/Matrix.h>
+#include <gmtl/Quat.h>
+#include <gmtl/MatrixOps.h>
+#include <gmtl/QuatOps.h>
+#include <gmtl/Generate.h>
+#include <gmtl/Output.h>
 
 #include "cubeGeometry.h"
 
@@ -29,6 +30,7 @@ public:
       //glEnable( GL_TEXTURE_2D );
    
       glPushMatrix();
+         glMultMatrixf( mXForm.getData() );
          glTranslatef( 0, 1, 0 );
          cubeGeometry().render();
          glTranslatef( 0, 0, -2 );
