@@ -25,7 +25,7 @@ def BuildBaseEnvironment():
 
    "Builds a base environment for other modules to build on."
 
-   CXXFLAGS = ['-Wall']
+   CXXFLAGS = ['-Wall', '-Wno-non-virtual-dtor']
    LINKFLAGS = []
 
    if optimize:
