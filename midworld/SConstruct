@@ -32,7 +32,7 @@ def BuildBaseEnvironment():
    LINKFLAGS = []
 
    if optimize:
-      CXXFLAGS.extend(['-DNDEBUG', '-O2'])
+      CXXFLAGS.extend(['-DNDEBUG', '-O2', '-funroll-all-loops'])
    else:
       CXXFLAGS.extend(['-DDEBUG', '-g'])
 
