@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Mouse.h,v $
-// Date modified: $Date: 2002-01-30 18:01:45 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-01-30 18:14:02 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -62,11 +62,18 @@
 class Mouse : public AnalogDevice, public DigitalDevice
 {
 public:
+   /** Mouse Buttons.
+    * This is the list of mouse button identifiers you can use.
+    * When binding keys in the GameInput class, you can 
+    * prefix each of these with "MOUSEBUTTON_"  
+    * (i.e. LEFT would be "MOUSEBUTTON_LEFT").
+    */
    enum Button
    {
      LEFT = 0, MIDDLE = 1, RIGHT = 2
    };
 
+   /** constructor */
    Mouse::Mouse() : DigitalDevice(), AnalogDevice()
    {
       DigitalDevice::setNumInputs( 3 ); // 3 button mouse.
@@ -74,31 +81,38 @@ public:
       Mouse::initialize_map();
    }
 
+   /** destructor */
    virtual ~Mouse() {}
 
-   //: Call this on every frame of your simulation
-   // Mouse events include position change, and button change
-   // you must call update() each frame of your simulation
-   // before you read any data from Mouse (like position and button states)
+   /** Update: Call this on every frame of your simulation.
+    * Mouse events include position change, and button change
+    * you must call update() each frame of your simulation
+    * before you read any data from the Mouse.
+    * <b>NOTE:</b> If you're using GameKernel system, then you don't need to call this.
+    */
    virtual void Mouse::update()
    {
       DigitalDevice::update();
       AnalogDevice::update();
    }
 
-   virtual Input* getInput( const std::string& input_name )
+   /** retrieve an input (button or axis) from the Mouse 
+    * @param keybinding alias: an alias bound to a Device/Input pair that was preconfigured in the GameInput input manager.
+    */
+   virtual Input* getInput( const std::string& alias )
    {
       Input* in;
-      if (NULL != (in = DigitalDevice::getInput( input_name )))
+      if (NULL != (in = DigitalDevice::getInput( alias )))
       {
           return in;
       }
       else
       {
-         return AnalogDevice::getInput( input_name );
+         return AnalogDevice::getInput( alias );
       }
    }
 
+   /** don't use this function, it is not implemented */
    virtual Input* getInput( const int& id )
    {
       assert( false );
