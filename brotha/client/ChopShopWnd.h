@@ -12,9 +12,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: GarageState.h,v $
+ * File:          $RCSfile: ChopShopWnd.h,v $
  * Date modified: $Date: 2002-04-28 22:16:46 $
- * Version:       $Revision: 1.7 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,48 +40,35 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef CLIENT_GARAGE_STATE_H
-#define CLIENT_GARAGE_STATE_H
+#ifndef CLIENT_CHOP_SHOP_WND_H
+#define CLIENT_CHOP_SHOP_WND_H
 
 #include <phui/phui.h>
-#include "State.h"
-#include "Scene.h"
-#include "DealerWnd.h"
-#include "ChopShopWnd.h"
 
 namespace client {
 
-   class GarageState : public State
+   /**
+    * Specialized window for the ChopShop.
+    */
+   class ChopShopWnd : public phui::Window
                             , phui::ActionListener
-                            , phui::WindowAdapter
+                            , phui::ListSelectionListener
    {
    public:
-      GarageState();
-      ~GarageState();
+      ChopShopWnd();
+      ~ChopShopWnd();
 
-      void draw();
-      void update(BrothaApp* app, int elapsedTime);
-      void onKeyPress(SDLKey sym, bool down);
-      void onMousePress(Uint8 button, bool down, int x, int y);
-      void onMouseMove(int x, int y);
-
-      virtual void onAction(const phui::ActionEvent& evt);
-      virtual void onWindowClosed(const phui::WindowEvent& evt);
+      void onAction(const phui::ActionEvent& evt);
+      void onListSelection(const phui::ListSelectionEvent& evt);
 
    private:
-      phui::RootWidget* mRoot;
-      phui::Window* mMainWnd;
-      phui::Button* mDealerBtn;
-      phui::Button* mChopShopBtn;
-      phui::Button* mJoinGameBtn;
-
-      /// The mini-dealer window.
-      DealerWnd* mDealer;
-
-      phui::Window* mChopShop;
+      phui::ListBox* mModsList;
+      phui::ListBox* mModsOwnedList;
+      phui::Button* mBuyBtn;
+      phui::Button* mSellBtn;
+      phui::Button* mDoneBtn;
    };
 
 }
-
 
 #endif

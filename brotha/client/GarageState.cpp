@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-04-28 20:43:39 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-28 22:16:46 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -86,14 +86,12 @@ namespace client {
       mDealer->addWindowListener(this);
 
       // chop shop window
-      mChopShopWnd = new phui::Window();
-      mChopShopWnd->setSize(540, 380);
-      mChopShopWnd->setPosition(50, 50);
-      mChopShopWnd->setBackgroundColor(phui::Colorf(0.8f, 0.3f, 0.2f, 0.8f));
+      mChopShop = new ChopShopWnd();
+      mChopShop->setPosition(50, 50);
 
       // start with the main window
       mRoot->add(mDealer);
-      mRoot->add(mChopShopWnd);
+      mRoot->add(mChopShop);
       mRoot->add(mMainWnd);
    }
 
@@ -143,13 +141,18 @@ namespace client {
          mRoot->focus(mDealer);
       }
       else if (src == mChopShopBtn) {
-         mChopShopWnd->show();
-         mRoot->focus(mChopShopWnd);
+         mChopShop->show();
+         mRoot->focus(mChopShop);
       }
    }
 
    void
    GarageState::onWindowClosed(const phui::WindowEvent& evt) {
-      std::cout<<"Done with the mini-dealer."<<std::endl;
+      if (evt.getWindow() == mDealer) {
+         std::cout<<"Left the mini-dealer."<<std::endl;
+      }
+      else if (evt.getWindow() == mChopShop) {
+         std::cout<<"Left the chop shop."<<std::endl;
+      }
    }
 }
