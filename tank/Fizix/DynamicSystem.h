@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: DynamicSystem.h,v $
-//    $Date: 2001-10-10 12:39:00 $
-//    $Revision: 1.3 $
+//    $Date: 2001-10-10 13:21:52 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -95,7 +95,7 @@ namespace ani
       virtual void                  step( float timeDelta );
 
       // specify what solver to use with this system.
-      void setSolver( const std::string& solverName )
+      void setSolver( const std::string& solverName = "euler" )
       {
          ODEsolver<__EntityType>* temp = NULL;
          bool result = SolverFactory<__EntityType>::create( solverName, temp );

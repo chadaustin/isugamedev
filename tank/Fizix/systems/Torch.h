@@ -3,6 +3,7 @@
 #include <ColorRGBA.h>
 
 #include "Fizix/Particle.h"
+#include "Fizix/Body.h"
 #include "Fizix/DynamicSystem.h"
 
 #include "Fizix/Operator.h"
