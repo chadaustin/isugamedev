@@ -210,17 +210,24 @@ public:
       grid.setPos( 0.0f, -1.0f, 0.0f );
       grid.size = boardSize;
       
-      // inputs.
-      mMouseYaxis.init( "MouseLookYaxis" );
-      mFire.init( "Fire" );
-      mAccelerate.init( "Accelerate" );
-      mBackstep.init( "Backstep" );
-      mStrafeLeft.init( "StrafeLeft" );
-      mStrafeRight.init( "StrafeRight" );
-      mRotateLeft.init( "RotateLeft" );
-      mRotateRight.init( "RotateRight" );
+      
    }
 
+   void init( gk::GameKernel* kernel )
+   {
+      mKernel = kernel;
+      
+      // inputs.
+      mMouseYaxis.init( "MouseLookYaxis", mKernel );
+      mFire.init( "Fire", mKernel );
+      mAccelerate.init( "Accelerate", mKernel );
+      mBackstep.init( "Backstep", mKernel );
+      mStrafeLeft.init( "StrafeLeft", mKernel );
+      mStrafeRight.init( "StrafeRight", mKernel );
+      mRotateLeft.init( "RotateLeft", mKernel );
+      mRotateRight.init( "RotateRight", mKernel );
+   }   
+   
    void draw()
    {
       // camera xform (this does the first person view navigation transform)
@@ -241,7 +248,7 @@ public:
    
    void update( float dt )
    {
-      gk::GameKernel::instance().warpMouse( width / 2, height / 2 );
+      mKernel->warpMouse( width / 2, height / 2 );
 
       ///////////
       // PHYSICS
@@ -489,6 +496,8 @@ public:
    // other game objects...
    Grid grid;
   
+   gk::GameKernel* mKernel;
+   
    gk::AnalogInterface mMouseYaxis;
    gk::DigitalInterface mAccelerate, mBackstep, mRotateLeft, mRotateRight;
    gk::DigitalInterface mFire, mStrafeLeft, mStrafeRight;

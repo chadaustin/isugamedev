@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-02-18 03:11:15 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-20 02:58:40 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,7 +36,8 @@
 #include <string>
 #include "gk/GameKernel.h"
 
-namespace gk {
+namespace gk 
+{
 
 /**
  * Base class for interfaces to inputs. An input interface allows your
@@ -56,8 +57,7 @@ public:
     *
     * @see init( const std::string& )
     */
-   InputInterface( GameKernel* kernel)
-      : mKernel( kernel )
+   InputInterface()
    {}
 
    /**
@@ -72,9 +72,10 @@ public:
     *
     * @param alias      the alias to an input you wish to get input data from
     */
-   virtual void init( const std::string& alias )
+   virtual void init( const std::string& alias, GameKernel* kernel )
    {
       mAlias = alias;
+      mKernel = kernel;
       std::cout << "Created interface to " << alias << std::endl;
    }
 

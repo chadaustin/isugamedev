@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-16 04:04:18 $
-# Version:       $Revision: 1.3 $
+# Date modified: $Date: 2002-02-20 02:58:41 $
+# Version:       $Revision: 1.4 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -54,19 +54,19 @@ EXTRA =
 # IRIX
 ifeq ($(HOSTTYPE), irix)
    LIBS = $(EXTRA) -lGLU -lGL -lglut -lX11 -lXmu -lm
-	DEFS = -DUSE_UNIX
+   DEFS += -DUSE_UNIX
 endif
 
 #LiNUX
 ifeq ($(HOSTTYPE), linux)
    LIBS = -L/usr/X11R6/lib -L../../ -lgk -lGLU -lGL -lglut -lX11 -lXmu -lm
-	DEFS = -DUSE_UNIX
+   DEFS += -DUSE_UNIX
 endif
 
 # Win32
 ifeq ($(HOSTTYPE), Win32)
    LIBS =
-	DEFS = -DUSE_WIN32
+   DEFS += -DUSE_WIN32
 endif
 
 ########################################################################

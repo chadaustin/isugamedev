@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-11 03:28:32 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-20 02:58:40 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -62,6 +62,8 @@
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
 #include <gk/GlutDriver.h>
+#include <gk/SystemDriverFactory.h>
+
 #include "GameBoard.h"
 
 //////////////////////////////////
@@ -71,23 +73,31 @@
 class AsterApp : public gk::GameApp
 {
 public:
+   AsterApp( gk::GameKernel* kernel )
+      : mKernel( kernel )
+   {
+      gameBoard.init( mKernel );
+   }
+   
    virtual void OnAppInit()
    {
       stopwatch.pulse();
-      gk::GameKernel::instance().setName( "Aster" );
-      mQuit.init( "Quit" );
+      mKernel->setName( "Aster" );
+      mQuit.init( "Quit", mKernel );
       
       std::cout <<"\n"<<std::flush;
       std::cout <<"aster - by Kevin Meinert - subatomic@vrsource.org \n"<<std::flush;
       std::cout <<" Usage/Keys:                                      \n"<<std::flush;
       std::cout <<"    see config.xml for controls.                  \n"<<std::flush;
       std::cout <<"\n"<<std::flush;
+      
+      
    }
 
    virtual void OnContextInit()
    {
-      gk::GameKernel::instance().setWindowSize( 640, 480 );
-      gk::GameKernel::instance().showMouse( false );
+      mKernel->setWindowSize( 640, 480 );
+      mKernel->showMouse( false );
    }
 
    /** make opengl calls here.
@@ -98,7 +108,7 @@ public:
    {
       // get the window params...
       int width, height;
-      gk::GameKernel::instance().getWindowSize( width, height );
+      mKernel->getWindowSize( width, height );
       ::glViewport( 0, 0, width, height );
       
       ::glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
@@ -127,11 +137,11 @@ public:
    virtual void OnPostFrame()
    {
       if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
-         gk::GameKernel::instance().shutdown();
+         mKernel->shutdown();
 
       // update the gameboard      
       stopwatch.pulse();
-      gk::GameKernel::instance().getWindowSize( gameBoard.width, gameBoard.height );
+      mKernel->getWindowSize( gameBoard.width, gameBoard.height );
       gameBoard.update( stopwatch.timeInstant() );
    }
 
@@ -141,14 +151,22 @@ public:
    
    // frame time measurement
    StopWatch stopwatch;
+   gk::GameKernel* mKernel;
 };
 
 // aster executable entrypoint...
 int main( int argc, char *argv[] )
 {
-   gk::loadInputConfig( "config.xml" );
-   gk::GameKernelRegister<AsterApp> reg;
-   gk::SystemDriver* driver = new gk::GlutDriver();
-   gk::GameKernel::instance().startup( driver );
+   // create the kernel and add our app in
+   gk::GameKernel* kernel = new gk::GameKernel();
+   kernel->add( new AsterApp( kernel ) );
+
+   // configure the system
+   gk::loadInputConfig( "config.xml", kernel );
+
+   // create our system driver and let's go!
+   gk::SystemDriverFactory::instance().probe( "gkglut", "GLUT" );
+   gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
+   kernel->startup( driver );
    return 1;
 }

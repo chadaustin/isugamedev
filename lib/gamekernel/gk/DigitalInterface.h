@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-02-18 03:11:15 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-02-20 02:58:40 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -79,8 +79,7 @@ public:
     * @see DigitalInterface
     * @see InputInterface::init( const std::string& )
     */
-   DigitalInterface( GameKernel* kernel )
-      : InputInterface( kernel )
+   DigitalInterface()
    {}
 
    /**

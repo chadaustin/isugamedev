@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInterface.h,v $
-// Date modified: $Date: 2002-02-18 03:11:15 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-02-20 02:58:40 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,7 +36,8 @@
 #include "gk/InputInterface.h"
 #include "gk/AnalogInput.h"
 
-namespace gk {
+namespace gk 
+{
 
 /**
  * AnalogInterface: Your Interface to all analog inputs.
@@ -78,8 +79,7 @@ public:
     * @see AnalogInterface
     * @see InputInterface::init( const std::string& )
     */
-   AnalogInterface( GameKernel* kernel )
-      : InputInterface( kernel )
+   AnalogInterface()
    {}
 
    /**

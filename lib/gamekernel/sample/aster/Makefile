@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-11 03:28:32 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-02-20 02:58:40 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -40,34 +40,34 @@ DEPDIR =
 
 PATH_TO_SRCS = .
 MK_DIR = ../../mk
-INCLUDE_PATHS = -I. -I../../
+INCLUDE_PATHS = -I. -I../../ -I../../external/xdl
 
 ########################################################################
 # system dependent stuff, that users will want to change...
 # stuff that cant be abstracted in the build system...
 ##########################################################################
-include ${MK_DIR}/mk.platform
 include ${MK_DIR}/mk.hosttype
+include ${MK_DIR}/mk.platform
 
 EXTRA = 
 
 # IRIX
 ifeq ($(HOSTTYPE), IRIX)
    LIBS = $(EXTRA) -lGLU -lGL -lglut -lX11 -lXmu -lm
-   include ${MK_DIR}/mk.irix
+   DEFS += -DUSE_UNIX
 endif
 
 #LiNUX
 ifeq ($(HOSTTYPE), linux)
    LIBS = -L/usr/X11R6/lib -L../../ -lgk -lGLU -lGL -lglut -lX11 -lXmu -lm
-   include ${MK_DIR}/mk.gnu
+   DEFS += -DUSE_UNIX
 endif
 
 # Win32
 ifeq ($(HOSTTYPE), Win32)
    LIBS =
    DEPENDFLAGS = -D__cplusplus -D_WIN32 -DWIN32 $(INCLUDE_PATHS)
-   include ${MK_DIR}/mk.win32
+   DEFS += -DUSE_WIN32
 endif
 
 ########################################################################

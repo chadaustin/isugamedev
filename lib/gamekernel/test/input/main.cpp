@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-18 03:11:16 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-20 02:58:41 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -46,19 +46,17 @@ class InputApp : public GameApp
 {
 public:
    InputApp( GameKernel* kernel )
-      : mMouseX( kernel ), mMouseY( kernel ),
-        mAccelerate( kernel ), mQuit( kernel ),
-        mKernel( kernel )
+      : mKernel( kernel )
    {
    }
 
    virtual void OnAppInit()
    {
       mKernel->setName( "Input Test" );
-      mQuit.init( "Quit" );
-      mAccelerate.init( "Accelerate" );
-      mMouseX.init( "MouseLookX" );
-      mMouseY.init( "MouseLookY" );
+      mQuit.init( "Quit", mKernel );
+      mAccelerate.init( "Accelerate", mKernel );
+      mMouseX.init( "MouseLookX", mKernel );
+      mMouseY.init( "MouseLookY", mKernel );
    }
 
    virtual void OnContextInit()
@@ -119,11 +117,10 @@ int main( int argc, char *argv[] )
    GameKernel* kernel = new GameKernel();
    kernel->add( new InputApp( kernel ) );
 
-   // configure our application
+   // configure the system
    loadInputConfig( "config.xml", kernel );
 
    // create our system driver and let's go!
-//   SystemDriverFactory::instance().registerDriver( "GLUT", new GlutDriver() );
    SystemDriverFactory::instance().probe( "gkglut", "GLUT" );
    SystemDriver* driver = SystemDriverFactory::instance().getDriver( "GLUT" );
    kernel->startup( driver );
