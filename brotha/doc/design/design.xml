@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.16 2002-04-08 11:52:33 tamc Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 11:52:33 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.17 2002-04-08 12:44:11 tamc Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 12:44:11 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -52,6 +52,7 @@
       <title>Connection Manager Module</title>
       <para>The Connection Manager module is responsible for handling the sending and receiving of messages from a number of peer connections. Objects of type <classname>Socket</classname> are passed into the module through the <methodname>handleSocket</methodname> method. This method returns a unique connection identification number that will be associated with the <classname>Socket</classname> object. The <methodname>send</methodname> method accepts an object of type <classname>Message</classname> and a connection identification number. The message that is passed in will be sent to the peer connection represented by the connection identification number. The <methodname>readAll</methodname> method will return to the caller a collection of objects of type <classname>Message</classname> and the connection identification number that represents the peer connection from which the <classname>Message</classname> object originated from. The <classname>Message</classname> class provides the abstract implementation for all <classname>Message</classname> objects. Data cannot be sent using the Connection Manager unless the data is represented by an object that implements the <classname>Message</classname> class.</para>
       <para>Internally the Connection Manager module is composed of several classes: <classname>Connection</classname>, <classname>WriteThread</classname> and <classname>ReadThread</classname><classname></classname>. Each <classname>Socket</classname> passed into the module through <methodname>handleSocket</methodname> creates a <classname>Connection</classname> object. This <classname>Connection</classname> object creates a <classname>WriteThread</classname> and a <classname>ReadThread</classname> to handle the actual sending and receiving of data.</para>
+      <para>The Connection Manager module depends on the Network module for the actual sending and receiving of bytes across the network, and the Threading module to allow multiple connections, while keeping these connections seperate from the other connections.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
@@ -66,14 +67,75 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>The Connection Manager module has the crucial responsibility of being able to send and receive many messages every frame of the game. The Connection Manager must also gaurantee the delivery of every message and that it will be handled in as little time as possible.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Threads vs. select() or poll()</title>
+          <formalpara>
+            <title>Alternative 1 - Threads</title>
+            <para><variablelist>
+                <varlistentry>
+                  <term>Pros</term>
+                  <listitem>
+                    <itemizedlist>
+                      <listitem>
+                        <para>Easy to implement.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Scheduling CPU time for each connection is handle by the operating system.</para>
+                      </listitem>
+                    </itemizedlist>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>Cons</term>
+                  <listitem>
+                    <itemizedlist>
+                      <listitem>
+                        <para>Doesn't scale well past a few thousand connections.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Added overhead for context switching between threads and the use of mutexes.</para>
+                      </listitem>
+                    </itemizedlist>
+                  </listitem>
+                </varlistentry>
+              </variablelist></para>
+          </formalpara>
+          <formalpara>
+            <title>Alternative 2- select() or poll()</title>
+            <para><variablelist>
+                <varlistentry>
+                  <term>Pros</term>
+                  <listitem>
+                    <itemizedlist>
+                      <listitem>
+                        <para>Reduced overhead for handling multiple connections, no context switches or need for mutexes.</para>
+                      </listitem>
+                    </itemizedlist>
+                  </listitem>
+                </varlistentry>
+                <varlistentry>
+                  <term>Cons</term>
+                  <listitem>
+                    <itemizedlist>
+                      <listitem>
+                        <para>More difficult to implement, have to use asynchronous I/O.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Doesn't scale well past a thousand connections.</para>
+                      </listitem>
+                      <listitem>
+                        <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan linearly.</para>
+                      </listitem>
+                    </itemizedlist>
+                  </listitem>
+                </varlistentry>
+              </variablelist></para>
+          </formalpara>
+          <formalpara>
+            <title>Conclusion</title>
+            <para>We decided to choose the threading model because of its ease of implementation, its complete seperation of connections from each other and because we wanted to use the operating system for scheduling of connections' processor usage.</para>
+          </formalpara>
         </section>
       </section>
     </section>
@@ -193,15 +255,7 @@
     </section>
     <section>
       <title>Report Server Module</title>
-      <para>Description of what this module does here ...</para>
-      <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
+      <para>The Report Server module is responsible for generating dynamic reports requested by HTTP 1.0 standards complient clients. The reports will be generated based on data gathered from the Data/XML module. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This module depends on the Data/XML module for the gathering of data and the Network module for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
       <section>
         <title>Module Interfaces</title>
         <para>blah blah</para>
@@ -454,7 +508,7 @@
     <para>Since <emphasis>Warn-a-Brotha</emphasis> has an overall client/server design, the project can be split into two distinctly seperate applications that use the modules differently.</para>
     <section>
       <title>The Server Application</title>
-      <para>The server is the main workhorse, responsible for managing multiple client connections and their requests, updating the state of the game on a regular basis and sending message to connected clients with the updates on the state of the game.</para>
+      <para>The server is the main workhorse, responsible for managing multiple client connections and their requests, updating the state of the game on a regular basis and sending messages to connected clients with the updates on the state of the game. The server is also responsible for storing gang, player, car, and car modification specific information, providing this information to the clients, and generating reports on this information.</para>
     </section>
     <section>
       <title>The Client Application</title>
