@@ -2,14 +2,17 @@
 #define MW_TURRET_H
 
 #include "Enemy.h"
+#include "Weapon.h"
 
 namespace mw
 {
+
+   class SpreadGun;
 /** 
  * class for a turret 
  * inherits from enemy
  */
-class Turret : public Enemy
+class Turret : public Enemy 
 {
 public:
    /// Creates a new Turret
@@ -22,6 +25,8 @@ public:
    {
    }
 
+   void update(float dt);
+   
    /**
     * This is the aim function so we will track the player 
     */
@@ -33,6 +38,10 @@ public:
     */
    void shoot();
 
+   Weapon* getGun();
+   
+private:
+   Weapon* gun;
 };
 
 }

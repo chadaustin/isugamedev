@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 06:27:34 $
- * Version:       $Revision: 1.79 $
+ * Date modified: $Date: 2002-10-29 06:39:17 $
+ * Version:       $Revision: 1.80 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -609,6 +609,11 @@ namespace mw
             {
                e->setScale(gmtl::Vec3f(sx, sy, sz));
             }
+         }
+         else if (type == "turret")
+         {
+            e = EntityFactory::instance().create<Turret>();
+            e->setModel("turret");
          }
          else
          {

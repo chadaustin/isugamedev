@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-29 04:13:43 $
- * Version:       $Revision: 1.46 $
+ * Date modified: $Date: 2002-10-29 06:39:17 $
+ * Version:       $Revision: 1.47 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -63,6 +63,7 @@
 
 namespace mw
 {
+
    class Application;
 
    class turretTesting : public lm::testing
@@ -110,6 +111,12 @@ namespace mw
          gmtl::normalize(vecToPlayer);
          gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer);
          mTurret->setRot(mQuat);
+
+         gmtl::Vec3f offset(0,0,6);
+         mTurret->getGun()->setRot(mTurret->getRot());
+//         mTurret->getGun()->setRot(mQuat);
+         mTurret->getGun()->setPos(mTurret->getPos()-(mTurret->getRot()*offset));
+         mTurret->shoot();
       }
 
 

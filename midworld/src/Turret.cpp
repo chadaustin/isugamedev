@@ -24,27 +24,46 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-29 06:39:17 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <iostream>
 #include "Turret.h"
+#include "SpreadGun.h"
+
+#include <gmtl/Math.h>
+#include <iostream>
 
 namespace mw
 {
    Turret::Turret(GameState* gameState)
       : Enemy(gameState)
    {
+      gun = new SpreadGun();
    }
 
+   
    void Turret::aim()
    {
-      //std::cout << "aiming" << std::endl;
+   
+   }
+
+   void Turret::update(float dt)
+   {
+      Enemy::update(dt);
+      gun->update(*mGameState, dt);
+   }
+   
+   Weapon* Turret::getGun()
+   {
+      return gun;
    }
 
    void Turret::shoot()
    {
+      gun->trigger(true);
+      std::cout << "shooting" << std::endl;
    }
 }
