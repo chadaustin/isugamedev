@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-03-27 05:25:50 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-03-27 06:13:43 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,13 +41,14 @@
 #include <gk/gk.h>   // pull in GameKernel
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include "game/BrothaGame.h"
+#include "client/BrothaApp.h"
 
 namespace client
 {
    /**
     * Warn-a-Brotha interface with GameKernel.
     */
+/*
    class BrothaApp : public gk::AbstractGameApp
    {
    public:
@@ -176,6 +177,7 @@ namespace client
 
       game::BrothaGame mGame;
    };
+*/
 }
 
 int main( int argc, char *argv[] )
