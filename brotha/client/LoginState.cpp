@@ -2,6 +2,8 @@
 #include <phui/SDLBridge.h>
 #include "BrothaApp.h"
 #include "LoginState.h"
+#include "GameState.h"
+#include "GarageState.h"
 #include <map>
 
 
@@ -181,13 +183,11 @@ namespace client {
                if(entMsg->getCode() == net::EnterMessage::GAME) {
                   std::cout<<"Enter As successful (in game)"<<std::endl;
 
-                  /// @todo goto in game state
-                  mSubState = User_Input;
+                  app->invokeStateTransition(new GameState());
                } else if(entMsg->getCode() == net::EnterMessage::GARAGE) {
                   std::cout<<"Enter As successful (in garage)"<<std::endl;
 
-                  /// @todo goto in garage state
-                  mSubState = User_Input;
+                  app->invokeStateTransition(new GarageState());
                } else {
                   std::cout<<"Enter As failed"<<std::endl;
                   /// @todo raise an error

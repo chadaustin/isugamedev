@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-26 12:40:00 $
- * Version:       $Revision: 1.30 $
+ * Date modified: $Date: 2002-04-26 14:11:08 $
+ * Version:       $Revision: 1.31 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,6 +48,8 @@
 #include <memory>
 #include "BrothaApp.h"
 #include "LoginState.h"
+#include "GameState.h"
+#include "GarageState.h"
 
 namespace client
 {
