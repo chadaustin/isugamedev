@@ -41,14 +41,14 @@ mkdir -p $CO_LOCATION || exit 1
 cd $CO_LOCATION || exit 1
 cvs -d $CVSROOT checkout -d $MODULE_NAME midworld-resources || exit 1
 
-# install them into the build directory
-scons -C $MODULE_NAME TARGET=$INSTALL_FROM/build || exit 1
-
-# install them into the VC7 build directories
-hosttype=`uname`
-case $hosttype in
-   *cygwin*|*CYGWIN*)
-      scons -C $MODULE_NAME TARGET=$INSTALL_FROM/vc7/midworld/Debug || exit 1
-      scons -C $MODULE_NAME TARGET=$INSTALL_FROM/vc7/midworld/Release || exit 1
-      ;;
+case `uname` in
+    *cygwin*|*CYGWIN*)
+        # install them into the VC7 build directories
+        scons -C $MODULE_NAME TARGET=$INSTALL_FROM/vc7/midworld/Debug || exit 1
+        scons -C $MODULE_NAME TARGET=$INSTALL_FROM/vc7/midworld/Release || exit 1
+        ;;
+    *)
+        # install them into the UNIX SCons build directory
+        scons -C $MODULE_NAME TARGET=$INSTALL_FROM/build || exit 1
+        ;;
 esac
