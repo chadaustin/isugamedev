@@ -7,7 +7,7 @@ Congratulations on downloaded the latest (probably broken) source to Midworld!
 The following contains instructions on how to attempt to build our source code.
 You will need the following external libraries:
 
-Audiere	1.9.0		http://audiere.sourceforge.net
+Audiere	1.9.1		http://audiere.sourceforge.net
 Corona	0.2.0 		http://corona.sourceforge.net
 GLText	0.1.0		http://gltext.sourceforge.net
 GMTL	0.1.12		http://ggt.sourceforge.net
