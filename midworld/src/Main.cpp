@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-11-07 21:25:43 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-11-08 09:27:32 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,7 +58,7 @@ void run()
    srand(time(0));
 
    std::cout << "Running Midworld v" << mw::version << std::endl;
-   
+
    // initialize SDL
    int init_flags = SDL_INIT_NOPARACHUTE | SDL_INIT_VIDEO | SDL_INIT_TIMER;
    if (SDL_Init(init_flags) < 0)
@@ -84,18 +84,18 @@ void run()
    {
       ThrowSDLError("Setting video mode failed");
    }
-   
+
    SDL_WM_SetCaption("Midworld", 0);
    std::auto_ptr<mw::Application> app(new mw::Application);
    // init the mouse state...
    ::SDL_WarpMouse( width / 2, height / 2 );
    ::SDL_ShowCursor( SDL_DISABLE );
-         
+
    // let the app know what size it is
    app->resize(width, height);
    mw::u64 last_time = SDL_GetTicks();
    while (!app->shouldQuit())
-   {      
+   {
       SDL_Event event;
       int result = SDL_PollEvent(&event);
       bool should_quit = false;
@@ -132,29 +132,28 @@ void run()
          result = SDL_PollEvent(&event);
       }
 
-      // error or SDL_QUIT message         
+      // error or SDL_QUIT message
       if (result < 0 || should_quit)
       {
          break;
       }
-         
+
       // update and draw application
       /// @todo Use a high-res timer to actually get in us rather than ms
       mw::u64 now = (mw::u64)SDL_GetTicks();
       // convert from ms to us for now
       now *= 1000;
-      
+
       // ignore wraparound
       if (now >= last_time)
       {
          app->update(now - last_time);
+         app->draw();
+         SDL_GL_SwapBuffers();
       }
       last_time = now;
-         
-      app->draw();
-      SDL_GL_SwapBuffers();
    }
-   
+
    SDL_Quit();
    ::SDL_ShowCursor( SDL_ENABLE );
 }
@@ -187,7 +186,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
    // set the current path to where the executable resides
    char filename[MAX_PATH];
    GetModuleFileName(GetModuleHandle(0), filename, MAX_PATH);
-   
+
    // remove the basename
    char* backslash = strrchr(filename, '\\');
    if (backslash)
