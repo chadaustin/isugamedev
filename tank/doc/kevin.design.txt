@@ -1,0 +1,142 @@
+
+Name
+=========
+SpaceTank (better name to be decided)
+
+
+Genre
+=========
+cross genre - (RPG, puzzle, and arcade action combined)
+
+
+Similar to other games?
+========================
+SpaceTank takes ideas from many places:
+- ankh (triggerable objects, puzzles, remote control room)
+- zelda (market places you can buy and sell at)
+- blaster master (tank, and person that can get out, weapons powerup)
+- super mario (jumpsquash, size powerups (in this game size wont change))
+- mario 64 (3rd person camera action)
+- return to krondor, diablo (inventory screen, equip your character)
+- lode runner (digging to trap enemies)
+- duke nukem (tripwire, pipebomb)
+- all rpg games (player stats)
+
+
+Objective
+==========
+Immediate: Get to the end of each level
+Overall: Rescue the ancient time crystal (or something like that).
+
+
+Why this game is fun
+====================
+player needs to be clever (puzzles!), lots of weapons, powerups, character 
+building, RPG, puzzle, and arcade action combined
+
+
+Target audience
+================
+should appeal to casual to midlevel gamer. hard core gamers might be annoyed 
+it isn't a full RPG, but well, it isn't.  The game will start out easy
+so anyone can play, and get progressivly harder.
+
+
+Gameplay
+==========
+The game is structured in large levels (like ankh, zelda, blaster master).
+Your character is a futuristic hovercraft, or a person.
+There is a puzzle element (like pressing a button opens a door two rooms 
+over), and enemies that block your way.  kill enemies with weapons you find
+along the way, ammo is limited also so you need to find that too.  very seldom
+you will also find a storefront where you can trade sell or buy.  your life is
+limited by your health, and you have only one life.  saving is done with
+powercrystals found at checkpoints along the game.  you are allowed a save 
+at exit as well.  you can accumulate wealth.  every x amount of wealth gives 
+you some health.  You can find health powerups too.  There will be some places
+that your character can't go (because a halway is too narrow etc..) so
+you will have to get out of your ship.  The ship and the player can be 
+upgraded in terms of ship body, and player armor.  read on for more 
+detail....
+
+
+brainstorm features (sorry no time to write this up! :)
+========================================================
+- vehicle and avatar mode
+- powerups (for ship and avatar)
+  - for vehicle weapons, and avatar weapons
+  - health, speed, armor, etc..
+  - treasure (different values of jewels spread everywhere like in Spiro)
+  - avatar can't carry ship powerups
+  - ship can't carry avatar powerups
+- "get out of your vehicle" mode
+  - there will be narrow areas that require this
+  - there are a different class of weapons powerups for this mode
+- Jump for both vehicle and avatar
+- puzzles
+  - remote control
+- RPG stats (for ship and avatar)
+  - speed 
+  - aiming
+  - armor
+  - hand to hand combat
+- bonus levels
+- random thoughts
+  - some enemies you can't squish
+  - some you can't bury
+  - some you can't shoot with certain weapons
+- weapons
+  - hot keys (like quake 1-9 and 0)
+  - dig holes (like loderunner)
+  - jumpsquash (supermario style)
+  - traditional
+    - rocket ...................(best)
+    - railgun
+    - chaingun (plasma?)
+    - plasma ...................(worst)
+- singleplayer with option for mplayer (pretty much singleplayer game)
+- inventory screen
+  - arrange picked up items.
+  - specify what parts of ship has armor, weapons
+  - covers entire view (to simulate not paying attention when arranging)
+  - does not stop gameplay! :)
+- triggered items
+  - some remote control weapon (box that shoots, like in ankh)
+    - the remote control can be picked up separately of course. :)
+  - timed door who's trigger is in another room 
+    (thus you'd have to use the remote control 
+     weapon to push the button for you)
+- savegame
+  - save crystals found at every checkpoint give you the opportunity 
+    to save them up and choose when they are used.
+  - save is allowed at game exit (we're not cruel)
+  - cheat mode gives a quick save anytime, but you don't get treasure.
+  - consider this... quicksave available everywhere except for in areas 
+    near the end of the level.
+- lives
+  - just one (like diablo ii)
+  - you have a health meter (power ups will be available)
+- vehicles
+  - after certain "special" enemies are killed, you can repair their ship
+    - and use it.
+  - issue... how to repair the ship?
+    - avatar carries a repair kit found in special avatar areas of the map
+  - need to switch vehicles
+    - new tank allows you to jump higher to a place you need to get to
+    - more inventory but slower ship (or less and faster)
+    - tank weapons can't transfer (cause the avatar can't carry them!)
+- camera (like mario64)
+- enemies
+  - when you learn the puzzles, the this can give the game replay
+  - makes the game more fun, harder when puzzles are easy.
+  - some can be buried, some jumpsquashed.  most can be shot, but not some. :)
+  
+
+Timeline (milestones)
+====================
+hmmm...
+
+
+Budget
+====================
+just time cause we're all free!
