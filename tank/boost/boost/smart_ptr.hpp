@@ -55,14 +55,12 @@
 #define BOOST_SMART_PTR_HPP
 
 //#include <boost/config.hpp>   // for broken compiler workarounds
-namespace std {
-#include <stddef.h>
-   typedef ::size_t size_t;
-}
+#include <cstddef>            // for std::size_t
 #include <memory>             // for std::auto_ptr
 #include <algorithm>          // for std::swap
 #include <boost/utility.hpp>  // for boost::noncopyable, checked_delete, checked_array_delete
 #include <functional>         // for std::less
+#include <boost/static_assert.hpp> // for BOOST_STATIC_ASSERT
 
 #ifdef BOOST_MSVC  // moved here to work around VC++ compiler crash
 # pragma warning(push)
@@ -270,18 +268,6 @@ template<typename T, typename U>
   inline bool operator!=(const shared_ptr<T>& a, const shared_ptr<U>& b)
     { return a.get() != b.get(); }
 
-//  we need the ability to do downcasting for polymorphic objects whose pointers
-//  are being shared. This code was pulled off the boost mailing list. See
-//  http://groups.yahoo.com/group/boost/message/12019
-template<typename T, typename U>
-inline shared_ptr<T>& sp_dynamic_cast( const shared_ptr<U>& a )
-{
-   if ( dynamic_cast<T *>(a.get()) ) {
-      return *( shared_ptr<T>* )&a;
-   }
-   return shared_ptr<T>(0);
-}
-
 //  shared_array  ------------------------------------------------------------//
 
 //  shared_array extends shared_ptr to arrays.
@@ -414,3 +400,4 @@ template<typename T>
 #endif  // BOOST_SMART_PTR_HPP
 
 
+#include "smart_ptr_dyncast.hpp"
