@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <sstream>
+#include <stdexcept>
 #include <SDL_opengl.h>
 #include "Application.h"
 #include "GameState.h"
