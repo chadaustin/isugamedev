@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CarType.h,v $
- * Date modified: $Date: 2002-04-28 16:41:08 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-29 07:41:39 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,57 +40,50 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef BDATA_CARTYPE_H
-#define BDATA_CARTYPE_H
-
+#ifndef DATA_CARTYPE_H
+#define DATA_CARTYPE_H
 
 #include <iostream>
 #include <string>
 #include <vector>
 
-namespace dataxml{
+namespace data {
 
+   class Cartype {
+   private:
+      std::string name;
+      std::string filename;
 
-class Cartype{
-private:
+   public:
+      Cartype() {
+         name = "none!";
+         filename = "car.model";
+      }
 
-  std::string name;
-  std::string filename;
+      Cartype(std::string iname) {
+         name = iname;
+         filename = "car.model";
+      }
 
-public:
+      Cartype(std::string in_name, std::string imodl) {
+         name = in_name;
+         filename = imodl;
+      }
 
-  Cartype(){
-    name = "none!";
-	filename = "car.model";
-  }
+      std::string getFileName() {
+         return filename;
+      }
 
-  Cartype(std::string iname){
-	  name = iname;
-	  filename = "car.model";
-  }
+      std::string getName() {
+         return name;
+      }
 
-  Cartype(std::string in_name, std::string imodl){
-    name = in_name;
-    filename = imodl;
-  }
+      void xMLify(std::ostream& out) {
+         out << "  <cartype name=\"" << name << "\" file=\"" << filename<< "\" />" << std::endl;
+      }
+   };
 
-  std::string getFileName(){
-    return filename;
-  }
-
-  std::string getName(){
-    return name;
-  }
-
-  void xMLify(std::ostream& out){
-	  out << "  <cartype name=\"" << name << "\" file=\"" << filename<< "\" />" << std::endl;
-  }
-};
-
-
-
-
-typedef std::vector<Cartype*> cartypelist;
+   typedef std::vector<Cartype*> cartypelist;
 
 }
 #endif
