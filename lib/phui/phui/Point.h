@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Point.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2003-01-05 06:44:42 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -39,9 +39,10 @@
 #include <GL/gl.h>
 #include <iostream>
 
-namespace phui {
-
-   class Point {
+namespace phui
+{
+   class Point
+   {
    public:
       Point()               { x = 0;   y = 0; }
       Point(int x_, int y_) { x = x_ ; y = y_; }
@@ -50,19 +51,29 @@ namespace phui {
       int x;
       int y;
 
-      Point& operator+=(const Point& p) {
+      Point& operator+=(const Point& p)
+      {
          x += p.x;
          y += p.y;
-         return (*this);
+         return *this;
+      }
+
+      Point& operator-=(const Point& p)
+      {
+         x -= p.x;
+         y -= p.y;
+         return *this;
       }
    };
 
 
-   inline Point operator-(const Point& lhs, const Point& rhs) {
+   inline Point operator-(const Point& lhs, const Point& rhs)
+   {
       return Point(lhs.x - rhs.x, lhs.y - rhs.y);
    }
 
-   inline Point operator+(const Point& lhs, const Point& rhs) {
+   inline Point operator+(const Point& lhs, const Point& rhs)
+   {
       return Point(lhs.x + rhs.x, lhs.y + rhs.y);
    }
 
@@ -71,12 +82,19 @@ namespace phui {
       return (lhs.x == rhs.x && lhs.y == rhs.y);
    }
 
-   inline std::ostream& operator<<(std::ostream& os, const Point& p) {
+   inline bool operator!=(const Point& lhs, const Point& rhs)
+   {
+      return !(lhs == rhs);
+   }
+
+   inline std::ostream& operator<<(std::ostream& os, const Point& p)
+   {
       os << "(" << p.x << ", " << p.y << ")";
       return os;
    }
 
-   inline void glVertex(const Point& p) {
+   inline void glVertex(const Point& p)
+   {
       glVertex2i(p.x, p.y);
    }
 }
