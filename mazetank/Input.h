@@ -30,11 +30,17 @@ public:
 
    void LookAround(int X, int Y);
 
+   void TurretRotate(int X, int Y);
+
+   int OldX, OldY;
+   int TurretOldX, TurretOldY;
+
 private:
 
    GameObject* Player1;
    Camera* ChaseCamera;
-   int OldX, OldY;
+
+   float MULTX, MULTZ;
 };
 #endif
 

@@ -1,9 +1,16 @@
 #include "Input.h"
+#include "GraphicsObject.h"
 
 Input::Input()
 {
    OldX = 0;
    OldY = 0;
+
+   TurretOldX = 0;
+   TurretOldY = 0;
+
+   MULTX = 0.5;
+   MULTZ = 0.5;
 }
 
 void Input::SetCamera(Camera* TheCamera)
@@ -45,4 +52,27 @@ void Input::LookAround(int X, int Y)
    OldX = X;
    OldY = Y;
 
+}
+
+void Input::TurretRotate(int X, int Y)
+{
+   GraphicsObject* TurretPointer;
+   Player1->GetGraphicsPointer(TurretPointer);
+   
+   int ChangeX = X - TurretOldX;
+   int Changey = Y - TurretOldY;
+
+   float Rotate[3];
+   TurretPointer->GetRotate(Rotate);
+
+   if(!(TurretOldX == 0 && TurretOldY == 0))
+   {
+      Rotate[2] = X*MULTX;
+      Rotate[0] = Y*MULTZ;
+
+      TurretPointer->SetRotate(Rotate);
+   }
+
+   TurretOldX = X;
+   TurretOldY = Y;
 }
