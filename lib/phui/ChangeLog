@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-04-27 nonchocoboy  ListBox supports ListSelectionListeners.
 2002-04-26 aegis        Added input mapping utilities for GLUT and SDL.
 2002-04-26 tamc         Added initial support for Label, Button, CheckBox,
                         ListBox and TextField widgets.
