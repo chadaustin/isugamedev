@@ -291,18 +291,19 @@ void drawObjAtMouse()
    int snapOffsetY;
    glColor3f(modelsInMenu[drawOnMouse-1].r, modelsInMenu[drawOnMouse-1].g, modelsInMenu[drawOnMouse-1].b);
    
-   std::cout << "win coords: " << SCALE << std::endl;
+   int tempX = cameraPan[0];
+   int tempY = cameraPan[1];
    
    if(snapOn)
    {
       snapOffsetX=app.width/(app.width/SCALE*2);
       snapOffsetY=app.height/(app.height/SCALE*2);
       mouseX=mouseX-mouseX%snapOffsetX;
+      if(tempX!=cameraPan[0]) mouseX+=snapOffsetX/2;
       mouseY=mouseY-mouseY%snapOffsetY;
+      if(tempY!=cameraPan[1]) mouseX+=snapOffsetY/2;
    }
       
-   
-   
    
    glTranslatef(mouseX, mouseY, 0);
    glBegin(GL_POLYGON);
