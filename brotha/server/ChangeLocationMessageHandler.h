@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ChangeLocationMessageHandler.h,v $
- * Date modified: $Date: 2002-05-02 09:16:47 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-03 07:18:34 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -63,6 +63,9 @@ namespace server {
             // join the player to the game and send the OK message
             m_brothaGame->joinPlayer(cID);
             m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
+
+            // sync up the player
+            m_brothaGame->resync(cID);
          }
          // Leave game, enter garage
          else if (clMsg->getLocation() == net::ChangeLocationMessage::GARAGE) {

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-05-02 02:34:00 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -51,6 +51,11 @@ namespace client {
 
    class GameState : public State {
    public:
+      enum SubState {
+         Resync, ///< waiting for server to sync up with us
+         InGame  ///< actually playing the game
+      };
+   public:
       /**
        * We need the app on construction, since we have no way to get to it in
        * the event callbacks.
@@ -67,6 +72,8 @@ namespace client {
    private:
       BrothaApp* mApp;
       Scene mScene;
+
+      SubState mSubState;
    };
 
 }

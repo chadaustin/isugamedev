@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-02 09:12:02 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-05-03 07:18:34 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -145,7 +145,8 @@ namespace server {
 
          // remove the player (and his vehicle) from the logic too
          mLogic.remove(player);
-         mLogic.remove(player->getVehicle());
+         const game::Object::UID& vehicleUID = player->getVehicle();
+         mLogic.remove(mLogic.getObject(vehicleUID));
 
          // notify everyone else that user was removed
          net::DelPlayerMessage *msg = new net::DelPlayerMessage(uid);
@@ -217,7 +218,8 @@ namespace server {
 
       // Create the game player object and his vehicle
       game::Object* obj = new game::Object();
-      player->setVehicle(obj);
+      obj->setModel("models/hovertank_body.obj");
+      player->setVehicle(obj->getUID());
 
       // Add player and object to the game
       mLogic.add(obj);
@@ -231,9 +233,19 @@ namespace server {
       // send players
       for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
          net::AddPlayerMessage *msgP = new net::AddPlayerMessage(getPlayer(iter->second));
+         std::cout<<"\tAdd Player: "<<iter->first<<std::endl;
          m_netMgr->send(msgP, cID);
       }
       // send objects
+      typedef std::vector<game::Object*> ObjList;
+      ObjList& objs = mLogic.getObjects();
+      for (ObjList::iterator itr = objs.begin(); itr != objs.end(); ++itr) {
+         net::AddObjMessage *msg = new net::AddObjMessage(*itr);
+         std::cout<<"\tAdd Object: "<<(*itr)->getUID()<<std::endl;
+         sendToAll(msg, true);
+      }
+
+      // end resync
       m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
    }
 

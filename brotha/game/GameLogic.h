@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-05-03 06:09:27 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-05-03 07:18:34 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -107,6 +107,11 @@ namespace game
       * @return   the player if found; NULL otherwise
       */
      Player* getPlayer(const std::string& name);
+
+     /**
+      * Gets the object with the given UID.
+      */
+     Object* getObject(const Object::UID& uid);
 
      /**
       * outputs list of players.. for debugging

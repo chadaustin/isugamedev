@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-05-01 19:59:06 $
- * Version:       $Revision: 1.34 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.35 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -59,7 +59,7 @@ namespace client
    BrothaApp::BrothaApp()
       : mCurrentState(0)
       , mTransitionState(0)
-      , mLocalPlayer(NULL)
+      , mLocalPlayer(game::Player::UNKNOWN)
       , mWidth(0)
       , mHeight(0)
       , mSoundMgr(0)

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-05-03 02:41:48 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -84,7 +84,7 @@ namespace client
        *
        * @param player     the player corresponding to the local player
        */
-      void setLocalPlayer(game::Player* player) {
+      void setLocalPlayer(const game::Player::UID& player) {
          mLocalPlayer = player;
       }
 
@@ -95,7 +95,7 @@ namespace client
        * @return  the local player or NULL if there is no player on the local
        *          machine
        */
-      game::Player* getLocalPlayer() {
+      const game::Player::UID& getLocalPlayer() {
          return mLocalPlayer;
       }
 
@@ -120,7 +120,7 @@ namespace client
       State* mTransitionState;
 
       /// The local player.
-      game::Player* mLocalPlayer;
+      game::Player::UID mLocalPlayer;
 
       /// Collection of all players and objects.
       GameWorld mWorld;

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ModelManager.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -75,6 +75,7 @@ namespace client {
 
    osg::Node* ModelManager::loadFile(const std::string& file) const
    {
+      std::cout<<"Loading model \""<<file<<"\""<<std::endl;
       // Get a node from the file
       osg::Node* node = osgDB::readNodeFile(file);
       

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-03 04:56:52 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2002-05-03 07:18:34 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -139,11 +139,11 @@ namespace game {
          mDeaths = deaths;
       }
 
-      /// Gets the vehicle object that this player drives.
-      Object* getVehicle();
+      /// Gets the UID of the vehicle object that this player drives.
+      const Object::UID& getVehicle() const;
 
       /// Sets the object that is this player's vehicle.
-      void setVehicle(Object* vehicle);
+      void setVehicle(const Object::UID& vehicle);
 
    public:
       /**
@@ -164,6 +164,17 @@ namespace game {
       virtual void serialize(net::OutputStream& os);
       virtual void deserialize(net::InputStream& os);
 
+      virtual void clone(const Player* p) {
+         mName = p->mName;
+         mVelocity = p->mVelocity;
+         mPosition = p->mPosition;
+         mHealth = p->mHealth;
+         mVehicle = p->mVehicle;
+         mKills = p->mKills;
+         mDeaths = p->mDeaths;
+         mCoins = p->mCoins;
+      }
+
    private:
       /// This players's UID
       UID mUID;
@@ -180,8 +191,8 @@ namespace game {
       /// This player's health
       PRUint32 mHealth;
 
-      /// The object in the world that is this player's vehicle
-      Object* mVehicle;
+      /// The UID of the object in the world that is this player's vehicle
+      Object::UID mVehicle;
 
       /// The number of kills this player has
       PRUint32 mKills;

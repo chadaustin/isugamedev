@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameWorld.cpp,v $
- * Date modified: $Date: 2002-05-03 02:41:48 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -98,5 +98,15 @@ namespace client {
          }
       }
       return NULL;
+   }
+
+   void GameWorld::update(const game::Object* obj) {
+      game::Object* oldObj = getObject(obj->getUID());
+      oldObj->clone(obj);
+   }
+
+   void GameWorld::update(const game::Player* player) {
+      game::Player* oldPlayer = getPlayer(player->getUID());
+      oldPlayer->clone(player);
    }
 }

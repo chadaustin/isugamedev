@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-03 06:09:27 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-05-03 07:18:34 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -190,6 +190,17 @@ namespace game
       return NULL;
    }
 
+   Object* GameLogic::getObject(const Object::UID& uid) {
+      ObjectListItr itr = mObject.begin();
+      for (itr = mObject.begin(); itr != mObject.end(); ++itr) {
+         Object* obj = (*itr);
+         if (obj->getUID() == uid) {
+            return obj;
+         }
+      }
+      return NULL;
+   }
+
    void GameLogic::outputList() {
       for (unsigned int i=0; i < mPlayer.size(); i++){
          std::cout << mPlayer[i]->getName() << std::endl;
@@ -221,7 +232,8 @@ namespace game
    void GameLogic::processInput(Player* player, float dt) {
       std::cout<<"processInput for "<<player->getName()<<" with dt="<<dt<<std::endl;
       // Gets the forward vehicle
-      Object* vehicle = player->getVehicle();
+      const Object::UID& vehicleUID = player->getVehicle();
+      Object* vehicle = getObject(vehicleUID);
 //      gmtl::Vec3f forward = vehicle->getForward();
       gmtl::Vec3f forward(0,0,-1);
       float speed = 3.7f;

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-05-02 02:34:00 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -50,21 +50,21 @@ namespace client {
    std::map<std::string, bool> input;
 
    const float PI = 3.141579f;
-   
+
    template< class T >
    T deg2rad(const T& deg) {
       return deg * PI / T(180);
    }
-   
+
    GameState::GameState(BrothaApp* app)
-      : mApp(app)
+      : mApp(app), mSubState(Resync)
    {
       // Setup the scene
-      mScene.addObject("tank", "models/hovertank_body.obj");
+//      mScene.addObject("tank", "models/hovertank_body.obj");
 
-      mScene.addObject("tank2", "models/hovertank_body.obj");
-      mScene.getObject("tank2")->preMult(osg::Matrix::translate(0.5,0,-2));
-      mScene.getObject("tank2")->preMult(osg::Matrix::rotate(180.0f, 0,1,0));
+//      mScene.addObject("tank2", "models/hovertank_body.obj");
+//      mScene.getObject("tank2")->preMult(osg::Matrix::translate(0.5,0,-2));
+//      mScene.getObject("tank2")->preMult(osg::Matrix::rotate(180.0f, 0,1,0));
 
       mScene.getCamera().setFollowDist(5);
       mScene.getCamera().setPitch(deg2rad(15.0f));
@@ -82,75 +82,123 @@ namespace client {
    void
    GameState::update(BrothaApp* app, int elapsedTime) {
       float dt = (float)elapsedTime / 1000.0f;
+      if (mSubState == Resync) {
+         std::cout<<">>>>>Syncing<<<<<"<<std::endl;
+         net::Message* msg = NULL;
+         if (app->getFirstMsg(msg)) {
+            // Add object msg
+            if (msg->getType() == net::AddObj) {
+               net::AddObjMessage* theMsg = (net::AddObjMessage*)msg;
+               std::cout<<"Adding object "<<theMsg->getObject()->getUID()<<" to the scene"<<std::endl;
+               mScene.addObject(*theMsg->getObject());
+               app->getGameWorld().addObject(theMsg->getObject());
+            }
+            // Update object msg
+            else if (msg->getType() == net::UpdateObj) {
+               net::UpdateObjMessage* theMsg = (net::UpdateObjMessage*)msg;
+               mScene.update(*theMsg->getObject());
+               app->getGameWorld().update(theMsg->getObject());
+            }
+            // Add player msg
+            else if (msg->getType() == net::AddPlayer) {
+               net::AddPlayerMessage* theMsg = (net::AddPlayerMessage*)msg;
+               app->getGameWorld().addPlayer(theMsg->getPlayer());
+            }
+            // Update player msg
+            else if (msg->getType() == net::UpdatePlayer) {
+               net::UpdatePlayerMessage* theMsg = (net::UpdatePlayerMessage*)msg;
+               app->getGameWorld().update(theMsg->getPlayer());
+            }
+            // Got the OK to return to the game
+            else if (msg->getType() == net::OK) {
+               std::cout<<"Sync successful!"<<std::endl;
+               mSubState = InGame;
+            }
+            else {
+               std::cout<<"Unknown msg: "<<msg->getType()<<std::endl;
+            }
+         }
+      }
+      else if (mSubState == InGame) {
+         net::Message* msg = NULL;
+         if (app->getFirstMsg(msg)) {
+            // we got a object update
+            if (msg->getType() == net::UpdateObj) {
+               net::UpdateObjMessage* uoMsg = (net::UpdateObjMessage*)msg;
 
-      // Move the tank
-      float speed = 3.7f;
-      if (input["drive"]) {
-         osg::Vec3 forward(0,0,-speed);
-         forward *= dt;
-         mScene.getObject("tank")->preMult(osg::Matrix::translate(forward));
-      }
-      if (input["reverse"]) {
-         osg::Vec3 backward(0,0,speed);
-         backward *= dt;
-         mScene.getObject("tank")->preMult(osg::Matrix::translate(backward));
-      }
-      if (input["turnleft"]) {
-         float ang = deg2rad(30.0f) * dt;
-         mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
-      }
-      if (input["turnright"]) {
-         float ang = deg2rad(-30.0f) * dt;
-         mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
-      }
+               game::Object* obj = uoMsg->getObject();
+/// @todo               mScene.update(obj);
+            }
+            // we got a player update
+            else if (msg->getType() == net::UpdatePlayer) {
+               net::UpdatePlayerMessage* upMsg = (net::UpdatePlayerMessage*)msg;
 
-      osg::Quat targetRot;
-      targetRot.set(mScene.getObject("tank")->getMatrix());
-      osg::Vec3 targetPos = mScene.getObject("tank")->getMatrix().getTrans();
-      mScene.getCamera().setTarget(targetPos, targetRot);
-      mScene.getCamera().update(dt);
+               /// @todo handle player update
+            }
+         }
+
+//         // Move the tank
+//         float speed = 3.7f;
+//         if (input["drive"]) {
+//            osg::Vec3 forward(0,0,-speed);
+//            forward *= dt;
+//            mScene.getObject("tank")->preMult(osg::Matrix::translate(forward));
+//         }
+//         if (input["reverse"]) {
+//            osg::Vec3 backward(0,0,speed);
+//            backward *= dt;
+//            mScene.getObject("tank")->preMult(osg::Matrix::translate(backward));
+//         }
+//         if (input["turnleft"]) {
+//            float ang = deg2rad(30.0f) * dt;
+//            mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
+//         }
+//         if (input["turnright"]) {
+//            float ang = deg2rad(-30.0f) * dt;
+//            mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
+//         }
+
+         osg::Quat targetRot;
+         game::Player* player = app->getGameWorld().getPlayer(app->getLocalPlayer());
+         const game::Object::UID& vehicleUID = player->getVehicle();
+         std::cout<<"Player's vehicle: "<<vehicleUID<<std::endl;
+         game::Object* vehicle = app->getGameWorld().getObject(vehicleUID);
+
+         targetRot.set(mScene.getNode(*vehicle)->getMatrix());
+         osg::Vec3 targetPos = mScene.getNode(*vehicle)->getMatrix().getTrans();
+
+         mScene.getCamera().setTarget(targetPos, targetRot);
+         mScene.getCamera().update(dt);
+      }
    }
 
    void
    GameState::onKeyPress(SDLKey sym, bool down) {
-//      if (sym == SDLK_w) {
-//         input["drive"] = down;
-//      }
-//      else if (sym == SDLK_s) {
-//         input["reverse"] = down;
-//      }
-//      else if (sym == SDLK_a) {
-//         input["turnleft"] = down;
-//      }
-//      else if (sym == SDLK_d) {
-//         input["turnright"] = down;
-//      }
-//      else if (sym == SDLK_ESCAPE) {
-//         exit(0);
-//      }
-      net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
-      PRFloat64 to = (down ? 1 : 0);
-      
-      switch (sym) {
-      case SDLK_w:
-         what = net::UpdatePlayerInfoMessage::ACCELERATION;
-         break;
-      case SDLK_s:
-         what = net::UpdatePlayerInfoMessage::BRAKE;
-         break;
-      case SDLK_SPACE:
-         what = net::UpdatePlayerInfoMessage::HANDBRAKE;
-         break;
-      case SDLK_a:
-         what = net::UpdatePlayerInfoMessage::TURNLEFT;
-         break;
-      case SDLK_d:
-         what = net::UpdatePlayerInfoMessage::TURNRIGHT;
-         break;
-      }
+      if (mSubState == InGame) {
+         net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
+         PRFloat64 to = (down ? 1 : 0);
 
-      if (what != net::UpdatePlayerInfoMessage::NOTHING) {
-         mApp->sendMessage(new net::UpdatePlayerInfoMessage(what, to));
+         switch (sym) {
+         case SDLK_w:
+            what = net::UpdatePlayerInfoMessage::ACCELERATION;
+            break;
+         case SDLK_s:
+            what = net::UpdatePlayerInfoMessage::BRAKE;
+            break;
+         case SDLK_SPACE:
+            what = net::UpdatePlayerInfoMessage::HANDBRAKE;
+            break;
+         case SDLK_a:
+            what = net::UpdatePlayerInfoMessage::TURNLEFT;
+            break;
+         case SDLK_d:
+            what = net::UpdatePlayerInfoMessage::TURNRIGHT;
+            break;
+         }
+
+         if (what != net::UpdatePlayerInfoMessage::NOTHING) {
+            mApp->sendMessage(new net::UpdatePlayerInfoMessage(what, to));
+         }
       }
    }
 

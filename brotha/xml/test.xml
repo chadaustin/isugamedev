@@ -33,7 +33,7 @@
 				<mod name="tires" level="3" />
 			</car>
 		</player>
-		<player name="chadA" password="p1" pic="player.jpg" lilpic="lilplayer.jpg">
+		<player name="chada" password="p1" pic="player.jpg" lilpic="lilplayer.jpg">
 			<stat name="kills" value="2" />
 			<stat name="coins" value="5" />
 			<stat name="deaths" value="1" />
@@ -46,7 +46,7 @@
 				<mod name="exhaust" />
 			</car>
 		</player>
-		<player name="ben" password="p4" pic="http://hatori42.com/wb/player.jpg" lilpic="http://hatori42.com/wb/lilplayer.jpg">
+		<player name="aegis" password=":)" pic="http://hatori42.com/wb/player.jpg" lilpic="http://hatori42.com/wb/lilplayer.jpg">
 			<stat name="kills" value="2" />
 			<stat name="coins" value="4" />
 			<stat name="deaths" value="2" />

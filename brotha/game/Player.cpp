@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-05-03 06:09:27 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-05-03 07:18:34 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -52,7 +52,7 @@ namespace game {
       , mKills(0)
       , mDeaths(0)
       , mCoins(0)
-      , mVehicle(NULL)
+      , mVehicle(Object::UNKNOWN)
       , mIsAccelerating(false)
       , mIsBraking(false)
       , mIsHandBraking(false)
@@ -70,11 +70,11 @@ namespace game {
       return mUID;
    }
 
-   Object* Player::getVehicle() {
+   const Object::UID& Player::getVehicle() const {
       return mVehicle;
    }
 
-   void Player::setVehicle(Object* vehicle) {
+   void Player::setVehicle(const Object::UID& vehicle) {
       mVehicle = vehicle;
    }
 
@@ -82,20 +82,22 @@ namespace game {
       return mName;
    }
 
-   void Player::setName( const std::string& name ){
+   void Player::setName(const std::string& name) {
       mName = name;
    }
 
-   PRUint32 Player::getSize(){
+   PRUint32 Player::getSize() {
       return net::sizes::getVarSize(mUID)
-           + net::sizes::getVarSize(mName);
+           + net::sizes::getVarSize(mName)
+           + net::sizes::getVarSize(mHealth)
+           + net::sizes::getVarSize(mVehicle);
    }
 
    void Player::serialize(net::OutputStream& os){
-      os << mUID << mName;
+      os << mUID << mName << mHealth << mVehicle;
    }
 
    void Player::deserialize(net::InputStream& is){
-      is >> mUID >> mName;
+      is >> mUID >> mName >> mHealth >> mVehicle;
    }
 }

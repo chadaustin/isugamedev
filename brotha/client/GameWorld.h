@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameWorld.h,v $
- * Date modified: $Date: 2002-05-03 02:41:48 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -70,6 +70,16 @@ namespace client {
       void addPlayer(game::Player* player);
       void removePlayer(const game::Player::UID& player);
       game::Player* getPlayer(const game::Player::UID& uid);
+
+      /**
+       * Updates the object in the world with the data in the given object.
+       */
+      void update(const game::Object* obj);
+
+      /**
+       * Updates the player in the world with the data in the given player.
+       */
+      void update(const game::Player* player);
 
    private:
       ObjectList mObjs;

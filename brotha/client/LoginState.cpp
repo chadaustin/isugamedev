@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoginState.cpp,v $
- * Date modified: $Date: 2002-05-02 02:34:00 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -192,7 +192,7 @@ namespace client {
                net::AddPlayerMessage* pMsg = (net::AddPlayerMessage*)msg;
 
                // let app know which player we are
-               app->setLocalPlayer(pMsg->getPlayer());
+               app->setLocalPlayer(pMsg->getPlayer()->getUID());
 
                // go to next state
                mSubState = Wait_For_Join_Ack;

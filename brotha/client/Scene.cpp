@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -66,7 +66,7 @@ namespace client {
       // Camera target view node
       mFollowTarget = new osg::Transform();
       mFollowView->addChild(mFollowTarget);
-      
+
       mObjs = new osg::Group();
       mStaticObjs = new osg::Group();
       mFollowTarget->addChild(mObjs);
@@ -101,28 +101,32 @@ namespace client {
       glPopAttrib();
    }
 
-   void Scene::addObject(const std::string& name, const std::string& model)
+   void Scene::addObject(const game::Object& obj)
    {
+      std::cout<<"Scene::Adding obj "<<obj.getUID()<<std::endl;
+      const std::string& model = obj.getModel();
+
       // Try to get the model from the model manager
       osg::Node* modelNode = NULL;
       try {
          modelNode = mModelMgr.get(model);
       } catch (std::exception& e) {
-         std::cerr<<"Failed to load model "<<model<<" for "<<name<<": "<<e.what()<<std::endl;
+         std::cerr<<"Failed to load model "<<model<<" for object "<<obj.getName()<<": "<<e.what()<<std::endl;
          return;
       }
 
       // Add a transform node on top of the model so we can control it
       osg::Transform* modelTrans = new osg::Transform();
       modelTrans->addChild(modelNode);
-      modelTrans->setName(name);
+      modelTrans->setName(obj.getName());
 
       // Add our new model to the scene
       mObjs->addChild(modelTrans);
    }
 
-   void Scene::removeObject(const std::string& name)
+   void Scene::removeObject(const game::Object& obj)
    {
+      const std::string& name = obj.getName();
       for (int i=0; i<mObjs->getNumChildren(); ++i) {
          osg::Node* node = mObjs->getChild(i);
          if (node->getName() == name) {
@@ -132,8 +136,23 @@ namespace client {
       }
    }
 
-   osg::Transform* Scene::getObject(const std::string& name)
+   void Scene::update(const game::Object& obj)
    {
+      osg::Transform* node = getNode(obj);
+      if (node) {
+         const gmtl::Point3f& pos = obj.getPosition();
+
+         // create the new matrix for this object
+         osg::Matrix newMatrix = osg::Matrix::identity();
+         /// @todo handle the object's rotation
+         newMatrix.postMult(osg::Matrix::translate(pos[0], pos[1], pos[2]));
+         node->setMatrix(newMatrix);
+      }
+   }
+
+   osg::Transform* Scene::getNode(const game::Object& obj)
+   {
+      const std::string& name = obj.getName();
       for (int i=0; i<mObjs->getNumChildren(); ++i) {
          osg::Node* node = mObjs->getChild(i);
          if (node->getName() == name) {

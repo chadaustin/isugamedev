@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.h,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-05-03 07:18:33 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -49,6 +49,7 @@
 #include <osgUtil/SceneView>
 #include "ModelManager.h"
 #include "Camera.h"
+#include "game/Object.h"
 
 namespace client {
    /**
@@ -58,7 +59,7 @@ namespace client {
     * mRoot -- mView
     *            \-- mStaticObjs --* ObjTrans -- ObjModel
     * </pre>
-    * 
+    *
     * In this way we keep the movable objects as well as the static objects
     * separate from each player's view.
     */
@@ -70,25 +71,31 @@ namespace client {
       void draw();
 
       /**
-       * Inserts the given object into the scene at the root level.
+       * Inserts the given object into the scene at the root level. The scene
+       * does not actually hold on to a pointer to the object, but rather adds
+       * it's model to the SG.
        *
-       * @param node             the node to insert
+       * @param obj        the object to add
        */
-      void addObject(const std::string& name, const std::string& model);
+      void addObject(const game::Object& obj);
 
       /**
-       * Removes the object with the given name from the scene.
+       * Removes the given object from the scene.
+       *
+       * @param obj        the object to remove
        */
-      void removeObject(const std::string& name);
+      void removeObject(const game::Object& obj);
 
       /**
-       * Gets the tranform node that contains the object with the given name.
+       * Gets the tranform node that contains the given object's model.
        *
-       * @param name    the name of the object to retrieve
+       * @param obj        the object whose node shall be retrieved
        *
        * @return  the transform node if found; NULL otherwise
        */
-      osg::Transform* getObject(const std::string& name);
+      osg::Transform* getNode(const game::Object& obj);
+
+      void update(const game::Object& obj);
 
       /**
        * Gets the specialized camera we use.

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.h,v $
- * Date modified: $Date: 2002-05-03 06:09:27 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-05-03 07:18:34 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -156,6 +156,15 @@ namespace game {
       virtual void serialize(net::OutputStream& os);
       virtual void deserialize(net::InputStream& os);
 
+      /// Makes this object a duplicate of the given object.
+      void clone(const Object* obj) {
+         mName = obj->mName;
+         mPosition = obj->mPosition;
+         mVelocity = obj->mVelocity;
+         mSphere = obj->mSphere;
+         mHealth = obj->mHealth;
+         mModel = obj->mModel;
+      }
    private:
       /// This object's UID
       UID mUID;

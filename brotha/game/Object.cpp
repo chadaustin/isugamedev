@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.cpp,v $
- * Date modified: $Date: 2002-05-03 06:09:27 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-03 07:18:34 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -96,6 +96,13 @@ namespace game {
       for (unsigned int i=0; i<mVelocity.Size; ++i) {
          os << (PRFloat64)mVelocity[i];
       }
+      std::cout<<"Serialized an object:"<<std::endl
+               <<"\tUID: "<<mUID<<std::endl
+               <<"\tHealth: "<<mHealth<<std::endl
+               <<"\tName: "<<mName<<std::endl
+               <<"\tModel: "<<mModel<<std::endl
+               <<"\tPosition: ("<<mPosition[0]<<", "<<mPosition[1]<<", "<<mPosition[2]<<")"<<std::endl
+               <<"\tVelocity: ("<<mVelocity[0]<<", "<<mVelocity[1]<<", "<<mVelocity[2]<<")"<<std::endl;
    }
 
    void Object::deserialize(net::InputStream& is) {
@@ -110,5 +117,12 @@ namespace game {
          is >> v;
          mVelocity[i] = v;
       }
+      std::cout<<"Deserialized an object:"<<std::endl
+               <<"\tUID: "<<mUID<<std::endl
+               <<"\tHealth: "<<mHealth<<std::endl
+               <<"\tName: "<<mName<<std::endl
+               <<"\tModel: "<<mModel<<std::endl
+               <<"\tPosition: ("<<mPosition[0]<<", "<<mPosition[1]<<", "<<mPosition[2]<<")"<<std::endl
+               <<"\tVelocity: ("<<mVelocity[0]<<", "<<mVelocity[1]<<", "<<mVelocity[2]<<")"<<std::endl;
    }
 }
