@@ -1,0 +1,29 @@
+import sys
+Import('env')
+
+classes = [
+   'GameThread',
+   'ListenServer',
+]
+
+headers = [
+   'BrothaServer',
+]
+
+sources = [
+   'main',
+]
+
+# add proper extensions to filenames
+headers = map(lambda fn: fn + '.h', headers)
+sources = map(lambda fn: fn + '.cpp', sources)
+
+# add in the files from classes
+headers.extend( map(lambda fn: fn + '.h', classes) )
+sources.extend( map(lambda fn: fn + '.cpp', classes) )
+
+
+LIBS = ['net', 'game', 'nspr4']
+
+env2 = env.Copy( LIBPATH=['#net', '#game'], LIBS=LIBS );
+env2.Program(target = 'server', source = sources)

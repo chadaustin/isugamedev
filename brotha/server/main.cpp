@@ -1,4 +1,7 @@
-#include <windows.h>
+#ifdef WIN32
+#  include <windows.h>
+#endif
+
 #include <string>
 
 #include "resource.h"
@@ -6,6 +9,7 @@
 
 server::BrothaServer g_BrothaServer;
 
+#ifdef WIN32
 LRESULT CALLBACK WndProc(HWND wnd, UINT msg, WPARAM wParam, LPARAM lParam) {
    static HWND wndLog;
 
@@ -90,3 +94,57 @@ int WINAPI WinMain(HINSTANCE instance, HINSTANCE prevInstance, PSTR cmdLine, int
    }
    return (int)msg.wParam;
 }
+
+#else
+#include <iostream>
+int main( int argc, char** argv )
+{
+   std::cout<<"Unix Warn-a-Brotha Server"<<std::endl;
+   bool quit(false);
+   while ( ! quit )
+   {
+      std::string cmd;
+      std::cout << "brotha> " << std::flush;
+      char c = std::cin.get();
+      while ( c != -1 )
+      {
+         if ( c == '\n' )
+         {
+            break;
+         }
+         cmd += c;
+         c = std::cin.get();
+      }
+
+      if ( cmd == "startserver" )
+      {
+         std::cout<<"Starting game server"<<std::endl;
+         g_BrothaServer.StartServer();
+      }
+      else if ( cmd == "stopserver" )
+      {
+         std::cout<<"Stopping game server"<<std::endl;
+         g_BrothaServer.StopServer();
+      }
+      else if ( cmd == "startwebserver" )
+      {
+         std::cout<<"Starting web server"<<std::endl;
+         g_BrothaServer.StartWebServer();
+      }
+      else if ( cmd == "stopwebserver" )
+      {
+         std::cout<<"Stopping web server"<<std::endl;
+         g_BrothaServer.StopWebServer();
+      }
+      else if ( cmd == "exit" )
+      {
+         break;
+      }
+      else
+      {
+         std::cout<<"Unknown command: "<<cmd<<std::endl;
+      }
+   }
+}
+
+#endif
