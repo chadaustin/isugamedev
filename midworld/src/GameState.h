@@ -1,3 +1,6 @@
+/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil c-basic-offset: 3 -*- */
+// vim:cindent:ts=3:sw=3:et:tw=80:sta:
+
 #ifndef MW_GAMESTATE_H
 #define MW_GAMESTATE_H
 
@@ -68,12 +71,12 @@ namespace mw
          // map keys to events... yay.
          switch (sym)
          {
-         case SDLK_w: case SDLK_UP:
-            mAccelerate = down;
-            break;
-         case SDLK_ESCAPE: case SDLK_q:
-            if (down) this->invokeTransition( new IntroState ); 
-            break;
+           case SDLK_w: case SDLK_UP:
+             mAccelerate = down;
+             break;
+           case SDLK_ESCAPE: case SDLK_q:
+             if (down) this->invokeTransition( new MenuState ); 
+             break;
          }
       }
             

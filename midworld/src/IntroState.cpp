@@ -2,8 +2,8 @@
 // vim:cindent:ts=3:sw=3:et:tw=80:sta:
 
 #include "IntroState.h"
-#include "GameState.h"
 #include "GameManager.h"
+#include "MenuState.h"
 
 namespace mw
 {
@@ -33,7 +33,10 @@ namespace mw
    void
    IntroState::draw()
    {
+      /// @todo  think about GL states
+
       glEnable(GL_TEXTURE_2D);
+      glDisable( GL_DEPTH_TEST );
 
       glClear(GL_COLOR_BUFFER_BIT);
 
@@ -45,7 +48,6 @@ namespace mw
       // set up view matrix
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
-      glDisable( GL_DEPTH_TEST );
       
       glColor3f( 1,1,1 );
       mIntroImage->drawRectangle(0, 0, 1, 1);
@@ -54,12 +56,9 @@ namespace mw
    void
    IntroState::onKeyPress(SDLKey sym, bool down)
    {
-      switch (sym)
+      if (down)
       {
-      //case SDLK_ESCAPE: if (down) quit(); break;
-      default:
-         if (down) this->invokeTransition( new GameState ); 
-         break;
+         invokeTransition(new MenuState());
       }
    }
 
