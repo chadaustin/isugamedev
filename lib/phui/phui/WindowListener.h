@@ -10,9 +10,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: Window.h,v $
+ * File:          $RCSfile: WindowListener.h,v $
  * Date modified: $Date: 2002-04-28 18:55:09 $
- * Version:       $Revision: 1.11 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -37,59 +37,79 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
-#ifndef PHUI_WINDOW_H
-#define PHUI_WINDOW_H
+#ifndef PHUI_WINDOW_LISTENER_H
+#define PHUI_WINDOW_LISTENER_H
 
-#include "phuiCommon.h"
-#include <string>
-#include <iostream>
-#include <list>
-#include <algorithm>
-#include "WidgetContainer.h"
-#include "WindowListener.h"
+namespace phui
+{
+   class Window;
 
-namespace phui {
-
-   class Window : public WidgetContainer {
+   /**
+    * Describes an event that indicates that a window has changed it's status.
+    */
+   class WindowEvent
+   {
    public:
       /**
-       * Creates a window with an empty title.
-       */
-      Window();
-
-      /**
-       * Creates a window with the given title.
+       * Creates a new window event using the given source widget.
        *
-       * @param title      the title for the window
+       * @param src     the window that fired the event
        */
-      Window( const std::string& title );
-
-      virtual ~Window();
-
-      void draw();
+      WindowEvent(Window* src)
+         : mSource(src)
+      {}
 
       /**
-       * Adds the given window listener that wishes to receive window events.
+       * Gets the source window that fired this event.
+       *
+       * @return  the source window
        */
-      void addWindowListener(WindowListener* listener);
-
-      /**
-       * Removes the given window listener for this button.
-       */
-      void removeWindowListener(WindowListener* listener);
+      Window* getWindow() const
+      {
+         return mSource;
+      }
 
    private:
-      /**
-       * The title of the window.
-       */
-      std::string mTitle;
-
-      /// All listeners for this window.
-      typedef std::list<WindowListener*> ListenerList;
-      typedef ListenerList::iterator ListenerIter;
-      std::list<WindowListener*> mListeners;
+      /// The source of the event.
+      Window* mSource;
    };
 
-} // namespace phui
+   /**
+    * Interface to a class that wishes to receive events from a window.
+    */
+   class WindowListener
+   {
+   public:
+      virtual ~WindowListener() {}
+
+      /**
+       * Notifies this listener that the source window has opened.
+       *
+       * @param evt  the generated event
+       */
+      virtual void onWindowOpened(const WindowEvent& evt) = 0;
+
+      /**
+       * Notifies this listener that the source window has closed.
+       *
+       * @param evt  the generated event
+       */
+      virtual void onWindowClosed(const WindowEvent& evt) = 0;
+
+      /**
+       * Notifies this listener that the source window has gained the focus.
+       *
+       * @param evt  the generated event
+       */
+      virtual void onWindowFocused(const WindowEvent& evt) = 0;
+
+      /**
+       * Notifies this listener that the source window has lost the focus.
+       *
+       * @param evt  the generated event
+       */
+      virtual void onWindowUnfocused(const WindowEvent& evt) = 0;
+   };
+}
 
 #endif

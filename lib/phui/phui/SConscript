@@ -29,6 +29,7 @@ headers = [
     'Input.h',
     'ListSelectionListener.h',
     'Point.h',
+    'WindowListener.h',
     'phui.h',
     'phuiCommon.h',
 

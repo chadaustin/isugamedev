@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-28 18:55:09 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -84,6 +84,18 @@ namespace phui {
       }
 
       WidgetContainer::draw();
+   }
+
+   void Window::addWindowListener(WindowListener* listener) {
+      mListeners.push_back(listener);
+   }
+
+   void Window::removeWindowListener(WindowListener* listener) {
+      ListenerIter itr;
+      itr = std::find(mListeners.begin(), mListeners.end(), listener);
+      if (itr != mListeners.end()) {
+         mListeners.erase(itr);
+      }
    }
 
 } // namespace phui
