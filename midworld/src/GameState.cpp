@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-29 04:20:36 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-07-29 04:51:05 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,7 @@
 #include "SpreadGun.h"
 #include "Shotgun.h"
 #include "AssaultRifle.h"
+#include "BoundsCollisionDetector.h"
 #include "Application.h"
 
 #include "Enemy.h"
@@ -66,6 +67,11 @@ namespace mw
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
 
+      // Init the collision detection system
+      mSpatialIndex = new VectorSpatialIndex();
+      mCollDet = new BoundsCollisionDetector();
+      mCollDet->setSpatialIndex(mSpatialIndex);
+
       // XXX: Hardcoded to add some initial enemies into the game
       for (int i = 0; i < 10; i++)
       {
@@ -88,9 +94,6 @@ namespace mw
             mFontRenderer->setFont(mFont);
          }
       }
-
-      // Start up the grim reaper ... watch out little entities ;)
-      mReaper = new GrimReaper();
    }
 
    GameState::~GameState()
@@ -222,12 +225,12 @@ namespace mw
          updateEdgeState( mGunSlots[x] );
 
       // Reap dead entities
-      mReaper->reap(mEntities);
+      reapDeadEntities();
 
       // Iterate over all the entities and update them
       for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); ++itr)
       {
-         (*itr)->update(dt);
+         updateDynamics((*itr), dt);
       }
 
       mCamera.update( dt );
@@ -243,9 +246,78 @@ namespace mw
       }
    }
 
+   void GameState::updateDynamics(RigidBody* body, float dt)
+   {
+      float remaining_dt = dt;
+      const gmtl::Vec3f& orig_vel = body->getVel();
+
+      // Check for collisions
+      CollisionDesc* desc = mCollDet->checkCollision(body, orig_vel * dt);
+
+      // No more collisions, let the body update the remaining distance
+      if (! desc)
+      {
+         body->update(remaining_dt);
+      }
+      // We had a collision
+      else
+      {
+         std::cout<<"Collision!"<<std::endl;
+         std::cout<<"\tCollider: "<<body<<std::endl;
+         std::cout<<"\tCollidee: "<<(desc->getCollidee())<<std::endl;
+         // Figure out how much time passed to get to the collision
+         float dist = desc->getDistance();
+         float time_to_coll = 0;
+         if (orig_vel[0] != 0)
+         {
+            time_to_coll = dist / orig_vel[0];
+         }
+         else if (orig_vel[1] != 0)
+         {
+            time_to_coll = dist / orig_vel[1];
+         }
+         else if (orig_vel[2] != 0)
+         {
+            time_to_coll = dist / orig_vel[2];
+         }
+         else
+         {
+            time_to_coll = 0;
+         }
+
+         // Update the body to the point of the collision
+         body->update(time_to_coll);
+
+         // Stop the body for now
+         body->setVel(gmtl::Vec3f());
+
+         // Be good and clean up our collision desc
+         delete desc;
+      }
+   }
+
+   void GameState::reapDeadEntities()
+   {
+      for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); )
+      {
+         Entity* entity = (*itr);
+         if (entity->isExpired())
+         {
+            mSpatialIndex->remove(entity);
+            delete entity;
+            mEntities.erase(itr);
+         }
+         else
+         {
+            ++itr;
+         }
+      }
+   }
+
    void GameState::add(Entity* entity)
    {
       mEntities.push_back(entity);
+      mSpatialIndex->add(entity);
    }
 
    void GameState::draw()

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-07-29 04:20:36 $
- * Version:       $Revision: 1.27 $
+ * Date modified: $Date: 2002-07-29 04:51:05 $
+ * Version:       $Revision: 1.28 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,8 +41,9 @@
 #include "Camera.h"
 #include "Player.h"
 #include "Entity.h"
-#include "GrimReaper.h"
 #include "Cursor.h"
+#include "CollisionDetector.h"
+#include "VectorSpatialIndex.h"
 
 namespace mw
 {
@@ -80,11 +81,26 @@ namespace mw
       void add(Entity* entity);
 
    private:
-      // called on input change
+      /// Called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);
 
-      // called on update for each button
+      /// Called on update for each button
       void updateEdgeState(EdgeState& state);
+
+      /**
+       * Updates the dynamics of the given rigid body over the given time
+       * differential.
+       *
+       * @param body       the body whose dynamics will be updated
+       * @param dt         the time differential in seconds
+       */
+      void updateDynamics(RigidBody* body, float dt);
+
+      /**
+       * Deletes and removes from the game all entities that have marked
+       * themselves as being expired and thus want to be removed from the game.
+       */
+      void reapDeadEntities();
 
    private:
       State* mNextState;
@@ -101,26 +117,30 @@ namespace mw
        */
       EntityList mEntities;
 
-      /**
-       * The grim reaper that destroys and removes entities from the game when
-       * they request removal.
-       */
-      GrimReaper *mReaper;
+      /// The collision detection algorithm
+      CollisionDetector* mCollDet;
+
+      /// XXX: Our spatial index to our vector of entities
+      VectorSpatialIndex* mSpatialIndex;
 
       // actions :*)
       EdgeState mAccelerate;
       EdgeState mReverse;
       EdgeState mStrafeRight, mStrafeLeft;
       EdgeState mShoot, mCycleWeapon;
+
       std::vector<EdgeState> mGunSlots;
-      // input data for the Player object.
-      // note: in local screen space, not actual player vel
+
+      /**
+       * Input data for the Player object.
+       * @note    in local screen space, not actual player vel
+       */
       gmtl::Vec3f mPlayerVel;
 
       gltext::Font* mFont;
       gltext::FontRenderer* mFontRenderer;
 
-      // This state's FPS
+      /// This state's FPS
       float mFPS;
       float mFrameCount;
       float mFrameTime;

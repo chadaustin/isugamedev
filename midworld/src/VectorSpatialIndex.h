@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: VectorSpatialIndex.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-07-29 04:51:05 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -54,14 +54,11 @@ namespace mw
    {
    public:
       /**
-       * Creates a new spatial index for the given vector of rigid bodies. The
-       * vector is passed as a pointer to the real vector. This spatial index
-       * does NOT assume ownership of the vector.
+       * Creates a new spatial index with initially no rigid bodies.
        *
        * @param bodies     the vector of bodies to use as the system
        */
-      VectorSpatialIndex(std::vector<RigidBody*>* bodies)
-         : mBodies(bodies)
+      VectorSpatialIndex()
       {}
 
       /**
@@ -76,7 +73,7 @@ namespace mw
          std::list<RigidBody*> result;
 
          std::vector<RigidBody*>::iterator itr;
-         for (itr = mBodies->begin(); itr != mBodies->end(); ++itr)
+         for (itr = mBodies.begin(); itr != mBodies.end(); ++itr)
          {
             RigidBody* body = *itr;
             // Check if the current body's bounds overlap the search region
@@ -89,8 +86,30 @@ namespace mw
          return result;
       }
 
+      /**
+       * Adds the given rigid body to this spatial index.
+       *
+       * @param body    the body to add
+       */
+      void add(RigidBody* body)
+      {
+         mBodies.push_back(body);
+      }
+
+      /**
+       * Removes the given rigid body from this spatial index.
+       *
+       * @param body    the body to remove
+       */
+      void remove(RigidBody* body)
+      {
+         std::vector<RigidBody*>::iterator itr;
+         itr = std::find(mBodies.begin(), mBodies.end(), body);
+         mBodies.erase(itr);
+      }
+
    private:
-      std::vector<RigidBody*>* mBodies;
+      std::vector<RigidBody*> mBodies;
    };
 }
 
