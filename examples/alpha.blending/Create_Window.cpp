@@ -14,9 +14,9 @@
 
 */
 
-#include <gl/glut.h>
-#include <gl/glu.h>
-
+#include <GL/glut.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 
 //---===  GLOBAL VARIABLES   ===---//
 int x_angle = 0;
@@ -111,7 +111,7 @@ void initCube()
 			cube.vertex[i].color[j] = vertexColData[i][j];
 		}
 	}
-	for (i = 0; i < 6; ++i)
+	for (int i = 0; i < 6; ++i)
 	{
 		for (int j = 0; j < 4; ++j)
 		{

@@ -1,0 +1,31 @@
+# vim:cindent:ts=3:sw=3:et:tw=80:sta:
+
+import os
+import os.path
+
+Default('.')
+
+sources = Split("""
+   Create_Window.cpp
+""")
+
+CXXFLAGS = ['-Wall']
+LINKFLAGS = []
+if ARGUMENTS.get('optimize'):
+    CXXFLAGS.append('-O2')
+    LINKFLAGS.append('-s')
+else:
+    CXXFLAGS.append('-g')
+
+CPPPATH = ['#']
+LIBPATH = ['/usr/X11R6/lib/']
+env = Environment(ENV = {'PATH' : os.environ['PATH'], 'LD_LIBRARY_PATH' :
+      os.environ['LD_LIBRARY_PATH'] },
+                  CXX = 'g++',
+                  LINK = 'g++',
+                  CPPPATH = CPPPATH,
+                  LIBPATH = LIBPATH,
+                  LIBS = ['GLU', 'GL', 'glut'],
+                  CXXFLAGS = CXXFLAGS,
+                  LINKFLAGS = LINKFLAGS)
+env.Program(target = 'alphablending', source = sources)
