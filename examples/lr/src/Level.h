@@ -8,7 +8,6 @@
 
 namespace lr
 {
-
    class Level{
    public:
 
@@ -39,6 +38,7 @@ namespace lr
 
       
       void draw();
+
 
    private:
       /**

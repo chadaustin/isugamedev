@@ -161,11 +161,12 @@ namespace lr
 
       if(burnright)
       {
-         mLevel->setEmpty(getGridPos()+1, getGridHeight()-1);
+//         mLevel->setEmpty(getGridPos()+1, getGridHeight()-1);
+
       }
       if(burnleft)
       {
-         mLevel->setEmpty(getGridPos()-1, getGridHeight()-1);
+  //       mLevel->setEmpty(getGridPos()-1, getGridHeight()-1);
       }
    }
 
