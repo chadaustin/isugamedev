@@ -5,7 +5,7 @@
 class Tank
 {
 public:
-   Tank() : mRot(), mRotVel(), mSpeed( 0.0f )
+   Tank() : mRot(), mRotVel(), mSpeed( 0.0f ), mMaterial()
    {
       mXForm.makeIdentity();
    }
@@ -38,6 +38,7 @@ public:
    
    void draw()
    {
+      kev::glRender( mMaterial );
       glPushMatrix();
          glMultMatrixf( mXForm.data() );
 
@@ -153,6 +154,7 @@ private:
    Matrix4f mXForm;
    Vec3<float> mPos, mVel;
    Quat<float> mRot, mRotVel;
+   Material mMaterial;
    float mSpeed;
 };
 

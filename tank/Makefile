@@ -8,7 +8,7 @@
 PROJECT_NAME = simple
 
 # objects to be included in the project....
-SRCS = simpleGlutApp.cxx Matrix4f.cxx Light.cxx ColorRGBA.cxx
+SRCS = simpleGlutApp.cxx Matrix4f.cxx Light.cxx ColorRGBA.cxx Material.cxx
 MK_DIR = ./mk
 PATH_TO_SRCS = .
 

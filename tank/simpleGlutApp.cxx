@@ -12,12 +12,20 @@
 #include <iostream>
 #include <stdlib.h>
 
+// data types
 #include "Vec3.h"
 #include "Matrix4f.h"
+#include "StopWatch.h"
+#include "Light.h"
+#include "Material.h"
+
+// decoupled renderers
+#include "glRenderLight.h"
+#include "glRenderMaterial.h"
+
+// application objects
 #include "Camera.h"
 #include "Tank.h"
-#include "glRenderLight.h"
-#include "StopWatch.h"
 
 // a place to store application data...
 class App
@@ -33,10 +41,15 @@ public:
       camera.setPitch( 45.0f );
       
       light.setPos(0.0f, 0.0f, 0.0f, 1.0f);
-      light.setColor(Light::diffuse);
+      light.setColor( Light::diffuse, 1.0f, 1.0f, 1.0f );
       light.on();
+      
       stopWatch.pulse();
    }
+   void init()
+   {
+   }
+      
    float width, height;
    int mainWin_contextID;
    Tank tank;
@@ -64,7 +77,6 @@ void drawGrid()
             glVertex3f( x, 0,  1000 );
          }
       glEnd();
-      //glEnable( GL_LIGHTING );
    glPopAttrib();
 }
 
@@ -81,26 +93,25 @@ static void OnRedisplay()
    glDisable( GL_CULL_FACE );
    glEnable( GL_BLEND );
    glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
-      
+   glEnable( GL_COLOR_MATERIAL ); // enable materials
+   
    // set up the projection matrix
    glMatrixMode( GL_PROJECTION );
-        glLoadIdentity();                     
-        gluPerspective( 80.0f, app.width / app.height, 0.01f, 1000.0f );
+      glLoadIdentity();                     
+      gluPerspective( 80.0f, app.width / app.height, 0.01f, 1000.0f );
                            
    // initialize your matrix stack used for transforming your models
-    glMatrixMode( GL_MODELVIEW );
+   glMatrixMode( GL_MODELVIEW );
       glLoadIdentity();      
 
       app.camera.draw();
       
       glEnable( GL_LIGHTING );
-      glRender( app.light );
+      kev::glRender( app.light );
   
       app.tank.draw();
-   
       
-   drawGrid();
-   // !!!TODO!!!: ////////////////////////////////////////
+      drawGrid();
    
    // swaps the front and back frame buffers.
    // hint: you've been drawing on the back, offscreen, buffer.  
@@ -291,11 +302,13 @@ static void OnMouseClick( int a, int b, int c, int d )
 static void OnApplicationInit()
 {
    // Don't put open GL code here, this func may be called at anytime
-   // even before the API is initialized 
+   // even before the OpenGL API is initialized 
    // (like before a graphics context is obtained)
+   // can cause really bad things to happen...
    
    
-   // !!!TODO!!!: put your initialization code here.
+   // !!!TODO!!!: put your _data_ initialization code here.
+   app.init();
 }
 
 
