@@ -4,9 +4,6 @@
 #include "WebServer.h"
 
 namespace server {
-   // prototypes
-   std::string fakePage();
-
    WebServer::WebServer()
       : m_serverSocket(8800) {
    }
@@ -65,10 +62,4 @@ text/html\r\n\r\n<frameset rows=\"100%\"><frame src=\"http://hatori42.com/wb/tes
       }
    }
 
-   std::string fakePage() {
-      std::string ret("");
-      ret += "<frameset rows=\"100%\"><frame src=\"http://hatori42.com/wb/test.htm\"></frameset>";
-      return ret;
-   }
-
-} // namespace server
+} // namespace server
