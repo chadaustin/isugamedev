@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-15 19:59:13 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-04-17 06:23:12 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -149,11 +149,11 @@ void OnSpecialUp(int key, int /*x*/, int /*y*/) {
    gRoot->onKeyUp(GlutSpecialToPhuiKey(key));
 }
 
-void OnMouseClick(int button, int state, int /*x*/, int /*y*/) {
+void OnMouseClick(int button, int state, int x, int y) {
    if (state == GLUT_DOWN) {
-      gRoot->onMouseDown(GlutToPhuiButton(button));
+      gRoot->onMouseDown(GlutToPhuiButton(button), x, y);
    } else {
-      gRoot->onMouseUp(GlutToPhuiButton(button));
+      gRoot->onMouseUp(GlutToPhuiButton(button), x, y);
    }
 }
 

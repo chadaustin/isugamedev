@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-15 09:42:33 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-04-17 06:23:12 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -192,10 +192,9 @@ namespace phui
       // external events
       virtual void onKeyDown(InputKey key) { }
       virtual void onKeyUp(InputKey key) { }
-      virtual void onMouseDown(InputButton button) { }
-      virtual void onMouseUp(InputButton button) { }
+      virtual void onMouseDown(InputButton button, int x, int y) { }
+      virtual void onMouseUp(InputButton button, int x, int y) { }
       virtual void onMouseMove(int x, int y) { }
-
 
    protected:
       /**
