@@ -14,7 +14,8 @@ namespace mw
    class ParticleEngine
    {
    public:
-      ParticleEngine(const std::string& filename, const int numParticles, const Camera& gameCamera);
+      ParticleEngine(const std::string& filename, const int numParticles, 
+						const gmtl::Point3f pos,const Camera& gameCamera);
       ~ParticleEngine();
       void update(float dt);
       void draw();
