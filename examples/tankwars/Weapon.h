@@ -38,14 +38,14 @@ public:
 	Weapon *next;
 	GLuint *weaponTex;
 
-protected:
+//protected:
 
-	GLfloat xPos;
-	GLfloat yPos;
-	GLfloat zPos;
-	GLfloat speed;
-	GLfloat angle;
-	GLfloat extents;
+	//GLfloat xPos;
+	//GLfloat yPos;
+	//GLfloat zPos;
+	//GLfloat speed;
+	//GLfloat angle;
+	//GLfloat extents;
 
 };
 
