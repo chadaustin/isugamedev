@@ -1,8 +1,9 @@
 1. Make it installable and with a ./configure, make, make install approach.
-2. Implement the high score function by popping up a new window and on close starting a new game.
+2. Implement the high score function by popping up a new window and on close starting a new game after finished.
 3. Make the computer configurable through a menu.
 4. Clean up the computer score to make sure it will find a set if the player won't.
 5. Make makeSet() in table pick random cards to replace.
 6. Make suere the end works properly.
 7. Test makeSet() for accuracy of making sure one is *actually* there.
 8. Seperate out init func's in main for clearness.
+9. Show(select) computer's set after he gets one for 1 sec.
