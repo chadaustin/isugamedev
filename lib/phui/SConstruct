@@ -15,6 +15,12 @@ FONT_LIBS = ['gltt', 'ttf']
 Export('GLUT_LIBS FONT_LIBS')
 
 
+# debug or release build?
+CXXFLAGS = ['-Wall']
+if ARGUMENTS.get('debug'):
+   CXXFLAGS.append['-g']
+
+
 # get install prefix for install target
 PREFIX = '/usr/local'
 if ARGUMENTS.get('prefix'):
@@ -23,28 +29,15 @@ Export('PREFIX')
 
 
 # create the base environment
-base_env = Environment(CPPPATH = ['#', '#phui'],
-                       ENV = os.environ,
-                       CXXFLAGS = ['-Wall'])
+env = Environment(LIBPATH = '#phui',
+                  CPPPATH = ['#', '#phui'],
+                  ENV = os.environ,
+                  CXXFLAGS = CXXFLAGS)
 
 
-BuildDir('build/release', '.', 0)
-BuildDir('build/debug',   '.', 0)
-
-# RELEASE BUILD
-env = base_env.Copy(LIBPATH = '#build/release/phui')
 Export('env')
-
-SConscript('build/release/phui/SConscript')
-SConscript('build/release/examples/SConscript')
-
-# DEBUG BUILD
-env = base_env.Copy(LIBPATH = '#build/debug/phui',
-                    CXXFLAGS = base_env['CXXFLAGS'] + ['-g'])
-Export('env')
-
-SConscript('build/debug/phui/SConscript')
-SConscript('build/debug/phui/SConscript')
+SConscript('phui/SConscript')
+SConscript('examples/SConscript')
 
 
 # install target
