@@ -591,3 +591,18 @@ Requirements:
       5.3.5
 
          34A
+
+
+
+Test Analysis
+
+Test Case               Pass/Fail  Fault Description
+
+add/remove players      FAIL       When player is added, the other
+                                   client computers crash.
+move vehicle            PASS
+collisions (3.3)        PASS
+report server (3.4)     PASS
+  reloading report server crashes?  (FAIL?)
+sound subsystem (3.5)   PASS
+login process (3.6)     PASS
