@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputAction.cpp,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-28 04:10:22 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -33,25 +33,24 @@
 namespace siren
 {
    InputAction::InputAction()
-   {
-      mPressCount = 0;
-      mLastPressCount = 0;
-      mEdgeState = 0;
-   }
-   
+      : mPressCount(0)
+      , mLastPressCount(0)
+      , mEdgeState(0)
+   {}
+
    void InputAction::onPress(bool down)
    {
       down ?
          ++mPressCount :
          --mPressCount;
    }
-   
+
    void InputAction::update(float /*dt*/)
    {
       mEdgeState = (mPressCount != 0) - (mLastPressCount != 0);
       mLastPressCount = mPressCount;
    }
-   
+
    bool InputAction::isActive()
    {
       return (mPressCount != 0);

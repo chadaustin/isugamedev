@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputAction.h,v $
- * Date modified: $Date: 2003-02-22 23:53:34 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-28 04:10:22 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -35,27 +35,50 @@
 
 namespace siren
 {
+   /**
+    * An InputAction represents a particular action that the user can provide to
+    * the application. In combination with the InputManager, this class provides
+    * an insulating layer between the application and the physical devices. The
+    * application can work with named actions rather than specific keypresses
+    * directly. This class also provides edge state management.
+    *
+    * @see InputManager
+    */
    class SIREN_CLASS InputAction
    {
    public:
+      /**
+       * Creates a new action that in initialized to off.
+       */
       InputAction();
-      
+
+      /**
+       * Called by the input manager whenever this application has been
+       * activated, "pressed."
+       *
+       * @param down       true if the action is down; false if up
+       */
       void onPress(bool down);
-      
-      /// Called once per frame.
+
+      /**
+       * Called by the input manager every update cycle so that the edge state
+       * can be accurately maintained.
+       *
+       * @param dt         time passed since the last update in seconds
+       */
       void update(float dt);
 
       /**
        * Returns true if the relevent key(s) are pressed.
        */
       bool isActive();
-      
+
       /**
        * Returns the derivative of the "signal".  1 if on a rising edge, -1 if
        * a falling edge, or 0 if steady.
        */
       int getEdgeState();
-     
+
    private:
       int mPressCount;
       int mLastPressCount;
