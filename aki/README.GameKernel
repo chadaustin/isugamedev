@@ -1,5 +1,8 @@
 The GameKernel system abstraction for games
 
+Authors
+ - Kevin Meinert <kevin@vrsource.org>
+ - Ben Scott <bscott@vrac.iastate.edu>
 
 features:
  - game system abstraction
