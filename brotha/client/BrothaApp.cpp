@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-26 05:28:04 $
- * Version:       $Revision: 1.29 $
+ * Date modified: $Date: 2002-04-26 12:40:00 $
+ * Version:       $Revision: 1.30 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -84,8 +84,7 @@ namespace client
 
          // read all messages from server, and stick them in a field
          // of the application so the state object can read them.
-         net::NetMgr::MsgList msgs;
-         mServerConnection.readAll(msgs);
+         mServerConnection.readAll(mMsgList);
 
          mCurrentState->update(this, elapsedTime);
 
@@ -268,5 +267,9 @@ namespace client
 
    void BrothaApp::sendMessage(net::Message* msg) {
       mServerConnection.send(msg);
+   }
+
+   void BrothaApp::connectToServer(const std::string& server, int port) {
+      mServerConnection.connect(server, port);
    }
 }

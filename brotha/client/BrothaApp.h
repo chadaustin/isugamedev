@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-24 21:54:38 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-04-26 12:40:00 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -73,6 +73,8 @@ namespace client
 
       void sendMessage(net::Message* msg);
 
+      void connectToServer(const std::string& server, int port);
+
       /**
        * Sets which player is on the local machine. If player is NULL,
        * don't draw anything.
@@ -98,6 +100,15 @@ namespace client
          return mGame;
       }
 
+      bool getFirstMsg(net::Message*& msg) {
+         if(!mMsgList.empty()) {
+            msg = mMsgList.at(0).first;
+            mMsgList.erase(mMsgList.begin());
+            return true;
+         }
+         return false;
+      }
+
    private:
       /// Current state of the game.
       State* mCurrentState;
@@ -112,6 +123,9 @@ namespace client
 
       /// Facade for connection with server.
       ServerConnection mServerConnection;
+
+      /// read Message List
+      net::NetMgr::MsgList mMsgList;
 
       //@{
       /// Current dimensions of the window.

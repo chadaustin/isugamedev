@@ -1,5 +1,6 @@
 
 #include <phui/SDLBridge.h>
+#include "BrothaApp.h"
 #include "LoginState.h"
 #include <map>
 
@@ -20,6 +21,8 @@ namespace client {
       /// if we want the UI to be resolution-dependent or not...
       mRoot = phui::CreateRoot(640, 480);
 
+      mSubState = User_Input;
+
       const int border_w = 50;
       const int border_h = 50;
 
@@ -39,7 +42,7 @@ namespace client {
 
       mUsername->setText("aegis");
       mPassword->setText(":)");
-      mServer->setText("localhost");
+      mServer->setText("127.0.0.1");
       mPort->setText("35791");
 
       mConnect = new phui::Button("Connect");
@@ -54,17 +57,16 @@ namespace client {
       mQuit->addActionListener(this);
       window->add(mQuit);
 
-      phui::CheckBox* spectator = new phui::CheckBox();
-      spectator->setPosition(50, 250);
-      spectator->setSize(20, 20);
-      spectator->show();
+      mSpectator = new phui::CheckBox();
+      mSpectator->setPosition(50, 250);
+      mSpectator->setSize(20, 20);
+      mSpectator->show();
+      window->add(mSpectator);
 
       phui::Label* spectatorLbl = new phui::Label("Login as Spectator");
       spectatorLbl->setPosition(80, 250);
       spectatorLbl->setSize(150,20);
       spectatorLbl->show();
-
-      window->add(spectator);
       window->add(spectatorLbl);
 
       mRoot->add(window);
@@ -106,30 +108,119 @@ namespace client {
 
    void
    LoginState::update(BrothaApp* app, int elapsedTime) {
-      // don't do anything  ^__^
-      float dt = (float)elapsedTime / 1000.0f;
+      if(mSubState == Send_Login) {
+         // connect to server
+         int port = atoi(mPort->getText().c_str());
+         app->connectToServer(mServer->getText(), port);
 
-      // Move the tank
-      float speed = 3.7f;
-      if (input["drive"]) {
-         osg::Vec3 forward(0,0,-speed);
-         forward *= dt;
-         mScene.getObject("tank")->preMult(osg::Matrix::translate(forward));
-      }
-      if (input["turnleft"]) {
-         float ang = deg2rad(30.0f) * dt;
-         mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
-      }
-      if (input["turnright"]) {
-         float ang = deg2rad(-30.0f) * dt;
-         mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
-      }
+         // send login packet
+         app->sendMessage(new net::LoginMessage(mUsername->getText(), mPassword->getText()));
 
-      osg::Quat targetRot;
-      targetRot.set(mScene.getObject("tank")->getMatrix());
-      osg::Vec3 targetPos = mScene.getObject("tank")->getMatrix().getTrans();
-      mScene.getCamera().setTarget(targetPos, targetRot);
-      mScene.getCamera().update(dt);
+         // we'll need an ack from server
+         mSubState = Wait_For_Login_Ack;
+      } else if(mSubState == Wait_For_Login_Ack) {
+         net::Message* msg = NULL;
+         if(app->getFirstMsg(msg)) {
+            // make sure we got the right message type
+            if(msg->getType() == net::OK) {
+               net::OKMessage* okMsg = (net::OKMessage*)msg;
+
+               // check for good login
+               if(okMsg->getCode() == net::OKMessage::OKAY) {
+                  std::cout<<"Login successful"<<std::endl;
+                  // send request to join game
+                  if(mSpectator->isChecked()) {
+                     app->sendMessage(new net::JoinAsMessage(net::JoinAsMessage::SPECTATOR));
+                  } else {
+                     app->sendMessage(new net::JoinAsMessage(net::JoinAsMessage::PLAYER));
+                  }
+
+                  // go to next state
+                  mSubState = Wait_For_Join_Ack;
+               } else {
+                  std::cout<<"Login failed"<<std::endl;
+                  /// @todo raise an error
+               }
+            } else {
+               std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               /// @todo raise an error
+            }
+         }
+      } else if(mSubState == Wait_For_Join_Ack) {
+         net::Message* msg = NULL;
+         if(app->getFirstMsg(msg)) {
+            // make sure we got the right message type
+            if(msg->getType() == net::OK) {
+               net::OKMessage* okMsg = (net::OKMessage*)msg;
+
+               // check for good join
+               if(okMsg->getCode() == net::OKMessage::OKAY) {
+                  std::cout<<"Join As successful"<<std::endl;
+
+                  // go to next state
+                  mSubState = Wait_For_EnterAs;
+               } else {
+                  std::cout<<"Join As failed"<<std::endl;
+                  /// @todo raise an error
+               }
+            } else {
+               std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               /// @todo raise an error
+            }
+         }
+      } else if(mSubState == Wait_For_EnterAs) {
+         net::Message* msg = NULL;
+         if(app->getFirstMsg(msg)) {
+            // make sure we got the right message type
+            if(msg->getType() == net::Enter) {
+               net::EnterMessage* entMsg = (net::EnterMessage*)msg;
+
+               // check for good join
+               if(entMsg->getCode() == net::EnterMessage::GAME) {
+                  std::cout<<"Enter As successful (in game)"<<std::endl;
+
+                  /// @todo goto in game state
+                  mSubState = User_Input;
+               } else if(entMsg->getCode() == net::EnterMessage::GARAGE) {
+                  std::cout<<"Enter As successful (in garage)"<<std::endl;
+
+                  /// @todo goto in garage state
+                  mSubState = User_Input;
+               } else {
+                  std::cout<<"Enter As failed"<<std::endl;
+                  /// @todo raise an error
+               }
+            } else {
+               std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+               /// @todo raise an error
+            }
+         }
+      } else { // User_Input
+         // don't do anything  ^__^
+         float dt = (float)elapsedTime / 1000.0f;
+
+         // Move the tank
+         float speed = 3.7f;
+         if (input["drive"]) {
+            osg::Vec3 forward(0,0,-speed);
+            forward *= dt;
+            mScene.getObject("tank")->preMult(osg::Matrix::translate(forward));
+         }
+         if (input["turnleft"]) {
+            float ang = deg2rad(30.0f) * dt;
+            mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
+         }
+         if (input["turnright"]) {
+            float ang = deg2rad(-30.0f) * dt;
+            mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
+         }
+
+         osg::Quat targetRot;
+         targetRot.set(mScene.getObject("tank")->getMatrix());
+         osg::Vec3 targetPos = mScene.getObject("tank")->getMatrix().getTrans();
+         mScene.getCamera().setTarget(targetPos, targetRot);
+         mScene.getCamera().update(dt);
+      }
    }
 
    void
@@ -190,7 +281,7 @@ namespace client {
    void LoginState::onAction(const phui::ActionEvent& evt) {
       phui::Widget* src = evt.getSource();
       if(src == mConnect) {
-         ///@todo handle connect
+         mSubState = Send_Login;
       } else if(src == mQuit) {
          ///@todo handle quit
       }

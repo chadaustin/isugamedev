@@ -12,6 +12,14 @@ namespace client {
 
    class LoginState : public State, public phui::ActionListener {
    public:
+      enum SubState {
+         User_Input, ///< waiting for user to click connect
+         Send_Login, ///< need to send login
+         Wait_For_Login_Ack, ///< wait for login ack
+         Wait_For_Join_Ack, ///< wait for join ack
+         Wait_For_EnterAs, ///< wait for enter msg
+      };
+   public:
       LoginState();
       ~LoginState();
 
@@ -34,8 +42,11 @@ namespace client {
       phui::TextField*  mPort;
       phui::Button* mConnect;
       phui::Button* mQuit;
+      phui::CheckBox* mSpectator;
 
       Scene mScene;
+
+      SubState mSubState;
    };
 
 }
