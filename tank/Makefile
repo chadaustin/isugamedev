@@ -168,5 +168,5 @@ clean:
 	-rm $(LIB_FILE_PREFIX)regexx$(LIB_FILE_SUFFIX)
 
 ifeq ($(USE_DEPEND),Y)
-include ${MK_DIR}/mk.depend
+   -include ${MK_DIR}/mk.depend
 endif
