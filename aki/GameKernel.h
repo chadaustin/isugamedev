@@ -3,9 +3,11 @@
 
 #include <vector>
 #include <GL/glut.h>                   // gl utility library
-#include <ContextData.h>
-#include "GameApp.h"      // the base application type
+
+#include "ContextData.h"
 #include "Singleton.h"
+#include "GameApp.h"      // the base application type
+#include "GameInput.h"
 
 class GameKernel : public kev::Singleton<GameKernel>
 {
@@ -113,8 +115,8 @@ private:
       for (x = 0; x < instance().applications().size(); ++x)
       {
          assert( instance().applications()[x] != NULL && "you registered a NULL application" );
-         instance().applications()[x]->keyboard().updateEdgeStates();
-         instance().applications()[x]->mouse().update();
+         GameInput::instance().keyboard().updateEdgeStates();
+         GameInput::instance().mouse().update();
          instance().applications()[x]->OnPreFrame();
          instance().applications()[x]->OnIntraFrame();
          instance().applications()[x]->OnPostFrame();
@@ -170,16 +172,9 @@ private:
    ////////////////////////////////
    static void OnKeyboardDown(unsigned char k, int x, int y) 
    { 
-      int a;
-      for (a = 0; a < instance().applications().size(); ++a)
-      {
-         assert( instance().applications()[a] != NULL && "you registered a NULL application" );
-         GameApp* app = instance().applications()[a];
-
-         const Keyboard::BinaryState state = Keyboard::ON;
-         app->keyboard().binaryState( k ) = state;
-         app->keyboard().queue().enqueue( (Keyboard::Key)(int)k );
-      }
+      const Keyboard::BinaryState state = Keyboard::ON;
+      GameInput::instance().keyboard().binaryState( k ) = state;
+      GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
    }
 
    ////////////////////////////////
@@ -187,16 +182,9 @@ private:
    ////////////////////////////////
    static void OnKeyboardUp(unsigned char k, int x, int y) 
    { 
-      int a;
-      for (a = 0; a < instance().applications().size(); ++a)
-      {
-         assert( instance().applications()[a] != NULL && "you registered a NULL application" );
-         GameApp* app = instance().applications()[a];
-
-         const Keyboard::BinaryState state = Keyboard::OFF;
-         app->keyboard().binaryState( k ) = state;
-         app->keyboard().queue().enqueue( (Keyboard::Key)(int)k );
-      }
+      const Keyboard::BinaryState state = Keyboard::OFF;
+      GameInput::instance().keyboard().binaryState( k ) = state;
+      GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
    }
 
    
@@ -247,13 +235,7 @@ private:
    ////////////////////////////////
    static void OnSpecialKeyboardDown(int k, int x, int y) 
    {
-      int a;
-      for (a = 0; a < instance().applications().size(); ++a)
-      {
-         assert( instance().applications()[a] != NULL && "you registered a NULL application" );
-         GameApp* app = instance().applications()[a];
-         keyboardEvent( true, k, app->keyboard() );
-      }
+      keyboardEvent( true, k, GameInput::instance().keyboard() );
    }
 
    ////////////////////////////////
@@ -261,13 +243,7 @@ private:
    ////////////////////////////////
    static void OnSpecialKeyboardUp(int k, int x, int y) 
    { 
-      int a;
-      for (a = 0; a < instance().applications().size(); ++a)
-      {
-         assert( instance().applications()[a] != NULL && "you registered a NULL application" );
-         GameApp* app = instance().applications()[a];
-         keyboardEvent( false, k, app->keyboard() );
-      }
+      keyboardEvent( false, k, GameInput::instance().keyboard() );
    }
 
    ////////////////////////////////
@@ -275,53 +251,40 @@ private:
    ////////////////////////////////
    static void OnMousePos( int x, int y ) 
    { 
-      int a;
-      for (a = 0; a < instance().applications().size(); ++a)
-      {
-         assert( instance().applications()[a] != NULL && "you registered a NULL application" );
-         GameApp* app = instance().applications()[a];
-         app->mouse().setPosition( x, y );
-      }
+      GameInput::instance().mouse().setPosition( x, y );
    }
 
    ////////////////////////////////
    // This is called when mouse clicks
    ////////////////////////////////
    static void OnMouseClick( int button, int state, int x, int y ) 
-   { 
-      int i;
-      for (i = 0; i < instance().applications().size(); ++i)
-      {
-         assert( instance().applications()[i] != NULL && "you registered a NULL application" );
-         GameApp* app = instance().applications()[i];
-         
-         int keyboardModifier = glutGetModifiers();
+   {  
+       int keyboardModifier = glutGetModifiers();
 
-          Mouse::Button b;
-          Mouse::BinaryState binaryState;
+       Mouse::Button b;
+       Mouse::BinaryState binaryState;
 
-          switch(button)
-          {
-	      case GLUT_LEFT_BUTTON: b = Mouse::LEFT; break;
-	      case GLUT_MIDDLE_BUTTON: b = Mouse::MIDDLE; break;
-	      case GLUT_RIGHT_BUTTON: b = Mouse::RIGHT; break;
-	      default: assert(false);
-          }
+       switch(button)
+       {
+	   case GLUT_LEFT_BUTTON: b = Mouse::LEFT; break;
+	   case GLUT_MIDDLE_BUTTON: b = Mouse::MIDDLE; break;
+	   case GLUT_RIGHT_BUTTON: b = Mouse::RIGHT; break;
+	   default: assert(false);
+       }
 
-          switch(state)
-          {
-	      case GLUT_DOWN: binaryState = Mouse::ON; break;
-	      case GLUT_UP: binaryState = Mouse::OFF;  break;
-	      default: assert(false);
-          }
+       switch(state)
+       {
+	   case GLUT_DOWN: binaryState = Mouse::ON; break;
+	   case GLUT_UP: binaryState = Mouse::OFF;  break;
+	   default: assert(false);
+       }
 
-          // Set the mousebutton state and the mouse position
-          app->mouse().setState(b, binaryState);
-          app->mouse().setPosition( x, y );
-          //app->mouse().updateEdgeStates();
+       // Set the mousebutton state and the mouse position
+       GameInput::instance().mouse().setState(b, binaryState);
+       GameInput::instance().mouse().setPosition( x, y );
+       //app->mouse().updateEdgeStates();
 
-          //this->OnMouseEvent();
-      }
+       //this->OnMouseEvent();
    }
    
    

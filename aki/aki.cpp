@@ -1,5 +1,6 @@
 #include "GameApp.h"      // the base application type
 #include "GameKernel.h"
+#include "GameInput.h"
            
 #include "Grid.h"
                   
@@ -44,9 +45,9 @@ public:
    
    virtual void OnPostFrame()
    {
-      if (this->keyboard().edgeState( Keyboard::ESC ) == Keyboard::DOWN ||
-          this->keyboard().edgeState( Keyboard::Q ) == Keyboard::DOWN || 
-            this->keyboard().edgeState( Keyboard::q ) == Keyboard::DOWN)
+      if (GameInput::instance().keyboard().edgeState( Keyboard::ESC ) == Keyboard::DOWN ||
+          GameInput::instance().keyboard().edgeState( Keyboard::Q ) == Keyboard::DOWN || 
+            GameInput::instance().keyboard().edgeState( Keyboard::q ) == Keyboard::DOWN)
       {
          GameKernel::instance().shutdown();
       }      

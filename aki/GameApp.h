@@ -41,23 +41,7 @@ public:
    
    /* called on each window exit */
    virtual void OnContextExit() {};
-
-public:
-   /* Poll for input state: */
-   inline const Mouse&        mouse() const { return mMouse; }
-   inline Mouse&              mouse() { return mMouse; }
-   inline const Keyboard&     keyboard() const { return mKeyboard; }
-   inline Keyboard&           keyboard() { return mKeyboard; }
-   inline const char&         modifier() const { return mKeyboardModifier; }
-   inline char&               modifier() { return mKeyboardModifier; }
-   
-// Internal application data
-private:
-   Mouse            mMouse;
-   Keyboard         mKeyboard;
-   char             mKeyboardModifier;
 };
-
 
 
 #endif
