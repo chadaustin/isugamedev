@@ -2,7 +2,7 @@
 
 #include <ColorRGBA.h>
 
-#include "Fizix/Body.h"
+#include "Fizix/Particle.h"
 #include "Fizix/DynamicSystem.h"
 
 #include "Fizix/Operator.h"
@@ -17,10 +17,10 @@ namespace ani
 {
    
 // TODO: change to particle, not body
-class FireParticle : public ani::Body
+class FireParticle : public ani::Particle
 {
 public:
-   FireParticle() : mAge(0), mAgeOfDeath(10)
+   FireParticle() : mAge(0), mAgeOfDeath(0)
    {
    }
    

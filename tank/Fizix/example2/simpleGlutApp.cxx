@@ -59,6 +59,7 @@ public:
             //glTranslatef( pos[0], pos[1], pos[2] );
             
             glBegin( GL_TRIANGLES );
+            glNormal3f( 0,0,1 );
             glVertex3f( pos[0], pos[1], pos[2] );
             glVertex3f( pos[0]+1, pos[1], pos[2] );
             glVertex3f( pos[0]+1, pos[1]+1, pos[2] );
@@ -76,15 +77,21 @@ App app;
 
 void drawGrid()
 {
-   glBegin( GL_LINES );
-      for ( int x = -1000; x < 1000; ++x)
-      {
-         glVertex3f( -1000, 0, x );
-         glVertex3f(  1000, 0, x );
-         glVertex3f( x, 0, -1000 );
-         glVertex3f( x, 0,  1000 );
-      }
-   glEnd();
+   int extent = 1000;
+
+   glPushAttrib( GL_ENABLE_BIT );
+      glDisable( GL_LIGHTING );
+      glColor3f( 0.1f, 0.3f, 0.7f );
+      glBegin( GL_LINES );
+         for ( int x = -extent; x < extent; x += 5)
+         {
+            glVertex3f( -extent, 0, x );
+            glVertex3f(  extent, 0, x );
+            glVertex3f( x, 0, -extent );
+            glVertex3f( x, 0,  extent );
+         }
+      glEnd();
+   glPopAttrib();
 }
 
 //////////////////////////////////////////////////
