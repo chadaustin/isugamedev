@@ -36,6 +36,7 @@ class SynchronizationBehavior extends Behavior {
 
         if (p instanceof WorldPacket) {
           updateWorld((WorldPacket)p);
+          System.out.println("Got one!");
         }
       }
     }

@@ -1,5 +1,6 @@
 SOURCES = \
 	Client/ChadWorldClient.java \
+	Client/Client.java \
 	Client/ServerConnection.java \
 	Client/SynchronizationBehavior.java \
 	Common/Packet.java \
