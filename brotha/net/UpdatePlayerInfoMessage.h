@@ -18,7 +18,18 @@ namespace net {
     */
    class UpdatePlayerInfoMessage : public Message {
    public:
-      UpdatePlayerInfoMessage() {
+      enum UpdateWhat {
+         ACCELERATION, ///< Acceleration
+         HANDBRAKE, ///< Hand break (on/off)
+         TURN, ///< Angle of turn
+         WEAPON, ///< Change weapon
+         SHOOT ///< Shoot weapon
+      };
+
+   public:
+      UpdatePlayerInfoMessage(const UpdateWhat& what = TURN, const PRFloat64& to = 0.0)
+         : mUpdateWhat(what), mUpdateTo(to)
+      {
       }
 
       PRUint32 getType() const {
@@ -26,18 +37,19 @@ namespace net {
       }
 
       PRUint32 getSize() {
-         return net::sizes::getVarSize(mCode);
+         return net::sizes::getVarSize(mUpdateWhat) + net::sizes::getVarSize(mUpdateTo);
       }
 
       void serialize(OutputStream& os) {
-         os << mCode;
+         os << mUpdateWhat << mUpdateTo;
       }
 
       void deserialize(InputStream& is) {
-         is >> mCode;
+         is >> mUpdateWhat >> mUpdateTo;
       }
    private:
-      PRUint32 mCode;
+      PRUint32 mUpdateWhat;
+      PRFloat64 mUpdateTo;
    };
 
 }
