@@ -1,26 +1,32 @@
 # win32
 CC=cl
 CXX_COMPILE = cl
-DEBUG_FLAG = /GZ
-OPTIMIZE_FLAG =
+# /Od disable opt  /MLd link to libCD.lib  /ZI enable debugging  /FD  is pdb file...  
+DEBUG_FLAG = /Gm  /ZI /MLd /Od /FD   /GZ # /gz stdcall naming
+OPTIMIZE_FLAG = /O2 /ML /GR  # /gr fastcall
+DEBUG_LINK_FLAG = /debug 
+OPTIMIZE_LINK_FLAG =
 RTTI=/GR
-#CXX_FLAGS = /Od
-#CXX_FLAGS = /nologo /Od /MLd /W3 /Gm /GX /ZI $(RTTI) /D "WIN32" /D_WIN32 /DWIN32 /D "_DEBUG" /DDEBUG /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ
-CXX_FLAGS = /DWIN32 /D_WIN32 /GX $(DEBUG_FLAG) $(RTTI) /nologo $(WARNINGS_FLAGS)
-#CXX_FLAGS = /DWIN32 /D_WIN32 /GX $(OPTIMIZE_FLAG) $(RTTI) /nologo
+PRECOMPILED_HEADERS = /YX 
+#   /gx c++ EH   /gm minimal rebuild...
+#CXX_FLAGS = /nologo /GX $(RTTI) /D_WIN32 /DWIN32 /D_CONSOLE $(WARNINGS_FLAGS) $(PRECOMPILED_HEADERS) $(DEBUG_FLAG)
+CXX_FLAGS = /nologo /GX $(RTTI) /D_WIN32 /DWIN32 /D_CONSOLE  $(WARNINGS_FLAGS) $(PRECOMPILED_HEADERS) $(OPTIMIZE_FLAG)
 CXX_STATIC_FLAGS = $(CXX_FLAGS)
 CXX_SHARED_FLAGS = $(CXX_FLAGS)
 C_COMPILE = cl
 C_FLAGS = $(CXX_FLAGS)
+
 EXE_LINKER = link
-#EXE_FLAGS = /nologo /incremental:yes /machine:I386 
-EXE_FLAGS = /nologo /incremental:yes /debug /machine:I386 /pdbtype:sept $(WARNINGS_FLAGS)
-SO_LINKER = link
+EXE_FLAGS = /nologo /subsystem:console /machine:I386 /pdbtype:sept  $(OPTIMIZE_LINK_FLAG)
+#EXE_FLAGS = /nologo /subsystem:console  /machine:I386 /pdbtype:sept  $(DEBUG_LINK_FLAG)
+
+SO_LINKER = link 
 # -lib has to come first...
-SO_FLAGS = -lib /nologo
-#SO_FLAGS = /DLL
+SO_FLAGS = -lib /nologo  $(OPTIMIZE_LINK_FLAG)
+#SO_FLAGS = -lib /nologo $(DEBUG_LINK_FLAG)
+
 DEFS = $(EXTRA_DEFS)
-WARNINGS_FLAGS = 
+WARNINGS_FLAGS = /W1
 
 DEPENDFLAGS = -D__cplusplus -D_WIN32 -DWIN32 $(INCLUDE_PATHS)
 

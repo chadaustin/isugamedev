@@ -100,7 +100,7 @@ public:
    World world;
    HUD hud;
 };
-App& app( *(new App) );
+App* app = NULL;
 
 void drawGrid()
 {
@@ -146,37 +146,37 @@ static void OnRedisplay()
    // set up the projection matrix
    glMatrixMode( GL_PROJECTION );
       glLoadIdentity();                     
-      gluPerspective( 80.0f, app.width / app.height, 0.01f, 1000.0f );
+      gluPerspective( 80.0f, app->width / app->height, 0.01f, 1000.0f );
                            
    // initialize your matrix stack used for transforming your models
    glMatrixMode( GL_MODELVIEW );
       glLoadIdentity();      
 
-      app.camera.draw();
+      app->camera.draw();
       
       glEnable( GL_LIGHTING );
-      kev::glRender( app.light );
+      kev::glRender( app->light );
   
-      app.tank.draw();
-      app.world.draw();
+      app->tank.draw();
+      app->world.draw();
       
       // draw all of the bullets
       std::vector<Bullet *>::const_iterator citr;
-      for (citr = app.bullets.begin(); citr != app.bullets.end(); citr++) 
+      for (citr = app->bullets.begin(); citr != app->bullets.end(); citr++) 
       {
          (*citr)->draw();
       }
       // remove bullets outside our world
       std::vector<Bullet *>::iterator itr;
-      itr = app.bullets.begin();
-      while (itr != app.bullets.end()) 
+      itr = app->bullets.begin();
+      while (itr != app->bullets.end()) 
       {
          const Vec3<float> pos = (*itr)->position();
          if (fabs(pos[0]) > 1000.0f || fabs(pos[1]) > 1000.0f ||
              fabs(pos[2]) > 1000.0f)
          {
             delete (*itr);
-            app.bullets.erase(itr);
+            app->bullets.erase(itr);
          } else {
             itr++;
          }
@@ -185,7 +185,7 @@ static void OnRedisplay()
       drawGrid();
    
       // draw last so we get alpha effects correctly./..
-      app.hud.draw();
+      app->hud.draw();
       
    // swaps the front and back frame buffers.
    // hint: you've been drawing on the back, offscreen, buffer.  
@@ -198,44 +198,44 @@ static void OnRedisplay()
 //////////////////////////////////////////////////
 static void OnIdle()
 {
-   app.stopWatch.pulse();
+   app->stopWatch.pulse();
    
    // keep it stable (we're using a shitty integrator)
    float min_fps = 1.0f;
-   if (app.stopWatch.timeInstant() > 1.0f/min_fps)
+   if (app->stopWatch.timeInstant() > 1.0f/min_fps)
    {
       std::cout<<"WARNING: time < "<<min_fps<<" fps, dropping update loop to keep integrators stable...\n"<<std::flush;
       return;
    }   
 
    // update the world
-   app.world.update( app.stopWatch.timeInstant() );
+   app->world.update( app->stopWatch.timeInstant() );
 
    // the next 3 commands are dependent upon each other...
-   app.tank.update( app.stopWatch.timeInstant() );
-   app.camera.setTargetPos( app.tank.matrix() );
-   app.camera.update( app.stopWatch.timeInstant() );
+   app->tank.update( app->stopWatch.timeInstant() );
+   app->camera.setTargetPos( app->tank.matrix() );
+   app->camera.update( app->stopWatch.timeInstant() );
    
    // update the hud
-   app.hud.setPlayerPos( app.tank.position()[0], app.tank.position()[1], app.tank.position()[2] );
+   app->hud.setPlayerPos( app->tank.position()[0], app->tank.position()[1], app->tank.position()[2] );
    
    //Update the bullets
    std::vector<Bullet *>::iterator itr;
-   for (itr = app.bullets.begin(); itr != app.bullets.end(); itr++) {
-      (*itr)->update( app.stopWatch.timeInstant() );
+   for (itr = app->bullets.begin(); itr != app->bullets.end(); itr++) {
+      (*itr)->update( app->stopWatch.timeInstant() );
    }
    
    Vec3<float> lightOffset( -10.0f, 0.0f, 0.0f );
-   lightOffset = app.camera.position() + lightOffset;
-   app.light.setPos( lightOffset[0], lightOffset[1], lightOffset[2], 1.0f );
+   lightOffset = app->camera.position() + lightOffset;
+   app->light.setPos( lightOffset[0], lightOffset[1], lightOffset[2], 1.0f );
 
    
       
    // According to the GLUT specification, the current window is
    // undefined during an idle callback.  So we need to explicitly change
    // it if necessary
-   if ( glutGetWindow() != app.mainWin_contextID )
-           glutSetWindow( app.mainWin_contextID );
+   if ( glutGetWindow() != app->mainWin_contextID )
+           glutSetWindow( app->mainWin_contextID );
 
    // tell glut to call redisplay (which then calls OnRedisplay)
    glutPostRedisplay();
@@ -247,8 +247,8 @@ static void OnIdle()
 static void OnReshape( int width, int height ) 
 {
    // save these params in case your app needs them
-   app.width = static_cast<float>( width );
-   app.height = static_cast<float>( height );
+   app->width = static_cast<float>( width );
+   app->height = static_cast<float>( height );
    
    // set your viewport to the extents of the window
    glViewport( 0, 0, width, height );
@@ -265,7 +265,7 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
 { 
    switch (k)
    {
-   // If user pressed 'ESC', then exit the app.
+   // If user pressed 'ESC', then exit the app->
    // this is really ungraceful, but necessary since GLUT does a while(1)
    // as it's control loop.  There is no GLUT method to exit, unfortunately.
    case 27:
@@ -276,35 +276,35 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
    case ' ':
    {
       Bullet *bullet = new Bullet();
-      bullet->setPos( app.tank.getBarrelEndPos() );
-      bullet->setRot( app.tank.rotation() );
+      bullet->setPos( app->tank.getBarrelEndPos() );
+      bullet->setRot( app->tank.rotation() );
       bullet->setRotVel( 20.0f );
-      bullet->setVel( app.tank.getForward() * 80.0f );
-      app.bullets.push_back( bullet );
+      bullet->setVel( app->tank.getForward() * 80.0f );
+      app->bullets.push_back( bullet );
       break;
    }
    case 'q':
-      app.camera.setFollowDistVel( 40 );
+      app->camera.setFollowDistVel( 40 );
       break;
 
    case 'e':
-      app.camera.setFollowDistVel( -40 );
+      app->camera.setFollowDistVel( -40 );
       break;
 
    case 'w':
-      app.camera.setPitchVel( 40 );
+      app->camera.setPitchVel( 40 );
       break;
 
    case 's':
-      app.camera.setPitchVel( -40 );
+      app->camera.setPitchVel( -40 );
       break;
 
    case 'a':
-      app.camera.setYawVel( 40 );
+      app->camera.setYawVel( 40 );
       break;
 
    case 'd':
-      app.camera.setYawVel( -40 );
+      app->camera.setYawVel( -40 );
       break;
       
    default:
@@ -321,15 +321,15 @@ static void OnKeyboardUp( unsigned char k, int x, int y )
    {
    case 'q':
    case 'e':
-      app.camera.setFollowDistVel( 0 );
+      app->camera.setFollowDistVel( 0 );
       break;
    case 'w':
    case 's':
-      app.camera.setPitchVel( 0 );
+      app->camera.setPitchVel( 0 );
       break;
    case 'a':
    case 'd':
-      app.camera.setYawVel( 0 );
+      app->camera.setYawVel( 0 );
       break;
       
    default:
@@ -348,19 +348,19 @@ static void OnSpecialKeyboardDown(int k, int x, int y)
    {
    case GLUT_KEY_UP:
    {
-      app.tank.setVelocity( 0.0f, 0.0f, -40.0f );
+      app->tank.setVelocity( 0.0f, 0.0f, -40.0f );
       break;
    }
    case GLUT_KEY_DOWN:
    {
-      app.tank.setVelocity( 0.0f, 0.0f, 40.0f );
+      app->tank.setVelocity( 0.0f, 0.0f, 40.0f );
       break;
    }
    case GLUT_KEY_RIGHT:
-      app.tank.setAngVel( -3.0f );
+      app->tank.setAngVel( -3.0f );
       break;
    case GLUT_KEY_LEFT:
-      app.tank.setAngVel( 3.0f );
+      app->tank.setAngVel( 3.0f );
       break;
    default:
       // do nothing if no special key pressed
@@ -378,12 +378,12 @@ static void OnSpecialKeyboardUp( int k, int x, int y )
    case GLUT_KEY_UP:
    case GLUT_KEY_DOWN:
    {
-      app.tank.setVelocity( 0.0f, 0.0f, 0.0f );
+      app->tank.setVelocity( 0.0f, 0.0f, 0.0f );
       break;
    }
    case GLUT_KEY_RIGHT:
    case GLUT_KEY_LEFT:
-      app.tank.setAngVel( 0.0f );
+      app->tank.setAngVel( 0.0f );
       break;
    default:
       // do nothing if no special key pressed
@@ -425,12 +425,14 @@ static void OnApplicationInit()
    
    
    // !!!TODO!!!: put your _data_ initialization code here.
-   app.init();
+   app->init();
 }
 
 
 int main(int argc, char* argv[])
 {
+	app = new App;
+
     // Initialize the application
     // initialize the state of your app here if needed...
     OnApplicationInit();
@@ -443,7 +445,7 @@ int main(int argc, char* argv[])
     ::glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     
     // Set the window title
-    app.mainWin_contextID = ::glutCreateWindow( "SpaceTank" );
+    app->mainWin_contextID = ::glutCreateWindow( "SpaceTank" );
     
     std::cout<<"\n"<<std::flush;
     std::cout<<"SpaceTank - by isugamedev - gamedev@iastate.edu\n"<<std::flush;

@@ -1,6 +1,7 @@
 #ifndef HUD_INCLUDED
 #define HUD_INCLUDED
 
+#include "GeoSet.h"
 #include "PixmapFont.h"
 #include "PixmapFontImporter.h"
 #include "TextToGeoSet.h"
@@ -14,10 +15,15 @@ class HUD // TextHUD
 public:
    HUD()
    {
-      mText = new GeoSet;
+      mPlayerPos = new GeoSet;
+      mPlayerPos->ref();
+      mPlayerPos->unref();
+
+	  mText = new GeoSet;
       mText->setName( "HUD text" );
       mPlayerPos = new GeoSet;
       mPlayerPos->setName( "HUD PlayerPos" );
+
       mPlayerPos->ref();
       mText->ref();
    }
