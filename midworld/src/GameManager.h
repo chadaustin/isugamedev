@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameManager.h,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-23 18:03:27 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -72,6 +72,8 @@ namespace mw
       ResourceManager* getResourceManager() const;
 
    private:
+      static void destroyGameManager();
+
       /// Music and sound effects manager.
       SoundManager* mSoundMgr;
 

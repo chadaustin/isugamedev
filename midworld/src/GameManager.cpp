@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameManager.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-23 18:03:26 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,9 +51,10 @@ namespace mw
 
    GameManager& GameManager::instance()
    {
-      if (! mInstance)
+      if (!mInstance)
       {
          mInstance = new GameManager();
+         atexit(destroyGameManager);
       }
       return *mInstance;
    }
@@ -71,5 +72,11 @@ namespace mw
    ResourceManager* GameManager::getResourceManager() const
    {
       return mResourceMgr;
+   }
+
+   void GameManager::destroyGameManager()
+   {
+      delete mInstance;
+      mInstance = 0;
    }
 }
