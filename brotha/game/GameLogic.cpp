@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-03 01:28:28 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-05-03 04:56:51 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -96,7 +96,7 @@ namespace game
       data::Gang* dGang;
       std::ostringstream out;
       Player* currPlayer;
-      std::string coins, kills, health;
+      std::string coins, kills, deaths;
 
       data::BrothaData& dBroth = data::DataManager::instance().getData();
       data::GangList& gangs = dBroth.getGangList();
@@ -116,12 +116,12 @@ namespace game
                std::ostringstream out3;
 
                out1 << currPlayer->getKills();
-               out2 << currPlayer->getHealth();
+               out2 << currPlayer->getDeaths();
                out3 << currPlayer->getCoins();
 
-               dPlayer->setStat("Kills", out1.str());
-               dPlayer->setStat("Health", out2.str());
-               dPlayer->setStat("Coins", out3.str());
+               dPlayer->setStat("kills", out1.str());
+               dPlayer->setStat("deaths", out2.str());
+               dPlayer->setStat("coins", out3.str());
             }// end if
          }// end for
       }// end for
@@ -196,22 +196,22 @@ namespace game
    void GameLogic::getStats(Player* player) {
       data::BrothaData& dBroth = data::DataManager::instance().getData();
       data::Player* dPlayer;
-      int coins, kills, health;
+      int coins, kills, deaths;
 
       if (dBroth.getPlayer(player->getName()) != NULL){
          dPlayer = dBroth.getPlayer(player->getName());
 
-         std::istringstream iss1 (dPlayer->getStat("Coins"), std::istringstream::in);
-         std::istringstream iss2 (dPlayer->getStat("Kills"), std::istringstream::in);
-         std::istringstream iss3 (dPlayer->getStat("Health"), std::istringstream::in);
+         std::istringstream iss1 (dPlayer->getStat("coins"), std::istringstream::in);
+         std::istringstream iss2 (dPlayer->getStat("kills"), std::istringstream::in);
+         std::istringstream iss3 (dPlayer->getStat("deaths"), std::istringstream::in);
 
          iss1 >> coins;
          iss2 >> kills;
-         iss3 >> health;
+         iss3 >> deaths;
 
          player->setCoins(coins);
          player->setKills(kills);
-         player->setHealth(health);
+         player->setDeaths(deaths);
       }
    }
 

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-03 01:39:35 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-05-03 04:56:52 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -94,12 +94,21 @@ namespace game {
       }
 
       /**
-       * Gets the players health
+       * Gets the players number of coins
        *
-       * @return the health of the player
+       * @return the coins of the player
        */
       PRUint32 getCoins() const{
          return mCoins;
+      }
+
+      /**
+       * Gets the players number of deaths
+       *
+       * @return the deaths of the player
+       */
+      PRUint32 getDeaths() const{
+         return mDeaths;
       }
 
       /**
@@ -121,6 +130,13 @@ namespace game {
        */
       void setCoins(PRUint32 coins){
          mCoins = coins;
+      }
+
+      /**
+       * Sets the players number of deaths
+       */
+      void setDeaths(PRUint32 deaths){
+         mDeaths = deaths;
       }
 
       /// Gets the vehicle object that this player drives.
@@ -169,6 +185,9 @@ namespace game {
 
       /// The number of kills this player has
       PRUint32 mKills;
+
+      /// The number of deaths the player has
+      PRUint32 mDeaths;
 
       /// The number of coins this player has
       PRUint32 mCoins;
