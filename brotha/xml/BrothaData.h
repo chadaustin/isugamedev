@@ -1,4 +1,3 @@
-#pragma once
 #ifndef BDATA_H
 #define BDATA_H
 

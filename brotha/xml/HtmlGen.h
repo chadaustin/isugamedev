@@ -1,4 +1,3 @@
-#pragma once
 #ifndef HTMLG_H
 #define HTMLG_H
 

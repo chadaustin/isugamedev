@@ -2,7 +2,6 @@
 //
 
 #include <iostream>
-#include "stdafx.h"
 #include "xmlpersist.h"
 #include "HtmlGen.h"
 
