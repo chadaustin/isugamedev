@@ -1,6 +1,6 @@
  *
  * phui - flexible user interface subsystem
- * phui is (C) Copyright 2002 by Chad Austin, Ben Scott
+ * phui is (C) Copyright 2002 by Chad Austin, Josh Carlson, Ben Scott
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public

@@ -3,11 +3,12 @@
 #
 # Original Authors:
 #    Chad Austin <aegis@aegisknight.org>
+#    Josh Carlson <josh@chegg.com>
 #    Ben Scott <bscott@iastate.edu>
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: phui-heading.hash.txt,v $
-# Date modified: $Date: 2002-02-24 02:26:05 $
-# Version:       $Revision: 1.3 $
+# Date modified: $Date: 2002-04-28 15:49:21 $
+# Version:       $Revision: 1.4 $
 # -----------------------------------------------------------------
 #
