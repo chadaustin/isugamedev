@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.25 2002-04-09 01:01:59 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 01:01:59 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.26 2002-04-09 01:25:20 aegis Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 01:25:20 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -242,14 +242,22 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
+        <para>Networking code is often the hardest to design in nontrivial systems. One decision we had to make was whether socket reads and writes were blocking or nonblocking. Blocking socket calls do not return until the I/O operation has completed. Nonblocking calls simply do as much as work as they can and return the number of bytes they read or wrote.</para>
         <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
+          <title>Blocking vs. Nonblocking I/O</title>
+          <para>Blocking I/O</para>
+          <para>Pros</para>
+          <para>- easy to implement and understand</para>
+          <para>Cons</para>
+          <para>- requires threads for interactivity</para>
+          <para></para>
+          <para>Nonblocking I/O</para>
+          <para>Pros</para>
+          <para>- does not require threading or involve synchronization issues</para>
+          <para>Cons</para>
+          <para>- requires a lot of complex code (involving many loops and state machines) for conceptually simple operations</para>
+          <para></para>
+          <para>Since blocking I/O is so much simpler to use than nonblocking I/O, we chose to use it for all game message passing. However, since blocking I/O requires knowing how much data you need to read or write at a time, we cannot use it for the http server. Therefore, the socket objects will also support a nonblocking mode.</para>
         </section>
       </section>
     </section>
