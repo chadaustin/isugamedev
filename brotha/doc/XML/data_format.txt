@@ -1,0 +1,31 @@
+XML structure.
+
+
+Ok, this is what I'm thinking.  The root tag will be something like <wbdata>. Inside that we'll have a <gang> tags, and <cartype> tags. the <gangs> tag will have <player> elements, which will hold the player info, including <car> elements.  Each car element will have <mod> tags, with type and level attributes.  Aditionaly, each <player> element will have a <stats> element, containg <stat> element, with all the stats we want to keep track of.  Here would be an example file
+
+
+<wbdata>
+  <gang name="los lobos">
+     <player name="delmoi" password="pass1">
+        <car cartype="toyota_tercel">
+           <mod type="rims" level="4" />
+           <mod type="nitro" level="6" />
+        </car>
+        <car cartype="suburban" password="pass2">
+           <mod type="tires" level="14" />
+        </car>
+     <player name="spiffy" password="pass4">
+        <car cartype="caddy"></car>
+     </player>
+   <gang name="jet ginders">
+      <player name="beat" password="pass3">
+         <car cartype="honda civic">
+            <mod type="exhaust" level="200" />
+          </car>
+       </player>
+   </gang>
+   <cartype name="toyota_tercel" file="tercel.model" />
+   <cartype name="caddy" file="caddy.model" />
+   <cartype name="suburban" file="suburban.model" />
+   <cartype name="honda civic" file="accord.model" />
+</wbdata>
