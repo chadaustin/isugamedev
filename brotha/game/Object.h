@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.h,v $
- * Date modified: $Date: 2002-04-28 16:41:04 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-05-01 06:48:23 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,7 +47,7 @@
 #include "net/InputStream.h"
 #include "net/Serialize.h"
 #include "ObjectTypes.h"
-#include "UIDManager.h"
+#include "util/UIDManager.h"
 #include <gmtl/Vec.h>
 
 namespace game {
