@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: convert.h,v $
-//    $Date: 2001-09-10 16:26:27 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-12 22:45:14 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -35,8 +35,8 @@
 
 namespace kev
 {
-   //: matrix = quat and pos
-   inline void quat2mat( const Vec3<float>& pos, const Quat<float>& quat, Matrix4f& mat )
+   //: matrix = quat
+   inline void quat2mat( const Quat<float>& quat, Matrix4f& mat )
    {
       const int W = Quat<float>::QUAT_W;
       const int X = Quat<float>::QUAT_X;
@@ -58,6 +58,17 @@ namespace kev
       mat[10] = 1.0f  - 2.0f * (quat[X] * quat[X] + quat[Y] * quat[Y]);
       mat[11] = 0.0f;
 
+      mat[12] = 0.0f;
+      mat[13] = 0.0f;
+      mat[14] = 0.0f;
+      mat[15] = 1.0f;
+   }
+   
+   //: matrix = quat and pos
+   inline void quat2mat( const Vec3<float>& pos, const Quat<float>& quat, Matrix4f& mat )
+   {
+      kev::quat2mat( quat, mat );
+
       mat[12] = pos[0];
       mat[13] = pos[1];
       mat[14] = pos[2];
@@ -75,7 +86,7 @@ namespace kev
 
       tr = m[0] + m[5] + m[10];
 
-      m.getTranslation( pos );
+      m.getTrans( pos );
 
       // check the diagonal
       if (tr > 0.0f) 

@@ -9,7 +9,7 @@ class Tank
 public:
    Tank() : mRot(), mRotVel(), mSpeed( 0.0f ), mMaterial()
    {
-      mXForm.makeIdentity();
+      mXForm.makeIdent();
       TgaImporter tga;
       bool result = tga.import( "atomic.tga", image );
       assert( result && "cannot load image" );

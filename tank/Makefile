@@ -5,7 +5,7 @@
 # fill in the glut search paths, and uncomment the appropriate compiler.
 
 # project name...
-PROJECT_NAME = simple
+PROJECT_NAME = tank
 
 # objects to be included in the project....
 SRCS = simpleGlutApp.cxx Matrix4f.cxx Light.cxx ColorRGBA.cxx Material.cxx Texture.cxx TgaImporter.cxx Image.cxx

@@ -14,7 +14,7 @@ public:
    Bullet()
       : mRot(), mRotVel()
    {
-      mXForm.makeIdentity();
+      mXForm.makeIdent();
 
       mLight.setNumber(GetNextLightNum());
       mLight.setPos( 0.0f, 0.0f, 0.0f, 1.0f );

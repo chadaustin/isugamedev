@@ -12,7 +12,7 @@ public:
               mYawVel(0.0f), mPitch( 70.0f ), mPitchVel( 0.0f ),
               mFollowDist( 30.0f ), mFollowDistVel( 0.0f )
    {
-      mXform.makeIdentity();
+      mXform.makeIdent();
       mTargetRot.makeIdent();
    }
 
@@ -53,9 +53,9 @@ public:
          mXform = target_mat;
 
          Matrix4f pitch_mat, yaw_mat, trans, temp;
-         trans.makeTranslation( Vec3<float>( 0,0, mFollowDist ) );
-         pitch_mat.makeRotation( -mPitch * TO_RAD_F, 1,0,0 );
-         yaw_mat.makeRotation( -mYaw * TO_RAD_F, 0,1,0 );
+         trans.makeTrans( Vec3<float>( 0,0, mFollowDist ) );
+         pitch_mat.makeRot( -mPitch * TO_RAD_F, 1,0,0 );
+         yaw_mat.makeRot( -mYaw * TO_RAD_F, 0,1,0 );
          Matrix4f::multiply( temp, yaw_mat * pitch_mat, trans );
          Matrix4f::multiply( mXform, target_mat, temp );
       }
@@ -120,7 +120,7 @@ public:
    Vec3<float> position() const
    {
       Vec3<float> trans;
-      mXform.getTranslation( trans );
+      mXform.getTrans( trans );
       return trans;
    }  
    

@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.h,v $
-//    $Date: 2001-09-06 04:17:32 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-12 22:45:14 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -41,7 +41,7 @@ class  Matrix4f
 // Constructors
 public:
    //: Default Constructor
-   //  NOTE: does no initialization, call makeIdentity() to init to identity matrix
+   //  NOTE: does no initialization, call makeIdent() to init to identity matrix
    //        or use the copy constructor instead with Matrix4f::identity()
    Matrix4f();
 
@@ -61,7 +61,7 @@ public:
 	
 	//: copy translation from a matrix
 	//  copy translation only
-	void                    copyTranslation( const Matrix4f& matrix );
+	void                    copyTrans( const Matrix4f& matrix );
 	
 	//: copy rotation from a matrix
 	//  copy the upper 3x3 only
@@ -104,7 +104,7 @@ public:
 	void			getScale( float& sx, float& sy, float& sz ) const;
 
 	//: get the translation component of this matrix
-	void			getTranslation( float& tx, float& ty, float& tz ) const;
+	void			getTrans( float& tx, float& ty, float& tz ) const;
 
 	//: get the transpose of this matrix
 	void			getTranspose( Matrix4f& M ) const;
@@ -125,7 +125,7 @@ public:
 					float& a3, float& a7, float& a11, float& a15 ) const;
 	
 	//: make matrix an identity matrix
-	void			makeIdentity();
+	void			makeIdent();
 
         //: returns an identity matrix.
         inline static const Matrix4f& identity() { static Matrix4f im( 1.0f,0.0f,0.0f,0.0f, 0.0f,1.0f,0.0f,0.0f,
@@ -134,6 +134,11 @@ public:
 
 	//: invert the matrix.
 	bool			invert();
+	bool			invert( const Matrix4f& mat )
+         {
+            *this = mat;
+            return this->invert();
+         }
 	
 	//: invert matrix using alternative algorithm
 	bool			invertF();
@@ -257,25 +262,25 @@ public:
 	//: Set the matrix to a rotation matrix defined by the rotation part of M
 	void					setRotation( const Matrix4f& M );
 	// NOTE: erases any translation
-	void					makeRotation( const Matrix4f& M );
+	void					makeRot( const Matrix4f& M );
 	
 	//: set the twist about an arbitrary axis.
 	// NOTE: this erases any translation in this matrix
-	void					makeRotation( const float& rad, const float& x, const float& y, const float& z );
+	void					makeRot( const float& rad, const float& x, const float& y, const float& z );
 	
 	void					setRotationX( float angle );
 	void					setRotationY( float angle );
 	void					setRotationZ( float angle );
 
-	void					makeRotationX( float angle );
-	void					makeRotationY( float angle );
-	void					makeRotationZ( float angle );
+	void					makeRotX( float angle );
+	void					makeRotY( float angle );
+	void					makeRotZ( float angle );
 
 	void					makeEulerXYZ( const float& xRot, const float& yRot, const float& zRot );
 	void					makeEulerZYX( const float& xRot, const float& yRot, const float& zRot );
 
-	void					setTranslation( float x, float y, float z );
-	void					makeTranslation( float x, float y, float z );
+	void					setTrans( float x, float y, float z );
+	void					makeTrans( float x, float y, float z );
 
 	//: set the matrix
 	void				        set( const Matrix4f& M );
@@ -295,6 +300,11 @@ public:
     
 	//: make this matrix equal to it's transpose
 	void					transpose();
+         void					transpose( const Matrix4f& mat )
+         {
+            *this = mat;
+            this->transpose();
+         }         
 	
 	//: get the transpose of m
 	static void				transpose( const float* m, float* result );
@@ -311,14 +321,14 @@ public:
 	void getScale( Vec3<float>& s ) const;
 
 	//void setRotation( const float& rad, const Vec3<float>& axis);
-	void makeRotation( const float& rad, const Vec3<float>& axis);
+	void makeRot( const float& rad, const Vec3<float>& axis);
 	void rotate( const float& rad, const Vec3<float>& axis);
 	//void getRotation( float& rad, Vec3<float>& axis) const;
 
-	void setTranslation( const Vec3<float>& t );
-	void makeTranslation( const Vec3<float>& t );
+	void setTrans( const Vec3<float>& t );
+	void makeTrans( const Vec3<float>& t );
 	void translate( const Vec3<float>& t );
-	void getTranslation( Vec3<float>& t ) const;
+	void getTrans( Vec3<float>& t ) const;
 
 	Vec4<float> operator*( const Vec4<float>& b ) const;
 	Vec3<float> operator*( const Vec3<float>& b ) const;
