@@ -4,6 +4,7 @@
 
 #include <gltext.h>
 #include "State.h"
+#include "Texture.h"
 
 
 namespace mw
@@ -22,6 +23,7 @@ namespace mw
    private:
       float mElapsedTime;
 
+      Texture* mStoryImage;
       gltext::Font* mFont;
       gltext::FontRenderer* mFontRenderer;
    };

@@ -1,4 +1,5 @@
 #include <SDL_opengl.h>
+#include <stdexcept>
 #include "StoryState.h"
 #include "StateFactory.h"
 
@@ -10,7 +11,8 @@ namespace mw
    }
 
    StoryState::StoryState(Application* a) : State(a)
-   {  
+   {
+      mStoryImage = new Texture("images/story.png");
       mElapsedTime = 0;
 
       mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
@@ -28,6 +30,7 @@ namespace mw
 
    StoryState::~StoryState()
    {
+      delete mStoryImage;
       delete mFontRenderer;
       delete mFont;
    }
@@ -39,17 +42,22 @@ namespace mw
 
    void StoryState::draw()
    {
+      glEnable(GL_TEXTURE_2D);
+      glDisable(GL_DEPTH_TEST);
+
       glClear(GL_COLOR_BUFFER_BIT);
 
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
-      glOrtho(0, application().getWidth(), application().getHeight(), 0, 1, -1);
+      gluOrtho2D(0, application().getWidth(), application().getHeight(), 0);
 
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
 
       //glTranslatef(0, 1 - mElapsedTime / 10000, 0);
       glColor3f(1, 1, 1);
+      mStoryImage->drawRectangle(
+         0, 0, application().getWidth(), application().getHeight());
       mFontRenderer->render("Hey bobby klein.  How goes it?");
    }
 

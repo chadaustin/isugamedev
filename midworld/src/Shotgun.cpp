@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-09-09 02:00:22 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -77,7 +77,7 @@ namespace mw
 
          gmtl::Quatf barrel_rot(gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(angle, 0.0f, 1.0f, 0.0f)));
 
-         BaseBullet* bullet = createBullet();
+         BaseBullet* bullet = createBullet("bullet");
          bullet->setRot(getRot() * barrel_rot); //shoot off at a limited random angle
          bullet->setPos(getPos());
          bullet->setVel(getRot() * barrel_rot * bullet->getVel());
@@ -96,7 +96,7 @@ namespace mw
                   0, gmtl::Math::deg2Rad(-90.0f), gmtl::Math::deg2Rad(85.0f))));
 
       // Create the shell casing
-      BaseBullet* casing = createBullet();
+      BaseBullet* casing = createBullet("casing");
       casing->setRot(getRot() * case_rot);
       casing->setPos(getPos() + casing->getForward() * 1.0f);
       casing->setVel(casing->getRot() * casing->getVel() * 0.50f);

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-01 01:00:28 $
- * Version:       $Revision: 1.36 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.37 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -84,8 +84,9 @@ namespace mw
 
       // Init some of the model resources
       ResourceManager* res_mgr = GameManager::instance().getResourceManager();
-      res_mgr->add("security_droid",   "models/security_droid.obj");
-      res_mgr->add("bullet",           "models/bullet.obj");
+      res_mgr->add("security_droid", "models/security_droid.obj");
+      res_mgr->add("bullet",         "models/bullet.obj");
+      res_mgr->add("casing",         "models/casing.obj");
 
       // Init the collision detection system
       mSpatialIndex = new VectorSpatialIndex();
@@ -122,16 +123,18 @@ namespace mw
 
    GameState::~GameState()
    {
+      /// @todo  Do we really need this?
       ResourceManager* res_mgr = GameManager::instance().getResourceManager();
       res_mgr->remove("security_droid");
       res_mgr->remove("bullet");
+      res_mgr->remove("casing");
    }
 
    void
    GameState::update(float dt)
    {
-      mCursor.update( this->application().getWidth(),
-                      this->application().getHeight() );
+      mCursor.update(application().getWidth(),
+                     application().getHeight());
 
       mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
 //      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
@@ -578,8 +581,10 @@ namespace mw
    void
    GameState::onMouseMove(int x, int y)
    {
-      mCursor.onMouseMove( this->application().getWidth(),
-                      this->application().getHeight(), x, y );
+      mCursor.onMouseMove(
+         application().getWidth(),
+         application().getHeight(),
+         x, y);
    }
 
    void
@@ -587,10 +592,10 @@ namespace mw
    {
       switch (state)
       {
-         case DOWN: if (!absoluteState) state = EDGE_UP; break;
-         case UP: if (absoluteState) state = EDGE_DOWN; break;
-         case EDGE_DOWN: if (absoluteState) state = DOWN; break;
-         case EDGE_UP: if (!absoluteState) state = UP; break;
+         case DOWN:      if (!absoluteState) state = EDGE_UP;   break;
+         case UP:        if (absoluteState)  state = EDGE_DOWN; break;
+         case EDGE_DOWN: if (absoluteState)  state = DOWN;      break;
+         case EDGE_UP:   if (!absoluteState) state = UP;        break;
       }
    }
 
@@ -600,7 +605,7 @@ namespace mw
       switch (state)
       {
          case EDGE_DOWN: state = DOWN; break;
-         case EDGE_UP: state = UP; break;
+         case EDGE_UP:   state = UP;   break;
          default: break;
       }
    }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-10-01 01:00:29 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,7 @@
 #include "SpreadGun.h"
 #include "BaseBullet.h"
 #include "GameManager.h"
+#include "Utility.h"
 
 namespace mw
 {
@@ -91,7 +92,7 @@ namespace mw
          barrel_rot = gmtl::make<gmtl::Quatf>(gmtl::AxisAnglef(-angle, 0.0f, 1.0f, 0.0f));
       }
 
-      BaseBullet* bullet = createBullet();
+      BaseBullet* bullet = createBullet("bullet");
       bullet->setRot(getRot() * barrel_rot);
       bullet->setPos(getPos());
       bullet->setVel(getRot() * barrel_rot * bullet->getVel());
@@ -127,11 +128,11 @@ namespace mw
       }
 
       // Create the shell casing
-      BaseBullet* casing = createBullet();
+      BaseBullet* casing = createBullet("casing");
       casing->setRot(getRot() * case_rot);
       casing->setPos(getPos() + casing->getForward() * 1.0f);
-      casing->setVel(casing->getRot() * casing->getVel() * 0.50f );
-      casing->setRotVel(gmtl::Vec3f(2, 3, 4));
+      casing->setVel(casing->getRot() * gmtl::Vec3f(0, 0, -5) );
+      casing->setRotVel(RandomUnitVector() * 4);
       g.add(casing);
    }
 }

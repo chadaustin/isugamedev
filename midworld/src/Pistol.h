@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Pistol.h,v $
- * Date modified: $Date: 2002-07-07 03:50:01 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,7 +49,7 @@ namespace mw
       void draw() const 
       {
          glPushMatrix();
-            glMultMatrixf( this->matrix().getData() );
+            glMultMatrixf(matrix().getData());
             glScalef( 0.15f, 0.15f, 0.3f );
             cubeGeometry().render();
          glPopMatrix();
@@ -60,11 +60,11 @@ namespace mw
       void discharge(GameState& g)
       {
          // add the bulllet to the gamestate...
-         BaseBullet* bullet = this->createBullet();
-         bullet->setRot( this->getRot() );
-         bullet->setPos( this->getPos() );
-         bullet->setVel( this->getRot() * bullet->getVel() );
-         g.add( bullet ); // bullet is not mine anymore, belongs to GameState
+         BaseBullet* bullet = createBullet("bullet");
+         bullet->setRot(getRot());
+         bullet->setPos(getPos());
+         bullet->setVel(getRot() * bullet->getVel());
+         g.add(bullet); // bullet is not mine anymore, belongs to GameState
       }
 
       void ejectCasing(GameState& g)

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-10-01 01:00:28 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -79,14 +79,14 @@ namespace mw
       /// @todo  think about GL states
 
       glEnable(GL_TEXTURE_2D);
-      glDisable( GL_DEPTH_TEST );
+      glDisable(GL_DEPTH_TEST);
 
       glClear(GL_COLOR_BUFFER_BIT);
 
       // set up projection matrix
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
-      glOrtho(0, 1, 1, 0, -1, 1);
+      gluOrtho2D(0, 1, 1, 0);
 
       // set up view matrix
       glMatrixMode(GL_MODELVIEW);

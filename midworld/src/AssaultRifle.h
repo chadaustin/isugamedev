@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AssaultRifle.h,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -88,27 +88,27 @@ namespace mw
          gmtl::Quatf r0( gmtl::make<gmtl::Quatf>( gmtl::AxisAnglef( angle, 0.0f, 1.0f, 0.0f ) ) ),                     r1, 
                      r2( gmtl::make<gmtl::Quatf>( gmtl::AxisAnglef( -angle, 0.0f, 1.0f, 0.0f) ) );
          //make a three round burst.
-         BaseBullet* bullet0 = this->createBullet();
+         BaseBullet* bullet0 = createBullet("bullet");
          bullet0->setVel(gmtl::Vec3f(0, 0, -200));
-         bullet0->setRot(this->getRot() * r0);
-         bullet0->setPos(this->getPos());
-         bullet0->setVel(this->getRot() * r0 * bullet0->getVel());
+         bullet0->setRot(getRot() * r0);
+         bullet0->setPos(getPos());
+         bullet0->setVel(getRot() * r0 * bullet0->getVel());
          
-         BaseBullet* bullet1 = this->createBullet();
+         BaseBullet* bullet1 = createBullet("bullet");
          bullet1->setVel(gmtl::Vec3f(0, 0, -200));
-         bullet1->setRot(this->getRot() * r1);
-         bullet1->setPos(this->getPos());
-         bullet1->setVel(this->getRot() * r1 * bullet1->getVel());
-         
-         BaseBullet* bullet2 = this->createBullet();
+         bullet1->setRot(getRot() * r1);
+         bullet1->setPos(getPos());
+         bullet1->setVel(getRot() * r1 * bullet1->getVel());
+
+         BaseBullet* bullet2 = createBullet("bullet");
          bullet2->setVel(gmtl::Vec3f(0, 0, -200));
-         bullet2->setRot(this->getRot() * r2);
-         bullet2->setPos(this->getPos());
-         bullet2->setVel(this->getRot() * r2 * bullet2->getVel());
+         bullet2->setRot(getRot() * r2);
+         bullet2->setPos(getPos());
+         bullet2->setVel(getRot() * r2 * bullet2->getVel());
          
-         g.add( bullet0 );
-         g.add( bullet1 );
-         g.add( bullet2 );
+         g.add(bullet0);
+         g.add(bullet1);
+         g.add(bullet2);
       }
 
       void ejectCasing(GameState& g)

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Utility.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,12 +34,27 @@
 #define MW_UTILITY_H
 
 
+#include <gmtl/Vec.h>
+#include <gmtl/Math.h>
+
+
 namespace mw
 {
 
    inline bool isPowerOfTwo(int i)
    {
       return (i & (i - 1)) == 0;
+   }
+
+   inline gmtl::Vec3f RandomUnitVector()
+   {
+      float z = gmtl::Math::rangeRandom(-1.0f, 1.0f);
+      float a = gmtl::Math::rangeRandom(0.0f, gmtl::Math::PI * 2);
+      float r = gmtl::Math::sqrt(1.0f - z*z);
+      float x = r * gmtl::Math::cos(a);
+      float y = r * gmtl::Math::sin(a);
+
+      return gmtl::Vec3f(x, y, z);
    }
 
 }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.h,v $
- * Date modified: $Date: 2002-07-07 03:50:01 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -113,7 +113,7 @@ namespace mw
       virtual void ejectCasing(GameState& g) = 0;
 
       /// Creates a new bullet as though fired from this weapon.
-      virtual BaseBullet* createBullet() const;
+      virtual BaseBullet* createBullet(const std::string& model) const;
 
       /**
        * This causes the weapon to cock - as in removing a bullet from the clip

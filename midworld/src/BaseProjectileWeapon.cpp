@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-10-01 04:26:42 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -191,7 +191,8 @@ namespace mw
    /**
     * Triggers a reload sequence.
     */
-   void BaseProjectileWeapon::reload()
+   void
+   BaseProjectileWeapon::reload()
    {
       // Don't bother if we're already reloading or we have no ammo
       if ((! mReloading) && (mAmmoInBag > 0))
@@ -201,7 +202,8 @@ namespace mw
       }
    }
 
-   bool BaseProjectileWeapon::isReloading() const
+   bool
+   BaseProjectileWeapon::isReloading() const
    {
       return mReloading;
    }
@@ -210,11 +212,12 @@ namespace mw
     * Creates a new bullet as though it were fired from this weapon.
     * @pre Weapon can be fired and there is a bullet in the chamber
     */
-   BaseBullet* BaseProjectileWeapon::createBullet() const
+   BaseBullet*
+   BaseProjectileWeapon::createBullet(const std::string& model) const
    {
       BaseBullet* bullet = new BaseBullet();
       bullet->setVel(gmtl::Vec3f(0,0,-30));
-      bullet->setModel("bullet");
+      bullet->setModel(model);
       return bullet;
    }
 

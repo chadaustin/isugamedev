@@ -41,6 +41,7 @@ classes = Split("""
    SoundEffectManager
    SoundManager
    SpreadGun
+   StoryState
    Texture
    cubeGeometry
 """)
