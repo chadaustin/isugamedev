@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 06:39:17 $
- * Version:       $Revision: 1.80 $
+ * Date modified: $Date: 2002-10-29 08:21:56 $
+ * Version:       $Revision: 1.81 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -114,7 +114,7 @@ namespace mw
       loadLevel("levels/level1.txt");
 
       mExplosion = new ParticleEngine("images/explosive_particle.png",
-		  5000, gmtl::Point3f(0, 0, 0), mCamera);
+                                      5000, gmtl::Point3f(2, 0, -50), mCamera);
    }
 
    void
@@ -590,6 +590,11 @@ namespace mw
             e = EntityFactory::instance().create<Enemy>();
             e->setModel("security_droid");
          }
+         else if (type == "turret")
+         {
+            e = EntityFactory::instance().create<Turret>();
+            e->setModel("turret");
+         }
          else if (type == "ammo")
          {
             e = EntityFactory::instance().create<AmmoCrate>();
@@ -610,10 +615,11 @@ namespace mw
                e->setScale(gmtl::Vec3f(sx, sy, sz));
             }
          }
-         else if (type == "turret")
+         else if (type == "#")
          {
-            e = EntityFactory::instance().create<Turret>();
-            e->setModel("turret");
+            // read the rest of the line
+            std::string dummy;
+            getline(in, dummy);
          }
          else
          {
@@ -621,7 +627,10 @@ namespace mw
          }
 
          e->setPos(gmtl::Point3f(x, y, z));
-         e->setRot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(p, h, r)));
+         e->setRot(gmtl::makeRot<gmtl::Quatf>(gmtl::EulerAngleXYZf(
+            gmtl::Math::deg2Rad(p),
+            gmtl::Math::deg2Rad(h),
+            gmtl::Math::deg2Rad(r))));
          add(e);
       }
    }

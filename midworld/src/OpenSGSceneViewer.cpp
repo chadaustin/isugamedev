@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-10-29 04:13:43 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-29 08:21:57 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -126,7 +126,10 @@ namespace mw
             const gmtl::Quatf& rot = entity->getRot();
             gmtl::Matrix44f xform = gmtl::makeTrans<gmtl::Matrix44f>(static_cast<gmtl::Vec3f>(pos));
             xform *= gmtl::make<gmtl::Matrix44f>(rot);
-            gmtl::setScale(xform, entity->getScale());
+
+            gmtl::Matrix44f scaleMat;
+            gmtl::setScale(scaleMat, entity->getScale());
+            xform *= scaleMat;
 
             // Convert the matrix to OpenSG matrix
             osg::Matrix osg_mat;

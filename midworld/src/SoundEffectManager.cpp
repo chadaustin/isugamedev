@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.cpp,v $
- * Date modified: $Date: 2002-10-01 00:37:13 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-29 08:21:58 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,8 +34,10 @@
 
 // XXX: Remove these functions when audiere 1.9.1 is released (which
 // coincidentally contains these functions).
-namespace audiere
+namespace audieredr
 {
+  using namespace audiere;
+
   typedef char u8;
 
   inline OutputStream* OpenSound(
@@ -90,7 +92,7 @@ namespace mw
       audiere::SampleBuffer* buffer = getBuffer(sound);
       if (buffer)
       {
-         audiere::OutputStream* stream = audiere::OpenSound(mDevice.get(),
+         audiere::OutputStream* stream = audieredr::OpenSound(mDevice.get(),
                                                             buffer);
          if (stream)
          {
@@ -113,7 +115,7 @@ namespace mw
       mCache.clear();
    }
 
-   audiere::SampleBuffer*
+   audieredr::SampleBuffer*
    SoundEffectManager::getBuffer(const std::string& sound)
    {
       // Check the cache first
@@ -128,8 +130,8 @@ namespace mw
       else
       {
          std::cout<<"SoundEffectManager: Cache miss for '"<<sound<<"'"<<std::endl;
-         audiere::RefPtr<audiere::SampleBuffer> buffer =
-                        audiere::CreateSampleBuffer(sound.c_str());
+         audiere::RefPtr<audieredr::SampleBuffer> buffer =
+                        audieredr::CreateSampleBuffer(sound.c_str());
          if (buffer)
          {
             mCache[sound] = buffer;
