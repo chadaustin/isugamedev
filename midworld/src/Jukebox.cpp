@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Jukebox.cpp,v $
- * Date modified: $Date: 2002-10-11 04:47:56 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-10-11 05:14:45 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -85,6 +85,7 @@ namespace mw
    {
       stop();
       mTracks.clear();
+      mCurrentIndex = 0;
    }
 
    void
