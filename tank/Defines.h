@@ -10,8 +10,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Defines.h,v $
-//    $Date: 2001-10-12 04:39:45 $
-//    $Revision: 1.8 $
+//    $Date: 2001-11-13 15:46:44 $
+//    $Revision: 1.9 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -32,8 +32,8 @@
 
 //////////////////////////////////////////////////////////////////////////////
 
-#ifndef _CONSTANTS_AND_TYPEDEFS_H_
-#define _CONSTANTS_AND_TYPEDEFS_H_
+#ifndef _CONSTANTS_AND_TYPEDEFS_H__
+#define _CONSTANTS_AND_TYPEDEFS_H__
 
 #include <string>
 #include <iostream>
