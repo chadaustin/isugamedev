@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-11 01:41:56 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-02-20 03:03:00 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,6 +37,7 @@
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
 #include <gk/GlutDriver.h>
+#include <gk/SystemDriverFactory.h>
 
 /** a very simple application
  *  as you develop your application, you'll probably want to write
@@ -48,16 +49,21 @@
 class GkSimpleApp : public gk::GameApp
 {
 public:
+   GkSimpleApp( gk::GameKernel* kernel )
+      : mKernel( kernel )
+   {
+   }
+   
    virtual void OnAppInit()
    {
-      gk::GameKernel::instance().setName( "Simple" );
-      mQuitButton.init( "Quit" );
-      mFullscreenButton.init( "Fullscreen" );
+      mKernel->setName( "Simple" );
+      mQuitButton.init( "Quit", mKernel );
+      mFullscreenButton.init( "Fullscreen", mKernel );
    }
 
    virtual void OnContextInit()
    {
-      gk::GameKernel::instance().setWindowSize( 640, 480 );
+      mKernel->setWindowSize( 640, 480 );
       mFullscreen = false;
    }
 
@@ -69,7 +75,7 @@ public:
    {
       // get the window params...
       int width, height;
-      gk::GameKernel::instance().getWindowSize( width, height );
+      mKernel->getWindowSize( width, height );
       ::glViewport( 0, 0, width, height );
       
       ::glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
@@ -113,15 +119,15 @@ public:
    {
       if (mQuitButton.getDigitalData() == gk::DigitalInput::DOWN)
       {
-         gk::GameKernel::instance().shutdown();
+         mKernel->shutdown();
       }
       
       if (mFullscreenButton.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
       {
          if (mFullscreen)
-            gk::GameKernel::instance().setWindowSize( 640, 480 );
+            mKernel->setWindowSize( 640, 480 );
          else
-            gk::GameKernel::instance().fullscreen();
+            mKernel->fullscreen();
          mFullscreen = !mFullscreen;
       }
    }
@@ -129,13 +135,21 @@ public:
 public:
    gk::DigitalInterface mFullscreenButton, mQuitButton;
    bool mFullscreen;
+   gk::GameKernel* mKernel;
 };
 
 int main( int argc, char *argv[] )
 {
-   gk::loadInputConfig( "config.xml" );
-   gk::GameKernelRegister<GkSimpleApp> reg;
-   gk::SystemDriver* driver = new gk::GlutDriver();
-   gk::GameKernel::instance().startup( driver );
+   // create the kernel and add our app in
+   gk::GameKernel* kernel = new gk::GameKernel();
+   kernel->add( new GkSimpleApp( kernel ) );
+
+   // configure the system
+   gk::loadInputConfig( "config.xml", kernel );
+
+   // create our system driver and let's go!
+   gk::SystemDriverFactory::instance().probe( "gkglut", "GLUT" );
+   gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
+   kernel->startup( driver );
    return 1;
 }
