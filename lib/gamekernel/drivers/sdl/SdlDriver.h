@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-03-28 09:51:29 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-04-06 08:55:42 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -146,17 +146,26 @@ private:
 	SDL_Event mEvent;					//Event Structure
 	
 	//Private Methods
+	
+	//This function determines what kind of event has occurred, 
+	//and then calls the appropriate method to handle the event.
 	void handleEvent();
+	//Called when a is depressed.
 	void onKeyUp();
+	//Called when a key is pressed.
 	void onKeyDown();
+	//Called when the mouse is moved.
 	void onMouseMove();
+	//Called when the mouse is clicked.
 	void onMouseDown();
+	//Called when the mouse is unclicked.
 	void onMouseUp();
+	//Yucky function that maps from SDL_KEY types to Keyboard::Key types.
 	std::string getKeyID(SDL_keysym &key);
+	
 	/* TODO:
-	   1.	Implement Event Handling per the ISystemDriver interface.
+	   1.	Fix Event Handling.
 	   2.	Implement Joystick Control.
-	   3.	Network Support?
 	*/
 };
 

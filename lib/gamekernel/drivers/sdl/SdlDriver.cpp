@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-03-31 01:47:13 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-04-06 08:55:43 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -32,7 +32,7 @@
 #include "SdlDriver.h"
 #include <xdl.h>
 #include <string>
-//#define SDLDRIVER_DEBUG 1
+#define SDLDRIVER_DEBUG 1
 //Create the drivers that can be probed by the SystemDriverFactory
 #ifdef XDL_BUILD_DLL
 extern "C" XDL_FUNC gk::ISystemDriver*
@@ -149,20 +149,36 @@ bool SdlDriver::run()
 	do
 	{
 #ifdef SDLDRIVER_DEBUG
-		std::cerr << "##SD Driver Debug: Inside event loop" << std::endl;
+		std::cerr << "##SDL Driver Debug: Inside event loop" << std::endl;
 #endif
 		//TODO:  Support Multiple Windows
-      mApp->onUpdate();
-		mApp->onDraw(0);
-		SDL_GL_SwapBuffers();
-		error = SDL_WaitEvent(&mEvent);
-		if (error == 0)
+#ifdef SDLDRIVER_DEBUG
+		std::cerr << "##SDL Driver Debug: Calling app->onUpdate()" << std::endl;
+#endif
+		mKernel->getApp()->onUpdate();
+		//mApp->onUpdate();
+#ifdef SDLDRIVER_DEBUG
+		std::cerr << "##SDL Driver Debug: app->onUpdate() Called." << std::endl;
+#endif
+		if (misRunning)
 		{
-			std::cerr << "SDL Driver Error:  Error while waiting for events\nSDL Error:  " << SDL_GetError()
+#ifdef SDLDRIVER_DEBUG
+			std::cerr << "##SDL Driver Debug: Calling app->onDraw()" << std::endl;
+#endif
+			mApp->onDraw(0);
+#ifdef SDLDRIVER_DEBUG
+			std::cerr << "##SDL Driver Debug: app->onDraw() Called." << std::endl;
+#endif
+
+			SDL_GL_SwapBuffers();
+			error = SDL_WaitEvent(&mEvent);
+			if (error == 0)
+			{
+				std::cerr << "SDL Driver Error:  Error while waiting for events\nSDL Error:  " << SDL_GetError()
 					<< std::endl;
+			}
+			handleEvent();
 		}
-		handleEvent();
-		mKernel->getInput()->update();
 	}while((error != 0) && (misRunning));
 	return true;
 }	
@@ -170,6 +186,9 @@ bool SdlDriver::run()
 void SdlDriver::shutdown()
 {
 	//Cleanup time...
+#ifdef SDLDRIVER_DEBUG
+		std::cerr << "##SDL Driver Debug: Calling Shutdown" << std::endl;
+#endif
 	misRunning = false;
 	if (mKeyboard != NULL)
 	{
@@ -274,6 +293,7 @@ void SdlDriver::handleEvent()
 			break;
 			//unhandled event; we pretty much ignore it.
 	}
+	mKernel->getInput()->update();	
 }
 
 void SdlDriver::onKeyUp()
@@ -297,13 +317,19 @@ void SdlDriver::onKeyDown()
 	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::ON;
 	Keyboard *kb = mKeyboard->getDevice();
-	Keyboard::Key id = static_cast<Keyboard::Key>(kb->mMap[keyID]);
+#ifdef SDLDRIVER_DEBUG
+	std::cerr<<"SDL Driver Debug:  KeyID:  " <<keyID<< std::endl;
+#endif
+Keyboard::Key id = static_cast<Keyboard::Key>(kb->mMap[keyID]);
 	kb->queue().push_back(id);
-	kb->button(keyID)->setBinaryState(state);
+	kb->button(id).setBinaryState(state);
 }
 
 void SdlDriver::onMouseMove()
 {
+#ifdef SDLDRIVER_DEBUG
+	std::cerr<<"SDL Driver Debug:  Inside onMouseMove" << std::endl;
+#endif
 	Mouse *mouse = mMouse->getDevice();
 	float x = static_cast<float>(mEvent.motion.x) / static_cast<float>(mWidth) * 2.0f - 1.0f;
 	mouse->axis(0).setData(x);
@@ -313,6 +339,9 @@ void SdlDriver::onMouseMove()
 }
 void SdlDriver::onMouseDown()
 {
+#ifdef SDLDRIVER_DEBUG
+	std::cerr<<"SDL Driver Debug:  Inside onMouseDown" << std::endl;
+#endif
 	Mouse *mouse = mMouse->getDevice();
 	Mouse::Button button;
 	switch (mEvent.button.button)
@@ -342,7 +371,10 @@ void SdlDriver::onMouseDown()
 
 void SdlDriver::onMouseUp()
 {
-	Mouse *mouse = mMouse->getDevice();
+#ifdef SDLDRIVER_DEBUG
+	std::cerr<<"SDL Driver Debug:  Inside onMouseUp" << std::endl;
+#endif
+Mouse *mouse = mMouse->getDevice();
 	Mouse::Button button;
 	switch (mEvent.button.button)
 	{
