@@ -7,8 +7,8 @@
 #include <prio.h>
 #include <prnetdb.h>
 #include <string.h>
-#include "SocketInputStream.h"
 #include "SocketOutputStream.h"
+#include "SocketInputStream.h"
 #include "SocketException.h"
 
 
@@ -24,12 +24,8 @@ namespace net {
       }
 
       ~Socket() {
-         if(mOutputStream == 0) {
-            delete mOutputStream;
-         }
-         if(mInputStream == 0) {
-            delete mInputStream;
-         }
+         delete mOutputStream;
+         delete mInputStream;
       }
 
       Socket(const char* hostname, int port) {
@@ -46,23 +42,24 @@ namespace net {
             throw SocketException("Hostname lookup failed");
          }
 
-         addr.inet.family = PR_FamilyInet();
+         // HACK: TODO: uhh ... yea, AF_INET = 2 in windows atleast
+         addr.inet.family = 2; // PR_FamilyInet() typically AF_INET;
          addr.inet.port   = PR_htons(port);
 
-         status = PRConnect(mSocket, &addr, PR_INTERVAL_NO_TIMEOUT);
+         status = PR_Connect(mSocket, &addr, PR_INTERVAL_NO_TIMEOUT);
          if (status != PR_SUCCESS) {
             throw SocketException("Connection failed");
          }
       }
 
-      InputStream* getInputStream() {
+      SocketInputStream* getInputStream() {
          if(mInputStream == 0) {
             mInputStream = new SocketInputStream(this);
          }
          return mInputStream;
       }
 
-      OutputStream* getOutputStream() {
+      SocketOutputStream* getOutputStream() {
          if(mOutputStream == 0) {
             mOutputStream = new SocketOutputStream(this);
          }

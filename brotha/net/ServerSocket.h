@@ -19,7 +19,8 @@ namespace net {
          }
 
          PRNetAddr addr;
-         addr.inet.family = PR_FamilyInet();
+         // HACK: TODO: uhh ... yea, AF_INET = 2 in windows atleast
+         addr.inet.family = 2; // PR_FamilyInet() typically AF_INET;
          addr.inet.ip     = PR_htonl(INADDR_ANY);
          addr.inet.port   = PR_htons(port);
       
@@ -42,7 +43,7 @@ namespace net {
 
    private:
       PRFileDesc* mSocket;
-   }
+   };
 
 }
 
