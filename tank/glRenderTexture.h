@@ -3,13 +3,14 @@
 //
 //                         -=     render texture     =-
 //
-// Definition: "decoupled texture renderer for opengl"
+// Definition: "decoupled texture renderer for opengl, handles 
+//              multiple contexts (displays) through use of ContextManager"
 //
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: glRenderTexture.h,v $
-//    $Date: 2001-09-10 16:56:15 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-10 19:20:57 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -36,13 +37,45 @@
 
 namespace kev
 {
+   // do a bind (caching the image on hardware if not already), 
+   // then do a render (which then uses the cached image)
+   void glRenderAndBind( const Texture& texture );
+   
+   //: render texture
+   // will make current a texture that has been created as a texure object, or not...
+   // and sets all relevent glEnable()s.  Using this, you shouldn't have to do anything 
+   // else with the gl texture functions.
+   //
+   // texture: make sure it's set up properly with a valid Image object, etc...
+   // texObjectID: if == -1 then function will load the texture.image() data each time
+   //              you should use the texture bind function before calling render for
+   //              better performance
+   void glRender( const Texture& texture );
+   
+   // bind texture.  Caches image in hardware, associating with an ID
+   // this makes texture changes very fast.
+   void glTextureBind( const Texture& texture, int mipmapLevelOfDetail = 0, int bordersize = 0 );
+   
+   // unbind texture.  Uncaches image from hardware
+   void glTextureUnbind( const Texture& texture );
+   
    // load texture data to hardware, making the texture current
    // NOTE: does not set any glEnable()s, use kev::render() instead of this function.
    // NOTE: this function results in slower performance than using the combination 
    //       of kev::bind() and kev::render()
    // NOTE: if you don't use the kev::bind() and kev::render() combination, then 
    //       kev::render() will call kev::load() after setting a lot of glEnable()s
-   inline bool glTextureLoad( const Texture& texture, int mipmapLevelOfDetail = 0, int bordersize = 0 )
+   bool glTextureLoad( const Texture& texture, int mipmapLevelOfDetail = 0, int bordersize = 0 );
+      
+//////////////////////////////////////////////////////////////////////////
+   
+   // load texture data to hardware, making the texture current
+   // NOTE: does not set any glEnable()s, use kev::render() instead of this function.
+   // NOTE: this function results in slower performance than using the combination 
+   //       of kev::bind() and kev::render()
+   // NOTE: if you don't use the kev::bind() and kev::render() combination, then 
+   //       kev::render() will call kev::load() after setting a lot of glEnable()s
+   inline bool glTextureLoad( const Texture& texture, int mipmapLevelOfDetail, int bordersize )
    {
       //cout<<"load "<<texture.image()->name()<<"\n"<<flush;
       if (texture.imageValid() == false) 
@@ -150,14 +183,18 @@ namespace kev
    }
    
    // bind texture.  Caches image in hardware, associating with an ID
-   // this makes texture changes very fast.
-   inline void glTextureBind( const Texture& texture, int mipmapLevelOfDetail = 0, int bordersize = 0 )
+   // this makes texture changes very fast.  
+   inline void glTextureBind( const Texture& texture, int mipmapLevelOfDetail, int bordersize )
    {
       kev::ResourceID<unsigned int> texObjectID = ContextManager::instance().lookup( texture.resourceId );
-      
       //std::cout<<"binding "<<texture.image()->name()<<" id=="<<texObjectID.id<<","<<texture.resourceId.id<<"\n"<<std::flush;
+      
+      // if already bound, then return... (don't bind again)
       if (texObjectID.valid == true)
+      {
+         //std::cout<<"already bound skipping "<<texture.image()->name()<<"\n"<<std::flush;
          return;
+      }
       
       // find out what dimension texture we're using
       int texDimension;
@@ -339,6 +376,8 @@ namespace kev
       }
    }
    
+   // do a bind (caching the image on hardware if not already), 
+   // then do a render (which then uses the cached image)
    inline void glRenderAndBind( const Texture& texture )
    {
       if (texture.imageValid() == false)
