@@ -1,0 +1,23 @@
+Building PHUI
+
+$RCSfile: build.txt,v $
+$Date: 2002-02-24 02:35:47 $
+$Revision: 1.1 $
+
+
+-- Linux VRAC machines --
+
+   1) get distutils from http://www.python.org/sigs/distutils-sig/
+
+   2) install distutils into your home directory
+      python setup.py install --prefix=$HOME
+
+   3) modify your .bashrc or .cshrc to include a line like the following:
+      setenv PYTHONPATH /home/users/_me_/lib/python1.5/site-packages/
+
+   4) download scons from http://www.scons.org/
+
+   5) install scons into your home directory
+      python setup.py install --prefix=$HOME
+
+   6) add ~/bin to your PATH
