@@ -177,6 +177,8 @@ int RenderSkyDome()
 	glRotatef(SDL_GetTicks()/2000.0f,0.0f, 1.0f, 0.0f);
 	glRotatef(270, 1.0f, 0.0f, 0.0f);
 
+   glFrontFace(GL_CW);
+
 	glBegin(GL_TRIANGLE_STRIP);
 
 	for (int i=0; i < NumVertices; i++)
@@ -188,6 +190,8 @@ int RenderSkyDome()
 	}
 
 	glEnd();
+
+   glFrontFace(GL_CCW);
 
 	glPopMatrix();
 	return 1;
