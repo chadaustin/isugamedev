@@ -23,12 +23,12 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-06-10 04:29:40 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-06-11 10:37:05 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include <SDL/SDL_opengl.h>
+#include <SDL_opengl.h>
 #include "Application.h"
 #include "IntroState.h"
 

@@ -23,15 +23,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.h,v $
- * Date modified: $Date: 2002-06-10 03:39:04 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-06-11 10:37:05 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_APPLICATION_H
 #define MW_APPLICATION_H
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include "State.h"
 #include "Types.h"
 

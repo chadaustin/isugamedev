@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-06-10 05:41:04 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-06-11 10:37:05 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,15 +33,9 @@
 #include <stdexcept>
 #include <string>
 #include <stdlib.h>
-#include <SDL/SDL_opengl.h>
+#include <SDL_opengl.h>
 #include "Types.h"
 #include "Application.h"
-
-void log(const std::string& message)
-{
-   std::cerr << message << std::endl;
-}
-
 
 // make a std::string-compatible version of SDL_GetError
 std::string GetSDLError()
@@ -92,7 +86,7 @@ void run()
    // let the app know what size it is
    app->resize(width, height);
       
-   Uint32 last_time = SDL_GetTicks();
+   mw::u64 last_time = SDL_GetTicks();
 
    while (!app->shouldQuit())
    {      
@@ -159,6 +153,9 @@ void run()
 }
 
 
+void error(const std::string& error);
+
+
 int main()
 {
    try
@@ -167,10 +164,36 @@ int main()
    }
    catch (const std::exception& e)
    {
-      log(std::string("Caught exception: ") + e.what());
+      error(std::string("Caught exception: ") + e.what());
    }
    catch (...)
    {
-      log("Caught unknown exception!");
+      error("Caught unknown exception!");
    }
+
+   return 0;
 }
+
+
+#ifdef WIN32
+
+#include <windows.h>
+
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
+{
+   return main();
+}
+
+void error(const std::string& error)
+{
+  MessageBox(NULL, error.c_str(), "Midworld Error", MB_ICONERROR);
+}
+
+#else
+
+void error(const std::string& error)
+{
+  std::cerr << error << std::endl;
+}
+
+#endif

@@ -22,10 +22,10 @@ namespace mw
             const int spacing = 10;
             for (int x = -size; x < size; x += spacing)
             {
-               glVertex3f( -size, 0, x );
-               glVertex3f(  size, 0, x );
-               glVertex3f( x, 0, -size );
-               glVertex3f( x, 0,  size );
+               glVertex3i( -size, 0, x );
+               glVertex3i(  size, 0, x );
+               glVertex3i( x, 0, -size );
+               glVertex3i( x, 0,  size );
             }
          glEnd();
 

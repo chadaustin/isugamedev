@@ -5,7 +5,7 @@
 #define MW_STATE_H
 
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include "Types.h"
 
 

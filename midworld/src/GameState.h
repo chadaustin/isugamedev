@@ -4,9 +4,9 @@
 #ifndef MW_GAMESTATE_H
 #define MW_GAMESTATE_H
 
-#include <SDL/SDL.h>
+#include <SDL.h>
 #include "State.h"
-#include <StopWatch.h>
+#include "StopWatch.h"
 #include "GameScene.h"
 #include "Camera.h"
 #include "Player.h"
