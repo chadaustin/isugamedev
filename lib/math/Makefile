@@ -26,7 +26,7 @@ ifeq ($(HOSTTYPE), IRIX)
 endif
 
 #LiNUX
-ifeq ($(HOSTTYPE), Linux)
+ifeq ($(HOSTTYPE), linux)
    LIBS = 
    include ${MK_DIR}/mk.gnu
 endif
