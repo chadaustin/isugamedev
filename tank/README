@@ -1,0 +1,9 @@
+here are the keys:
+
+   w              |              pitch up
+a  s  d           |  spinleft    pitchdown     spinright
+------------------+-----------------------------------------
+                  |
+       up         |               tank accel
+left  down  right |  turntankL    tankreverse   turntankR
+
