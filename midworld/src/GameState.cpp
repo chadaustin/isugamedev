@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-29 04:51:05 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2002-07-29 04:56:56 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -262,9 +262,6 @@ namespace mw
       // We had a collision
       else
       {
-         std::cout<<"Collision!"<<std::endl;
-         std::cout<<"\tCollider: "<<body<<std::endl;
-         std::cout<<"\tCollidee: "<<(desc->getCollidee())<<std::endl;
          // Figure out how much time passed to get to the collision
          float dist = desc->getDistance();
          float time_to_coll = 0;
