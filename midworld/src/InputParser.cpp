@@ -1,9 +1,36 @@
 /* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil c-basic-offset: 3 -*- */
 // vim:cindent:ts=3:sw=3:et:tw=80:sta:
-
+/************************************************************* midworld-cpr beg
+ *
+ * midworld - retro post-nuclear mayhem
+ * midworld is (C) Copyright 2002 by
+ *    Chad Austin, Josh Brown, Johnathan Gurley,
+ *    Kevin Meinert, Andres Reinot, Ben Scott
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Library General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Library General Public License for more details.
+ *
+ * You should have received a copy of the GNU Library General Public
+ * License along with this library; if not, write to the
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
+ *
+ * -----------------------------------------------------------------
+ * File:          $RCSfile: InputParser.cpp,v $
+ * Date modified: $Date: 2002-10-26 05:35:12 $
+ * Version:       $Revision: 1.3 $
+ * -----------------------------------------------------------------
+ *
+ ********************************************************** midworld-cpr-end */
 #include "InputParser.h"
 #include "InputBinder.h"
-#include "InputManager.h"
 #include <iostream>
 #include <fstream>
 #include <utility>
@@ -49,6 +76,9 @@ namespace mw
 
    bool InputParser::bindAction(const std::string &name, InputAction *action)
    {
+      // Make sure the user didn't give us a bogus action
+      assert(action != 0 && "action cannot be NULL");
+
       //Check to see if we've even read anything.
       if (!bParseFile)
       {
@@ -61,13 +91,10 @@ namespace mw
       }
       //Make a pair of iterators to get the keys bound to the actions.
       std::pair< std::multimap<std::string, InputKey>::iterator, std::multimap<std::string, InputKey>::iterator > range = mActionKeys.equal_range(name);
+
       //Get the binder
       InputBinder *binder = InputBinder::instance();
-      if (!action)
-      {
-         //User gave us an unallocated action
-         action = InputManager::instance()->createAction();
-      }
+
       //Loop through the keys and bind them to the action passed to us.
       for (std::multimap<std::string, InputKey>::iterator itr = range.first; itr != range.second; ++itr)
       {
@@ -76,6 +103,4 @@ namespace mw
       }
       return true;
    }
-      
-
-}//end of namespace mw
+}

@@ -34,7 +34,6 @@ classes = Split("""
    IntroState
    InputAction
    InputBinder
-   InputManager
    InputParser
    InputSymbol
    Jukebox

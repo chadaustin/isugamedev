@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-26 05:04:34 $
- * Version:       $Revision: 1.72 $
+ * Date modified: $Date: 2002-10-26 05:35:11 $
+ * Version:       $Revision: 1.73 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,7 +45,6 @@
 #include "OpenSGSceneViewer.h"
 #include "GameManager.h"
 #include "InputBinder.h"
-#include "InputManager.h"
 #include "InputAction.h"
 #include "InputParser.h"
 #include "InputSymbol.h"
@@ -79,7 +78,6 @@ namespace mw
       , mFrameCount(0)
       , mFrameTime(0)
    {
-      mCursor.init( a->getWidth(), a->getHeight() );
       mGunSlots.resize( 10 );
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          mGunSlots[x] = UP;
@@ -117,41 +115,39 @@ namespace mw
       InputParser *parser = InputParser::instance();
       parser->parseFile("inputmap.cfg");
       std::cerr << "Setting up keybindings" << std::endl;
-      InputManager *manager = InputManager::instance();
-      std::cerr << "Got manager" << std::endl;
       //Set Up
       std::cerr << "Creating actions" << std::endl;
-      mActionUp = manager->createAction();
+      mActionUp = new InputAction();
       parser->bindAction("MOVE UP", mActionUp);
       //Set Down
-      mActionDown = manager->createAction();
+      mActionDown = new InputAction();
       parser->bindAction("MOVE DOWN", mActionDown);
       //Set Right
-      mActionRight = manager->createAction();
+      mActionRight = new InputAction();
       parser->bindAction("MOVE RIGHT", mActionRight);
       //Set Left
-      mActionLeft = manager->createAction();
+      mActionLeft = new InputAction();
       parser->bindAction("MOVE LEFT", mActionLeft);
       //Set Quit
-      mActionQuit = manager->createAction();
+      mActionQuit = new InputAction();
       parser->bindAction("QUIT", mActionQuit);
       //Set Zoom In
-      mActionZoomIn = manager->createAction();
+      mActionZoomIn = new InputAction();
       parser->bindAction("ZOOM IN", mActionZoomIn);
       //Set Zoom Out
-      mActionZoomOut = manager->createAction();
+      mActionZoomOut = new InputAction();
       parser->bindAction("ZOOM OUT", mActionZoomOut);
       //Set Pitch Up
-      mActionPitchUp = manager->createAction();
+      mActionPitchUp = new InputAction();
       parser->bindAction("PITCH UP", mActionPitchUp);
       //Set Pitch Down
-      mActionPitchDown = manager->createAction();
+      mActionPitchDown = new InputAction();
       parser->bindAction("PITCH DOWN", mActionPitchDown);
       //Set Yaw Left
-      mActionYawLeft = manager->createAction();
+      mActionYawLeft = new InputAction();
       parser->bindAction("YAW LEFT", mActionYawLeft);
       //Set Yaw Right
-      mActionYawRight = manager->createAction();
+      mActionYawRight = new InputAction();
       parser->bindAction("YAW RIGHT", mActionYawRight);
       std::cerr << "Finished creating actions." << std::endl;
       // XXX hack for testing aisystem
@@ -542,51 +538,51 @@ namespace mw
       {
          return;
       }
-      unsigned long id = act->getID();
-      if (id == mActionUp->getID())
+      const InputAction::UID& id = act->getUID();
+      if (id == mActionUp->getUID())
       {
          updateEdgeState(mAccelerate, down);
       }
-      else if(id == mActionDown->getID())
+      else if(id == mActionDown->getUID())
       {
          updateEdgeState(mReverse, down);
       }
-      else if(id == mActionLeft->getID())
+      else if(id == mActionLeft->getUID())
       {
          updateEdgeState(mStrafeLeft, down);
       }
-      else if(id == mActionRight->getID())
+      else if(id == mActionRight->getUID())
       {
          updateEdgeState(mStrafeRight, down);
       }
-      else if(id == mActionQuit->getID())
+      else if(id == mActionQuit->getUID())
       {
          if (down)
          {
             this->invokeTransition("Menu");
          }
       }
-      else if(id == mActionZoomIn->getID())
+      else if(id == mActionZoomIn->getUID())
       {
          updateEdgeState(mCameraZoomIn, down);
       }
-      else if(id == mActionZoomOut->getID())
+      else if(id == mActionZoomOut->getUID())
       {
          updateEdgeState(mCameraZoomOut, down);
       }
-      else if(id == mActionPitchDown->getID())
+      else if(id == mActionPitchDown->getUID())
       {
          updateEdgeState(mCameraPitchDown, down);
       }
-      else if(id == mActionPitchUp->getID())
+      else if(id == mActionPitchUp->getUID())
       {
          updateEdgeState(mCameraPitchUp, down);
       }
-      else if(id == mActionYawLeft->getID())
+      else if(id == mActionYawLeft->getUID())
       {
          updateEdgeState(mCameraYawLeft, down);
       }
-      else if(id == mActionYawRight->getID())
+      else if(id == mActionYawRight->getUID())
       {
          updateEdgeState(mCameraYawRight, down);
       }
