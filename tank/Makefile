@@ -36,7 +36,7 @@ SRCS = \
 
 MK_DIR = ./mk
 PATH_TO_SRCS = .:Fizix/example
-INCLUDE_PATHS += -I. -I./boost -I./regexx
+INCLUDE_PATHS += -I. -I./boost -I./regexx -I./boost/boost/compatibility/cpp_c_headers/
 
 include ${MK_DIR}/mk.hosttype
 include ${MK_DIR}/mk.platform
