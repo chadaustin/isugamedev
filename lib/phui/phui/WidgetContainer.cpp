@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-02-24 06:28:39 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-24 06:29:33 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -40,20 +40,20 @@
 
 namespace phui {
 
-  WidgetContainer::WidgetContainer() {
-  }
+   WidgetContainer::WidgetContainer() {
+   }
 
-  WidgetContainer::~WidgetContainer() {
-  }
+   WidgetContainer::~WidgetContainer() {
+   }
 
-  void
-  WidgetContainer::add(Widget* widget) {
-    mWidgets.push_back(widget);
-  }
+   void
+   WidgetContainer::add(Widget* widget) {
+      mWidgets.push_back(widget);
+   }
 
-  void
-  WidgetContainer::draw() {
-    std::for_each(mWidgets.begin(), mWidgets.end(), mem_fun(&Widget::draw));
-  }
+   void
+   WidgetContainer::draw() {
+      std::for_each(mWidgets.begin(), mWidgets.end(), mem_fun(&Widget::draw));
+   }
 
 } // namespace phui
