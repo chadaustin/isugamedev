@@ -99,7 +99,7 @@ namespace mw
       glPopMatrix();
       
       glColor4f(1, 1, 1, 1);
-      for (int i = 0; i < perf.size(); ++i)
+      for (unsigned int i = 0; i < perf.size(); ++i)
       {
          glPushMatrix();
          glTranslatef(800, 100.0f + mFont->getAscent() + i * 20, 0);
