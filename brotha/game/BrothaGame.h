@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-27 05:18:31 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-03-29 21:29:49 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -71,6 +71,16 @@ namespace game
        * @pre  player != NULL
        */
       void add( Player* player);
+
+      Player* getPlayer( Player::UID uid )
+      {
+         std::map<Player::UID, Player*>::iterator itr;
+         itr = mPlayers.find( uid );
+         if ( itr != mPlayers.end() ) {
+            return itr->second;
+         }
+         return NULL;
+      }
 
       /**
        * Sets which player is on the local machine. If player is NULL, then it is
