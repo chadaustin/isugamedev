@@ -49,16 +49,20 @@ class ConnectionThread extends Thread {
         Packet p = (Packet)is.readObject();
 
         if (p instanceof InputPacket) {
+
           InputPacket ip = (InputPacket)p;
           System.out.println("Key event!");
-          if (ip.type == InputPacket.KEY_DOWN) {
-            System.out.println("key press " + ip.key);
-          } else {
-            System.out.println("key release " + ip.key);
-          }
+	  m_server.m_world_thread.processInputEvent(ent, ip);
+
+        } else if (p instanceof TalkPacket) {
+
+	  TalkPacket tp = (TalkPacket)p;
+	  System.out.println("Got a talk packet!");
+	  m_server.m_world_thread.processTalkEvent(ent, tp);
+
         } else {
-          // what do we do?  :)
-        }
+	  // unknown packet
+	}
       }
     }
     catch (Exception e) {

@@ -3,9 +3,9 @@ package chadworld;
 import java.io.*;
 import java.net.*;
 
+import java.awt.*;
+import javax.swing.*;
 import java.applet.Applet;
-import java.awt.BorderLayout;
-import java.awt.Frame;
 import com.sun.j3d.utils.applet.MainFrame; 
 import com.sun.j3d.utils.universe.*;
 import com.sun.j3d.utils.geometry.*;
@@ -48,6 +48,8 @@ public class ClientFrame extends Applet {
   public ClientFrame(ServerConnection connection) {
 
     m_connection = connection;
+
+    new TalkFrame(m_connection);
 
     try {
       // send login
