@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-06 22:22:22 $
-# Version:       $Revision: 1.9 $
+# Date modified: $Date: 2002-02-06 22:53:16 $
+# Version:       $Revision: 1.10 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -79,6 +79,7 @@ endif
 
 include ${MK_DIR}/mk.objs
 
+
 # Compile then Link
 build: $(OBJS)
 	-@echo ""
@@ -91,6 +92,19 @@ build: $(OBJS)
 	-@echo "-------------------------------------------"
 	-@echo "$(FILENAME) done"
 	-@echo "-------------------------------------------"
+
+prefix ?= installed
+
+install: build
+	-mkdir $(prefix)
+	-mkdir $(prefix)/include
+	-mkdir $(prefix)/include/gk
+	-mkdir $(prefix)/lib$(LIBBITSUF)
+	-mkdir $(prefix)/share
+	-mkdir $(prefix)/share/gk
+	-cp gk/*.h $(prefix)/include/gk
+	-cp $(LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
+	-cp data/* $(prefix)/share/gk
 
 # Remove the compiled stuff from the system
 clean:
