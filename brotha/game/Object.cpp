@@ -4,7 +4,7 @@ namespace game {
    const Object::UID Object::UNKNOWN = 0;
 
    Object::Object()
-      : m_health(0) {
+      : mHealth(0) {
       mUID = UIDMgr::getInstance().reserveID();
    }
 
@@ -21,23 +21,17 @@ namespace game {
    }
 
    PRUint32 Object::getSize() {
-      return net::sizes::getVarSize((PRUint32)mUID) 
-           + net::sizes::getVarSize(m_position[0])*3 
-           + net::sizes::getVarSize(m_velocity[0])*3
-           + net::sizes::getVarSize(m_health);
+      return net::sizes::getVarSize((PRUint32)mUID)
+           + net::sizes::getVarSize(mHealth);
    }
 
    void Object::serialize(net::OutputStream& os) {
       os << mUID;
-      os << m_position[0] << m_position[1] << m_position[2];
-      os << m_velocity[0] << m_velocity[1] << m_velocity[2];
-      os << m_health;
+      os << mHealth;
    }
 
    void Object::deserialize(net::InputStream& is) {
       is >> mUID;
-      is >> m_position[0] >> m_position[1] >> m_position[2];
-      is >> m_velocity[0] >> m_velocity[1] >> m_velocity[2];
-      is >> m_health;
+      is >> mHealth;
    }
 }

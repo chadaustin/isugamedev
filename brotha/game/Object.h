@@ -32,29 +32,29 @@ namespace game {
       /**
        * Gets the position vector associated with this object.
        */
-      const gmtl::Vec<PRFloat64,3>& getPosition() const {
-         return m_position;
+      const gmtl::Vec3f& getPosition() const {
+         return mPosition;
       }
 
       /**
        * Sets the position vector associated with this object.
        */
-      void setPosition(const gmtl::Vec<PRFloat64,3>& pos) {
-         m_position = pos;
+      void setPosition(const gmtl::Vec3f& pos) {
+         mPosition = pos;
       }
 
       /**
        * Gets the velocity vector associated with this object.
        */
-      const gmtl::Vec<PRFloat64,3>& getVelocity() const {
-         return m_velocity;
+      const gmtl::Vec3f& getVelocity() const {
+         return mVelocity;
       }
 
       /**
-       * Sets the position vector associated with this object.
+       * Sets the Velocity vector associated with this object.
        */
-      void setVelocity(const gmtl::Vec<PRFloat64,3>& velocity) {
-         m_velocity = velocity;
+      void setVelocity(const gmtl::Vec3f& velocity) {
+         mVelocity = velocity;
       }
 
       /**
@@ -77,13 +77,13 @@ namespace game {
       UID mUID;
 
       /// This object's position vector
-      gmtl::Vec<PRFloat64,3> m_position;
+      gmtl::Vec3f mPosition;
 
       /// This object's velocity vector
-      gmtl::Vec<PRFloat64,3> m_velocity;
+      gmtl::Vec3f mVelocity;
 
       /// This object's health
-      PRFloat64 m_health;
+      PRFloat64 mHealth;
    };
 }
 

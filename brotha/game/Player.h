@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-26 04:44:44 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-26 05:06:41 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -162,6 +162,12 @@ namespace game {
 
       /// This player's position
       gmtl::Vec3f mPosition;
+
+      /// This player's health
+      PRFloat64 mHealth;
+
+      /// Number of Player kills
+      double mKills;
 
       /// True if the player is accelerating
       ///PRFloat64 mAccelerate;
