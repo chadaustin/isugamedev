@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-06-10 03:39:04 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-06-10 05:33:46 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,8 +34,8 @@
 #include <string>
 #include <stdlib.h>
 #include <SDL/SDL_opengl.h>
+#include "Types.h"
 #include "Application.h"
-
 
 void log(const std::string& message)
 {
@@ -139,8 +139,11 @@ void run()
       }
          
       // update and draw application
-         
-      Uint32 now = SDL_GetTicks();
+      /// @todo Use a high-res timer to actually get in us rather than ms
+      mw::u64 now = (mw::u64)SDL_GetTicks();
+      // convert from ms to us for now
+      now *= 2;
+      
       // ignore wraparound
       if (now >= last_time)
       {
