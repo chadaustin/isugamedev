@@ -1,3 +1,11 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 5-4-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// Explosion.h
+/////////////////////////////////////
+
 #ifndef __EXPLOSION_H
 #define __EXPLOSION_H
 

@@ -1,3 +1,10 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 5-2-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// BuildMaze.h
+/////////////////////////////////////
 #ifndef __BUILDMAZE_H
 #define __BUILDMAZE_H
 

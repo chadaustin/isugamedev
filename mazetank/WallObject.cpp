@@ -17,7 +17,7 @@ WallObject::WallObject()
 	this->SetObjectAngle(0.0);
 
 	this->SetObjectSphere(0.6);
-   this->ResetCollisions();
+	this->ResetCollisions();
 
 	ambient[0] = 0.2;
 	ambient[1] = 0.2;
@@ -35,7 +35,6 @@ WallObject::WallObject()
 	specular[3] = 1.0;
 
 	shininess = 40.0;
-
 }
 
 WallObject::~WallObject()

@@ -17,8 +17,8 @@ TankObject::TankObject()
 	this->SetAngularVelocity(0.0);
 	this->SetObjectAngle(0.0);
 
-   this->SetObjectSphere(1.9);
-   this->ResetCollisions();
+	this->SetObjectSphere(1.9);
+	this->ResetCollisions();
 }
 
 TankObject::~TankObject()
@@ -30,8 +30,7 @@ TankObject::~TankObject()
 void TankObject::Init()
 {
 	Body->Init();
-   Turret->Init();
-
+	Turret->Init();
 }
 
 void TankObject::GetGraphicsPointer(GraphicsObject *& TheGraphics)

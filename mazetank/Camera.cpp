@@ -1,3 +1,10 @@
+/////////////////////////////////////
+// Copyright Levi VanOort 4-19-2002
+//		lvanoort@aol.com
+//	Released under MIT 
+//
+// Camera.cpp
+/////////////////////////////////////
 #include "Camera.h"
 
 Camera::Camera()
@@ -5,13 +12,13 @@ Camera::Camera()
 	MULTX = 0.5;
 	MULTZ = 0.5;
 
-   int i;
+	int i;
 
-   MinMoveX = .01;
-   MinMoveY = .01;
+	MinMoveX = .01;
+	MinMoveY = .01;
 
-   DestX = 0;
-   DestY = 0;
+	DestX = 0;
+	DestY = 0;
 
 	for(i = 0; i < 3; i++)
 	{

@@ -42,16 +42,16 @@ public:
 	void Update(vector<GameObject*> &TheObjects, int dt);
 
 private:
-   float GRAVITY;
+	float GRAVITY;
 
-   CollisionResponse ObjectsResponse;
+	CollisionResponse ObjectsResponse;
 
 	void TankUpdate(GameObject* &TruckObject, int dt);
 	void BulletUpdate(GameObject* &BulletObject, int dt);
 	void CollisionDetection(vector<GameObject*> &TheObjects);
 	bool CheckForCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
-   bool SphereToSphereCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
-   bool SortPredicate(GameObject* Lvalue, GameObject* Rvalue);
+	bool SphereToSphereCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
+	bool SortPredicate(GameObject* Lvalue, GameObject* Rvalue);
 
 };
 bool SortPredicate(GameObject* Lvalue, GameObject* Rvalue);

@@ -122,45 +122,45 @@ void PhysicsEngine::TankUpdate(GameObject* &TruckObject, int dt)
 
 void PhysicsEngine::BulletUpdate(GameObject* &BulletObject, int dt)
 {
-   float ObjectPosition[3];
+	float ObjectPosition[3];
 	float ObjectVelocity = 0.0;
 	float ObjectAngle;
-   float ObjectAngleZ;
-   float ObjectVelocityZ;
+	float ObjectAngleZ;
+	float ObjectVelocityZ;
 
-   /////////////////////////////////////////////////
-   // Collect all info about the current Bullet for
-   // use in equations
-   /////////////////////////////////////////////////
-   BulletObject->GetVelocity(ObjectVelocity);
-   ObjectVelocity *= dt;
+	/////////////////////////////////////////////////
+	// Collect all info about the current Bullet for
+	// use in equations
+	/////////////////////////////////////////////////
+	BulletObject->GetVelocity(ObjectVelocity);
+	ObjectVelocity *= dt;
 
-   BulletObject->GetPosition(ObjectPosition);
-   BulletObject->GetObjectAngle(ObjectAngle);
-   BulletObject->GetObjectZAngle(ObjectAngleZ);
-   BulletObject->GetVelocityZ(ObjectVelocityZ);
+	BulletObject->GetPosition(ObjectPosition);
+	BulletObject->GetObjectAngle(ObjectAngle);
+	BulletObject->GetObjectZAngle(ObjectAngleZ);
+	BulletObject->GetVelocityZ(ObjectVelocityZ);
    
    
 	float AngleInRadians = (ObjectAngle * PI)/180;
-    float AngleZInRadians = ((ObjectAngleZ) * PI)/180;
+	float AngleZInRadians = ((ObjectAngleZ) * PI)/180;
 
-    float MoveX = ObjectVelocity*cos(AngleInRadians);
+	float MoveX = ObjectVelocity*cos(AngleInRadians);
 	float MoveY = ObjectVelocity*sin(AngleInRadians);
 
-   //////////////////////////////////////////////////////
-   // Calculate the Z position
-   //////////////////////////////////////////////////////
-   float NewVelocity = ObjectVelocityZ * sin(-1*AngleZInRadians) + GRAVITY*dt;
-   float MoveZ = NewVelocity*dt;
-   
-   float NewPosition[3];
+	//////////////////////////////////////////////////////
+	// Calculate the Z position
+	//////////////////////////////////////////////////////
+	float NewVelocity = ObjectVelocityZ * sin(-1*AngleZInRadians) + GRAVITY*dt;
+	float MoveZ = NewVelocity*dt;
 
-   NewPosition[0] = ObjectPosition[0] + MoveX;
-   NewPosition[1] = ObjectPosition[1] + MoveY;
-   NewPosition[2] = ObjectPosition[2] + MoveZ;
+	float NewPosition[3];
 
-   BulletObject->SetPosition(NewPosition);
-   BulletObject->SetVelocityZ(NewVelocity);
+	NewPosition[0] = ObjectPosition[0] + MoveX;
+	NewPosition[1] = ObjectPosition[1] + MoveY;
+	NewPosition[2] = ObjectPosition[2] + MoveZ;
+
+	BulletObject->SetPosition(NewPosition);
+	BulletObject->SetVelocityZ(NewVelocity);
 }
 
 void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)

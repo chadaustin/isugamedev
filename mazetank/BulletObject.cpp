@@ -16,7 +16,7 @@ BulletObject::BulletObject()
 	this->SetObjectAngle(0.0);
 
 	this->SetObjectSphere(0.2);
-   this->ResetCollisions();
+	this->ResetCollisions();
 }
 
 BulletObject::~BulletObject()
@@ -53,22 +53,4 @@ void BulletObject::Draw()
 		glutSolidSphere(1.0, 10, 10);
 
 	glPopMatrix();
-
-
- /*  float radius;
-
-   this->GetObjectSphere(radius);
-
-	glPushMatrix();
-		glColor3f(1.0, 0.0, 0.0);
-		glTranslatef(Translate[0], Translate[1], Translate[2]);
-		glLineWidth(1.0);
-		glDisable(GL_DEPTH);
-		glDisable(GL_LIGHTING);
-
-      glutSolidSphere(radius, 10, 10);
-		glLineWidth(1.0);
-		glEnable(GL_DEPTH);
-		glEnable(GL_LIGHTING);
-	glPopMatrix();*/
 }
