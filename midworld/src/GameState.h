@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-17 09:30:40 $
- * Version:       $Revision: 1.40 $
+ * Date modified: $Date: 2002-10-19 15:27:51 $
+ * Version:       $Revision: 1.41 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -272,20 +272,19 @@ namespace mw
       
 
       PhysicsEngine mPhysics;
-
+      InputAction *mActionUp;
+      InputAction *mActionDown;
+      InputAction *mActionRight;
+      InputAction *mActionLeft;
+      InputAction *mActionQuit;
+      InputAction *mActionZoomIn;
+      InputAction *mActionZoomOut;
+      InputAction *mActionPitchUp;
+      InputAction *mActionPitchDown;
+      InputAction *mActionYawLeft;
+      InputAction *mActionYawRight;
       ParticleEngine* mExplosion;
 
-      InputAction* mActUp;
-      InputAction* mActDn;
-      InputAction* mActRt;
-      InputAction* mActLt;
-      InputAction* mActQuit;
-      InputAction* mActZIn;
-      InputAction* mActZOut;
-      InputAction* mActPUp;
-      InputAction* mActPDn;
-      InputAction* mActYLt;
-      InputAction* mActYRt;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-17 09:30:40 $
- * Version:       $Revision: 1.61 $
+ * Date modified: $Date: 2002-10-19 15:27:51 $
+ * Version:       $Revision: 1.62 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,6 +46,8 @@
 #include "InputBinder.h"
 #include "InputManager.h"
 #include "InputAction.h"
+#include "InputParser.h"
+#include "InputSymbol.h"
 #include "Enemy.h"
 #include "Turret.h"
 #include "AmmoCrate.h"
@@ -110,49 +112,63 @@ namespace mw
       add(&mPlayer);
 
       //Setup Key Bindings
+      InputParser *parser = InputParser::instance();
+      parser->parseFile("btn.cfg");
       std::cerr << "Setting up keybindings" << std::endl;
       InputBinder *binder = InputBinder::instance();
       InputManager *manager = InputManager::instance();
       std::cerr << "Got binder & manager" << std::endl;
       //Set Up
       std::cerr << "Creating actions" << std::endl;
-      mActUp = manager->createAction();
-      binder->bindAction(mActUp, SDLK_w);
-      binder->bindAction(mActUp, SDLK_UP);
+      mActionUp = manager->createAction();
+      //Try out the new parser.
+      parser->bindAction("MOVE UP", mActionUp);
+      //binder->bindAction(mActionUp, KEY_W);
+      //binder->bindAction(mActionUp, KEY_UP);
       //Set Down
-      mActDn = manager->createAction();
-      binder->bindAction(mActDn, SDLK_s);
-      binder->bindAction(mActDn, SDLK_DOWN);
+      mActionDown = manager->createAction();
+      parser->bindAction("MOVE DOWN", mActionDown);
+      //binder->bindAction(mActionDown, KEY_S);
+      //binder->bindAction(mActionDown, KEY_DOWN);
       //Set Right
-      mActRt = manager->createAction();
-      binder->bindAction(mActRt, SDLK_d);
-      binder->bindAction(mActRt, SDLK_RIGHT);
+      mActionRight = manager->createAction();
+      parser->bindAction("MOVE RIGHT", mActionRight);
+      //binder->bindAction(mActionRight, KEY_D);
+      //binder->bindAction(mActionRight, KEY_RIGHT);
       //Set Left
-      mActLt = manager->createAction();
-      binder->bindAction(mActLt, SDLK_a);
-      binder->bindAction(mActLt, SDLK_LEFT);
+      mActionLeft = manager->createAction();
+      parser->bindAction("MOVE LEFT", mActionLeft);
+      //binder->bindAction(mActionLeft, KEY_A);
+      //binder->bindAction(mActionLeft, KEY_LEFT);
       //Set Quit
-      mActQuit = manager->createAction();
-      binder->bindAction(mActQuit, SDLK_q);
-      binder->bindAction(mActQuit, SDLK_ESCAPE);
+      mActionQuit = manager->createAction();
+      parser->bindAction("QUIT", mActionQuit);
+      //binder->bindAction(mActionQuit, KEY_Q);
+      //binder->bindAction(mActionQuit, KEY_ESCAPE);
       //Set Zoom In
-      mActZIn = manager->createAction();
-      binder->bindAction(mActZIn, SDLK_KP9);
+      mActionZoomIn = manager->createAction();
+      parser->bindAction("ZOOM IN", mActionZoomIn);
+      //binder->bindAction(mActionZoomIn, KEY_KP9);
       //Set Zoom Out
-      mActZOut = manager->createAction();
-      binder->bindAction(mActZOut, SDLK_KP3);
+      mActionZoomOut = manager->createAction();
+      parser->bindAction("ZOOM OUT", mActionZoomOut);
+      //binder->bindAction(mActionZoomOut, KEY_KP3);
       //Set Pitch Up
-      mActPUp = manager->createAction();
-      binder->bindAction(mActPUp, SDLK_KP2);
+      mActionPitchUp = manager->createAction();
+      parser->bindAction("PITCH UP", mActionPitchUp);
+      //binder->bindAction(mActionPitchUp, KEY_KP2);
       //Set Pitch Down
-      mActPDn = manager->createAction();
-      binder->bindAction(mActPDn, SDLK_KP8);
+      mActionPitchDown = manager->createAction();
+      parser->bindAction("PITCH DOWN", mActionPitchDown);
+      //binder->bindAction(mActionPitchDown, KEY_KP8);
       //Set Yaw Left
-      mActYLt = manager->createAction();
-      binder->bindAction(mActYLt, SDLK_KP4);
+      mActionYawLeft = manager->createAction();
+      parser->bindAction("YAW LEFT", mActionYawLeft);
+      //binder->bindAction(mActionYawLeft, KEY_KP4);
       //Set Yaw Right
-      mActYRt = manager->createAction();
-      binder->bindAction(mActYRt, SDLK_KP6);
+      mActionYawRight = manager->createAction();
+      parser->bindAction("YAW RIGHT", mActionYawRight);
+      //binder->bindAction(mActionYawRight, KEY_KP6);
       std::cerr << "Finished creating actions." << std::endl;
       // XXX hack for testing aisystem
       appTest = new testing;
@@ -191,6 +207,7 @@ namespace mw
       second = new lm::behavior;
 
 
+      first->addCommand(node1sCommand);
       second->addCommand(node2sCommand);
 
 
@@ -203,10 +220,12 @@ namespace mw
       
       first->addCommand(aimCommand);
       
-     node1Instinct = new lm::reflex(node1->mReflexManager, first, aimTestCommand);
+     //node1Instinct = new lm::reflex(node1->mReflexManager, first, aimTestCommand);
+
+      //node1Instinct = new lm::instinct(node1->mInstinctManager, first, myTestCommand);
 
  //     node2Instinct = new lm::reflex(node2, second, myTestCommand);
-      node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
+      //node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
 
       AI.registerNode(node1);
       AI.registerNode(node2);
@@ -535,56 +554,57 @@ namespace mw
       // todo replace this with a keymapper.
       // map keys to events... yay.
       InputBinder *binder = InputBinder::instance();
-      InputAction *act = binder->getAction(sym);
+      InputKey key = SDLtoISym(sym);
+      InputAction *act = binder->getAction(key);
       if (act == NULL)
       {
          return;
       }
       unsigned long id = act->getID();
-      if (id == mActUp->getID())
+      if (id == mActionUp->getID())
       {
          updateEdgeState(mAccelerate, down);
       }
-      else if(id == mActDn->getID())
+      else if(id == mActionDown->getID())
       {
          updateEdgeState(mReverse, down);
       }
-      else if(id == mActLt->getID())
+      else if(id == mActionLeft->getID())
       {
          updateEdgeState(mStrafeLeft, down);
       }
-      else if(id == mActRt->getID())
+      else if(id == mActionRight->getID())
       {
          updateEdgeState(mStrafeRight, down);
       }
-      else if(id == mActQuit->getID())
+      else if(id == mActionQuit->getID())
       {
          if (down)
          {
             this->invokeTransition("Menu");
          }
       }
-      else if(id == mActZIn->getID())
+      else if(id == mActionZoomIn->getID())
       {
          updateEdgeState(mCameraZoomIn, down);
       }
-      else if(id == mActZOut->getID())
+      else if(id == mActionZoomOut->getID())
       {
          updateEdgeState(mCameraZoomOut, down);
       }
-      else if(id == mActPDn->getID())
+      else if(id == mActionPitchDown->getID())
       {
          updateEdgeState(mCameraPitchDown, down);
       }
-      else if(id == mActPUp->getID())
+      else if(id == mActionPitchUp->getID())
       {
          updateEdgeState(mCameraPitchUp, down);
       }
-      else if(id == mActYLt->getID())
+      else if(id == mActionYawLeft->getID())
       {
          updateEdgeState(mCameraYawLeft, down);
       }
-      else if(id == mActYRt->getID())
+      else if(id == mActionYawRight->getID())
       {
          updateEdgeState(mCameraYawRight, down);
       }

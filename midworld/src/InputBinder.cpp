@@ -16,14 +16,14 @@ namespace mw
       return _Instance;
    }
 
-   void InputBinder::bindAction(InputAction *action, const SDLKey &key)
+   void InputBinder::bindAction(InputAction *action, const InputKey &key)
    {
       mKeyMap[key] = action;
    }
 
-   InputAction* InputBinder::getAction(const SDLKey &key)
+   InputAction* InputBinder::getAction(const InputKey &key)
    {
-      std::map<SDLKey, InputAction*>::iterator itr;
+      std::map<InputKey, InputAction*>::iterator itr;
       itr = mKeyMap.find(key);
       if (itr != mKeyMap.end())
       {

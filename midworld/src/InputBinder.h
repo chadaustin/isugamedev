@@ -8,6 +8,8 @@
 #include <map>
 #include <string>
 #include "InputAction.h"
+#include "InputParser.h"
+#include "InputSymbol.h"
 
 namespace mw
 {
@@ -26,13 +28,13 @@ namespace mw
        * @param event the event to bind
        * @param action the action to bind
        */
-      void bindAction(InputAction *action, const SDLKey &key);
+      void bindAction(InputAction *action, const InputKey &key);
       /**
        * Gets the action from the SDLKey
        * @param key the key to retrieve an action for
        * @return the action which is bound to the key
        */
-      InputAction* getAction(const SDLKey &key);
+      InputAction* getAction(const InputKey &key);
       
    protected:
       InputBinder()
@@ -41,7 +43,7 @@ namespace mw
    private:
       static InputBinder* _Instance;
       //@todo make this generic
-      std::map<SDLKey, InputAction*>mKeyMap;
+      std::map<InputKey, InputAction*>mKeyMap;
 
    };
 }//end of namespace mw
