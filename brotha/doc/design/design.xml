@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.13 2002-04-08 09:39:09 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 09:39:09 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.14 2002-04-08 09:47:28 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 09:47:28 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -483,6 +483,12 @@
         <term><application>Game Kernel</application></term>
         <listitem>
           <para>GameKernel is a flexible, open-source platform for running games being developed by members of the Iowa State Univerisy Game Developers Club. Designed with pluggable DLL drivers, GameKernel can currently operate using GLUT or SDL. It is supported on Windows, Linux and IRIX. Game Kernel is licensed under the LGPL.</para>
+        </listitem>
+      </varlistentry>
+      <varlistentry>
+        <term><application>phui</application></term>
+        <listitem>
+          <para>Phui is a "phlexible user interface" for OpenGL based applications. Developed by members of the Game Developers Club at IowaState University, phui is designed to allow for the large amount of control in the rendering of widgets that game developers demand.</para>
         </listitem>
       </varlistentry>
       <varlistentry>
