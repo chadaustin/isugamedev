@@ -1,0 +1,14 @@
+#!/bin/sh
+case `uname` in
+    IRIX*)
+        export VJ_BASE_DIR=/home/vr/Juggler/1.1-current/vrjuggler-1.1-DR3.irix-n32-pthread
+        export LD_LIBRARYN32_PATH=$VJ_BASE_DIR/lib32:$LD_LIBRARYN32_PATH
+        export LD_LIBRARYN32_PATH=`pwd`/third-party-sgi/lib32:$LD_LIBRARYN32_PATH
+        ;;
+    Linux)
+        export VJ_BASE_DIR=/home/vr/Juggler/1.1-current/vrjuggler-1.1-DR3.linux-rh72-gcc296
+        export LD_LIBRARY_PATH=$VJ_BASE_DIR/lib:$LD_LIBRARY_PATH
+        ;;
+esac
+
+export PATH=$VJ_BASE_DIR/bin:$PATH

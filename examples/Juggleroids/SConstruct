@@ -1,0 +1,16 @@
+import os
+import string
+import sys
+import autocons
+
+env = Environment(ENV = os.environ)
+if string.find(sys.platform, 'irix') == -1:
+   env.Append(CXXFLAGS = ['-Wall'])
+
+#autocons.SetupGLText(env)
+autocons.SetupJuggler(env)
+env.Append(LIBS = 'pthread')
+env.Program(
+   'juggleroids',
+   ['aster.cpp',
+    'cubeGeometry.cpp'])
