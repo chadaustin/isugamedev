@@ -8,7 +8,9 @@ The following contains instructions on how to attempt to build our source code.
 You will need the following external libraries:
 
 Audiere	1.9.1		http://audiere.sourceforge.net
+Cal3d    0.8.0    http://cal3d.sourceforge.net
 Corona	0.2.0 		http://corona.sourceforge.net
+cppdom            http://sourceforge.net/projects/xml-cppdom/
 GLText	0.1.0		http://gltext.sourceforge.net
 GMTL	0.1.12		http://ggt.sourceforge.net
 Loom	0.0.4		http://ailoom.sourceforge.net
@@ -27,10 +29,20 @@ contents inside of the third-party directory in your source tree.
 Audiere is a sound library which can be obtained at
 http://audiere.sourceforge.net
 
+-Cal3d-
+Cal3d is an animation library which can be obtained at
+http://cal3d.sourceforge.net
+
 -Corona-
 
 Corona is an image loading library which can be obtained at
 http://corona.sourceforge.net
+
+-cppdom-
+
+cppdom is an xml parsing utility which we use for level information as well as
+the level-editor, you can get it through cvs at 
+http://sourceforge.net/projects/xml-cppdom/
 
 -GLText-
 
