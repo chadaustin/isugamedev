@@ -1,4 +1,5 @@
 #include <memory>
+#include <stdexcept>
 #include <GL/gl.h>
 #include <siren/siren.h>
 
@@ -25,8 +26,18 @@ public:
 
 int main(int argc, char** argv)
 {
-   std::auto_ptr<siren::Kernel> kernel(new siren::Kernel());
+   try
+   {
+      // Register the states
+      new siren::StateCreatorImpl<BlueState>("Blue");
 
-   siren::StatePtr init_state(new BlueState());
-   kernel->start(init_state);
+      std::auto_ptr<siren::Kernel> kernel(new siren::Kernel());
+      kernel->start("Blue");
+   }
+   catch (std::runtime_error& e)
+   {
+      std::cerr << "Caught exception: " << e.what() << std::endl;
+   }
+
+   return 0;
 }
