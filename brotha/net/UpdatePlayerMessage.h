@@ -9,6 +9,7 @@
 #include "Message.h"
 #include "MessageTypes.h"
 #include "Serialize.h"
+#include "game/Player.h"
 
 
 namespace net {
@@ -18,26 +19,39 @@ namespace net {
     */
    class UpdatePlayerMessage : public Message {
    public:
-      UpdatePlayerMessage() {
-      }
+      UpdatePlayerMessage(game::Player* player = NULL)
+         : m_player(player)
+      {}
 
       PRUint32 getType() const {
          return UpdatePlayer;
       }
 
       PRUint32 getSize() {
-         return getVarSize(mCode);
+         if (m_player != NULL) {
+            return m_player->getSize();
+         } else {
+            return 0;
+         }
+      }
+
+      game::Player* getPlayer() {
+         return m_player;
       }
 
       void serialize(OutputStream& os) {
-         os << mCode;
+         if(m_player != NULL) {
+            m_player->serialize(os);
+         }
       }
 
       void deserialize(InputStream& is) {
-         is >> mCode;
+         if(m_player != NULL) {
+            m_player->deserialize(is);
+         }
       }
    private:
-      PRUint32 mCode;
+      game::Player* m_player;
    };
 
 }
