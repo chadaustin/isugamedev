@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Object.h,v $
- * Date modified: $Date: 2002-05-01 06:48:23 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-01 09:57:48 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -54,7 +54,7 @@ namespace game {
    class Object {
    public:
       /// UIDManager for objects
-      typedef UIDManager<Object,PRUint32,1> UIDMgr;
+      typedef util::UIDManager<Object,PRUint32,1> UIDMgr;
 
       /// The UID type for objects.
       typedef UIDMgr::UID UID;
