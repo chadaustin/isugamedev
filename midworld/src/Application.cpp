@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-06-11 10:37:05 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-07-06 05:11:01 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -52,7 +52,9 @@ namespace mw {
    void
    Application::update(u64 elapsedTime)
    {
-      mState->update(elapsedTime);
+      // Convert change in time to seconds
+      float dt = static_cast<float>(elapsedTime) / 1000000.0f;
+      mState->update(dt);
 
       State* next = mState->getNext();
       if (next)

@@ -26,7 +26,7 @@ namespace mw
    }
 
    void
-   IntroState::update(u64 elapsedTime)
+   IntroState::update(float dt)
    {
    }
 

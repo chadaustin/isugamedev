@@ -4,10 +4,7 @@
 #ifndef MW_STATE_H
 #define MW_STATE_H
 
-
 #include <SDL.h>
-#include "Types.h"
-
 
 namespace mw
 {
@@ -18,7 +15,12 @@ namespace mw
       State();
       virtual ~State();
 
-      virtual void update(u64 elapsedTime) = 0;
+      /**
+       * Updates this state based on the amount of time, in seconds, that has
+       * passed since the last frame.
+       */
+      virtual void update(float dt) = 0;
+
       virtual void draw() = 0;
       virtual void onKeyPress(SDLKey sym, bool down) = 0;
       virtual void onMousePress(Uint8 button, bool down, int x, int y) = 0;
@@ -39,8 +41,6 @@ namespace mw
       State* mNextState;
       bool mIsQuitting;
    };
-
 }
-
 
 #endif

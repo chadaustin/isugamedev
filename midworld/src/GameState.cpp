@@ -46,15 +46,14 @@ namespace mw
    }
 
    void
-   GameState::update(u64 elapsedTime)
+   GameState::update(float dt)
    {
-      float dt = ((float)elapsedTime) / 1000000.0f;
       mCamera.setPlayerPos(mPlayer.getPos());
 
-      const gmtl::Vec3f accel( gmtl::Vec3f(0,0,-mSpeed) );
-      const gmtl::Vec3f reverse( gmtl::Vec3f(0,0,mSpeed*0.7f) );
-      const gmtl::Vec3f sleft( gmtl::Vec3f(-mSpeed*0.9f,0,0) );
-      const gmtl::Vec3f sright( gmtl::Vec3f(mSpeed*0.9f,0,0) );
+      const gmtl::Vec3f accel(   gmtl::Vec3f(0, 0, -mSpeed)      );
+      const gmtl::Vec3f reverse( gmtl::Vec3f(0, 0,  mSpeed*0.7f) );
+      const gmtl::Vec3f sleft(   gmtl::Vec3f(-mSpeed*0.9f, 0, 0) );
+      const gmtl::Vec3f sright(  gmtl::Vec3f( mSpeed*0.9f, 0, 0) );
       
       // Accelerate
       if (mAccelerate == EDGE_DOWN)
@@ -129,7 +128,7 @@ namespace mw
       // Iterate over all the rigid bodies and update them
       for (RigidBodyList::iterator itr = mBodies.begin(); itr != mBodies.end(); ++itr)
       {
-         (*itr)->update(elapsedTime);
+         (*itr)->update(dt);
       }
 
       mCamera.update( dt );

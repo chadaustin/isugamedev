@@ -27,7 +27,7 @@ namespace mw
          DOWN, UP, EDGE_DOWN, EDGE_UP
       };
 
-      void update(u64 elapsedTime);
+      void update(float dt);
 
       void draw();
 

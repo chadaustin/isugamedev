@@ -71,7 +71,7 @@ namespace mw
       virtual void update(GameState& g, float timeDelta)
       {
          // @todo change rigid body's weird time formating to secs...
-         RigidBody::update( (long)(timeDelta * 1000000.0f) );
+         RigidBody::update(timeDelta);
       }
 
       /// for ammo pickup

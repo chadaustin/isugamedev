@@ -28,7 +28,7 @@ namespace mw
          mImages.clear();
       }
 
-      void update(u64 elapsedTime) {}
+      void update(float dt) {}
 
       void draw()
       {

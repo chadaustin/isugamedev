@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-06-24 07:09:56 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-07-06 05:11:01 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,7 +35,6 @@
 #include <gmtl/Point.h>
 #include <gmtl/Quat.h>
 #include <gmtl/Matrix.h>
-#include "Types.h"
 
 namespace mw
 {
@@ -121,9 +120,9 @@ namespace mw
        * Updates the internal state of this body given the amount of time that
        * has passed.
        *
-       * @param dt      the differtial of time in microseconds
+       * @param dt      the differtial of time in seconds
        */
-      virtual void update(u64 elapsedTime);
+      virtual void update(float dt);
       virtual void draw() const;	// display
 
       /**

@@ -78,7 +78,7 @@ namespace mw
       MenuState();
       ~MenuState();
 
-      void update(u64 elapsedTime);
+      void update(float dt);
       void draw();
       void onKeyPress(SDLKey sym, bool down);
       void onMousePress(Uint8 button, bool down, int x, int y);

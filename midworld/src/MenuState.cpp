@@ -71,7 +71,7 @@ namespace mw
    }
 
    void
-   MenuState::update(u64 elapsedTime)
+   MenuState::update(float dt)
    {
       //TODO: make this work!  Andres
 /*
