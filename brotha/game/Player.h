@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-22 05:37:09 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-22 05:47:25 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,7 +48,7 @@ namespace game {
    class Player {
    public:
       /// UID manager for player objects.
-      typedef UIDManager<Player,1,PRUint32> UIDMgr;
+      typedef UIDManager<Player,PRUint32,1> UIDMgr;
 
       /// The UID type for players.
       typedef UIDMgr::UID UID;

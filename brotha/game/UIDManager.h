@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: UIDManager.h,v $
- * Date modified: $Date: 2002-04-22 05:15:47 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-22 05:47:25 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -56,16 +56,18 @@ namespace game
     *
     * @param managedClass     the class for which the UIDs generated will be
     *                         unique for
-    * @param minValue         the minimum value of generated UIDs
     * @param id_t             the type of UIDs that will be generated
+    * @param minValue         the minimum value of generated UIDs
     */
    template< class managedClass,
-             id_t minValue = 0,
-             class id_t = unsigned long >
+             class id_t = unsigned long,
+             id_t minValue = 0 >
    class UIDManager : private thread::Synchronized
    {
    public:
       typedef id_t            UID;
+      enum { MinValue = minValue };
+
       typedef std::priority_queue< UID, std::deque<UID>,
               std::greater<typename std::deque<UID>::value_type> >
               avail_queue_t;
@@ -83,14 +85,14 @@ namespace game
        * Copies of singletons are prohibited. This constructor is not implemented
        * on purpose. Usage should cause a compile-time error.
        */
-      UIDManager( const UIDManager<managedClass, minValue, id_t>& copy );
+      UIDManager( const UIDManager<managedClass, id_t, minValue>& copy );
 
       /**
        * Copies of singletons are prohibited. This assignment operator is not
        * implemented on purpose. Usage should cause a compile-time error.
        */
-      UIDManager<managedClass, minValue, id_t> operator=(
-                  const UIDManager<managedClass, minValue, id_t>& copy );
+      UIDManager<managedClass, id_t, minValue> operator=(
+                  const UIDManager<managedClass, id_t, minValue>& copy );
 
       /**
        * This is a singleton. You can't delete this.
@@ -102,11 +104,11 @@ namespace game
       /**
        * Gets the singleton instance of this class.
        */
-      static UIDManager<managedClass, minValue, id_t>& getInstance()
+      static UIDManager<managedClass, id_t, minValue>& getInstance()
       {
          if ( mInstance == NULL )
          {
-            mInstance = new UIDManager<managedClass, minValue, id_t>();
+            mInstance = new UIDManager<managedClass, id_t, minValue>();
          }
          return *mInstance;
       }
@@ -160,13 +162,13 @@ namespace game
        */
       UID mLargestUID;
 
-      static UIDManager<managedClass, minValue, id_t>* mInstance;
+      static UIDManager<managedClass, id_t, minValue>* mInstance;
    };
 
    template < class managedClass,
-              id_t minValue,
-              class id_t >
-   UIDManager<managedClass, minValue, id_t>* UIDManager<managedClass, minValue, id_t>::mInstance = NULL;
+              class id_t,
+              id_t minValue >
+   UIDManager<managedClass, id_t, minValue>* UIDManager<managedClass, id_t, minValue>::mInstance = NULL;
 }
 
 #endif

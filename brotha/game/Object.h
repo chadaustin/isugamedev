@@ -12,7 +12,7 @@ namespace game {
    class Object {
    public:
       /// UIDManager for objects
-      typedef UIDManager<Object,1,PRUint32> UIDMgr;
+      typedef UIDManager<Object,PRUint32,1> UIDMgr;
 
       /// The UID type for objects.
       typedef UIDMgr::UID UID;
