@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-08 08:36:47 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2003-02-09 07:43:48 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -114,6 +114,7 @@ bool SdlDriver::init(IGameKernel *kernel)
 	screen = NULL;
 	mMouse = new DeviceHandle<Mouse>("Mouse", mKernel);
 	mKeyboard = new DeviceHandle<Keyboard>("Keyboard", mKernel);
+	mJoystick = new DeviceHandle<Joystick>("Joystick", mKernel);
 	//odds of this happening are pretty slim, but might as well check...
 	if (!mMouse)
 	{
@@ -123,6 +124,11 @@ bool SdlDriver::init(IGameKernel *kernel)
 	if (!mKeyboard)
 	{
 		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the keyboard Device Handle." << std::endl;
+		return false;
+	}
+   if (!mJoystick)
+	{
+		std::cerr << "SDL Driver Error:  Couldn't allocate memory for the joystick Device Handle." << std::endl;
 		return false;
 	}
 	//This enables repeating keybaord events.  These values should be read from somewhere, not hardcoded in.
