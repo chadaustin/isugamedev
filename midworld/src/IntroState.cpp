@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-10-11 04:49:57 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-10-11 05:01:55 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,10 +45,11 @@ namespace mw
 
    IntroState::IntroState( Application* a )
       : State( a )
+      , mAutoNextTime(8)
+      , mElapsedTime(0)
+      , mLeavingState(false)
    {
       mIntroImage = new Texture("images/intro.jpeg");
-      mElapsedTime = 0;
-      mLeavingState = 0;
 
       // Start playing the theme song.
       Jukebox* jukebox = GameManager::instance().getSoundManager()->getJukebox();
@@ -66,6 +67,13 @@ namespace mw
    IntroState::update(float dt)
    {
       mElapsedTime += dt;
+
+      // Check if we need to start the auto transition to the next state
+      if (mElapsedTime > mAutoNextTime)
+      {
+         startTransition();
+      }
+      
       if (mLeavingState && mElapsedTime > 1)
       {
          invokeTransition("Menu");

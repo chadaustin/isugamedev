@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.h,v $
- * Date modified: $Date: 2002-10-01 01:00:28 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-11 05:01:55 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -55,6 +55,9 @@ namespace mw
 
    private:
       void startTransition();
+
+      // The time at which to automatically transition to the next state.
+      float mAutoNextTime;
 
       Texture* mIntroImage;
       float mElapsedTime;  // seconds
