@@ -25,6 +25,7 @@ Tank::Tank(GLfloat x, GLfloat y, GLfloat z, GLfloat angleIn)
 
 Tank::~Tank()
 {
+	//delete [] treadTex;
 
 }
 

@@ -41,13 +41,13 @@ public:
 
 private:
 
-	GLfloat angle;
-	GLfloat xPos;
-	GLfloat yPos;
-	GLfloat zPos;
-	GLfloat speed;
+	//GLfloat angle;
+	//GLfloat xPos;
+	//GLfloat yPos;
+	//GLfloat zPos;
+	//GLfloat speed;
 	GLfloat rotateSpeed;
-	GLfloat extents;
+	//GLfloat extents;
 
 	GLint shotsLeft;
 	bool alive;
