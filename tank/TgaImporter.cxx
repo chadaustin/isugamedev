@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: TgaImporter.cxx,v $
-//    $Date: 2001-09-14 05:00:57 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-14 05:36:24 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -30,6 +30,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 
+#include <assert.h>
 #include <string>			// for std::string
 #include "Defines.h"		// needed for kev::byteReverse()
 #include "CFileIO.h"		// needed to write out binary data with proper endianness.
