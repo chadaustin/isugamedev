@@ -1,1 +1,3 @@
-SConscript(dirs = Split('event window xmllayout'))
+import os
+pj = os.path.join
+SConscript(dirs = Split(pj('standalone', 'window')))

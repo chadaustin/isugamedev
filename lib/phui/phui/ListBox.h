@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -40,6 +40,9 @@
 
 namespace phui
 {
+   class ListBox;
+   typedef Loki::SmartPtrDef<ListBox>::type ListBoxPtr;
+   
    class ListBox : public Widget
    {
    protected:
@@ -54,7 +57,7 @@ namespace phui
        */
       virtual ~ListBox();
 
-      static boost::shared_ptr<ListBox> create();
+      static ListBoxPtr create();
 
       /**
        * Draws this listbox
@@ -132,8 +135,6 @@ namespace phui
       typedef ListenerList::iterator ListenerIter;
       ListenerList mListeners;
    };
-
-   typedef boost::shared_ptr<ListBox> ListBoxPtr;
 }
 
 #endif

@@ -1,47 +1,37 @@
 import os, string, sys
 pj = os.path.join
 
-# Pull in the AutoDist module
-sys.path = [pj('tools', 'build')] + sys.path
-from AutoDist import *
+buildRoot = os.getcwd()
+Export('buildRoot')
 
-# Check for the optimize option
-optimize = 0
-if ARGUMENTS.get('opt', 0):
-   optimize = 1
+subdirs = []
 
-# Check for an install prefix
-if ARGUMENTS.get('prefix', 0):
-   Prefix(ARGUMENTS['prefix'])
-
-
-def BuildBaseEnvironment():
+def BuildGNUEnvironment(env):
    "Builds a base environment for other modules to build on."
-   global optimize, profile
-
-   CXX = WhereIs('g++3') or 'g++'
-   LINK = CXX
+   print 'Building for a GNU toolset.'
    CXXFLAGS = ['-Wall']
-   LINKFLAGS = []
+   CXXFLAGS.extend(['-DDEBUG', '-g'])
 
-   if optimize:
-      CXXFLAGS.extend(['-DNDEBUG', '-O2'])
-   else:
-      CXXFLAGS.extend(['-DDEBUG', '-g'])
-
-   env = Environment(
-      ENV = os.environ,
-      CXX = CXX,
-      LINK = LINK,
-      CPPPATH = [],
-      LIBPATH = [],
-      LIBS = [],
+   env.AppendUnique(
+      CPPPATH = [pj('#', 'external', 'include'), pj(buildRoot, 'phui'), 
+                 buildRoot ],
+      LIBPATH = [pj('#', 'external', 'lib')],
       CXXFLAGS = CXXFLAGS,
-      LINKFLAGS = LINKFLAGS,
    )
 
-   return env
-
+def BuildWin32Environment(env):
+   "Builds a base environment for the win32 platform"
+   print 'Building with the win32 environment.'
+   CPPDEFINES = Split('WIN32 _DEBUG_ _LIB')
+   CXXFLAGS = Split('/ZI /nologo /W3 /Od /FD /EHsc /RTC1 /MDd /TP')
+   LINKFLAGS = Split('/NOLOGO')
+   CPPPATH = [ pj(buildRoot, 'external', 'include'), pj(buildRoot, 'phui') ]
+   LIBPATH = [ pj(buildRoot, 'external', 'lib') ]
+   env.AppendUnique(CPPDEFINES = CPPDEFINES,
+                    CXXFLAGS = CXXFLAGS,
+                    LINKFLAGS = LINKFLAGS,
+                    CPPPATH = CPPPATH,
+                    LIBPATH = LIBPATH)
 
 def ParseConfig(env, command, options):
    "Parses xxx-config style output for compilation directives"
@@ -74,9 +64,13 @@ def ParseConfig(env, command, options):
          # Must be a static library, add it to the libs
          env['LIBS'].append(arg)
 
-def SetupGLText(env):
-   "Sets up the given environment for Audiere"
-   env.Append(LIBS = ['gltext', 'ttf'])
+def SetupGLText(cc, env):
+   "Sets up the given environment for gltext."
+   res = 1
+   res = res and cc.CheckLibWithHeader('gltext', 'gltext/gltext.h', 'c++')
+   if not res:
+      print "[WRN] No local gltext found; building our own."
+      subdirs.append( pj('external', 'src', 'gltext-0.3.1') )  
 
 def SetupCppDom(env):
    "Sets up the given environment for CppDom"
@@ -86,23 +80,39 @@ def SetupCppUnit(env):
    "Sets up the given environment for CppUnit"
    ParseConfig(env, 'cppunit-config', Split('--cflags --libs'))
 
-def SetupOpenGL(env):
+def SetupOpenGL(cc, env):
    "Sets up the given environment to be able to build with OpenGL"
+   res = 1
    # CYGWIN
-   if sys.platform == 'cygwin':
-       OPENGL_LIBS = ['opengl32', 'glu32']
+   if env['PLATFORM'] == 'cygwin':
+      res = res and cc.CheckLibWithHeader('opengl32', 'GL/gl.h', 'c++')
+      res = res and cc.CheckLibWithHeader('glu32', 'GL/gl.h', 'c++')
 
    # IRIX
-   elif string.find(sys.platform, 'irix') != -1:
-       OPENGL_LIBS = ['GLU', 'GL', 'X11', 'Xmu']
+   elif env['PLATFORM'] == 'irix':
+      res = res and cc.CheckLibWithHeader('GL', 'GL/gl.h', 'c++')
+      res = res and cc.CheckLibWithHEader('GL', 'GL/gl.h', 'c++')
+      res = res and cc.CheckLib('X11')
+      res = res and cc.CheckLib('Xmu')
 
-   # GENERIC (LINUX?)
+   # GENERIC GNU
+   elif env['PLATFORM'] == 'posix':
+      res = res and cc.CheckLibWithHeader('GLU', 'GL/gl.h', 'c++')
+      res = res and cc.CheckLibWithHeader('GL', 'GL/gl.h', 'c++')
+   elif env['PLATFORM'] == 'win32':
+      gl_headers = ['windows.h', 'GL/gl.h']
+      glu_headers = gl_headers[:]
+      glu_headers.append('GL/glu.h')
+      res = res and cc.CheckLibWithHeader('opengl32.lib', gl_headers, 'c++')
+      res = res and cc.CheckLibWithHeader('glu32.lib', glu_headers, 'c++')
    else:
-       OPENGL_LIBS = ['GLU', 'GL']
-
-   # Add in the OpenGL libs to the environment
-   env.Append(LIBS = OPENGL_LIBS)
-
+      print '[WRN] Unknown platform ' + env['PLATFORM']
+      res = res and cc.CheckLibWithHeader('GLU', 'GL/gl.h', 'c++')
+      res = res and cc.CheckLibWithHeader('GL', 'GL/gl.h', 'c++')
+   if not res:
+      print "[ERR] You don't appear to have OpenGL libraries/headers installed."
+      sys.exit(1)
+      
 def SetupPython(env, requiredVersion):
    "Sets up the environment for Python"
    print 'Looking for python 2.2 ...'
@@ -133,27 +143,49 @@ def SetupBoostPython(env):
    "Sets up the env for Boost Python"
    env.Append(LIBS = ['boost_python'])
 
-def SetupSDL(env):
+def SetupSDL(cc, env):
    "Sets up the given environment for SDL"
-   ParseConfig(env, 'sdl-config', Split('--cflags --libs'))
-
-def SetupGLUT(env):
-   "Sets up the given environment to be able to build with GLUT"
-   # CYGWIN
-   if sys.platform == 'cygwin':
-       GLUT_LIBS = ['glut32']
-
-   # IRIX and LINUX
+   if env.Dictionary().has_key('sdl_dir'):
+      sdl_dir = env.Dictionary()['sdl_dir']
+      cc.env.AppendUnique( CPPPATH = [pj(sdl_dir, 'include')],
+                           LIBPATH = [pj(sdl_dir, 'lib')] )
+   res = 1
+   if env['PLATFORM'] == 'win32':
+      res = res and cc.CheckLibWithHeader('SDL', 'SDL.h', 'c++')
    else:
-       GLUT_LIBS = ['glut']
+      res = res and cc.CheckLibWithHeader('SDL', 'SDL/SDL.h', 'c++')
+   if res == 0:
+      print "[ERR] You don't appear to have SDL installed.  Get it at http://www.libsdl.org"
+      env.Dictionary()['sdl'] = 0
+   elif env.Dictionary().has_key('sdl_dir'):
+      env.AppendUnique( CPPPATH = [pj(sdl_dir, 'include')],
+                        LIBPATH = [pj(sdl_dir, 'lib')] )
 
-   # Add in the OpenGL libs to the environment
-   env.Append(LIBS = GLUT_LIBS)
+def SetupGLUT(cc, env):
+   "Sets up the given environment to be able to build with GLUT"
+   res = 1
+   # Win32
+   if env['PLATFORM'] == 'win32':
+      res = res and cc.CheckLibWithHeader('glut32', 'GL/glut.h', 'c++')
+   # POSIX (Linux)
+   elif env['PLATFORM'] == 'posix':
+      res = res and cc.CheckLibWithHeader('glut', 'GL/glut.h', 'c++')
+   # Assume GNU something.
+   else:
+      res = res and cc.CheckLibWithHeader('glut', 'GL/glut.h', 'c++')
+
+   if not res:
+      print "[ERR] You don't appear to have GLUT installed; disabling the GLUT driver for now."
+      env.Dictionary()['glut'] = 0
+
+def SetupVRJuggler(cc, env):
+   "Sets up the environment to build the VR Juggler phui library."
+   print '[WRN] The VR Juggler driver is currently under development.'
+   env.Dictionary()['vrjuggler'] = 0
 
 Export('ParseConfig')
 Export('SetupGLText SetupCppDom SetupCppUnit SetupOpenGL SetupSDL SetupGLUT')
 Export('SetupPython SetupBoostPython')
-
 
 def GetPhuiVersion():
    "Gets the Phui version from the phui/Version.h header"
@@ -165,35 +197,86 @@ def GetPhuiVersion():
    return '%d.%d.%d' % (int(major), int(minor), int(patch))
 
 
+# Make sure SCons is recent enough.
+EnsureSConsVersion(0,9)
+
+# Build the base environment.
+baseEnv = Environment(ENV = os.environ)
+if baseEnv['PLATFORM'] == 'win32':
+   BuildWin32Environment(baseEnv)
+elif baseEnv['PLATFORM'] == 'posix':
+   BuildGNUEnvironment(baseEnv)
+else:
+   BuildGNUEnvironment(baseEnv)
+Export('baseEnv')
+
+# Check for command line options
+options = Options('options.cache', ARGUMENTS)
+
+# Build Type options
+dbg_opt = BoolOption('debug', 'Build phui with debug symbols.', 'yes')
+opt_opt = BoolOption('optimize', 'Turn on compiler optimizations.', 'no')
+pro_opt = BoolOption('profile', 'Build phui with profiling information.', 'no')
+options.AddOptions(dbg_opt, opt_opt, pro_opt)
+
+# Installation options
+if sys.platform == 'win32':
+   default_prefix = pj('phui')
+else:
+   default_prefix = pj('/', 'usr', 'local') 
+pre_opt = PathOption('prefix', 'The prefix to use when installing phui.', 
+                      default_prefix)
+options.AddOptions(pre_opt)
+
+# Package Options
+cpu_opt = BoolOption('cppunit', 'Build phui with CppUnit support.', 'no')
+sdl_opt = BoolOption('sdl', 'Build the SDL phui Driver.', 'yes')
+vrj_opt = BoolOption('vrjuggler', 'Build the VR Juggler phui Driver.', 'no')
+glu_opt = BoolOption('glut', 'Build the GLUT phui Driver.', 'yes')
+options.AddOptions(cpu_opt, sdl_opt, vrj_opt, glu_opt)
+
+# Path Options
+if sys.platform == 'win32':
+   default_sdl_path = 'C:\\SDL'
+else:
+   default_sdl_path = pj('/', 'usr', 'local')
+sdl_path_opt = PathOption('sdl_dir', 'Root location of the SDL installation.', default_sdl_path)
+options.AddOptions(sdl_path_opt)
+options.Update(baseEnv)
+options.Save('options.cache', baseEnv)
+
+if ARGUMENTS.has_key('help'):
+   Help(options.GenerateHelpText(baseEnv))
+   sys.exit(1)
+
+# Verify validity of options.
+cc = baseEnv.Configure()
+dict = baseEnv.Dictionary()
+
+if dict['sdl']:
+   SetupSDL(cc, baseEnv)
+if dict['vrjuggler']: 
+   SetupVRJuggler(cc, baseEnv)
+if dict['glut']:
+   SetupGLUT(cc, baseEnv)
+if dict['cppunit']:
+   SetupCppUnit(cc, baseEnv)
+
+if 'install' in COMMAND_LINE_TARGETS:
+   subdirs.append( pj('external', 'src', 'gltext-0.3.1') )  
+
+# Finally, check dependencies
+SetupOpenGL(cc, baseEnv)
+SetupGLText(cc, baseEnv)
+cc.Finish()
+
 #------------------------------------------------------------------------------
 # Grok the arguments to this build
 #------------------------------------------------------------------------------
-EnsureSConsVersion(0,9)
-baseEnv = BuildBaseEnvironment()
-Export('baseEnv')
-
-# Create the Siren package
-pkg = Package('phui', GetPhuiVersion())
-pkg.addExtraDist(Split("""
-   AUTHORS
-   ChangeLog
-   COPYING
-   README
-   SConstruct
-   phui/SConscript
-   phui/layout/SConscript
-   examples/SConscript
-   examples/event/SConscript
-   examples/window/SConscript
-   examples/xmllayout/SConscript
-   tools/build/AutoDist.py
-"""))
-Export('pkg')
 
 # Recurse
-subdirs = Split('phui examples')
+#subdirs = Split('phui examples')
+subdirs.extend( Split('phui examples') )
 SConscript(dirs = subdirs)
-
-pkg.build()
 
 Default('.')

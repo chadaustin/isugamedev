@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -72,7 +72,7 @@ namespace phui
       Point mPointerPosition;
    };
 
-   typedef boost::shared_ptr<RootWidget> RootWidgetPtr;
+   typedef Loki::SmartPtrDef<RootWidget>::type RootWidgetPtr;
 }
 
 #endif

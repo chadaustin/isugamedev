@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WindowAdapter.h,v $
- * Date modified: $Date: 2003-01-08 08:19:50 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -79,7 +79,7 @@ namespace phui
       void onWindowUnfocused(const WindowEvent& evt) {}
    };
 
-   typedef boost::shared_ptr<WindowAdapter> WindowAdapterPtr;
+   typedef Loki::SmartPtrDef<WindowAdapter>::type WindowAdapterPtr;
 }
 
 #endif

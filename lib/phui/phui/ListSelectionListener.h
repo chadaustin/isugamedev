@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListSelectionListener.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -96,7 +96,7 @@ namespace phui
       virtual void onListSelection(const ListSelectionEvent& evt) = 0;
    };
 
-   typedef boost::shared_ptr<ListSelectionListener> ListSelectionListenerPtr;
+   typedef Loki::SmartPtrDef<ListSelectionListener>::type ListSelectionListenerPtr;
 }
 
 #endif

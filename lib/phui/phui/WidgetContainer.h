@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2003-01-06 02:52:00 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -61,6 +61,8 @@ namespace phui
       ~WidgetContainer();
 
    public:
+
+      friend class Loki::DefaultSPStorage<WidgetContainer>;
       /**
        * Adds the given widget to this container widget.
        *
@@ -131,7 +133,7 @@ namespace phui
       WidgetPtr mCapturedWidget;
    };
 
-   typedef boost::shared_ptr<WidgetContainer> WidgetContainerPtr;
+   typedef Loki::SmartPtrDef<WidgetContainer>::type WidgetContainerPtr;
 }
 
 #endif

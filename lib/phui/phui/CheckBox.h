@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CheckBox.h,v $
- * Date modified: $Date: 2003-01-06 06:20:50 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2005-01-23 21:46:47 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -37,14 +37,17 @@
 
 namespace phui
 {
+   class CheckBox;
+   typedef Loki::SmartPtrDef<CheckBox>::type CheckBoxPtr;
+   
    class CheckBox : public Widget
    {
    protected:
       CheckBox(bool checked = false);
 
    public:
-      static boost::shared_ptr<CheckBox> create();
-      static boost::shared_ptr<CheckBox> create(bool checked);
+      static CheckBoxPtr create();
+      static CheckBoxPtr create(bool checked);
 
       void draw();
 
@@ -57,10 +60,9 @@ namespace phui
       void onMouseDown(InputButton button, const Point& p);
 
    private:
+   
       bool mIsChecked;
    };
-
-   typedef boost::shared_ptr<CheckBox> CheckBoxPtr;
 }
 
 #endif

@@ -1,18 +1,22 @@
-Microsoft Visual Studio Solution File, Format Version 7.00
+Microsoft Visual Studio Solution File, Format Version 8.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "phui", "phui.vcproj", "{04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "window", "window.vcproj", "{321E954C-0B7C-411B-9FED-ECC66E6C5BFC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A} = {04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "event", "event.vcproj", "{493DE2DA-3E86-4322-851B-FB55EBEB33CA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A} = {04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
-		ConfigName.0 = Debug
-		ConfigName.1 = Release
-	EndGlobalSection
-	GlobalSection(ProjectDependencies) = postSolution
-		{321E954C-0B7C-411B-9FED-ECC66E6C5BFC}.0 = {04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}
-		{493DE2DA-3E86-4322-851B-FB55EBEB33CA}.0 = {04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}
+		Debug = Debug
+		Release = Release
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{04C257DA-9F5B-459C-B2A7-8EAAB4D59B8A}.Debug.ActiveCfg = Debug|Win32

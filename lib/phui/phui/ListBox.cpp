@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -52,7 +52,6 @@ namespace phui
    ListBoxPtr ListBox::create()
    {
       ListBoxPtr obj(new ListBox());
-      obj->setSelf(obj);
       return obj;
    }
 
@@ -77,8 +76,8 @@ namespace phui
       // draw text
       glColor(getForegroundColor());
 
-      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP);
-      renderer->setFont(font.get());
+      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP,
+                                                                font);
 
       int fontHeight = font->getAscent() + font->getDescent();
       int fontLineGap = font->getLineGap();
@@ -186,7 +185,7 @@ namespace phui
 
    void ListBox::fireListSelectionEvent(int selectedIdx)
    {
-      ListSelectionEvent evt(getSelf(), selectedIdx);
+      ListSelectionEvent evt(this, selectedIdx);
 
       for (ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++)
       {

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Input.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2005-01-23 21:46:47 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -39,6 +39,8 @@ namespace phui
       BUTTON_LEFT,
       BUTTON_MIDDLE,
       BUTTON_RIGHT,
+      BUTTON_WHEEL_UP,
+      BUTTON_WHEEL_DOWN,
 
       BUTTON_UNKNOWN,
    };
@@ -58,6 +60,9 @@ namespace phui
       KEY_F10,
       KEY_F11,
       KEY_F12,
+      KEY_F13,
+      KEY_F14,
+      KEY_F15,
       KEY_TILDE,
       KEY_MINUS,
       KEY_EQUALS,
@@ -99,9 +104,27 @@ namespace phui
       KEY_7,
       KEY_8,
       KEY_9,
+      KEY_KEYPAD_0,
+      KEY_KEYPAD_1,
+      KEY_KEYPAD_2,
+      KEY_KEYPAD_3,
+      KEY_KEYPAD_4,
+      KEY_KEYPAD_5,
+      KEY_KEYPAD_6,
+      KEY_KEYPAD_7,
+      KEY_KEYPAD_8,
+      KEY_KEYPAD_9,
+      KEY_KEYPAD_PERIOD,
+      KEY_KEYPAD_PLUS,
+      KEY_KEYPAD_MINUS,
+      KEY_KEYPAD_DIVIDE,
+      KEY_KEYPAD_MULTIPLY,
+      KEY_KEYPAD_EQUALS,
+      KEY_KEYPAD_ENTER,
       KEY_SHIFT,
       KEY_CTRL,
       KEY_ALT,
+      KEY_WINDOWS,
       KEY_SPACE,
       KEY_OPENBRACE,
       KEY_CLOSEBRACE,
@@ -112,6 +135,8 @@ namespace phui
       KEY_SLASH,
       KEY_BACKSLASH,
       KEY_ENTER,
+      KEY_PRINTSCREEN,
+      KEY_PAUSE,
       KEY_INSERT,
       KEY_DELETE,
       KEY_HOME,

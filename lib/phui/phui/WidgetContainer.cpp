@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2003-01-06 02:52:01 $
- * Version:       $Revision: 1.29 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.30 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -45,7 +45,10 @@ namespace phui
    WidgetContainer::WidgetContainer()
    {
       LayoutConstraintPtr constraint(new EmptyConstraint());
-      mLayoutManager.reset(new LayoutManager(this, constraint));
+      //This doesn't work w/ MSVC .Net 2003
+      //Loki::Reset(mLayoutManager, new LayoutManager(this, constraint));
+      LayoutManagerPtr new_ptr( new LayoutManager(this, constraint) );
+      mLayoutManager = new_ptr;
    }
 
    WidgetContainer::WidgetContainer(LayoutManagerPtr manager)
@@ -64,7 +67,9 @@ namespace phui
       }
       // Now add the widget to this container
       mWidgets.push_back(widget);
-      widget->setParent(boost::shared_dynamic_cast<WidgetContainer>(getSelf()));
+      widget->setParent(this);
+      //XXX:  Fix this.
+      //widget->setParent(boost::shared_dynamic_cast<WidgetContainer>(getSelf()));
       mLayoutManager->add(widget->getPosition(), widget->getSize());
    }
 
@@ -75,7 +80,7 @@ namespace phui
          if (mWidgets[i] == widget)
          {
             mWidgets.erase(mWidgets.begin() + i);
-            widget->mParent.reset();
+            widget->mParent = 0;
             mLayoutManager->remove(widget->getPosition());
          }
       }

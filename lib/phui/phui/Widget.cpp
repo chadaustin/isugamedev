@@ -24,13 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2003-01-05 14:10:05 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #include <stdio.h>
 #include <stdexcept>
+#include "Debug.h"
 #include "Widget.h"
 #include "WidgetContainer.h"
 
@@ -43,10 +44,13 @@ namespace phui
       , mBackgroundColor(BLACK)
       , mForegroundColor(WHITE)
    {
-      mFont = gltext::CreateFont("arial.ttf", gltext::PLAIN, 12);
+      mFont = gltext::OpenFont("arial.ttf", 12);
       if (!mFont)
       {
-         throw std::runtime_error("Font not found");
+         phuiDEBUG(phuiDBG_ERROR)
+            << "Font not found." 
+            << std::endl;
+         throw std::runtime_error("Font not found.");
       }
    }
 
@@ -136,9 +140,9 @@ namespace phui
       return mFont;
    }
 
-   WidgetContainerPtr Widget::getParent() const
+   WidgetContainer* Widget::getParent() const
    {
-      return boost::make_shared(mParent);
+      return mParent;
    }
 
    bool Widget::contains(const Point& p) const
@@ -162,7 +166,7 @@ namespace phui
    bool Widget::hasFocus()
    {
       WidgetContainerPtr parent = getParent();
-      WidgetPtr child = getSelf();
+      WidgetPtr child(this);
       while (parent)
       {
          if (parent->getFocus() != child)
@@ -176,19 +180,8 @@ namespace phui
       return true;
    }
 
-   void Widget::setParent(WidgetContainerPtr parent)
+   void Widget::setParent(WidgetContainer* parent)
    {
-      mParent = parent;
+      mParent = parent; 
    }
-
-   boost::shared_ptr<Widget> Widget::getSelf()
-   {
-      return boost::make_shared(mSelf);
-   }
-
-   void Widget::setSelf(boost::shared_ptr<Widget> new_self)
-   {
-      mSelf = new_self;
-   }
-
 }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2003-01-08 08:19:49 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -56,14 +56,12 @@ namespace phui
    WindowPtr Window::create()
    {
       WindowPtr obj(new Window());
-      obj->setSelf(obj);
       return obj;
    }
 
    WindowPtr Window::create(const std::string& title)
    {
       WindowPtr obj(new Window(title));
-      obj->setSelf(obj);
       return obj;
    }
 
@@ -148,8 +146,9 @@ namespace phui
 
    void Window::fireWindowOpenedEvent()
    {
-      WindowEvent evt(boost::shared_dynamic_cast<Window>(getSelf()));
-
+      //XXX:  Fix this...
+      //WindowEvent evt(boost::shared_dynamic_cast<Window>(getSelf()));
+      WindowEvent evt(this);
       for (ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); ++itr)
       {
          (*itr)->onWindowOpened(evt);
@@ -158,8 +157,9 @@ namespace phui
 
    void Window::fireWindowClosedEvent()
    {
-      WindowEvent evt(boost::shared_dynamic_cast<Window>(getSelf()));
-
+      //XXX:  Fix this...
+      //WindowEvent evt(boost::shared_dynamic_cast<Window>(getSelf()));
+      WindowEvent evt(this);
       for (ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); ++itr)
       {
          (*itr)->onWindowClosed(evt);

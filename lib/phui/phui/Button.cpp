@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2005-01-23 21:46:47 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -36,7 +36,7 @@
 #  include <windows.h>
 #endif
 #include <GL/gl.h>
-#include <gltext.h>
+#include <gltext/gltext.h>
 #include "Button.h"
 #include "WidgetContainer.h"
 
@@ -58,14 +58,12 @@ namespace phui
    ButtonPtr Button::create()
    {
       ButtonPtr obj(new Button());
-      obj->setSelf(obj);
       return obj;
    }
 
    ButtonPtr Button::create(const std::string& text)
    {
       ButtonPtr obj(new Button(text));
-      obj->setSelf(obj);
       return obj;
    }
 
@@ -90,10 +88,8 @@ namespace phui
       // draw text
       glColor(mButtonDown ? getBackgroundColor() : getForegroundColor());
 
-      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP);
-      renderer->setFont(font.get());
-
-
+      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP,
+                                                                font);
       double labelWidth = double(renderer->getWidth(mText.c_str()));
       double fontHeight = double(font->getAscent() + font->getDescent());
 
@@ -184,7 +180,7 @@ namespace phui
 
    void Button::fireActionEvent()
    {
-      ActionEvent evt(getSelf());
+      ActionEvent evt(this);
 
       for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++)
       {

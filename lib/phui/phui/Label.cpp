@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2005-01-23 21:46:47 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -51,14 +51,12 @@ namespace phui
    LabelPtr Label::create()
    {
       LabelPtr obj(new Label());
-      obj->setSelf(obj);
       return obj;
    }
 
    LabelPtr Label::create(const std::string& text)
    {
       LabelPtr obj(new Label(text));
-      obj->setSelf(obj);
       return obj;
    }
 
@@ -83,8 +81,8 @@ namespace phui
       // draw text
       glColor(getForegroundColor());
 
-      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP);
-      renderer->setFont(font.get());
+      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP,
+                                                                font);
 
       double labelWidth = double(renderer->getWidth(mText.c_str()));
       double fontHeight = double(font->getAscent() + font->getDescent());

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutManager.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -114,7 +114,7 @@ namespace phui
       std::vector<std::pair< Point, Size > > mWidgets;
    };
 
-   typedef boost::shared_ptr<LayoutManager> LayoutManagerPtr;
+   typedef Loki::SmartPtrDef<LayoutManager>::type LayoutManagerPtr;
 }
 
 #endif

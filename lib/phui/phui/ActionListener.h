@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ActionListener.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2005-01-23 21:46:47 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -83,7 +83,7 @@ namespace phui
       virtual void onAction(const ActionEvent& evt) = 0;
    };
 
-   typedef boost::shared_ptr<ActionListener> ActionListenerPtr;
+   typedef Loki::SmartPtrDef<ActionListener>::type ActionListenerPtr;
 }
 
 #endif

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2005-01-23 21:46:47 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -40,6 +40,13 @@
 
 namespace phui
 {
+   /**
+    * For some reason, Microsoft refuses to follow the scoping rules for
+    * typedefs outlined in the C++ Specification.
+    */
+   class Button;
+   typedef Loki::SmartPtrDef<Button>::type ButtonPtr;
+      
    /**
     * A classic UI button widget.
     */
@@ -63,14 +70,14 @@ namespace phui
       ~Button();
 
       /// Creates a new button with no text at (0,0) with size (0,0).
-      static boost::shared_ptr<Button> create();
+      static ButtonPtr create();
 
       /**
        * Creates a new button with the given text at (0,0) with size (0,0).
        *
        * @param text      the text for the button
        */
-      static boost::shared_ptr<Button> create(const std::string& text);
+      static ButtonPtr create(const std::string& text);
 
       /**
        * Draws this button with its text.
@@ -136,8 +143,6 @@ namespace phui
       typedef ListenerList::iterator ListenerIter;
       ListenerList mListeners;
    };
-
-   typedef boost::shared_ptr<Button> ButtonPtr;
 }
 
 #endif

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -37,6 +37,9 @@
 
 namespace phui
 {
+   class TextField;
+   typedef Loki::SmartPtrDef<TextField>::type TextFieldPtr;
+      
    /**
     * A classic UI textfield widget.
     */
@@ -61,8 +64,8 @@ namespace phui
        */
       virtual ~TextField();
 
-      static boost::shared_ptr<TextField> create();
-      static boost::shared_ptr<TextField> create(const std::string& text);
+      static TextFieldPtr create();
+      static TextFieldPtr create(const std::string& text);
 
       /**
        * Draws this button with its text.
@@ -104,8 +107,6 @@ namespace phui
        */
       unsigned int mCursorCharacterPosition;
    };
-
-   typedef boost::shared_ptr<TextField> TextFieldPtr;
 }
 
 #endif

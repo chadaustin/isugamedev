@@ -1,5 +1,16 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2005-01-23 daren        Changed the build to use a modern SCons; we now 
+                        support Win32 builds as well.  This allows us to
+                        detect dependencies and automatically build gltext if
+                        it is not found.
+2005-01-23 daren        Added in a DriverManager to handle the use of drivers. 
+2005-01-23 daren        Added a GLUT driver. 
+2005-01-23 daren        Added a SDL driver. 
+2005-01-23 daren        Refactored the Bridge interface; replaced it with a 
+                        driver interface.
+2005-01-23 daren        Not anymore; we now use loki::SmartPtr to manage our
+                        memory for us.
 2003-01-04 nonchocoboy  We now use boost shared_ptr and weak_ptr to manage our
                         memory for us.
 2002-12-31 daren        Added layout manager framework.

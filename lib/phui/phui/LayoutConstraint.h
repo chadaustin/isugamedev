@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutConstraint.h,v $
- * Date modified: $Date: 2003-01-05 13:21:33 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -33,7 +33,7 @@
 #define PHUI_LAYOUT_CONSTRAINT_H
 
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <loki/SmartPtr.h>
 
 namespace phui
 {
@@ -53,7 +53,7 @@ namespace phui
       virtual const std::string getType() = 0;
    };
 
-   typedef boost::shared_ptr<LayoutConstraint> LayoutConstraintPtr;
+   typedef Loki::SmartPtrDef<LayoutConstraint>::type LayoutConstraintPtr;
 }
 
 #endif

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -42,6 +42,9 @@
 
 namespace phui
 {
+   class Window;
+   typedef Loki::SmartPtrDef<Window>::type WindowPtr;
+   
    class Window : public WidgetContainer
    {
    protected:
@@ -59,14 +62,14 @@ namespace phui
       virtual ~Window();
 
       /// Creates a window with an empty title.
-      static boost::shared_ptr<Window> create();
+      static WindowPtr create();
 
       /**
        * Creates a window with the given title.
        *
        * @param   title          the title for the window
        */
-      static boost::shared_ptr<Window> create(const std::string& title);
+      static WindowPtr create(const std::string& title);
 
       void draw();
 
@@ -102,8 +105,6 @@ namespace phui
       typedef ListenerList::iterator ListenerIter;
       std::list<WindowListenerPtr> mListeners;
    };
-
-   typedef boost::shared_ptr<Window> WindowPtr;
 }
 
 #endif

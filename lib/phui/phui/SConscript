@@ -1,13 +1,12 @@
 import os
 pj = os.path.join
 
-Import('baseEnv pkg')
-Import('SetupCppDom SetupGLText SetupGLUT SetupSDL')
-Import('SetupPython SetupBoostPython')
+Import('baseEnv')
 
 classes = Split("""
    Button
    CheckBox
+   DriverManager
    FlowLayout
    Insets
    Label
@@ -41,39 +40,38 @@ headers = Split("""
 """)
 
 sources.extend(map(lambda n: n + '.cpp', classes))
+# For loki
+sources.append(pj('#', 'external', 'include', 'loki', 'Singleton.cpp'))
+sources.append(pj('#', 'external', 'include', 'loki', 'SmallObj.cpp'))
 headers.extend(map(lambda n: n + '.h',   classes))
 
 
 # Define the core library
 core_env = baseEnv.Copy()
-SetupCppDom(core_env)
-SetupGLText(core_env)
-core_lib = pkg.createSharedLibrary('phui', core_env)
-core_lib.addSources(sources)
-core_lib.addHeaders(headers, 'phui')
+
+# Determine whether or not to compile in SDL support. 
+if baseEnv.Dictionary()['sdl']:
+   sources.append('SDLDriver.cpp')
+
+# Determine whether or not to compile in GLUT support.
+if baseEnv.Dictionary()['glut']:
+   sources.append('GLUTDriver.cpp')
+#SetupCppDom(core_env)
+#SetupGLText(core_env)
+core_lib = core_env.SharedLibrary('phui', sources)
 Export('core_lib')
 
-# Define the SDL wrapper
-sdl_env = baseEnv.Copy()
-SetupSDL(sdl_env)
-sdl_lib = pkg.createSharedLibrary('phuiSDL', sdl_env)
-sdl_lib.addSources(['SDLBridge.cpp'])
-sdl_lib.addHeaders(['SDLBridge.h'], 'phui')
-
-# Define the GLUT wrapper
-glut_env = baseEnv.Copy()
-SetupGLUT(glut_env)
-glut_lib = pkg.createSharedLibrary('phuiGLUT', glut_env)
-glut_lib.addSources(['GLUTBridge.cpp'])
-glut_lib.addHeaders(['GLUTBridge.h'], 'phui')
+Alias('install', core_env.Install(pj(core_env['prefix'], 'lib'), core_lib))
+for h in headers:
+   Alias('install', core_env.Install(pj(core_env['prefix'], 'include', 'phui'), h))
 
 # Define the Python module
-#py_env = baseEnv.Copy()
-#py_env.Append(LIBPATH   = ['#phui'],
+# py_env = baseEnv.Copy()
+# py_env.Append(LIBPATH   = ['#phui'],
 #              LIBS      = ['phui'])
-#SetupPython(py_env, '2.2')
-#SetupBoostPython(py_env)
-#py_env.SharedLibrary('phui', 'PythonAPI.cpp', SHLIBPREFIX='')
+# SetupPython(py_env, '2.2')
+# SetupBoostPython(py_env)
+# py_env.SharedLibrary('phui', 'PythonAPI.cpp', SHLIBPREFIX='')
 
 # Recurse
-SConscript(dirs = ['layout'])
+# SConscript(dirs = ['layout'])

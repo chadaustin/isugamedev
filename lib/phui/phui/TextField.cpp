@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -53,14 +53,12 @@ namespace phui
    TextFieldPtr TextField::create()
    {
       TextFieldPtr obj(new TextField());
-      obj->setSelf(obj);
       return obj;
    }
 
    TextFieldPtr TextField::create(const std::string& text)
    {
       TextFieldPtr obj(new TextField(text));
-      obj->setSelf(obj);
       return obj;
    }
 

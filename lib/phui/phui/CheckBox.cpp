@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CheckBox.cpp,v $
- * Date modified: $Date: 2003-01-06 06:20:50 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2005-01-23 21:46:47 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -41,14 +41,12 @@ namespace phui
    CheckBoxPtr CheckBox::create()
    {
       CheckBoxPtr obj(new CheckBox());
-      obj->setSelf(obj);
       return obj;
    }
 
    CheckBoxPtr CheckBox::create(bool checked)
    {
       CheckBoxPtr obj(new CheckBox(checked));
-      obj->setSelf(obj);
       return obj;
    }
 

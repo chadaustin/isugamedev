@@ -24,20 +24,20 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WindowListener.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2005-01-23 21:46:48 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WINDOW_LISTENER_H
 #define PHUI_WINDOW_LISTENER_H
 
-#include <boost/shared_ptr.hpp>
+#include <loki/SmartPtr.h>
 
 namespace phui
 {
    class Window;
-   typedef boost::shared_ptr<Window> WindowPtr;
+   typedef Loki::SmartPtrDef<Window>::type WindowPtr;
 
    /**
     * Describes an event that indicates that a window has changed it's status.
@@ -106,7 +106,7 @@ namespace phui
       virtual void onWindowUnfocused(const WindowEvent& evt) = 0;
    };
 
-   typedef boost::shared_ptr<WindowListener> WindowListenerPtr;
+   typedef Loki::SmartPtrDef<WindowListener>::type WindowListenerPtr;
 }
 
 #endif
