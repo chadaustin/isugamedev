@@ -4,8 +4,8 @@
 Input::Input()
 {
 
-   MULTX = 0.5;
-   MULTZ = 0.5;
+   MULTX = 0.3;
+   MULTZ = 0.2;
 }
 
 void Input::SetCamera(Camera* TheCamera)
@@ -54,8 +54,17 @@ void Input::TurretRotate(int ChangeX, int ChangeY)
 	float Rotate[3];
 	TurretPointer->GetRotate(Rotate);
 
-	Rotate[2] += -1*ChangeX*MULTX;
+
 	Rotate[0] += -1*ChangeY*MULTZ;
+	Rotate[2] += -1*ChangeX*MULTX;
+	////////////////////////////////////////////////////
+	// If we get beyond turret rotate values clamp them
+	// to the ends
+	////////////////////////////////////////////////////
+	if(Rotate[0] < -70)
+		Rotate[0] = -70;
+	if(Rotate[0] > 15)
+		Rotate[0] = 15;
 
 	TurretPointer->SetRotate(Rotate);
  
