@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet href="docbook.css" type="text/css"?>
+<?xml-stylesheet href="file://localhost/G:/project/brotha/doc/design/docbook.css" type="text/css"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <book>
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.45 2002-04-09 05:52:27 aegis Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 05:52:27 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.46 2002-04-09 05:56:06 jjhnsn Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 05:56:06 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -220,7 +220,10 @@
     </section>
     <section>
       <title>Game Logic Module</title>
-      <para>The Game Logic module is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic module manages game specific interactions between object in the world such as cars, buildings and projectiles.</para>
+      <para>The Game Logic module is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic module manages game specific interactions between object in the world such as cars, buildings and projectile. </para>
+      <para>This module supports many different objects that exist in the game. Vehicles are allowed to interact with other vehicles by colliding with them or shooting ammuntion at the enemy. When this happens, a vehicle takes on damage and loses health. Both cars lose health in the event of a collision, but only the vehicle that gets shot loses health in the event of a shooting. When a player loses health, coins are dropped onto the map where the damage occured. These coins can be collected by other players by colliding with them. Coins can be used later in order to purchase modifications to the players vehicle. </para>
+      <para>Players also interact with inanimate objects such as buildings and walls. When a collision occurs with a building or wall, health is lost and coins are dropped much in the same way as interactions between players except that buildings and wall do not take on damage.When a players health is equal to zero, that player is dead and must be sent back to the garage. The player is allowed back into the game after purchasing repairs for the vehicle. </para>
+      <para>The Game Logic Module depends on the Connection Manager and specified data in order to send messages in order to update player information.</para>
       <section>
         <title>Subsystem 1</title>
         <para>Description of Subsystem 1</para>
