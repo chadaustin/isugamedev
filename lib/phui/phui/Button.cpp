@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-12-31 04:24:58 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-12-31 04:40:05 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -78,7 +78,6 @@ namespace phui {
       // draw text
       glColor(mButtonDown ? getBackgroundColor() : getForegroundColor());
 
-      //FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
       gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP);
       renderer->setFont(font.get());
       
@@ -109,10 +108,7 @@ namespace phui {
      
       //Lets restore the Matrix
       glPopMatrix();
-
-     // this->setSize(nsz->getWidth(), nsz->getHeight());
-     // delete nsz;
-      
+   
       if (hasFocus()) {
          glBegin(GL_LINE_LOOP);
          glVertex2i(0,     0     );

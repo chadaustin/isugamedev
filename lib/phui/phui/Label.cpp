@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2002-12-31 04:24:58 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-12-31 04:40:05 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -55,6 +55,7 @@ namespace phui {
       const Size& size = getSize();
       const int width = size.getWidth();
       const int height = size.getHeight();
+      gltext::FontPtr font = getFont();
 
       // draw the label background
       glColor(getBackgroundColor());
@@ -68,24 +69,35 @@ namespace phui {
       // draw text
       glColor(getForegroundColor());
 
- /*     FontRenderer* renderer = FontRendererCache::getFontRenderer(getFont());
+      gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP);
+      renderer->setFont(font.get());
 
-      const Insets& i = getInsets();
-//      int w = width  - i.getLeft() - i.getRight();
-//      int h = height - i.getTop()  - i.getBottom();
-      unsigned int fontHeight = renderer->getHeight();
-//      unsigned int fontWidth = renderer.getWidth(mText);
-      unsigned int fontAscent = fontHeight - renderer->getDescent();
+      double labelWidth = double(renderer->getWidth(mText.c_str()));
+      double fontHeight = double(font->getAscent() + font->getDescent());
 
-      int textRectX = i.getLeft();
-      int textRectY = i.getTop();
-//      int textRectW = width  - (i.getRight()  + textRectX);
-//      int textRectH = height - (i.getBottom() + textRectY);
+      //Lets store the Matrix so we don't piss anyone off
+      glPushMatrix();
 
-      int fontX = textRectX;
-      int fontY = textRectY + fontAscent;
+      //These checks see if the button Label fits inside the
+      //button.  If not start in the lower left-hand corner of
+      //the button and render the text.
+      double yLoc = (height - fontHeight)/2.0;
+      if(yLoc < 0)
+      {
+         yLoc = 0;
+      }
+    
+      double xLoc = (width - labelWidth)/2.0;
+      if(xLoc < 0)
+      {
+         xLoc = 0;
+      }
+      glTranslatef(GLfloat(xLoc), GLfloat(height - yLoc), 0.0f);
 
-      renderer->draw(mText, fontX, fontY);*/
+      renderer->render(mText.c_str());
+     
+      //Lets restore the Matrix
+      glPopMatrix();
    }
 
    void Label::setText(const std::string& text)
