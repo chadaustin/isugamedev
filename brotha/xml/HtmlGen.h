@@ -14,6 +14,7 @@ namespace reports{
 	std::string renderPlayerList(dataxml::playerlist, reports::request);
 	std::string renderGangList(dataxml::ganglist, reports::request);
 	std::string renderStatList(dataxml::statlist);
+	std::string renderModList(dataxml::modlist);
 
 	class request{
 	public:
@@ -72,28 +73,40 @@ namespace reports{
 
 	std::string renderCarList(dataxml::carlist cl, request schema){
 	  std::ostringstream out;
-      out << "<table><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
-		for(unsigned int i = 0; i < cl.size(); i++){
-			dataxml::Car* c = cl[i];
-			out << "<tr><td><img src=car.jpg></td><td>" << c->getName() << "</td><td>"
-             << c->getMods().size() << "</td></tr>";
-		}
-		out << "</table>";
-		return out.str();
+	  if(schema.carD == 1)
+		  out << "<table><tr><th>pic</th><th>car type</th><th>#of mods</th></tr>";
+	  for(unsigned int i = 0; i < cl.size(); i++){
+		  dataxml::Car* c = cl[i];
+		  if(schema.car.find(c->getName())!=  std::string::npos || schema.car == "*"){
+			  if(schema.carD = 1){
+				  out << "<tr><td><img src=car.jpg></td><td>" << c->getName() << "</td><td>";
+				  out << c->getMods().size() << "</td></tr>";
+			  }
+			  if(schema.carD = 2){
+				  out << "<h3>" << c->getName() << "</h3>";
+				  out << "<div><img src=" << c->getName() << ".jpg></div>";
+				  out << "<div>" << renderModList(c->getMods()) << "</div>";
+			  }
+		  }
+	  }
+	  out << "</table>";
+	  return out.str();
 	}
 
 	std::string renderGangList(dataxml::ganglist gl, reports::request schema){
 		std::ostringstream html;
+
 		for(int i = 0; i < gl.size(); i++){
 			dataxml::Gang* g = gl[i];
-			if(schema.gang.find(g->getName())!= -1 || schema.gang == "*"){
+			if(schema.gang.find(g->getName())!= std::string::npos || schema.gang == "*"){
 				if(schema.gangD == 2){
-					 "<h1>" + g->getName() + "</h1>";
+					html << "<h1>" + g->getName() + "</h1>";
 					html << "<div class=\"ganginfo\">" << g->getInfo() << "</div>";
 					html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
 				}
 				if(schema.gangD == 1){
 					html << "<h1>" << g->getName() << "</h1>";
+
 				}
 				html << renderPlayerList(g->getPlayerList(), schema);
 			}
@@ -116,7 +129,7 @@ namespace reports{
 			html << "<table><th>Name</th><th># of cars</th>";
 		for(unsigned int i = 0; i < pl.size(); i++){
 			dataxml::Player* p = pl[i];
-			if(schema.player.find(p->getName())!= -1 || schema.player == "*"){
+			if(schema.player.find(p->getName())!=  std::string::npos || schema.player == "*"){
 				if(schema.playerD == 1){
 			        html << "<tr><td>" << p->getName() << "</td><td>" << p->getCars().size() << "</td></tr>";
 					html << "<tr><td colspan=2>" << renderCarList(p->getCars(), schema) << "</td></tr>";
@@ -130,6 +143,9 @@ namespace reports{
 					html << renderCarList(p->getCars(),schema);
 					html << "</td></table></div>";
 				}
+				if(schema.playerD == 0){
+					html << renderCarList(p->getCars(),schema);
+				}
 			}
 		}
 		if(schema.playerD == 1)
@@ -138,25 +154,25 @@ namespace reports{
 	}
 
 	std::string renderModList(dataxml::modlist ml){
-		std::string html = "";
-		html += "<table>tr><th>mod</th><th>level</th></tr>";
+		std::ostringstream html;
+		html << "<table>tr><th>mod</th><th>level</th></tr>";
 		for(unsigned int i = 0; i < ml.size(); i++){
 			dataxml::Mod* m = ml[i];
-			html += "<tr><td>" + m->getType() + "</td><td>" + std::string(itoa(m->getLevel(),new char[30],30)) + "</td></tr>";
+			html << "<tr><td>" << m->getType() << "</td><td>" << m->getLevel() << "</td></tr>";
 		}
-		html +="</table>";
-		return html;
+		html << "</table>";
+		return html.str();
 	}
 
 	std::string renderStatList(dataxml::statlist sl){
-		std::string html = "";
-		html += "<table>";
+		std::ostringstream html;
+		html << "<table>";
 		for(unsigned int i = 0; i < sl.size(); i++){
 			dataxml::Stat* m = sl[i];
-			html += "<tr><td>" + m->getName()+ "</td><td>" + m->getVal() + "</td></tr>";
+			html << "<tr><td>" << m->getName() << "</td><td>" << m->getVal() << "</td></tr>";
 		}
-		html +="</table>";
-		return html;
+		html << "</table>";
+		return html.str();
 	}
 
 }
