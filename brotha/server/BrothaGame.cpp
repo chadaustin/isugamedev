@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-30 23:27:27 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-21 21:25:55 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -39,6 +39,7 @@
  *
  ************************************************************ brotha-cpr-end */
 #include "BrothaGame.h"
+#include <vector>
 
 namespace server {
    BrothaGame::BrothaGame(net::NetMgr *netMgr) {
@@ -76,7 +77,8 @@ namespace server {
       /// @todo for each object that is modified broadcast to everyone
 
       /// fake frame (just move all players y pos up 1) and send to all players
-      for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
+
+      /*for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
          game::Player* player = getPlayer(iter->second);
          gmtl::Vec<PRFloat64, 3> pos = player->getObject()->getPosition();
          if(pos[1] <= -5) {
@@ -89,28 +91,42 @@ namespace server {
 
          sendToAll(msgP, true);
       }
+	  */
    }
 
    void BrothaGame::addPlayer( game::Player* player, net::NetMgr::ConnID cID ) {
-      assert( player != NULL && "Cannot add a NULL player!" );
+	  std::vector playerList;
+      playerList.push_back(
+	  assert( player != NULL && "Cannot add a NULL player!" );
       mConnectedPlayers[cID] = player;
-
-      /// @todo notify everyone of this player being added to the game
+      
+	  /// @todo notify everyone of this player being added to the game
+	  net::AddPlayerMessage *msg = new net::AddPlayerMessage(player);
+	  sendtoAll(msg, true);
    }
 
    void BrothaGame::removePlayer( game::Player* player ) {
-      PlayerMapIter delPlayer = mPlayers.find( getUID(player) );
+      
+	  PlayerMapIter delPlayer = mPlayers.find( getUID(player) );
       if(delPlayer != mPlayers.end()) {
          game::Player::UID uid = delPlayer->first;
-
          std::cout<<"Removed player: "<<uid<<std::endl;
          // if the player actually exists in the game, remove them from it
          mPlayers.erase(delPlayer);
 
-         // notify everyone else that we were removed
+         // notify everyone else that user was removed
          net::DelPlayerMessage *msg = new net::DelPlayerMessage(uid);
          sendToAll(msg, true);
       }
+	  */
+   }
+
+   void BrothaGame::addObject( game::Object* object ) {
+      //code goes here :)
+   }
+
+   void BrothaGame::removeObject( game::Object* object ) {
+      //code goes here :(
    }
 
    void BrothaGame::removeConnection( net::NetMgr::ConnID cID ) {
