@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FontRenderer.h,v $
- * Date modified: $Date: 2002-04-15 07:04:43 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-15 08:01:17 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -81,12 +81,21 @@ namespace phui
        */
       const Font& getFont() const;
 
-//      unsigned int getAscent() const;
+      /**
+       * Gets the amount by which characters of this font ascend above the
+       * baseline.
+       *
+       * @return  the font's ascent in pixels
+       */
+      unsigned int getAscent() const;
+
 //      unsigned int getMaxAscent() const;
 
       /**
-       * Gets the amount of by which characters of this font descent below the
+       * Gets the amount by which characters of this font descent below the
        * baseline.
+       *
+       * @return  the font's descent in pixels
        */
       unsigned int getDescent() const;
 

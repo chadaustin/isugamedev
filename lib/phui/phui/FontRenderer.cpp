@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FontRenderer.cpp,v $
- * Date modified: $Date: 2002-04-15 07:04:43 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-15 08:01:17 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -74,6 +74,11 @@ namespace phui
    const Font& FontRenderer::getFont() const
    {
       return mFont;
+   }
+
+   unsigned int FontRenderer::getAscent() const
+   {
+      return (getHeight() - getDescent());
    }
 
    unsigned int FontRenderer::getDescent() const
