@@ -10,8 +10,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Defines.h,v $
-//    $Date: 2001-10-03 14:49:47 $
-//    $Revision: 1.7 $
+//    $Date: 2001-10-12 04:39:45 $
+//    $Revision: 1.8 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -35,13 +35,15 @@
 #ifndef _CONSTANTS_AND_TYPEDEFS_H_
 #define _CONSTANTS_AND_TYPEDEFS_H_
 
+#include <string>
+#include <iostream>
 #include <stdio.h>
 #include <math.h>
-#include <iostream>
 
 // Undef MAX and MIN macros if they are already defined since they will cause
 // some nasty compiler errors since they're defined as functions here in the kev
 // namespace. This really only applies to builds against VRJuggler.
+// NOTE: we should really change MAX to Max and MIN to Min
 #ifdef MAX
 #undef MAX
 #endif
@@ -521,6 +523,19 @@ namespace kev
       {
          std::cerr<<text<<"\n"<<std::flush;
       }
+   }
+
+   inline void string2int( const std::string& s, int& i )
+   {
+      i = ::atoi( s.c_str() );
+   }
+   inline void string2float( const std::string& s, float& f )
+   {
+      f = ::atof( s.c_str() );
+   }
+   inline void string2bool( const std::string& s, bool& b )
+   {
+      if (s == "1" || s == "true") b = true; else b = false;
    }
 }; // end of namespace kev
 
