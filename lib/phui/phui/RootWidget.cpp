@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.cpp,v $
- * Date modified: $Date: 2002-02-24 07:25:32 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-18 04:59:01 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,24 +38,24 @@
 
 namespace phui {
 
-  RootWidget::RootWidget( int width, int height ) {
-     setSize(width, height);
-  }
+   RootWidget::RootWidget( int width, int height ) {
+      setSize(width, height);
+   }
 
-  RootWidget::~RootWidget() {
-  }
+   RootWidget::~RootWidget() {
+   }
 
-  void RootWidget::draw() {
+   void RootWidget::draw() {
       // setup the projection matrix
       glMatrixMode( GL_PROJECTION );
       glPushMatrix();
-         glLoadIdentity();
-         gluOrtho2D( 0, mWidth, mHeight, 0 );
+      glLoadIdentity();
+      gluOrtho2D( 0, mWidth, mHeight, 0 );
 
       // setup the modelview matrix
       glMatrixMode( GL_MODELVIEW );
       glPushMatrix();
-         glLoadIdentity();
+      glLoadIdentity();
 
       // disable depth testing since all draws occur at the same level
       glDisable( GL_DEPTH_TEST );
@@ -66,8 +66,11 @@ namespace phui {
       // re-enable depth testing
       glEnable( GL_DEPTH_TEST );
 
+      glMatrixMode(GL_MODELVIEW);
       glPopMatrix(); // modelview
+
+      glMatrixMode(GL_PROJECTION);
       glPopMatrix(); // projection
-  }
+   }
 
 } // namespace phui

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Font.cpp,v $
- * Date modified: $Date: 2002-04-15 07:05:31 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-18 04:59:01 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -45,7 +45,7 @@ namespace phui
       std::string filename = mName + ".ttf";
       if ( ! mFace.open(filename.c_str()) )
       {
-         throw std::runtime_error("Font does not exist.");
+         throw std::runtime_error("Font '" + filename + "' does not exist.");
       }
    }
 
