@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-29 18:57:32 $
- * Version:       $Revision: 1.51 $
+ * Date modified: $Date: 2002-10-30 06:00:44 $
+ * Version:       $Revision: 1.52 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -43,12 +43,10 @@
 #include <gmtl/Point.h>
 #include <gmtl/LineSeg.h>
 #include <gmtl/Generate.h>
-//#include <gmtl/QuatOps.h>
 
 #include <SDL.h>
 #include "Camera.h"
 #include "CollisionDetector.h"
-#include "Cursor.h"
 #include "Entity.h"
 #include "GameScene.h"
 #include "HUD.h"
@@ -60,6 +58,11 @@
 #include "State.h"
 #include "Turret.h"
 #include "ParticleEngine.h"
+
+namespace gmtl
+{
+   typedef Point<float, 2> Point2f;
+}
 
 namespace mw
 {
@@ -261,8 +264,11 @@ namespace mw
       float mFrameCount;
       float mFrameTime;
 
-      /// The virtual cursor.
-      Cursor mCursor;
+      /// The change in angle of the player's yaw for the next frame
+      float mPlayerYawChange;
+
+      /// Do we need to ignore the next mouse move because of the mouse warp?
+      bool mIgnoreMouseMove;
 
       /// The heads up display used to give the user feedback about the world.
       HUD mHUD;

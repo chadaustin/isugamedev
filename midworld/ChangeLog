@@ -1,6 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
-2002-10-29 temyrr       Chenged resolution to 1024 x 768
+2002-10-30 nonchocoboy  Updated control to a chase camera with mouse-look.
+2002-10-29 temyrr       Changed resolution to 1024 x 768
 2002-10-28 nonchocoboy  Added EntityFactory for the creation of new Entity
                         types.
                         NEW VERSION: 0.3.0

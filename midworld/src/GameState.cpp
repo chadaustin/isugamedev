@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 19:52:01 $
- * Version:       $Revision: 1.88 $
+ * Date modified: $Date: 2002-10-30 06:00:44 $
+ * Version:       $Revision: 1.89 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,7 +33,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <SDL_opengl.h>
-
+#include <gmtl/Generate.h>
 #include <gmtl/QuatOps.h>
 
 #include "AmmoCrate.h"
@@ -96,6 +96,8 @@ namespace mw
       , mFPS(0)
       , mFrameCount(0)
       , mFrameTime(0)
+      , mPlayerYawChange(0)
+      , mIgnoreMouseMove(true)
       , mShoot(UP)
       , mCycleWeapon(UP)
    {
@@ -149,11 +151,7 @@ namespace mw
    {
       AI.update();
 
-      mCursor.update(application().getWidth(),
-                     application().getHeight());
-
-      mCamera.setTarget(mPlayer.getPos(), gmtl::Quatf());
-//      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
+      mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
       const gmtl::Vec3f accel  (0, 0, -mSpeed);
       const gmtl::Vec3f reverse(0, 0, mSpeed * 0.7f);
@@ -286,36 +284,15 @@ namespace mw
       }
 
       // update player transform (using mouse-look)
+      if (mPlayerYawChange != 0.0f)
       {
-         float screen_size_x = float(application().getWidth());
-         float screen_size_y = float(application().getHeight());
-         float x = mCursor.getPos()[0];
-         float y = mCursor.getPos()[1];
+         // Update the player's rotation to match the new rotation
+         gmtl::Quatf yaw_rot = gmtl::makeRot<gmtl::Quatf>(gmtl::AxisAnglef(
+                                       mPlayerYawChange, gmtl::Vec3f(0,1,0)));
+         mPlayer.setRot(mPlayer.getRot() * yaw_rot);
 
-         gmtl::Vec3f mid(screen_size_x / 2, screen_size_y / 2, 0);
-         gmtl::Vec3f pos( x, y, 0 );
-         gmtl::Vec3f dir(pos - mid);
-         gmtl::normalize(dir);
-
-         float rad = gmtl::Math::aCos(gmtl::dot(dir, gmtl::Vec3f(1,0,0)));
-         gmtl::Vec3f side = gmtl::cross(dir, gmtl::Vec3f(1,0,0));
-
-         // move so it points in mouse dir...
-         rad += gmtl::Math::deg2Rad(90.0f);
-
-         // map the dot (angle) and cross (side) to the player
-         if (side[2] >= 0.0f)
-         {
-            float t = rad + gmtl::Math::deg2Rad(180.0f);
-            gmtl::Quatf q = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( t, 0.0f, 1.0f, 0.0f ) );
-            mPlayer.setRot( q );
-         }
-         else
-         {
-            float t = -rad;
-            gmtl::Quatf q = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( t, 0.0f, 1.0f, 0.0f ) );
-            mPlayer.setRot( q );
-         }
+         // Reset the yaw change since we took care of it
+         mPlayerYawChange = 0.0f;
       }
 
       // update edge states...
@@ -444,7 +421,6 @@ namespace mw
          }
       glPopMatrix();
 
-      mCursor.draw(application().getWidth(), application().getHeight());
       mHUD.draw(application().getWidth(), application().getHeight(),
                 mPlayer, mFPS);
    }
@@ -506,10 +482,21 @@ namespace mw
    void
    GameState::onMouseMove(int x, int y)
    {
-      mCursor.onMouseMove(
-         application().getWidth(),
-         application().getHeight(),
-         x, y);
+      if (mIgnoreMouseMove)
+      {
+         mIgnoreMouseMove = false;
+         return;
+      }
+
+      // Calculate the change in yaw
+      gmtl::Point2f wnd_center((float)application().getWidth() / 2.0f,
+                               (float)application().getHeight() / 2.0f);
+      float yaw = -(float)(x - wnd_center[0]) / 180.0f;
+      mPlayerYawChange += yaw;
+
+      // Warp the mouse back to the center of the screen
+      SDL_WarpMouse((int)wnd_center[0], (int)wnd_center[1]);
+      mIgnoreMouseMove = true;
    }
 
    void GameState::updateDynamics(Entity* body, float dt)
