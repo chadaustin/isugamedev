@@ -24,8 +24,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: mk.gnu,v $
-# Date modified: $Date: 2002-04-17 17:07:52 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-04-17 17:09:11 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -49,7 +49,7 @@ SO_LINKER = $(CXX_COMPILE)
 SO_FLAGS = -shared -fPIC $(DEBUG_FLAGS) $(WARNINGS_FLAGS)
 STATIC_LINKER = ar
 STATIC_FLAGS = -ruv
-DEFS =
+DEFS ?=
 LIBBITSUF=
 
 LINKALL_ON = -Wl,--whole-archive
