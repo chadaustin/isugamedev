@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.52 2002-04-10 04:19:06 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-10 04:19:06 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.53 2002-04-11 01:08:53 tamc Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-11 01:08:53 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -91,76 +91,82 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>The Connection Manager module has the crucial responsibility of being able to send and receive many messages every frame of the game. The Connection Manager must also gaurantee the delivery of every message and that it will be handled in as little time as possible.</para>
-        <section>
-          <title>Threads vs. select() or poll()</title>
-          <formalpara>
-            <title>Alternative 1 - Threads</title>
-            <para><variablelist>
-                <varlistentry>
-                  <term>Pros</term>
-                  <listitem>
-                    <itemizedlist spacing="compact">
-                      <listitem>
-                        <para>Easy to implement.</para>
+        <qandaset>
+          <qandaentry>
+            <question>
+              <para>Which method of handling multiple connections should be use?</para>
+            </question>
+            <answer>
+              <para>The Connection Manager module needs the ability of sending and receiving many messages from possibly many connections every frame of the game. The Connection Manager must also gaurantee delivery of every message and that it will be handled in as little time as possible. There are a couple of methods generally used to handle this situation.</para>
+              <formalpara>
+                <title>Alternative 1 - <emphasis>Threads</emphasis></title>
+                <para><variablelist>
+                  <varlistentry>
+                    <term>Pros</term>
+                    <listitem>
+                      <itemizedlist spacing="compact">
+                        <listitem>
+                          <para>Easy to implement.</para>
+                        </listitem>
+                        <listitem>
+                          <para>Scheduling CPU time for each connection is handled by the operating system.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Cons</term>
+                    <listitem>
+                      <itemizedlist spacing="compact">
+                        <listitem>
+                          <para>Doesn't scale well past a few thousand connections.</para>
+                        </listitem>
+                        <listitem>
+                          <para>Added overhead for context switching between threads and the use of mutexes.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+                  </varlistentry>
+                </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Alternative 2 - <emphasis>select() or poll()</emphasis></title>
+                <para><variablelist>
+                  <varlistentry>
+                    <term>Pros</term>
+                    <listitem>
+                      <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Reduced overhead for handling multiple connections, no context switches or need for mutexes.</para>
+                          </listitem>
+                        </itemizedlist>
                       </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
                       <listitem>
-                        <para>Scheduling CPU time for each connection is handle by the operating system.</para>
-                      </listitem>
-                    </itemizedlist>
-                  </listitem>
-                </varlistentry>
-                <varlistentry>
-                  <term>Cons</term>
-                  <listitem>
-                    <itemizedlist spacing="compact">
-                      <listitem>
-                        <para>Doesn't scale well past a few thousand connections.</para>
-                      </listitem>
-                      <listitem>
-                        <para>Added overhead for context switching between threads and the use of mutexes.</para>
-                      </listitem>
-                    </itemizedlist>
-                  </listitem>
-                </varlistentry>
-              </variablelist></para>
-          </formalpara>
-          <formalpara>
-            <title>Alternative 2- select() or poll()</title>
-            <para><variablelist>
-                <varlistentry>
-                  <term>Pros</term>
-                  <listitem>
-                    <itemizedlist spacing="compact">
-                      <listitem>
-                        <para>Reduced overhead for handling multiple connections, no context switches or need for mutexes.</para>
-                      </listitem>
-                    </itemizedlist>
-                  </listitem>
-                </varlistentry>
-                <varlistentry>
-                  <term>Cons</term>
-                  <listitem>
-                    <itemizedlist spacing="compact">
-                      <listitem>
-                        <para>More difficult to implement, have to use asynchronous I/O.</para>
-                      </listitem>
-                      <listitem>
-                        <para>Doesn't scale well past a thousand connections.</para>
-                      </listitem>
-                      <listitem>
-                        <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan connections linearly.</para>
-                      </listitem>
-                    </itemizedlist>
-                  </listitem>
-                </varlistentry>
-              </variablelist></para>
-          </formalpara>
-          <formalpara>
-            <title>Conclusion</title>
-            <para>We decided to choose the threading model because of its ease of implementation, its complete seperation of connections from each other and because we wanted to use the operating system for scheduling of connections' processor usage.</para>
-          </formalpara>
-        </section>
+                        <itemizedlist spacing="compact">
+                        <listitem>
+                          <para>More difficult to implement, have to use asynchronous I/O.</para>
+                        </listitem>
+                        <listitem>
+                          <para>Doesn't scale well past a thousand connections.</para>
+                        </listitem>
+                        <listitem>
+                          <para>Must programatically make sure a specific connection doesn't hog the CPU time, as select() and poll() scan connections linearly.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+                  </varlistentry>
+                </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Conclusion</title>
+                <para>We decided to choose the threading model because of its ease of implementation, its complete seperation of connections from each other and because we wanted to use the operating system for scheduling of connections' processor usage.</para>
+              </formalpara>
+            </answer>
+          </qandaentry>
+        </qandaset>
       </section>
     </section>
     <section>
@@ -697,7 +703,85 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>One of the design decisions made was to use "high tech" XML processing systems to create and format the data, this means using things like XSL and XPath to select the data. Rather then writing a bunch of custom routines to generate the HTML, we'll use a style sheet to create it directly from XML, and use XPath to select arbitrary data from the tree.</para>
+        <qandaset>
+          <qandaentry>
+            <question>
+              <para>Which method of formatting data should be used?</para>
+            </question>
+            <answer>
+              <para>The Report Server moduel will need the ability to generate dynamic reports based on subsets of the XML data. Since each report may not include all the information, we'll need a method to specify this.</para>
+              <formalpara>
+                <title>Alternative 1 - <emphasis>Web based scripting (Perl, ASP, PHP)</emphasis></title>
+                <para><variablelist>
+                  <varlistentry>
+                    <term>Pros</term>
+                    <listitem>
+                      <itemizedlist spacing="compact">
+                        <listitem>
+                          <para>Easy to generate dynamic output.</para>
+                        </listitem>
+                        <listitem>
+                          <para>Efficient use of bandwidth as the data is limitted on the server.</para>
+                        </listitem>
+                        <listitem>
+                          <para>Most clients already have applications capable of viewing the output.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+                  </varlistentry>
+                  <varlistentry>
+                    <term>Cons</term>
+                    <listitem>
+                      <itemizedlist spacing="compact">
+                        <listitem>
+                          <para>Requires external interpreter for the chosen language.</para>
+                        </listitem>
+                        <listitem>
+                          <para>Formatting the data is a tedious process.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+                  </varlistentry>
+                </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Alternative 2 - <emphasis>XML and XSL and XPath</emphasis></title>
+                <para><variablelist>
+                  <varlistentry>
+                    <term>Pros</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Easy to generate dynamic content.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Formatting data simply requires a style sheet.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist spacing="compact">
+                          <listitem>
+                            <para>Inefficient use of bandwidth as data is limitted on the client.</para>
+                          </listitem>
+                        <listitem>
+                          <para>Requires client to have an application capable of using this technology.</para>
+                        </listitem>
+                      </itemizedlist>
+                    </listitem>
+                  </varlistentry>
+                </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Conclusion</title>
+                <para>We decided to choose the XML, XSL, and XPath method. We chose this method because of the lack of need to write custom routines to generate the HTML. We will also be able to gaurantee that the client has the appropriate software, so that isn't an issue.</para>
+              </formalpara>
+            </answer>
+          </qandaentry>
+        </qandaset>
       </section>
     </section>
     <section>
