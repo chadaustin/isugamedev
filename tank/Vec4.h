@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec4.h,v $
-//    $Date: 2001-10-01 05:46:22 $
-//    $Revision: 1.6 $
+//    $Date: 2001-10-10 13:01:16 $
+//    $Revision: 1.7 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or

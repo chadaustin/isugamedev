@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: iniSection.h,v $
-//    $Date: 2001-09-30 23:28:37 $
-//    $Revision: 1.2 $
+//    $Date: 2001-10-10 13:01:16 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
