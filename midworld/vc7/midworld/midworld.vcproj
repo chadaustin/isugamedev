@@ -357,6 +357,12 @@
 				RelativePath="..\..\src\StaticEntity.h">
 			</File>
 			<File
+				RelativePath="..\..\src\Testing.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Testing.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Texture.cpp">
 			</File>
 			<File
