@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-10-10 05:00:21 $
-//    $Revision: 1.15 $
+//    $Date: 2001-10-10 05:09:37 $
+//    $Revision: 1.16 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -214,7 +214,7 @@ public:
       GStatePtr mat;
    };
 
-   void load( safe_ptr<Geode>& geode, const std::string& filename, bool flat = false )
+   void load( GeodePtr& geode, const std::string& filename, bool flat = false )
    {
       std::vector< Vec3<float> > verts;
       std::vector< Vec2<float> > texcoords;
