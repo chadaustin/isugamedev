@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-20 05:28:19 $
-// Version:       $Revision: 1.3 $
+// Date modified: $Date: 2002-03-19 01:16:23 $
+// Version:       $Revision: 1.4 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -55,14 +55,7 @@
 //   - let the top down 2D map be one additional way to play the game
 //
 
-#include <gk/GameApp.h>      // the base application type
-#include <gk/GameKernel.h>
-#include <gk/GameInput.h>
-#include <gk/GameInputConfigure.h>
-#include <gk/AnalogInterface.h>
-#include <gk/DigitalInterface.h>
-#include <GlutDriver.h>
-#include <gk/SystemDriverFactory.h>
+#include <gk/gk.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 
@@ -72,17 +65,18 @@
 // The Aster application
 // TODO: make it run more than just a GameBoard: do highscore, and menus too
 //////////////////////////////////
-class AsterApp : public gk::GameApp
+class AsterApp : public gk::AbstractGameApp
 {
 public:
-   AsterApp( gk::GameKernel* kernel )
-      : mKernel( kernel )
-   {
-      gameBoard.init( mKernel );
-   }
+   AsterApp() {}
+
+   virtual ~AsterApp() {}
    
-   virtual void OnAppInit()
+   virtual void OnAppInit( gk::IGameKernel* kernel )
    {
+      mKernel = kernel;
+      gameBoard.init( mKernel );
+
       stopwatch.pulse();
       mKernel->setName( "Aster" );
       mQuit.init( "Quit", mKernel );
@@ -153,22 +147,18 @@ public:
    
    // frame time measurement
    StopWatch stopwatch;
-   gk::GameKernel* mKernel;
+   gk::IGameKernel* mKernel;
 };
 
 // aster executable entrypoint...
 int main( int argc, char *argv[] )
 {
-   // create the kernel and add our app in
-   gk::GameKernel* kernel = new gk::GameKernel();
-   kernel->add( new AsterApp( kernel ) );
+   std::cout<<"Running GameKernel v"<<gk::getVersion()<<std::endl;
 
-   // configure the system
-   gk::loadInputConfig( "config.xml", kernel );
+   // let our app loose in the Game Kernel
+   gk::IGameKernel* kernel = gk::createGameKernel( new AsterApp() );
+   kernel->config( "config.xml" );
+   kernel->startup();
 
-   // create our system driver and let's go!
-   gk::SystemDriverFactory::instance().probe( "glut", "GLUT" );
-   gk::SystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "GLUT" );
-   kernel->startup( driver );
-   return 1;
+   return 0;
 }

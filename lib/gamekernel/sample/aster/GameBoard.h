@@ -213,7 +213,7 @@ public:
       
    }
 
-   void init( gk::GameKernel* kernel )
+   void init( gk::IGameKernel* kernel )
    {
       mKernel = kernel;
       
@@ -230,6 +230,7 @@ public:
    
    void draw()
    {
+      std::cout<<"draw"<<std::endl;
       // camera xform (this does the first person view navigation transform)
       glRotatef( -ship.rotation, 0.0f, 1.0f, 0.0f );
       glTranslatef( -ship.position[0], -ship.position[1], -ship.position[2] );
@@ -495,7 +496,7 @@ public:
    // other game objects...
    Grid grid;
   
-   gk::GameKernel* mKernel;
+   gk::IGameKernel* mKernel;
    
    gk::AnalogInterface mMouseYaxis;
    gk::DigitalInterface mAccelerate, mBackstep, mRotateLeft, mRotateRight;
