@@ -7,7 +7,10 @@ classes = Split("""
    BoundsCollisionDetector
    CollisionDesc
    IntroState
+   Jukebox
    RigidBody
+   SoundEffectManager
+   SoundManager
    Texture
 """)
 
@@ -25,8 +28,11 @@ headers = Split("""
 sources.extend(map(lambda n: n + '.cpp', classes))
 headers.extend(map(lambda n: n + '.h', classes))
 
+env2 = env.Copy()
+env2['LIBS'][0:0] = ['audiere']
+
 programs = [
-    env.Program(target = 'midworld', source = sources)
+    env2.Program(target = 'midworld', source = sources)
 ]
 
-env.Install(path.join(PREFIX, 'bin'), programs)
+env2.Install(path.join(PREFIX, 'bin'), programs)
