@@ -231,13 +231,14 @@ static void OnMousePos( int x, int y )
 ////////////////////////////////
 // This is called when mouse clicks
 ////////////////////////////////
-static void OnMouseClick( int a, int b, int c, int d )
+static void OnMouseClick( int button, int state, int x, int y )
 {
    // !!!TODO!!!: Need mouse interaction?
    //             read the glut docs/manpage to find out how to query 
    //             which button was pressed...
    //             you may have to get this from the glut website 
    //             (use www.google.com to search for it)
+             
 }
 
 
