@@ -32,9 +32,12 @@ public:
       glPushMatrix();
          glMultMatrixf( mXForm.getData() );
          glTranslatef( 0, 1, 0 );
-         cubeGeometry().render();
-         glTranslatef( 0, 0, -2 );
-         glScalef( 0.3, 0.3, 2 );
+         glPushMatrix();
+            glScalef( 0.5, 0.3, 0.4 );
+            cubeGeometry().render();
+         glPopMatrix();
+         glTranslatef( 0, 0, -0.5 );
+         glScalef( 0.15, 0.15, .3 );
          cubeGeometry().render();
       glPopMatrix();
    }

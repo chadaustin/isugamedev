@@ -28,7 +28,7 @@ namespace mw
       void draw()
       {
          glRotatef( 90, 1,0,0 );
-         glTranslatef( mPos[0], mPos[1] - 30, mPos[2] );
+         glTranslatef( mPos[0], mPos[1] - 20, mPos[2] );
       }
    private:
       gmtl::Vec3f mPos;

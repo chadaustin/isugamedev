@@ -30,14 +30,21 @@ namespace mw
       {
          double time_delta = ((double)elapsedTime) / 1000.0;
          mCamera.setPlayerPos( mPlayer.position() );
+         
+         // process input events:
          if (mAccelerate == true)
          {
             mPlayer.setVelocity( gmtl::Vec3f( 0,0, -mSpeed ) );
+         }
+         else if (mReverse == true)
+         {
+            mPlayer.setVelocity( gmtl::Vec3f( 0,0, mSpeed ) );
          }
          else
          {
             mPlayer.setVelocity( gmtl::Vec3f( 0, 0, 0 ) );
          }
+         
          mCamera.update( time_delta );
          mPlayer.update( time_delta );
       }
@@ -49,13 +56,13 @@ namespace mw
          glEnable( GL_DEPTH_TEST );
          glEnable( GL_BLEND );
          glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA ); 
-         
+
          glMatrixMode( GL_PROJECTION );
          glLoadIdentity();         
-         
+
          /// @todo get rid of this...     maybe the clearing buffer too...       
          gluPerspective( 80.0f, 4.0f/3.0f, 0.01f, 10000.0f );
-                           
+
          // initialize your matrix stack used for transforming your models
          glMatrixMode( GL_MODELVIEW );
          glLoadIdentity();      
@@ -76,6 +83,9 @@ namespace mw
            case SDLK_w: case SDLK_UP:
              mAccelerate = down;
              break;
+           case SDLK_s: case SDLK_DOWN:
+             mReverse = down;
+             break;
            case SDLK_ESCAPE: case SDLK_q:
              if (down) this->invokeTransition( new MenuState ); 
              break;
@@ -84,6 +94,7 @@ namespace mw
             
       virtual void onMousePress( Uint8 button, bool down, int x, int y )
       {
+         
       }
       
       virtual void onMouseMove( int x, int y )
@@ -101,6 +112,7 @@ namespace mw
       
       // actions :*)
       bool mAccelerate;
+      bool mReverse;
    };
 
 }
