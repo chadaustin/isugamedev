@@ -46,6 +46,20 @@ public:
    StopWatch stopWatch;
    QuakeNav mQuakeNav;
    
+   void drawSystem()
+   {
+      glColor3f( 1,1,1 );
+      glBegin( GL_POINTS );
+         for (int x = 0; x < torch.entities().size(); ++x)
+         {
+            ani::FireParticle* ent = torch.entities()[x];
+            const Vec3<float>& pos = ent->position();
+            glVertex3f( pos[0], pos[1], pos[2] );
+            std::cout<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<"\n"<<std::flush;
+         }
+      glEnd();
+   }   
+   
    ani::Torch<ani::FireParticle> torch;
 };
 App app;
@@ -93,6 +107,8 @@ static void OnRedisplay()
 
       
    drawGrid();
+   app.drawSystem();
+   app.torch.step( 0.01 );
    
    glTranslatef( 5, 0, -20 );
    
