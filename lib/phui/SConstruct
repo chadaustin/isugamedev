@@ -155,7 +155,6 @@ def SetupVRJuggler(cc, env):
 
 Export('ParseConfig')
 Export('SetupGLText SetupCppDom SetupCppUnit SetupOpenGL SetupSDL SetupGLUT')
-Export('SetupPython SetupBoostPython')
 
 def GetPhuiVersion():
    "Gets the Phui version from the phui/Version.h header"
