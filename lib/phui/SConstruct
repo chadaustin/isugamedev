@@ -18,7 +18,7 @@ Export('GLUT_LIBS FONT_LIBS')
 # debug or release build?
 CXXFLAGS = ['-Wall']
 if ARGUMENTS.get('debug'):
-   CXXFLAGS.append['-g']
+   CXXFLAGS.append('-g')
 
 
 # get install prefix for install target
