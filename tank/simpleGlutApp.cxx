@@ -174,10 +174,12 @@ static void OnIdle()
 {
    app.stopWatch.pulse();
 
+   // the next 3 commands are dependent upon each other...
    app.tank.update( app.stopWatch.timeInstant() );
-   app.camera.update( app.stopWatch.timeInstant() );
    app.camera.setTargetPos( app.tank.matrix() );
-
+   app.camera.update( app.stopWatch.timeInstant() );
+   
+   
    //Update the bullets
    std::vector<Bullet *>::iterator itr;
    for (itr = app.bullets.begin(); itr != app.bullets.end(); itr++) {
