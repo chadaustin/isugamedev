@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PythonAPI.cpp,v $
- * Date modified: $Date: 2003-01-06 03:30:00 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-06 06:01:40 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -38,17 +38,6 @@ namespace phui
 {
    namespace python
    {
-//      struct PyWidget : public Widget
-//      {
-//         PyWidget(PyObject* self)
-//            : mSelf(self)
-//         {}
-//
-//         void draw() { return call_method<void>(mSelf, "draw"); }
-//
-//         PyObject* mSelf;
-//      };
-
       struct PyLayoutConstraint : public LayoutConstraint
       {
          PyLayoutConstraint(PyObject* self)
@@ -204,6 +193,5 @@ namespace phui
       def("createRoot", CreateRoot);
       def("createButton", createButton);
       def("createWindow", createWindow);
-
    }
 }
