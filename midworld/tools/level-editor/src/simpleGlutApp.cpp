@@ -231,7 +231,7 @@ void drawOrigin()
 
 void drawModels()
 {
-   for(int i=0;i<modelsInWorld.size();i++)
+   for(unsigned int i=0;i<modelsInWorld.size();i++)
    {
       glPushMatrix();
       glTranslatef(modelsInWorld[i].worldX, modelsInWorld[i].worldY, 0);
@@ -598,7 +598,7 @@ void setupOutputLevelFile(XMLNodePtr& mNode)
 void NowWeCanReallyAddTheLevel(XMLNodePtr& levelNode, XMLContextPtr& context)
 {
    std::string temp;
-   for(int i=0;i<modelsInWorld.size();i++)
+   for(unsigned int i=0;i<modelsInWorld.size();i++)
    {
       XMLNodePtr staticNode(new XMLNode(context));
       XMLNodePtr posNode(new XMLNode(context));
@@ -645,7 +645,7 @@ void fileFunc(int a)
       std::cout << "parcing" << std::endl;
       parceobjectsfile(std::string("modelFile.xml"));
       glutSetMenu(menuGetModels);
-      for(int i=0;i<modelsInMenu.size();i++)
+      for(unsigned int i=0;i<modelsInMenu.size();i++)
       {
          glutAddMenuEntry(modelsInMenu[i].name.c_str(), i+1);
       }
