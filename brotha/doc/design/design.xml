@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.42 2002-04-09 05:32:15 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-09 05:32:15 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.43 2002-04-09 05:43:34 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-09 05:43:34 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -100,7 +100,7 @@
                 <varlistentry>
                   <term>Pros</term>
                   <listitem>
-                    <itemizedlist>
+                    <itemizedlist spacing="compact">
                       <listitem>
                         <para>Easy to implement.</para>
                       </listitem>
@@ -113,7 +113,7 @@
                 <varlistentry>
                   <term>Cons</term>
                   <listitem>
-                    <itemizedlist>
+                    <itemizedlist spacing="compact">
                       <listitem>
                         <para>Doesn't scale well past a few thousand connections.</para>
                       </listitem>
@@ -131,7 +131,7 @@
                 <varlistentry>
                   <term>Pros</term>
                   <listitem>
-                    <itemizedlist>
+                    <itemizedlist spacing="compact">
                       <listitem>
                         <para>Reduced overhead for handling multiple connections, no context switches or need for mutexes.</para>
                       </listitem>
@@ -141,7 +141,7 @@
                 <varlistentry>
                   <term>Cons</term>
                   <listitem>
-                    <itemizedlist>
+                    <itemizedlist spacing="compact">
                       <listitem>
                         <para>More difficult to implement, have to use asynchronous I/O.</para>
                       </listitem>
@@ -455,7 +455,7 @@
                     <varlistentry>
                       <term>Pros</term>
                       <listitem>
-                        <itemizedlist>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Open source.</para>
                           </listitem>
@@ -486,7 +486,7 @@
                     <varlistentry>
                       <term>Pros</term>
                       <listitem>
-                        <itemizedlist>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Mature and stable library</para>
                           </listitem>
@@ -642,7 +642,7 @@
                     <varlistentry>
                       <term>Pros</term>
                       <listitem>
-                        <itemizedlist>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Easy to use.</para>
                           </listitem>
@@ -655,7 +655,7 @@
                     <varlistentry>
                       <term>Cons</term>
                       <listitem>
-                        <itemizedlist>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Won't integrate well with <emphasis>GameKernel</emphasis>.</para>
                           </listitem>
@@ -676,7 +676,7 @@
                     <varlistentry>
                       <term>Pros</term>
                       <listitem>
-                        <itemizedlist>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Easy to use.</para>
                           </listitem>
@@ -689,7 +689,7 @@
                     <varlistentry>
                       <term>Cons</term>
                       <listitem>
-                        <itemizedlist>
+                        <itemizedlist spacing="compact">
                           <listitem>
                             <para>Is not mature or stable.</para>
                           </listitem>
