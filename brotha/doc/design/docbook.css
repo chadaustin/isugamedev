@@ -1,27 +1,106 @@
+fieldsynopsis > type:after    {
+	content: " ";
+}
+
+fieldsynopsis:after    {
+	content: ";";
+}
+
+fieldsynopsis > varnam    {
+	display: inline;
+	font-family: monospace;
+	font-style: bold;
+}
+
+fieldsynopsis > type    {
+	display: inline;
+	font-family: monospace;
+	font-style: oblique;
+}
+
+methodparam > type    {
+	display: inline;
+	font-style: oblique;
+	font-family: monospace;
+}
+
+fieldsynopsis    {
+	display: block;
+	font-family: monospace;
+	font-size: 14;
+	text-indent: 14pt;
+}
+
+classsynopsis > ooclass > classname    {
+	follow-up: methodsynopsis;
+}
+
+methodparam > type:after    {
+	content: " ";
+}
+
+methodsynopsis > methodparam:first-child:before    {
+	content: ", ";
+}
+
+methodsynopsis > methodparam:first-child    {
+	display: inline;
+}
+
+methodsynopsis > methodparam:before    {
+	content: "( ";
+}
+
+methodsynopsis > methodparam    {
+	display: inline;
+}
+
+methodparam:before    {
+	content: ", ";
+}
+
+methodname    {
+	display: inline;
+}
+
+methodparam    {
+	display: inline;
+}
+
+menuchoice:before    {
+	content: "\,";
+}
+
 classsynopsis    {
 	display: block;
 	font-family: monospace;
-	background-color: gray;
+	follow-up: methodsynopsis;
+	background-color: rgb(197, 197, 197);
+}
+
+classsynopsis:after    {
+	content: "}";
 }
 
 methodsynopsis    {
-   display: block;
-   font-family: monospace;
+	display: block;
+	font-family: monospace;
+	text-indent: 14pt;
 }
 
 methodsynopsis:after    {
-   content: " )";
+	content: " );";
 }
 
-modifier   {
-   display: inline;
-   color: red;
+modifier    {
+	display: inline;
+	color: red;
 }
 
 void    {
-   display: inline;
-   content: "void";
-   color: red;
+	display: inline;
+	color: blue;
+	content: "void";
 }
 
 constant    {
@@ -37,7 +116,7 @@ exceptionname    {
 }
 
 ooclass:before    {
-   content: "class ";
+	content: "class ";
 }
 
 ooclass    {
@@ -45,7 +124,7 @@ ooclass    {
 }
 
 ooclass:after    {
-   content: " {";
+	content: " {";
 }
 
 oointerface    {
@@ -123,35 +202,10 @@ classname    {
 	font-weight: bold;
 }
 
-methodname    {
-	font-family: Courier;
-	display: inline;
-	font-weight: bold;
-}
-
-methodname:after    {
-   content: "( ";
-}
-
-methodparam    {
-   display: inline;
-   font-family: monospace;
-}
-
-methodparam:after    {
-   content: ", ";
-}
-
-methodparam > type    {
-   display: inline;
-   font-family: monospace;
-   font-style: oblique;
-}
-
 methodparam > parameter    {
-   display: inline;
-   font-family: monospace;
-   font-weight: bold;
+	display: inline;
+	font-family: monospace;
+	font-weight: bold;
 }
 
 varname    {
