@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.61 2002-04-12 03:51:14 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-12 03:51:14 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.62 2002-04-12 03:59:41 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-12 03:59:41 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -315,20 +315,20 @@
     </section>
     <section>
       <title>Game Logic Module</title>
-     <para>The Game Logic module is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic module manages game specific interactions between object in the world such as cars, buildings and projectile. </para>
+      <para>The Game Logic module is responsible for updating the game based on the time passed. It also handles the physics and updates each of the clients information. The Game Logic module manages game specific interactions between object in the world such as cars, buildings and projectile. </para>
       <para>This module supports many different objects that exist in the game. Vehicles are allowed to interact with other vehicles by colliding with them or shooting ammunition at the enemy. When this happens, a vehicle takes on damage and loses health. Both cars lose health in the event of a collision, but only the vehicle that gets shot loses health in the event of a shooting. When a player loses health, coins are dropped onto the map where the damage occured. These coins can be collected by other players by colliding with them. Coins can be used later in order to purchase modifications to the players vehicle. </para>
       <para>Players also interact with inanimate objects such as buildings and walls. When a collision occurs with a building or wall, health is lost and coins are dropped much in the same way as interactions between players except that buildings and wall do not take on damage.When a players health is equal to zero, that player is dead and must be sent back to the garage. The player is allowed back into the game after purchasing repairs for the vehicle. </para>
-      <para>The player is given an option after starting the program to enter the garage or just going straight into the game.  If the player decides to go to the garage, he has the option to buy upgrades, repair damage to the vehicle, or enter the game. </para>
-      <para>After entering the game, the player is then entered into a race where destroying his opponents or alternate gangs is highly recommended.  It a player forces another players health down to zero, that player is credited with a frag, and and that will be saved in the player's statistics.</para>
-      <para>The game progresses for a certain time or frag limit, with no clear winner to the race.  The person with the most frags wins the game.</para>
+      <para>The player is given an option after starting the program to enter the garage or just going straight into the game. If the player decides to go to the garage, he has the option to buy upgrades, repair damage to the vehicle, or enter the game. </para>
+      <para>After entering the game, the player is then entered into a race where destroying his opponents or alternate gangs is highly recommended. It a player forces another players health down to zero, that player is credited with a frag, and and that will be saved in the player's statistics.</para>
+      <para>The game progresses for a certain time or frag limit, with no clear winner to the race. The person with the most frags wins the game.</para>
       <para>The Game Logic Module depends on the Connection Manager and specified data in order to send messages in order to update player information.</para>
       <section>
         <title>Game Core</title>
-        <para>The Game Core is the system that handles all of the in-game rules.  It handles collision detection, damage creation, and player interactions.  The game core also makes sure that updates player statistics and keeps track of everything to send to the server for record keeping. </para>
+        <para>The Game Core is the system that handles all of the in-game rules. It handles collision detection, damage creation, and player interactions. The game core also makes sure that updates player statistics and keeps track of everything to send to the server for record keeping. </para>
       </section>
       <section>
         <title>Network Message Handling</title>
-        <para>The Network Message Handler handles messages recieved from the Network Manager and sends them to the appropriate players.  If the message is sent to all players the game will broadcast the message to everyone. If it is a personal message, only the player the message was sent to will receive it.</para>
+        <para>The Network Message Handler handles messages recieved from the Network Manager and sends them to the appropriate players. If the message is sent to all players the game will broadcast the message to everyone. If it is a personal message, only the player the message was sent to will receive it.</para>
         <para>Messages will also be sent regarding a players statistics, including kills, money and health.</para>
       </section>
       <section>
@@ -404,72 +404,76 @@
       </section>
       <section>
         <title>Design Issues</title>
-        <para>The GameLogic module needs an efficient way to update player statistics.  To do this we decided to use the capabilities of the Connection Manager and its message queues.</para>
+        <para>The GameLogic module needs an efficient way to update player statistics. To do this we decided to use the capabilities of the Connection Manager and its message queues.</para>
         <section>
           <title>Update</title>
-          <question>
-           <para>How can the update procedure be simplified in order that empty messages do not flood the network?</para>
-          </question>
-          <answer>
-           <para>The update procedure needs to be quick and painless while not causing too much network traffic.</para>
-              <formalpara>
-                <title>Alternative 1 - <emphasis>Sending messages out after a certain time has passed.</emphasis></title>
-                <para><variablelist>
-                    <varlistentry>
-                      <term>Pros</term>
-                      <listitem>
-                        <itemizedlist spacing="compact">
-                          <listitem>
-                            <para>Easy to implement.</para>
-                          </listitem>
-                          <listitem>
-                            <para>Just send out information in a loop.</para>
-                          </listitem>
-                        </itemizedlist>
-                      </listitem>
-                    </varlistentry>
-                    <varlistentry>
-                      <term>Cons</term>
-                      <listitem>
-                        <itemizedlist spacing="compact">
-                          <listitem>
-                            <para>May cause unneccesary network traffic.</para>
-                          </listitem>
-                        </itemizedlist>
-                      </listitem>
-                    </varlistentry>
-                  </variablelist></para>
-              </formalpara>
-              <formalpara>
-                <title>Alternative 2 - <emphasis>Send a message whenever a statistic is updated</emphasis></title>
-                <para><variablelist>
-                    <varlistentry>
-                      <term>Pros</term>
-                      <listitem>
-                        <itemizedlist spacing="compact">
-                          <listitem>
-                            <para>Network is not flooded with unneccesary messages.</para>
-                          </listitem>
-                        </itemizedlist>
-                      </listitem>
-                    </varlistentry>
-                    <varlistentry>
-                      <term>Cons</term>
-                      <listitem>
-                        <itemizedlist spacing="compact">
-                          <listitem>
-                            <para>Must be able to test to see when a statistic has been updated.</para>
-                          </listitem>
-                        </itemizedlist>
-                      </listitem>
-                    </varlistentry>
-                  </variablelist></para>
-              </formalpara>
-              <formalpara>
-                <title>Conclusion</title>
-                <para>We decided to send a message whenever a statistic is updated.  It is not to hard to check and see if a stat has been updated and the network traffic should be much less.</para>
-              </formalpara>
-          </answer>
+          <qandaset>
+            <qandaentry>
+              <question>
+                <para>How can the update procedure be simplified in order that empty messages do not flood the network?</para>
+              </question>
+              <answer>
+                <para>The update procedure needs to be quick and painless while not causing too much network traffic.</para>
+                <formalpara>
+                  <title>Alternative 1 - <emphasis>Sending messages out after a certain time has passed.</emphasis></title>
+                  <para><variablelist>
+                      <varlistentry>
+                        <term>Pros</term>
+                        <listitem>
+                          <itemizedlist spacing="compact">
+                            <listitem>
+                              <para>Easy to implement.</para>
+                            </listitem>
+                            <listitem>
+                              <para>Just send out information in a loop.</para>
+                            </listitem>
+                          </itemizedlist>
+                        </listitem>
+                      </varlistentry>
+                      <varlistentry>
+                        <term>Cons</term>
+                        <listitem>
+                          <itemizedlist spacing="compact">
+                            <listitem>
+                              <para>May cause unneccesary network traffic.</para>
+                            </listitem>
+                          </itemizedlist>
+                        </listitem>
+                      </varlistentry>
+                    </variablelist></para>
+                </formalpara>
+                <formalpara>
+                  <title>Alternative 2 - <emphasis>Send a message whenever a statistic is updated</emphasis></title>
+                  <para><variablelist>
+                      <varlistentry>
+                        <term>Pros</term>
+                        <listitem>
+                          <itemizedlist spacing="compact">
+                            <listitem>
+                              <para>Network is not flooded with unneccesary messages.</para>
+                            </listitem>
+                          </itemizedlist>
+                        </listitem>
+                      </varlistentry>
+                      <varlistentry>
+                        <term>Cons</term>
+                        <listitem>
+                          <itemizedlist spacing="compact">
+                            <listitem>
+                              <para>Must be able to test to see when a statistic has been updated.</para>
+                            </listitem>
+                          </itemizedlist>
+                        </listitem>
+                      </varlistentry>
+                    </variablelist></para>
+                </formalpara>
+                <formalpara>
+                  <title>Conclusion</title>
+                  <para>We decided to send a message whenever a statistic is updated. It is not to hard to check and see if a stat has been updated and the network traffic should be much less.</para>
+                </formalpara>
+              </answer>
+            </qandaentry>
+          </qandaset>
         </section>
       </section>
     </section>
