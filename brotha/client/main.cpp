@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-04-21 23:38:33 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-24 05:59:04 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -110,7 +110,19 @@ int BrothaMain(int argc, char *argv[]) {
 
                case SDL_KEYDOWN:
                case SDL_KEYUP:
-                  app->processInput(event.key.keysym.sym, event.key.state == SDL_PRESSED);
+                  app->onKeyPress(event.key.keysym.sym,
+                                  event.key.state == SDL_PRESSED);
+                  break;
+
+               case SDL_MOUSEBUTTONDOWN:
+               case SDL_MOUSEBUTTONUP:
+                  app->onMousePress(event.button.button,
+                                    event.button.state == SDL_PRESSED,
+                                    event.button.x, event.button.y);
+                  break;
+
+               case SDL_MOUSEMOTION:
+                  app->onMouseMove(event.motion.x, event.motion.y);
                   break;
 
                case SDL_QUIT:

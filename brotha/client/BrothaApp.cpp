@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-22 12:08:40 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-04-24 05:59:04 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -152,45 +152,27 @@ namespace client
       glViewport(0, 0, width, height);
    }
 
-   void BrothaApp::processInput(SDLKey sym, bool keyDown)
+   void BrothaApp::onKeyPress(SDLKey sym, bool down)
    {
+      if (mCurrentState) {
+         mCurrentState->onKeyPress(sym, down);
+      }
+      return;  /// @todo   put the rest of this stuff in the game state
+
 //      game::Player* player = getLocalPlayer();
       net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
-      PRFloat64 to = 0;
+      PRFloat64 to = (down ? 1 : 0);
 
-      if(sym == SDLK_w) {
+      if (sym == SDLK_w) {
          what = net::UpdatePlayerInfoMessage::ACCELERATION;
-         if(keyDown) {
-            to = 1;
-         }
-      } else if(sym == SDLK_s) {
+      } else if (sym == SDLK_s) {
          what = net::UpdatePlayerInfoMessage::BRAKE;
-         if(keyDown) {
-            to = 1;
-         } else {
-            to = 0;
-         }
-      } else if(sym == SDLK_SPACE) {
+      } else if (sym == SDLK_SPACE) {
          what = net::UpdatePlayerInfoMessage::HANDBRAKE;
-         if(keyDown) {
-            to = 1;
-         } else {
-            to = 0;
-         }
-      } else if(sym == SDLK_a) {
+      } else if (sym == SDLK_a) {
          what = net::UpdatePlayerInfoMessage::TURNLEFT;
-         if(keyDown) {
-            to = 1;
-         } else {
-            to = 0;
-         }
-      } else if(sym == SDLK_d) {
+      } else if (sym == SDLK_d) {
          what = net::UpdatePlayerInfoMessage::TURNRIGHT;
-         if(keyDown) {
-            to = 1;
-         } else {
-            to = 0;
-         }
       }
 
       if(what != net::UpdatePlayerInfoMessage::NOTHING) {
@@ -257,6 +239,18 @@ namespace client
          }
       }
 */
+   }
+
+   void BrothaApp::onMousePress(Uint8 button, bool down, int x, int y) {
+      if (mCurrentState) {
+         mCurrentState->onMousePress(button, down, x, y);
+      }
+   }
+
+   void BrothaApp::onMouseMove(int x, int y) {
+      if (mCurrentState) {
+         mCurrentState->onMouseMove(x, y);
+      }
    }
 
    void BrothaApp::invokeStateTransition(State* state) {

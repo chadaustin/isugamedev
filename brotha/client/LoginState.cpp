@@ -1,3 +1,5 @@
+
+#include <phui/SDLBridge.h>
 #include "LoginState.h"
 
 
@@ -42,13 +44,36 @@ namespace client {
    void
    LoginState::draw() {
       glClear(GL_COLOR_BUFFER_BIT);
-
       mRoot->draw();
    }
 
    void
    LoginState::update(BrothaApp* app, int elapsedTime) {
       // don't do anything  ^__^
+   }
+
+   void
+   LoginState::onKeyPress(SDLKey sym, bool down) {
+      if (down) {
+         mRoot->onKeyDown(phui::SDLToPhuiKey(sym));
+      } else {
+         mRoot->onKeyUp(phui::SDLToPhuiKey(sym));
+      }
+   }
+
+   void
+   LoginState::onMousePress(Uint8 button, bool down, int x, int y) {
+      phui::Point p(x, y);
+      if (down) {
+         mRoot->onMouseDown(phui::SDLToPhuiButton(button), p);
+      } else {
+         mRoot->onMouseUp(phui::SDLToPhuiButton(button), p);
+      }
+   }
+
+   void
+   LoginState::onMouseMove(int x, int y) {
+      mRoot->onMouseMove(phui::Point(x, y));
    }
 
 }

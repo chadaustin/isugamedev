@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-22 12:08:40 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-04-24 05:59:04 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -64,7 +64,9 @@ namespace client
       void update(int elapsedTime);
       void draw();
       void resize(int width, int height);
-      void processInput(SDLKey sym, bool keyDown);
+      void onKeyPress(SDLKey sym, bool down);
+      void onMousePress(Uint8 button, bool down, int x, int y);
+      void onMouseMove(int x, int y);
 
       // switch the current state object with another
       void invokeStateTransition(State* state);
