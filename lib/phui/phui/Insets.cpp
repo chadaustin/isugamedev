@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Insets.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-01-05 11:54:51 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -57,10 +57,10 @@ namespace phui
 
    bool Insets::operator==(const Insets& insets) const
    {
-      if ( (mLeft == insets.mLeft) &&
-           (mRight == insets.mRight) &&
-           (mTop == insets.mTop) &&
-           (mBottom == insets.mBottom) )
+      if ((mLeft == insets.mLeft) &&
+          (mRight == insets.mRight) &&
+          (mTop == insets.mTop) &&
+          (mBottom == insets.mBottom))
       {
          return true;
       }
@@ -70,5 +70,51 @@ namespace phui
    bool Insets::operator!=(const Insets& insets) const
    {
       return (! operator==(insets));
+   }
+
+   int Insets::getLeft() const
+   {
+      return mLeft;
+   }
+
+   void Insets::setLeft(int left)
+   {
+      mLeft = left;
+   }
+
+   int Insets::getRight() const
+   {
+      return mRight;
+   }
+
+   void Insets::setRight(int right)
+   {
+      mRight = right;
+   }
+
+   int Insets::getTop() const
+   {
+      return mTop;
+   }
+
+   void Insets::setTop(int top)
+   {
+      mTop = top;
+   }
+
+   int Insets::getBottom() const
+   {
+      return mBottom;
+   }
+
+   void Insets::setBottom(int bottom)
+   {
+      mBottom = bottom;
+   }
+
+   std::ostream& operator<<(std::ostream& out, const Insets& insets)
+   {
+      return out << "(" << insets.getLeft() << ", " << insets.getRight() << ", "
+                        << insets.getTop() << ", " << insets.getBottom() << ")";
    }
 }

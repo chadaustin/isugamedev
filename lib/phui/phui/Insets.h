@@ -24,13 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Insets.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-05 11:54:51 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_INSETS_H
 #define PHUI_INSETS_H
+
+#include <iostream>
 
 namespace phui
 {
@@ -89,33 +91,29 @@ namespace phui
        */
       bool operator!=(const Insets& insets) const;
 
-      /**
-       * Gets width of inset left.
-       */
-      int getLeft() const {
-        return mLeft;
-      }
+      /// Gets width of inset left.
+      int getLeft() const;
 
-      /**
-       * Gets width of inset right.
-       */
-      int getRight() const {
-        return mRight;
-      }
+      /// Sets the width of the left inset
+      void setLeft(int left);
 
-      /**
-       * Gets width of inset top.
-       */
-      int getTop() const {
-        return mTop;
-      }
+      /// Gets width of inset right.
+      int getRight() const;
 
-      /**
-       * Gets width of inset bottom.
-       */
-      int getBottom() const {
-        return mBottom;
-      }
+      /// Sets the width of the right inset
+      void setRight(int right);
+
+      /// Gets width of inset top.
+      int getTop() const;
+
+      /// Sets the width of the top inset
+      void setTop(int top);
+
+      /// Gets width of inset bottom.
+      int getBottom() const;
+
+      /// Sets the width of the bottom inset
+      void setBottom(int bottom);
 
    private:
       /// Inset on the left side.
@@ -130,6 +128,8 @@ namespace phui
       /// Inset on the bottom side.
       int mBottom;
    };
+
+   std::ostream& operator<<(std::ostream& out, const Insets& insets);
 }
 
 #endif
