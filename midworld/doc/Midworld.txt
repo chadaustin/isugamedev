@@ -8,8 +8,8 @@ Design Document
 	Midworld is a 2D shooter game sort of like Target Quake.  The player 
 	will run around and shoot things using a crosshair that stands out in 
 	front of the player.  The view will be top-down, and the terrain will
-	not be tile based.  The player will run around and shoot things in a
-	post nuclear world that contains a retro fifties/Gattaca style.  
+	not be tile based.  The world the player is in will be a post nuclear 
+	world that contains a retro fifties/Gattaca style.  
 
 2.  Objective
 
@@ -21,12 +21,16 @@ Design Document
 	The graphics in Midworld will not be tile based, but will instead be
 	pieces of loaded images merged into a map, or a randomly generated 
 	terrain map.  The camera will be top down, and a crosshair will stand 
-	out in front of the player.  The player will move the character by 
-	acceleration and deceleration keys and will turn the character by 
-	rotating the crosshair with the mouse.  
+	out in front of the player.  The distance from the crosshair and the 
+	player will vary depending on the type of weapon the player currently 
+	has equipped.  The player will move the character by acceleration and 
+	deceleration keys and will turn the character by rotating the crosshair
+	with the mouse.  
 
 4.  Weapons
 
+	The main character has a variety of weapons at his disposal.  Some of which are:  
+	
 	4.1  Homing Missiles
 	
 	Missiles that home in on an enemy.  Ideas were to make the missiles
@@ -42,16 +46,40 @@ Design Document
 	4.3  Plasma
 	
 	Plasma shoots a plasma ball towards the enemies; nothing special here,
-	just a standard shot.
+	just a standard shot.  
 
 	4.4  Spread Shot
 	
 	Think Contra :)  The spread shot will shoot several smaller plasma 
 	shots in a spread formation.  
-	
+
 5.  Controls
 
 	The controls will move both the character and the crosshair.  The
 	player can rotate the crosshair, and move the character forward and 
 	backward.  Additionally, the player will be able to make the character
 	strafe to the left and to the right.  
+
+6.  First Revision Goals
+
+	These are the goals we outlined to be done for the first revision.
+
+	6.1  Movable main character
+
+	The main character should be movable by the player.  The player should 
+	be able to rotate the main character, move forward, backward, strafe 
+	left, and strafe right.  
+
+	6.2  Enemies
+
+	For the first revision, enemies will be simple shapes that move in
+	random directions.
+
+	6.3  Basic Weapon Funcionality
+
+	At the very least, the plasma weapon should be functional.
+
+	6.4  Visible Terrain
+
+	There should be some type of terrain that is visible so that the player
+	is not just moving along a dark (or bright) mass.  
