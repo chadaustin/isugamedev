@@ -596,13 +596,13 @@ Requirements:
 
 Test Analysis
 
-Test Case               Pass/Fail  Fault Description
+Test Case               Pass/Fail  Fault Description                    Severity
 
-add/remove players      FAIL       When player is added, the other
+add/remove players      FAIL       When player is added, the other      SERIOUS
                                    client computers crash.
 move vehicle            PASS
 collisions (3.3)        PASS
 report server (3.4)     PASS
-  reloading report server crashes?  (FAIL?)
+  reloading report server crashes?  (FAIL?)                             MINOR
 sound subsystem (3.5)   PASS
 login process (3.6)     PASS
