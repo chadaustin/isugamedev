@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.49 2002-04-10 03:44:22 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-10 03:44:22 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.50 2002-04-10 03:51:00 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-10 03:51:00 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -264,7 +264,7 @@
           </fieldsynopsis>
           <methodsynopsis>
             <modifier>public</modifier>
-            <type>boolean</type>
+            <type>bool</type>
             <methodname>validatePlayer</methodname>
             <methodparam>
               <type>string</type>
@@ -605,8 +605,23 @@
       <para>The Report Server module is responsible for generating dynamic reports requested by HTTP 1.0 standards complient clients. The reports will be generated based on data gathered from the Data/XML module. These reports will be formatted to comply with the specifications for the HyperText Markup Language. This module depends on the Data/XML module for the gathering of data and the Network module for the use of a <classname>ServerSocket</classname> to accept sockets and a <classname>Socket</classname> for the transmitting of data.</para>
       <section>
         <title>Module Interfaces</title>
-        <para>ReportServer.Start():bool </para>
-        <para>ReportServer.Stop():void </para>
+        <classsynopsis>
+          <ooclass>
+            <classname>ReportServer</classname>
+          </ooclass>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <type>bool</type>
+            <methodname>stop</methodname>
+            <void/>
+          </methodsynopsis>
+          <methodsynopsis>
+            <modifier>public</modifier>
+            <void/>
+            <methodname>stop</methodname>
+            <void/>
+          </methodsynopsis>
+        </classsynopsis>
       </section>
       <section>
         <title>Design Issues</title>
