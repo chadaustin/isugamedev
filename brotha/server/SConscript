@@ -2,6 +2,7 @@ import sys
 Import('env')
 
 classes = [
+   'BrothaGame',
    'GameThread',
    'ListenServer',
    'WebServer',
