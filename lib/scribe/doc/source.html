@@ -1,0 +1,136 @@
+<html>
+
+<head>
+ <title>Scribe [source]</title>
+ <link rel="stylesheet" type="text/css" href="default.css">
+</head>
+
+
+<body text="#000000">
+
+ <!-- title -->
+ <table width="100%">
+  <tr>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+  </tr>
+  <tr>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockbody" align=center>
+    <span class="sitetitle">scribe</span><br>
+    <small>a flexible scripting engine</small>
+   </td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+  </tr>
+  <tr>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+  </tr>
+ </table>
+
+ <p><table width="100%" cellspacing=0 cellpadding=0>
+  <tr>
+
+   <!-- Menus -->
+   <td width=150 nowrap valign=top>
+    <table width="100%">
+     <tr>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+     </tr>
+     <tr>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+      <td class="blocktitle">
+       <b>Main Menu</b>
+      </td>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+     </tr>
+     <tr>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+     </tr>
+     <tr>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+      <td class="blockbody">
+       <strong>&middot;</strong> <a href="index.html">introduction</a><br>
+       <strong>&middot;</strong> <a href="docs.html">documentation</a><br>
+       <strong>&middot;</strong> <a href="download.html">download</a><br>
+       <strong>&middot;</strong> <b><a href="source.html">source code</a></b><br>
+       <strong>&middot;</strong> <a href="people.html">people</a>
+      </td>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+     </tr>
+     <tr>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+      <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+     </tr>
+    </table>
+   </td>
+   <td width="6"><img src="clear.gif" width=6 height=1></td>
+
+   <!-- Document body -->
+   <td class="docbody" width="100%" valign=top>
+    <h1>Source Code</h1>
+    If you want the latest, probably broken, source to Scribe, you can get it
+    from the CVS repository on <a href="http://sf.net">SourceForge.net</a>.
+
+    <h2>Anonymous CVS Access</h2>
+    Scribe's SourceForge CVS repository can be checked out through anonymous
+    (pserver) CVS by using the following instructions. When prompted for a
+    password for anonymous, simply press the Enter key.
+
+    <pre>
+cvs -d:pserver:anonymous@cvs.isugamedev.sourceforge.net:/cvsroot/isugamedev login
+
+cvs -z3 -d:pserver:anonymous@cvs.isugamedev.sourceforge.net:/cvsroot/isugamedev co lib/scribe
+    </pre>
+
+    <h2>Developer CVS Access via SSH</h2>
+    Only developers of the <a href="http://sf.net/projects/isugamedev">isugamedev</a>
+    SourceForge project can access CVS via this method. SSH1 must be installed on
+    your client machine. Enter your SourceForge site password when prompted. The
+    following instructions are based on a sh-style shell. Substitute <i>yourname</i>
+    with your SourceForge username.
+
+    <pre>
+export CVS_RSH=ssh
+
+cvs -z3 -d:ext:<i>yourname</i>@cvs.isugamedev.sourceforge.net:/cvsroot/isugamedev co lib/scribe
+    </pre>
+
+    </td>
+  </tr>
+ </table>
+
+ <!-- copyright and contact -->
+
+ <p><table width="100%">
+  <tr>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+  </tr>
+  <tr>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockbody" align=center>
+    <small>
+    For inquiries, wishes or comments please contact <a href="mailto:gamedev@iastate.edu">gamedev@iastate.edu</a><br>
+    Scribe is copyright (C) 2001-2002 <a href="http://isugamedev.sf.net">ISU Game Developers Club</a>
+    </small>
+   </td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+  </tr>
+  <tr>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+   <td class="blockborder" width=2 height=2><img src="clear.gif" width=2 height=2></td>
+  </tr>
+ </table>
+
+</body>
+</html>
