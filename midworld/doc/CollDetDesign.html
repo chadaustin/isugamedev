@@ -1,0 +1,101 @@
+<html>
+ <head>
+  <title>Collision Detection Design</title>
+ </head>
+
+ <body bgcolor="#ffffff" text="#000000">
+  <h1>Collision Detection Design</h1>
+  <p>This document describes the design of the collision detection system used
+  within midworld.</p>
+
+  <h2>Algorithm Discussion</h2>
+  <p>We need a utility that will detect collisions between many moving rigid
+  bodies in order to apply realistic physics to those bodies. It is assumed that
+  the bodies are being moved in real-time using small time steps. Thus we shall
+  make the assumption that with sufficiently small time steps, a given
+  application will only want to test each moving body against all other bodies
+  in the scene as though they are static.</p>
+
+  <h2>Algorithm Interfaces</h2>
+  <p><pre>
+/**
+ * A physical body that cannot be deformed. For collision detections, we only
+ * care about its bounding volume.
+ */
+class RigidBody
+{
+   /// The axis-aligned bounding box that tightly contains this body.
+   AABB bounds;
+
+   /// The position of this rigid body in the scene.
+   Point3f position;
+}
+
+/**
+ * Provides a way to access rigid bodies based on their spatial properties.
+ * This can be implemented as a SceneGraph, RTree, OctTree, OBBTree, etc.
+ */
+interface SpatialIndex
+{
+   /**
+    * Finds the bodies whose bounds intersect the given region.
+    *
+    * @param region     the search region that bodies will be tested against
+    *
+    * @return  a list of intersecting bodies
+    */
+   list&lt;RigidBody&gt; intersect(AABB region);
+}
+
+/**
+ * Describes the details of a collision between two rigid bodies.
+ */
+class CollisionDesc
+{
+   /// The body that the collider hits.
+   RigidBody collidee;
+
+   /// Normal of the surface of the collidee at the point of collision.
+   Vec3f normal;
+
+   /// The distance travelled along the path to the point of collision.
+   float distance;
+}
+
+/**
+ * Interface for an alogrithm that can determine the collisions between rigid
+ * bodies in a dynamic system.
+ */
+interface CollisionDetector
+{
+   /**
+    * Determines if the given rigid body collides with any other rigid bodies
+    * in the given spatial index as it travels along the given path.
+    *
+    * @param body    the body that is the collider
+    * @param path    the path along which the body must travel
+    * @param index   the spatial index of all bodies in the dynamic system
+    *
+    * @return  a description of the collision, null if there is no collision
+    */
+   CollisionDesc checkCollision(RigidBody body, Vec3f path, SpatialIndex index);
+}
+  </pre></p>
+
+  <h2>Private API</h2>
+  <p><pre>
+/**
+ * Interface for an algorithm that determines the intersection between two
+ * bodies.
+ */
+interface IntersectionAlgorithm
+{
+   /**
+    * Determines the distance between two convex polyhedra.
+    */
+   Point3f[] closestPoints(RigidBody body1, RigidBody body2);
+}
+  </pre></p>
+
+ </body>
+</html>
