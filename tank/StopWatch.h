@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: StopWatch.h,v $
-//    $Date: 2001-09-14 05:32:11 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-27 22:50:36 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -74,7 +74,10 @@ public:
     //  see also - mFpsAverage for the average frames per second value.
     //  see also - mTimeAverage for the average time value.
     //  TODO: make this based on time rather than cycles
-    inline void    setRefreshRate( const int& rate ) { mRefreshRate = rate; }
+    inline void    setRefreshRate( const int& rate ) 
+    { 
+       mRefreshRate = rate; 
+    }
 
 
 // Time metrics:   
@@ -220,9 +223,9 @@ inline void StopWatch::stop()
     mTimeInstant = mTimeStopped - mTimeStarted;
     
     // every [mRefreshRate] frames, calc the average FPS
+    assert( mRefreshRate != 0 && "StopWatch: refresh rate of 0 will cause a math error" );
     if (mCount % mRefreshRate == 0)
     {
-//      double mRefreshRate = mRefreshRate;
       mFpsAverage = mRefreshRate / mTimeAccumulator;
       mTimeAverage = mTimeAccumulator / mRefreshRate;
 
