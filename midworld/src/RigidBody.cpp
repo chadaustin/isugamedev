@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-07-29 06:21:07 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-10-01 07:54:16 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,44 +38,10 @@ namespace mw
 {
    void RigidBody::update(float dt)
    {
-      // zero mass not supported :(
-      if (mMass < 0.0001f) mMass = 1.0f;
-      
-      // change in position over time (first order)
-      // x' = v = P(t)/M
-      gmtl::Vec3f pos_delta = mVel * dt;
-      
-      // change in lin momentum over time (second order)
-      // P'(t) = F(t)
-      gmtl::Vec3f linear_momentum_delta = mForce * dt;
-      
-      // change in rotation over time (first order)
-      // R'(t) = w(t)*' R(t)   (matrix version)
-      // q'(t) = 1/2 w(t) q(t) (quaternion version)
-      gmtl::Quatf rot_delta, temp;
-      gmtl::Quatf one_half_wt = gmtl::makePure( gmtl::Vec3f( mRotVel * 0.5f ) );
-      gmtl::mult( temp, one_half_wt, mRot );
-      gmtl::mult( rot_delta, temp, dt );  // scale by time...
-      
-      // change in ang momentum over time (second order)
-      // L'(t) = T(t)
-      gmtl::Vec3f ang_momentum_delta = mTorque;
-
-      // add the derivitives to the current rigidbody state
-      mPos += pos_delta;
-      mVel += (linear_momentum_delta / mMass);
-      mRot += rot_delta;
-      gmtl::normalize( mRot ); // rot quats always normalized
-      mRotVel += ang_momentum_delta; // @todo this is wrong (needs inertia tensor)
-      
-      // zero out the force, and torque accumulators.
-      mForce.set( 0.0f, 0.0f, 0.0f );
-      mTorque.set( 0.0f, 0.0f, 0.0f );
-
       // Move the bounds along with the body
       gmtl::Vec3f extents = (mBounds.getMax() - mBounds.getMin()) * 0.5f;
-      mBounds.setMin(mPos - extents);
-      mBounds.setMax(mPos + extents);
+      mBounds.setMin(getCurrentState().getPos() - extents);
+      mBounds.setMax(getCurrentState().getPos() + extents);
    }
 
    void RigidBody::addForce(const gmtl::Vec3f& force)
@@ -91,9 +57,10 @@ namespace mw
 
    void RigidBody::draw() const
    {
+      const gmtl::Point3f& pos = getCurrentState().getPos();
       glPushMatrix();
-         glTranslatef(mPos[0], mPos[1], mPos[2]);
-         glMultMatrixf( gmtl::make<gmtl::Matrix44f>( mRot ).getData() );
+         glTranslatef(pos[0], pos[1], pos[2]);
+         glMultMatrixf(gmtl::make<gmtl::Matrix44f>(getCurrentState().getRot()).getData());
 
          // Get the extents of the bounds of this object
          gmtl::Vec3f extents = mBounds.getMax() - mBounds.getMin();
@@ -106,7 +73,7 @@ namespace mw
 
    gmtl::Vec3f RigidBody::getForward() const
    {
-      return getRot() * gmtl::Vec3f(0,0,-1);
+      return getCurrentState().getRot() * gmtl::Vec3f(0,0,-1);
    }
 
    const gmtl::AABoxf& RigidBody::getBounds() const
@@ -118,8 +85,15 @@ namespace mw
    {
       // store the matrix from the pos/rot data...
       gmtl::Matrix44f xform;
-      gmtl::set( xform, this->getRot() );
-      gmtl::setTrans( xform, gmtl::Vec3f( this->getPos() ) );
+      gmtl::set(xform, getCurrentState().getRot());
+      gmtl::setTrans(xform, gmtl::Vec3f(getCurrentState().getPos()));
       return xform;
+   }
+
+   void RigidBody::moveToNextState()
+   {
+      mCurrentState = mNextState;
+      mForce.set(0,0,0);
+      mTorque.set(0,0,0);
    }
 }

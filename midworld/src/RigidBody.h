@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-09-23 19:45:15 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-10-01 07:54:16 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,7 @@
 #include <gmtl/VecOps.h>
 #include <gmtl/Quat.h>
 #include <gmtl/Matrix.h>
+#include "BodyState.h"
 
 namespace mw
 {
@@ -61,28 +62,28 @@ namespace mw
        */
       void setPos(const gmtl::Point3f& pos)
       {
-         mPos = pos;
+         getCurrentState().setPos(pos);
          gmtl::Vec3f extents = (mBounds.getMax() - mBounds.getMin()) * 0.5f;
-         mBounds.setMin(mPos - extents);
-         mBounds.setMax(mPos + extents);
+         mBounds.setMin(getCurrentState().getPos() - extents);
+         mBounds.setMax(getCurrentState().getPos() + extents);
       }
 
       /**
        * Gets the position of this rigid body relative to the world's origin.
        */
-      const gmtl::Point3f& getPos() const { return mPos; }
+      const gmtl::Point3f& getPos() const { return getCurrentState().getPos(); }
 
-      gmtl::Point3f& getPos() { return mPos; }
+      gmtl::Point3f& getPos() { return getCurrentState().getPos(); }
 
       /**
        * Sets the velocity of this rigid body.
        */
-      void setVel(const gmtl::Vec3f& vel) { mVel = vel; }
+      void setVel(const gmtl::Vec3f& vel) { getCurrentState().setVel(vel); }
 
       /**
        * Gets the velocity of this rigid body.
        */
-      const gmtl::Vec3f& getVel() const { return mVel; }
+      const gmtl::Vec3f& getVel() const { return getCurrentState().getVel(); }
 
       /**
        * Applies a force on this body at its center of mass. This will not add
@@ -92,20 +93,26 @@ namespace mw
        */
       void addForce(const gmtl::Vec3f& force);
 
+      /// Gets the total force currently acting on this body.
+      const gmtl::Vec3f& getForce() const { return mForce; }
+
+      /// Gets the total torque currently acting on this body.
+      const gmtl::Vec3f& getTorque() const { return mTorque; }
+
       /**
        * Sets the rotation of this rigid body.
        */
-      void setRot(const gmtl::Quatf& rot) { mRot = rot; }
+      void setRot(const gmtl::Quatf& rot) { getCurrentState().setRot(rot); }
 
       /**
        * Gets the rotation of this rigid body.
        */
-      const gmtl::Quatf& getRot() const { return mRot; }
+      const gmtl::Quatf& getRot() const { return getCurrentState().getRot(); }
 
       /**
        * Sets the angular velocity of this rigid body.
        */
-      void setRotVel(const gmtl::Vec3f& rotVel) { mRotVel = rotVel; }
+      void setRotVel(const gmtl::Vec3f& rotVel) { return getCurrentState().setRotVel(rotVel); }
 
       /**
        * Applies a force on this body at a position relative to its center. This
@@ -150,18 +157,34 @@ namespace mw
 
       /** convert the pos/rot to a matrix. */
       gmtl::Matrix44f matrix() const;
+
+      /// Gets the current state of this body.
+      BodyState& getCurrentState() { return mCurrentState; }
+      const BodyState& getCurrentState() const { return mCurrentState; }
+
+      /// Gets the next state of this body.
+      BodyState& getNextState() { return mNextState; }
+      const BodyState& getNextState() const { return mNextState; }
+
+      /// Makes the next state the current state.
+      void moveToNextState();
    
    private:
-      gmtl::Point3f mPos;  //position
-      gmtl::Vec3f mVel;
       gmtl::Vec3f mForce;	
-
-   //rotation vars
-      gmtl::Quatf mRot;
-      gmtl::Vec3f mRotVel;
       gmtl::Vec3f mTorque;
 
       float mMass;
+
+      /**
+       * The current state of this rigid body. All calculations for the current
+       * frame should be done relative to this state.
+       */
+      BodyState mCurrentState;
+
+      /**
+       * The next state of this rigid body.
+       */
+      BodyState mNextState;
 
    protected:
       /// The bounding volume for this body

@@ -1,7 +1,10 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-10-01 nonchocoboy  RigidBody now aggregates its state so that it keeps
+                        track of its state for the current frame as well as the
+                        next frame.
 2002-10-01 aegis        no more NullWeapon!!
-2002-10-01 nonchocoboy  Fixed OpenSG rendering woes. Everythin now has the
+2002-10-01 nonchocoboy  Fixed OpenSG rendering woes. Everything now has the
                         right color and texture.
                         NEW VERSION: 0.2.2
 2002-09-30 aegis        bullet casings with random rotations

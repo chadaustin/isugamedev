@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-09-23 04:00:19 $
- * Version:       $Revision: 1.31 $
+ * Date modified: $Date: 2002-10-01 07:54:16 $
+ * Version:       $Revision: 1.32 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,7 @@
 #include <SDL.h>
 #include <gltext.h>
 #include "State.h"
+#include "PhysicsEngine.h"
 #include "GameScene.h"
 #include "Scene.h"
 #include "SceneViewer.h"
@@ -152,6 +153,8 @@ namespace mw
       float mFrameTime;
 
       Cursor mCursor;
+
+      PhysicsEngine mPhysics;
    };
 }
 

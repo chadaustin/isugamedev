@@ -30,6 +30,7 @@ classes = Split("""
    MenuState
    ModelManager
    OpenSGSceneViewer
+   PhysicsEngine
    Player
    ResourceManager
    RigidBody
@@ -50,6 +51,7 @@ buildInfo = BuildInfo()
 buildInfo.addHeaders(map(File, Split("""
    AssaultRifle.h
    BaseBullet.h
+   BodyState.h
    CollisionEvent.h
    NullCollisionDetector.h
    UIDManager.h

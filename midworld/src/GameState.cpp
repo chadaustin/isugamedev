@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-01 06:06:13 $
- * Version:       $Revision: 1.39 $
+ * Date modified: $Date: 2002-10-01 07:54:16 $
+ * Version:       $Revision: 1.40 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -329,6 +329,8 @@ namespace mw
       }
 
       mCamera.update( dt );
+      mPhysics.update(&mPlayer, dt);
+      mPlayer.moveToNextState();
       mPlayer.update( *this, dt);
 
       ++mFrameCount;
@@ -355,6 +357,8 @@ namespace mw
       // No more collisions, let the body update the remaining distance
       if (!desc)
       {
+         mPhysics.update(body, dt);
+         body->moveToNextState();
          body->update(remaining_dt);
 
          // Make sure entities never go below the ground.
@@ -385,6 +389,8 @@ namespace mw
          }
 
          // Update the body to the point of the collision
+         mPhysics.update(body, time_to_coll);
+         body->moveToNextState();
          body->update(time_to_coll);
 
          // Notify the collider and the collidee of the collision
