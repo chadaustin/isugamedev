@@ -24,11 +24,12 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-09-09 07:06:04 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-09-10 02:54:39 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <memory>
 #include "IntroState.h"
 #include "GameManager.h"
 #include "Application.h"
@@ -45,7 +46,8 @@ namespace mw
       : State( a )
    {
       mIntroImage = new Texture("intro.jpeg");
-      mShouldTransition = false;
+      mElapsedTime = 0;
+      mLeavingState = 0;
 
       // Start playing the theme song.
       /// @todo Stop. Clear all tracks. Then play the new track.
@@ -62,6 +64,11 @@ namespace mw
    void
    IntroState::update(float dt)
    {
+      mElapsedTime += dt;
+      if (mLeavingState && mElapsedTime > 1)
+      {
+         invokeTransition("Menu");
+      }
       ::SDL_WarpMouse( this->application().getWidth() / 2, this->application().getHeight() / 2 );
    }
 
@@ -83,8 +90,11 @@ namespace mw
       // set up view matrix
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
-      
-      glColor3f( 1,1,1 );
+            
+      float fade = (mLeavingState ?
+                    1 - mElapsedTime :
+                    std::min(mElapsedTime, 1.0f));
+      glColor3f(fade, fade, fade);
       mIntroImage->drawRectangle(0, 0, 1, 1);
    }
 
@@ -93,7 +103,8 @@ namespace mw
    {
       if (down)
       {
-         invokeTransition("Menu");
+         mLeavingState = true;
+         mElapsedTime = 0;
       }
    }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.h,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-09-10 02:54:40 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -55,8 +55,8 @@ namespace mw
 
    private:
       Texture* mIntroImage;
-
-      bool mShouldTransition;
+      float mElapsedTime;  // seconds
+      bool mLeavingState;
    };
 
 }
