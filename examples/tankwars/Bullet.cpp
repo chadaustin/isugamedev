@@ -25,6 +25,7 @@ Bullet::Bullet()
 Bullet::~Bullet()
 {
 	delete next;
+	//delete [] weaponTex;
 }
 
 void Bullet::draw()
