@@ -1,0 +1,229 @@
+Game Design Copyright (C) 2001  James Zempel, jzempel@iastate.edu
+This design available freely only to members of the ISU Game Developers
+club.  For outside use, please ask permission from the authors.
+Revisions are welcome, submit them to the club or to James directly.
+=======================================================================
+
+
+Author(s) and Contributors(s)
+=============================
+James Zempel
+- initial design concept
+- jzempel@iastate.edu
+
+
+Name
+=========
+Supremacy (tentative)
+
+
+Genre
+=========
+High level description: vehicle combat
+Detail description: cross genre - (vehicle combat, capture the flag, some RPG/adventure elements)
+
+
+Similar to other games?
+========================
+Supremacy takes ideas from many places:
+- BattleTanx (vehicle combat, capture the flag-style missions)
+- Heavy Barrel (get weapon parts to build an ultimate weapon)
+- Mario Kart series (battle mode free-for-all, varied weapons)
+- Metroid (must escape after defeating the boss)
+- RPG games (upgradeable stats, allocating points to certain stats, get resources for defeating enemies)
+- racing games (equip vehicles with upgrades, e.g. engine)
+- Star Fox (vehicle combat, weapon upgrades, end-of-level bosses)
+- Twisted Metal series (vehicle combat, weapon types, boses)
+- Vigilante 8 (team vehicle combat, weapon types, objectives)
+
+A capture-the-flag game where you use an ACV to destroy the enemies.
+
+
+Objective
+==========
+Immediate: Capture a piece of technology from the enemy forces. Destroy any opposition.
+Overall: Obtain cutting-edge technology from the enemy corporation with your Antigrav Combat Vehicle (ACV), and use those technologies to destroy them.
+
+
+Why this game is fun
+====================
+- variety of weapons and powerups
+- increased ACV power level over time
+- customizable and upgradeable ACV
+- fast action
+- possible multiplayer
+- multiple levels of difficulty
+
+
+Target audience
+================
+Supremacy is for the mid-level to expert gamer. It will start out easy, but each level will get more and more difficult. There will be three difficulty settings that affect the enemies' strength, numbers, and intelligence.
+
+
+Storyline
+============
+In the near future two megacorporations have emerged as the dominant economic and political forces in the world - one good, one evil. You are a trained ACV pilot who works for the good corporation. Your mission is to infiltrate the enemy's research and development compounds to seize advanced technology, then use that technology to destroy the threat of the evil corporation. If you do not succeed in your mission, the other (evil) corporation will gain the upper hand, and with it, control of the world. That's bad, because they would cut your pay, stop giving benefits, and probably kill you.
+
+
+Gameplay
+==========
+In Supremacy you control an Antigrav Combat Vehicle (ACV, like a hovercraft). The game takes place in large, enclosed levels set in enemy compounds.  For most levels, you exit your corporation's deployment ship into an enemy-controlled area, destroy any opposition, retrieve a piece of technology, and bring it back to the deployment ship. There are many powerups in the compound that you can use to improve your offensive and defensive capabilities. Enemies will attack you will varying levels of ability, depending on the level and difficulty setting. When you destroy them, they will leave behind ammunition, hull armor, and credits to buy things with. There are hidden bonus levels where you can get secret refits, replenish your ammo and armor, and find the pieces of the subatomic destabilizer. Between standard levels you will be able to buy refits for your ACV, as well as additional ammo, with credits. You also get the technology that you took from the enemy in the last level. You can save your game by returning to the deployment vehicle at the beginning of the stage. You win Supremacy by getting all the enemy corporation's technologies and defeating the final boss machine.
+
+
+Other features
+========================================================
+- weapons
+  - to use any weapon besides the standard machine gun, you have to buy the appropriate equipment in the shop
+  - the firing mechanism of each weapon shows up on the ACV when it is installed (like twisted metal)
+  - the four main weapon types has three levels: basic, advanced, and ultimate. each is more powerful than the last
+  - when you get a weapon type refit, you move up to the next level (if you run out of advanced or ultimate machine gun ammo, it will default back to the infinite standard ammo until you get some more)
+  - machine gun
+    - standard (infinite ammo, but you have to reload)
+    - armor piercing (does more damage)
+    - minigun ammo (faster and more damage)
+  - missiles
+    - standard missiles
+    - homing missiles (follow target)
+    - cluster missiles (several weaker homing missiles)
+  - lasers
+    - beam laser (short duration)
+    - pulse laser (more powerful)
+    - plasma cannon (takes a short time to charge, like BFG)
+  - mines
+    - proximity mines
+    - burrowing mines (jump onto target, drill into hull, explode)
+    - em mines (more powerful, temporarily disable enemy)
+  - mortar
+    - mortar shells
+    - napalm shells (slower, more powerful, fire damage over time)
+    - micronukes (very slow, really powerful)
+  - subatomic destabilizer (secret ultimate weapon)
+    - particle beam that vaporizes most targets
+    - recharges slowly
+    - collect one hidden part in each bonus level
+    - can only use against the final boss
+
+- defense
+  - every ACV (enemies' too) has a small energy shield
+    - can absorb the brunt of a small attack
+    - slowly recharges
+  - hull armor
+    - when the shield is disabled, enemy fire damages the hull
+    - when armor is destroyed, one more hit will breach power core
+
+- powerups
+  - single use (until it runs out)
+    - offense
+      - ammunition
+      - faster fire rate
+      - extra damage
+      - auto drone
+        - flies by itself or with you
+        - does a damage to enemies
+        - limited offensive and defensive power 
+      - grappeling beam (can cause collision damage)
+    - defense
+      - hull repair
+      - extra shield energy
+      - ablative hull armor (adds to regular hull armor)
+      - reverse field polarity
+        - weapons fire slowly swerves away from you
+    - misc
+      - emp generator and shield
+      - magnetic snare
+      - stealth field
+      - high energy fuel (faster movement)
+      - radar jamming
+  - cumulative (refits)
+    - offensive
+      - increased weapon damage (multiple levels)
+      - increased weapon speed (multiple levels)
+      - increased ammo capacity (multiple levels)
+    - defensive
+      - extra shield strength (multiple levels)
+      - increased shield recharge rate (multiple levels)
+      - backup shield (multiple levels)
+      - more hull armor (multiple levels)
+      - regenerative hull (secret refit)
+    - misc.
+      - speed (multiple levels)
+      - radar
+
+- bonus levels
+  - find the hidden datacubes on each level to access the bonus levels
+  - replenish armor/ammo for free
+  - find secret refits
+  - find pieces of subatomic destabilizer
+  - time limit prevents you from getting everything
+
+- refitting and upgrading between levels
+  - you can buy refits and extra ammo before standard levels from your corporation's armory
+  - all non-secret refits are available at the beginning
+  - more powerful refits are really expensive
+  - higher credits from enemies in later stages allow you to buy them
+  - undecided - refits are permanent, or reversible?
+  - you can focus on a few weapon types, or use them all
+  - secret refits are done for free
+
+- singleplayer with option for multiplayer (pretty much single player game)
+
+- saving
+  - save by returning to the deployment ship (saves all stats)
+  - quick level save (will only save beginning of level stats)
+
+- lives
+  - you only live once, so don't die
+  - your energy shield and hull protect your power core
+  - if your power core is damaged, it will overload
+
+- camera
+  - different zoom levels behind ACV
+
+- enemies
+  - mostly inferior, dumb ACV's
+  - get progressively more intelligent and powerful
+  - boss tanks at end of each level, guarding the technology
+  - final boss is very tough
+    - different attack patterns
+    - easier with the subatomic destabilizer
+  - leave behind a small amount of hull armor that you can use
+  - are worth credits if you destroy them
+  - some leave behind a little ammo
+
+- random thoughts
+  - you don't have to fight all the enemies. if you are fast enough, you can avoid some enemies on the way in, defeat the boss, get the technology, and get back to the deployment ship
+  - undecided - flat terrain or uneven
+  - extensive damage lowers vehicle performance
+  - high-speed collision damage with enemies and environment
+  - deployment ship has weapons that will fire on enemies if they get within range
+
+
+Levels (tentative)
+============
+- a wall type barrier encloses each level
+- you start where the deployment ship has broken through the exterior defenses
+- factory
+  - industrial building in a city
+- plains
+  - military base in grasslands
+- desert
+  - base set in Sahara desert
+- mountain plateau
+  - testing facility high in the mountains
+- antarctic
+  - remote base hidden near the South Pole
+- undersea dome
+  - secret compound under the ocean
+- research complex
+  - high tech enemy base with an advanced defense system
+  - once the final boss is defeating, must escape from the self-destruct system
+
+Timeline (milestones)
+==================== 
+I don't want to even hazard a guess.
+
+Budget 
+==================== 
+Hopefully, we only need time.
+
+

@@ -1,0 +1,223 @@
+Possible title: Dark Space
+Suggested by: David Lastine 
+dlastine@iastate.edu
+
+Motivation
+I've felt for a while that one realistic aspect of strategy games have missed
+is a delay in communications.  This game tries to add in a delay while
+maintaining a fun game.  While writing this document the game evolved till it
+resembled a dos game I once had.  I'm not certain of its name but it may have
+been "Star Quest"
+
+This game is a mix between real time strategy games like War Craft but having
+diplomatic and strategy elements like Master of Orion.
+
+1       Objective - Make allies and eliminate everyone else.
+2       Setting
+        A region of space where high background radiation prevents long distance
+radio communication.  Clusters of asteroids float around in space.
+        2.1  Asteroid clusters
+                Clusters are made up of 10 to 20 asteroids each.  On each of
+these asteroids a mine/factory can be built.
+        2.2 Empty space
+                Empty space in this game is filled with radiation.  The
+radiation limits communications between ships to only ships in visible range. 
+Ships can act as relays allowing information to be transmitted across the game
+map instantly.  Empty space should be sufficiently vast to make this an
+unattractive option for maintaining communications between asteroid
+clusters.    The game map will be mostly empty space so asteroid clusters and
+enemy ships can be go undiscovered for considerable periods of time. 
+        2.3 Exploration.  Besides the asteroid cluster the player starts in,
+space is unmapped and remains so until it is explored by spacecraft. 
+Spacecraft must return in order to report findings.  Maps of space may also be
+obtained diplomatically once other empires have been encountered.
+
+3       Structures
+3.1 Mines
+                Mines are mining craft that have permanently attached
+themselves
+to a given asteroid.  They mine minerals at a constant rate from asteroids. 
+These minerals can be used by the mine to produce any player-controlled
+object.  Each will have a certain mineral cost attached to it.  Up to three
+construction projects can be underway at any one time but resource allegation
+will be automatic set to each one getting an equal share of recourses.
+                3.1.1 Minerals may not be stored in the mine.  They may however
+be loaded onto freighters.
+                3.1.2 Equipment that is used on ships is build by a mine or
+star
+base.
+                3.1.3 Damage to ships can be repaired at a factory.
+3.2 Star Base
+                3.2.1 A Star Base will consist of a cluster of Star Base Craft
+that have docked together to form a star base.  Minimums of four craft are
+required to form a base.
+                3.2.2 A Star Base has one Equipment spot for every two Star
+Base
+Craft.
+                        3.2.2.1 If a craft leaves the base by undocking or
+being
+destroyed and the number of equipment spots can not be maintained that spot is
+lost without any cost of building the equipment being recouped.
+                3.3 If mineral resources are available a star base may perform
+any building/repairing function that a mine can.  Also it may building
+equipment in its own equipment places and repair itself.  Mineral resources
+must come from freighters.
+
+4       Ships
+        4.1 Spy/raider ship  (40 hit points)
+                4.1.1 One gun, fairly weak
+                4.1.2 Fastest ship in the game which is not warp capable
+                4.1.3 Automatically includes miniaturized version of long-range
+sensors 
+        4.2 Diplomatic vessel (20 hit points)  cheapest ship to build
+                4.2.1 no weapons
+                4.2.2 fast ship
+                4.2.3 Carries messages between asteroid clusters / between
+empires
+        4.3 Small ships (100 hit points)
+                4.3.1 One equipment spot
+                4.3.2 Fast vessel
+        4.4 Medium ship (300 hit points)
+                4.4.1 Two equipment spots
+                4.4.2 Medium speed vessel
+        4.5 Large vessel (800 hit points)
+                4.5.1 Three equipment spots
+                4.5.2 Slow moving
+        4.6 Command vessel (1500 hit points)
+                4.6.1 Holds four  weapons spaces
+                4.6.2 Slow moving
+                4.6.3 Equipped with warp drive.  Warp drive moves the ship
+though space at an incredible speed.  But due to the hug power requirements an
+onboard energy storage system is required.  While this system converts
+background energy to useable energy it does so slowly thus preventing the
+frequent or prolonged use of the drive.  A status bar would indicate stored
+energy levels.
+                4.6.4 Players ship.  If it is destroyed the game ends
+        4.7 Mining craft
+                No weapons, lands on selected asteroid and transforms into
+mine.
+        4.8 Freighters
+                4.8.1 Medium speed
+                4.8.2 Carry cargo
+                        4.8.2.1 Minerals
+                        4.8.2.2 Missile refills.  These refills may be loaded
+onto the recipient ship/star base anywhere in the game map.  Each freighter
+carries 8 missiles.
+                        4.8.2.3 Instead of cargo a missile launcher can be
+hidden inside but it can only hold 2 missiles.
+
+5 Equipment
+        5.0
+                Ships are built without equipment onboard.  After they are
+constructed they may enter the game or have equipment added.  Equipment on a
+ship may be changed once a ship's equipment bays have been filled but new
+equipment is at full cost.
+        5.1 Regular guns
+                A weapon that fires an energy ball at enemy ships.  It has the
+speed half that of a typical gun in an arcade game and does 15 points damage.
+        5.2 Regular missiles
+                A missile that does 25 points damage.  Eight of them fit into
+one weapons space.  After they have been fired a refill is needed.
+        5.3 Shields  
+Block 5 points of damage from each attack. Only one may be put onboard a ship 
+        5.4 Engine booster
+                Increases ship speed.  Only one may be put onboard a ship
+        5.5 Long Range Sensors
+                Gives a ship twice its normal field of view.  Requires 2
+equipment spaces.
+        5.6 False Image Projector
+                Device capable of projecting false information to craft with
+Long Rage Sensors provided it is outside of that ships normal site range. 
+Requires 3 equipment spaces.  These false images could range from no
+ship/asteroids in the area to fake reports of asteroid cluster or battle
+fleets.
+                
+6 Diplomacy and Communications
+        6.1 Messages between asteroid clusters and fleets must be carried by a
+ship.  However diplomatic vessels are provided as the cheap way of
+communicating between forces.  The main point of this method of communications
+is to allow for hostile forces to cut off communications.  A second interesting
+side effect would be that declarations of war or piece would have to be sent
+around the empire, so battles could take place between forces not aware of a
+piece treaty.  Also a former allies war fleet could come close to a base and
+open fire on it before word of hostilities had reached said base.
+
+        6.2 Communication between empires
+                6.2.1 Only diplomatic vessels or the command ship may carry
+messages between different empires.
+                        6.2.1.1 A message between empires can only be delivered
+to a factory or command ship.
+                        6.2.1.2 If diplomatic vessel encounter a vessel other
+than the command ship of the empire it is trying to contact it does one of four
+things:  asks for directions to a contact point (a mine and/or command ship),
+request permission to go to a specific point in space (assumable an asteroid
+cluster but not restricted), asks for an escort, or it may just ignore the
+vessel.
+        If permission is refused for a destination or directions not given, a
+diplomatic vessel may request a different point in space or send a different
+message.  However there is no guaranty a ship will respond to a diplomatic
+vessel or not attack it.
+        Any vessel may be asked for an escort, besides being protected asking
+for escort could be used as a ploy to break up fleets into small weak sections,
+lure vessels from their post or even lead vessels into traps.
+        A diplomatic vessel does not have to be honest.  After receiving
+clearance to a destination or directions it can turn around and head home to
+report the directions or that clearance was received.  This would serve as a
+type of intelligence gathering.  Of course the directions received could be
+dishonest as well, possible leading into a trap, enemy base, or natural hazard.
+        6.3 Diplomatic messages
+                6.3.1 Declaration of war
+                6.3.2 Request for peace
+                        6.3.2.1 This may include Offer to send supplies by
+freighter or Maps of space as incentive for peace.  See next two sections for
+description.
+                6.3.3 Offer to send freighters with minerals/missiles. Of
+course
+this could just be a clever ploy to send in a bunch of freighters armed with
+missiles in past the outer defenses.
+                6.3.4 Maps of know space along with latest news on fleet
+deployments of all known forces.  This information could be accurate or fake. 
+Some type of control would allow the player to doctor the information sent to
+their specifications.
+7 AI
+        7.1 Bases not currently in contact with the players ship
+                7.1.1 A central AI would be left in control of each asteroid
+cluster.  It would have an objectives say: populate all asteroids with mining
+colonies, build 5 small ships, 2 medium, 1 large, and equip the large ship with
+a False Image Projector and project an image of empty space.
+        7.2 Ships, missions, and fleets
+                7.2.1 A ships AI would need to be able to follow one of a
+number
+of missions.
+                        7.2.1.1 Scout  look for new asteroid clusters.  If
+equipped with long-range sensors stay out of sensor rage of any vessels
+detected.  Possibly follow vessel to its destination and report back.
+                        7.2.1.2 Escort  follows a ship and fire at any hostels
+in the area.
+                        7.2.1.3 Deliver message  find ship / base and relay
+orders to it and get a status report.
+                        7.2.1.4 Attack  proceed to specified location and
+destroy enemy base.
+                        7.2.1.5 Blockade  form a ring around a base or asteroid
+cluster.  Destroy any vessels trying to leave the area.
+                        This is not an exhaustive list.
+        7.3 Control of AI.  A dialog box with a drop down menu would allow for
+mission selection.  Once a mission is selected radial buttons with behavioral
+options would appear.  Or instance a vessel on patrol may have the default
+option of ignoring diplomatic craft with the selectable options such as, escort
+allied vessel, direct to asteroid cluster, relay false map to ship, attack
+diplomatic vessel, grant permission to any area of space and so on.
+
+8 Brain Storming
+*hazards in space such as black holes.
+*asteroid groups moving relative to each other.
+*heat seeking missiles that if they miss and end up roaming deep space. 
+Encounters ship long after battle is over and attacks it.
+*have space be inside a nebula.  Gas density varies so visibility varies,
+possible to the point of having a ship almost at ramming distance before its
+detected.
+*take over enemy vessels and have takeover not discovered till the vessel
+starts attacking friendly craft.
+*impersonating other empires vessels thereby sabotaging their relationships,
+attacking their allies or starting wars against them.
+

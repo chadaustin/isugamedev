@@ -1,0 +1,81 @@
+Super-Tank
+
+1.  	Overview
+
+	1.1 	The Game
+
+	Super-Tank is a level based real-time tank game where each level has highly different objectives.
+
+	1.2  	Overview
+
+	Super-Tank is similar to a first person shooter in that the camera always follows the tank and the user only has control over what the tank?s actions are.  The tank can move in all directions and shoot in all directions.  The tank also has the capacity to jump and land on things hence destroying them.  
+
+	The Camera will have a mario64 style to it.  Following the tank with a dampening effect.  This is to enhance realism and to add additional challenge to the player.  The game will always run in real time.
+
+	Each level the player encounters has a different mission goal.  These mission goals are vastly different in order to test the players skills in many different areas.  There are 4 levels in total with the original package, however future additions may contain a level editor or possible a level loader that could load new levels from disk.  
+
+2.	Game Objective
+
+	2.1 	To become the best damn tank driver the world has ever seen.
+
+	2.2	To complete the mission goals in each mission.
+
+3.	Graphics
+
+	3.1	Overview
+
+	The graphics for Super-Tank will be of outstanding quality.  The tank is a loaded model of a ship.  The world will be fully textured and all enemies will be fully loaded models.
+
+	3.2	View
+
+	The view is Isometric and the camera will be dampened to the tanks movement.  
+
+4.	Game Play
+
+	4.1 	Weapons
+		4.1.1 	Standard gun
+	
+			The standard gun will always be accessible, and is puny
+
+		4.1.2	laser gun
+	
+			The laser gun is awesome and pretty much destroys anything it hits, but is 		not accurate at all.
+
+	4.1.3	Flame thrower
+
+		The flam thrower is also a powerful weapon, but is limited in range.
+
+	4.2	Jump - up
+
+		4.2.1	Jump - up power-up allows you to jump and land on things crushing them
+
+		4.2.2	This power - up will be lost as soon as an opponent hits you.
+
+	4.3	Levels
+
+		4.3.1	level 1
+
+			4.3.1.1 Ben?s level
+
+			4.3.1.2 Will be very cool
+
+		4.3.2	Level 2
+
+			4.3.2.1 Josh?s level
+
+			4.3.2.2 Will be very cool
+
+		4.3.3	Level 3
+
+			4.3.3.1 Kevin?s level
+
+			4.3.3.2 Will be very cool
+
+		4.3.4 	Level 4
+
+			4.3.4.1 Chad?s level
+
+			4.3.4.2 Will be very cool
+
+
+

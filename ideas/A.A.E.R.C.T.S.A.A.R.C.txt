@@ -1,0 +1,306 @@
+Game design copyright (C) 2001  HerB Sawyer, sawyerherb@qwest.net       
+This design available freely only to members of the ISU Game Developers 
+club.  For outside use, please ask permission from the authors.        
+Revisions are welcome, submit them to the club or to HerB directly.
+=======================================================================
+
+
+Author(s) and Contributors(s)
+=============================
+HerB Sawyer
+- inititial design concept
+- sawyerherb@qwest.net     
+
+
+Name
+=========
+Amazing Awesome Electric Racing Cars That Shoot And Are Really Cool
+(A.A.E.R.C.T.S.A.A.R.C)
+
+Genre
+=========
+hard core dune buggy racing
+
+detail description: cross genre - (elements of kart racing, shotting, and
+                                   arcade action racing)
+
+
+Similar to other games?
+========================
+A.A.E.R.C.T.S.A.A.R.C racing takes ideas from many places:
+- mario cart 64 (a solid kart racing game, the feel, the response)
+- 4x4 Off Road; not sure of exact title (dune buggy racing with shooting to slow down oppents)
+- Online Multiplayer
+- Others to numerous to name, but you know who you are
+
+basically, a dune buggy kart-like racing game with the ability to shot your oppent to slow him/her down plus other fun type of slow or stop weapons. Has an elimate of staregery to it because you have a sheild to deflect your the shots fired at you but it takes away from your boost.
+
+
+
+Objective
+==========
+general: be the fastest and best A.A.E.R.C.T.S.A.A.R.C racer.
+specific:  win races and tournments to be able to fine tune your personal dune buggy.
+
+
+
+
+Why this game is fun
+====================
+player needs to be smart, quick and lucky. Interactive levels can create obstocales on there own (for example a bridge collaspes), players must find new quickess route to win. Players need to know how to handle their boost/sheild engery. Because using your boost drains your sheild/boost (an extra speed push for your vecihle) energy twice as fast as using your sheilds to delfect the shots. But, if you get shot while you are boosting it drops your overall speed by half (engine energy overload of course).
+
+race courses for all over the world, snow, jungle, heartland, mountians, desert, etc.
+
+
+Target audience
+================
+people who like racing games and action games. People who like to get into games plus the simple gamer. Multiplayer.
+The game will start out easy so anyone can play, and have progressive depth. (by racing you always earn a set amount of 'work points' to be able to 'work', fine tune, your buggy. The better standing you come in and who you beat play into 'work points')
+
+
+Gameplay in General
+====================
+Basic-
+
+Dune buggy racing around open large tracks with specific points to pass but unique choices to get there. Always ten racers to a race, whether its 1 human and 9 AI or all human (online/lan) always ten racers. It drives a little more arcadish then a kart game but does have a sense of a kart feel as well. In other words, the physics are solid, but not strict. First place earns you more work points than last. Three main styles of buggies- light and quick, middle, heavy and fast but with slow acceleration).   
+
+Energy Management-
+
+All the buggies run on engery/eltricity. This alows them to shoot engery balls at oppents in front of them. When an anyone gets hit by a energy ball it effects the energy output and slow you down. The shot supply of energy is endless unless it is effected by a specific weapon (the So Long Sucka' EMG).
+
+But the sheild and boost engery has a guage up in the corner of the screen. Racers have only limited amount of boost/sheild engery unless they aquire more through power sliding around/through corners or collect energy pick-ups on the race way. If a racer puts up a sheild, the racer can deflect energy shots that would have slowed the racer down. Or the racer can us it to boost and drain the energy twice fast. Getting shot while using boost drops you top speed to half.
+
+Weapons (or, the really cool part of A.A.E.R.C.T.S.A.A.R.C)-
+
+Plus being able to do all that other fancy shancy sheilds/boosting/shooting stuff, theres pick-up weapons. Energy sheild admitted by cars can not stop projectile weapons. Now the fun really begins!!
+
+"Mr Pipes I Presume" Pipe bomb/sticky pipe bomb (max 4 per pick up) -- shoots out front or back, regulator mode has an arc then lands and bounce till blows up, sticky mode shots straigh out and sticks to the first thing it touches.
+
+"So Long Sucka EMG" (max 1 per pick up) Release and energy shock throughout entire level which releaser is immune to and stops everybody in there tracks untill effects where off.
+
+"Soap on a Rope"  Straight fire missle (max 4 per pick up), front shot only
+
+"You Talkin' to Me" Homing missle (max 4 per pick up), front shot only
+
+"oOHH, BABY" oil slick, back fire only
+
+Extra Engery pick up - refills 1/2 or 1/4 of energy bar
+
+Speed and 3-way shot for energy gun.
+
+Super sheild pick up - sheilds you from everything (including "So Long Sucka' EMG")
+
+Multiplayer-
+
+Single-
+	Offline: wuss, but hey you can get to know the tracks- smart move
+	Online: Mr/Mrs Baddas are we
+
+Team racing- 
+	Ranking mode: How your overall team does in finish rank, lenght of time in lead
+	2nd is for Losers: First team car arcoss finish line wins.
+    There can be any number of teams on a track at a time. 2player,3player,4player, or 5player.	
+
+Our story So Far (As told by Erine 3rd cheif pit crew boy of team "Afternoon Munchie Express"
+=================================
+
+  "OK, so like, these scients guys made this really cool energy engine but had no idea what to do with. so it just sat there for years until like one of them died or something and right before he died he told his kids about this engine and well the kids found it and had no idea what to do with it so they just about put it back on the shelf until on of the said some like "when could race dune buggies with it and have sheilds and stuff and boost and like weapons" and the rest of the family was like, yeah!!! And they happen to be loaded with cash and made all the course for anybody to race on."
+
+Its you. Racing and have fun doing it. Put it on your work computer and do it over your lunch fun. Play for a long time or just five minutes racing fun. Level marker kit released with game. 
+
+Levels
+============
+Some loop around some don't. Any type of terrian know to earth. Jumps, water, mud, snow, rain, sand, etc. Hills up and down and sideways or banks. Hills to jump. Interaction on levels. Bridges colaspe, trees fall, the dam breaks, boulders roll, trains come and go, bridges raise, etc.
+
+
+Enumerate Game Objects
+========================
+
+Kevin, need help in this sections
+
+
+
+Enumerate Enemies
+===================
+- need to think of some.
+
+
+Timeline (milestones)
+====================
+hmmm...  probably will take a while.
+
+
+Budget
+====================
+$0 (just time cause we're all free!)
+
+
+brainstorm features (sorry no time to write this up! :)
+========================================================
+- vehicles
+- powerups 
+  - for vehicle weapons
+  - health, speed, armor, etc..
+  - weapon pick-ups
+  - bonus levels
+  - i know there are more things to think of, need some feed back/plus ideas to think about incoperate
+
+TODO: break all this stuff out into chapters.  should make a nice 50
+page doc when done. :)
+
+
+
+
+Game design copyright (C) 2001  HerB Sawyer, sawyerherb@qwest.net       
+This design available freely only to members of the ISU Game Developers 
+club.  For outside use, please ask permission from the authors.        
+Revisions are welcome, submit them to the club or to HerB directly.
+=======================================================================
+
+
+Author(s) and Contributors(s)
+=============================
+HerB Sawyer
+- inititial design concept
+- sawyerherb@qwest.net     
+
+
+Name
+=========
+Amazing Awesome Electric Racing Cars That Shoot And Are Really Cool
+(A.A.E.R.C.T.S.A.A.R.C)
+
+Genre
+=========
+Hard-core dune buggy racing
+
+detail description: cross genre - (elements of kart racing, shooting, and
+                                   arcade action racing)
+
+
+Similar to other games?
+========================
+A.A.E.R.C.T.S.A.A.R.C racing takes ideas from many places:
+- mario cart 64 (a solid kart racing game, the feel, the response)
+- 4x4 Off Road; not sure of exact title (dune buggy racing with shooting to slow down opponents)
+- Online Multiplayer
+- Others to numerous to name, but you know who you are
+
+basically, a dune buggy kart-like racing game with the ability to shot your opponent to slow him/her down plus other fun type of slow or stop weapons. Has an eliminate of strategy to it because you have a shield to deflect your the shots fired at you but it takes away from your boost.
+
+
+
+Objective
+==========
+general: be the fastest and best A.A.E.R.C.T.S.A.A.R.C racer.
+specific:  win races and tournaments to be able to fine-tune your personal dune buggy.
+
+
+
+
+Why this game is fun
+====================
+player needs to be smart, quick and lucky. Interactive levels can create obstacles on their own (for example a bridge collapses), players must find new quickness route to win. Players need to know how to handle their boost/shield energy. Because using your boost drains your boost/boost (an extra speed push for your vehicle) energy twice as fast as using your shields to deflect the shots. But, if you get shot while you are boosting it drops your overall speed by half (engine energy overload of course).
+
+race courses for all over the world, snow, jungle, heartland, mountains, desert, etc.
+
+
+Target audience
+================
+people whom like racing games and action games. People who like to get into games plus the simple gamer. Multiplayer.
+The game will start out easy so anyone can play, and have progressive depth. (by racing you always earn a set amount of 'work points' to be able to 'work', fine tune, your buggy. The better standing you come in and who you beat play into 'work points')
+
+
+Gameplay in General
+====================
+Basic-
+
+Dune buggy racing around open large tracks with specific points to pass but unique choices to get there. Always ten racers to a race, whether its 1 human and 9 AI or all human (online/LAN) always ten racers. It drives a little more arcadish then a kart game but does have a sense of a kart feel as well. In other words, the physics are solid, but not strict. First place earns you more work points than last. Three main styles of buggies- light and quick, middle, heavy and fast but with slow acceleration).   
+
+Energy Management-
+
+All the buggies run on energy / electricity. This allows them to shoot energy balls at opponents in front of them. When anyone gets hit by energy ball it effects the energy output and slow you down. The shot supply of energy is endless unless it is affected by a specific weapon (the So Long Sucka' EMG).
+
+But the shield and boost energy has a gauge up in the corner of the screen. Racers have only limited amount of boost/shield energy unless they acquire more through power sliding around/through corners or collect energy pick-ups on the race way. If a racer puts up a shield, the racer can deflect energy shots that would have slowed the racer down. Or the racer can us it to boost and drain the energy twice fast. Getting shot while using boost drops you top speed to half.
+
+Weapons (or, the really cool part of A.A.E.R.C.T.S.A.A.R.C)-
+
+Plus being able to do all that other fancy shancy shooting/boosting/shooting stuff, there's pick-up weapons. Energy sheild admitted by cars can not stop projectile weapons. Now the fun really begins!!
+
+"Mr Pipes I Presume" Pipe bomb/sticky pipe bomb (max 4 per pick up) -- shoots out front or back, regulator mode has an arc then lands and bounce till blows up, sticky mode shots straight out and sticks to the first thing it touches.
+
+"So Long Sucka EMG" (max 1 per pick up) Release and energy shock throughout entire level which releaser is immune to and stops everybody in there tracks until effects where off.
+
+"Soap on a Rope"  Straight fire missile (max 4 per pick up), front shot only
+
+"You Talkin' to Me" Homing missile (max 4 per pick up), front shot only
+
+"oOHH, BABY" oil slick, back fire only
+
+Extra Energy pick up - refills 1/2 or 1/4 of energy bar
+
+Speed and 3-way shot for energy gun.
+
+Super shield pick up - shields you from everything (including "So Long Sucka' EMG")
+
+Multiplayer-
+
+Single-
+	Offline: wuss, but hey you can get to know the tracks- smart move
+	Online: Mr/Mrs Baddas are we
+
+Team racing- 
+	Ranking mode: How your overall team does in finish rank, length of time in lead
+	2nd is for Losers: First team car across finish line wins.
+    There can be any number of teams on a track at a time. 2player,3player,4player, or 5player.	
+
+Our story So Far (As told by Erine 3rd chief pit crew boy of team "Afternoon Munchie Express"
+=================================
+
+  "OK, so like, these scientists guys made this really cool energy engine but had no idea what to do with. so it just sat there for years until like one of them died or something and right before he died he told his kids about this engine and well the kids found it and had no idea what to do with it so they just about put it back on the shelf until on of the said some like "when could race dune buggies with it and have shields and stuff and boost and like weapons" and the rest of the family was like, yeah!!! And they happen to be loaded with cash and made all the course for anybody to race on."
+
+Its you. Racing and have fun doing it. Put it on your work computer and do it over your lunch fun. Play for a long time or just five minutes racing fun. Level marker kit released with game. 
+
+Levels
+============
+Some loop around some don't. Any type of terrain know to earth. Jumps, water, mud, snow, rain, sand, etc. Hills up and down and sideways or banks. Hills to jump. Interaction on levels. Bridges collapse, trees fall, the dam breaks, boulders roll, trains come and go, bridges raise, etc.
+
+
+Enumerate Game Objects
+========================
+
+Kevin, need help in this sections
+
+
+
+Enumerate Enemies
+===================
+- need to think of some.
+
+
+Timeline (milestones)
+====================
+hmmm...  probably will take a while.
+
+
+Budget
+====================
+$0 (just time cause we're all free!)
+
+
+brainstorm features (sorry no time to write this up! :)
+========================================================
+- vehicles
+- powerups 
+  - for vehicle weapons
+  - health, speed, armor, etc..
+  - weapon pick-ups
+  - bonus levels
+  - i know there are more things to think of, need some feed back/plus ideas to think about incorporate
+
+TODO: break all this stuff out into chapters.  should make a nice 50
+page doc when done. :)
+
+
+
+
