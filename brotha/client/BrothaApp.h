@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-03-29 12:58:42 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-29 16:35:49 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,6 +46,7 @@
 #include <GL/glu.h>
 #include "game/BrothaGame.h"
 #include "net/NetMgr.h"
+#include "net/JoinAsMessage.h"
 #include "AppState.h"
 
 namespace client

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.h,v $
- * Date modified: $Date: 2002-03-29 13:02:07 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-29 16:35:49 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -89,17 +89,42 @@ namespace client
    class ConnectedState;
 
    /**
-    * Player is logged in but has not joined the game. Join as requested from
-    * the app.
+    * @todo document :)
     */
-   class LoggedInState : public AppState {
+   class InGameState : public AppState {
    public:
-      virtual ~LoggedInState() {}
+      InGameState() {  };
+      virtual ~InGameState() {}
 
-      virtual std::auto_ptr<AppState> update(BrothaApp* app) {
-         std::cout<<"Blah"<<std::endl;
-         return std::auto_ptr<AppState>(NULL);
-      }
+      virtual std::auto_ptr<AppState> handleMessage(const net::Message* msg,
+         BrothaApp* app) {return std::auto_ptr<AppState>(NULL);}
+   };
+
+   /**
+    * @todo document :)
+    */
+   class SyncState : public AppState {
+   public:
+      SyncState() {  };
+      virtual ~SyncState() {}
+
+      virtual std::auto_ptr<AppState> handleMessage(const net::Message* msg,
+                                                BrothaApp* app);
+   };
+
+   /**
+    * Expects an OK ack from the server in response to the login request
+    * Then expects a Enter message from the server to tell us where to go
+    */
+   class JoinAsAckWaitState : public AppState {
+   public:
+      JoinAsAckWaitState() { m_gotOk = false; };
+      virtual ~JoinAsAckWaitState() {}
+
+      virtual std::auto_ptr<AppState> handleMessage(const net::Message* msg,
+                                                BrothaApp* app);
+
+      bool m_gotOk;
    };
 
    /**

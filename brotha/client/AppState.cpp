@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-29 15:48:38 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-29 16:35:49 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,6 +43,80 @@
 
 namespace client
 {
+   std::auto_ptr<AppState> SyncState::handleMessage(
+               const net::Message* msg,
+               BrothaApp* app)
+   {
+      if(msg->getType() == net::OK) {
+         std::cout<<"Sync successful"<<std::endl;
+         return std::auto_ptr<AppState>(new InGameState());
+      } else if(msg->getType() == net::AddObj) {
+         std::cout<<"Unhandled sync type, TODO"<<std::endl;
+         return std::auto_ptr<AppState>(NULL);
+      } else if(msg->getType() == net::UpdateObj) {
+         std::cout<<"Unhandled sync type, TODO"<<std::endl;
+         return std::auto_ptr<AppState>(NULL);
+      } else if(msg->getType() == net::DelObj) {
+         std::cout<<"Unhandled sync type, TODO"<<std::endl;
+         return std::auto_ptr<AppState>(NULL);
+      } else if(msg->getType() == net::AddPlayer) {
+         std::cout<<"Unhandled sync type, TODO"<<std::endl;
+         return std::auto_ptr<AppState>(NULL);
+      } else if(msg->getType() == net::UpdatePlayer) {
+         std::cout<<"Unhandled sync type, TODO"<<std::endl;
+         return std::auto_ptr<AppState>(NULL);
+      } else if(msg->getType() == net::DelPlayer) {
+         std::cout<<"Unhandled sync type, TODO"<<std::endl;
+         return std::auto_ptr<AppState>(NULL);
+      } else {
+         std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+         /// @todo raise an error
+      }
+      return std::auto_ptr<AppState>(new ConnectedState());
+   }
+
+
+   std::auto_ptr<AppState> JoinAsAckWaitState::handleMessage(
+               const net::Message* msg,
+               BrothaApp* app)
+   {
+      if(!m_gotOk) {
+         // Check message type
+         if ( msg->getType() == net::OK ) {
+            // Message is Ack from join as msg
+            const net::OKMessage* okMsg = (const net::OKMessage*)(msg);
+            if ( okMsg->getCode() == net::OKMessage::OKAY ) {
+               std::cout<<"Join As successful"<<std::endl;
+               m_gotOk =  true;
+               return std::auto_ptr<AppState>(NULL);
+            } else {
+               std::cout<<"Join As failed"<<std::endl;
+               return std::auto_ptr<AppState>(new ConnectedState());
+            }
+         } else {
+            std::cout<<"ERROR: Got the wrong message type: JoinAsAckWaitState:gotOK"<<std::endl;
+            /// @todo raise an error
+         }
+      } else {
+         // Check message type
+         if ( msg->getType() == net::Enter ) {
+            // Message is Enter game from joib process
+            const net::EnterMessage* enterMsg = (const net::EnterMessage*)(msg);
+            if ( enterMsg->getCode() == net::EnterMessage::GAME ) {
+               std::cout<<"Enter As successful"<<std::endl;
+               return std::auto_ptr<AppState>(new SyncState());
+            } else {
+               std::cout<<"Enter As failed"<<std::endl;
+               return std::auto_ptr<AppState>(new ConnectedState());
+            }
+         } else {
+            std::cout<<"ERROR: Got the wrong message type: JoinAsAckWaitState:waitOK"<<std::endl;
+            /// @todo raise an error
+         }
+      }
+      return std::auto_ptr<AppState>(new ConnectedState());
+   }
+
    std::auto_ptr<AppState> LoginAckWaitState::handleMessage(
                const net::Message* msg,
                BrothaApp* app)
@@ -55,8 +129,8 @@ namespace client
             std::cout<<"Login successful"<<std::endl;
 
             // send request to join game
-            app->getNetMgr()->send(new net::JoinAs(net::JoinAs::PLAYER), app->getConnID());
-            return std::auto_ptr<AppState>(new LoggedInState());
+            app->getNetMgr()->send(new net::JoinAsMessage(net::JoinAsMessage::PLAYER), app->getConnID());
+            return std::auto_ptr<AppState>(new JoinAsAckWaitState());
          } else {
             std::cout<<"Login failed"<<std::endl;
             return std::auto_ptr<AppState>(new ConnectedState());

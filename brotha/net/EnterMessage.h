@@ -43,7 +43,7 @@ namespace net {
          is >> mCode;
       }
 
-      const EnterCode getCode() {
+      const EnterCode getCode() const {
          return (EnterCode)mCode;
       }
    private:
