@@ -23,11 +23,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.cpp,v $
- * Date modified: $Date: 2003-02-11 05:01:41 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-02-11 07:55:51 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
+#ifdef _MSC_VER
+#include <windows.h>
+#endif
 #include <stdexcept>
 #include <SDL.h>
 #include "Kernel.h"

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2003-02-06 07:20:30 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-11 07:55:52 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -33,7 +33,7 @@
 #include <stdexcept>
 #include <corona.h>
 
-#ifdef MSC_VER
+#ifdef _MSC_VER
 #  include <windows.h>
 #endif
 #include <GL/gl.h>

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Types.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-11 07:55:52 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -43,115 +43,28 @@
 
 namespace siren
 {
-   // Put the types in their own namespace.
-   namespace types
-   {
-      // Hide the details in a separate namespace.
-      namespace details
-      {
-         /**
-          * Declare our "undefined" type that will cause a compile-time error
-          *if there is an attempt to instantiate it.
-          */
-         class NoTypeFound;
-
-
-         /**
-          * Searches the given typelist TL for a type whose size is exactly
-          * equal to the given number of bits.
-          */
-         template< class TL, int bits >
-         struct SelectInt;
-
-         /// Specialization 1: NullType encountered - end of typelist
-         template< int bits >
-         struct SelectInt<Loki::NullType, bits>
-         {
-            /**
-             * Empty list, no types found. Assign to NoTypeFound to cause a
-             * compile-time error if the type is ever used.
-             */
-            typedef NoTypeFound type;
-         };
-
-         /**
-          * Specialization 2: Takes a <head, tail> typelist pair. If the head
-          * has exactly bits bits, choose it. Otherwise recurse on tail.
-          */
-         template< class Head, class Tail, int bits >
-         struct SelectInt<Loki::Typelist<Head,Tail>, bits>
-         {
-            /// Defined to the type that matches the number of bits requested
-            typedef typename
-               Loki::Select<sizeof(Head)*CHAR_BIT == bits,
-                            Head,
-                            typename SelectInt<Tail, bits>::type
-                           >::Result
-               type;
-         };
-      } // namespace details
-
-      /**
-       * Struct that picks a native signed integer type to match the required
-       * bit-size at compile-time.
-       */
-      template< int bits >
-      struct Int
-      {
-#ifdef MSC_VER
+#ifdef _MSC_VER
+#  include <windows.h>
+#  define SIREN_ULONGLONG unsigned __int64
 #  define SIREN_LONGLONG __int64
 #else
+#  define SIREN_ULONGLONG unsigned long long
 #  define SIREN_LONGLONG long long
 #endif
-         // List of types to check
-         typedef TYPELIST_5(int, signed char, short, long, SIREN_LONGLONG)
-                 SignedInts;
-#undef SIREN_LONGLONG
 
-      public:
-         // This is the native type that matches the required bit size or
-         // NoTypeFound if there is no such matching native type.
-         typedef typename details::SelectInt<SignedInts, bits>::type type;
-      };
+	// Predefine frequently used signed integer types
+	typedef char s8; 
+	typedef short s16; 
+	typedef long s32;
+	typedef SIREN_LONGLONG s64;
 
-      //-----------------------------------------------------------------------
-
-      /**
-       * Struct that picks a native unsigned integer type to match the required
-       * bit-size at compile time.
-       */
-      template< int bits >
-      struct UInt
-      {
-#ifdef MSC_VER
-#  define SIREN_ULONGLONG __uint64
-#else
-#  define SIREN_ULONGLONG unsigned long long
-#endif
-         // List of types to check
-         typedef TYPELIST_5(unsigned int, unsigned char, unsigned short,
-                            unsigned long, SIREN_ULONGLONG)
-                 UnsignedInts;
-#undef SIREN_ULONGLONG
-
-      public:
-         // This is the native type that matches the required bit size or NoTypeFound
-         // if there is no such matching native type.
-         typedef typename details::SelectInt<UnsignedInts, bits>::type type;
-      };
-   } // namespace types
-
-   // Predefine frequently used signed integer types
-   typedef types::Int<8>::type   s8;
-   typedef types::Int<16>::type  s16;
-   typedef types::Int<32>::type  s32;
-   typedef types::Int<64>::type  s64;
-
-   // Predefine frequently used unsigned integer types
-   typedef types::UInt<8>::type  u8;
-   typedef types::UInt<16>::type u16;
-   typedef types::UInt<32>::type u32;
-   typedef types::UInt<64>::type u64;
+	// Predefine frequently used unsigned integer types
+	typedef unsigned char  u8;
+	typedef unsigned short u16;
+	typedef unsigned long u32;
+	typedef SIREN_ULONGLONG u64;
 }
+#undef SIREN_ULONGLONG
+#undef SIREN_LONGLONG	
 
 #endif
