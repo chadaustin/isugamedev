@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DealerWnd.h,v $
- * Date modified: $Date: 2002-05-03 07:33:52 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-05-03 10:32:07 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,8 +44,9 @@
 #define CLIENT_DEALER_WND_H
 
 #include <phui/phui.h>
-#include "xml/Car.h"
+#include "xml/Player.h"
 #include "xml/CarType.h"
+#include "xml/ModType.h"
 
 namespace client {
 
@@ -71,8 +72,9 @@ namespace client {
       ~DealerWnd();
 
       void onAction(const phui::ActionEvent& evt);
-      void updateData(data::CarList* playerList, data::CarTypeList* allCars);
+      void updateData(data::Player* player, data::CarTypeList* allCars);
       void update(BrothaApp* app, int elapsedTime);
+      void updateLists();
 
    private:
       phui::ListBox* mCarsList;
@@ -80,6 +82,9 @@ namespace client {
       phui::Button* mBuyBtn;
       phui::Button* mSellBtn;
       phui::Button* mDoneBtn;
+
+      data::Player* mPlayer;
+      data::CarTypeList* mCarTypes;
 
       SubState mSubState;
    };

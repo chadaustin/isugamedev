@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.h,v $
- * Date modified: $Date: 2002-05-03 07:03:01 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-03 10:32:07 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -90,6 +90,7 @@ namespace client {
 
       data::Player* mPlayer;
       data::CarTypeList* mCarTypes;
+      data::ModTypeList* mModTypes;
 
       SubState mSubState;
    };

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-05-03 07:33:52 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-05-03 10:32:07 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -130,10 +130,9 @@ namespace client {
 
                mPlayer = gdMsg->getPlayer();
                mCarTypes = gdMsg->getCarTypes();
+               mModTypes = gdMsg->getModTypes();
 
                mMainWnd->setVisible(true);
-
-               mDealer->updateData(&mPlayer->getCars(), mCarTypes);
 
                mSubState = User_Input;
             } else {
@@ -199,9 +198,11 @@ namespace client {
    GarageState::onAction(const phui::ActionEvent& evt) {
       phui::Widget* src = evt.getSource();
       if (src == mDealerBtn) {
+         mDealer->updateData(mPlayer, mCarTypes);
          mDealer->show();
          mRoot->focus(mDealer);
       } else if (src == mChopShopBtn) {
+         mChopShop->updateData(mPlayer, mCarTypes, mModTypes);
          mChopShop->show();
          mRoot->focus(mChopShop);
       } else if (src == mJoinGameBtn) {

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DealerWnd.cpp,v $
- * Date modified: $Date: 2002-05-03 07:33:52 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-05-03 10:32:07 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -111,18 +111,27 @@ namespace client {
       }
    }
 
-   void DealerWnd::updateData(data::CarList* playerList, data::CarTypeList* allCars) {
+   void DealerWnd::updateData(data::Player* player, data::CarTypeList* allCars) {
+      mPlayer = player;
+      mCarTypes = allCars;
+
+      updateLists();
+   }
+
+   void DealerWnd::updateLists() {
+      data::CarList* playerList = &mPlayer->getCars();
+
       mCarsList->clear();
-      for(unsigned int x=0;x<allCars->size();++x) {
+      for(unsigned int x=0;x<mCarTypes->size();++x) {
          bool addIt = true;
          for(unsigned int y=0;y<playerList->size();++y) {
-            if((*playerList)[y]->getName().compare((*allCars)[x]->getName()) == 0) {
+            if((*playerList)[y]->getName().compare((*mCarTypes)[x]->getName()) == 0) {
                addIt = false;
             }
          }
 
          if(addIt) {
-            mCarsList->add((*allCars)[x]->getName());
+            mCarsList->add((*mCarTypes)[x]->getName());
          }
       }
 
@@ -176,9 +185,8 @@ namespace client {
                   // if the purchase was successful
 
                   // add it to the list of owned cars
-                  mCarsOwnedList->add(mCarsList->get(selectedItem));
-                  // remove it from the list we can buy from
-                  mCarsList->remove(selectedItem);
+                  mPlayer->addCar(new data::Car(mCarsList->get(selectedItem)));
+                  updateLists();
                } else {
                   // if the purchace wasn't successful
                   /// @todo tell user: we need a MessageBox type phui thing
@@ -205,10 +213,9 @@ namespace client {
                if(okMsg->getCode() == net::OKMessage::OKAY) {
                   // if the purchase was successful
 
-                  // add it to the list we can buy from
-                  mCarsList->add(mCarsOwnedList->get(selectedItem));
                   // remove it from the list of owned cars
-                  mCarsOwnedList->remove(selectedItem);
+                  mPlayer->removeCar(mCarsOwnedList->get(selectedItem));
+                  updateLists();
                } else {
                   // if the purchace wasn't successful
                   /// @todo tell user: we need a MessageBox type phui thing
