@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: glRenderTexture.h,v $
-//    $Date: 2001-09-13 23:35:01 $
-//    $Revision: 1.5 $
+//    $Date: 2001-09-19 20:04:37 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -132,7 +132,7 @@ namespace kev
                            bordersize, format, type, image.data() );
          }
 
-         texDimension = GL_TEXTURE_1D;	
+         texDimension = GL_TEXTURE_1D;   
       } 
 
       else 
@@ -168,7 +168,7 @@ namespace kev
 
       case Texture::LINEAR:
          ::glTexParameteri( texDimension, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-         ::glTexParameteri( texDimension, GL_TEXTURE_MIN_FILTER, GL_LINEAR );	
+         ::glTexParameteri( texDimension, GL_TEXTURE_MIN_FILTER, GL_LINEAR );   
       break;
 
       case Texture::MIPMAP_NEAREST:
@@ -204,7 +204,7 @@ namespace kev
       // find out what dimension texture we're using
       int texDimension;
       if (texture.image()->height() == 1 || texture.image()->width() == 1)
-         texDimension = GL_TEXTURE_1D;	
+         texDimension = GL_TEXTURE_1D;   
       else 
          texDimension = GL_TEXTURE_2D;
 
@@ -273,7 +273,7 @@ namespace kev
       int texBindDimension;
       if (image.height() == 1 || image.width() == 1 )
       {
-         texDimension = GL_TEXTURE_1D;	
+         texDimension = GL_TEXTURE_1D;   
          #ifdef GL_VERSION_1_1
             texBindDimension = GL_TEXTURE_BINDING_1D;
          #else
@@ -298,7 +298,7 @@ namespace kev
       static int last_context_rendered = 9934999;
       int currentTexId;
       ::glGetIntegerv( texBindDimension, &currentTexId );
-      if ((currentTexId == texObjectID.id && texObjectID.valid == true && contextID == last_context_rendered) || last_context_rendered != 9934999)
+      if ((currentTexId == texObjectID.id && texObjectID.valid == true && contextID == last_context_rendered) && last_context_rendered != 9934999)
       {
          return;
       } 
@@ -312,7 +312,7 @@ namespace kev
          ::glDisable( GL_TEXTURE_GEN_S );
 
 
-	   // figure out which GL model the texture uses
+      // figure out which GL model the texture uses
       int tex_env_mode  = -1;
       glGetTexEnviv( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, &tex_env_mode );
       switch (texture.model)
@@ -331,7 +331,7 @@ namespace kev
          break;
       }
 
-	   // set the wrap mode the texture uses for 'S' if not set already
+      // set the wrap mode the texture uses for 'S' if not set already
       int tex_parameter = -1;
       ::glGetTexParameteriv( texDimension, GL_TEXTURE_WRAP_S, &tex_parameter );
       switch (texture.wrapS)
@@ -367,7 +367,7 @@ namespace kev
          #else
             ::glBindTextureEXT( texDimension, texObjectID.id );
          #endif
-         //std::cout<<"bind\n"<<std::flush;
+         //std::cout<<"switching to bound texture id == "<<texObjectID.id<<"\n"<<std::flush;
       }               
       // if the texture object is invalid, 
       // just load the pixels from memory to the graphics hardware
