@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-04-22 05:37:09 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-26 04:44:43 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,19 +44,16 @@ namespace game {
    const Player::UID Player::UNKNOWN = 0;
 
    Player::Player()
-      : mName("Player"), mAccelerate(0), mBrake(0), mTurnAngle(0) {
+      : mName("Player"), mBrake(0), mTurnAngle(0){
       mUID = UIDMgr::getInstance().reserveID();
-      mObject = new Object();
    }
 
    Player::Player( const std::string& name )
-      : mName(name), mAccelerate(0), mBrake(0), mTurnAngle(0) {
+      : mName(name), mBrake(0), mTurnAngle(0){
       mUID = UIDMgr::getInstance().reserveID();
-      mObject = new Object();
    }
 
    Player::~Player() {
-      delete mObject;
       UIDMgr::getInstance().releaseID( mUID );
    }
 
@@ -64,16 +61,24 @@ namespace game {
       return mUID;
    }
 
-   void Player::setAcceleration( PRFloat64 newAcc ) {
-      mAccelerate = newAcc;
-   }
-
-   PRFloat64 Player::getAcceleration() const {
-      return mAccelerate;
-   }
-
-   void Player::setBrake( PRFloat64 newBreak ) {
+   void Player::setBrake( PRFloat64 newBreak ){
       mBrake = newBreak;
+   }
+
+   gmtl::Vec3f Player::getVelocity(){
+      return mVelocity;
+   }
+
+   gmtl::Vec3f Player::getPosition(){
+      return mPosition;
+   }
+
+   void Player::setPosition(gmtl::Vec3f newPosition){
+      mPosition = newPosition;
+   }
+
+   void Player::setVelocity(gmtl::Vec3f newVelocity){
+      mVelocity = newVelocity;
    }
 
    PRFloat64 Player::getBrake() const {
@@ -84,7 +89,7 @@ namespace game {
       return mTurnAngle;
    }
 
-   void Player::setTurnAngle( PRFloat64 newAngle ) {
+   void Player::setTurnAngle( PRFloat64 newAngle ){
       mTurnAngle = newAngle;
    }
 
@@ -92,31 +97,23 @@ namespace game {
       return mName;
    }
 
-   void Player::setName( const std::string& name ) {
+   void Player::setName( const std::string& name ){
       mName = name;
    }
 
-   Object* Player::getObject() {
-      return mObject;
-   }
-
-   PRUint32 Player::getSize() {
+   PRUint32 Player::getSize(){
       return net::sizes::getVarSize(mUID)
            + net::sizes::getVarSize(mName) 
-           + net::sizes::getVarSize(mAccelerate)
            + net::sizes::getVarSize(mBrake)
-           + net::sizes::getVarSize(mTurnAngle)
-           + mObject->getSize();
+           + net::sizes::getVarSize(mTurnAngle);
    }
 
-   void Player::serialize(net::OutputStream& os) {
-      mObject->serialize(os);
-      os << mUID << mName << mAccelerate << mBrake << mTurnAngle;
+   void Player::serialize(net::OutputStream& os){
+      os << mUID << mName << mBrake << mTurnAngle;
    }
 
-   void Player::deserialize(net::InputStream& is) {
-      mObject->deserialize(is);
-      is >> mUID >> mName >> mAccelerate >> mBrake >> mTurnAngle;
+   void Player::deserialize(net::InputStream& is){
+      is >> mUID >> mName >> mBrake >> mTurnAngle;
    }
 
 }

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-22 08:58:34 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-26 04:44:44 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -77,19 +77,29 @@ namespace game {
        */
       const UID& getUID() const;
 
-      /**
-       * Sets whether this player is accelerating.
+       /**
+       * Gets the players velocity
        *
-       * @param flag    true if this player is accelerating, false otherwise
+       * @return the velocity of the player
        */
-      void setAcceleration( PRFloat64 flag );
+      gmtl::Vec3f getVelocity();
 
       /**
-       * Tests if this player is accelerating.
+       * Gets the players position
        *
-       * @return  true if the player is accelerating, false otherwise
+       * @return the position of the player
        */
-      PRFloat64 getAcceleration() const;
+      gmtl::Vec3f getPosition();
+
+      /**
+       * Sets player position to given position
+       */
+      void setPosition(gmtl::Vec3f newPosition);
+
+      /**
+       * Sets player velocity to given velocity
+       */
+      void setVelocity(gmtl::Vec3f newVelocity);
 
       /**
        * Sets whether this player is braking.
@@ -134,7 +144,7 @@ namespace game {
        *
        * @param name    the new name for this player
        */
-      void setName( const std::string& name );
+      void setName(const std::string& name);
 
       virtual PRUint32 getSize();
       virtual void serialize(net::OutputStream& os);
@@ -147,8 +157,14 @@ namespace game {
       /// This player's name
       std::string mName;
 
+      /// This player's velocity
+      gmtl::Vec3f mVelocity;
+
+      /// This player's position
+      gmtl::Vec3f mPosition;
+
       /// True if the player is accelerating
-      PRFloat64 mAccelerate;
+      ///PRFloat64 mAccelerate;
 
       /// True if the player is braking
       PRFloat64 mBrake;
@@ -156,16 +172,14 @@ namespace game {
       /// True if the player is turning left
       PRFloat64 mTurnAngle;
 
-      /// the players object (car, box, etc.)
-      Object *mObject;
 
    public: // accessors wouldn't be worth the effor here
       /// whether or not player is doing something (not serialized, server side only)
-      bool mIsAccelerating;
       bool mIsBraking;
       bool mIsHandBraking;
       bool mIsTurningLeft;
       bool mIsTurningRight;
+
    };
 }
 

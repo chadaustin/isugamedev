@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-04-22 04:53:58 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-26 04:44:43 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,24 +40,40 @@
  ************************************************************ brotha-cpr-end */
 #include "BrothaGame.h"
 #include <algorithm>
+#include <gmtl/VecOps.h>
 
 namespace game
 {
-   void BrothaGame::update() {
+   void BrothaGame::update(Player* player, float time){ 
+      gmtl::Vec3f Position;
+
+      // compute new position
+      Position = player->getPosition() + (player->getVelocity() * time);
       
+      // update player's position
+      player->setPosition(Position);
+
+      /// @todo collision detection
+      /// @todo update player attributes (health, kills, etc)  
    }
 
    void BrothaGame::add(Player* player) {
+
+      // make sure player is not equal to null
       assert (player != NULL && "Cannot add a NULL player!");
 
-      std::cout << "About to add player!" << std::endl;
+      // add player to the vector
       mPlayer.push_back(player);
       std::cout << "Player added." << std::endl;
    }
 
    void BrothaGame::remove(Player* player) {
       PlayerListItr Itr;
+
+      // find the player to delete and set to iterator 
       Itr = std::find(mPlayer.begin(),mPlayer.end(),player);
+      
+      // makes sure object exists, then removes if it does
       if (Itr != mPlayer.end()){
          mPlayer.erase(Itr);
       }
@@ -65,12 +81,18 @@ namespace game
 
    void BrothaGame::add(Object* object) {
       assert ( object != NULL && "Cannot add a Null object!" );
+
+      // add object to vector
       mObject.push_back(object);
    }
 
    void BrothaGame::remove(Object* object) {
       ObjectListItr Itr;
+
+      // find the object to remove and set to iterator
       Itr = std::find(mObject.begin(), mObject.end(), object);
+      
+      // makes sure object exists and removes if it does
       if(Itr != mObject.end()){
          mObject.erase(Itr);
       }

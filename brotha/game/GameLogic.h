@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-04-22 03:34:02 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-26 04:44:43 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -56,7 +56,7 @@ namespace game
    {
    public:
 
-     void update();
+     void update(Player* player, float time);
 
       /**
        * Adds the given player to the game.
