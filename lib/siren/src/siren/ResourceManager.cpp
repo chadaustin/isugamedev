@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.cpp,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-13 05:42:14 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -103,10 +103,9 @@ namespace siren
 
    ResourceManager::~ResourceManager()
    {
-      for (CacheMap::iterator itr = mCaches.begin(); itr != mCaches.end(); ++itr)
+      for (CacheMap::reverse_iterator itr = mCaches.rbegin(); itr != mCaches.rend(); ++itr)
       {
-         /// XXX: We need to cast this to the right type before deleting ...
-         delete itr->second;
+         delete (AbstractResourceCache*)itr->second;
       }
    }
 }

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.h,v $
- * Date modified: $Date: 2003-02-11 06:23:26 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-13 05:42:14 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -98,6 +98,16 @@ namespace siren
    template< typename T > struct CachePolicy;
 
    /**
+    * Abstract base class for all resource caches. This is needed so that we can
+    * cast all caches to a common type that can be used for destruction.
+    */
+   class AbstractResourceCache
+   {
+   public:
+      virtual ~AbstractResourceCache() {}
+   };
+
+   /**
     * The cache for a specific resource type. It uses the CachePolicy to decide
     * how to create items not in the cache and how to copy items that are
     * already in the cache. ResourceCache is a helper class for the
@@ -106,7 +116,7 @@ namespace siren
     * @see ResourceManager
     */
    template< typename T >
-   class ResourceCache
+   class ResourceCache : public AbstractResourceCache
    {
    public:
       /// The type of resouce stored in this cache.

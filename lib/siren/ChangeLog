@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-02-12 nonchocoboy  Fixed bug where ResourceManager caches were not being
+                        deleted correctly.
 2003-02-10 nonchocoboy  States now can get information about the size of the
                         window they are being run in.
 2003-01-16 nonchocoboy  Kernel is now a singleton.
