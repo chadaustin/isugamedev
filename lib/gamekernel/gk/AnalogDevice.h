@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-17 21:12:10 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -49,7 +49,9 @@ public:
    AnalogInput& axis( int x )
    {
       Input* in = TypedDevice<AnalogInput>::getInput( x );
-      return *dynamic_cast<AnalogInput*>( in );
+      AnalogInput* ain = dynamic_cast<AnalogInput*>( in );
+      assert( ain != NULL && "this shouldn't happen" );
+      return *ain;
    }
    AnalogInput* axis( const std::string& x )
    {
