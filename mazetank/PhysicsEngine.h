@@ -39,20 +39,19 @@ public:
 	//	list that will get passed around.  
 	//	
 	//////////////////////////////////////////////////
-	void Update(vector<GameObject*> &TheObjects);
+	void Update(vector<GameObject*> &TheObjects, int dt);
 
 	void SetCamera(Camera* &TheCamera)
 	{ CurrentCamera = TheCamera;}
 
 private:
 	Camera* CurrentCamera;
-	int dt, Starttime, Stoptime;
    float GRAVITY;
 
    CollisionResponse ObjectsResponse;
 
-	void CameraTruckUpdate(GameObject* &TruckObject);
-	void BulletUpdate(GameObject* &BulletObject);
+	void CameraTruckUpdate(GameObject* &TruckObject, int dt);
+	void BulletUpdate(GameObject* &BulletObject, int dt);
 	void CollisionDetection(vector<GameObject*> &TheObjects);
 	bool CheckForCollision(GameObject* ObjectOne, GameObject* ObjectTwo);
    bool SphereToSphereCollision(GameObject* ObjectOne, GameObject* ObjectTwo);

@@ -16,7 +16,7 @@
 #include "Jukebox.h"
 
 extern Input GameInput;
-//sound::SoundManager* GameSound;
+sound::SoundManager* GameSound;
 
 GameWorld::GameWorld()
 {
@@ -30,12 +30,12 @@ GameWorld::~GameWorld()
 
 	TheGameObjects.erase(TheGameObjects.begin(), TheGameObjects.end());
 
-//   delete GameSound;
+   delete GameSound;
 }
 
 void GameWorld::Init()
 {
-   GameObject* Player1 = new TankObject;
+   Player1 = new TankObject;
 
    Player1->Init();
    Player1->SetObjectAngle(0.0);
@@ -72,16 +72,24 @@ void GameWorld::Init()
    /////////////////////////////////////////
    //Initialize GameSound
    /////////////////////////////////////////
-//   GameSound = new sound::SoundManager;
+   GameSound = new sound::SoundManager;
 
-//   GameSound->getJukebox()->addTrack("music/track1.ogg");
-//   GameSound->getJukebox()->play();
+   GameSound->getJukebox()->addTrack("music/track1.ogg");
+   GameSound->getJukebox()->play();
+
+   GameSound->getSoundEffectManager()->playSound("music/entering1.wav");
 }
 
-void GameWorld::Update()
+void GameWorld::Update(int dt)
 {
-//   GameSound->getJukebox()->update();
-   GamePhysics.Update(TheGameObjects);
+   float TankPosition[3];
+
+   GameSound->getJukebox()->update();
+   GamePhysics.Update(TheGameObjects, dt);
+
+   // update camera
+   GameCamera->Update(dt);
+
 }
 
 void GameWorld::Draw()

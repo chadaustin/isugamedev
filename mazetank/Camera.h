@@ -9,6 +9,9 @@
 #define __CAMERA_H__
 
 #include <GL/glut.h>
+#include <vector>
+
+using namespace std;
 
 class Camera
 {
@@ -140,6 +143,8 @@ public:
 	///////////////////////////////////////////
 	void Apply();
 
+   void Update(int dt);
+
 private:
 	float CamDistance[3];
 
@@ -151,5 +156,9 @@ private:
 
 	float MULTX;
 	float MULTZ;
+
+   double MinMoveX, MinMoveY;
+   double DestX, DestY;
+
 };
 #endif

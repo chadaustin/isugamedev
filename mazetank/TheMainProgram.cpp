@@ -26,6 +26,8 @@ bool CamMode = false;
 int OldX = -1;
 int OldY = -1;
 
+int dt = 0;
+int Starttime, Stoptime;
 GLuint gamefloor[1];
 
 /////////////////////////////////////////////////////////////
@@ -165,7 +167,22 @@ void MyKeyboardUp(unsigned char key, int x, int y)
 
 void update()
 {
-   MazeTank.Update();
+	///////////////////////////////////////////
+	// Timer used to move objects so
+	// game will be same speed on all machines
+	///////////////////////////////////////////
+	Stoptime = glutGet(GLUT_ELAPSED_TIME);
+	dt = Stoptime - Starttime;
+	Starttime = Stoptime;
+
+ 
+	if(dt > 200)
+		dt = 200;
+   
+   if(dt < 0)
+      dt *= -1;
+
+   MazeTank.Update(dt);
 	glutPostRedisplay();
 }
 
@@ -204,6 +221,7 @@ int main (int argc, char** argv)
 	
 	glutIgnoreKeyRepeat(1);
 
+   Starttime = glutGet(GLUT_ELAPSED_TIME);
 	glutMainLoop();
 	return 0;
 }

@@ -5,7 +5,15 @@ Camera::Camera()
 	MULTX = 0.5;
 	MULTZ = 0.5;
 
-	for(int i = 0; i < 3; i++)
+   int i;
+
+   MinMoveX = .01;
+   MinMoveY = .01;
+
+   DestX = 0;
+   DestY = 0;
+
+	for(i = 0; i < 3; i++)
 	{
 		MovementTranslations[i] = 0.0;
 		CamDistance[i] = 0.0;
@@ -63,8 +71,8 @@ void Camera::SnapBack()
 
 void Camera::Move(float X, float Y)
 {
-	MovementTranslations[0] += X;
-	MovementTranslations[1] += Y;
+   DestX += X;
+   DestY += Y;
 }
 
 void Camera::RotateAroundObject(float InDegrees)
@@ -98,4 +106,15 @@ void Camera::Apply()
 
 	glTranslatef(MovementTranslations[0], MovementTranslations[1], MovementTranslations[2]);
 
+}
+
+void Camera::Update(int dt)
+{
+   float delta = (float)dt / 1000.0f;
+   float DistX = DestX - MovementTranslations[0];
+   float DistY = DestY - MovementTranslations[1];
+
+
+   MovementTranslations[0] += DistX*2*delta;
+   MovementTranslations[1] += DistY*2*delta;
 }

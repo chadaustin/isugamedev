@@ -14,10 +14,6 @@
 
 PhysicsEngine::PhysicsEngine()
 {
-	Stoptime = 0;
-	Starttime = 0;
-	dt = 0;
-
 	CurrentCamera = NULL;
    GRAVITY = -.00001981;
 }
@@ -31,21 +27,12 @@ void PhysicsEngine::Init()
 
 }
 
-void PhysicsEngine::Update(vector<GameObject*> &TheObjects)
+void PhysicsEngine::Update(vector<GameObject*> &TheObjects, int deltatime)
 {
 
 	ObjectType ObjectName;
 
-	///////////////////////////////////////////
-	// Timer used to move objects so
-	// game will be same speed on all machines
-	///////////////////////////////////////////
-	Stoptime = glutGet(GLUT_ELAPSED_TIME);
-	dt = Stoptime - Starttime;
-	Starttime = glutGet(GLUT_ELAPSED_TIME);
 
-	if(dt > 50)
-		dt = 50;	
 
 	for(int i = 0; i < TheObjects.size(); i++)
 	{
@@ -57,11 +44,11 @@ void PhysicsEngine::Update(vector<GameObject*> &TheObjects)
 		switch(ObjectName)
 		{
 		case CAMTANK:
-			CameraTruckUpdate(TheObjects[i]);
+			CameraTruckUpdate(TheObjects[i], deltatime);
 			break;
 
 		case BULLET:
-			BulletUpdate(TheObjects[i]);
+			BulletUpdate(TheObjects[i], deltatime);
 			break;
 		}
 
@@ -70,7 +57,7 @@ void PhysicsEngine::Update(vector<GameObject*> &TheObjects)
 	CollisionDetection(TheObjects);
 }
 
-void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject)
+void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject, int dt)
 {
 	float ObjectPosition[3];
 	float ObjectVelocity = 0.0;
@@ -120,7 +107,7 @@ void PhysicsEngine::CameraTruckUpdate(GameObject* &TruckObject)
 
 }
 
-void PhysicsEngine::BulletUpdate(GameObject* &BulletObject)
+void PhysicsEngine::BulletUpdate(GameObject* &BulletObject, int dt)
 {
    float ObjectPosition[3];
 	float ObjectVelocity = 0.0;

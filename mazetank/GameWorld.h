@@ -27,7 +27,7 @@ public:
 
    void Init();
 
-   void Update();
+   void Update(int dt);
 
    void Draw();
 
@@ -39,6 +39,7 @@ private:
    PhysicsEngine GamePhysics;
    Camera* GameCamera;
    FloorGraphics TheFloor;
+   GameObject* Player1;
 
 };
 #endif
