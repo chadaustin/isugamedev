@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 12:58:42 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-03-29 17:23:00 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -150,41 +150,41 @@ namespace client
          // accelerate
          if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
          {
-            player->setAccelerate( true );
+            player->setAcceleration( 1 );
          }
          else if (mAccelerate.getDigitalData() == gk::DigitalInput::EDGE_UP)
          {
-            player->setAccelerate( false );
+            player->setAcceleration( 0 );
          }
 
          // brake
          if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
          {
-            player->setBrake( true );
+            player->setBrake( 1 );
          }
          else if (mBrake.getDigitalData() == gk::DigitalInput::EDGE_UP)
          {
-            player->setBrake( false );
+            player->setBrake( 0 );
          }
 
          // turn left
          if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
          {
-            player->setTurnLeft( true );
+            player->setTurnAngle( 1 );
          }
          else if (mTurnLeft.getDigitalData() == gk::DigitalInput::EDGE_UP)
          {
-            player->setTurnLeft( false );
+            player->setTurnAngle( 0 );
          }
 
          // turn right
          if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
          {
-            player->setTurnRight( true );
+            player->setTurnAngle( 0 );
          }
          else if (mTurnRight.getDigitalData() == gk::DigitalInput::EDGE_UP)
          {
-            player->setTurnRight( false );
+            player->setTurnAngle( -1 );
          }
       }
    }

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-03-29 15:18:01 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-03-29 17:23:01 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,50 +42,40 @@
 
 namespace game {
    Player::Player()
-      : mName("Player"), mAccelerate(false), mBrake(false), mTurnLeft(false),
-        mTurnRight(false)
+      : mName("Player"), mAccelerate(0), mBrake(0), mTurnAngle(0)
    {
    }
 
    Player::Player( const std::string& name )
-      : mName(name), mAccelerate(false), mBrake(false), mTurnLeft(false),
-        mTurnRight(false)
+      : mName(name), mAccelerate(0), mBrake(0), mTurnAngle(0)
    {
    }
 
    Player::~Player() {
    }
 
-   void Player::setAccelerate( bool flag ) {
-      mAccelerate = flag;
+   void Player::setAcceleration( PRFloat64 newAcc ) {
+      mAccelerate = newAcc;
    }
 
-   bool Player::isAccelerating() const {
+   PRFloat64 Player::getAcceleration() const {
       return mAccelerate;
    }
 
-   void Player::setBrake( bool flag ) {
-      mBrake = flag;
+   void Player::setBrake( PRFloat64 newBreak ) {
+      mBrake = newBreak;
    }
 
-   bool Player::isBraking() const {
+   PRFloat64 Player::getBrake() const {
       return mBrake;
    }
 
-   void Player::setTurnLeft( bool flag ) {
-      mTurnLeft = flag;
+   PRFloat64 Player::getTurnAngle() const {
+      return mTurnAngle;
    }
 
-   bool Player::isTurningLeft() const {
-      return mTurnLeft;
-   }
-
-   void Player::setTurnRight( bool flag ) {
-      mTurnRight = flag;
-   }
-
-   bool Player::isTurningRight() const {
-      return mTurnRight;
+   void Player::setTurnAngle( PRFloat64 newAngle ) {
+      mTurnAngle = newAngle;
    }
 
    const std::string& Player::getName() const {
@@ -102,17 +92,17 @@ namespace game {
 
    PRUint32 Player::getSize() {
       return getVarSize(mName) + getVarSize(mAccelerate) + getVarSize(mBrake)
-         + getVarSize(mTurnLeft) + getVarSize(mTurnRight) + Object::getSize();
+         + getVarSize(mTurnAngle) + Object::getSize();
    }
 
    void Player::serialize(net::OutputStream& os) {
       Object::serialize(os);
-      os << mName << mAccelerate << mBrake << mTurnLeft << mTurnRight;
+      os << mName << mAccelerate << mBrake << mTurnAngle;
    }
 
    void Player::deserialize(net::InputStream& is) {
       Object::deserialize(is);
-      is >> mName >> mAccelerate >> mBrake >> mTurnLeft >> mTurnRight;
+      is >> mName >> mAccelerate >> mBrake >> mTurnAngle;
    }
 
 }
