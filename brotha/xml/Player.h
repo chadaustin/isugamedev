@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-03 06:51:32 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-05-03 07:11:03 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -95,7 +95,7 @@ namespace data {
       }
 
 	  void removeCar(std::string name){
-		  for(int i = 0; i < mCars.size(); i++){
+		  for(unsigned int i = 0; i < mCars.size(); i++){
 			  Car* c = mCars[i];
 			  if(name == c->getName()){
 				  mCars.erase(mCars.begin() + i);

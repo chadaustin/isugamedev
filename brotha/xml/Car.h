@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-05-03 07:05:50 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-03 07:11:03 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -64,7 +64,7 @@ namespace data {
       }
 
 	  void removeMod(std::string name){
-		  for(int i = 0; i < mMods.size(); i++){
+		  for(unsigned int i = 0; i < mMods.size(); i++){
 			  Mod* c = mMods[i];
 			  if(name == c->getName()){
 				  mMods.erase(mMods.begin() + i);
