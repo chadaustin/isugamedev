@@ -52,6 +52,7 @@ AudiereAudioSystem::play(const char* filename)
    // try to open a new stream
    m_streams[m_current_stream] = AdrOpenStream(m_context, filename);
    if (m_streams[m_current_stream]) {
+      AdrPlayStream(m_streams[m_current_stream]);
       m_current_stream = (m_current_stream + 1) % MAX_SOUND_EFFECTS;
       return true;
    } else {
