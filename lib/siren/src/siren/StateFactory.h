@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StateFactory.h,v $
- * Date modified: $Date: 2003-02-07 04:33:02 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -33,6 +33,7 @@
 
 #include <string>
 #include <map>
+#include "Export.h"
 #include "State.h"
 
 namespace siren
@@ -44,7 +45,7 @@ namespace siren
     * This singleton knows how to create States based on a given name
     * association.
     */
-   class StateFactory
+   class SIREN_CLASS StateFactory
    {
    private:
       /// This factory is a singleton. Use StateFactory::getInstance() instead.

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Types.h,v $
- * Date modified: $Date: 2003-02-11 07:55:52 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -44,7 +44,6 @@
 namespace siren
 {
 #ifdef _MSC_VER
-#  include <windows.h>
 #  define SIREN_ULONGLONG unsigned __int64
 #  define SIREN_LONGLONG __int64
 #else

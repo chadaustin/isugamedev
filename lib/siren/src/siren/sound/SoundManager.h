@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundManager.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-22 23:53:35 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -63,7 +63,7 @@ namespace siren
     * @see Jukebox
     * @see SoundEffectManager
     */
-   class SoundManager
+   class SIREN_CLASS SoundManager
    {
    public:
       /**

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SoundEffectManager.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-22 23:53:35 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -34,6 +34,7 @@
 #include <string>
 #include <map>
 #include <audiere.h>
+#include <siren/Export.h>
 
 namespace siren
 {
@@ -42,7 +43,7 @@ namespace siren
     * through the SoundEffectManager are generally loaded into memory and played
     * from there rather than streaming from the disk.
     */
-   class SoundEffectManager
+   class SIREN_CLASS SoundEffectManager
    {
    public:
       /**

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputSymbol.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -33,14 +33,15 @@
 
 #include <SDL.h>
 #include <string>
+#include <siren/Export.h>
 
 namespace siren
 {
-   bool isMouseSymbol(const std::string& symbol);
-   Uint8 stringToSDLButton(const std::string& symbol);
-   const std::string& SDLButtonToString(const Uint8& button);
-   SDLKey stringToSDLKey(const std::string& name);
-   const std::string& SDLKeyToString(const SDLKey& key);
+   SIREN_EXPORT(bool)               isMouseSymbol(const std::string& symbol);
+   SIREN_EXPORT(Uint8)              stringToSDLButton(const std::string& symbol);
+   SIREN_EXPORT(const std::string&) SDLButtonToString(const Uint8& button);
+   SIREN_EXPORT(SDLKey)             stringToSDLKey(const std::string& name);
+   SIREN_EXPORT(const std::string&) SDLKeyToString(const SDLKey& key);
 }
 
 #endif

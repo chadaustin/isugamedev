@@ -23,17 +23,19 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputAction.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
 #ifndef SIREN_INPUT_ACTION_H
 #define SIREN_INPUT_ACTION_H
 
+#include <siren/Export.h>
+
 namespace siren
 {
-   class InputAction
+   class SIREN_CLASS InputAction
    {
    public:
       InputAction();

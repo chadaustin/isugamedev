@@ -14,12 +14,13 @@
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="&quot;../../third-party-vc7/include&quot;;&quot;$(ProjectDir)../../external/Loki&quot;;&quot;$(ProjectDir)../../external/boost&quot;;$(ProjectDir)../../src"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;SIREN_EXPORTS"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -32,9 +33,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib SDLmain.lib audiere.lib OpenGL32.lib GLU32.lib corona.lib"
-				OutputFile="$(OutDir)/siren.exe"
+				AdditionalDependencies="SDL.lib audiere.lib OpenGL32.lib GLU32.lib corona.lib"
+				OutputFile="$(OutDir)/siren_d.dll"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="../../third-party-vc7/lib"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/siren.pdb"
 				SubSystem="1"
@@ -58,16 +60,17 @@
 			Name="Release|Win32"
 			OutputDirectory="Release"
 			IntermediateDirectory="Release"
-			ConfigurationType="1"
+			ConfigurationType="2"
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				AdditionalIncludeDirectories="&quot;../../third-party-vc7/include&quot;;&quot;$(ProjectDir)../../external/Loki&quot;;&quot;$(ProjectDir)../../external/boost&quot;;$(ProjectDir)../../src"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;SIREN_EXPORTS"
 				StringPooling="TRUE"
-				RuntimeLibrary="4"
+				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
@@ -77,8 +80,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)/siren.exe"
+				AdditionalDependencies="SDL.lib audiere.lib OpenGL32.lib GLU32.lib corona.lib"
+				OutputFile="$(OutDir)/siren.dll"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="../../third-party-vc7/lib"
 				GenerateDebugInformation="TRUE"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -105,59 +110,43 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
+				RelativePath="..\..\src\siren\Export.h">
+			</File>
+			<File
 				RelativePath="..\..\src\siren\input\InputAction.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\siren\input\InputAction.h">
 			</File>
 			<File
 				RelativePath="..\..\src\siren\input\InputManager.cpp">
 			</File>
 			<File
-				RelativePath="..\..\src\siren\input\InputSymbol.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\Jukebox.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\Kernel.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\ResourceManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\SoundEffectManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\SoundManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\State.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\StateFactory.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\Texture.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\Version.cpp">
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc">
-			<File
-				RelativePath="..\..\src\siren\input\InputAction.h">
-			</File>
-			<File
 				RelativePath="..\..\src\siren\input\InputManager.h">
+			</File>
+			<File
+				RelativePath="..\..\src\siren\input\InputSymbol.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\siren\input\InputSymbol.h">
 			</File>
 			<File
+				RelativePath="..\..\src\siren\sound\Jukebox.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\siren\sound\Jukebox.h">
 			</File>
 			<File
+				RelativePath="..\..\src\siren\Kernel.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\siren\Kernel.h">
+			</File>
+			<File
+				RelativePath="..\..\src\siren\OpenGL.h">
+			</File>
+			<File
+				RelativePath="..\..\src\siren\ResourceManager.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\siren\ResourceManager.h">
@@ -166,16 +155,31 @@
 				RelativePath="..\..\src\siren\Singleton.h">
 			</File>
 			<File
+				RelativePath="..\..\src\siren\sound\SoundEffectManager.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\siren\sound\SoundEffectManager.h">
+			</File>
+			<File
+				RelativePath="..\..\src\siren\sound\SoundManager.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\siren\sound\SoundManager.h">
 			</File>
 			<File
+				RelativePath="..\..\src\siren\State.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\siren\State.h">
 			</File>
 			<File
+				RelativePath="..\..\src\siren\StateFactory.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\siren\StateFactory.h">
+			</File>
+			<File
+				RelativePath="..\..\src\siren\Texture.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\siren\Texture.h">
@@ -187,15 +191,14 @@
 				RelativePath="..\..\src\siren\Utility.h">
 			</File>
 			<File
+				RelativePath="..\..\src\siren\Version.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\siren\Version.h">
 			</File>
 			<File
 				RelativePath="..\..\src\siren\siren.h">
 			</File>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe">
 		</Filter>
 	</Files>
 	<Globals>

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.h,v $
- * Date modified: $Date: 2003-02-14 05:39:11 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -33,6 +33,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <SDL.h>
+#include <siren/Export.h>
 
 namespace siren
 {
@@ -42,7 +43,7 @@ namespace siren
    /**
     * The kernel drives the application. It manages the current game state.
     */
-   class Kernel
+   class SIREN_CLASS Kernel
    {
    public:
       Kernel();

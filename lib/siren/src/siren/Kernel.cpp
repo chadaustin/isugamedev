@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.cpp,v $
- * Date modified: $Date: 2003-02-11 07:55:51 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -101,7 +101,7 @@ namespace siren
          ThrowSDLError("Setting video mode failed");
       }
 
-      std::string title = std::string("Siren v") + version;
+      std::string title = std::string("Siren v") + GetVersion();
       SDL_WM_SetCaption(title.c_str(), 0);
       // init the mouse state...
       SDL_WarpMouse(mWidth / 2, mHeight / 2);

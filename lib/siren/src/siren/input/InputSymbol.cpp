@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputSymbol.cpp,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -161,14 +161,14 @@ namespace siren
       static SDLKeyInit initKeys;
    }
 
-   bool isMouseSymbol(const std::string& symbol)
+   SIREN_EXPORT(bool) isMouseSymbol(const std::string& symbol)
    {
       return (symbol == "MOUSE_LEFT" ||
               symbol == "MOUSE_RIGHT" ||
               symbol == "MOUSE_MIDDLE");
    }
 
-   Uint8 stringToSDLButton(const std::string& symbol)
+   SIREN_EXPORT(Uint8) stringToSDLButton(const std::string& symbol)
    {
       if (symbol == "MOUSE_LEFT")
       {
@@ -188,7 +188,7 @@ namespace siren
       }
    }
 
-   const std::string& SDLButtonToString(const Uint8& button)
+   SIREN_EXPORT(const std::string&) SDLButtonToString(const Uint8& button)
    {
       for(ButtonMap::iterator itr = gButtons.begin(); itr != gButtons.end(); ++itr)
       {
@@ -201,7 +201,7 @@ namespace siren
       throw std::runtime_error("Couldn't find a name for the given SDL button");
    }
 
-   SDLKey stringToSDLKey(const std::string& name)
+   SIREN_EXPORT(SDLKey) stringToSDLKey(const std::string& name)
    {
       KeyMap::iterator itr = gKeys.find(name);
       if (itr != gKeys.end())
@@ -214,7 +214,7 @@ namespace siren
       }
    }
 
-   const std::string& SDLKeyToString(const SDLKey& key)
+   SIREN_EXPORT(const std::string&) SDLKeyToString(const SDLKey& key)
    {
       for (KeyMap::iterator itr = gKeys.begin(); itr != gKeys.end(); ++itr)
       {

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Version.cpp,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -51,7 +51,10 @@
 
 namespace siren
 {
-   const char* version = SIREN_XSTR(SIREN_VERSION_STRING);
+   SIREN_EXPORT(const char*) GetVersion()
+   {
+      return SIREN_XSTR(SIREN_VERSION_STRING);
+   }
 }
 
 // Undef all the helper macros

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.h,v $
- * Date modified: $Date: 2003-02-13 06:55:55 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -38,6 +38,7 @@
 #include <LokiTypeInfo.h>
 #include "Utility.h"
 #include "Singleton.h"
+#include <siren/Export.h>
 
 namespace siren
 {
@@ -45,7 +46,7 @@ namespace siren
     * Base class for the resource manager. It is responsible for managing the
     * mapping from resource IDs to the filenames for those resources.
     */
-   class ResourceManagerBase
+   class SIREN_CLASS ResourceManagerBase
    {
    protected:
       ResourceManagerBase();
@@ -180,7 +181,7 @@ namespace siren
    /**
     * This class maps resource IDs to strings.
     */
-   class ResourceManager : public ResourceManagerBase
+   class SIREN_CLASS ResourceManager : public ResourceManagerBase
    {
    public:
       ResourceManager();

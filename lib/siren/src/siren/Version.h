@@ -23,13 +23,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Version.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
 #ifndef SIREN_VERSION_H
 #define SIREN_VERSION_H
+
+
+#include "Export.h"
 
 /**
  * This file contains two useful items.
@@ -118,7 +121,7 @@
 //--------------------------------------------------------------------------
 namespace siren
 {
-   extern const char* version;
+   SIREN_EXPORT(const char*) GetVersion();
 }
 
 //--------------------------------------------------------------------------

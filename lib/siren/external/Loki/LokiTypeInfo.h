@@ -15,7 +15,7 @@
 #	elif (__BORLANDC__ >= 0x560)
 #		include "Borland/TypeInfo.h"
 #	elif (_MSC_VER >= 1300)
-#		include "MSVC/1300/TypeInfo.h"
+#		include "MSVC/1300/LokiTypeInfo.h"
 #	elif (_MSC_VER >= 1200)
 #		include "MSVC/1200/LokiTypeInfo.h"
 #	else

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.h,v $
- * Date modified: $Date: 2003-02-11 05:01:41 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-22 23:53:34 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -34,6 +34,7 @@
 #include <boost/shared_ptr.hpp>
 #include <string>
 #include <SDL.h>
+#include "Export.h"
 
 namespace siren
 {
@@ -41,7 +42,7 @@ namespace siren
     * This abstract base class describes a state in the application. This is
     * essentially a subset of the application logic.
     */
-   class State
+   class SIREN_CLASS State
    {
    public:
       /// Creates a new state that will be run in the kernel.
