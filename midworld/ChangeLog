@@ -1,5 +1,6 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-06-05 aegis        Added main() and got a line on the screen
 2002-06-05 nonchocoboy  Created the bounds collision detector.
 2002-06-04 nonchocoboy  Added collision detection system interfaces.
 2002-05-29 aegis        setup repository
