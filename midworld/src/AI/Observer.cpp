@@ -1,6 +1,9 @@
 #include <iostream>
 #include "Observer.h"
 
+namespace mw
+{
+
 void Subject::Attach(Observer* o) {
    _Observers.push_back(o);
 }
@@ -14,4 +17,6 @@ void Subject::Notify(){
    for(itr = _Observers.begin();itr!=_Observers.end();itr++){
       (*itr)->Update(this);
    }
+}
+
 }

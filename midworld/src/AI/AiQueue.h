@@ -8,6 +8,8 @@
 #include <iostream>
 #include "Observer.h"
 
+namespace mw
+{
 
 class AiQueue : public Subject
 {
@@ -49,5 +51,7 @@ public:
 private:
    std::queue<Behavior> bQueue;
 };
+
+}
 
 #endif

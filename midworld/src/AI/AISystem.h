@@ -9,6 +9,8 @@
 #include "AINode.h"
 #include "InstinctManager.h"
 
+namespace mw
+{
 
 class AISystem
 {
@@ -52,7 +54,6 @@ public:
       // put an iterator here and update all instincts in nodeList   
 
         std::vector<AINode>* Nodes = &NodeList;
-         int i=0;
         for(std::vector<AINode>::iterator itr = Nodes->begin(); itr != Nodes->end(); itr++)
       {
          (*itr).Update();
@@ -75,6 +76,8 @@ private:
    std::vector<AINode> NodeList;
   
 };
+
+}
 
 #endif
 

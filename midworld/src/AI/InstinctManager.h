@@ -13,6 +13,10 @@
 #include "Observer.h"
 #include "AiQueue.h"
 
+namespace mw
+{
+
+
 class InstinctManager : public Observer, public Subject
 {
 public:
@@ -45,6 +49,7 @@ public:
 //      std::cout << "[Instinct Man]: we don't need to do anything if the queue changes" << std::endl;
 //      std::cout << "[Instinct Man]: For debugging purposes here is the front element in the queue:" << std::endl;
 //      std::cout << _subject->peek() << std::endl;
+      std::cout << "In Update of InstinctMan" << std::endl;
       
    }
 
@@ -84,6 +89,6 @@ private:
 };
 
 
-
+}
 
 #endif

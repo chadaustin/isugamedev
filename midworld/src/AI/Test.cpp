@@ -4,8 +4,9 @@
 #include "Instinct.h"
 #include "Behavior.h"
 #include "Unit.h"
-#include "Shoot.h"
-#include "BoolBehavior.h"
+#include "TestActionContainer.h"
+#include "ActionContainer.h"
+
 
 int main(int argc, char* argv[])
 {
@@ -24,23 +25,18 @@ int main(int argc, char* argv[])
    Behavior* First;
    Behavior* Second;
    
-   Behavior* Third;
+   testBehavior* Third;
    Behavior* Fourth;
 
-   
+   actionContainer* mActionContainer;
+   testActionContainer* mTestActionContainer;
 
-   BehaviorFactory B;
-   Shoot S;
+   First->addActionContainer(mActionContainer);
+   Third->addTestActionContainer(mTestActionContainer);
    
-   First = CreateBehavior(S);
-   Second = CreateBehavior(B);
-   
-   BoolBehavior Test;
-   BoolBehavior Test2;
- //  Test2.SetFalse();
   
-   Instinct* Shooting = new Instinct(Node2.InstinctMan, *First, Test);
-   Instinct* Shooting2 = new Instinct(Node1.InstinctMan, *Second, Test2);
+   Instinct* Shooting = new Instinct(Node2.InstinctMan, *First, *Thrid);
+//   Instinct* Shooting2 = new Instinct(Node1.InstinctMan, *Second, Test2);
    
    AI.RegisterNode(Node1);
    AI.RegisterNode(Node2);

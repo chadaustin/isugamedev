@@ -2,7 +2,8 @@
 #define OBS
 
 #include <vector>
-
+namespace mw
+{
 
 class Subject;
 
@@ -29,5 +30,7 @@ protected:
 private:
    std::vector<Observer*> _Observers;
 };
+
+}
 
 #endif
