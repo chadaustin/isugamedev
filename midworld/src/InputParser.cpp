@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputParser.cpp,v $
- * Date modified: $Date: 2002-10-26 08:01:47 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-03 05:23:32 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,7 +53,7 @@ namespace mw
    {
       char cbuffer[80];
       std::string buffer;
-      std::cerr << "Parsing File " << name << std::endl;
+//      std::cerr << "Parsing File " << name << std::endl;
       std::ifstream inFile(name.c_str());
       if (inFile)
       {
@@ -61,15 +61,15 @@ namespace mw
          {
             inFile.getline(cbuffer, sizeof(cbuffer));
             buffer = cbuffer;
-            std::cerr << "Read: " << buffer << std::endl;
+//            std::cerr << "Read: " << buffer << std::endl;
             int index = buffer.find('=');
             std::string skey = buffer.substr(0, index);
             std::string action = buffer.substr(index + 1);
-            std::cerr << "Key: " << skey << std::endl;
-            std::cerr << "Action: " << action << std::endl;
+//            std::cerr << "Key: " << skey << std::endl;
+//            std::cerr << "Action: " << action << std::endl;
             InputKey key = StringtoISym(skey);
-            std::cerr << "Insterting action: " << action << " key: " << key << std::endl;
-			mActionKeys.insert(std::make_pair(action, key));
+//            std::cerr << "Insterting action: " << action << " key: " << key << std::endl;
+            mActionKeys.insert(std::make_pair(action, key));
          }
          bParseFile = true;
       }
