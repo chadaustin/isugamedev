@@ -17,7 +17,7 @@ public:
 #ifndef NDEBUG
    //: When debugging is enabled, assert that there are no references to the
    //  object that's being destroyed.
-   ~RefObj()
+   virtual ~RefObj()
    {
       assert(mRefCount == 0 &&
              "Destroying an object that still has references");

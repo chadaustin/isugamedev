@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: PixmapFont.h,v $
-//    $Date: 2001-09-26 22:58:56 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-27 02:58:23 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -82,7 +82,10 @@ namespace kev
             mGstate->unref();
          }
          mGstate = gstate;
-         mGstate->ref();
+		 if (mGstate != NULL)
+		 {
+			mGstate->ref();
+		 }
       }
 
       void setGlyphData( int x, GlyphData& mapping ) { mMapping[x] = mapping; }

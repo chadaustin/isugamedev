@@ -15,10 +15,6 @@ class HUD // TextHUD
 public:
    HUD()
    {
-      mPlayerPos = new GeoSet;
-      mPlayerPos->ref();
-      mPlayerPos->unref();
-
 	  mText = new GeoSet;
       mText->setName( "HUD text" );
       mPlayerPos = new GeoSet;

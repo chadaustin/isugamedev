@@ -75,14 +75,16 @@ public:
       //Load our tank model
       importer.load( gset, "models/ship.obj" );
 
-      Entity *entity = new Entity();
+      /*
+	  Entity *entity = new Entity();
       std::vector< GeoSet* >::iterator itr;
       for (itr = gset.begin(); itr != gset.end(); itr++) {
          entity->addGeoSet( *itr );
       }
+	  */
 
       //Put the tank in the world
-      world.add( entity );
+      //world.add( entity );
       
       hud.init();
       
@@ -269,7 +271,7 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
    // this is really ungraceful, but necessary since GLUT does a while(1)
    // as it's control loop.  There is no GLUT method to exit, unfortunately.
    case 27:
-      delete &app;
+      delete app;
       exit( 0 );
       break;
 

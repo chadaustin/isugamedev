@@ -8,6 +8,7 @@
 # project name...
 PROJECT_NAME = tank
 
+
 # objects to be included in the project....
 SRCS = \
    BmpImporter.cxx \
@@ -69,6 +70,12 @@ default:
 	@echo "================="
 	@echo " "
 	$(MAKE) USE_DEPEND='Y' tank
+
+debug:
+	$(MAKE) USE_DEBUG='Y' default
+
+release:
+	$(MAKE) USE_DEBUG='N' default
 
 tank: ${OBJS} imageIoReg.$(OBJ_FILE_SUFFIX)
 	@echo " "
