@@ -17,7 +17,7 @@ namespace lr
                brickImage->drawRectangle(j*32,i*32,(j+1)*32,(i+1)*32);
             }else if(mLevel[j][i] == wire)
             {
-               wireImage->drawRectangle(j*32,i*32,(j+1)*32,(i+1)*32);
+               wireImage->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
             }else if(mLevel[j][i] == ladder)
             {
                ladderImage->drawRectangle(j*32,i*32,(j+1)*32,(i+1)*32);

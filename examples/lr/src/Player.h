@@ -76,12 +76,13 @@ namespace lr
        * here are all the methods for collision detection and figureing out what
        * state to put the player in
        */
-      bool brickUnder();
+      bool solidUnder();
       bool onWire();
       bool onLadder();
       bool brickRight();
       bool brickLeft();
       bool ladderUnder();
+      bool brickUnder();
       
    protected:
       float realPos;    // players real position on the screen from 0 to 1024
@@ -100,9 +101,9 @@ namespace lr
       /**
        * fall just drops the player a certain amount everyframe (divisible by 2)
        */
-      void fall()
+      void fall(float dt)
       {
-         realHeight--;
+         realHeight-=(64*dt);
       }
       
       
