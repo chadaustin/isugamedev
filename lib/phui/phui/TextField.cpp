@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2002-04-22 06:19:36 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-22 06:31:10 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -105,7 +105,7 @@ namespace phui {
    void TextField::onKeyDown(InputKey key)
    {
       FontRenderer renderer(getFont());
-
+      std::string toAdd; // if we are to add anything, put it here
       if(key == KEY_RIGHT) {
          if(mCursorCharacterPosition < mText.length()) {
             mCursorScreenPosition+=renderer.getWidth(mText.substr(mCursorCharacterPosition,1));
@@ -126,12 +126,16 @@ namespace phui {
          if(mCursorCharacterPosition < mText.length()) {
             mText.erase(mCursorCharacterPosition,1);
          }
+      } else if(key == KEY_SPACE) {
+         toAdd+=' ';
       } else if(key >= KEY_A && key <= KEY_Z) {
-         std::string toAdd;
          toAdd+=(char)(key-KEY_A)+'a';
+      } else if(key >= KEY_0 && key <= KEY_9) {
+         toAdd+=(char)(key-KEY_0)+'0';
+      }
 
+      if(!toAdd.empty()) {
          mText.insert(mCursorCharacterPosition, toAdd);
-
          mCursorScreenPosition+=renderer.getWidth(toAdd);
          mCursorCharacterPosition++;
       }
