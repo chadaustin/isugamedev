@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-29 18:50:35 $
- * Version:       $Revision: 1.86 $
+ * Date modified: $Date: 2002-10-29 18:57:32 $
+ * Version:       $Revision: 1.87 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -523,7 +523,7 @@ namespace mw
       while (remaining_dt >= PhysicsEngine::TIME_EPSILON)
       {
          // Update the body for the remaining time differential
-         mPhysics.update(body, remaining_dt);
+         PhysicsEngine::update(body, remaining_dt);
 
          // Check if the body collided with anything
          gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
@@ -551,7 +551,7 @@ namespace mw
             float time_to_collision = remaining_dt * desc->getDistance();
 
             // Update the body to the point of the collision
-            mPhysics.update(body, time_to_collision);
+            PhysicsEngine::update(body, time_to_collision);
             body->moveToNextState();
 
             // Notify the collider of the collision

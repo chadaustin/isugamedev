@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.h,v $
- * Date modified: $Date: 2002-10-23 07:15:44 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-10-29 18:57:32 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,6 +48,12 @@ namespace mw
     */
    class PhysicsEngine
    {
+   private:
+      PhysicsEngine();
+      PhysicsEngine(PhysicsEngine&);
+      ~PhysicsEngine();
+      PhysicsEngine& operator=(const PhysicsEngine&);
+
    public:
       /// Epsilon value for time value testing.
       const static float TIME_EPSILON;
@@ -65,7 +71,7 @@ namespace mw
        * @param dt         the time delta in seconds
        * @param rotation   true if rotational calculations should be done
        */
-      void update(RigidBody* body, float dt, bool rotation = true);
+      static void update(RigidBody* body, float dt, bool rotation = true);
 
       /**
        * Applies all the forces to the given body over the given change of time
@@ -77,7 +83,11 @@ namespace mw
        * @param state      the state to modify with the result of the update
        * @param rotation   true if rotational calculations should be done
        */
-      void update(const RigidBody* body, float dt, BodyState& state, bool rotation = true);
+      static void update(
+         const RigidBody* body,
+         float dt,
+         BodyState& state,
+         bool rotation = true);
    };
 }
 

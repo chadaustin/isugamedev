@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-29 18:50:36 $
- * Version:       $Revision: 1.50 $
+ * Date modified: $Date: 2002-10-29 18:57:32 $
+ * Version:       $Revision: 1.51 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -266,9 +266,6 @@ namespace mw
 
       /// The heads up display used to give the user feedback about the world.
       HUD mHUD;
-
-      /// AI stuff
-      PhysicsEngine mPhysics;
 
       // Actions
       InputAction* mActionUp;
