@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-17 08:20:30 $
- * Version:       $Revision: 1.60 $
+ * Date modified: $Date: 2002-10-17 09:30:40 $
+ * Version:       $Revision: 1.61 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -168,9 +168,9 @@ namespace mw
 
 
       Enemy* enemy2 = new Enemy();
-      gmtl::Point3f inPos1(5.0,0.0,-5.0);
+      gmtl::Point3f inPos1(5.0,0.0,-10.0);
       enemy1->setPos(inPos1);
-      gmtl::Point3f inPos2(0.0,0.0,-10.0);
+      gmtl::Point3f inPos2(0.0,0.0,-5.0);
       enemy2->setPos(inPos2);
 
 
@@ -199,7 +199,7 @@ namespace mw
       myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
    
       aimTestCommand = new turretTesting(enemy1, &mPlayer);
-      aimCommand = new lm::simpleCommand<Turret>(enemy1, &Turret::aim);
+      aimCommand = new turretCommand(enemy1, &mPlayer);
       
       first->addCommand(aimCommand);
       

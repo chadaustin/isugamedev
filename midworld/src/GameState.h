@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-17 08:20:30 $
- * Version:       $Revision: 1.39 $
+ * Date modified: $Date: 2002-10-17 09:30:40 $
+ * Version:       $Revision: 1.40 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -40,6 +40,11 @@
 #include <loom/unit.h>
 #include <loom/command.h>
 
+#include <gmtl/Point.h>
+#include <gmtl/LineSeg.h>
+#include <gmtl/Generate.h>
+#include <gmtl/Quat.h>
+
 #include <SDL.h>
 #include "Camera.h"
 #include "CollisionDetector.h"
@@ -53,18 +58,7 @@
 #include "SceneViewer.h"
 #include "InputAction.h"
 #include "State.h"
-
 #include "Turret.h"
-
-#include <loom/aiSystem.h>
-#include <loom/reflex.h>
-#include <loom/behavior.h>
-#include <loom/unit.h>
-#include <loom/command.h>
-
-#include <gmtl/Point.h>
-#include <gmtl/LineSeg.h>
-
 #include "ParticleEngine.h"
 
 namespace mw
@@ -76,8 +70,6 @@ namespace mw
    public:
       turretTesting(Turret* t, Player* p)
       {
-         mTurret = new Turret;
-         mPlayer = new Player;
          mTurret = t; 
          mPlayer = p;
       }
@@ -101,6 +93,32 @@ namespace mw
    };
          
 
+   class turretCommand : public lm::command
+   {
+      public:
+         
+      turretCommand(Turret* t, Player* p) 
+      {
+         mTurret = t;
+         mPlayer = p;
+      }
+      
+      virtual void execute()
+      {
+         gmtl::Vec3f upVec(0.0, 0.0, -1.0);
+         gmtl::Vec3f vecToPlayer = mTurret->getPos()-mPlayer->getPos();
+         gmtl::normalize(vecToPlayer);
+         gmtl::Quatf mQuat = gmtl::makeRot<gmtl::Quatf>(upVec, vecToPlayer);
+         mTurret->setRot(mQuat);
+      }
+         
+         
+         
+      private:
+         Turret* mTurret;
+         Player* mPlayer;
+   };
+      
 
    
    class testing
@@ -249,22 +267,25 @@ namespace mw
       /// AI stuff
       
 
+ 
+
       
 
       PhysicsEngine mPhysics;
-      
-      InputAction *mActUp;
-      InputAction *mActDn;
-      InputAction *mActRt;
-      InputAction *mActLt;
-      InputAction *mActQuit;
-      InputAction *mActZIn;
-      InputAction *mActZOut;
-      InputAction *mActPUp;
-      InputAction *mActPDn;
-      InputAction *mActYLt;
-      InputAction *mActYRt;
+
       ParticleEngine* mExplosion;
+
+      InputAction* mActUp;
+      InputAction* mActDn;
+      InputAction* mActRt;
+      InputAction* mActLt;
+      InputAction* mActQuit;
+      InputAction* mActZIn;
+      InputAction* mActZOut;
+      InputAction* mActPUp;
+      InputAction* mActPDn;
+      InputAction* mActYLt;
+      InputAction* mActYRt;
    };
 }
 
