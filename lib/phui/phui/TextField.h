@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.h,v $
- * Date modified: $Date: 2002-04-22 05:46:26 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-22 06:19:36 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -95,6 +95,16 @@ namespace phui {
        * The text in this field.
        */
       std::string mText;
+
+      /**
+       * Actual cursor position horizontally
+       */
+      int mCursorScreenPosition;
+
+      /**
+       * Index of character of where cursor is at
+       */
+      unsigned int mCursorCharacterPosition;
 
    };
 

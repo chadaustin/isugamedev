@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2002-04-22 05:46:26 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-22 06:19:36 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,11 +42,11 @@
 namespace phui {
 
    TextField::TextField()
-      : mText("")
+      : mText(""), mCursorScreenPosition(0), mCursorCharacterPosition(0)
    {}
 
    TextField::TextField(const std::string& text)
-      : mText(text)
+      : mText(text), mCursorScreenPosition(0), mCursorCharacterPosition(0)
    {}
 
    TextField::~TextField()
@@ -87,6 +87,8 @@ namespace phui {
       int fontX = textRectX;
       int fontY = textRectY + fontAscent;
 
+      std::string cursor = "|";
+      renderer.draw(cursor, fontX+mCursorScreenPosition, fontY);
       renderer.draw(mText, fontX, fontY);
    }
 
@@ -102,9 +104,36 @@ namespace phui {
 
    void TextField::onKeyDown(InputKey key)
    {
-      std::cout << "TextField::onKeyDown " << key << std::endl;
-      if(key >= KEY_A && key <= KEY_Z) {
-         mText+=(char)(key-KEY_A)+'a';
+      FontRenderer renderer(getFont());
+
+      if(key == KEY_RIGHT) {
+         if(mCursorCharacterPosition < mText.length()) {
+            mCursorScreenPosition+=renderer.getWidth(mText.substr(mCursorCharacterPosition,1));
+            mCursorCharacterPosition++;
+         }
+      } else if(key == KEY_LEFT) {
+         if(mCursorCharacterPosition > 0) {
+            mCursorCharacterPosition--;
+            mCursorScreenPosition-=renderer.getWidth(mText.substr(mCursorCharacterPosition,1));
+         }
+      } else if(key == KEY_BACKSPACE) {
+         if(mCursorCharacterPosition > 0) {
+            mCursorCharacterPosition--;
+            mCursorScreenPosition-=renderer.getWidth(mText.substr(mCursorCharacterPosition,1));
+            mText.erase(mCursorCharacterPosition,1);
+         }
+      } else if(key == KEY_DELETE) {
+         if(mCursorCharacterPosition < mText.length()) {
+            mText.erase(mCursorCharacterPosition,1);
+         }
+      } else if(key >= KEY_A && key <= KEY_Z) {
+         std::string toAdd;
+         toAdd+=(char)(key-KEY_A)+'a';
+
+         mText.insert(mCursorCharacterPosition, toAdd);
+
+         mCursorScreenPosition+=renderer.getWidth(toAdd);
+         mCursorCharacterPosition++;
       }
    }
 

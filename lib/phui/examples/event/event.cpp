@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-22 05:45:20 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-22 06:19:36 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -74,7 +74,15 @@ phui::InputKey GlutToPhuiKey(char key) {
       return (phui::InputKey)(phui::KEY_A + (key - 'a'));
    }
 
-   return phui::KEY_UNKNOWN;
+   switch (key) {
+      case 8:   return phui::KEY_BACKSPACE;
+      case 9:   return phui::KEY_TAB;
+      case 27:  return phui::KEY_ESCAPE;
+      case 127: return phui::KEY_DELETE;
+         
+      default:  return phui::KEY_UNKNOWN;
+   }
+
 /*
    // check major ranges
    if (key >= '0' && key <= '9') {
@@ -85,14 +93,6 @@ phui::InputKey GlutToPhuiKey(char key) {
    }
 
 
-   switch (key) {
-      case 8:   return phui::KEY_TAB;
-      case 9:   return phui::KEY_BACKSPACE;
-      case 27:  return phui::KEY_ESCAPE;
-      case 127: return phui::KEY_DELETE;
-         
-      default:  return phui::KEY_UNKNOWN;
-   }
 */
 }
 
