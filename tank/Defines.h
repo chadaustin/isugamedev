@@ -10,8 +10,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Defines.h,v $
-//    $Date: 2001-09-20 20:04:51 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-26 22:56:49 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -474,12 +474,11 @@ namespace kev
       return static_cast<T>( static_cast<int>( value + static_cast<T>(0.5) ) );
    }
 
-   // Linear Interpolation
+   // Linear Interpolation for a single value
    template<class DataType>
-   inline void Lerp(const DataType& from, 
-         const DataType& to, 
-         const float& lerp, 
-         DataType& result )
+   inline void lerp( DataType& result, const float& lerp, 
+                     const DataType& from, 
+                     const DataType& to )
    {
        DataType offset = to - from;
        result = from + offset*lerp;
