@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInput.h,v $
-// Date modified: $Date: 2003-02-09 07:43:03 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2003-08-31 19:02:52 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -84,6 +84,8 @@ public:
          case EDGE_UP:
          case UP:       mEdge = EDGE_DOWN;  break;
          case EDGE_DOWN: mEdge = DOWN; break;
+			default:
+				break;
          }
       break;
 
@@ -95,6 +97,8 @@ public:
          case EDGE_DOWN:
          case DOWN:    mEdge = EDGE_UP; break;
          case EDGE_UP:  mEdge = UP; break;
+			default:
+				break;
          }
       break;
 
