@@ -26,7 +26,7 @@ endif
 
 #LiNUX
 ifeq ($(HOSTTYPE), linux)
-   LIBS = -L/usr/X11R6/lib -lGLU -lGL -lglut -lX11 -lXmu -lm
+   LIBS = -lGLU -lGL -lglut -lm -lpthread
    include ${MK_DIR}/mk.gnu
 endif
 
