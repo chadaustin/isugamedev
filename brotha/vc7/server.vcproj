@@ -65,6 +65,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
+				AdditionalIncludeDirectories="../../nspr/include;../"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -77,6 +78,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="../../nspr/lib/nspr4.lib"
 				OutputFile="../bin/win32/server.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
@@ -105,19 +107,10 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
-				RelativePath="..\server\Client.cpp">
-			</File>
-			<File
-				RelativePath="..\server\ClientServer.cpp">
-			</File>
-			<File
-				RelativePath="..\server\GameServer.cpp">
+				RelativePath="..\server\GameThread.cpp">
 			</File>
 			<File
 				RelativePath="..\server\ListenServer.cpp">
-			</File>
-			<File
-				RelativePath="..\server\WriteServer.cpp">
 			</File>
 			<File
 				RelativePath="..\server\main.cpp">
@@ -136,19 +129,10 @@
 				RelativePath="..\server\BrothaServer.h">
 			</File>
 			<File
-				RelativePath="..\server\Client.h">
-			</File>
-			<File
-				RelativePath="..\server\ClientServer.h">
-			</File>
-			<File
-				RelativePath="..\server\GameServer.h">
+				RelativePath="..\server\GameThread.h">
 			</File>
 			<File
 				RelativePath="..\server\ListenServer.h">
-			</File>
-			<File
-				RelativePath="..\server\WriteServer.h">
 			</File>
 			<File
 				RelativePath="..\server\resource.h">

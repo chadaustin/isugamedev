@@ -57,6 +57,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
+				AdditionalIncludeDirectories="../../nspr/include;../"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -92,16 +93,28 @@
 				RelativePath="..\game\BrothaGame.cpp">
 			</File>
 			<File
+				RelativePath="..\net\Connection.cpp">
+			</File>
+			<File
+				RelativePath="..\util\HWNDstream.cpp">
+			</File>
+			<File
 				RelativePath="..\net\MessageQueue.cpp">
 			</File>
 			<File
 				RelativePath="..\game\Player.cpp">
 			</File>
 			<File
+				RelativePath="..\net\ReadThread.cpp">
+			</File>
+			<File
 				RelativePath="..\net\SocketInputStream.cpp">
 			</File>
 			<File
 				RelativePath="..\net\SocketOutputStream.cpp">
+			</File>
+			<File
+				RelativePath="..\net\WriteThread.cpp">
 			</File>
 		</Filter>
 		<Filter
@@ -114,7 +127,16 @@
 				RelativePath="..\net\ByteBuffer.h">
 			</File>
 			<File
+				RelativePath="..\net\Connection.h">
+			</File>
+			<File
+				RelativePath="..\net\DisconnectMessage.h">
+			</File>
+			<File
 				RelativePath="..\game\GameTimer.h">
+			</File>
+			<File
+				RelativePath="..\util\HWNDstream.h">
 			</File>
 			<File
 				RelativePath="..\net\InputStream.h">
@@ -144,6 +166,9 @@
 				RelativePath="..\thread\Mutex.h">
 			</File>
 			<File
+				RelativePath="..\net\NetMgr.h">
+			</File>
+			<File
 				RelativePath="..\net\OKMessage.h">
 			</File>
 			<File
@@ -153,6 +178,9 @@
 				RelativePath="..\game\Player.h">
 			</File>
 			<File
+				RelativePath="..\net\ReadThread.h">
+			</File>
+			<File
 				RelativePath="..\net\Serialize.h">
 			</File>
 			<File
@@ -160,6 +188,9 @@
 			</File>
 			<File
 				RelativePath="..\net\Socket.h">
+			</File>
+			<File
+				RelativePath="..\net\SocketException.h">
 			</File>
 			<File
 				RelativePath="..\net\SocketInputStream.h">
@@ -181,6 +212,9 @@
 			</File>
 			<File
 				RelativePath="..\game\UIDManager.h">
+			</File>
+			<File
+				RelativePath="..\net\WriteThread.h">
 			</File>
 		</Filter>
 		<Filter
