@@ -24,18 +24,20 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-02-18 03:11:15 $
-// Version:       $Revision: 1.20 $
+// Date modified: $Date: 2002-02-21 05:13:43 $
+// Version:       $Revision: 1.21 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "gk/GameKernel.h"
+#include "gk/Version.h"
 
 namespace gk {
 
 GameKernel::GameKernel()
    : mDriver( NULL )
 {
+   std::cout<<"GameKernel v"<<getVersionString()<<std::endl;
    mInput = new GameInput();
 }
 
