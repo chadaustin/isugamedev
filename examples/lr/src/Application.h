@@ -4,13 +4,18 @@
 #include <list>
 #include <SDL.h>
 
-#include "GameState.h"
-#include "IntroState.h"
+
 #include "Types.h"
+#include "State.h"
 
 
 namespace lr
 {
+   // forward declarations
+   class GameState;
+   class HelpState;
+   class IntroState;
+
    class Application
    {
    public:
@@ -36,10 +41,13 @@ namespace lr
 
       int mWidth;
       int mHeight;
+
+      bool isQuitting;
       
       // our states
       GameState* game;
       IntroState* intro;
+      HelpState* help;
       
       State* currentState;
    };

@@ -3,6 +3,7 @@
 #include "Application.h"
 #include "GameState.h"
 #include "IntroState.h"
+#include "HelpState.h"
 
 namespace lr
 {
@@ -12,7 +13,10 @@ namespace lr
    {
       intro = new IntroState(this);
       game = new GameState(this);
+      help = new HelpState(this);
       currentState = intro;
+
+      isQuitting = false;
    }
 
    Application::~Application()
@@ -27,13 +31,22 @@ namespace lr
 
       currentState->update(dt);
       
-      if(currentState->switchStates())
+      if(currentState->switchStates()==1)
       {
-         if(currentState == intro)
-         {
+         if(currentState==intro)
             currentState = game;
-         }
+         else if(currentState==help)
+            currentState = intro;
+         else if(currentState==game)
+            currentState = intro;
+      }else if(currentState->switchStates()==3)
+      {
+         currentState = help;
+      }else if(currentState->switchStates()==4)
+      {
+         isQuitting=true;
       }
+      
       
    }
       
@@ -65,7 +78,7 @@ namespace lr
 
    bool Application::shouldQuit()
    {
-      return currentState->isQuitting();
+      return isQuitting;
    }
 
 } // end namespace
