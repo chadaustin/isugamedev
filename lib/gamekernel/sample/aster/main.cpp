@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-04-06 12:14:12 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-04-06 22:17:12 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -74,7 +74,6 @@ public:
    
    virtual void onAppInit( gk::IGameKernel* kernel )
    {
-      std::cerr<<"Inside OnAppInit()..."<<std::endl;
 	mKernel = kernel;
       gameBoard.init( mKernel );
 
@@ -93,7 +92,7 @@ public:
 
    virtual void onContextInit()
    {
-      std::cerr << "Inside OnContextInit()..." << std::endl;
+      //std::cerr << "Inside OnContextInit()..." << std::endl;
 	mKernel->setWindowSize( 640, 480 );
       mKernel->showMouse( false );
    }
@@ -104,7 +103,7 @@ public:
     */
    virtual void onDraw( int context = 0 )
    {
-      std::cout << "Inside OnDraw()..." << std::endl;
+      //std::cout << "Inside OnDraw()..." << std::endl;
 	// get the window params...
       int width, height;
       mKernel->getWindowSize( width, height );
@@ -136,10 +135,12 @@ public:
     */
    virtual void onUpdate()
    {
-      std::cout << "Inside OnUpdate()..." << std::endl;
+      //std::cout << "Inside OnUpdate()..." << std::endl;
 	if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
-         mKernel->shutdown();
-
+         {
+		mKernel->shutdown();
+		return;
+	 }
       // update the gameboard      
       stopwatch.pulse();
       mKernel->getWindowSize( gameBoard.width, gameBoard.height );
@@ -164,8 +165,6 @@ int main( int argc, char *argv[] )
    AsterApp *app = new AsterApp();   
    gk::IGameKernel* kernel = gk::createGameKernel( app );
    kernel->config( "config.xml" );
-   std::cout<<"Kernel Configured; Calling run..." << std::endl;
    kernel->run();
-
    return 0;
 }

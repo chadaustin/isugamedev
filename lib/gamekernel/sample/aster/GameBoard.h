@@ -230,7 +230,7 @@ public:
    
    void draw()
    {
-      std::cout<<"draw"<<std::endl;
+      //std::cout<<"draw"<<std::endl;
       // camera xform (this does the first person view navigation transform)
       glRotatef( -ship.rotation, 0.0f, 1.0f, 0.0f );
       glTranslatef( -ship.position[0], -ship.position[1], -ship.position[2] );
