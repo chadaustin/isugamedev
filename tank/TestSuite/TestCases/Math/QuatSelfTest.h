@@ -12,7 +12,7 @@
 #include "Vec3.h"
 
 /*****************************************************************
- tests out the functionality expected of vj::Quat<float>
+ tests out the functionality expected of Quat<float>
 *******************************************************************/
 
 namespace kevTest
@@ -30,6 +30,16 @@ public:
    {
    }
 
+   void mathSanityTest()
+   {
+      //std::cout<<"test the sanity of the available math lib\n"<<std::flush;
+      //std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"<<std::flush;
+
+      float d = kev::deg2rad( 45.0f );
+      //std::cout<<"deg2rad(45.0f) == "<<d<<"\n"<<std::flush;
+      assertTest( d >= 0.7850 && d <= 0.7870 );
+   }
+
    void identTest()
    {
       // the default identity is currently the multiplicative identity [1,0,0,0]
@@ -41,8 +51,85 @@ public:
       assertTest( quat[Quat<float>::QUAT_W] == 1.0f && quat[Quat<float>::QUAT_X] == 0.0f && 
                   quat[Quat<float>::QUAT_Y] == 0.0f && quat[Quat<float>::QUAT_Z] == 0.0f );
    }
-      
+
+   void makePureTest()
+   {
+      //std::cout<<"make sure that makePure creates expected results...\n"<<std::flush;
+      //std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"<<std::flush;
+
+    Quat<float> q;
+      q.makePure( Vec3<float>( 0, 1.0f, 0 ) );
+//      std::cout<<"q:           "<<q<<" .. "<<q[Quat<float>::QUAT_W]<<" "<<q[Quat<float>::QUAT_X]<<" "<<q[Quat<float>::QUAT_Y]<<" "<<q[Quat<float>::QUAT_Z]<<"\n"<<std::flush;
+      assertTest( q[Quat<float>::QUAT_W] == 0 );
+      assertTest( q[Quat<float>::QUAT_X] == 0 );
+      assertTest( q[Quat<float>::QUAT_Y] == 1.0f );
+      assertTest( q[Quat<float>::QUAT_Z] == 0 );
+
+      q.makePure( Vec3<float>( 0, 0, -0.4f ) );
+  //    std::cout<<"q:           "<<q<<" .. "<<q[Quat<float>::QUAT_W]<<" "<<q[Quat<float>::QUAT_X]<<" "<<q[Quat<float>::QUAT_Y]<<" "<<q[Quat<float>::QUAT_Z]<<"\n"<<std::flush;
+      assertTest( q[Quat<float>::QUAT_W] == 0 );
+      assertTest( q[Quat<float>::QUAT_X] == 0 );
+      assertTest( q[Quat<float>::QUAT_Y] == 0 );
+      assertTest( q[Quat<float>::QUAT_Z] == -0.4f );
+      //assertTest( q[Quat<float>::QUAT_Z] >= -0.4001 && q[Quat<float>::QUAT_Z] <= -0.3998);
+
+      q.makePure( Vec3<float>( 0, 1000.0f, 0 ) );
+    //  std::cout<<"q:           "<<q<<" .. "<<q[Quat<float>::QUAT_W]<<" "<<q[Quat<float>::QUAT_X]<<" "<<q[Quat<float>::QUAT_Y]<<" "<<q[Quat<float>::QUAT_Z]<<"\n"<<std::flush;
+      assertTest( q[Quat<float>::QUAT_W] == 0 );
+      assertTest( q[Quat<float>::QUAT_X] == 0 );
+      assertTest( q[Quat<float>::QUAT_Y] == 1000.0f );
+      assertTest( q[Quat<float>::QUAT_Z] == 0 );
+
+      q.makePure( Vec3<float>( -0.7f, 0.7f, -0.7f ) );
+      //std::cout<<"q:           "<<q<<" .. "<<q[Quat<float>::QUAT_W]<<" "<<q[Quat<float>::QUAT_X]<<" "<<q[Quat<float>::QUAT_Y]<<" "<<q[Quat<float>::QUAT_Z]<<"\n"<<std::flush;
+      assertTest( q[Quat<float>::QUAT_W] == 0 );
+      assertTest( q[Quat<float>::QUAT_X] == -0.7f );
+      assertTest( q[Quat<float>::QUAT_Y] == 0.7f );
+      assertTest( q[Quat<float>::QUAT_Z] == -0.7f );
+
+      q.makePure( Vec3<float>( -100.0f, 100.0f, 100.0f ) );
+      //std::cout<<"q:           "<<q<<" .. "<<q[Quat<float>::QUAT_W]<<" "<<q[Quat<float>::QUAT_X]<<" "<<q[Quat<float>::QUAT_Y]<<" "<<q[Quat<float>::QUAT_Z]<<"\n"<<std::flush;
+      assertTest( q[Quat<float>::QUAT_W] == 0 );
+      assertTest( q[Quat<float>::QUAT_X] == -100.0f );
+      assertTest( q[Quat<float>::QUAT_Y] == 100.0f );
+      assertTest( q[Quat<float>::QUAT_Z] == 100.0f );
+   }
+
    void makeRotTest()
+   {
+      //std::cout<<"make sure that makeRot creates expected results...\n"<<std::flush;
+      //std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"<<std::flush;
+
+      // deg2rad( 45.0f ) == 0.785398 
+      // deg2rad( 45.0f )* 0.5f == 0.392699  
+      // cosf( deg2rad( 45.0f ) * 0.5f) == 0.923879 
+      // sinf( deg2rad( 45.0f ) * 0.5f) == 0.382683 
+      // sinf( deg2rad( 45.0f ) * 0.5f) * 1.0f == 0.382683
+      
+      //std::cout<<kev::deg2rad( 45.0f )<<" "<<kev::deg2rad( 45.0f ) *
+      //0.5f << "  " << cosf( kev::deg2rad( 45.0f ) * 0.5f) << " " <<
+      //sinf( kev::deg2rad( 45.0f ) * 0.5f) << " " << sinf( kev::deg2rad(
+      //45.0f ) * 0.5f) * 1.0f <<"\n"<<std::flush;
+
+
+      Quat<float> q;
+      q.makeRot( kev::deg2rad( 45.0f ), 0,-1,0 );
+      //std::cout<<"q:           "<<q<<" .. "<<q[Quat<float>::QUAT_W]<<" "<<q[Quat<float>::QUAT_X]<<" "<<q[Quat<float>::QUAT_Y]<<" "<<q[Quat<float>::QUAT_Z]<<"\n"<<std::flush;
+ 
+      assertTest( q[Quat<float>::QUAT_W] <= 0.923880f && q[Quat<float>::QUAT_W] >= 0.923875f );
+      assertTest( q[Quat<float>::QUAT_X] <= 0.0f && q[Quat<float>::QUAT_X] >= 0.0f );
+      assertTest( q[Quat<float>::QUAT_Y] <= -0.382680f && q[Quat<float>::QUAT_Y] >= -0.382685 );
+      assertTest( q[Quat<float>::QUAT_Z] <= 0.0f && q[Quat<float>::QUAT_Z] >= 0.0f );
+     
+      q.makeRot( kev::deg2rad( 45.0f ), 1,0,0 );
+      //std::cout<<"q:           "<<q<<" .. "<<q[Quat<float>::QUAT_W]<<" "<<q[Quat<float>::QUAT_X]<<" "<<q[Quat<float>::QUAT_Y]<<" "<<q[Quat<float>::QUAT_Z]<<"\n"<<std::flush;
+      assertTest( q[Quat<float>::QUAT_W] <= 0.923880f && q[Quat<float>::QUAT_W] >= 0.923875f );
+      assertTest( q[Quat<float>::QUAT_X] <= 0.382685f && q[Quat<float>::QUAT_X] >= 0.382680 );
+      assertTest( q[Quat<float>::QUAT_Y] <= 0.0f && q[Quat<float>::QUAT_Y] >= 0.0f );
+      assertTest( q[Quat<float>::QUAT_Z] <= 0.0f && q[Quat<float>::QUAT_Z] >= 0.0f );
+   }
+      
+   void makeRotNormalizeTest()
    {
       //std::cout<<"make sure that normalize doesn't change the rotation...\n"<<std::flush;
       //std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"<<std::flush;
@@ -64,8 +151,8 @@ public:
       std::cout<<"q2:           "<<q2<<" .. "<<q2[Quat<float>::QUAT_W]<<" "<<q2[Quat<float>::QUAT_X]<<" "<<q2[Quat<float>::QUAT_Y]<<" "<<q2[Quat<float>::QUAT_Z]<<"\n"<<std::flush;
       std::cout<<"\n"<<std::flush;
       */
-   
-            // make sure that normalize doesn't change the rotation...         
+
+      // make sure that normalize doesn't change the rotation...         
       assertTest( q1.isEqual( q3, 0.0001 ) );
       assertTest( q2.isEqual( q4, 0.0001 ) );
    }
@@ -84,13 +171,13 @@ public:
          q.makeRot( kev::deg2rad( x ), 1,0,0 );
 
          Vec3<float> result = q * v;
+         //std::cout<<result<<"\n"<<std::flush;
          if (x == 0)
             assertTest( result[0] < 0.001 && result[1] < 0.001 && result[2] > 0.999 );
          if (x == 90)
             assertTest( result[0] < 0.001 && result[1] < -0.999 && result[2] < 0.001 );
          if (x == 180)
             assertTest( result[0] < 0.001 && result[1] < 0.001 && result[2] < -0.999 );
-         //std::cout<<result<<"\n"<<std::flush;
       }
       //std::cout<<"\n"<<std::flush;
    }
@@ -233,7 +320,7 @@ public:
 
       // rotate forward
       r = q2 * v;
-      //std::cout<<r<<"\n"<<std::flush;
+      //std::cout<<r<<", each elt should be > 0.7\n"<<std::flush;
       assertTest( r[1] > 0.7 && r[2] > 0.7 );
 
       //std::cout<<"\n"<<std::flush;
@@ -392,14 +479,19 @@ public:
    {
       TestSuite *test_suite = new TestSuite ("QuatSelfTest");
 
+      test_suite->addTest( new TestCaller<QuatSelfTest>("basic math sanity test", &QuatSelfTest::mathSanityTest));        
       test_suite->addTest( new TestCaller<QuatSelfTest>("identity test", &QuatSelfTest::identTest));        
+      test_suite->addTest( new TestCaller<QuatSelfTest>("makePureTest", &QuatSelfTest::makePureTest));        
+      test_suite->addTest( new TestCaller<QuatSelfTest>("makeRotTest", &QuatSelfTest::makeRotTest));        
+      test_suite->addTest( new
+      TestCaller<QuatSelfTest>("makeRotNormalizeTest",
+      &QuatSelfTest::makeRotNormalizeTest));        
       test_suite->addTest( new TestCaller<QuatSelfTest>("xformVecTest", &QuatSelfTest::xformVecTest));        
       test_suite->addTest( new TestCaller<QuatSelfTest>("xformVecSweepTest", &QuatSelfTest::xformVecSweepTest));        
       test_suite->addTest( new TestCaller<QuatSelfTest>("makeRotGetRotSanityTest", &QuatSelfTest::makeRotGetRotSanityTest));        
       test_suite->addTest( new TestCaller<QuatSelfTest>("scalarMultTest", &QuatSelfTest::scalarMultTest));        
       test_suite->addTest( new TestCaller<QuatSelfTest>("simpleQuatProductTest", &QuatSelfTest::simpleQuatProductTest));        
       test_suite->addTest( new TestCaller<QuatSelfTest>("secondQuatProductTest", &QuatSelfTest::secondQuatProductTest));        
-      test_suite->addTest( new TestCaller<QuatSelfTest>("makeRotTest", &QuatSelfTest::makeRotTest));        
       //test_suite->addTest( new TestCaller<QuatSelfTest>("specialCases", &QuatSelfTest::specialCases));
       //test_suite->addTest( new TestCaller<QuatSelfTest>("vectorScaleTest", &QuatSelfTest::vectorScaleTest));
       //test_suite->addTest( new TestCaller<QuatSelfTest>("quatAdd", &QuatSelfTest::quatAdd));
