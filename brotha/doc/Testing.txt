@@ -165,7 +165,7 @@ http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
           
           Test procedures
 
-          The reports server subcomponents generate HTML from a query string.  A test program will be written to submit several queries against an XML file, which will test using several different types of queries created to give complete code coverage.  The reports will be outputted to several HTML files, and visually examined for correctness.  Additionaly, invalid queries will be sent to make sure an error is sent
+          The reports server subcomponents generate HTML from a query string.  A simple web page be written, with several different types of queries created to give complete code coverage.  When each link is clicked at test will be done.  The reports will be outputted to several HTML files, and visually examined for correctness.  Additionaly, invalid queries will be sent to make sure an error is sent
 
           The attempted queries will be as follows:
 
@@ -173,9 +173,9 @@ http://www.vrac.iastate.edu/~bscott/wb/cs309_requirements_group6.doc
   
               B query to retrieve a detailed view of all the players in a gang with a list of their cars (0[gangname]/2*/1*)
 
-              C query to retrieve a detailed view of all the cars of a specific player (2[gangname]/1[playername]/2*)
+              C query to retrieve a detailed view of all the cars of a specific player (2[gangname]/1[playername]/2*0
 
-              D query to retrieve a list of gangs in light mode  (2*/0*/0*)
+              D query to retrieve a list of gangs in light mode  (1*/0*/0*)
  
               E query to retrieve all the cars in the game (0*/0*/2*) 
 
