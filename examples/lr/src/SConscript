@@ -1,0 +1,54 @@
+from os import path
+
+Import('baseEnv PREFIX BuildInfo')
+Import('SetupSDL SetupCorona SetupAudiere SetupGLText SetupOpenSG SetupOpenGL')
+
+# Listed here are interfaces that only have a .h associated with them
+interfaces = Split("""
+   Types
+""")
+
+# Listed here are classes that have a .h and a .cpp file associated with them
+classes = Split("""
+   Application
+   IntroState
+   Level
+   GameState
+   State
+   Texture
+""")
+
+buildInfo = BuildInfo()
+
+# Listed here are headers that have no associated .cpp file
+buildInfo.addHeaders(map(File, Split("""
+""")))
+
+# Listed here are sources that have no associated .h file
+buildInfo.addSources(map(File, Split("""
+   lr.cpp
+""")))
+
+buildInfo.addExtraDist(map(File, Split("""
+   SConscript
+""")))
+
+buildInfo.addHeaders(map(lambda n: File(n + '.h'),    interfaces))
+buildInfo.addHeaders(map(lambda n: File(n + '.h'),    classes))
+buildInfo.addSources(map(lambda n: File(n + '.cpp'),  classes))
+
+env = baseEnv.Copy()
+
+SetupSDL(env)
+SetupCorona(env)
+# SetupAudiere(env)
+# SetupGLText(env)
+# SetupOpenSG(env)
+SetupOpenGL(env)
+
+buildInfo.addPrograms([
+    env.Program('../build/lr', buildInfo.getSources())
+])
+env.Install(path.join(PREFIX, 'bin'), buildInfo.getPrograms())
+
+Return('buildInfo')
