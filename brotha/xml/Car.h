@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-05-01 07:22:26 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 09:58:23 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -64,7 +64,7 @@ namespace data {
       }
 
       /// Gets a list of the mods on this car
-      ModList getMods() const {
+      ModList& getMods() {
          return mMods;
       }
 
