@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-03-18 05:39:33 $
-// Version:       $Revision: 1.33 $
+// Date modified: $Date: 2002-03-18 08:03:41 $
+// Version:       $Revision: 1.34 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,17 +33,11 @@
 #define GK_GAMEINPUT_H
 
 #include "gk/gkCommon.h"
-#include <string>
 #include <utility> // for pair
-
-#include "gk/EventInput.h"
-#include "gk/Device.h"
+#include <gk/IGameInput.h>
+#include <gk/IGameKernel.h>
 
 namespace gk {
-
-// forward declare IGameKernel
-class IGameKernel;
-
 /**
  * Input manager for game input.
  * Try to use the Interface classes instead of this class directly
@@ -70,15 +64,18 @@ class IGameKernel;
  * @see AnalogInterface
  * @author Kevin Meinert <kevin@vrsource.org>
  */
-class GameInput
+class GameInput : public Private::DLLImpl< IGameInput >
 {
 public:
    /**
     * Creates a new GameInput object with no devices or alias bindings.
     */
-   GameInput()
-   {
-   }
+   GameInput();
+
+   /**
+    * Releases all devices associated with this input manager.
+    */
+   virtual ~GameInput();
 
    /**
     * Gets the input that the given alias has been bound to.
@@ -87,14 +84,7 @@ public:
     *
     * @return  the input if alias has been bound, NULL otherwise
     */
-   Input* getInput( const std::string& alias )
-   {
-      if (mBindTable.count( alias ) == 0)
-         return NULL;
-
-      EventInput& event_input = mBindTable[alias];
-      return &event_input;
-   }
+   Input* getInput( const std::string& alias );
 
    /**
     * Gets the the Input associated with the <device,input> pair.
@@ -105,14 +95,7 @@ public:
     * @return  the Input if <device,input> has already been bound.
     * @return  NULL if <device,input> has not been bound.
     */
-   Input* getInput( const std::string& device, const std::string& input )
-   {
-      if (mDevices.count( device ) == 0)
-         return NULL;
-
-      Device* dev = mDevices[device];
-      return dev->getInput( input );
-   }
+   Input* getInput( const std::string& device, const std::string& input );
 
    /**
     * Add a device to this input manager. Once added, the device's inputs will
@@ -124,18 +107,7 @@ public:
     *
     * @return  true if successful, false otherwise
     */
-   bool addDevice( Device* device, const std::string& name )
-   {
-      if (mDevices.count( name ) == 0)
-      {
-         mDevices[ name ] = device;
-         std::cout << "Added device: " << name << std::endl;
-         this->refreshEventInputs();
-         return true;
-      }
-      std::cout << "Failed to add device: " << name << std::endl;
-      return false;
-   }
+   bool addDevice( Device* device, const std::string& name );
 
    /**
     * Gets the device with the given name.
@@ -144,17 +116,7 @@ public:
     *
     * @return  a pointer to the device if it exists, NULL otherwise
     */
-   Device* getDevice( const std::string& name )
-   {
-      std::map< std::string, Device* >::iterator itr;
-      itr = mDevices.find( name );
-      if ( itr != mDevices.end() )
-      {
-         return itr->second;
-      }
-      std::cout << "WARNING: cannot lookup device " << name << std::endl;
-      return NULL;
-   }
+   Device* getDevice( const std::string& name );
 
    /**
     * Removes the device with the given name. If no device with the given name
@@ -162,17 +124,7 @@ public:
     *
     * @param name    the name of the device to remove
     */
-   void removeDevice( const std::string& name )
-   {
-      std::map< std::string, Device* >::iterator itr;
-      itr = mDevices.find( name );
-      if ( itr != mDevices.end() )
-      {
-         mDevices.erase( itr );
-         std::cout << "Removed device: " << name << std::endl;
-         this->refreshEventInputs();
-      }
-   }
+   void removeDevice( const std::string& name );
 
    /**
     *  Bind an alias to a device's input. This allows you to retrieve that input
@@ -184,16 +136,9 @@ public:
     *  @param device    the name of the device
     *  @param input     the name of the input on the device
     */
-   void bind( const std::string& alias, const std::string& device, const std::string& input )
-   {
-      Input* in_put = getInput( device, input );
-      mBindTable[alias].add( in_put );
-      mBindStrings.insert( std::pair<std::string, std::pair<std::string, std::string> >( alias, std::pair<std::string, std::string>(device, input) ) );
-      std::cout << "Bound [" << device << ":" << input << "] to [" << alias << "]" << std::endl;
-   }
+   void bind( const std::string& alias, const std::string& device,
+              const std::string& input );
 
-
-public:
    /**
     * Updates all the devices in this input manager. SystemDriver
     * implementations should call this function every frame to ensure valid
@@ -202,38 +147,14 @@ public:
     * @see IGameKernel
     * @see SystemDriver
     */
-   void update()
-   {
-      std::map<std::string, Device*>::iterator itr;
-      for( itr = mDevices.begin(); itr != mDevices.end(); ++itr )
-      {
-         itr->second->update();
-      }
-   }
+   void update();
 
 private:
    /**
     * Refreshes all bindings. This allows you to swap out a device and still
     * maintain the bindings to it.
     */
-   void refreshEventInputs()
-   {
-      // reset each EventInput object (this removes all binding info from them...)
-      std::map<std::string, EventInput>::iterator itr;
-      for (itr = mBindTable.begin(); itr != mBindTable.end(); ++itr)
-      {
-         (*itr).second.clear();
-      }
-
-      // re-add all binding info to EventInputs based on currently added devices..
-      std::multimap<std::string, std::pair<std::string, std::string> >::iterator it;
-      for (it = mBindStrings.begin(); it != mBindStrings.end(); ++it)
-      {
-         Input* in_put = getInput( (*it).second.first, (*it).second.second );
-         mBindTable[(*it).first].add( in_put );
-         //std::cout << "   refresh: " << (*it).first << " " << (*it).second.first << " " << (*it).second.second << std::endl;
-      }
-   }
+   void refreshEventInputs();
 
 private:
    // database of all bound items.
@@ -244,88 +165,6 @@ private:
 
    // currently registred devices.
    std::map<std::string, Device*> mDevices;
-};
-
-/**
- * Device wrapper that provides automatic addition and removal of the contained
- * device with the input manager.
- *
- * @param Type    the type of device to manage
- */
-template< class Type >
-class DeviceHandle
-{
-public:
-   /**
-    * Creates and instance of the device type and adds it to the input manager.
-    *
-    * @param name    the name of the device
-    * @param kernel  the kernel with which to attach this device to
-    *
-    * @pre kernel != NULL
-    */
-   DeviceHandle( const std::string& name, IGameKernel* kernel )
-      : mName( name ), mKernel( kernel )
-   {
-      mDevice = new Type();
-      mKernel->getInput()->addDevice( mDevice, name );
-   }
-
-   /**
-    * Removes the device from the input manager and destroys it. Note that the
-    * device's memory will be released.
-    */
-   ~DeviceHandle()
-   {
-      mKernel->getInput()->removeDevice( mName );
-      delete mDevice;
-   }
-
-   /**
-    * Gets the contained device.
-    *
-    * @return  a pointer to the contained device
-    */
-   Type* getDevice()
-   {
-      return mDevice;
-   }
-
-   /**
-    * Gets the contained device.
-    *
-    * @return  a pointer to the contained device
-    */
-   const Type* getDevice() const
-   {
-      return mDevice;
-   }
-
-   /**
-    * Gets the name of the contained device.
-    *
-    * @return  the name of the contained device
-    */
-   const std::string& getName() const
-   {
-      return mName;
-   }
-
-private:
-   /**
-    * The name of the device.
-    */
-   std::string mName;
-
-   /**
-    * The kernel to which the device is attached.
-    */
-   IGameKernel* mKernel;
-
-   /**
-    * The managed device.
-    */
-   Type* mDevice;
 };
 
 } // namespace gk

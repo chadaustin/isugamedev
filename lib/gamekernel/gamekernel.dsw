@@ -11,21 +11,6 @@ Package=<5>
 
 Package=<4>
 {{{
-    Begin Project Dependency
-    Project_Dep_Name xmlpp
-    End Project Dependency
-}}}
-
-###############################################################################
-
-Project: "gkdll"=.\gkdll\gkdll.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
 }}}
 
 ###############################################################################
@@ -51,20 +36,8 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name gkdll
+    Project_Dep_Name gk
     End Project Dependency
-}}}
-
-###############################################################################
-
-Project: "xmlpp"=.\xmlpp\xmlpp.dsp - Package Owner=<4>
-
-Package=<5>
-{{{
-}}}
-
-Package=<4>
-{{{
 }}}
 
 ###############################################################################
