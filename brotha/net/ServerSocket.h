@@ -19,12 +19,12 @@ namespace net {
          }
 
          PRNetAddr addr;
-         // HACK: TODO: uhh ... yea, AF_INET = 2 in windows atleast
-         addr.inet.family = 2; // PR_FamilyInet() typically AF_INET;
-         addr.inet.ip     = PR_htonl(INADDR_ANY);
-         addr.inet.port   = PR_htons(port);
+         PRStatus status = PR_InitializeNetAddr(PR_IpAddrAny, 9999, &addr);
+         if (status != PR_SUCCESS) {
+            throw SocketException("Bind failed");
+         }
       
-         PRStatus status = PR_Bind(mSocket, &addr);
+         status = PR_Bind(mSocket, &addr);
          if (status != PR_SUCCESS) {
             throw SocketException("Bind failed");
          }

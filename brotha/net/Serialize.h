@@ -21,7 +21,7 @@ namespace net {
    }
 
    InputStream& operator>>(InputStream& is, PRUint32& ui) {
-      os.read(&ui, 4);
+      is.read(&ui, 4);
       return is;
    }
 
@@ -30,14 +30,14 @@ namespace net {
 
    OutputStream& operator<<(OutputStream& os, const std::string& str) {
       os << PRUint32(str.length());
-      os.write(str.data(), str.length());
+      os.write((void*)str.data(), (int)str.length());
       return os;
    }
 
    InputStream& operator>>(InputStream& is, std::string& str) {
       PRUint32 length;
       is >> length;
-      str = std::string(length);
+      str = std::string(length, 0);
 
       // this sucks...  read into the string BUFFER_SIZE bytes at a time
       static const unsigned BUFFER_SIZE = 64;

@@ -52,14 +52,14 @@ namespace net {
          }
       }
 
-      SocketInputStream* getInputStream() {
+      InputStream* getInputStream() {
          if(mInputStream == 0) {
             mInputStream = new SocketInputStream(this);
          }
          return mInputStream;
       }
 
-      SocketOutputStream* getOutputStream() {
+      OutputStream* getOutputStream() {
          if(mOutputStream == 0) {
             mOutputStream = new SocketOutputStream(this);
          }
@@ -71,7 +71,7 @@ namespace net {
       }
 
       void write(void* buffer, int size) {
-         PR_Send(mSocket, buffer, size, 0, PR_INTERVAL_NO_WAIT);
+         PR_Send(mSocket, buffer, size, 0, PR_INTERVAL_NO_TIMEOUT);
       }
    private:
       PRFileDesc* mSocket;
