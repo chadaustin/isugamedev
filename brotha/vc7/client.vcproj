@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../external;../;../../nspr/include"
+				AdditionalIncludeDirectories="..;external/nspr/include;external/SDL/include;external/audiere/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -27,13 +27,13 @@
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
+				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../external/GK/gk.lib OpenGL32.Lib GlU32.Lib ../../nspr/lib/nspr4.lib ../external/audiere.lib"
+				AdditionalDependencies="opengl32.lib glu32.lib external/nspr/lib/nspr4.lib external/SDL/lib/SDL.lib external/audiere/lib/audiere.lib"
 				ShowProgress="0"
 				OutputFile="../bin/win32/client-dbg.exe"
 				LinkIncremental="2"
@@ -69,7 +69,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../external;../;../../nspr/include"
+				AdditionalIncludeDirectories="..;external/nspr/include;external/SDL/include;external/audiere/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				StringPooling="TRUE"
 				RuntimeLibrary="4"
@@ -77,13 +77,13 @@
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
+				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="../external/GK/gk.lib OpenGL32.Lib GlU32.Lib ../../nspr/lib/nspr4.lib ../external/audiere.lib"
+				AdditionalDependencies="opengl32.lib glu32.lib external/nspr/lib/nspr4.lib external/SDL/lib/SDL.lib external/audiere/lib/audiere.lib"
 				ShowProgress="0"
 				OutputFile="../bin/win32/client.exe"
 				LinkIncremental="1"
@@ -123,6 +123,9 @@
 			<File
 				RelativePath="..\client\main.cpp">
 			</File>
+			<File
+				RelativePath="..\client\realmain.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -132,6 +135,9 @@
 			</File>
 			<File
 				RelativePath="..\client\BrothaApp.h">
+			</File>
+			<File
+				RelativePath="..\client\main.h">
 			</File>
 		</Filter>
 		<Filter

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-17 02:35:43 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-19 09:09:39 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,9 +41,7 @@
 #ifndef CLIENT_BROTHA_APP_H
 #define CLIENT_BROTHA_APP_H
 
-#include <gk/gk.h>   // pull in GameKernel
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include "SDL.h"
 #include "game/BrothaGame.h"
 #include "net/NetMgr.h"
 #include "net/JoinAsMessage.h"
@@ -55,45 +53,19 @@ namespace client
    /**
     * Warn-a-Brotha interface with GameKernel.
     */
-   class BrothaApp : public gk::AbstractGameApp
+   class BrothaApp
    {
    public:
       /// Creates a new brotha app.
       BrothaApp();
 
       /// Cleans up resources used by this app.
-      virtual ~BrothaApp();
+      ~BrothaApp();
 
-      /**
-       * Called by the game kernel when the application is being initialized,
-       * but before the system driver has been started.
-       *
-       * We initialize the input interfaces here.
-       *
-       * @param kernel     the IGameKernel initializing this driver
-       */
-      virtual void onAppInit( gk::IGameKernel* kernel );
-
-      /**
-       * Called by the game kernel when the window is initialized.
-       */
-      virtual void onContextInit();
-
-      /**
-       * Called by the game kernel each frame for each window open.
-       *
-       * @param context    the context of the window being drawn
-       */
-      virtual void onContextDraw( int context );
-
-      /**
-       * Called by the game kernel immediately after each frame is drawn.
-       */
-      virtual void onPostFrame();
-
-      /**
-       * Handles input and acts on the game accordingly.
-       */
+      void update(int elapsedTime);
+      void draw();
+      void resize(int width, int height);
+      
       void processInput();
 
       /**
@@ -120,6 +92,7 @@ namespace client
       game::BrothaGame& getGame() { return mGame; }
 
    public:
+   /*
       gk::DigitalInterface
          mAccelerate,
          mBrake,
@@ -130,7 +103,7 @@ namespace client
 
       /// The kernel running this app
       gk::IGameKernel* mKernel;
-
+   */
       /// Our lovely game instance
       game::BrothaGame mGame;
 
@@ -149,6 +122,9 @@ namespace client
 
       /// Sound music and effects manager.
       sound::SoundManager* mSoundMgr;
+      
+      int mWidth;
+      int mHeight;
    };
 }
 

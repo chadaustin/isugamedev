@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-03-28 05:24:47 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-19 09:09:39 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -38,17 +38,120 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#include <gk/gk.h>   // pull in GameKernel
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include <exception>
+#include <iostream>
+#include <memory>
+#include <string>
+#include <stdlib.h>
+#include <SDL_opengl.h>
 #include "client/BrothaApp.h"
 
-int main( int argc, char *argv[] )
-{
-   // create the kernel and add our app in
-   gk::IGameKernel* kernel = gk::createGameKernel(new client::BrothaApp());
-   kernel->config( "config.xml" );
-   kernel->run();
+void log(const std::string& message) {
+   std::cerr << message << std::endl;
+}
 
+// make a std::string-compatible version of SDL_GetError
+std::string GetSDLError() {
+   return SDL_GetError();
+}
+
+int BrothaMain(int argc, char *argv[]) {
+
+   // initialize SDL
+   int init_flags = SDL_INIT_NOPARACHUTE | SDL_INIT_VIDEO |
+                    SDL_INIT_TIMER | SDL_INIT_JOYSTICK;
+   if (SDL_Init(init_flags) < 0) {
+      log("SDL Initialization failed: " + GetSDLError());
+      return EXIT_FAILURE;
+   }
+   
+   const SDL_VideoInfo* info = SDL_GetVideoInfo();
+   if (!info) {
+      log("Retrieving video information failed: " + GetSDLError());
+      return EXIT_FAILURE;
+   }
+   
+   // define our minimum requirements for the GL window
+   SDL_GL_SetAttribute(SDL_GL_RED_SIZE,     5);
+   SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,   5);
+   SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,    5);
+   SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,   16);
+   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+   
+   const int width  = 640;
+   const int height = 480;
+   
+   if (!SDL_SetVideoMode(width, height, info->vfmt->BitsPerPixel, SDL_OPENGL)) {
+      log("Setting video mode failed: " + GetSDLError());
+      return EXIT_FAILURE;
+   }
+   
+   SDL_WM_SetCaption("Warn-a-Brotha", 0);
+   
+   try {
+      std::auto_ptr<client::BrothaApp> app(new client::BrothaApp());
+      
+      // let the app know what size it is
+      app->resize(width, height);
+      
+      Uint32 last_time = SDL_GetTicks();
+      
+      while (1) {
+      
+         SDL_Event event;
+         int result = SDL_PollEvent(&event);
+         bool should_quit = false;
+         while (result == 1) {
+            
+            switch (event.type) {
+               case SDL_VIDEORESIZE:
+                  app->resize(event.resize.w, event.resize.h);
+                  break;
+            
+               case SDL_QUIT:
+                  should_quit = true;
+                  break;
+            }
+            
+            result = SDL_PollEvent(&event);
+         }
+
+         // error or SDL_QUIT message         
+         if (result < 0 || should_quit) {
+            break;
+         }
+         
+         // update and draw application
+         
+         Uint32 now = SDL_GetTicks();
+         // ignore wraparound
+         if (now >= last_time) {
+            app->update(now - last_time);
+         }
+         last_time = now;
+         
+         app->draw();
+         SDL_GL_SwapBuffers();
+      }
+   }
+   catch (const std::exception& e) {
+      log(std::string("uncaught exception: ") + e.what());
+   }
+   
+   SDL_Quit();
+   
    return 0;
 }
+
+
+#ifdef WIN32
+
+// this is actually SDL_main in Windows
+int main(int argc, char** argv) {
+   return BrothaMain(argc, argv);
+}
+
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+   return BrothaMain(__argc, __argv);
+}
+#endif

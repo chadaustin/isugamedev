@@ -19,14 +19,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../nspr/include;../;../external"
+				AdditionalIncludeDirectories="..;external/nspr/include;external/SDL/include;external/audiere/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
+				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -57,14 +57,14 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
-				AdditionalIncludeDirectories="../../nspr/include;../;../external"
+				AdditionalIncludeDirectories="..;external/nspr/include;external/SDL/include;external/audiere/include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
+				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -99,6 +99,9 @@
 				RelativePath="..\util\HWNDstream.cpp">
 			</File>
 			<File
+				RelativePath="..\sound\Jukebox.cpp">
+			</File>
+			<File
 				RelativePath="..\net\MessageQueue.cpp">
 			</File>
 			<File
@@ -127,6 +130,12 @@
 			</File>
 			<File
 				RelativePath="..\net\SocketOutputStream.cpp">
+			</File>
+			<File
+				RelativePath="..\sound\SoundEffectManager.cpp">
+			</File>
+			<File
+				RelativePath="..\sound\SoundManager.cpp">
 			</File>
 			<File
 				RelativePath="..\net\WriteThread.cpp">
@@ -173,6 +182,9 @@
 			</File>
 			<File
 				RelativePath="..\net\JoinAsMessage.h">
+			</File>
+			<File
+				RelativePath="..\sound\Jukebox.h">
 			</File>
 			<File
 				RelativePath="..\thread\Lock.h">
@@ -239,6 +251,12 @@
 			</File>
 			<File
 				RelativePath="..\net\SocketOutputStream.h">
+			</File>
+			<File
+				RelativePath="..\sound\SoundEffectManager.h">
+			</File>
+			<File
+				RelativePath="..\sound\SoundManager.h">
 			</File>
 			<File
 				RelativePath="..\net\StreamException.h">

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-17 02:35:43 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-04-19 09:09:39 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,59 +42,68 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdexcept>
+#include <memory>
 
 namespace client
 {
    BrothaApp::BrothaApp()
-      : mKernel(NULL), mNetMgr(NULL), mConnID(-1),
-        mAppState(new NotConnectedState()),
-        mName("yourname"), mPass("yourpassword"), mIsConnected(false),
-        mInGame(false), mSoundMgr(NULL)
-   {
-   }
-
-   BrothaApp::~BrothaApp()
-   {
-      delete mSoundMgr;
-   }
-
-   void BrothaApp::onAppInit( gk::IGameKernel* kernel )
+      : mNetMgr(NULL)
+      , mConnID(-1)
+      , mAppState(new NotConnectedState())
+      , mName("yourname")
+      , mPass("yourpassword")
+      , mIsConnected(false)
+      , mInGame(false)
+      , mSoundMgr(NULL)
+      , mWidth(0)
+      , mHeight(0)
    {
       // init the sound subsystem
       try {
          mSoundMgr = new sound::SoundManager();
-         sound::Jukebox* jukebox = mSoundMgr->getJukebox();
-         jukebox->addTrack("la_marche_de_la_lune.ogg");
-         jukebox->play();
-      } catch ( std::exception& e ) {
-         std::cerr<<"Caught exception "<<e.what()<<std::endl;
-         std::cerr<<"Disabling sound!"<<std::endl;
+         mSoundMgr->getJukebox()->addTrack("la_marche_de_la_lune.ogg");
+         mSoundMgr->getJukebox()->play();
       }
-
-      mKernel = kernel;
-      mKernel->setName( "Warn-a-Brotha" );
-      mQuit.init( "Quit", mKernel );
-      mAccelerate.init( "Accelerate", mKernel );
-      mBrake.init( "Brake", mKernel );
-      mTurnLeft.init( "TurnLeft", mKernel );
-      mTurnRight.init( "TurnRight", mKernel );
-      mPause.init( "Pause", mKernel );
-
+      catch (const std::exception& e) {
+         std::cerr << "Caught exception " << e.what() << std::endl;
+         std::cerr << "Disabling sound!" << std::endl;
+      }
+      
       // init the network layer
       mNetMgr = new net::NetMgr();
    }
 
-   void BrothaApp::onContextInit()
-   {
-      mKernel->setWindowSize( 640, 480 );
+   BrothaApp::~BrothaApp() {
+      delete mSoundMgr;
    }
 
-   void BrothaApp::onContextDraw( int context )
-   {
-      int width, height;
-      mKernel->getWindowSize( width, height );
-      glViewport( 0, 0, width, height );
+   void BrothaApp::update(int elapsedTime) {
+      // get all messages from the server
+      net::NetMgr::MsgList msgs;
+      mNetMgr->readAll( msgs );
+      for( net::NetMgr::MsgListIter iter = msgs.begin(); iter != msgs.end(); ++iter ) {
+         net::Message* msg = (*iter).first;
+         // tell the current state to handle the message
+         std::auto_ptr<AppState> newState = mAppState->handleMessage( msg, this );
+         if ( newState.get() != NULL ) {
+            mAppState = newState;
+         }
+         /// @todo delete msg?
+      }
 
+      std::auto_ptr<AppState> newState = mAppState->update( this );
+      if ( newState.get() != NULL ) {
+         mAppState = newState;
+      }
+
+      // Process input from the user
+      processInput();
+
+      // update the state of the game
+      mGame.update();
+   }
+   
+   void BrothaApp::draw() {
       glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
       glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
       glEnable( GL_DEPTH_TEST );
@@ -104,7 +113,7 @@ namespace client
       // set up the projection matrix
       glMatrixMode( GL_PROJECTION );
          glLoadIdentity();
-         gluPerspective( 100.0f, float(width) / float(height), 0.01f, 1000.0f );
+         gluPerspective( 100.0f, (mHeight ? float(mWidth) / mHeight : 0), 0.01f, 1000.0f );
 
       // initialize your matrix stack used for transforming your models
       glMatrixMode( GL_MODELVIEW );
@@ -135,36 +144,16 @@ namespace client
          glEnd();
       }
    }
-
-   void BrothaApp::onPostFrame()
-   {
-      // get all messages from the server
-      net::NetMgr::MsgList msgs;
-      mNetMgr->readAll( msgs );
-      for( net::NetMgr::MsgListIter iter = msgs.begin(); iter != msgs.end(); ++iter ) {
-         net::Message* msg = (*iter).first;
-         // tell the current state to handle the message
-         std::auto_ptr<AppState> newState = mAppState->handleMessage( msg, this );
-         if ( newState.get() != NULL ) {
-            mAppState = newState;
-         }
-         /// @todo delete msg?
-      }
-
-      std::auto_ptr<AppState> newState = mAppState->update( this );
-      if ( newState.get() != NULL ) {
-         mAppState = newState;
-      }
-
-      // Process input from the user
-      processInput();
-
-      // update the state of the game
-      mGame.update();
+   
+   void BrothaApp::resize(int width, int height) {
+      mWidth = width;
+      mHeight = height;
+      glViewport(0, 0, width, height);
    }
 
    void BrothaApp::processInput()
    {
+/*
       game::Player* player = mGame.getLocalPlayer();
 
       // test for quit
@@ -223,5 +212,6 @@ namespace client
             player->setTurnAngle( -1 );
          }
       }
+*/
    }
 }
