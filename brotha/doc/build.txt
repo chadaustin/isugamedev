@@ -1,8 +1,16 @@
-Linux
+1) GET NSPR
 
-Get ftp://ftp.mozilla.org/pub/nspr/releases/v4.1.2/Linux2.4_x86_glibc_PTH_OPT.OBJ/nspr-4.1.2.tar.gz
+Linux 2.4: ftp://ftp.mozilla.org/pub/nspr/releases/v4.1.2/Linux2.4_x86_glibc_PTH_OPT.OBJ/nspr-4.1.2.tar.gz
+Windows:   ftp://ftp.mozilla.org/pub/nspr/releases/v4.1.2/WINNT4.0_OPT.OBJ/nspr-4.1.2.zip
 
+2) GET PYTHON (if you don't have it)
 
-Windows (VC6 or VS.NET?)
+Linux:  www.python.org
+Windows:  Cygwin comes with a Python distribution:  cygwin.com
+          ActiveState has a Python distribution as well:  www.activestate.com
+          Python.org too:  www.python.org
 
-Get ftp://ftp.mozilla.org/pub/nspr/releases/v4.1.2/WINNT4.0_OPT.OBJ/nspr-4.1.2.zip
+3) GET SCONS
+
+www.scons.org
+
