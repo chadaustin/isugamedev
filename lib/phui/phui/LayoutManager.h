@@ -33,7 +33,10 @@ namespace phui
       {
       }
      
-      virtual ~LayoutManager();
+      virtual ~LayoutManager()
+      {
+         delete mConstraint;
+      }
 
       /**
        * Adds a widget's specifications to this layout manager
@@ -68,7 +71,7 @@ namespace phui
        * Resizes a set of widgets to make it valid within the constraints of
        * this layout manager
        */
-      virtual void resize() const
+      virtual void resize()
       {
          return;
       }
