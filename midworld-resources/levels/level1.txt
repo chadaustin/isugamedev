@@ -3,70 +3,1723 @@
  <level>
   <group>
    <static>
-    <pos x="-12.375" y="0" z="5.625"/>
-    <rot x="0" y="0" z="0"/>
-    <model>wall_corner</model>
-   </static>
-   <static>
-    <pos x="0.0625" y="0" z="10.5625"/>
+    <pos x="3" y="0" z="8"/>
     <rot x="0" y="0" z="0"/>
     <model>wallEW</model>
    </static>
    <static>
-    <pos x="10.1875" y="0" z="10.5625"/>
+    <pos x="13" y="0" z="8"/>
     <rot x="0" y="0" z="0"/>
     <model>wallEW</model>
    </static>
    <static>
-    <pos x="17.875" y="0" z="5.6875"/>
-    <rot x="0" y="0" z="0"/>
-    <model>wall_corner</model>
-   </static>
-   <static>
-    <pos x="22.4375" y="0" z="-1.9375"/>
-    <rot x="0" y="0" z="0"/>
-    <model>wallNS</model>
-   </static>
-   <static>
-    <pos x="22.4375" y="0" z="-12.25"/>
-    <rot x="0" y="0" z="0"/>
-    <model>wallNS</model>
-   </static>
-   <static>
-    <pos x="22.4375" y="0" z="-22.4375"/>
-    <rot x="0" y="0" z="0"/>
-    <model>wallNS</model>
-   </static>
-   <static>
-    <pos x="17.75" y="0" z="-34.875"/>
-    <rot x="0" y="0" z="0"/>
-    <model>wall_corner</model>
-   </static>
-   <static>
-    <pos x="9.9375" y="0" z="-34.875"/>
+    <pos x="23" y="0" z="8"/>
     <rot x="0" y="0" z="0"/>
     <model>wallEW</model>
    </static>
    <static>
-    <pos x="-0.25" y="0" z="-34.9375"/>
+    <pos x="-7" y="0" z="8"/>
     <rot x="0" y="0" z="0"/>
     <model>wallEW</model>
    </static>
    <static>
-    <pos x="-12.6875" y="0" z="-34.8125"/>
+    <pos x="-17" y="0" z="8"/>
     <rot x="0" y="0" z="0"/>
-    <model>wall_corner</model>
+    <model>wallEW</model>
    </static>
    <static>
-    <pos x="-12.625" y="0" z="-22.375"/>
+    <pos x="-27" y="0" z="8"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="33" y="0" z="8"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="43" y="0" z="8"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="53" y="0" z="8"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="60.5" y="0" z="10.5"/>
     <rot x="0" y="0" z="0"/>
     <model>wallNS</model>
    </static>
    <static>
-    <pos x="-12.5" y="0" z="-2.125"/>
+    <pos x="60.5" y="0" z="20.5"/>
     <rot x="0" y="0" z="0"/>
     <model>wallNS</model>
    </static>
+   <static>
+    <pos x="60.5" y="0" z="30.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="60.5" y="0" z="40.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="60.5" y="0" z="50.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="60.5" y="0" z="60.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="63" y="0" z="68"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="73" y="0" z="68"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="83" y="0" z="68"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="93" y="0" z="68"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="100.5" y="0" z="65.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="100.5" y="0" z="55.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="100.5" y="0" z="45.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="100.5" y="0" z="35.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="100.5" y="0" z="25.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="100.5" y="0" z="15.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="83.5" y="0" z="10.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="83.5" y="0" z="20.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="83.5" y="0" z="30.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="83.5" y="0" z="40.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="83.5" y="0" z="50.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="100.5" y="0" z="5.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="100.625" y="0" z="-4.375"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="105" y="0" z="-14"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="105" y="0" z="-24"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="97" y="0" z="-31"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="89" y="0" z="-24"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="82" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="72" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="62" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="52" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="42" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="32" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="22" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="12" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="2" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-8" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-18" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-28" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-38" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-48" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-58" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="-14"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="-4"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="6"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="26"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="36"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="46"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="56"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-65" y="0" z="66"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-20" y="0" z="15"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-20" y="0" z="25"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-20" y="0" z="35"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-20" y="0" z="45"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-20" y="0" z="55"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-20" y="0" z="65"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-20" y="0" z="74"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-20" y="0" z="84"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-27" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-37" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-47" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-57" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-67" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-77" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-87" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-97" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-107" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-117" y="0" z="87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-68" y="0" z="70"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-78" y="0" z="70"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-88" y="0" z="70"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-98" y="0" z="70"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="67"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="84"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="57"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="47"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="74"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="64"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="54"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="29"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="19"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="9"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="-1"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="-11"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-72" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-82" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-92" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-98" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-90" y="0" z="54"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-76" y="0" z="54"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-90" y="0" z="-2"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-76" y="0" z="-2"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-76" y="0" z="27"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-90" y="0" z="27"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="24"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="14"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="4"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-6"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-16"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-26"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-36"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="-21"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-101" y="0" z="-31"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-46"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-98" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-88" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-78" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-68" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-56"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-66"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-76"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-86"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-96"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-106"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-120" y="0" z="-116"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-117" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-58" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-48" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-38" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-28" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-18" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-107" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-97" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-87" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-77" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-67" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-57" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-47" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-37" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-27" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-17" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-8" y="0" z="-34"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-4" y="0" z="-38"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-4" y="0" z="-48"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-4" y="0" z="-58"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-4" y="0" z="-68"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-4" y="0" z="-78"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-4" y="0" z="-88"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-73" y="0" z="-58"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-61" y="0" z="-58"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-49" y="0" z="-58"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-73" y="0" z="-79"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-61" y="0" z="-79"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-49" y="0" z="-79"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-73" y="0" z="-100"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-61" y="0" z="-100"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-49" y="0" z="-100"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-37" y="0" z="-58"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-37" y="0" z="-79"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-37" y="0" z="-100"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="-7" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-1" y="0" z="-91"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="9" y="0" z="-91"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="19" y="0" z="-91"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="3" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="13" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="23" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="23" y="0" z="-88"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="23" y="0" z="-78"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="23" y="0" z="-68"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="23" y="0" z="-58"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="23" y="0" z="-48"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="26" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="36" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="46" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="56" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="66" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="77" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="87" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="96" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="106" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="33" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="116" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="43" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="53" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="63" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="73" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="82" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="53" y="0" z="-113"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="53" y="0" z="-103"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="53" y="0" z="-93"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="95" y="0" z="-50"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="95" y="0" z="-60"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="95" y="0" z="-70"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="95" y="0" z="-80"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="95" y="0" z="-90"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="126" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-47"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-57"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-67"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-77"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-87"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="92" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="102" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="112" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="122" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-113"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="127" y="0" z="-119"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="133" y="0" z="-90"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="143" y="0" z="-90"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="153" y="0" z="-90"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-93"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-103"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-113"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-123"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-133"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-143"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-123"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-133"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-143"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-153"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-163"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-173"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-183"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-193"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="156" y="0" z="-203"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="153" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="143" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="133" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="123" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="113" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="103" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="93" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="83" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="73" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="63" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="53" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-153"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="130" y="0" z="-163"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="84" y="0" z="-148"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="127" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="117" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="107" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="97" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="87" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="77" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="67" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="57" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="47" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="37" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="27" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="43" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="33" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="23" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="112" y="0" z="-187"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="98" y="0" z="-187"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="84" y="0" z="-187"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="69" y="0" z="-187"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="54" y="0" z="-187"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="40" y="0" z="-187"/>
+    <rot x="0" y="0" z="0"/>
+    <model>tent</model>
+   </static>
+   <static>
+    <pos x="17" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="13" y="0" z="-206"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="7" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-3" y="0" z="-166"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallEW</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-169"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-179"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-189"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-199"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-209"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="10" y="0" z="-209"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="10" y="0" z="-219"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-219"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-229"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="10" y="0" z="-229"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="10" y="0" z="-239"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-239"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="10" y="0" z="-249"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-249"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="10" y="0" z="-259"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-259"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="10" y="0" z="-269"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <static>
+    <pos x="-6" y="0" z="-269"/>
+    <rot x="0" y="0" z="0"/>
+    <model>wallNS</model>
+   </static>
+   <turret>
+    <pos x="91.5" y="0" z="1.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="70" y="0" z="1.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="72" y="0" z="57"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="92" y="0" z="58"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-28" y="0" z="15.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-42" y="0" z="77.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-84" y="0" z="40.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-83" y="0" z="12.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <static>
+    <pos x="20" y="0" z="1.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="25.5" y="0" z="2"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="72.5" y="0" z="40"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <turret>
+    <pos x="-95" y="0" z="-43.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-96.5" y="0" z="-112"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-114" y="0" z="-44"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-13" y="0" z="-42.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-17" y="0" z="-111.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-1" y="0" z="-100"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="11" y="0" z="-113"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="45" y="0" z="-112"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="120.5" y="0" z="-91"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <static>
+    <pos x="58.5" y="0" z="-106"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="59" y="0" z="-109"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="60.5" y="0" z="-107.75"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="61" y="0" z="-110.25"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="59" y="0" z="-111.75"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="61.5" y="0" z="-105"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="-66.75" y="0" z="-90"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <static>
+    <pos x="-2.25" y="0" z="-113.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>ammo_crate</model>
+   </static>
+   <turret>
+    <pos x="121.5" y="0" z="-112"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="146.5" y="0" z="-198.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="0.5" y="0" z="-208.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="1" y="0" z="-199.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="0.5" y="0" z="-190.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="1" y="0" z="-181.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="0.5" y="0" z="-217.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="1" y="0" z="-227"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="2.5" y="0" z="-235.5"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
+   <turret>
+    <pos x="-0.5" y="0" z="-243"/>
+    <rot x="0" y="0" z="0"/>
+    <model>turret</model>
+    <level nu="-1"/>
+    <parent>null</parent>
+    <name>turret</name>
+    <maxChildren num="0"/>
+   </turret>
   </group>
  </level>
 </game>
