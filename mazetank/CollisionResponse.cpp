@@ -69,9 +69,10 @@ void CollisionResponse::RemoveObjects(vector<GameObject*> &TheGameObjects)
 	// Actually remove the objects from the game
 	//////////////////////////////////////////////
    int i;
+   int j;
 	for(i = 0; i < ToRemove.size(); i++)
 	{
-		for(int j = 0; ToRemove[i] != TheGameObjects[j]; j++);
+		for(j = 0; ToRemove[i] != TheGameObjects[j]; j++);
 
 		delete ToRemove[i];
 		TheGameObjects.erase(TheGameObjects.begin()+j);
