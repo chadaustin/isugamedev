@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootFactory.cpp,v $
- * Date modified: $Date: 2002-02-25 04:35:43 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-15 09:20:38 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,8 +38,8 @@
 
 namespace phui {
 
-  RootWidgetPtr CreateRoot( int width, int height ) {
-    return RootWidgetPtr(new RootWidget( width, height ));
+  RootWidget* CreateRoot( int width, int height ) {
+    return new RootWidget( width, height );
   }
 
 } // namespace phui

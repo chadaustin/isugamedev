@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-15 07:08:46 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-15 09:20:39 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -301,8 +301,6 @@ namespace phui {
        */
       Font mFont;
    };
-
-   typedef boost::shared_ptr<Widget> WidgetPtr;
 
 } // namespace phui
 

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootFactory.h,v $
- * Date modified: $Date: 2002-02-25 04:35:43 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-04-15 09:20:39 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -50,7 +50,7 @@ namespace phui {
     *
     * @return  a root widget for a UI or NULL on failure
     */
-   RootWidgetPtr CreateRoot( int width, int height );
+   RootWidget* CreateRoot( int width, int height );
 
 } // namespace phui
 

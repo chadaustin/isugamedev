@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-15 05:50:03 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-15 09:20:38 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,7 +41,7 @@
 
 
 namespace {
-   phui::RootWidgetPtr gRoot;
+   phui::RootWidget* gRoot;
 }
 
 
@@ -183,7 +183,7 @@ int main(int argc, char** argv) {
    gRoot = phui::CreateRoot(
       glutGet(GLUT_WINDOW_WIDTH),
       glutGet(GLUT_WINDOW_HEIGHT));
-   phui::WindowPtr window(new phui::Window());
+   phui::Window* window(new phui::Window());
    window->setPosition(150, 75);
    window->setSize(300, 250);
    window->setVisible(true);

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-02-25 04:35:43 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-15 09:20:39 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -61,7 +61,7 @@ namespace phui {
        *
        * @param widget     the widget to add
        */
-      void add(const WidgetPtr& widget);
+      void add(Widget* widget);
 
       /**
        * Removes the given widget from this container widget.
@@ -69,7 +69,7 @@ namespace phui {
        *
        * @param widget     the widget to remove
        */
-      void remove(const WidgetPtr& widget);
+      void remove(Widget* widget);
 
       /**
        * Draws this widget and all of its children.
@@ -85,10 +85,8 @@ namespace phui {
       virtual void drawChildren();
 
    protected:
-      std::list<WidgetPtr> mWidgets;
+      std::list<Widget*> mWidgets;
    };
-
-   typedef boost::shared_ptr<WidgetContainer> WidgetContainerPtr;
 
 } // namespace phui
 

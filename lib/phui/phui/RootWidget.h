@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.h,v $
- * Date modified: $Date: 2002-02-25 04:35:43 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-04-15 09:20:39 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -64,8 +64,6 @@ namespace phui {
        */
       virtual void draw();
    };
-
-   typedef boost::shared_ptr<RootWidget> RootWidgetPtr;
 
 } // namespace phui
 

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: phuiCommon.h,v $
- * Date modified: $Date: 2002-02-25 04:35:43 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-04-15 09:20:39 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -43,8 +43,5 @@
 #  define WIN32_LEAN_AND_MEAN
 #  include <windows.h>
 #endif
-
-// everybody needs boost
-#include <boost/shared_ptr.hpp>
 
 #endif
