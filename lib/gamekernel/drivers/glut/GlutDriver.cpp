@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-05-14 15:05:33 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2003-02-09 08:46:55 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -127,6 +127,10 @@ GlutDriver::init( IGameKernel* kernel )
       mJoystick = new DeviceHandle<Joystick>( "Joystick", mKernel );
       mJoystick->getDevice()->setNumButtons( numButtons );
       mJoystick->getDevice()->setNumAxes( numAxes );
+   }
+   else
+   {
+      std::cerr << "Joystick not detected..." << std::endl;
    }
 
    return true;
