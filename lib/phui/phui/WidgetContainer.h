@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-04-28 15:51:59 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-12-31 15:12:33 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -44,6 +44,7 @@
 #include <vector>
 #include <iostream>
 #include "Widget.h"
+#include "LayoutManager.h"
 
 namespace phui {
 
@@ -57,6 +58,14 @@ namespace phui {
        * This class is abstract. You create a derived instance instead.
        */
       WidgetContainer();
+      
+      /**
+       * Constructor
+       *
+       * @param   manager        the layout manager for this container
+       */
+      WidgetContainer(LayoutManager *manager);
+      
       ~WidgetContainer();
 
    public:
@@ -80,6 +89,13 @@ namespace phui {
        */
       void draw();
 
+      /**
+       * Sets the layout manager for this container
+       *
+       * @param   manager        the layout manager
+       */
+      void setLayoutManager(LayoutManager* manager);
+      
       void onKeyDown(InputKey key);
       void onKeyUp(InputKey key);
       void onMouseDown(InputButton button, const Point& p);
@@ -96,11 +112,13 @@ namespace phui {
 
       // this name sucks ass
       Widget* getMouseWidget(const Point& p);
-
+      
    private:
       std::vector<Widget*> mWidgets;  // sorted from topmost to bottommost
                                       // topmost has focus
-
+      ///The layout manager
+      LayoutManager* mLayoutManager;
+      
       Widget* mCapturedWidget;
    };
 

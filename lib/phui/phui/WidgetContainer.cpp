@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2002-05-03 07:54:55 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-12-31 15:12:33 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -47,7 +47,11 @@ namespace phui {
    WidgetContainer::WidgetContainer() {
       mCapturedWidget = 0;
    }
-
+  
+   WidgetContainer::WidgetContainer(LayoutManager* manager)
+      : mLayoutManager(manager), mCapturedWidget(0)
+   {
+   }
    WidgetContainer::~WidgetContainer() {
    }
 
@@ -57,6 +61,7 @@ namespace phui {
       }
       mWidgets.push_back(widget);
       widget->mParent = this;
+      mLayoutManager->add(widget->getPoint(), widget->getSize());
    }
 
    void WidgetContainer::remove(Widget* widget) {
@@ -64,11 +69,18 @@ namespace phui {
          if (mWidgets[i] == widget) {
             mWidgets.erase(mWidgets.begin() + i);
             widget->mParent = 0;
+            mLayoutManager->remove(widget->getPoint());
          }
       }
    }
 
-   void WidgetContainer::draw() {
+   void WidgetContainer::draw() 
+   {
+      // Check to see if the current setup is valid
+      if (!mLayoutManager->isValid())
+      {
+         mLayoutManager->resize();
+      }
       // draw all children to this widget
       // draw them backwards so it's from the back to the front, visually
       for (int i = int(mWidgets.size()) - 1; i >= 0; --i) {

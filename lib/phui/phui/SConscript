@@ -10,6 +10,7 @@ classes = Split("""
    FontRendererCache
    Insets
    Label
+   LayoutManager
    ListBox
    Rect
    RootFactory
@@ -28,6 +29,7 @@ headers = Split("""
    ActionListener.h
    Color.h
    Input.h
+   LayoutConstraint.h
    ListSelectionListener.h
    Point.h
    WindowAdapter.h
