@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WebServer.h,v $
- * Date modified: $Date: 2002-04-28 16:41:06 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-05-01 06:16:01 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,6 +48,7 @@
 #include "net/ServerSocket.h"
 #include "net/NetMgr.h"
 #include "net/InputStream.h"
+#include "xml/DataManager.h"
 
 namespace server {
    class WebServer : public thread::Thread {
@@ -62,6 +63,7 @@ namespace server {
       void sendResponse(net::Socket *socket, const std::string &str);
    private:
       net::ServerSocket m_serverSocket;
+      data::DataManager* m_dataMgr;
    };
 } // namespace server
 

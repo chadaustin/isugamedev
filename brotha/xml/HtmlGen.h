@@ -104,21 +104,21 @@ namespace reports {
    }
 
 
-   std::string GenerateReport(std::string query) {
+   std::string GenerateReport(std::string query, data::BrothaData& data) {
 	  if(query.size() < 3){
 		  query = "2*/1*/0*";
 	  }
       reports::request r(query);
       if (r.valid) {
-         data::ganglist gl = data::b.getGangList();
+         data::ganglist gl = data.getGangList();
          return inlineStyle() + "<a href=\"/\"><h1>Warn-a-brotha report server</h1></a> " +  renderGangList(gl,r);
       }
       return "error";
 
    }
 
-   std::string GenerateReportFromHTTP(std::string httpR) {
-      return GenerateReport(parseHTTPRequest(httpR));
+   std::string GenerateReportFromHTTP(std::string httpR, data::BrothaData& data) {
+      return GenerateReport(parseHTTPRequest(httpR), data);
    }
 
    std::string renderCarList(data::carlist cl, request schema, std::string gangname, std::string playername) {

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WebServer.cpp,v $
- * Date modified: $Date: 2002-04-30 09:46:04 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-05-01 06:16:01 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -48,14 +48,18 @@
 
 namespace server {
    WebServer::WebServer()
-      : m_serverSocket(8800) {
+      : m_serverSocket(8800), m_dataMgr(NULL)
+   {
    }
 
    WebServer::~WebServer() {
+      delete m_dataMgr;
    }
 
    void WebServer::run() {
-	   data::load("test.xml"); //remove this
+      // Load in the data
+	   m_dataMgr = new data::DataManager("data.xml");
+
       while(PR_AtomicIncrement(&mKillMe)) {
          // accept new client connections, inform the NetMgr about them
          net::Socket *sock = m_serverSocket.accept();
@@ -90,7 +94,7 @@ namespace server {
       std::cout << "processing request:" <<std::endl << str << std::endl;
       std::string response = "HTTP/1.1 200\r\n";
 	  response += "Content-Type: text/html\r\n\r\n";
-	  response += reports::GenerateReportFromHTTP(str);
+	  response += reports::GenerateReportFromHTTP(str, m_dataMgr->getData());
 	  std::cout << response ;
       sendResponse(socket, response);
    }
