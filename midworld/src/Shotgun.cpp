@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Shotgun.cpp,v $
- * Date modified: $Date: 2002-09-09 00:56:25 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-09-09 01:00:43 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,6 +35,7 @@
 #include "Shotgun.h"
 #include "cubeGeometry.h"
 #include "GameState.h"
+#include "GameManager.h"
 
 const static unsigned int NUM_PELLETS = 10;
 
@@ -87,6 +88,10 @@ namespace mw
 
          g.add(bullet); // bullet is not mine anymore, belongs to GameState
 
+         // Do the sound effect
+         SoundEffectManager* sfxmgr = GameManager::instance().getSoundManager()->
+                                       getSoundEffectManager();
+         sfxmgr->playSound("sfx/shotgun.wav");
       }
    }
 
