@@ -30,6 +30,10 @@ class FlameEmitter : public Emitter<__EntityType>
 public:
    FlameEmitter() : kRandMax( RAND_MAX ), x(0), velocitizer(0), Emitter<__EntityType>(), mSize( 8 ) { srand( 2); }
    virtual ~FlameEmitter() {}
+   void setPos( const Vec3<float>& pos )
+   {
+      mPos = pos;  
+   }   
    void setSize( float size ) { mSize = size; }
    virtual void exec( DynamicSystem<__EntityType>& sys, float timeDelta )
    {
@@ -57,7 +61,7 @@ public:
          float velz = r2 * 2.0f - 1.0f;
          Vec3<float> velocity( velx, (r3 * 1.0f + 3.8f) * (vely * multifactor), velz );
 
-         Vec3<float> position( posx, 0.0f, posz );
+         Vec3<float> position( posx + mPos[0], 0.0f + mPos[1], posz + mPos[2] );
          ColorRGBA color( 0.0f, 0.0f, 0.0f, 1.0f );
          p->setVelocity( velocity );
          p->setPosition( position );
@@ -74,6 +78,7 @@ public:
    float velocitizer;
    const float kRandMax;
    float mSize;
+   Vec3<float> mPos;
 };
 
 template<class __EntityType>

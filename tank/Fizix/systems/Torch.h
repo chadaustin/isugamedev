@@ -92,7 +92,7 @@ public:
          drag->setDrag( 0.40f ); // ??
          this->add( drag );
          
-         FlameEmitter<__EntityType>* fe = new FlameEmitter<__EntityType>;
+         fe = new FlameEmitter<__EntityType>;
          fe->setSize( 2.5f );
          fe->setAgeOfDeath( 2.3f );
          fe->setEmissionRate( 0.014 );
@@ -117,6 +117,13 @@ public:
          gwa->setVolumes( sizes );
          this->add( gwa );
       }
+      
+      void setPos( const Vec3<float>& pos )
+      {
+         fe->setPos( pos );
+      }      
+      
+      FlameEmitter<__EntityType>* fe;
 };
 
 
