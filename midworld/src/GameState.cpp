@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-23 23:35:49 $
- * Version:       $Revision: 1.70 $
+ * Date modified: $Date: 2002-10-24 01:52:00 $
+ * Version:       $Revision: 1.71 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -706,24 +706,42 @@ namespace mw
       }
    }
 
-   void GameState::loadLevel(const std::string& filename) {
+   void GameState::loadLevel(const std::string& filename)
+   {
       std::ifstream in(filename.c_str());
-      if (!in.is_open()) {
+      if (!in.is_open())
+      {
          throw std::runtime_error("Could not open level file: " + filename);
       }
 
       std::string type;
       double x, y, z;
       double h, p, r;
-      while (in >> type >> x >> y >> z >> h >> p >> r) {
+      while (in >> type >> x >> y >> z >> h >> p >> r)
+      {
          Entity* e;
-         if (type == "droid") {
+         if (type == "droid")
+         {
             e = new Enemy();
             e->setModel("security_droid");
-         } else if (type == "crate") {
+         }
+         else if (type == "crate")
+         {
             e = new AmmoCrate();
             e->setModel("ammo_crate");
-         } else {
+         }
+         else if (type == "wall_straight")
+         {
+            e = new Enemy();
+            e->setModel("wall_straight");
+         }
+         else if (type == "tent")
+         {
+            e = new Enemy();
+            e->setModel("tent");
+         }
+         else
+         {
             throw std::runtime_error("Unknown entity type: " + type);
          }
 
