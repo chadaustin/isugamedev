@@ -9,8 +9,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-26 12:03:10 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-04-27 07:39:13 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -231,11 +231,6 @@ namespace phui
        * The position of the widget in pixels relative to its parent.
        */
       Point mPosition;
-
-      /**
-       * The y position of the widget in pixels relative to its parent.
-       */
-      int mY;
 
       /// The size of the widget in pixels.
       Size mSize;
