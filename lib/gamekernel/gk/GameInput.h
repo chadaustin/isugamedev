@@ -24,13 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-09 19:27:10 $
-// Version:       $Revision: 1.26 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.27 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef GAMEINPUT_H
-#define GAMEINPUT_H
+#ifndef GK_GAMEINPUT_H
+#define GK_GAMEINPUT_H
 
 #include "gk/gkCommon.h"
 #include <string>
@@ -44,7 +44,7 @@
 #include "gk/AnalogInput.h"
 #include "gk/EventInput.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /**
  * Input manager for game input.
@@ -284,6 +284,6 @@ private:
    Type* mDevice;
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

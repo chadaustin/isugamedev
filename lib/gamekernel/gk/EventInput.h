@@ -24,19 +24,19 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: EventInput.h,v $
-// Date modified: $Date: 2002-02-09 19:27:10 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef EVENTINPUT_H
-#define EVENTINPUT_H
+#ifndef GK_EVENTINPUT_H
+#define GK_EVENTINPUT_H
 
 #include "gk/gkCommon.h"
 #include "gk/DigitalInput.h"
 #include "gk/AnalogInput.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 class EventInput : public DigitalInput, AnalogInput
 {
@@ -121,6 +121,6 @@ public:
    std::vector< DigitalInput* > mDigitalBindings;
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

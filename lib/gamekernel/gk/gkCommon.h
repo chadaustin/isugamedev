@@ -24,13 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gkCommon.h,v $
-// Date modified: $Date: 2002-02-06 22:22:22 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef GKCOMMON_H
-#define GKCOMMON_H
+#ifndef GK_GKCOMMON_H
+#define GK_GKCOMMON_H
 
 #ifdef _MSC_VER
    // disable 'identifier was truncated to 255 characters in debug information' warning
@@ -39,13 +39,9 @@
 #  include <windows.h>
 #endif
 
-// macros to make namespace definitions easier on some editors
-#define GK_BEGIN_NAMESPACE namespace gk {
-#define GK_END_NAMESPACE }
-
 // just in case we decide to change the namespace later or compile it out ...
 // This macro will first ensure that the namespace does exist before it
 // declares that it is being used. This is done for compilation safety.
 #define GK_USING_NAMESPACE namespace gk {} using namespace gk;
 
-#endif // ! GKCOMMON_H
+#endif

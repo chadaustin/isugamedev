@@ -24,20 +24,20 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Device.h,v $
-// Date modified: $Date: 2002-02-09 21:13:38 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef DEVICE_H
-#define DEVICE_H
+#ifndef GK_DEVICE_H
+#define GK_DEVICE_H
 
 #include "gk/gkCommon.h"
 #include <string>
 #include <vector>
 #include "gk/Input.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 class Device
 {
@@ -100,6 +100,6 @@ public:
    std::map< std::string, unsigned int > mMap;
 };
 
-GK_END_NAMESPACE
+}
 
 #endif

@@ -24,19 +24,19 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogDevice.h,v $
-// Date modified: $Date: 2002-02-09 21:12:50 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef ANALOGDEVICE_H
-#define ANALOGDEVICE_H
+#ifndef GK_ANALOGDEVICE_H
+#define GK_ANALOGDEVICE_H
 
 #include "gk/gkCommon.h"
 #include "gk/Device.h"
 #include "gk/AnalogInput.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /* an analog device
  * a mouse, or joystick (for example) may be an analog device
@@ -68,6 +68,6 @@ public:
    }
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

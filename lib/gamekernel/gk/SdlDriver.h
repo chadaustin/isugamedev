@@ -23,15 +23,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-02-09 05:09:36 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-
-
-#ifndef SDLDRIVER_H
-#define SDLDRIVER_H
+#ifndef GK_SDLDRIVER_H
+#define GK_SDLDRIVER_H
 
 #include "gk/gkCommon.h"
 #include "gk/SystemDriver.h"
@@ -40,7 +38,7 @@
 #include <SDL.h>
 #include <string>
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /**
 * SDL implementation of the system driver interface
@@ -150,6 +148,6 @@ private:
 	*/
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

@@ -24,13 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.h,v $
-// Date modified: $Date: 2002-02-09 21:16:28 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef GLUTDRIVER_H
-#define GLUTDRIVER_H
+#ifndef GK_GLUTDRIVER_H
+#define GK_GLUTDRIVER_H
 
 #include "gk/gkCommon.h"
 #include "gk/SystemDriver.h"
@@ -40,7 +40,7 @@
 #include "gk/Joystick.h"
 #include "gk/ContextData.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /**
  * GLUT implementation of the system driver interface.
@@ -224,6 +224,6 @@ private:
    ContextData<DefaultFalseBool> oneTimeOnly;
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
-#endif // ! GLUTDRIVER_H
+#endif

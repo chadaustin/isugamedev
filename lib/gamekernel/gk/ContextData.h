@@ -30,18 +30,18 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: ContextData.h,v $
-// Date modified: $Date: 2002-02-08 05:03:16 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef CONTEXT_DATA_H
-#define CONTEXT_DATA_H
+#ifndef GK_CONTEXTDATA_H
+#define GK_CONTEXTDATA_H
 
 #include "gk/gkCommon.h"
 #include <vector>
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 //-----------------------------------------------------------------------
 //: map: int --> <Type>
@@ -102,6 +102,6 @@ inline ContextDataType& ContextData<ContextDataType>::operator() ( const int& co
     return this->getItem( contextId );
 }
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-09 21:16:28 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,7 +33,7 @@
 #include "gk/GameKernel.h"
 #include "gk/GameInput.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 // init the glut driver instance pointer to NULL
 GlutDriver* GlutDriver::sDriver = NULL;
@@ -531,4 +531,4 @@ GlutDriver::postRedisplay()
 
 //------------------------------------------------------------------------------
 
-GK_END_NAMESPACE
+} // namespace gk

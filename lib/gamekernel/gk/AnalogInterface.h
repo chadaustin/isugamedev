@@ -24,19 +24,19 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInterface.h,v $
-// Date modified: $Date: 2002-02-08 03:53:13 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef ANALOGINTERFACE_H
-#define ANALOGINTERFACE_H
+#ifndef GK_ANALOGINTERFACE_H
+#define GK_ANALOGINTERFACE_H
 
 #include "gk/gkCommon.h"
 #include "gk/InputInterface.h"
 #include "gk/AnalogInput.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /**
  * AnalogInterface: Your Interface to all analog inputs.
@@ -93,6 +93,6 @@ public:
    }
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

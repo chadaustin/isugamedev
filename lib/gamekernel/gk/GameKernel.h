@@ -24,13 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-08 05:19:56 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef GAMEKERNEL_H
-#define GAMEKERNEL_H
+#ifndef GK_GAMEKERNEL_H
+#define GK_GAMEKERNEL_H
 
 #include "gk/gkCommon.h"
 #include <vector>
@@ -42,7 +42,7 @@
 #include "gk/GameInput.h"
 #include "gk/SystemDriver.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /**
  * Facade for all system driver interactions. The application should deal
@@ -127,6 +127,6 @@ public:
    applicationType mApplication;
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

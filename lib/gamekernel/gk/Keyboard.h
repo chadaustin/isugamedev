@@ -24,13 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Keyboard.h,v $
-// Date modified: $Date: 2002-02-08 03:53:13 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef KEYBOARD_H
-#define KEYBOARD_H
+#ifndef GK_KEYBOARD_H
+#define GK_KEYBOARD_H
 
 #include "gk/gkCommon.h"
 #include <vector>
@@ -39,7 +39,7 @@
 #include <map>
 #include "gk/DigitalDevice.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /** Keyboard device driver for the GameInput system.
  *
@@ -256,6 +256,6 @@ private:
    }
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

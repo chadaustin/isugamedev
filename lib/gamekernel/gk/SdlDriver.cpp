@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-02-09 05:09:36 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,7 +34,7 @@
 #include "gk/GameInput.h"
 #include <string>
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 SdlDriver::SdlDriver() : mWidth(640), mHeight(480), mBpp(16), mvideoFlags(0) //mMouse(NULL), mKeyboard(NULL), mJoystick(NULL)
 {
@@ -168,4 +168,4 @@ const std::string& SdlDriver::name() const
 	return mName;
 }
 
-GK_END_NAMESPACE
+} // namespace gk

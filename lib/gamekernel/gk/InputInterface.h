@@ -24,18 +24,18 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-02-09 19:27:10 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef INPUTINTERFACE_H
-#define INPUTINTERFACE_H
+#ifndef GK_INPUTINTERFACE_H
+#define GK_INPUTINTERFACE_H
 
 #include "gk/gkCommon.h"
 #include <string>
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 class InputInterface
 {
@@ -57,6 +57,6 @@ public:
    std::string mAlias;
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

@@ -24,18 +24,18 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriver.h,v $
-// Date modified: $Date: 2002-02-08 05:39:46 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef SYSTEMDRIVER_H
-#define SYSTEMDRIVER_H
+#ifndef GK_SYSTEMDRIVER_H
+#define GK_SYSTEMDRIVER_H
 
 #include "gk/gkCommon.h"
 #include <string>
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /**
  * Interface to a driver that will run a graphical application. You should
@@ -130,6 +130,6 @@ public:
    virtual const std::string& name() const = 0;
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
-#endif // ! SYSTEMDRIVER_H
+#endif

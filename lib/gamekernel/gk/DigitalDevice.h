@@ -24,19 +24,19 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalDevice.h,v $
-// Date modified: $Date: 2002-02-09 21:12:50 $
-// Version:       $Revision: 1.10 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.11 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
-#ifndef DIGITALDEVICE_H
-#define DIGITALDEVICE_H
+#ifndef GK_DIGITALDEVICE_H
+#define GK_DIGITALDEVICE_H
 
 #include "gk/gkCommon.h"
 #include "gk/Device.h"
 #include "gk/DigitalInput.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 /* a digital device
  * a keyboard, mouse, or joystick (for example) may be a digital device
@@ -68,6 +68,6 @@ public:
    }
 };
 
-GK_END_NAMESPACE
+} // namespace gk
 
 #endif

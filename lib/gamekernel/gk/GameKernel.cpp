@@ -24,14 +24,14 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-02-08 05:39:46 $
-// Version:       $Revision: 1.16 $
+// Date modified: $Date: 2002-02-09 21:54:44 $
+// Version:       $Revision: 1.17 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "gk/GameKernel.h"
 
-GK_BEGIN_NAMESPACE
+namespace gk {
 
 GameKernel::GameKernel()
    : mDriver( NULL )
@@ -119,4 +119,4 @@ void GameKernel::shutdown()
    mDriver = NULL;
 }
 
-GK_END_NAMESPACE
+} // namespace gk
