@@ -34,8 +34,8 @@ dnl Boston, MA 02111-1307, USA.
 dnl
 dnl -----------------------------------------------------------------
 dnl File:          $RCSfile: glut.m4,v $
-dnl Date modified: $Date: 2002-02-20 04:01:14 $
-dnl Version:       $Revision: 1.1 $
+dnl Date modified: $Date: 2002-02-20 05:05:57 $
+dnl Version:       $Revision: 1.2 $
 dnl -----------------------------------------------------------------
 dnl ************** <auto-copyright.pl END do not edit this line> **************
 
@@ -55,7 +55,7 @@ dnl     GLUT_INCLUDES - Extra include path for the GLUT header directory.
 dnl     GLUT_LDFLAGS  - Extra linker flags for the GLUT library directory.
 dnl ===========================================================================
 
-dnl $Id: glut.m4,v 1.1 2002-02-20 04:01:14 nonchocoboy Exp $
+dnl $Id: glut.m4,v 1.2 2002-02-20 05:05:57 nonchocoboy Exp $
 
 dnl ---------------------------------------------------------------------------
 dnl Determine if the target system has GLUT installed.  This adds the
@@ -137,9 +137,9 @@ AC_DEFUN(GK_HAVE_GLUT,
 
     if test "x$gk_cv_glutMainLoop_available" = "xyes" ; then
         gk_have_glut='yes'
-        ifelse([$3], , :, [$3])
+        ifelse([$2], , :, [$2])
     else
-        ifelse([$4], , :, [$4])
+        ifelse([$3], , :, [$3])
     fi
 
     AC_LANG_RESTORE

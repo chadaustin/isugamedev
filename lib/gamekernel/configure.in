@@ -24,12 +24,12 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: configure.in,v $
-# Date modified: $Date: 2002-02-20 04:01:14 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-02-20 05:05:56 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
-AC_REVISION($Revision: 1.1 $)
+AC_REVISION($Revision: 1.2 $)
 AC_INIT(gk/gkCommon.h)
 AC_CONFIG_AUX_DIR(config)
 
@@ -58,10 +58,10 @@ AC_ARG_ENABLE(glutdriver,
    USE_GLUT_DRIVER="$withval", USE_GLUT_DRIVER='yes'
 )
 
-dnl AC_ARG_ENABLE(sdldriver,
-dnl    [  --enable-sdldriver      Enable the SDL driver           [default=yes]],
-dnl    USE_SDL_DRIVER="$withval", USE_SDL_DRIVER='yes'
-dnl )
+AC_ARG_ENABLE(sdldriver,
+   [  --enable-sdldriver      Enable the SDL driver           [default=yes]],
+   USE_SDL_DRIVER="$withval", USE_SDL_DRIVER='yes'
+)
 
 ###############################################################################
 # Check for required programs
@@ -87,20 +87,28 @@ AC_C_INLINE
 ###############################################################################
 GK_HAVE_OPENGL(/usr, no,, AC_MSG_ERROR(*** OpenGL libraries not found ***))
 
-# check for glut
-GLUT_API='N'
+# Check for GLUT
+GK_HAVE_GLUT(/usr,
+             HAVE_GLUT='Y',
+             [ HAVE_GLUT='N'
+               AC_MSG_WARN(*** GLUT libraries not found - disabling GLUT Driver ***)])
+
+# Check for SDL
+GK_HAVE_SDL(/usr,
+            HAVE_SDL='Y',
+            [ HAVE_SDL='N'
+              AC_MSG_WARN(*** SDL libraries not found - disabling SDL Driver ***)])
+
+# Test which drivers we want to build
+BUILD_GLUT_DRIVER='N'
 if test "x$USE_GLUT_DRIVER" != "x"; then
-   GK_HAVE_GLUT(/usr, ,,AC_MSG_ERROR(*** GLUT libraries not found ***))
-   GLUT_API='Y'
+   BUILD_GLUT_DRIVER='Y'
 fi
 
-# check for sdl
-dnl SDL_API='N'
-dnl if test "x$USE_SDL_DRIVER" != "x"; then
-dnl    GK_HAVE_SDL(/usr, ,,AC_MSG_ERROR(*** SDL libraries not found ***))
-dnl    SDL_API='Y'
-dnl fi
-
+BUILD_SDL_DRIVER='N'
+if test "x$USE_SDL_DRIVER" != "x"; then
+   BUILD_SDL_DRIVER='Y'
+fi
 
 ###############################################################################
 # Generate output
@@ -108,14 +116,21 @@ dnl fi
 OSTYPE_DEFS="-DUSE_${OS_TYPE}"
 GLUT_LIBS="$GLUT_LDFLAGS $LIBGLUT"
 OGL_LIBS="$OGL_LDFLAGS $LIBOPENGL"
+SDL_LIBS="$SDL_LDFLAGS $LIBSDL"
 
 INCLUDES="$INCLUDES $X_INCLUDES $OGL_INCLUDES"
 LIBS="$LIBS $OGL_LDFLAGS $LIBOPENGL"
 GK_DEFS="$OSTYPE_DEFS"
 
+dnl GLUT driver setup
 GLUT_DRIVER_INCLUDES="$X_INCLUDES $OGL_INCLUDES $GLUT_INCLUDES"
 GLUT_DRIVER_LIBS="$GLUT_LDFLAGS $LIBGLUT $OGL_LDFLAGS $LIBOPENGL"
 GLUT_DRIVER_DEFS="$OSTYPE_DEFS"
+
+dnl SDL driver setup
+SDL_DRIVER_INCLUDES="$X_INCLUDES $OGL_INCLUDES $SDL_INCLUDES"
+SDL_DRIVER_LIBS="$SDL_LDFLAGS $LIBSDL $OGL_LDFLAGS $LIBOPENGL"
+SDL_DRIVER_DEFS="$OSTYPE_DEFS"
 
 dnl Setup output variables
 GK_VERSION_GROK(VERSION)
@@ -134,15 +149,12 @@ AC_SUBST(GLUT_DRIVER_INCLUDES)
 AC_SUBST(GLUT_DRIVER_LIBS)
 AC_SUBST(GLUT_DRIVER_DEFS)
 
-#AC_SUBST(SDL_DRIVER_INCLUDES)
-#AC_SUBST(SDL_DRIVER_LIBS)
-#AC_SUBST(SDL_DRIVER_DEFS)
+AC_SUBST(SDL_DRIVER_INCLUDES)
+AC_SUBST(SDL_DRIVER_LIBS)
+AC_SUBST(SDL_DRIVER_DEFS)
 
 AC_SUBST(BUILD_GLUT_DRIVER)
 AC_SUBST(BUILD_SDL_DRIVER)
-
-AC_SUBST(GLUT_API)
-#AC_SUBST(SDL_API)
 
 dnl Generate makefiles
 AC_OUTPUT(

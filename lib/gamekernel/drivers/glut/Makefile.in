@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile.in,v $
-# Date modified: $Date: 2002-02-20 04:01:15 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2002-02-20 05:05:57 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 ################## <MK heading END do not edit this line> ###################
@@ -32,8 +32,10 @@ srcdir=@srcdir@
 top_srcdir=@top_srcdir@
 
 # objects to be included in the project....
+ifeq (@BUILD_GLUT_DRIVER@, Y)
 SRCS = \
 	GlutDriver.cpp
+endif
 
 # project name...
 PROJECT_NAME=glutdrv
@@ -51,7 +53,11 @@ DEFS = @GLUT_DRIVER_DEFS@ -DXDL_BUILD_DLL
 
 # Default targets
 default: all
+ifeq (@BUILD_GLUT_DRIVER@, Y)
 all: $(DRIVER_FILENAME)
+else
+all:
+endif
 
 ################################################################################
 # system dependent stuff, that users will want to change...
