@@ -1,0 +1,10 @@
+A.  Starting point of the level.  Emaciated bodies lying around, start with no weapons.
+B.  These are slow turrets.  If you run fast enough, you can get by without taking much damage.
+C.  A small ammo box, an empty pistol, and a small medkit.
+D.  Some medium-difficulty droids.  One of them drops the shotgun or spreadgun or something.
+E.  This gate has to be destroyed.
+F.  Lots of droids.  They drop ammo and weapons (assault rifle?).
+G.  Fast turrets....  need the assault rifle to kill them.
+H.  Two gates that must be destroyed.
+I.  The big boss dude.  Lots of hit points.  When it is killed, the gate to the dock opens.
+J.  The goal of the level.
