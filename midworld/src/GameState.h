@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-12-01 22:31:23 $
- * Version:       $Revision: 1.75 $
+ * Date modified: $Date: 2002-12-03 06:50:44 $
+ * Version:       $Revision: 1.76 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,6 +33,8 @@
 #define MW_GAME_STATE_H
 
 #include <vector>
+
+#include "cal3d/cal3d.h"
 
 #include <loom/aiSystem.h>
 #include <loom/reflex.h>
@@ -61,6 +63,7 @@
 #include "Turret.h"
 #include "PhysicsEngine.h"
 #include "SnowSystem.h"
+
 
 namespace gmtl
 {
@@ -132,11 +135,16 @@ namespace mw
          return mCamera;
       }
       
+
+      void cleanUpCal3d();
+      
       Turret* setupTurret(const std::string& name, const std::string& parent,
                           int maxChild, int level);
       Droid* setupDroid(const std::string& name, const std::string& parent,
                         int maxChild, int level, NavNodeTree& tree);
+      
 
+      
    private:
       void initializeInput();
       
@@ -251,7 +259,26 @@ namespace mw
 
       /// The heads up display used to give the user feedback about the world.
       HUD mHUD;
+
+
+      /// Animation stuff
+      CalCoreModel mPlayerCoreModel;
+      int startWalkingAnimationID;
+      int walkingAnimationID;
+      int meshID;
+      int pantsMaterialID;
+      int hatMaterialID;
+      int coatMaterialID;
+      bool drawAni;
       
+      CalModel myModel;
+      CalRenderer *pCalRenderer;
+      
+
+      void drawAnimation();
+      
+      
+
       /// This is the skydome texture
       Texture* mSkydomeTex;
 

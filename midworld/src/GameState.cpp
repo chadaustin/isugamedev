@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-12-01 22:51:24 $
- * Version:       $Revision: 1.130 $
+ * Date modified: $Date: 2002-12-03 06:50:44 $
+ * Version:       $Revision: 1.131 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -102,20 +102,96 @@ namespace mw
       initializeInput();
 
       droidNavTree = new NavNodeTree();
-      LevelLoader::load("levels/level1.txt", this);
+      LevelLoader::process_xml("levels/level1.txt", this);
 
       //THis is the generation of the skydome
       GenerateDome(400.0f, 5.0f, 5.0f, 1.0f, 1.0f);
       mSkydomeTex = Texture::create("sky");
+   
+      /***********
+       ***********
+       animation init should be put somewhere else but for now we'll leaf it here
+       ***********
+       ***********/
+
+      drawAni = true;
+      // Animation initialization
+      if(!mPlayerCoreModel.create("the player"))
+      {
+         std::cout << "failed to create mPlayerCoreModel!" << std::endl;
+      }
+      // load the core skeleton
+      if(!mPlayerCoreModel.loadCoreSkeleton( "/home/users/browner/midworld/build/animations/skeleton.CSF"))  // "/home/users/browner/final_attempt/walking.CSF"))
+      {
+         std::cout << "failed to load core skeleton!" << std::endl;
+      }
+      // load the material and animations
+//      startWalkingAnimationID = mPlayerCoreModel.loadCoreAnimation("/home/users/final_attempt/guy-walk.CAF");
+      walkingAnimationID = mPlayerCoreModel.loadCoreAnimation("/home/users/browner/midworld/build/animations/walk.CAF");
+      if(startWalkingAnimationID==-1 || walkingAnimationID==-1)
+      {
+         std::cout << "failed to load core animcation file!" << std::endl;
+      }
+
+      // load the core mesh data
+      meshID = mPlayerCoreModel.loadCoreMesh("/home/users/browner/midworld/build/animations/mesh.CMF");
+      if(meshID == -1)
+      {
+         std::cout << "failed to load core mesh file!" << std::endl;
+      }
+
+      //load the core material data
+//      pantsMaterialID = mPlayerCoreModel.loadCoreMaterial("/home/users/browner/final_attempt/guy-mat.CRF");
+      hatMaterialID = mPlayerCoreModel.loadCoreMaterial("/home/users/browner/midworld/build/animations/mat.CRF");
+//      coatMaterialID = mPlayerCoreModel.loadCoreMaterial("/home/users/browner/midworld/build/animations/guyCoat.CRF");
+      if(/*pantsMaterialID == -1 ||*/ hatMaterialID == -1 ) //|| coatMaterialID == -1)
+      {
+         std::cout << "failed to load core material data!" << std::endl;
+      }
+
+      
+      // create all the material threads
+     const int BODY_MATERIAL_THREAD = 0;
+      mPlayerCoreModel.createCoreMaterialThread(BODY_MATERIAL_THREAD);
+
+      // assign a material for each material thread/set pair
+      const int HAT_MATERIAL_SET = 0;
+//      const int PANTS_MATERIAL_SET = 1;
+//      const int COAT_MATERIAL_SET = 2;
+
+      mPlayerCoreModel.setCoreMaterialId(BODY_MATERIAL_THREAD, HAT_MATERIAL_SET, hatMaterialID);
+//      mPlayerCoreModel.setCoreMaterialId(BODY_MATERIAL_THREAD, COAT_MATERIAL_SET, coatMaterialID);
+//      mPlayerCoreModel.setCoreMaterialId(BODY_MATERIAL_THREAD, PANTS_MATERIAL_SET, pantsMaterialID);
+
+      
+      if(!myModel.create(&mPlayerCoreModel))
+      {
+         std::cout << "Error creating model instance" << std::endl;
+      }
+
+      if(!myModel.attachMesh(meshID))
+      {
+         std::cout << "Error could not attach mesh!" << std::endl;
+      }
+
+      myModel.setLodLevel(1.0f);
+ //     myModel.setMaterialSet(PANTS_MATERIAL_SET);
+      
+      myModel.getMixer()->blendCycle(walkingAnimationID, 1.0f, 2.0f);
+
+      pCalRenderer = myModel.getRenderer();
+      
    }
 
    void
    GameState::update(float dt)
    {
       AI.update();
+      myModel.update(dt);
       mInputManager.update(dt);
       mSnowSystem.update(dt);
-
+      
+      
       mCamera.setTarget(mPlayer.getPos(), mPlayer.getRot());
 
       const gmtl::Vec3f accel  (0, 0, -mSpeed);
@@ -189,6 +265,7 @@ namespace mw
       if (mActionQuit->isActive())
       {
          invokeTransition("Menu");
+         cleanUpCal3d();
       }
 
       // update player transform (using mouse-look)
@@ -229,11 +306,13 @@ namespace mw
       if (mPlayer.getPos()[2] > 300)
       {
          invokeTransition("Ending");
+         cleanUpCal3d();
       }
       
       mFPSCounter.update(dt);
    }
-
+   gmtl::Vec3f temp;
+   
    void GameState::draw()
    {
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -262,6 +341,13 @@ namespace mw
          RenderSkyDome();
          mSkydomeTex->unbind();
 
+         
+
+         glTranslate(temp);
+            if(drawAni && mActionUp) drawAnimation();
+         glTranslate(-temp);
+         
+
          // Make sure we clean up after OpenSG until they fix their bugs
          glPushAttrib(GL_ENABLE_BIT);
          {
@@ -270,19 +356,23 @@ namespace mw
             glBindTexture(GL_TEXTURE_2D, 0);
          }
          glPopAttrib();
+         
 
          drawEntities();
-
+         
+         
          // Draw this last for correct depth testing
          mSnowSystem.draw();
 
+         
+         
 //         drawBounds();
       glPopMatrix();
 
       mHUD.draw(application().getWidth(), application().getHeight(),
                 mPlayer, mFPSCounter.getFPS());
    }
-
+   
    void
    GameState::drawEntities()
    {
@@ -291,11 +381,175 @@ namespace mw
       {
          const Entity* entity = itr->second;
          glTranslate(entity->getPos());
-         entity->draw();
+         if(entity == &mPlayer)
+         {
+            temp = entity->getPos();
+            entity->draw();
+         }
          glTranslate(-entity->getPos());
       }
    }
 
+
+   void 
+   GameState::drawAnimation()
+   {
+      glPushMatrix();
+      glPushAttrib(GL_ALL_ATTRIB_BITS);
+      glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT );
+      
+      gmtl::Quatf playerRot;
+      gmtl::Vec3f tempPos;
+      
+      gmtl::Matrix44f mat = gmtl::make<gmtl::Matrix44f>(mPlayer.getRot());
+      glMultMatrixf(mat.getData());
+
+      
+      
+      tempPos = mPlayer.getPos();
+      playerRot = mPlayer.getRot();
+          
+      
+      if(!pCalRenderer->beginRendering())
+      {
+         std::cout << "not able to begin rendering" << std::endl;
+      }else
+      {
+         glPushMatrix();
+           
+          glRotatef(270, 1,0,0);
+          glRotatef(180, 0,0,1);
+          glScalef(0.008f, 0.008f, 0.008f);
+          
+            // set global OpenGL states
+          glEnable(GL_DEPTH_TEST);
+          glShadeModel(GL_SMOOTH);
+          glEnable(GL_LIGHTING);
+          glEnable(GL_LIGHT0);
+
+          // we will use vertex arrays, so enable them
+          glEnableClientState(GL_VERTEX_ARRAY);
+          glEnableClientState(GL_NORMAL_ARRAY);
+
+          // get the number of meshes
+          int meshCount;
+          meshCount = pCalRenderer->getMeshCount();
+
+          // render all meshes of the model
+          int meshId;
+          for(meshId = 0; meshId < meshCount; meshId++)
+          {
+            // get the number of submeshes
+            int submeshCount;
+            submeshCount = pCalRenderer->getSubmeshCount(meshId);
+
+            // render all submeshes of the mesh
+            int submeshId;
+            for(submeshId = 0; submeshId < submeshCount; submeshId++)
+            {
+              // select mesh and submesh for further data access
+              if(pCalRenderer->selectMeshSubmesh(meshId, submeshId))
+              {
+                unsigned char meshColor[4];
+                GLfloat materialColor[4];
+
+                // set the material ambient color
+                pCalRenderer->getAmbientColor(&meshColor[0]);
+                materialColor[0] = meshColor[0] / 255.0f;  materialColor[1] = meshColor[1] / 255.0f; materialColor[2] = meshColor[2] / 255.0f; materialColor[3] = meshColor[3] / 255.0f;
+                glMaterialfv(GL_FRONT, GL_AMBIENT, materialColor);
+
+                // set the material diffuse color
+                pCalRenderer->getDiffuseColor(&meshColor[0]);
+                materialColor[0] = meshColor[0] / 255.0f;  materialColor[1] = meshColor[1] / 255.0f; materialColor[2] = meshColor[2] / 255.0f; materialColor[3] = meshColor[3] / 255.0f;
+                glMaterialfv(GL_FRONT, GL_DIFFUSE, materialColor);
+
+                // set the material specular color
+                pCalRenderer->getSpecularColor(&meshColor[0]);
+                materialColor[0] = meshColor[0] / 255.0f;  materialColor[1] = meshColor[1] / 255.0f; materialColor[2] = meshColor[2] / 255.0f; materialColor[3] = meshColor[3] / 255.0f;
+                glMaterialfv(GL_FRONT, GL_SPECULAR, materialColor);
+
+                // set the material shininess factor
+                float shininess;
+                shininess = pCalRenderer->getShininess();
+                glMaterialfv(GL_FRONT, GL_SHININESS, &shininess);
+
+                // get the transformed vertices of the submesh
+                static float meshVertices[30000][3];
+                int vertexCount;
+                vertexCount = pCalRenderer->getVertices(&meshVertices[0][0]);
+
+                // get the transformed normals of the submesh
+                static float meshNormals[30000][3];
+                pCalRenderer->getNormals(&meshNormals[0][0]);
+
+                // get the texture coordinates of the submesh
+                static float meshTextureCoordinates[30000][2];
+                int textureCoordinateCount;
+                textureCoordinateCount = pCalRenderer->getTextureCoordinates(0, &meshTextureCoordinates[0][0]);
+
+                // get the faces of the submesh
+                static CalIndex meshFaces[50000][3];
+                int faceCount;
+                faceCount = pCalRenderer->getFaces(&meshFaces[0][0]);
+
+                
+                // set the vertex and normal buffers
+                glVertexPointer(3, GL_FLOAT, 0, &meshVertices[0][0]);
+                glNormalPointer(GL_FLOAT, 0, &meshNormals[0][0]);
+
+                // set the texture coordinate buffer and state if necessary
+                if((pCalRenderer->getMapCount() > 0) && (textureCoordinateCount > 0))
+                {
+                  glEnable(GL_TEXTURE_2D);
+                  glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+                  glEnable(GL_COLOR_MATERIAL);
+
+                  // set the texture id we stored in the map user data
+                  glBindTexture(GL_TEXTURE_2D, (GLuint)pCalRenderer->getMapUserData(0));
+
+                  // set the texture coordinate buffer
+                  glTexCoordPointer(2, GL_FLOAT, 0, &meshTextureCoordinates[0][0]);
+                  glColor3f(1.0f, 1.0f, 1.0f);
+                }
+
+                // draw the submesh
+              
+              if(sizeof(CalIndex)==2)
+                 glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_SHORT, &meshFaces[0][0]);
+              else
+                 glDrawElements(GL_TRIANGLES, faceCount * 3, GL_UNSIGNED_INT, &meshFaces[0][0]);
+
+                // disable the texture coordinate state if necessary
+                if((pCalRenderer->getMapCount() > 0) && (textureCoordinateCount > 0))
+                {
+                  glDisable(GL_COLOR_MATERIAL);
+                  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+                  glDisable(GL_TEXTURE_2D);
+                }
+            }
+         }
+            glPopMatrix();
+      }
+
+      // clear vertex array state
+      glDisableClientState(GL_NORMAL_ARRAY);
+      glDisableClientState(GL_VERTEX_ARRAY);
+
+      // clear light
+      glDisable(GL_LIGHTING);
+      glDisable(GL_LIGHT0);
+      glDisable(GL_DEPTH_TEST);
+
+      // end the rendering
+      pCalRenderer->endRendering();
+      }
+      
+      glPopAttrib();
+      glPopClientAttrib();
+      
+      glPopMatrix();
+   }
+   
    void
    GameState::drawBounds()
    {
@@ -407,12 +661,20 @@ namespace mw
          {
             // if the player is dead, it's Game Over
             invokeTransition("GameOver");
+            cleanUpCal3d();
          }
          else
          {
             delete entity;
          }
       }
+   }
+
+   void GameState::cleanUpCal3d()
+   {
+      drawAni=false;
+      myModel.destroy();
+      mPlayerCoreModel.destroy();
    }
 
    void GameState::add(Entity* entity)
@@ -534,16 +796,17 @@ namespace mw
 
       first = new lm::behavior;
 
+      
       aimTestCommand = new turretTesting(turret, &mPlayer);
       aimCommand = new turretCommand(turret, &mPlayer);
 
       first->addCommand(aimCommand);
-
+      
+      
       node1Instinct = new lm::reflex(node1, first, aimTestCommand);
       AI.registerNode(node1);
 
       mMap[turret->getUID()] = node1;
-
       return turret;
    }
 }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Scene.cpp,v $
- * Date modified: $Date: 2002-11-03 01:15:59 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-12-03 06:50:44 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,6 +45,8 @@ namespace mw
    void
    Scene::add(Entity* entity)
    {
+
+      std::cout << mEntities.count(entity->getUID()) << std::endl << std::endl;
       assert(entity != 0);
       assert(mEntities.count(entity->getUID()) == 0);
       mEntities[entity->getUID()] = entity;

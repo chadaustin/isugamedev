@@ -24,21 +24,25 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.h,v $
- * Date modified: $Date: 2002-11-04 07:37:17 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-12-03 06:50:44 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_LEVEL_LOADER_H
 #define MW_LEVEL_LOADER_H
 
+#include <cppdom/cppdom.h>
 #include <string>
 #include "Entity.h"
+
+using namespace cppdom;
 
 namespace mw
 {
    class GameState;
 
+   
    /**
     * Instances of this object know how to read and parse the Midworld level
     * files and setup the game accordingly.
@@ -46,6 +50,14 @@ namespace mw
    class LevelLoader
    {
    public:
+      /**
+       * dumpNode just looks at each node recursively in the file and passes it 
+       * to the correct handler
+       */
+      static void dumpNode( XMLNode &node, GameState* g, int level = 0);
+      
+      static void process_xml(std::string filename, GameState* g);
+      
       /**
        * Loads in the level contained in the given file and modifies the given
        * game state accordingly.
@@ -55,8 +67,12 @@ namespace mw
        *
        * @throws  std::runtime_error if there was a problem reading the file
        */
-      static void load(const std::string& level, GameState* gameState);
-      
+ //     static void load(const std::string& level, GameState* gameState);
+      static void handleStaticEntity(Entity* e, XMLNode &node);
+      static void handleAmmoEntity(Entity* e, XMLNode &node);
+      static Entity* handleGunEntity(XMLNode &node, GameState* g);
+      static Entity* handleTurretEntity(XMLNode &node, GameState* g);
+      static Entity* handleDroidEntity(XMLNode &node, GameState* g);
    private:
       LevelLoader();
       LevelLoader(const LevelLoader&);

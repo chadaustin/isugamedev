@@ -36,7 +36,7 @@ namespace mw
    void
    GameScene::draw()
    {
-      const int size = 500;
+      const int size = 100;
       glPushMatrix();
          glRotatef(90, 1, 0, 0);
          glColor4f(1,1,1,1);

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-11-26 01:50:09 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2002-12-03 06:50:44 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,6 +53,8 @@ namespace mw
       mLastSlot = 0;
       mHealth = 100;
       setModel("player");
+      gmtl::Quatf temp = gmtl::makeRot<gmtl::Quatf>(gmtl::AxisAnglef(3.14159, gmtl::Vec3f(0,1,0)));
+      setRot(temp);
    }
 
    bool Player::isWeaponSlotEmpty( int slot )

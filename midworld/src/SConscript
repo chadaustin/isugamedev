@@ -108,7 +108,8 @@ buildInfo.addSources(map(lambda n: File(n + '.cpp'),  classes))
 env = baseEnv.Copy()
 
 env ['LIBS'].extend(['Loom'])
-env ['LIBS'].extend(['OSGSystem','OSGBase'])
+env ['LIBS'].extend(['cal3d'])
+env ['LIBS'].extend(['cppdom'])
 
 
 SetupSDL(env)

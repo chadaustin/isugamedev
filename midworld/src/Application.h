@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.h,v $
- * Date modified: $Date: 2002-11-08 09:30:23 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-12-03 06:50:44 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -57,7 +57,7 @@ namespace mw
       
       int getWidth() const { return mWidth; }
       int getHeight() const { return mHeight; }
-
+      
    private:
       int mWidth;
       int mHeight;
