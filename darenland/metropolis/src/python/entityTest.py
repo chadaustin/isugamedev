@@ -53,3 +53,6 @@ c.race = 'Human'
 c.attributes['Strength'] = 3
 c.attributes['Body'] = 2
 c.printString()
+w = World.instance()
+print w
+w.addEntity(c)

@@ -44,7 +44,8 @@ namespace metro
 		Entity * c = new Character(4);
 
 		c->setPosition(Coord2i(0,0));
-		mEntityList.push_back( c );
+		EntityID id = c->getID();
+		mEntities[id] = boost::shared_ptr< Entity >(c);
 	}
 
 	World::World( void )
@@ -55,10 +56,40 @@ namespace metro
 	{
 	}
 
+	void
+	World::addEntity(boost::shared_ptr< Entity > entity)
+	{
+		gmtl::Point2i position = entity->getPosition();
+		EntityID id = entity->getID();
+		mEntities[id] = entity;
+		mEntityMap.insert(std::make_pair< gmtl::Point2i, EntityID >( position, id ));
+	}
+
+	void
+	World::removeEntity(EntityID id)
+	{
+		boost::shared_ptr< Entity > e = mEntities[id];
+		mEntityMap.erase(e->getPosition());
+		mPathMap.erase(id);
+		mEntities.erase(id);
+	}
+
+	boost::shared_ptr< Entity >
+	World::getEntity(EntityID id)
+	{
+		if (mEntities.find(id) != mEntities.end())
+		{
+			return mEntities[id];
+		}
+		boost::shared_ptr< Entity > empty;
+		return empty;
+	}
+	
 	//draws a hexagon outline, given an edge state, colors open edges green,
 	//closed ones red
 	//north is negative Z axis, East is positive X axis
-	void drawHexEdges( float x, float y, float z, float r, const EdgeState &edge )
+	void drawHexEdges( float x, float y, float z, float r, 
+			             const EdgeState &edge )
 	{
 		float cs30 = cos( 30 * DEG_TO_RAD );
 		float sn30 = sin( 30 * DEG_TO_RAD );
@@ -287,19 +318,19 @@ namespace metro
 			}
 		}
 
-  for( unsigned int i = 0; i < mEntityList.size(); ++i)
+	  for( ConstEntityItr itr = mEntities.begin(); itr != mEntities.end(); ++itr)
 		{
-			gmtl::Point3f p = getWorldCoords( mEntityList[i]->getPosition() );
+			gmtl::Point3f p = getWorldCoords(itr->second->getPosition() );
 			glTranslatef( p[0], p[1], p[2] );
-			mEntityList[i]->draw();
+			itr->second->draw();
 		}
 	}
 
 	void World::update( float dt )
 	{
-		for( unsigned int i = 0; i < mEntityList.size(); ++i)
+		for( EntityItr itr = mEntities.begin(); itr != mEntities.end(); ++itr)
 		{
-			mEntityList[i]->update( dt );
+			itr->second->update( dt );
 		}
 	}
 }
