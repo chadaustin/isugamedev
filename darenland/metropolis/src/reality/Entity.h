@@ -4,11 +4,11 @@
 #include "Includes.h"
 #include "EntityID.h"
 #include "boost/shared_ptr.hpp"
-#include "Coord2i.h"
+#include "gmtl/Point.h"
+#include "PointOps.h"		///For the gmtl::Point comparison operators.
 
 namespace metro
 {
-	class World;
 	class Entity
 	{
 	public:
@@ -56,11 +56,11 @@ namespace metro
 		EntityID getID( void ) const;
 
 		//TODO: this should probably go into a 'movable' or 'locational' class
-		virtual Coord2i getPos()const;
-		virtual void setPos(const Coord2i & p);
+		virtual gmtl::Point2i getPos()const;
+		virtual void setPos(const gmtl::Point2i & p);
 
 	protected:
-		Coord2i pos;
+		gmtl::Point2i pos;
 		///the unique identifier of this entity
 		EntityID mId;
 	};

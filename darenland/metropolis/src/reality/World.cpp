@@ -15,9 +15,9 @@ namespace metro
 
 	void World::initHardcoded()
 	{
-		mHexRad=2;
+		mHexRad = 2;
 		//the map is a 21x21 grid
-		mMapSize.set(21,21);
+		mMapSize.set(21, 21);
 
 		//go through all the grid points and change stuff
 		for( unsigned int i = 0; i < mMapSize[0]; i ++ )

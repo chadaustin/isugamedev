@@ -5,7 +5,8 @@
 #include "EdgeState.h"
 #include "Character.h"		//for the Playa'
 #include "Lock.h"
-#include "Coord2i.h"
+#include <gmtl/Point.h>
+#include "PointOps.h"		//for the gmtl::Point comparison operators
 
 namespace metro
 {
@@ -23,30 +24,31 @@ namespace metro
 		void initHardcoded();
 
 		//access to lock and edge state information
-		EdgeState getEdgeState( const Coord2i & tile )const;
-		void setEdgeState( const Coord2i & tile );
-		Lock getLock( const Coord2i & tile )const;
+		//TODO:  Implement these.
+		EdgeState getEdgeState( const gmtl::Point2i & tile )const;
+		void setEdgeState( const gmtl::Point2i & tile );
+		Lock getLock( const gmtl::Point2i & tile )const;
 		
 		//returns the openGL world coordinates of a tile
-		gmtl::Point3f getWorldCoords( const Coord2i & tile )const;
+		gmtl::Point3f getWorldCoords( const gmtl::Point2i & tile )const;
 		gmtl::Point3f getWorldCoords( unsigned int x, unsigned int y )const;
 		
 		//keeps the entity map coordinates up to date, 
 		//should be called by the move handler
-		void updateEntityCoords( EntityID entity, const Coord2i & prevTile, const Coord2i & currentTile );
+		void updateEntityCoords( EntityID entity, const gmtl::Point2i & prevTile, const gmtl::Point2i & currentTile );
 
 		//public for testing purposes
-		std::map < Coord2i, EdgeState > mEdgeMap;
-		std::map < Coord2i, Lock > mLockMap;
-		std::multimap < Coord2i, EntityID > mEntityMap;
-		std::map < EntityID, std::vector< Coord2i > > mPathMap;
+		std::map < gmtl::Point2i, EdgeState > mEdgeMap;
+		std::map < gmtl::Point2i, Lock > mLockMap;
+		std::multimap < gmtl::Point2i, EntityID > mEntityMap;
+		std::map < EntityID, std::vector< gmtl::Point2i > > mPathMap;
 
 	private:
 		World( void );
 		static boost::shared_ptr< World > mSelf;
 
 		//defines bottom right corner of grid + (1,1), the max size of the map
-		Coord2i mMapSize;
+		gmtl::Point2i mMapSize;
 		
 		//radius size of hexagon
 		float mHexRad;

@@ -1,5 +1,5 @@
-#ifndef _METRO_COORD2i_H_
-#define _METRO_COORD2i_H_
+#ifndef _METRO_POINT_OPS_H_
+#define _METRO_POINT_OPS_H_
 
 #include <gmtl/Point.h>
 

@@ -1,4 +1,4 @@
-#include "Coord2i.h"
+#include "PointOps.h"
 
 namespace gmtl
 {
