@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Socket.cpp,v $
- * Date modified: $Date: 2002-02-26 00:42:13 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-26 00:51:07 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -38,7 +38,9 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#include "socket.h"
+#include "Socket.h"
+
+namespace net {
 
 Socket::Socket(void)
    :m_socket(INVALID_SOCKET),
@@ -271,3 +273,5 @@ bool Socket::ioControl(long cmd, unsigned long *argp) {
 bool Socket::isOpen() {
    return (m_socket != INVALID_SOCKET);
 }
+
+} // namespace net

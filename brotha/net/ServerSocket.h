@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ServerSocket.h,v $
- * Date modified: $Date: 2002-02-26 00:42:13 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-26 00:51:07 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,7 +41,9 @@
 #if !defined(ServerSocket_H)
 #define ServerSocket_H
 
-#include "socket.h"
+#include "Socket.h"
+
+namespace net {
 
 class ServerSocket : public Socket
 {
@@ -55,5 +57,7 @@ public:
    bool listen();
    bool accept(Socket &socket);
 };
+
+} // namespace net
 
 #endif

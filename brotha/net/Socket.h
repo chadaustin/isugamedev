@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Socket.h,v $
- * Date modified: $Date: 2002-02-26 00:42:13 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-26 00:51:07 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -52,6 +52,8 @@
    #define ioctlsocket ioctl
 #endif
 
+namespace net {
+
 class Socket {
 protected:
    SOCKET m_socket;
@@ -78,5 +80,7 @@ public:
 
    bool isOpen();
 };
+
+} // namespace net
 
 #endif

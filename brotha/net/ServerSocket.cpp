@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ServerSocket.cpp,v $
- * Date modified: $Date: 2002-02-26 00:42:13 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-26 00:51:06 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -38,7 +38,9 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#include "serversocket.h"
+#include "ServerSocket.h"
+
+namespace net {
 
 ServerSocket::ServerSocket(long _numQueued)
    :m_numQueued(_numQueued) {
@@ -91,3 +93,4 @@ bool ServerSocket::accept(Socket &socket) {
    }
 }
 
+} // namespace net
