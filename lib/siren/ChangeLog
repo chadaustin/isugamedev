@@ -1,3 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-01-09 nonchocoboy  Added in state architecture and the kernel.
+2003-01-02 nonchocoboy  Added in the input subsystem from Midworld.
+2003-01-02 nonchocoboy  Added in the resource manager from Midworld.
+2003-01-02 nonchocoboy  Added in the sound subsystem from Midworld.
 2003-01-01 nonchocoboy  Setup repository
