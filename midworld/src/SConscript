@@ -23,6 +23,7 @@ classes = Split("""
    CreditsState
    Enemy
    GameManager
+   GameScene
    GameState
    IntroState
    Jukebox
