@@ -12,12 +12,13 @@ namespace mw
    {
    public:
       NullWeapon()
+         : mCategory(Weapon::HAND), mName("Null")
       {}
 
       /** return the Player slot number that the weapon goes in. */
-      const WeaponCategory& getCategory() const { return Weapon::HAND; }
+      const WeaponCategory& getCategory() const { return mCategory; }
 
-      const std::string& getName() const { return "Null"; }
+      const std::string& getName() const { return mName; }
 
       /**
        * Creates a new bullet as though it were fired from this weapon.
@@ -59,6 +60,9 @@ namespace mw
       {
          return 0;
       }
+   private:
+      WeaponCategory mCategory;
+      std::string mName;
    };
 }
 
