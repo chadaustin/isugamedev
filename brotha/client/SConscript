@@ -6,6 +6,8 @@ classes = [
 #   'AppState',
    'BrothaApp',
    'Camera',
+   'GameState',
+   'GarageState',
    'LoginState',
    'ModelManager',
    'Scene',
