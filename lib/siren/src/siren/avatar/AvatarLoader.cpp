@@ -1,3 +1,4 @@
+#include <sstream>
 #include <cal3d/cal3d.h>
 #include <siren/avatar/AvatarLoader.h>
 #include <siren/ResourceManager.h>
@@ -144,7 +145,7 @@ namespace siren
       return ResourceManagerSingleton::instance().get<CalCoreMaterial*>(name);
    }
 
-   CalCoreModel*
+   SIREN_EXPORT(CalCoreModel*)
    loadCoreModel(const std::string& filename)
    {
       //Load up the given config file
@@ -253,7 +254,7 @@ namespace siren
          if (strKey == "scale")
          {
             //Automatically set the avatar's scale factor
-            scaleFactor = atof(strData.c_str());
+            scaleFactor = float(atof(strData.c_str()));
          }
          else if (strKey == "skeleton")
          {

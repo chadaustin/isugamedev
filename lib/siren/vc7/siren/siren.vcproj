@@ -18,6 +18,7 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm1000"
 				Optimization="0"
 				AdditionalIncludeDirectories="&quot;../../third-party-vc7/include&quot;;&quot;$(ProjectDir)../../external/boost&quot;;$(ProjectDir)../../src"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;SIREN_EXPORTS"
@@ -27,13 +28,13 @@
 				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
+				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="4"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib audiere.lib OpenGL32.lib GLU32.lib corona.lib"
+				AdditionalDependencies="boost_python_debug.lib cal3d.lib SDL.lib audiere.lib OpenGL32.lib GLU32.lib corona.lib"
 				OutputFile="$(OutDir)/siren_d.dll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../../third-party-vc7/lib"
@@ -64,6 +65,7 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/Zm1000"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				OmitFramePointers="TRUE"
@@ -72,15 +74,16 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
+				RuntimeTypeInfo="TRUE"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
+				Detect64BitPortabilityProblems="FALSE"
 				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib audiere.lib OpenGL32.lib GLU32.lib corona.lib"
+				AdditionalDependencies="boost_python.lib cal3d.lib SDL.lib audiere.lib OpenGL32.lib GLU32.lib corona.lib"
 				OutputFile="$(OutDir)/siren.dll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../../third-party-vc7/lib"
@@ -113,30 +116,6 @@
 				RelativePath="..\..\src\siren\Export.h">
 			</File>
 			<File
-				RelativePath="..\..\src\siren\input\InputAction.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\input\InputAction.h">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\input\InputManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\input\InputManager.h">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\input\InputSymbol.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\input\InputSymbol.h">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\Jukebox.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\Jukebox.h">
-			</File>
-			<File
 				RelativePath="..\..\src\siren\Kernel.cpp">
 			</File>
 			<File
@@ -153,18 +132,6 @@
 			</File>
 			<File
 				RelativePath="..\..\src\siren\Singleton.h">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\SoundEffectManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\SoundEffectManager.h">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\SoundManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\siren\sound\SoundManager.h">
 			</File>
 			<File
 				RelativePath="..\..\src\siren\State.cpp">
@@ -199,6 +166,88 @@
 			<File
 				RelativePath="..\..\src\siren\siren.h">
 			</File>
+			<Filter
+				Name="Avatar"
+				Filter="">
+				<File
+					RelativePath="..\..\src\siren\avatar\Avatar.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\avatar\Avatar.h">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\avatar\AvatarLoader.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\avatar\AvatarLoader.h">
+				</File>
+			</Filter>
+			<Filter
+				Name="Input"
+				Filter="">
+				<File
+					RelativePath="..\..\src\siren\input\InputAction.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\input\InputAction.h">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\input\InputManager.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\input\InputManager.h">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\input\InputSymbol.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\input\InputSymbol.h">
+				</File>
+			</Filter>
+			<Filter
+				Name="Python"
+				Filter="">
+				<File
+					RelativePath="..\..\src\siren\python\PyAvatar.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\python\PyKernel.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\python\PySDLUtil.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\python\PyState.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\python\PyStateFactory.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\python\PythonAPI.cpp">
+				</File>
+			</Filter>
+			<Filter
+				Name="Sound"
+				Filter="">
+				<File
+					RelativePath="..\..\src\siren\sound\Jukebox.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\sound\Jukebox.h">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\sound\SoundEffectManager.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\sound\SoundEffectManager.h">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\sound\SoundManager.cpp">
+				</File>
+				<File
+					RelativePath="..\..\src\siren\sound\SoundManager.h">
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

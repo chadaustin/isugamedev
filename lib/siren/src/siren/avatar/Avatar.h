@@ -11,14 +11,13 @@
 #include <gmtl/Quat.h>
 #include <gmtl/Generate.h>
 
-#include <GL/gl.h>
-#include <GL/glu.h>
-
 #include <cal3d/cal3d.h>
+#include <siren/Export.h>
+#include <siren/OpenGL.h>
 
 namespace siren
 {
-   class Avatar
+   class SIREN_CLASS Avatar
    {
    public:
       Avatar(CalCoreModel* coremodel);

@@ -63,8 +63,8 @@ namespace siren
       //Drawing options
       mDrawMode = DrawMesh;
       mTexturing = true;
-      mShadowColor[0] = mShadowColor[1] = mShadowColor[2] = 0.05;
-      mShadowColor[3] = 0.3;
+      mShadowColor[0] = mShadowColor[1] = mShadowColor[2] = 0.05f;
+      mShadowColor[3] = 0.3f;
 
       //Animations
       mCurrentAnimIDs.clear();
@@ -974,11 +974,11 @@ namespace siren
 
       if (getScale() == 0.0)
       {
-         scaleMat = gmtl::makeScale<gmtl::Matrix44f>(0.0);
+         scaleMat = gmtl::makeScale<gmtl::Matrix44f>(0.0f);
       }
       else
       {
-         scaleMat = gmtl::makeScale<gmtl::Matrix44f>(1.0 / getScale());
+         scaleMat = gmtl::makeScale<gmtl::Matrix44f>(1.0f / getScale());
       }
 
       return transMat * rotMat * scaleMat * origMat;
