@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: glRenderLight.h,v $
-//    $Date: 2001-09-10 14:54:06 $
-//    $Revision: 1.4 $
+//    $Date: 2001-09-10 16:25:10 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -27,6 +27,8 @@
 //    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 ///////////////// <auto-copyright END do not edit this line> ///////////////////
+#ifndef GLRENDERLIGHT_H_INCLUDED
+#define GLRENDERLIGHT_H_INCLUDED
 
 #include <assert.h>
 
@@ -111,3 +113,6 @@ namespace kev
    }
 
 };
+
+
+#endif // ! GLRENDERLIGHT_H_INCLUDED
