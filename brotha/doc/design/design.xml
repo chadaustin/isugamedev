@@ -5,8 +5,8 @@
   <bookinfo>
     <title>Warn-a-Brotha Design</title>
     <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
-    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.11 2002-04-08 07:17:53 nonchocoboy Exp $</releaseinfo>
-    <pubdate>$Date: 2002-04-08 07:17:53 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.12 2002-04-08 09:36:33 nonchocoboy Exp $</releaseinfo>
+    <pubdate>$Date: 2002-04-08 09:36:33 $</pubdate>
     <authorgroup>
       <author>
         <firstname>Chad</firstname>
@@ -234,8 +234,10 @@
       <section>
         <title>Module Interfaces</title>
         <para>The interface for the Sound module consists of the <classname>Jukebox</classname> and <classname>SoundEffectManager</classname> classes.</para>
-        <section>
-          <title><classname>Jukebox</classname></title>
+        <classsynopsis>
+          <ooclass>
+            <classname>Jukebox</classname>
+          </ooclass>
           <methodsynopsis>
             <modifier>public</modifier>
             <void/>
@@ -272,9 +274,11 @@
             <methodname>stop</methodname>
             <void/>
           </methodsynopsis>
-        </section>
-        <section>
-          <title><classname>SoundEffectManager</classname></title>
+        </classsynopsis>
+        <classsynopsis>
+          <ooclass>
+            <classname>SoundEffectManager</classname>
+          </ooclass>
           <methodsynopsis>
             <modifier>public</modifier>
             <void/>
@@ -284,7 +288,7 @@
               <parameter>filename</parameter>
             </methodparam>
           </methodsynopsis>
-        </section>
+        </classsynopsis>
       </section>
       <section>
         <title>Design Issues</title>
@@ -359,30 +363,88 @@
     </section>
     <section>
       <title>UI Module</title>
-      <para>Description of what this module does here ...</para>
-      <section>
-        <title>Subsystem 1</title>
-        <para>Description of Subsystem 1</para>
-      </section>
-      <section>
-        <title>Subsystem 2</title>
-        <para>Description of Subsystem 2</para>
-      </section>
-      <section>
-        <title>Module Interfaces</title>
-        <para>blah blah</para>
-      </section>
+      <para>The UI module is responsible for the creation and management of GUI widget elements such as windows, buttons and such. For this module, we will rely on a COTS library suitable for our application.</para>
       <section>
         <title>Design Issues</title>
-        <para>blah blah</para>
-        <section>
-          <title>Issue 1</title>
-          <para>blah</para>
-        </section>
-        <section>
-          <title>Issue 2</title>
-          <para>blah</para>
-        </section>
+        <qandaset>
+          <qandaentry>
+            <question>
+              <para>Which COTS library should we use for the GUI implementation?</para>
+            </question>
+            <answer>
+              <para>The client application is being developed using OpenGL. As such normal Win32 controls may not be used within the windows with the OpenGL rendering context. We need to depend on some external library that can render controls within using OpenGL commands.</para>
+              <formalpara>
+                <title>Alternative 1 - GLUI</title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist>
+                          <listitem>
+                            <para>Easy to use.</para>
+                          </listitem>
+                          <listitem>
+                            <para>It's been around a while and is relatively mature.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist>
+                          <listitem>
+                            <para>Won't integrate well with <emphasis>GameKernel</emphasis>.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Difficult to create controls in the master window. Often times, a separate window is required to put the control in.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Control rendering is not controllable.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Alternative 2- phui</title>
+                <para><variablelist>
+                    <varlistentry>
+                      <term>Pros</term>
+                      <listitem>
+                        <itemizedlist>
+                          <listitem>
+                            <para>Easy to use.</para>
+                          </listitem>
+                          <listitem>
+                            <para>Allows customization of the rendering of controls.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                    <varlistentry>
+                      <term>Cons</term>
+                      <listitem>
+                        <itemizedlist>
+                          <listitem>
+                            <para>Is not mature or stable.</para>
+                          </listitem>
+                          <listitem>
+                            <para>May integrate with <emphasis>GameKernel</emphasis> to some limited extend.</para>
+                          </listitem>
+                        </itemizedlist>
+                      </listitem>
+                    </varlistentry>
+                  </variablelist></para>
+              </formalpara>
+              <formalpara>
+                <title>Conclusion</title>
+                <para>We're stuck with <emphasis>GameKernel</emphasis> to provide our applications input. Thus the choice clearly points towards using phui. We have to gamble that phui developers can make it stable in the next couple of weeks.</para>
+              </formalpara>
+            </answer>
+          </qandaentry>
+        </qandaset>
       </section>
     </section>
   </chapter>
