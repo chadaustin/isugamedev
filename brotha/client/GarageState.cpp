@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-05-01 19:23:27 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-01 19:35:57 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -94,6 +94,8 @@ namespace client {
       mRoot->add(mDealer);
       mRoot->add(mChopShop);
       mRoot->add(mMainWnd);
+
+      mJoinGame = false;
    }
 
    GarageState::~GarageState() {
