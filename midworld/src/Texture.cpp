@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2002-10-01 06:29:23 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-10-09 07:42:45 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -138,11 +138,12 @@ namespace mw
    {
       bind();
       glBegin(GL_QUADS);
-      glTexCoord2f(0,          0);           glVertex2f(x1, y1);
-      glTexCoord2f(mRealWidth, 0);           glVertex2f(x2, y1); 
-      glTexCoord2f(mRealWidth, mRealHeight); glVertex2f(x2, y2); 
-      glTexCoord2f(0,          mRealHeight); glVertex2f(x1, y2); 
+         glTexCoord2f(0,          0);           glVertex2f(x1, y1);
+         glTexCoord2f(mRealWidth, 0);           glVertex2f(x2, y1); 
+         glTexCoord2f(mRealWidth, mRealHeight); glVertex2f(x2, y2); 
+         glTexCoord2f(0,          mRealHeight); glVertex2f(x1, y2); 
       glEnd();
+      unbind();
    }
 
 }
