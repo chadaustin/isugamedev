@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 08:48:18 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-02-24 09:49:38 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -51,6 +51,10 @@ namespace phui {
          : mX(0), mY(0), mWidth(0), mHeight(0), mEnabled(true), mVisible(true),
            mBackgroundColor(0,0,0,0), mForegroundColor(1,1,1,1)
       {}
+
+      virtual ~Widget()
+      {
+      }
 
    public:
       /**
