@@ -54,7 +54,7 @@ namespace mw
    {
       switch (sym)
       {
-      case SDLK_ESCAPE: if (down) quit(); break;
+      //case SDLK_ESCAPE: if (down) quit(); break;
       default:
          if (down) this->invokeTransition( new GameState ); 
          break;
