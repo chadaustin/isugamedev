@@ -6,6 +6,7 @@
 
 #include "ListenServer.h"
 #include "GameThread.h"
+#include "WebServer.h"
 #include <vector>
 
 namespace server {
@@ -14,6 +15,7 @@ namespace server {
       BrothaServer() {
          m_gameThread = 0;
          m_listenServer = 0;
+         m_webServer = 0;
       }
 
       ~BrothaServer() {
@@ -47,15 +49,22 @@ namespace server {
       }
 
       void StartWebServer() {
-         // TODO: jcjcjcjc
+         m_webServer = new WebServer();
+
+         m_webServer->start();
       }
 
       void StopWebServer() {
-         // TODO: jcjcjcjc
+         if(m_webServer != 0) {
+            m_webServer->stop();
+         }
+
+         m_webServer = 0;
       }
    private:
       GameThread *m_gameThread;
       ListenServer *m_listenServer;
+      WebServer *m_webServer;
 
       net::NetMgr *m_netMgr;
    };
