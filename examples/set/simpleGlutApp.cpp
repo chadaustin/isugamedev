@@ -24,6 +24,10 @@ int mouseX, mouseY;
       {
          ::Sleep( (int) msec );
       }
+	  void sleep( float sec )
+	  {
+		  ::Sleep(sec*1000);
+	  }
 #else
       #include <unistd.h>
       void msleep( float msec )
@@ -75,62 +79,75 @@ public:
    }
    int width, height;
    int mainWin_contextID;
+
+   deck dek;
+   int score;
+
+	////////////////////////////////////
+	// I don't have a good place to put
+	// this so I'm putting it here for now
+	// TODO: move this to a more appropriate place
+	////////////////////////////////////
+	bool checkForWinner(){
+	   int c1_color, 
+		   c1_number, 
+		   c1_shape, 
+		   c2_color, 
+		   c2_number, 
+		   c2_shape,
+		   c3_color,
+		   c3_number,
+		   c3_shape,
+		   count=0;
+		   for(int i=0;i<12;i++){
+			  if(dek.isSelected(i)){
+				 if(count==0){
+					dek.getCardAttribute(i, c1_color, c1_shape, c1_number);
+					count++;
+				 }else if(count==1){
+					dek.getCardAttribute(i, c2_color, c2_shape, c2_number);
+					count++;
+				 }else if(count==2){
+					dek.getCardAttribute(i, c3_color, c3_shape, c3_number);
+					count++;
+				 }
+			  }
+		   }
+	//       std::cout << c1_color << c2_color << c3_color << c1_shape << c2_shape << c3_shape << c1_number << c2_number << c3_number << std::endl;        
+	    // I decided to calculate the score on the fly here, it is pretty messy
+		if(((c1_color == c2_color) && (c2_color == c3_color)) || ((c1_color != c2_color) && (c2_color != c3_color) && (c1_color != c3_color))){
+		   if(((c1_number == c2_number) && (c2_number == c3_number)) || ((c1_number != c2_number) && (c2_number != c3_number) && (c1_number != c3_number))){
+			  if(((c1_shape == c2_shape) && (c2_shape == c3_shape)) || ((c1_shape != c2_shape) && (c2_shape != c3_shape) && (c1_shape != c3_shape))){
+				 // if the shapes are teh same add 5 else add 10
+				 if((c1_shape == c2_shape) && (c2_shape == c3_shape)) score+=5;
+				 else score+=10;
+				 
+				 // if the colors are the same add 5, else add 10
+				 if((c1_color == c2_color) && (c2_color == c3_color)) score+=5;
+		         else score+=10;
+				 
+		         // if the numbers are same add 5 else add 10
+			     if((c1_number == c2_number) && (c2_number == c3_number))score+=5;
+			     else score+=10;
+				 
+				 std::cout << "winner" << std::endl;
+				 return true;
+			  }
+		   }
+		}
+	    std::cout << "looser" << std::endl;
+	    score-=30;
+	    return false;
+	}
+
 };
+
+
 App app;
 double timechange = 0.0;
 double lasttime = getTime(), currenttime = getTime();
 int count=0;
 int i,j;
-deck dek;
-int score=20;
-
-////////////////////////////////////
-// I don't have a good place to put
-// this so I'm putting it here for now
-// TODO: move this to a more appropriate place
-////////////////////////////////////
-bool checkForWinner(){
-   int c1_color, 
-       c1_number, 
-       c1_shape, 
-       c2_color, 
-       c2_number, 
-       c2_shape,
-       c3_color,
-       c3_number,
-       c3_shape,
-       count=0;
-       for(int i=0;i<12;i++){
-          if(dek.isSelected(i)){
-             if(count==0){
-                dek.getCardAttribute(i, c1_color, c1_shape, c1_number);
-                count++;
-             }else if(count==1){
-                dek.getCardAttribute(i, c2_color, c2_shape, c2_number);
-                count++;
-             }else if(count==2){
-                dek.getCardAttribute(i, c3_color, c3_shape, c3_number);
-                count++;
-             }
-          }
-       }
-//       std::cout << c1_color << c2_color << c3_color << c1_shape << c2_shape << c3_shape << c1_number << c2_number << c3_number << std::endl;        
-   if(((c1_color == c2_color) && (c2_color == c3_color)) || ((c1_color != c2_color) && (c2_color != c3_color) && (c1_color != c3_color))){
-      if(((c1_number == c2_number) && (c2_number == c3_number)) || ((c1_number != c2_number) && (c2_number != c3_number) && (c1_number != c3_number))){
-         if(((c1_shape == c2_shape) && (c2_shape == c3_shape)) || ((c1_shape != c2_shape) && (c2_shape != c3_shape) && (c1_shape != c3_shape))){
-            std::cout << "winner" << std::endl;
-            score+=20;
-            return true;
-         }else{
-         }
-      }
-   }
-   std::cout << "looser" << std::endl;
-   score-=20;
-   return false;
-}
-
-
 
 
 
@@ -161,14 +178,11 @@ static void OnRedisplay()
 	count=0;
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear The Screen And The Depth Buffer
 	glLoadIdentity();									// Reset The View
-	dek.draw();
+	app.dek.draw();
    
    count=0;
    glutSwapBuffers();
-   
 
-
-   
    // update the last time
    lasttime = currenttime;
    currenttime = getTime();
@@ -283,24 +297,24 @@ static void OnMouseClick( int button, int state, int x, int y )
    //             you may have to get this from the glut website 
    //             (use www.google.com to search for it)
    if (button==GLUT_LEFT_BUTTON && state == GLUT_DOWN){
-      if(((temp=dek.isACard(mouseX, mouseY))!=-1) && (!dek.isSelected(temp))){
-         dek.selectCard(temp);
-         if(dek.numSel()==3){
-            if(checkForWinner()){
-               std::cout << "winner:" << score << std::endl;
-               sleep(2);
+      if(((temp=app.dek.isACard(mouseX, mouseY))!=-1) && (!app.dek.isSelected(temp))){
+         app.dek.selectCard(temp);
+         if(app.dek.numSel()==3){
+            if(app.checkForWinner()){
+               std::cout << "winner:" << app.score << std::endl;
+               msleep(100);
                for(int i=0;i<12;i++){
-                  if(dek.isSelected(i))
-                     dek.deselectCard(i);
-                  dek.setCardAttributeRandom(i);
+                  if(app.dek.isSelected(i))
+                     app.dek.deselectCard(i);
+                  app.dek.setCardAttributeRandom(i);
                }
             }else{
-               std::cout << "loser:" << score << std::endl;
+               std::cout << "loser:" << app.score << std::endl;
                sleep(2);
                for(j=0;j<12;j++){
-                  if(dek.isSelected(j))
-                     dek.deselectCard(j);
-                  dek.setCardAttributeRandom(j);
+                  if(app.dek.isSelected(j))
+                     app.dek.deselectCard(j);
+                  app.dek.setCardAttributeRandom(j);
                }
             }
          }
@@ -371,7 +385,7 @@ static int OnApplicationInit()
 	// (like before a graphics context is obtained)
    
 
-   
+    app.score=0;
 	// !!!TODO!!!: put your initialization code here.
 
 	return 0;
@@ -380,27 +394,27 @@ static int OnApplicationInit()
 
 void main( int argc, char* argv[] )
 {
-    // Initialize the application
-    // initialize the state of your app here if needed...
-    OnApplicationInit();
+   // Initialize the application
+   // initialize the state of your app here if needed...
+   OnApplicationInit();
    
-    // Set the window's initial size
-    ::glutInitWindowSize( 640, 480 );
-    ::glutInit( &argc, argv );
+   // Set the window's initial size
+   ::glutInitWindowSize( 640, 480 );
+   ::glutInit( &argc, argv );
   
-    // Set to double buffer to reduce flicker
-    ::glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
+   // Set to double buffer to reduce flicker
+   ::glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     
 
 
-    // Set the window title
-    app.mainWin_contextID = ::glutCreateWindow( "Simple Load Runner" );
-    
-    std::cout<<"\n"<<std::flush;
-    std::cout<<"set - by the Iowa State Game Developers" << std::endl << "by Josh Brown (contribution: 100%)" 
-		<< std::endl << "browner@iastate.edu"<< std::endl<<std::flush;
-    std::cout<<"\n"<<std::flush;
-    
+   // Set the window title
+   app.mainWin_contextID = ::glutCreateWindow( "Simple Load Runner" );
+   
+   std::cout<<"\n"<<std::flush;
+   std::cout<<"set - by the Iowa State Game Developers" << std::endl << "by Josh Brown (contribution: 100%)" 
+	<< std::endl << "browner@iastate.edu"<< std::endl<<std::flush;
+   std::cout<<"\n"<<std::flush;
+   
    // display callbacks.
    ::glutReshapeFunc( OnReshape );
    ::glutIdleFunc( OnIdle );
@@ -408,7 +422,7 @@ void main( int argc, char* argv[] )
 
    // tell glut to not call the keyboard callback repeatedly 
    // when holding down a key. (uses edge triggering, like the mouse)
- //  ::glutIgnoreKeyRepeat( 1 );
+   //  ::glutIgnoreKeyRepeat( 1 );
 
    // keyboard callback functions.
    ::glutKeyboardFunc( OnKeyboardDown );
@@ -421,11 +435,11 @@ void main( int argc, char* argv[] )
    ::glutMotionFunc( OnMousePos );
    ::glutPassiveMotionFunc( OnMousePos );
 
-   dek.init();
+   app.dek.init();
    
-    // start the application loop, your callbacks will now be called
-    // time for glut to sit and spin.
-    ::glutMainLoop();
+   // start the application loop, your callbacks will now be called
+   // time for glut to sit and spin.
+   ::glutMainLoop();
 }
 
 
