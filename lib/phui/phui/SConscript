@@ -6,6 +6,7 @@ sources = [
     'Font.cpp',
     'FontRenderer.cpp',
     'Insets.cpp',
+    'Rect.cpp',
     'RootFactory.cpp',
     'RootWidget.cpp',
     'WidgetContainer.cpp',
