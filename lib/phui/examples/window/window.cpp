@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-04-22 06:15:25 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-04-24 02:25:38 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -107,7 +107,11 @@ void OnKeyboardDown( unsigned char key, int x, int y )
    // w toggles opening window
    else if ( key == 'w' )
    {
-      gWnd->setVisible( ! gWnd->isVisible() );
+      if (gWnd->isVisible()) {
+         gWnd->hide();
+      } else {
+         gWnd->show();
+      }
    }
 }
 
@@ -130,27 +134,27 @@ int main( int argc, char** argv )
       gWnd = new phui::Window( "my contacts blow" );
       gWnd->setPosition( 150, 75 );
       gWnd->setSize( 300, 250 );
-      gWnd->setVisible( true );
+      gWnd->show();
       gWnd->setBackgroundColor(phui::Colorf(1, 0, 0, 0.75f));
 
       phui::Window* window = new phui::Window("other window");
       window->setPosition(250, 175);
       window->setSize(300, 250);
-      window->setVisible(true);
+      window->show();
       window->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
 
       phui::Button* btn( new phui::Button(
                             "This is a really long string Push me!") );
       btn->setPosition( 10, 10 );
       btn->setSize( 75, 30 );
-      btn->setVisible( true );
+      btn->show();
       btn->setBackgroundColor( phui::Colorf(0,0,1,0.7) );
       gWnd->add( btn );
 
       phui::Label* lbl( new phui::Label("Label me!") );
       lbl->setPosition( 75, 10 );
       lbl->setSize( 100, 45 );
-      lbl->setVisible( true );
+      lbl->show();
       lbl->setBackgroundColor( phui::Colorf(0,1,1,0.7) );
       gWnd->add( lbl );
 

@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-22 11:55:17 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-04-24 02:25:37 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -201,33 +201,33 @@ int main(int argc, char** argv) {
       phui::Window* window(new phui::Window());
       window->setPosition(150, 75);
       window->setSize(300, 250);
-      window->setVisible(true);
+      window->show();
       window->setBackgroundColor(phui::Colorf(1, 0, 0, 0.75f));
 
       phui::Window* wnd(new phui::Window());
       wnd->setPosition(250, 175);
       wnd->setSize(300, 250);
-      wnd->setVisible(true);
+      wnd->show();
       wnd->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
 
       phui::Window* w(new phui::Window());
       w->setPosition(100, 100);
       w->setSize(50, 50);
-      w->setVisible(true);
+      w->show();
       w->setBackgroundColor(phui::Colorf(0, 1, 0, 0.75f));
       wnd->add(w);
 
       phui::Button* button(new phui::Button("Icky very very very icky"));
       button->setPosition(20, 20);
       button->setSize(100,50);
-      button->setVisible(true);
+      button->show();
       button->setBackgroundColor(phui::Colorf(0,0,1,0.5f));
       window->add(button);
 
       phui::TextField* txt(new phui::TextField());
       txt->setPosition(20,100);
       txt->setSize(100,50);
-      txt->setVisible(true);
+      txt->show();
       txt->setBackgroundColor(phui::Colorf(1,1,1,1.0f));
       txt->setForegroundColor(phui::Colorf(0,0,0,1.0f));
       window->add(txt);
@@ -235,7 +235,7 @@ int main(int argc, char** argv) {
       phui::ListBox* lst(new phui::ListBox());
       lst->setPosition(130,100);
       lst->setSize(100,100);
-      lst->setVisible(true);
+      lst->show();
       lst->setBackgroundColor(phui::Colorf(1,1,1,1.0f));
       lst->setForegroundColor(phui::Colorf(0,0,0,1.0f));
       lst->add("Apples");

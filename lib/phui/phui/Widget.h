@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-04-22 11:55:17 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-04-24 02:25:38 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -134,7 +134,7 @@ namespace phui
        */
       virtual bool isVisible() const;
 
-      /**
+       /**
        * Shows or hides this component depending on the parameter visible.
        *
        * @param visible    true to show this component, false to hide it
