@@ -21,8 +21,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: siren.pyste,v $
-# Date modified: $Date: 2003-05-20 23:59:47 $
-# Version:       $Revision: 1.5 $
+# Date modified: $Date: 2003-05-21 00:34:13 $
+# Version:       $Revision: 1.6 $
 # -----------------------------------------------------------------
 #
 # *************************************************************** siren-cpr-end
@@ -67,6 +67,11 @@ set_policy(Avatar.getRotXYZ, return_internal_reference())
 set_policy(Avatar.getPos, return_internal_reference())
 exclude(Avatar.getBone)
 exclude(Avatar.model)
-
-#Avatar_DrawMode = Enum('siren::Avatar::DrawMode', 'siren/avatar/Avatar.h')
 # ============================================================ Avatar Subsystem
+
+# Input Subsystem =============================================================
+InputManager = Class('siren::InputManager', 'siren/input/InputManager.h')
+set_policy(InputManager.getAction, return_internal_reference())
+
+InputAction = Class('siren::InputAction', 'siren/input/InputAction.h')
+# ============================================================= Input Subsystem
