@@ -39,6 +39,7 @@ int arg1, arg2, arg3;
 float rot1, rot2;
 bool KEY_PUSH;
 bool snapOn, gridOn;
+bool removeObj;
 int drawOnMouse;
 GLint menuMain;
 GLint menuFile;
@@ -241,7 +242,6 @@ void drawModels()
          glVertex2f(modelsInWorld[i].xlo, modelsInWorld[i].ylo);
          glVertex2f(modelsInWorld[i].xhi, modelsInWorld[i].ylo);
       glEnd();
-      std::cout << "xhi: " << modelsInWorld[i].xhi << " xlo: " << modelsInWorld[i].xlo << std::endl;
       glPopMatrix();
    }
    
@@ -279,7 +279,6 @@ void getMouseCoords(float& x, float& y)
 {
    x=x/(SCALE/2)+cameraPan[0]-(app.width/2)/(SCALE/2);
    y=y/(SCALE/2)-cameraPan[1]-(app.height/2)/(SCALE/2);
-   std::cout << "x and y: " << x << " "  << y << std::endl;
 }
 
 void drawObjAtMouse()
@@ -288,7 +287,6 @@ void drawObjAtMouse()
    glColor3f(modelsInMenu[drawOnMouse-1].r, modelsInMenu[drawOnMouse-1].g, modelsInMenu[drawOnMouse-1].b);
    if(snapOn)
    {
-      std::cout << "mouseX,Y: " << mouseX << "  " << mouseY << std::endl;
       float tX, tY;
       tX = mouseX;
       tY = mouseY;
@@ -298,7 +296,6 @@ void drawObjAtMouse()
    }else{
       glTranslatef(mouseX, mouseY, 0);
    }
-   std::cout << "newMouseX,Y: " << mouseX << "  " << mouseY << std::endl;
    glBegin(GL_POLYGON);
       glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
       glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
@@ -540,17 +537,33 @@ static void OnMouseClick( int a, int b, int c, int d )
       y = app.height-d;
       
       
-      std::cout << x << " : " << y << std::endl;
       if(drawOnMouse!=0)
          addObjToWorld(x,y);
+      if(removeObj==true)
+      {
+         bool flag=false; 
+         float tempX, tempY;
+         getWorldCoords(tempX, tempY);
+         std::vector<model>::iterator temp;
+         for(std::vector<model>::iterator itr=modelsInWorld.begin();itr!=modelsInWorld.end();itr++)
+         {
+            // this checks to see if the mouse click happened over the top of an
+            // object or not
+            if((tempX<(itr->worldX+itr->xhi)) && (tempX>(itr->worldX+itr->xlo)) && 
+                  (tempY<(itr->worldY+itr->yhi)) && (tempY>(itr->worldY+itr->ylo)))
+            {
+               flag=true;
+               temp = itr;
+               std::cout << "inside of test" << std::endl;
+            }
+         }
+         if(flag){
+            modelsInWorld.erase(temp);
+            flag=false;
+         }
+         removeObj=false;
+      }
    }
-      
-   
-   // !!!todo!!!: need mouse interaction?
-   //             read the glut docs/manpage to find out how to query 
-   //             which button was pressed...
-   //             you may have to get this from the glut website 
-   //             (use www.google.com to search for it)
 }
 
 
@@ -584,10 +597,7 @@ void setupOutputLevelFile(XMLNodePtr& mNode)
 
 void NowWeCanReallyAddTheLevel(XMLNodePtr& levelNode, XMLContextPtr& context)
 {
-   
-   
    std::string temp;
-   std::cout << "size of vector: " << modelsInWorld.size() << std::endl;
    for(int i=0;i<modelsInWorld.size();i++)
    {
       XMLNodePtr staticNode(new XMLNode(context));
@@ -637,18 +647,10 @@ void fileFunc(int a)
       glutSetMenu(menuGetModels);
       for(int i=0;i<modelsInMenu.size();i++)
       {
-         std::cout << "i" << i << std::endl;
          glutAddMenuEntry(modelsInMenu[i].name.c_str(), i+1);
       }
    }else if(a==1)
    {
-/*      std::cout << "writing level file...";
-      XMLNodePtr levelNode;
-      setupOutputLevelFile(levelNode);
-      XMLDocumentPtr levelDoc(new XMLDocument);
-      levelDoc->addChild(levelNode);
-      levelDoc->saveFile(std::string("level.xml"));
- */
       std::string tag("<?xml version=\"1.0\"?>\n");
       XMLContextPtr context( new XMLContext);
       XMLNodePtr gameNode(new XMLNode(context));
@@ -676,7 +678,17 @@ void fileFunc(int a)
    }
 }
 void modelFunc(int a)
-{}
+{
+   if(a==2)
+   {
+      std::cout << "hi" << std::endl;
+      modelsInWorld.clear();
+   }
+   else if(a==3)
+   {
+      removeObj=true;
+   }
+}
 void optionFunc(int a)
 {}
 void getModelFunc(int a)
@@ -706,6 +718,7 @@ void myInit(int a)
 {
    snapOn=false;
    gridOn=true;
+   removeObj=false;
    
    menuFile = glutCreateMenu(fileFunc);
    menuModel = glutCreateMenu(modelFunc);
@@ -776,7 +789,7 @@ int main( int argc, char* argv[] )
  
     // tell glut to not call the keyboard callback repeatedly 
     // when holding down a key. (uses edge triggering, like the mouse)
-    ::glutIgnoreKeyRepeat( 1 );
+    ::glutIgnoreKeyRepeat( 0 );
 
     // keyboard callback functions.
     ::glutKeyboardFunc( OnKeyboardDown );
