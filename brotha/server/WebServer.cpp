@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WebServer.cpp,v $
- * Date modified: $Date: 2002-04-29 03:59:13 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-29 04:02:22 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,9 +42,9 @@
  ************************************************************ brotha-cpr-end */
 
 #include "WebServer.h"
-#include "..\xml\xmlpersist.h"
-#include "..\xml\brothadata.h"
-#include "..\xml\HtmlGen.h"
+#include "xml/xmlpersist.h"
+#include "xml/brothadata.h"
+#include "xml/HtmlGen.h"
 
 namespace server {
    WebServer::WebServer()
@@ -106,4 +106,4 @@ namespace server {
       }
    }
 
-} // namespace server
+} // namespace server
