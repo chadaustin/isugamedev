@@ -7,9 +7,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: phui.h,v $
+ * File:          $RCSfile: FontRenderer.cpp,v $
  * Date modified: $Date: 2002-04-15 05:57:01 $
- * Version:       $Revision: 1.4 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -34,16 +34,55 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
-#ifndef PHUI_PHUI_H
-#define PHUI_PHUI_H
-
-#include "Button.h"
-#include "Font.h"
 #include "FontRenderer.h"
-#include "RootFactory.h"
-#include "RootWidget.h"
-#include "WidgetContainer.h"
-#include "Widget.h"
-#include "Window.h"
+#include <stdexcept>
 
-#endif
+namespace phui
+{
+   FontRenderer::FontRenderer(const Font& font)
+      : mFont(font)
+   {
+      mRenderer = new GLTTPixmapFont(&(mFont.mFace));
+      if ( ! mRenderer->create(mFont.getSize()) )
+      {
+         delete mRenderer;
+         throw std::runtime_error("Failed to create font renderer");
+      }
+   }
+
+   FontRenderer::FontRenderer(const FontRenderer& renderer)
+      : mFont(renderer.mFont)
+   {
+      mRenderer = new GLTTPixmapFont(&(mFont.mFace));
+      if ( ! mRenderer->create(mFont.getSize()) )
+      {
+         delete mRenderer;
+         throw std::runtime_error("Failed to create font renderer");
+      }
+   }
+
+   FontRenderer::~FontRenderer()
+   {
+      delete mRenderer;
+   }
+
+   void FontRenderer::draw(const std::string& text, int x, int y)
+   {
+      mRenderer->output(x, y, text.c_str());
+   }
+
+   const Font& FontRenderer::getFont() const
+   {
+      return mFont;
+   }
+
+   unsigned int FontRenderer::getHeight() const
+   {
+      return (unsigned int)mRenderer->getHeight();
+   }
+
+   unsigned int FontRenderer::getWidth(const std::string& text)
+   {
+      return (unsigned int)mRenderer->getWidth(text.c_str());
+   }
+}

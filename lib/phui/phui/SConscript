@@ -3,6 +3,8 @@ Import('env')
 
 sources = [
     'Button.cpp',
+    'Font.cpp',
+    'FontRenderer.cpp',
     'RootFactory.cpp',
     'RootWidget.cpp',
     'WidgetContainer.cpp',

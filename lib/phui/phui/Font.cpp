@@ -7,9 +7,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: phui.h,v $
+ * File:          $RCSfile: Font.cpp,v $
  * Date modified: $Date: 2002-04-15 05:57:01 $
- * Version:       $Revision: 1.4 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -34,16 +34,58 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
-#ifndef PHUI_PHUI_H
-#define PHUI_PHUI_H
-
-#include "Button.h"
 #include "Font.h"
-#include "FontRenderer.h"
-#include "RootFactory.h"
-#include "RootWidget.h"
-#include "WidgetContainer.h"
-#include "Widget.h"
-#include "Window.h"
+#include <stdexcept>
 
-#endif
+namespace phui
+{
+   Font::Font( const std::string& name, const STYLE& style, unsigned int size )
+      : mName( name ), mStyle( style ), mSize( size )
+   {
+      std::string filename = mName + ".ttf";
+      if ( ! mFace.open(filename.c_str()) )
+      {
+         throw std::runtime_error("Font does not exist.");
+      }
+   }
+
+   Font::Font( const Font& font )
+      : mName( font.mName ), mStyle( font.mStyle ), mSize( font.mSize )
+   {
+      std::string filename = mName + ".ttf";
+      if ( ! mFace.open(filename.c_str()) )
+      {
+         throw std::runtime_error("Font does not exist.");
+      }
+   }
+
+   const std::string& Font::getName() const
+   {
+      return mName;
+   }
+
+   const Font::STYLE& Font::getStyle() const
+   {
+      return mStyle;
+   }
+
+   unsigned int Font::getSize() const
+   {
+      return mSize;
+   }
+
+   bool Font::isBold() const
+   {
+      return ((mStyle && BOLD) == BOLD);
+   }
+
+   bool Font::isItalic() const
+   {
+      return ((mStyle && ITALIC) == ITALIC);
+   }
+
+   bool Font::isPlain() const
+   {
+      return (mStyle == PLAIN);
+   }
+}
