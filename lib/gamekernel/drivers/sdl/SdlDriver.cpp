@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2002-04-06 12:02:17 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-04-06 22:25:34 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -44,14 +44,14 @@ createSystemDriver()
 
 namespace gk {
 
-SdlDriver::SdlDriver() : mHeight(480), mWidth(640), mBpp(16), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
+SdlDriver::SdlDriver() : mHeight(240), mWidth(320), mBpp(16), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
 {
 	misRunning = false;
 	mName = "SDL with OpenGL";	
 	//We really don't need to do anything other than initialize variables.
 	//FIXME:  This hack should be removed once unnecessary.
-	mPress = false;
-	mPressDown = false;
+	//mPress = false;
+	//mPressDown = false;
 }
 
 SdlDriver::~SdlDriver()
@@ -148,7 +148,8 @@ bool SdlDriver::run()
 #ifdef SDLDRIVER_DEBUG
 	std::cerr << "##SDL Driver Debug: Inside run()" << std::endl;
 #endif
-	int error = 0;
+	//FIXME:  Should be initialized to 0 when using SDL_WaitEvent.
+	//int error = 1;
 	do
 	{
 #ifdef SDLDRIVER_DEBUG
@@ -158,8 +159,8 @@ bool SdlDriver::run()
 #ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug: Calling app->onUpdate()" << std::endl;
 #endif
-		mKernel->getApp()->onUpdate();
-		//mApp->onUpdate();
+		//mKernel->getApp()->onUpdate();
+		mApp->onUpdate();
 #ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug: app->onUpdate() Called." << std::endl;
 #endif
@@ -174,15 +175,21 @@ bool SdlDriver::run()
 #endif
 
 			SDL_GL_SwapBuffers();
-			error = SDL_WaitEvent(&mEvent);
+			while (SDL_PollEvent(&mEvent) && (misRunning))
+			{
+			/*error = SDL_WaitEvent(&mEvent);
 			if (error == 0)
 			{
 				std::cerr << "SDL Driver Error:  Error while waiting for events\nSDL Error:  " << SDL_GetError()
 					<< std::endl;
+			}*/
+				handleEvent();
+#ifdef SDLDRIVER_DEBUG
+				std::cerr << "##SDL Driver Debug: handleEvent() exited.  misRunning: " << misRunning<<std::endl;
+#endif			
 			}
-			handleEvent();
 		}
-	}while((error != 0) && (misRunning));
+	}while(misRunning);
 	return true;
 }	
 
@@ -203,7 +210,13 @@ void SdlDriver::shutdown()
 		delete mMouse;
 		mMouse = NULL;
 	}
+#ifdef SDLDRIVER_DEBUG
+		std::cerr << "##SDL Driver Debug: Calling SDL_Quit" << std::endl;
+#endif
 	SDL_Quit();
+#ifdef SDLDRIVER_DEBUG
+		std::cerr << "##SDL Driver Debug: SDL_Quit Called" << std::endl;
+#endif
 }
 
 void SdlDriver::warpMouse( int x, int y )
@@ -299,10 +312,10 @@ void SdlDriver::handleEvent()
 	mKernel->getInput()->update();	
 	//FIXME:  This hack is for working with a key being held down in DigitalInput
 	//	  Basically it goes back to a pseudo idle mode on a single button press.
-	if (mPressDown == false && mPress == true)
+	/*if (mPressDown == false && mPress == true)
 	{
 		mKernel->getInput()->update();
-	}
+	}*/
 }
 
 void SdlDriver::onKeyUp()
@@ -315,8 +328,7 @@ void SdlDriver::onKeyUp()
 	const DigitalInput::BinaryState state = DigitalInput::OFF;
 	Keyboard *kb = mKeyboard->getDevice();
 	kb->button(keyID)->setBinaryState(state);
-	mPressDown = false;
-	mPressDown = false;
+	//mPressDown = false;
 }
 
 void SdlDriver::onKeyDown()
@@ -325,10 +337,10 @@ void SdlDriver::onKeyDown()
 	std::cerr<<"SDL Driver Debug:  Inside onKeyDown" << std::endl;
 #endif
 	//FIXME:  This hack is for working with DigitalInput handling a button being pressed down
-	if (mPress == true)
-		mPressDown = true;
-	if (mPress == false)
-		mPress = true;
+//	if (mPress == true)
+//		mPressDown = true;
+//	if (mPress == false)
+//		mPress = true;
 	SDL_keysym key = mEvent.key.keysym;
 	std::string keyID = getKeyID(key);
 	const DigitalInput::BinaryState state = DigitalInput::ON;

@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.h,v $
-// Date modified: $Date: 2002-04-06 12:02:17 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-04-06 22:25:34 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -144,8 +144,8 @@ private:
 	DeviceHandle<Keyboard>* mKeyboard;		//Keyboard Device
 	//DeviceHandle<Joystick>* mJoystick;		//Joystick Device
 	SDL_Event mEvent;					//Event Structure
-	bool mPress;					//Hack to work with the DigitalInput devices.	
-	bool mPressDown;					//Hack to work with the DigitalInput devices.
+	//bool mPress;					//Hack to work with the DigitalInput devices.	
+	//bool mPressDown;					//Hack to work with the DigitalInput devices.
 	//Private Methods
 	
 	//This function determines what kind of event has occurred, 
