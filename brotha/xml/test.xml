@@ -20,21 +20,57 @@
   <gang name="brothaTeam">
     <info>the game's developers</info>
     <player name="chadO" password="p1">
-      <car cartype="tercel" />
+      <stat name="kills" value="5" />
+      <stat name="coins" value="3" />
+      <stat name="deaths" value="0" />
+      <car cartype="tercel">
+        <mod name="rims" level="5" />
+        <mod name="engine" level="5" />
+        <mod name="turbo" level="4" />
+        <mod name="nitro" level="6" />
+      </car>
+      <car name="celica">
+        <mod name="tires" level="3" />
+      </car>
     </player>
     <player name="chadA" password="p1">
-      <car cartype="civic" />
+      <stat name="kills" value="2" />
+      <stat name="coins" value="5" />
+      <stat name="deaths" value="1" />
+      <car cartype="1996_Chevy_Lumina">
+       <mod name="rims" level="4" />
+       <mod name="tires" level="2" />
+       <mod name="engine" level="4" />
+      </car>
+      <car cartype="civic">
+        <mod name="exhaust"
+      </car>
     </player>
     <player name="ben" password="p4">
-      <car cartype="vrac simulator" />
+      <stat name="kills" value="2" />
+      <stat name="coins" value="4" />
+      <stat name="deaths" value="2" />
+      <car cartype="vrac simulator">
+        <mod name="cave mod" level="1" />
+      </car>
     </player>
     <player name ="josh" password="sup?">
-      <car cartype="civic" />
+      <car cartype="civic">
+        <mod type="exhaust" level="4"/>
+      </car>
     </player>
     <player name="jermy" password="note">
-      <car cartype="fiesta" />
+      <stat name="kills" value="1" />
+      <stat name="coins" value="3" />
+      <stat name="deaths" value="2" />
+      <car cartype="fiesta">
+        <mod type="spoiler" level="4" />
+        <mod type="tint" level="1" />
+        <mod type="rims" level="-1" />
+      </car>
     </player>
   </gang>
+  <cartype name="1996_Chevy_Lumina" file="car.model" />
   <cartype name="tercel" file="car.model" />
   <cartype name="supra" file="car.model" />
   <cartype name="civic" file="car.model" />
