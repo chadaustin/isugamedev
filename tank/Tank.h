@@ -5,7 +5,7 @@
 class Tank
 {
 public:
-   Tank() : mRot(), mRotVel(), mSpeed(0.0f)
+   Tank() : mRot(), mRotVel(), mSpeed( 0.0f )
    {
       mXForm.makeIdentity();
    }
@@ -62,6 +62,11 @@ public:
       return mRot * forward;
    }
    
+   void travel( float speed )
+   {
+      mSpeed = speed;
+   }
+   
    const Matrix4f& matrix() const 
    {
       return mXForm;
@@ -72,10 +77,15 @@ public:
       mPos = pos;
    }
       
-   void update()
+   void update( float timeDelta = 1.0f )
    {
-      //Calculate the new forward velocity of this tank based on its speed
-      mVel = getForward() * mSpeed;
+      // handle requests for forward or back
+      Vec3<float> forward = this->getForward();
+      this->setVelocity( forward * mSpeed * timeDelta );
+      
+      
+      // update state......
+     
       this->translate( mVel );
       
       // update ang velocity.
@@ -111,7 +121,11 @@ public:
    {
       mPos += offset;
    }   
-   
+   void setVelocity( const Vec3<float>&  vel )
+   {
+      mVel = vel;
+   }
+      
    void setRot( float deg )
    {
       mRot.makeRot( kev::deg2rad( deg ), 0,1,0 );
