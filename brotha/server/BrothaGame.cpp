@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-04-22 08:15:06 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-26 05:28:04 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -118,7 +118,7 @@ namespace server {
    }
 
    void BrothaGame::addObject( game::Object* object ) {
-      //code goes here :)
+      assert ( object != NULL && "Cannot add a Null object!" );
    }
 
    void BrothaGame::removeObject( game::Object* object ) {

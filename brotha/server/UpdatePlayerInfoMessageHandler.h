@@ -21,9 +21,9 @@ namespace server {
          game::Player* player = m_brothaGame->getPlayer(cID);
          // update info
          switch(uMsg->getUpdateWhat()) {
-            case (net::UpdatePlayerInfoMessage::ACCELERATION):
-               player->mIsAccelerating = (uMsg->getOn() != 0);
-               break;
+            //case (net::UpdatePlayerInfoMessage::ACCELERATION):
+            //   player->mIsAccelerating = (uMsg->getOn() != 0);
+            //   break;
             case (net::UpdatePlayerInfoMessage::BRAKE):
                player->mIsBraking = (uMsg->getOn() != 0);
                break;
