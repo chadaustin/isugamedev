@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2002-02-08 05:03:16 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -95,7 +95,7 @@ bool GameKernel::startup( SystemDriver* driver )
 
    //Initialize all registered applications, do this before initing glut, in case app
    // needs to set window position and name.
-   int x;
+   unsigned int x;
    for (x = 0; x < GameKernel::instance().applications().size(); ++x)
    {
       assert( GameKernel::instance().applications()[x] != NULL && "you registered a NULL application" );

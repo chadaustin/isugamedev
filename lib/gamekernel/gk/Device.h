@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Device.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-08 05:03:16 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -34,6 +34,7 @@
 
 #include "gk/gkCommon.h"
 #include <string>
+#include <vector>
 #include "gk/Input.h"
 
 GK_BEGIN_NAMESPACE
@@ -79,7 +80,7 @@ public:
 
    virtual void update()
    {
-      for (int x = 0; x < mInput.size(); ++x)
+      for (unsigned int x = 0; x < mInput.size(); ++x)
       {
          mInput[x].update();
       }

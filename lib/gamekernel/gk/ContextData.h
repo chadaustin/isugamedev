@@ -30,8 +30,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: ContextData.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-02-08 05:03:16 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -87,7 +87,7 @@ template<class ContextDataType>
 inline ContextDataType& ContextData<ContextDataType>::getItem( const int& contextId )
 {
     // Make sure that we will reference a valid element
-    while(_contextDataVector.size() <= contextId)
+    while(_contextDataVector.size() <= static_cast<unsigned int>(contextId))
     {
 		_contextDataVector.push_back(ContextDataType());
     }

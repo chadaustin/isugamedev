@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: EventInput.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2002-02-08 05:03:16 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -61,7 +61,7 @@ public:
    virtual EdgeTriggerState edgeState() const
    {
       DigitalInput::EdgeTriggerState state = DigitalInput::UP;
-      for (int x = 0; x < mDigitalBindings.size(); ++x)
+      for (unsigned int x = 0; x < mDigitalBindings.size(); ++x)
       {
          if (state == DigitalInput::UP)
          {

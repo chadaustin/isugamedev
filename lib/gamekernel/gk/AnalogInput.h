@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInput.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-08 05:03:16 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -41,7 +41,7 @@ class AnalogInput : virtual public Input
 {
 public:
    AnalogInput() : mCurrent( 0 ), mFuture( 0 ),
-                   mNeedToCallUpdate( false ), mDelta( 0 )
+                   mDelta( 0 ), mNeedToCallUpdate( false )
    {
    }
 
