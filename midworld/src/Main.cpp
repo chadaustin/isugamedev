@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-10-17 06:57:26 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-10-21 19:10:16 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -169,10 +169,6 @@ int main()
    catch (const std::exception& e)
    {
       error(std::string("Caught exception: ") + e.what());
-   }
-   catch (...)
-   {
-      error("Caught unknown exception!");
    }
 
    return 0;
