@@ -9,8 +9,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Matrix4f.cxx,v $
-//    $Date: 2001-09-12 22:45:14 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-13 23:37:16 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -846,7 +846,7 @@ void Matrix4f::makePerspective( float fovy, float aspect, float zNear, float zFa
 {
    assert( zNear > 0 && zFar > zNear && "invalid near and far values" );
    float right, top;
-   float theta = fovy * 0.5 * TO_RAD_F;
+   float theta = (float)(fovy * 0.5 * TO_RAD_F);
    float tangentTheta = kev::TAN( theta );
 
    // tan(theta) = right / zNear
