@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-19 15:30:06 $
- * Version:       $Revision: 1.63 $
+ * Date modified: $Date: 2002-10-20 11:53:00 $
+ * Version:       $Revision: 1.64 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -115,9 +115,8 @@ namespace mw
       InputParser *parser = InputParser::instance();
       parser->parseFile("btn.cfg");
       std::cerr << "Setting up keybindings" << std::endl;
-      InputBinder *binder = InputBinder::instance();
       InputManager *manager = InputManager::instance();
-      std::cerr << "Got binder & manager" << std::endl;
+      std::cerr << "Got manager" << std::endl;
       //Set Up
       std::cerr << "Creating actions" << std::endl;
       mActionUp = manager->createAction();
@@ -167,7 +166,7 @@ namespace mw
 
 
       Enemy* enemy2 = new Enemy();
-      gmtl::Point3f inPos1(5.0,0.0,-10.0);
+      gmtl::Point3f inPos1(15.0,0.0,-10.0);
       enemy1->setPos(inPos1);
       gmtl::Point3f inPos2(0.0,0.0,-5.0);
       enemy2->setPos(inPos2);
@@ -181,7 +180,7 @@ namespace mw
       add(enemy2);
 
 
-      node1sCommand = new lm::simpleCommand<Enemy>(enemy1, &Enemy::walkRandom);
+      node1sCommand = new lm::simpleCommand<Turret>(enemy1, &Turret::aim);
       node2sCommand = new lm::simpleCommand<Enemy>(enemy2, &Enemy::walkRandom);
 
 
@@ -203,12 +202,12 @@ namespace mw
       
       first->addCommand(aimCommand);
       
-     //node1Instinct = new lm::reflex(node1->mReflexManager, first, aimTestCommand);
+     node1Instinct = new lm::reflex(node1, first, aimTestCommand);
 
       //node1Instinct = new lm::instinct(node1->mInstinctManager, first, myTestCommand);
 
  //     node2Instinct = new lm::reflex(node2, second, myTestCommand);
-      //node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
+      node2Instinct = new lm::reflex(node2, second, myTestCommand);
 
       AI.registerNode(node1);
       AI.registerNode(node2);
