@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-02-25 04:35:43 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-17 05:38:57 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -36,6 +36,8 @@
  ************************************************************** phui-cpr-end */
 #include "Button.h"
 #include <GL/gl.h>
+#include "FontRenderer.h"
+#include "WidgetContainer.h"
 
 namespace phui {
 
@@ -52,18 +54,38 @@ namespace phui {
 
    void Button::draw()
    {
+      glPushMatrix();
+      glTranslatef((GLfloat)mX, (GLfloat)mY, 0.0f);
       // draw the button background
       glColor( mBackgroundColor );
       glBegin(GL_TRIANGLE_FAN);
-         glVertex2i( mX,          mY           );
-         glVertex2i( mX + mWidth, mY           );
-         glVertex2i( mX + mWidth, mY + mHeight );
-         glVertex2i( mX,          mY + mHeight );
+         glVertex2i(0,      0       );
+         glVertex2i(mWidth, 0       );
+         glVertex2i(mWidth, mHeight );
+         glVertex2i(0,      mHeight );
       glEnd();
 
       // draw label text
       glColor( mForegroundColor );
-      /** @todo draw label text */
+      FontRenderer renderer( mFont );
+
+      int w = mWidth - (2*mInsetX);
+      int h = mHeight - (2*mInsetY);
+      unsigned int fontHeight = renderer.getHeight();
+      unsigned int fontWidth = renderer.getWidth(mLabel);
+      unsigned int fontAscent = fontHeight - renderer.getDescent();
+
+      int textRectX = mInsetX + (w/2) - (fontWidth/2);
+      int textRectY = mInsetY + (h/2) - (fontHeight/2);
+      int textRectW = w;
+      int textRectH = h;
+
+      int fontX = textRectX;
+      int fontY = textRectY + fontAscent;
+
+      renderer.draw( mLabel, fontX, fontY );
+
+      glPopMatrix();
    }
 
    void Button::setLabel( const std::string& label )
