@@ -122,9 +122,12 @@ public:
       Vec3<float> trans;
       mXform.getTrans( trans );
       return trans;
-   }  
-   
-   
+   }
+
+   float followDist() const
+   {
+       return mFollowDist;
+   }
    
 private:
    Matrix4f mXform;
