@@ -17,7 +17,7 @@
 int main(int argc, char* argv[])
 {
 
-	dataxml::load("test.xml");
+	data::load("test.xml");
 	//dataxml::b.xMLify(std::cout);
 	//reports::request r("2*/2*/2*");
 	//r.print(std::cout);
@@ -26,7 +26,6 @@ int main(int argc, char* argv[])
 	std::cout << "enter brothaPath code:";
 	std::string a;
 	std::cin >> a;
-	zhende << reports::inlineStyle();
 	zhende << "<font face=verdana><h1>Example:" << a << "</h1>";
 	zhende << "<hr><pre>";
 	reports::request r(a);

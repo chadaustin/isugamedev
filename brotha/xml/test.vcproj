@@ -179,6 +179,9 @@
 		<File
 			RelativePath="ReadMe.txt">
 		</File>
+		<File
+			RelativePath="\\takanara\htdocs\br.css">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
