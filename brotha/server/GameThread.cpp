@@ -18,12 +18,13 @@ namespace server {
       while(PR_AtomicIncrement(&mKillMe)) {
          PR_Sleep(PR_INTERVAL_MIN);
 
-         // quick and dirty echo server
          std::vector<std::pair<net::Message*, net::NetMgr::ConnID> > msgs;
          m_netMgr->readAll(msgs);
 
          typedef std::vector<std::pair<net::Message*, net::NetMgr::ConnID> >::iterator MsgIter;
          for(MsgIter iter=msgs.begin();iter!=msgs.end();iter++) {
+            // pass the message to the appropriate message handler
+            /// @todo probably should add some checks to make sure the handler actually exists
             net::Message* msg = (*iter).first;
             MessageHandler *msgHandler = m_messageHandlers[(net::MessageType)msg->getType()];
             msgHandler->handleMessage(msg, (*iter).second);

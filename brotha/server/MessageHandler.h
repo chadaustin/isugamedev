@@ -6,10 +6,17 @@
 
 class MessageHandler {
 public:
-   MessageHandler() {}
+   MessageHandler(game::BrothaGame* game, net::NetMgr* netMgr) {
+      m_brothaGame = game;
+      m_netMgr = netMgr;
+   }
+
    ~MessageHandler() {}
 
    virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) = 0;
+protected:
+   game::BrothaGame* m_brothaGame;
+   net::NetMgr* m_netMgr;
 };
 
 #endif // MESSAGE_HANDLER_H
