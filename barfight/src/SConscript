@@ -1,34 +1,29 @@
+import glob
 import os
 pj = os.path.join
 
-Import('baseEnv pkg')
-Import('SetupAudiere SetupCal3D SetupCorona SetupOpenGL SetupSDL SetupSiren')
+Import('baseEnv builddir distdir')
+Import('SetupPython')
 
-# Define the sources
-classes = Split("""
-   GameState
-   Version
-""")
-
-headers = Split("""
-""")
-
-sources = Split("""
-   Main.cpp
-""")
-
-headers.extend(map(lambda n: n + '.h',   classes))
-sources.extend(map(lambda n: n + '.cpp', classes))
-
-# Clone the environment
+# Build the barfight executable
 env = baseEnv.Copy()
-SetupSiren(env)
-SetupAudiere(env)
-SetupCal3D(env)
-SetupCorona(env)
-SetupSDL(env)
-SetupOpenGL(env)
-env.Append(CPPPATH = Split('#src'))
-prog = pkg.createProgram('barfight', env)
-prog.addSources(sources)
-prog.addHeaders(headers)
+SetupPython(env, '2.2')
+env.Append(LIBS = ['dl'],
+           LINKFLAGS = Split('-Xlinker -export-dynamic'))
+prog = env.Program('../barfight', 'Main.cpp')
+
+# Copy the barfight executable to the dist directory
+env.Install('../../dist', prog)
+
+# The directories (in src) in which the python scripts lie
+python_dirs = Split("""
+   barfight
+""")
+
+# Copy the python scripts to the dist directory
+for dir in python_dirs:
+   pathname = pj(str(Dir('#')), 'src', dir, '*.py')
+   python_scripts = glob.glob(pathname)
+
+   for script in python_scripts:
+      env.Install(pj('../../dist/lib', dir), script)

@@ -1,10 +1,6 @@
 import os, string, sys
 pj = os.path.join
 
-# Pull in the AutoDist module
-sys.path = [pj('tools', 'build')] + sys.path
-from AutoDist import *
-
 # Check for the optimize option
 optimize = 0
 if ARGUMENTS.get('opt', 0):
@@ -94,11 +90,15 @@ def ParseConfig(env, command, options):
 def HasSiren(env):
    "Tests if the user has Siren available"
    sys.stdout.write('checking for siren ... ')
-   if env['with-siren'] == None:
-      found = 0
-   else:
-      cfg = os.path.join(env['with-siren'], 'bin', 'siren-config')
-      found = os.path.isfile(cfg)
+
+   cfg = os.path.join(env['with-siren'], 'bin', 'siren-config')
+   found = os.path.isfile(cfg)
+
+   if not found:
+      cfg = WhereIs('siren-config')
+      if cfg:
+         env['with-siren'] = pj(os.path.dirname(cfg), '..')
+         found = True
 
    if found:
       sys.stdout.write('yes\n')
@@ -111,64 +111,55 @@ def SetupSiren(env):
    if not HasSiren(env):
       print 'ERROR: Could not find Siren installation.'
       sys.exit(1)
+
    cfg = pj(env['with-siren'], 'bin', 'siren-config')
    ParseConfig(env, cfg,  Split('--cxxflags --libs'))
 
-def SetupSDL(env):
-   "Sets up the given environment for SDL"
-   ParseConfig(env, 'sdl-config', Split('--cflags --libs'))
+def SetupPython(env, requiredVersion):
+   "Sets up the environment for Python"
+   print 'Looking for python 2.2 ...'
+   python = WhereIs('python')
+   if not python:
+      print 'WARNING: Can\'t find python executable'
+      return
 
-def SetupAudiere(env):
-   "Sets up the given environment for Audiere"
-   env.Append(LIBS = ['audiere'])
+   py_cmd = python + ' -c \'import sys; print sys.prefix; print sys.version[:3]\''
+   (prefix, py_ver) = string.split(os.popen(py_cmd).read())
 
-def SetupCal3D(env):
-   "Sets up the given environment for Cal3D"
-   env.Append(LIBS = ['cal3d'])
+   # Version must match
+   if py_ver != requiredVersion:
+      print 'WARNING: Python version ' + py_ver + ' != ' + requiredVersion
+      return
 
-def SetupCorona(env):
-   "Sets up the given environment for Corona"
-   env.Append(LIBS = ['corona'])
+   # Build up the env information
+   py_cpppath = pj(prefix, 'include', 'python'+py_ver)
+   py_libpath = pj(prefix, 'lib', 'python'+py_ver, 'config')
+   py_lib = 'python'+py_ver
 
-def SetupCppUnit(env):
-   "Sets up the given environment for CppUnit"
-   ParseConfig(env, 'cppunit-config', Split('--cflags --libs'))
-
-def SetupOpenGL(env):
-   "Sets up the given environment to be able to build with OpenGL"
-   # CYGWIN
-   if sys.platform == 'cygwin':
-       OPENGL_LIBS = ['opengl32', 'glu32']
-
-   # IRIX
-   elif string.find(sys.platform, 'irix') != -1:
-       OPENGL_LIBS = ['GLU', 'GL', 'X11', 'Xmu']
-
-   # GENERIC (LINUX?)
-   else:
-       OPENGL_LIBS = ['GLU', 'GL']
-
-   # Add in the OpenGL libs to the environment
-   env.Append(LIBS = OPENGL_LIBS)
+   # Setup the env
+   env.Append(CPPPATH   = [py_cpppath],
+              LIBPATH   = [py_libpath],
+              LIBS      = [py_lib, 'pthread', 'util'])
 
 Export('ParseConfig')
-Export('SetupSiren SetupSDL SetupAudiere SetupCal3D SetupCorona SetupCppUnit SetupOpenGL')
+Export('SetupSiren SetupPython')
 
 
 def GetBarfightVersion():
    "Gets the Barfight version from the src/Version.h header"
    import re
-   contents = open('src/Version.h', 'r').read()
-   major = re.compile('.*(#define *BAR_VERSION_MAJOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
-   minor = re.compile('.*(#define *BAR_VERSION_MINOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
-   patch = re.compile('.*(#define *BAR_VERSION_PATCH *(\d+)).*', re.DOTALL).sub(r'\2', contents)
-   return '%d.%d.%d' % (int(major), int(minor), int(patch))
+   return '0.0.1'
+#   contents = open('src/Version.h', 'r').read()
+#   major = re.compile('.*(#define *BAR_VERSION_MAJOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+#   minor = re.compile('.*(#define *BAR_VERSION_MINOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+#   patch = re.compile('.*(#define *BAR_VERSION_PATCH *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+#   return '%d.%d.%d' % (int(major), int(minor), int(patch))
 
 
 #------------------------------------------------------------------------------
 # Grok the arguments to this build
 #------------------------------------------------------------------------------
-EnsureSConsVersion(0,11)
+EnsureSConsVersion(0,13)
 baseEnv = BuildBaseEnvironment()
 Export('baseEnv')
 
@@ -176,34 +167,21 @@ opts = Options('config.cache')
 opts.Add('with-siren',
          'Siren installation directory',
          '/usr/local',
-         lambda k,v: WhereIs(pj(v, 'bin', 'siren-config')) != None
+         lambda k,v,env=None: WhereIs(pj(v, 'bin', 'siren-config')) != None
         )
 opts.Update(baseEnv)
 Help(opts.GenerateHelpText(baseEnv))
 
-# Create the Barfight package
-pkg = Package('barfight', GetBarfightVersion())
-pkg.addExtraDist(Split("""
-   AUTHORS
-   ChangeLog
-   COPYING
-   README
-   SConstruct
-   src/SConscript
-   tools/build/AutoDist.py
-"""))
-Export('pkg')
 
-builddir = pj('build', GetPlatform())
-Export('builddir')
-BuildDir(builddir, '.')
+# Figure out the builddir situation
+builddir = pj('build', GetPlatform(), 'obj')
+distdir = pj('build', GetPlatform(), 'dist')
+Export('builddir distdir')
 
 # Recurse
-subdirs = Split('src')
-SConscript(dirs = subdirs)
-#for dir in subdirs:
-#   SConscript(dirs = pj(builddir, dir))
-
-pkg.build()
+subdirs = Split('data src')
+BuildDir(builddir, '.', duplicate=0)
+for dir in subdirs:
+   SConscript(dirs = pj(builddir, dir))
 
 Default('.')

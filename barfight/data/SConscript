@@ -1,0 +1,16 @@
+import glob
+import os
+pj = os.path.join
+
+Import('baseEnv builddir')
+
+env = baseEnv.Copy()
+
+# Resources listing
+env.Install('../../dist', str(File('#data/resources.txt')))
+
+
+# Avatars
+avatar_files = glob.glob(pj(str(Dir('#data/avatars')), '*'))
+for file in avatar_files:
+   env.Install('../../dist/data/avatars', file)

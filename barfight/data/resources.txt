@@ -1,0 +1,20 @@
+John              john.cfg
+john.cfg          data/avatars/john.cfg
+
+big_map.bmp       data/avatars/big_map.bmp
+big_map.png       data/avatars/big_map.png
+
+john.csf          data/avatars/john.csf
+
+john_walk.caf     data/avatars/john_walk.caf
+john_run.caf      data/avatars/john_run.caf
+john_dance.caf    data/avatars/john_dance.caf
+john_idle.caf     data/avatars/john_idle.caf
+john_type.caf     data/avatars/john_type.caf
+john_sit.caf      data/avatars/john_sit.caf
+john_work1.caf    data/avatars/john_work1.caf
+john_work2.caf    data/avatars/john_work2.caf
+
+john.cmf          data/avatars/john.cmf
+
+john_whole.crf    data/avatars/john_whole.crf
