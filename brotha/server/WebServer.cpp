@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WebServer.cpp,v $
- * Date modified: $Date: 2002-04-29 05:46:17 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-04-29 23:33:46 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -55,7 +55,7 @@ namespace server {
    }
 
    void WebServer::run() {
-	   dataxml::load("test.xml"); //remove this
+	   data::load("test.xml"); //remove this
       while(PR_AtomicIncrement(&mKillMe)) {
          // accept new client connections, inform the NetMgr about them
          net::Socket *sock = m_serverSocket.accept();
@@ -79,7 +79,7 @@ namespace server {
          std::copy(buffer, buffer+bytesRead, temp.begin());
 		 retVal += temp;
          if(retVal.find("\r\n\r\n") != std::string::npos) {
-            break;
+				break;
          }
          continue;
       }
@@ -87,8 +87,7 @@ namespace server {
    }
 
    void WebServer::processRequest(net::Socket *socket, const std::string &str) {
-      /// @todo actually process request and generate dynamic response :)
-	   std::cout << "processing request:" <<std::endl << str << std::endl;
+      std::cout << "processing request:" <<std::endl << str << std::endl;
       std::string response = "HTTP/1.1 200\r\n";
 	  response += "Content-Type: text/html\r\n\r\n";
 	  response += reports::GenerateReportFromHTTP(str);
