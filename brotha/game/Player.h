@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-05-01 05:52:04 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-05-01 06:13:28 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -100,6 +100,42 @@ namespace game {
        * @return the position of the player
        */
       gmtl::Vec3f getPosition();
+
+      /**
+       * Gets the players health
+       *
+       * @return the health of the player
+       */
+      int getHealth() const{
+         return mHealth;
+      }
+
+      /**
+       * Gets the players health
+       *
+       * @return the health of the player
+       */
+      int getKills() const{
+         return mKills;
+      }
+
+      /**
+       * Gets the players health
+       *
+       * @return the health of the player
+       */
+      double getCoins() const{
+         return mCoins;
+      }
+
+      /**
+       * Gets the players health
+       *
+       * @return the health of the player
+       */
+      const std::string getGang() const{
+         return mGang;
+      }
 
       /**
        * Sets player position to given position
@@ -213,14 +249,19 @@ namespace game {
 
       /// This player's position
       gmtl::Vec3f mPosition;
-
       /// This player's health
-      PRFloat64 mHealth;
+      int mHealth;
 
       /// Number of Player kills
-      double mKills;
+      int mKills;
 
-	   /// List of owned cars
+      /// player's coins
+      double mCoins;
+
+      /// player's gang
+      std::string mGang;
+	   
+      /// List of owned cars
 	   CarList mCars;
 
       /// True if the player is braking
