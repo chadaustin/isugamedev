@@ -1,0 +1,32 @@
+# win32
+CC=cl
+CXX_COMPILE = cl
+DEBUG_FLAG = /GZ
+OPTIMIZE_FLAG =
+RTTI=/GR
+CXX_FLAGS = /nologo /MLd /W3 /Gm /GX /ZI /Od $(RTTI) /D "WIN32" /D_WIN32 /DWIN32 /D "_DEBUG" /DDEBUG /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ
+#CXX_FLAGS = /DWIN32 /D_WIN32 /GX $(DEBUG_FLAG) $(RTTI) /nologo
+#CXX_FLAGS = /DWIN32 /D_WIN32 /GX $(OPTIMIZE_FLAG) $(RTTI) /nologo
+C_COMPILE = cl
+C_FLAGS = $(CXX_FLAGS)
+EXE_LINKER = link
+#EXE_FLAGS = /nologo /incremental:yes /machine:I386 
+EXE_FLAGS = /nologo /incremental:yes /debug /machine:I386 /pdbtype:sept 
+SO_LINKER = link
+SO_FLAGS = 
+DEFS = $(EXTRA_DEFS)
+WARNINGS_FLAGS = 
+
+DEPENDFLAGS = -D__cplusplus -D_WIN32 -DWIN32 $(INCLUDE_PATHS)
+
+OBJ_FILE_SUFFIX = obj
+EXE_FILE_SUFFIX = .exe
+LIB_FILE_SUFFIX = lib
+
+FILENAME = $(PROJECT_NAME).exe
+LIB_FILENAME = lib$(PROJECT_NAME).so
+
+OUTPUT_EXE_FLAG = /OUT:
+OUTPUT_OBJ_FLAG = /c /Fo
+OUTPUT_LIB_FLAG = /DLL:
+
