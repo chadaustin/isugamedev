@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-12-01 21:55:29 $
- * Version:       $Revision: 1.74 $
+ * Date modified: $Date: 2002-12-01 22:31:23 $
+ * Version:       $Revision: 1.75 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -132,11 +132,6 @@ namespace mw
          return mCamera;
       }
       
-      float getFPS()
-      {
-         return mFPSCounter.getFPS();
-      }
-
       Turret* setupTurret(const std::string& name, const std::string& parent,
                           int maxChild, int level);
       Droid* setupDroid(const std::string& name, const std::string& parent,

@@ -24,13 +24,18 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.cpp,v $
- * Date modified: $Date: 2002-11-25 12:39:13 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-12-01 22:31:24 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <stdexcept>
 #include <SDL_opengl.h>
+
+#ifdef WIN32  // OpenSG needs Winsock  :(:(:(
+#include <winsock.h>
+#endif
+
 #include <OpenSG/OSGNodePtr.h>
 #include <OpenSG/OSGSceneFileHandler.h>
 #include "LoadState.h"

@@ -383,12 +383,6 @@
 				RelativePath="..\..\src\Texture.h">
 			</File>
 			<File
-				RelativePath="..\..\src\TextureManager.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\TextureManager.h">
-			</File>
-			<File
 				RelativePath="..\..\src\Turret.cpp">
 			</File>
 			<File
@@ -405,6 +399,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\VectorSpatialIndex.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Version.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\Version.h">
@@ -445,6 +442,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\NullWeapon.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Pistol.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\Pistol.h">
@@ -509,6 +509,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\MenuState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\OptionsState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\OptionsState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\State.cpp">
