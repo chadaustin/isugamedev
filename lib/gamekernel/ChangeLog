@@ -22,6 +22,15 @@ DATE       AUTHOR       CHANGE
 2002-02-21 nonchocoboy  Analog data should now be normalized to [-1,1].
 2002-02-20 nonchocoboy  Added GK version info into library.
                         Initial labeled "version"
+2002-02-20 subatomic    added sample application "aster"
+                        this is a first person asteroids game
+2002-02-11 subatomic    added sample application "simple"
+                        this is very bare-bones, and simply draws a polygon.
+                        quit and fullscreen also works.
+2002-01-31 subatomic    added test application "input"
+                        This shows how to set up keybindings for the GameInput
+                        manager.
+2002-01-31 subatomic    input manager xml configuration with xmlpp.
 2002-01-30 subatomic    game input manager refactored.  flexible design.
 2002-01-28 subatomic    designed gkernel, gkinput, initial implementation
                         edge triggering for mouse keyboard.  app object,
