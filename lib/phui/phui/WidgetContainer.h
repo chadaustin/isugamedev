@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-02-24 02:21:12 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-02-24 03:45:03 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -36,14 +36,11 @@
  *
  ************************************************************** phui-cpr-end */
 
+#ifndef PHUI_WIDGET_CONTAINER_H
 #define PHUI_WIDGET_CONTAINER_H
 
 
-#include <algorithm>
-#include <functional>
 #include <list>
-
-
 #include "Widget.h"
 
 
@@ -51,19 +48,11 @@ namespace phui {
 
   class WidgetContainer : public Widget {
   public:
-    WidgetContainer() { }
-    ~WidgetContainer() { }
+    WidgetContainer();
+    ~WidgetContainer();
 
-    void addWidget(Widget* widget) {
-      mWidgets.push_back(widget):
-    }
-
-    void draw() {
-      std::for_each(
-	mWidgets.begin(),
-	mWidgets.end(),
-	std::mem_fun(&Widget::draw));
-    }
+    void addWidget(Widget* widget);
+    void draw();
 
   private:
     std::list<Widget*> mWidgets;

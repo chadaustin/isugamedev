@@ -1,8 +1,8 @@
 Building PHUI
 
 $RCSfile: build.txt,v $
-$Date: 2002-02-24 02:35:47 $
-$Revision: 1.1 $
+$Date: 2002-02-24 03:45:02 $
+$Revision: 1.2 $
 
 
 -- Linux VRAC machines --
@@ -21,3 +21,12 @@ $Revision: 1.1 $
       python setup.py install --prefix=$HOME
 
    6) add ~/bin to your PATH
+
+   7) *optional*
+
+      If you're an emacs user, add the following lines to your .emacs file:
+
+      (add-to-list 'auto-mode-alist '("SConstruct" .python-mode))
+      (add-to-list 'auto-mode-alist '("SConscript" .python-mode))
+
+      XXXaegis (somebody add VIM commands here too)

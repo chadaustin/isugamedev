@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 02:21:12 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-02-24 03:45:03 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -46,12 +46,11 @@ namespace phui {
   class Widget {
   public:
     virtual void draw() = 0;
-    virtual void handleEvent() { } // O_o
 
-    virtual void getSize(int& width, int& height);
-    virtual void getPosition(int& x, int& y);
+    virtual void getSize(int& width, int& height) { }
+    virtual void getPosition(int& x, int& y) { }
 
-    virtual bool hasFocus() = 0;
+    virtual bool hasFocus() { return false; }
 
     // property size
     // property position

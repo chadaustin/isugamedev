@@ -1,5 +1,8 @@
 Import('env')
 
+
+# XXXaegis - do we need headers?
+
 headers = [
     'phui',
     'Button',
@@ -9,11 +12,15 @@ headers = [
     'Window',
 ]
 
-sources = [    
+sources = [
+    'RootFactory',
+    'RootWidget',
+    'WidgetContainer',
+    'Window',
 ]
 
 # add proper extensions to filenames
 headers = map(lambda fn: fn + '.h', headers)
 sources = map(lambda fn: fn + '.cpp', sources)
 
-env.Library(target = 'phui', source = headers + sources)
+env.Library(target = 'phui', source = sources)

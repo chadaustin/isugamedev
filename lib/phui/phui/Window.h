@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2002-02-24 02:21:12 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-02-24 03:45:03 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -47,6 +47,10 @@ namespace phui {
 
   class Window : public WidgetContainer {
   public:
+    Window();
+    ~Window();
+
+    void draw();
     
   private:
     

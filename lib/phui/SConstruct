@@ -1,3 +1,5 @@
+# build with 'scons'
+
 Default('.')        # build everything by default
 # setup the environment
 env = Environment(CPPPATH=Dir('.'))
