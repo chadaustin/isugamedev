@@ -1,0 +1,20 @@
+XDL == cross (X) platform suite of tools for Dynamic Libraries...
+
+
+Interfaces:
+
+
+xdl::Library 
+==============
+ example usage:
+
+         xdl::Library lib;
+         if (lib.open( "test.so" ))
+         {
+            void* func = lib.lookup( "createInterface" );
+            if (func != NULL)   
+            {
+               // call it!  do stuff!!
+            }
+            lib.close();
+         }
