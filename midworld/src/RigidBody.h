@@ -13,7 +13,38 @@ namespace mw
     */
    class RigidBody
    {
+   
+      gmtl::Point3f mPos;  //position
+      gmtl::Vec3f mVel;
+      gmtl::Vec3f mAccel;
+      gmtl::Vec3f mForce;	
+      
+   //rotation vars
+
+      gmtl::Vec3f mRot;
+      gmtl::Vec3f mRotVel;
+      gmtl::Vec3f mRotAccel;
+      gmtl::Vec3f mRotForce;
+
+
    public:
+
+      float mMass;
+      //private access//
+
+      void setPos(gmtl::Point3f pos){ mPos=pos;}
+      void setVel(gmtl::Vec3f vel){ mVel=vel;}
+      void addForce(gmtl::Vec3f force);
+
+      void setRot     (gmtl::Vec3f rotAngle ){ mRot=rotAngle;}
+      void setRotVel  (gmtl::Vec3f rotVel)   { mRotVel=rotVel;}
+      void addRotForce(gmtl::Vec3f rotForce);
+
+
+
+      void move(float dt);	// update pos,vel,accel, and force
+      void draw();	// display
+
       virtual ~RigidBody() {}
 
       /**
