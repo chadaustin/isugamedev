@@ -32,6 +32,7 @@ sources = Split("""
 
 headers = Split("""
    CollisionDetector.h
+   Entity.h
    NullCollisionDetector.h
    SpatialIndex.h
    VectorSpatialIndex.h

@@ -1,8 +1,11 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
-2002-07-05 daren	Added in a BaseBullet for all bullets, and a GrimReaper
-			to clean up the bullets.  createBullet now makes 
-			BaseBullet types instead of RigidBodies.
+2002-07-28 nonchocoboy  Added Entity abstraction on top of RigidBody.
+                        Generalized GrimReaper and GameState to only manage
+                        entities in order to simplify game resource management.
+2002-07-05 daren        Added in a BaseBullet for all bullets, and a GrimReaper
+                        to clean up the bullets.  createBullet now makes
+                        BaseBullet types instead of RigidBodies.
 2002-07-05 subatomic    Implemented virtual game cursor, hiding/warping the 
                         system mouse now, add this to GameState/MenuState
 2002-07-05 subatomic    Weapon slots work with 0-9 keys and multi weapons per 

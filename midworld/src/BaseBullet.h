@@ -4,7 +4,7 @@
 #ifndef MW_BASEBULLET_H
 #define MW_BASEBULLET_H
 
-#include "RigidBody.h"
+#include "Entity.h"
 
 namespace mw
 {
@@ -12,13 +12,13 @@ namespace mw
     * This class represents the base bullet from which all guns derive
     * their bullet types.
     */
-   class BaseBullet: public RigidBody
+   class BaseBullet: public Entity
    {
    public:
       /**
        * Constructor
        */
-      BaseBullet() :  mExistCount(0), mTimeOut(5), mExpired(false)
+      BaseBullet() :  mExistCount(0), mTimeOut(5)
       {
       }
       /**
@@ -33,35 +33,22 @@ namespace mw
        */
       virtual void update(float dt)
       {
-         if (mExistCount >= mTimeOut)
-         {
-            mExpired = true;
-         }
          mExistCount += dt;
-         RigidBody::update(dt);
-      }
-      /**
-       * Draw this bullet.
-       * @TODO: Do something?
-       */
-      virtual void draw() const
-      {
-         RigidBody::draw();
+         Entity::update(dt);
       }
 
       bool isExpired() const
       {
-         return mExpired;
+         return (mExistCount >= mTimeOut);
       }
+
    protected:
-      //The amount of time that this bullet has existed in the GameState
+      /// The amount of time that this bullet has existed in the GameState
       float mExistCount;
-      //The amount of time this bullet is allowed to stay in the GameState 
+
+      /// The amount of time this bullet is allowed to stay in the GameState
       float mTimeOut;
-      //Am I expired yet?
-      bool mExpired;
-   private:
-   };   
+   };
 
 }//end of namespace mw
 #endif

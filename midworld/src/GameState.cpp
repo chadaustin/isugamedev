@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-07 03:50:01 $
- * Version:       $Revision: 1.21 $
+ * Date modified: $Date: 2002-07-29 04:20:36 $
+ * Version:       $Revision: 1.22 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,6 +38,8 @@
 #include "Shotgun.h"
 #include "AssaultRifle.h"
 #include "Application.h"
+
+#include "Enemy.h"
 
 namespace mw
 {
@@ -58,19 +60,21 @@ namespace mw
       mGunSlots.resize( 10 );
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          mGunSlots[x] = UP;
-      
+
       mPlayer.addWeapon( new Pistol );
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
+
+      // XXX: Hardcoded to add some initial enemies into the game
       for (int i = 0; i < 10; i++)
       {
-         mEnemies.push_back(new Enemy());
+         Enemy* enemy = new Enemy();
          gmtl::Point3f inPos(static_cast<float>(5 + i*4), 0, 0);
-         mEnemies[i]->setPos(inPos);
-         add(mEnemies[i]);
+         enemy->setPos(inPos);
+         add(enemy);
       }
-      
+
       mFont = 0;
       mFontRenderer = 0;
       mFont = gltext::CreateFont("fonts/arial.ttf", gltext::PLAIN, 24);
@@ -84,6 +88,8 @@ namespace mw
             mFontRenderer->setFont(mFont);
          }
       }
+
+      // Start up the grim reaper ... watch out little entities ;)
       mReaper = new GrimReaper();
    }
 
@@ -103,7 +109,7 @@ namespace mw
       const gmtl::Vec3f reverse( gmtl::Vec3f(0, 0,  mSpeed*0.7f) );
       const gmtl::Vec3f sleft(   gmtl::Vec3f(-mSpeed*0.9f, 0, 0) );
       const gmtl::Vec3f sright(  gmtl::Vec3f( mSpeed*0.9f, 0, 0) );
-      
+
       // Accelerate
       if (mAccelerate == EDGE_DOWN)
       {
@@ -146,7 +152,7 @@ namespace mw
 
       // set velocity of player based on the computed inputs
       mPlayer.setVel( mPlayer.getRot() * mPlayerVel );
-      
+
       // Shoot
       if (mShoot == EDGE_DOWN)
       {
@@ -158,20 +164,20 @@ namespace mw
          mPlayer.weapon().trigger( false );
          //std::cout<<"Trigger Up"<<std::endl;
       }
-      
+
       if (mCycleWeapon == EDGE_DOWN)
       {
          mPlayer.nextWeapon();
-      }      
+      }
 
       for (unsigned int x = 0; x < 9; ++x)
       {
          if (mGunSlots[x] == EDGE_DOWN)
          {
             mPlayer.setWeapon( x );
-         }                  
+         }
       }
-      
+
       // update player transform
       {
          float screen_size_x = this->application().getWidth();
@@ -203,7 +209,7 @@ namespace mw
             mPlayer.setRot( q );
          }
       }
-      
+
       // update edge states...
       updateEdgeState(mAccelerate);
       updateEdgeState(mReverse);
@@ -214,20 +220,12 @@ namespace mw
 
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          updateEdgeState( mGunSlots[x] );
-      
-      //Reap through the bullets
-      mReaper->reap(mBullets); 
 
-      // Iterate over all the rigid bodies and update them
-      for (RigidBodyList::iterator itr = mBodies.begin(); itr != mBodies.end(); ++itr)
-      {
-         (*itr)->update(dt);
-      }
-      for (std::vector<BaseBullet*>::iterator itr = mBullets.begin(); itr != mBullets.end(); ++itr)
-      {
-         (*itr)->update(dt);
-      }
-      for (std::vector<Enemy*>::iterator itr = mEnemies.begin(); itr != mEnemies.end(); ++itr)
+      // Reap dead entities
+      mReaper->reap(mEntities);
+
+      // Iterate over all the entities and update them
+      for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); ++itr)
       {
          (*itr)->update(dt);
       }
@@ -245,21 +243,11 @@ namespace mw
       }
    }
 
-   void GameState::add( RigidBody* b )
+   void GameState::add(Entity* entity)
    {
-      mBodies.push_back( b );
-   }
-   
-   void GameState::add( BaseBullet* bullet)
-   {
-      mBullets.push_back(bullet);
+      mEntities.push_back(entity);
    }
 
-   void GameState::add( Enemy* enemy)
-   {
-      mEnemies.push_back(enemy);
-   }
-   
    void GameState::draw()
    {
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -283,26 +271,16 @@ namespace mw
          mPlayer.draw();
          mScene.draw();
 
-         // Draw all the bodies in the world
-         for (RigidBodyList::iterator itr = mBodies.begin(); itr != mBodies.end(); ++itr)
-         {
-            (*itr)->draw();
-         }
-
-         for (std::vector<BaseBullet*>::iterator itr = mBullets.begin(); itr != mBullets.end(); ++itr)
-         {
-            (*itr)->draw();
-         }
-         
-         for (std::vector<Enemy*>::iterator itr = mEnemies.begin(); itr != mEnemies.end(); ++itr)
+         // Draw all the entities in the world
+         for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); ++itr)
          {
             (*itr)->draw();
          }
       glPopMatrix();
 
       mCursor.draw( this->application().getWidth(),
-                      this->application().getHeight() );
-         
+                    this->application().getHeight() );
+
       // Draw the HUD
       if (mFontRenderer)
       {

@@ -24,24 +24,23 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-07-29 04:20:36 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
 #ifndef MW_ENEMY_H
 #define MW_ENEMY_H
 
 #include <cstdlib>
-#include "RigidBody.h"
+#include "Entity.h"
 
 namespace mw
 {
    /**
     * Base class for all enemy types.
     */
-   class Enemy: public RigidBody
+   class Enemy: public Entity
    {
    public:
 
@@ -52,24 +51,26 @@ namespace mw
       {
          srand(5);
       }
+
       /**
        * Destructor
        */
       ~Enemy()
       {
       }
-      
+
       /**
        * Gets the current health value of this enemy.
        * @return the amount of health this enemy has left.
        */
-      long int getHealth() {return mHealth;}
+      long int getHealth() { return mHealth; }
+
       /**
        * Sets the current health value of this enemy.
        * @param health the amount of health to set this enemy at.
        */
-      void setHealth(long int health)  {mHealth = health;}
-      
+      void setHealth(long int health) { mHealth = health; }
+
       /**
        * Updates the internal state of this enemy taking into account
        * the amount of time that has passed.
@@ -77,14 +78,25 @@ namespace mw
        * update
        */
       virtual void update(float timeDelta);
+
       /**
        * Draws this enemy onto the screen.
        */
       virtual void draw() const;
-      
+
+      /**
+       * Tests if this entity would like to be removed from the game.
+       */
+      bool isExpired() const
+      {
+         /// @todo   some complicated test of our state
+         return false;
+      }
+
    private:
-      long int mHealth;   
+      long int mHealth;
    };
 
 }//end of namespace mw
+
 #endif

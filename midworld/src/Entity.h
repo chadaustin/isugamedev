@@ -23,32 +23,36 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: GrimReaper.h,v $
+ * File:          $RCSfile: Entity.h,v $
  * Date modified: $Date: 2002-07-29 04:20:36 $
- * Version:       $Revision: 1.2 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#ifndef MW_GRIM_REAPER_H
-#define MW_GRIM_REAPER_H
+#ifndef MW_ENTITY_H
+#define MW_ENTITY_H
 
-#include <vector>
-#include "Entity.h"
+#include "RigidBody.h"
 
 namespace mw
 {
    /**
-    * This class cleans up the expired entities in the GameState.
+    * An entity is a specialized type of rigid body from which all objects with
+    * which the player may interact derive from. This includes enemies,
+    * projectiles, doors, ammo crates, etc.
     */
-   class GrimReaper
+   class Entity : public RigidBody
    {
    public:
       /**
-       * Cleans up all the expired entities in the list.
+       * Determines if this entity has expired and needs to be removed from the
+       * game. This allows all expired objects to be removed in a single pass at
+       * the end of each frame.
        *
-       * @param   list the list of entities to remove from the list
+       * @return  true if this entity wishes to be removed from the game; false
+       *          otherwise
        */
-      void reap(std::vector<Entity*> &list);
+      virtual bool isExpired() const = 0;
    };
 }
 

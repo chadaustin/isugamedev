@@ -24,14 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-07-07 06:21:47 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2002-07-29 04:20:36 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
-#ifndef MW_GAMESTATE_H
-#define MW_GAMESTATE_H
+#ifndef MW_GAME_STATE_H
+#define MW_GAME_STATE_H
 
 #include <vector>
 
@@ -41,15 +40,17 @@
 #include "GameScene.h"
 #include "Camera.h"
 #include "Player.h"
-#include "BaseBullet.h"
-#include "Enemy.h"
-#include "RigidBody.h"
+#include "Entity.h"
 #include "GrimReaper.h"
 #include "Cursor.h"
 
 namespace mw
 {
    class Application;
+
+   /**
+    * The state in which the game is played.
+    */
    class GameState : public State
    {
    public:
@@ -70,21 +71,14 @@ namespace mw
       void onMousePress(Uint8 button, bool down, int x, int y);
 
       void onMouseMove(int x, int y);
+
       /**
-       * Adds a RigidBody into the world
-       * @param b the body to add into the world
+       * Adds an entity into the world.
+       *
+       * @param entity     the entity to add into the world
        */
-      void add( RigidBody* b);
-      /**
-       * Adds a bullet into the world
-       * @param bullet the bullet to add into the world.
-       */
-      void add( BaseBullet* bullet);
-      /**
-       * Adds an enemy into the world
-       * @param enemy the enemy to add into the world.
-       */
-      void add( Enemy* enemy);
+      void add(Entity* entity);
+
    private:
       // called on input change
       void updateEdgeState(EdgeState& state, bool absoluteState);
@@ -100,17 +94,25 @@ namespace mw
       float mSpeed;
       Player mPlayer;
 
-      typedef std::vector<RigidBody*> RigidBodyList;
-      RigidBodyList mBodies;
-      std::vector<Enemy*> mEnemies;
-      std::vector<BaseBullet*> mBullets;
+      typedef std::vector<Entity*> EntityList;
+
+      /**
+       * The list of all entities in the game.
+       */
+      EntityList mEntities;
+
+      /**
+       * The grim reaper that destroys and removes entities from the game when
+       * they request removal.
+       */
       GrimReaper *mReaper;
+
       // actions :*)
       EdgeState mAccelerate;
       EdgeState mReverse;
       EdgeState mStrafeRight, mStrafeLeft;
       EdgeState mShoot, mCycleWeapon;
-      std::vector<EdgeState> mGunSlots; 
+      std::vector<EdgeState> mGunSlots;
       // input data for the Player object.
       // note: in local screen space, not actual player vel
       gmtl::Vec3f mPlayerVel;
@@ -122,7 +124,7 @@ namespace mw
       float mFPS;
       float mFrameCount;
       float mFrameTime;
-      
+
       Cursor mCursor;
    };
 }
