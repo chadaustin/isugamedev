@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.h,v $
- * Date modified: $Date: 2002-10-29 18:57:32 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-11-03 00:53:27 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,12 +48,6 @@ namespace mw
     */
    class PhysicsEngine
    {
-   private:
-      PhysicsEngine();
-      PhysicsEngine(PhysicsEngine&);
-      ~PhysicsEngine();
-      PhysicsEngine& operator=(const PhysicsEngine&);
-
    public:
       /// Epsilon value for time value testing.
       const static float TIME_EPSILON;
@@ -62,6 +56,9 @@ namespace mw
       const static gmtl::Vec3f GRAVITY;
 
    public:
+      PhysicsEngine();
+      ~PhysicsEngine();
+
       /**
        * Applies all the forces to the given body over the given change of time.
        * The body's state is updated to reflect the changes. This is equivalent
@@ -83,11 +80,8 @@ namespace mw
        * @param state      the state to modify with the result of the update
        * @param rotation   true if rotational calculations should be done
        */
-      static void update(
-         const RigidBody* body,
-         float dt,
-         BodyState& state,
-         bool rotation = true);
+      static void update(const RigidBody* body, float dt,
+                         BodyState& state, bool rotation = true);
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PhysicsEngine.cpp,v $
- * Date modified: $Date: 2002-10-23 07:15:45 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-11-03 00:53:27 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -38,6 +38,12 @@ namespace mw
    const float PhysicsEngine::TIME_EPSILON = 0.0001f;
 
    const gmtl::Vec3f PhysicsEngine::GRAVITY(0, -9.81f, 0);
+
+   PhysicsEngine::PhysicsEngine()
+   {}
+
+   PhysicsEngine::~PhysicsEngine()
+   {}
 
    void
    PhysicsEngine::update(RigidBody* body, float dt, bool rotation)

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-02 02:22:41 $
- * Version:       $Revision: 1.102 $
+ * Date modified: $Date: 2002-11-03 00:53:27 $
+ * Version:       $Revision: 1.103 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -51,6 +51,7 @@
 #include "MissileLauncher.h"
 #include "OpenSGSceneViewer.h"
 #include "Pistol.h"
+#include "PhysicsEngine.h"
 #include "Shotgun.h"
 #include "SpreadGun.h"
 #include "StateFactory.h"

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-11-02 02:22:41 $
- * Version:       $Revision: 1.61 $
+ * Date modified: $Date: 2002-11-03 00:53:27 $
+ * Version:       $Revision: 1.62 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -54,7 +54,6 @@
 #include "GameScene.h"
 #include "HUD.h"
 #include "InputAction.h"
-#include "PhysicsEngine.h"
 #include "Player.h"
 #include "Scene.h"
 #include "SceneViewer.h"
