@@ -174,10 +174,13 @@
 				RelativePath="..\..\src\CollisionDetector.h">
 			</File>
 			<File
-				RelativePath="..\..\src\CollisionEvent.h">
+				RelativePath="..\..\src\CollisionListener.h">
 			</File>
 			<File
-				RelativePath="..\..\src\CollisionListener.h">
+				RelativePath="..\..\src\CollisionResponse.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\CollisionResponse.h">
 			</File>
 			<File
 				RelativePath="..\..\src\CreditsState.cpp">
@@ -276,6 +279,9 @@
 				RelativePath="..\..\src\LoadState.h">
 			</File>
 			<File
+				RelativePath="..\..\src\LokiTypeInfo.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Main.cpp">
 			</File>
 			<File
@@ -325,6 +331,9 @@
 			</File>
 			<File
 				RelativePath="..\..\src\PhysicsEngine.h">
+			</File>
+			<File
+				RelativePath="..\..\src\PickupItem.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Pistol.h">

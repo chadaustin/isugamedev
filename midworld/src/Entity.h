@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Entity.h,v $
- * Date modified: $Date: 2002-10-29 18:50:35 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-10-31 08:35:59 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,7 +33,6 @@
 #define MW_ENTITY_H
 
 #include "RigidBody.h"
-#include "CollisionListener.h"
 
 namespace mw
 {
@@ -42,7 +41,7 @@ namespace mw
     * which the player may interact derive from. This includes enemies,
     * projectiles, doors, ammo crates, etc.
     */
-   class Entity : public RigidBody, public CollisionListener
+   class Entity : public RigidBody
    {
    public:
       /**

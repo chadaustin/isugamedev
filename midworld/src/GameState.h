@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-31 05:45:30 $
- * Version:       $Revision: 1.57 $
+ * Date modified: $Date: 2002-10-31 08:36:00 $
+ * Version:       $Revision: 1.58 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -47,6 +47,7 @@
 #include <SDL.h>
 #include "Camera.h"
 #include "CollisionDetector.h"
+#include "CollisionResponse.h"
 #include "Entity.h"
 #include "GameScene.h"
 #include "HUD.h"
@@ -255,6 +256,7 @@ namespace mw
 
       /// The collision detection algorithm
       CollisionDetector* mCollDet;
+      CollisionResponse mCollisionResponse;
 
       /**
        * Input data for the Player object.

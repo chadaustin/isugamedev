@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: PickupItem.h,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-31 08:36:01 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,7 +53,7 @@ namespace mw
        * This pickup item only cares when a player collides with it. If such a
        * situation occurs, then the object is told that it has been picked up by
        * the given player.
-       */
+       * /
       void onCollisionEntry(const CollisionEvent& evt)
       {
          RigidBody* body = 0;
@@ -81,6 +81,7 @@ namespace mw
       void onCollisionExit(const CollisionEvent& evt)
       {
       }
+      */
 
    protected:
       /**

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.cpp,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-31 08:35:57 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -57,35 +57,4 @@ namespace mw
       return (mExistCount >= mTimeOut);
    }
 
-   void
-   BaseBullet::onCollisionEntry(const CollisionEvent& evt)
-   {
-      if (evt.getSource() == this)
-      {
-         // Don't collide with other bullets
-         if (dynamic_cast<BaseBullet*>(evt.getDesc()->getCollidee()))
-         {
-            return;
-         }
-      }
-      else
-      {
-         // Don't collide with other bullets
-         if (dynamic_cast<BaseBullet*>(evt.getSource()))
-         {
-            return;
-         }
-      }
-
-      // Make sure we die next frame
-      mExistCount = mTimeOut;
-   }
-
-   void
-   BaseBullet::onCollisionMovement(const CollisionEvent& evt)
-   {}
-
-   void
-   BaseBullet::onCollisionExit(const CollisionEvent& evt)
-   {}
 }

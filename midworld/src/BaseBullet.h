@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseBullet.h,v $
- * Date modified: $Date: 2002-10-28 07:41:20 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-31 08:35:57 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -60,10 +60,6 @@ namespace mw
       virtual void update(float dt);
 
       bool isExpired() const;
-
-      void onCollisionEntry(const CollisionEvent& evt);
-      void onCollisionMovement(const CollisionEvent& evt);
-      void onCollisionExit(const CollisionEvent& evt);
 
    protected:
       /// The amount of time that this bullet has existed in the GameState

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-10-29 06:27:34 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-10-31 08:36:01 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -95,18 +95,6 @@ namespace mw
       bool isExpired() const
       {
          return false;
-      }
-
-      void onCollisionEntry(const CollisionEvent& evt)
-      {
-      }
-
-      void onCollisionMovement(const CollisionEvent& evt)
-      {
-      }
-
-      void onCollisionExit(const CollisionEvent& evt)
-      {
       }
 
    private:

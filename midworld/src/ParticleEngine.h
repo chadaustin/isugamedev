@@ -23,18 +23,6 @@ namespace mw
       void draw() const;
       bool isExpired() const;
       
-      void onCollisionEntry(const CollisionEvent&)
-      {
-      }
-
-      void onCollisionMovement(const CollisionEvent&)
-      {
-      }
-
-      void onCollisionExit(const CollisionEvent&)
-      {
-      }
-
    private:
       void billboardBegin(
          const gmtl::Vec3f& cam,

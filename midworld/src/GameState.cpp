@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-31 05:45:30 $
- * Version:       $Revision: 1.95 $
+ * Date modified: $Date: 2002-10-31 08:35:59 $
+ * Version:       $Revision: 1.96 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -104,7 +104,7 @@ namespace mw
       // DO THIS FIRST!!!
       // Tell the EntityFactory to use this as the GameState
       EntityFactory::instance().setGameState(this);
-
+      
       mGunSlots.resize( 10 );
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          mGunSlots[x] = UP;
@@ -502,13 +502,13 @@ namespace mw
 
          // Check if the body collided with anything
          gmtl::Vec3f path = body->getNextState().getPos() - body->getCurrentState().getPos();
-         CollisionDesc* desc = mCollDet->checkCollision(body, path);
+         std::auto_ptr<CollisionDesc> desc(
+            mCollDet->checkCollision(body, path));
 
          // No more collisions, let the body update for the remaining distance
-         if (!desc)
+         if (!desc.get())
          {
             body->moveToNextState();
-
             remaining_dt = 0.0f;
          }
          // There was a collision!
@@ -523,21 +523,12 @@ namespace mw
             PhysicsEngine::update(body, time_to_collision);
             body->moveToNextState();
 
-            // Notify the collider of the collision
-            CollisionEvent evt(body, desc);
-            body->onCollisionEntry(evt);
-
-            // Notify the collidee of the collision
-            Entity* collidee = (Entity*)desc->getCollidee();
-            collidee->onCollisionEntry(evt);
-
-            std::cout<<"Collision! "<<body->getUID()<<" -> "<<collidee->getUID()<<std::endl;
+            // body                == collider
+            // desc->getCollidee() == collidee
+            mCollisionResponse.collide(body, desc->getCollidee());
 
             // Update the remaining time differential
             remaining_dt -= time_to_collision;
-
-            // Be good and clean up memory
-            delete desc;
          }
       }
       
@@ -726,7 +717,7 @@ namespace mw
       lm::aiNode* node1 = new lm::aiNode(name, NULL, maxChild, level);
       mAInodes.push_back(node1);
 
-      Enemy* enemy = EntityFactory::instance().create<Turret>();
+      Enemy* enemy = EntityFactory::instance().create<Enemy>();
       node2sCommand = new lm::simpleCommand<Enemy>(enemy, &Enemy::walkRandom);
       myTestCommand = new lm::nodeTestCommand<testing>(appTest, &testing::alwaysTrue);
       

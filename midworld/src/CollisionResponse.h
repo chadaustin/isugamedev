@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.h,v $
- * Date modified: $Date: 2002-10-30 09:48:05 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-31 08:35:58 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,8 +34,8 @@
 
 #include <map>
 #include <utility>
+#include "RigidBody.h"
 #include "LokiTypeInfo.h"
-#include "CollisionEvent.h"
 
 namespace mw
 {
@@ -47,44 +47,89 @@ namespace mw
     */
    class CollisionResponse
    {
-   public:
-      /// The response function pointer type.
-      typedef void (*ResponseFunc)(const CollisionEvent&);
+   private:
+      class Response
+      {
+      public:
+         virtual void onCollide(RigidBody* e1, RigidBody* e2) = 0;
+      };
+   
+      template<typename T1, typename T2>
+      class TypedResponse : public Response
+      {
+      public:
+         TypedResponse(void (*response)(T1*, T2*))
+         {
+            mResponse = response;
+         }
+      
+         void onCollide(RigidBody* e1, RigidBody* e2)
+         {
+            mResponse(dynamic_cast<T1*>(e1), dynamic_cast<T2*>(e2));
+         }
+         
+      private:
+         void (*mResponse)(T1*, T2*);
+      };
 
+      template<typename T1, typename T2>
+      class ReverseResponse : public Response
+      {
+      public:
+         ReverseResponse(void (*response)(T1*, T2*))
+         {
+            mResponse = response;
+         }
+
+         void onCollide(RigidBody* e1, RigidBody* e2)
+         {
+            mResponse(dynamic_cast<T1*>(e2), dynamic_cast<T2*>(e1));
+         }
+         
+      private:
+         void (*mResponse)(T1*, T2*);
+      };
+   
    public:
       CollisionResponse();
       ~CollisionResponse();
-
+   
       /**
-       * Sets the response that will be invoked when the given pair of entity
+       * Defines a response that will be invoked when the given pair of entity
        * types collide.
        */
-      void defineResponse(const Loki::TypeInfo& colliderType,
-                          const Loki::TypeInfo& collideeType,
-                          ResponseFunc* response);
-
-      /**
-       * Checks if a response has been defined for the given collision pair.
-       */
-      bool isDefined(const Loki::TypeInfo& colliderType,
-                     const Loki::TypeInfo& collideeType) const;
-
-      /**
-       * Gets the response for a collision between the two given types.
-       *
-       * @return  a pointer to the response function; NULL if there is no match
-       */
-      ResponseFunc* getResponse(const Loki::TypeInfo& colliderType,
-                                const Loki::TypeInfo& collideeType);
+      template<typename T1, typename T2>
+      void defineResponse(void (*responseFunc)(T1*, T2*))
+      {
+         Loki::TypeInfo type1(typeid(T1));
+         Loki::TypeInfo type2(typeid(T2));
+         TypePair pair1(type1, type2);
+         TypePair pair2(type2, type1);
+         delete mResponseMap[pair1];
+         delete mResponseMap[pair2];
+         mResponseMap[pair1] = new TypedResponse<T1, T2>(responseFunc);
+         mResponseMap[pair2] = new ReverseResponse<T1, T2>(responseFunc);
+      }
+      
+      void collide(RigidBody* e1, RigidBody* e2)
+      {
+         Loki::TypeInfo type1(typeid(*e1));
+         Loki::TypeInfo type2(typeid(*e2));
+         Response* response = mResponseMap[std::make_pair(type1, type2)];
+         if (response)
+         {
+            response->onCollide(e1, e2);
+         }
+      }
 
    private:
-      /// A pair (ordering is important) of entity types <collider, collidee>.
       typedef std::pair<Loki::TypeInfo, Loki::TypeInfo> TypePair;
+      typedef std::map<TypePair, Response*> ResponseMap;
 
-      /// The mapp of entity TypePairs to response functions
-      typedef std::map<TypePair, ResponseFunc*> ResponseMap;
-
-      /// The mapping of entity TypePairs to the function that defines the response
+      /**
+       * The mapping of entity TypePairs to the function that defines the response.
+       * In this map, the pair has the restriction such that type1 <= type2.
+       */
       ResponseMap mResponseMap;
    };
 }

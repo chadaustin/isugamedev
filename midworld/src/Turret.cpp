@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Turret.cpp,v $
- * Date modified: $Date: 2002-10-29 18:50:36 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-10-31 08:36:01 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -50,7 +50,7 @@ namespace mw
       ParticleEngine* engine = new ParticleEngine(
          factory.getGameState(),
          "images/explosive_particle.png",
-         4000);
+         1000);
       factory.add(engine);
       
       engine->setPos(getPos());

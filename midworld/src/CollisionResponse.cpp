@@ -24,49 +24,35 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-10-30 09:48:05 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-10-31 08:35:57 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include "CollisionResponse.h"
+#include "Player.h"
+#include "Turret.h"
 
 namespace mw
 {
+   void collidePlayerTurret(Player* p, Turret* t)
+   {
+      t->setHealth(t->getHealth() - 1);
+   }
+
+
    CollisionResponse::CollisionResponse()
-   {}
-
+   {
+      defineResponse<Player, Turret>(collidePlayerTurret);
+   }
+   
    CollisionResponse::~CollisionResponse()
-   {}
-
-   void
-   CollisionResponse::defineResponse(const Loki::TypeInfo& colliderType,
-                                     const Loki::TypeInfo& collideeType,
-                                     ResponseFunc* response)
    {
-      mResponseMap[TypePair(colliderType, collideeType)] = response;
-   }
-
-   bool
-   CollisionResponse::isDefined(const Loki::TypeInfo& colliderType,
-                                const Loki::TypeInfo& collideeType) const
-   {
-      TypePair type(colliderType, collideeType);
-
-      ResponseMap::const_iterator itr = mResponseMap.find(type);
-      return (itr != mResponseMap.end());
-   }
-
-   CollisionResponse::ResponseFunc*
-   CollisionResponse::getResponse(const Loki::TypeInfo& colliderType,
-                                  const Loki::TypeInfo& collideeType)
-   {
-      TypePair type(colliderType, collideeType);
-
-      if (isDefined(type.first, type.second))
+      for (ResponseMap::iterator i = mResponseMap.begin();
+           i != mResponseMap.end();
+           ++i)
       {
-         return mResponseMap[type];
+         delete i->second;
       }
-      return 0;
    }
 }

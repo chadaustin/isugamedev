@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StaticEntity.h,v $
- * Date modified: $Date: 2002-10-30 06:51:18 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-31 08:36:01 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,18 +41,6 @@ namespace mw
    public:
       StaticEntity(GameState* gameState)
          : AbstractEntity(gameState)
-      {
-      }
-
-      void onCollisionEntry(const CollisionEvent&)
-      {
-      }
-
-      void onCollisionMovement(const CollisionEvent&)
-      {
-      }
-
-      void onCollisionExit(const CollisionEvent&)
       {
       }
 
