@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-29 13:02:07 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-03-29 15:48:38 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -50,9 +50,12 @@ namespace client
       // Check message type
       if ( msg->getType() == net::OK ) {
          // Message is Ack from login msg
-         const net::OKMessage* okMsg = dynamic_cast<const net::OKMessage*>(msg);
+         const net::OKMessage* okMsg = (const net::OKMessage*)(msg);
          if ( okMsg->getCode() == net::OKMessage::OKAY ) {
             std::cout<<"Login successful"<<std::endl;
+
+            // send request to join game
+            app->getNetMgr()->send(new net::JoinAs(net::JoinAs::PLAYER), app->getConnID());
             return std::auto_ptr<AppState>(new LoggedInState());
          } else {
             std::cout<<"Login failed"<<std::endl;
