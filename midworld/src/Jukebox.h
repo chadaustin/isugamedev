@@ -39,7 +39,7 @@ namespace mw
       /**
        * Return current size of playlist.
        */
-      int getTrackCount() const;
+      unsigned int getTrackCount() const;
 
       /**
        * Return the filename at position index.

@@ -14,10 +14,10 @@ namespace mw
       delete mCurrentTrack;
    }
 
-   int
+   unsigned int
    Jukebox::getTrackCount() const
    {
-      return mTracks.size();
+      return (unsigned int)mTracks.size();
    }
 
    const std::string&
@@ -36,7 +36,7 @@ namespace mw
    void
    Jukebox::removeTrack(const std::string& track)
    {
-      for (int i = 0; i < getTrackCount(); ++i)
+      for (unsigned int i = 0; i < getTrackCount(); ++i)
       {
          if (track == getTrack(i))
          {
