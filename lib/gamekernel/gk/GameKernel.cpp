@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2003-02-09 07:42:35 $
-// Version:       $Revision: 1.31 $
+// Date modified: $Date: 2003-02-09 07:44:50 $
+// Version:       $Revision: 1.32 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -115,7 +115,7 @@ const std::string& GameKernel::name() const
 bool GameKernel::run( const std::string& driverName, const std::string& regName )
 {
    gk::SystemDriverFactory::instance().probe( driverName, regName );
-   gk::ISystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( "SDL" );
+   gk::ISystemDriver* driver = gk::SystemDriverFactory::instance().getDriver( regName );
    return this->run( driver );
 }
 
