@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-27 17:41:25 $
-//    $Revision: 1.10 $
+//    $Date: 2001-09-30 23:28:37 $
+//    $Revision: 1.11 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -60,16 +60,17 @@ public:
       std::string filename = pathToFiles + fileNameWithoutPath;
 
 
+      std::cout<<"- Loading: "<<fileNameWithoutPath<<"\n"<<std::flush;
       bool exists = CFileIO::fileExists( filename.c_str() );
       if (exists == false)
       {
-         std::cout<<"WARNING: File not found: \""<<filename.c_str()<<"\"\n"<<std::flush;
+         std::cout<<"  - WARNING: File not found: \""<<filename.c_str()<<"\"\n"<<std::flush;
          return;
       }
 
       std::fstream dataFile;
       dataFile.open( filename.c_str(), std::ios::in );
-      assert( dataFile.good() && "couldn't open file" );
+      assert( dataFile.good() && "couldn't open .mtl file" );
       CFileIO::getAll( dataFile, filetext );
       dataFile.close();
 
@@ -160,11 +161,11 @@ public:
                for (int x = 0; x < num_of_matches; ++x)
                {
                   gstate->mapName = pathToFiles + extractMap.match[x].atom[1].str();
-                  std::cout<<"Loading: \""<<gstate->mapName<<"\"\n"<<std::flush;
+                  std::cout<<"- Loading: \""<<gstate->mapName<<"\"\n"<<std::flush;
                   Image* image = new Image;
                   if (ImageManager::instance().load( gstate->mapName.c_str(), *image ) == false)
                   {
-                     std::cout<<"         \""<<gstate->mapName<<"\" not found.\n"<<std::flush;
+                     std::cout<<"   - \""<<gstate->mapName<<"\" not found.\n"<<std::flush;
                      delete image;
                   }
                   else
@@ -229,9 +230,10 @@ public:
       
       std::map<std::string, Indicies> lookup;
       
+      std::cout<<"Loading: \""<<filename<<"\"\n"<<std::flush;
       std::fstream dataFile;
       dataFile.open( filename.c_str(), std::ios::in );
-      assert( dataFile.good() && "couldn't open file" );
+      assert( dataFile.good() && "couldn't open .obj file" );
       CFileIO::getAll( dataFile, filetext );
       dataFile.close();
 
@@ -243,7 +245,7 @@ public:
          if (num_of_matches)
          {
             currentWorkingDir = getWorkingDir.match[0];
-            std::cout<<"Current dir is: "<<currentWorkingDir<<"\n"<<std::flush;
+            std::cout<<"- Current dir is: "<<currentWorkingDir<<"\n"<<std::flush;
          }
 
          // parse line by line
@@ -380,7 +382,7 @@ public:
       std::map< std::string, Indicies >::iterator it;
       for (it = lookup.begin(); it != lookup.end(); ++it)
       {
-         std::cout<<"Building "<<(*it).first<<" geoset\n"<<std::flush;
+         std::cout<<"- Building "<<(*it).first<<" geoset\n"<<std::flush;
             
          GeoSet* geoset = new GeoSet;
 
@@ -402,12 +404,12 @@ public:
          if (normals.size() > 0 && lookup[(*it).first].nindex.size() > 0)
             geoset->setAttr( GeoSet::NORMAL3, GeoSet::PER_VERTEX, (void*)&normals[0], (unsigned int*)&lookup[(*it).first].nindex[0] );
          else
-            std::cout<<"- Not enough normals.  total normals = "<<normals.size()<<", indecies == "<<lookup[(*it).first].nindex.size()<<"\n"<<std::flush;
+            std::cout<<"  - Not enough normals.  total normals = "<<normals.size()<<", indecies == "<<lookup[(*it).first].nindex.size()<<"\n"<<std::flush;
          geoset->setAttr( GeoSet::TEXCOORD2, GeoSet::PER_VERTEX, (void*)&texcoords[0], (unsigned int*)&lookup[(*it).first].tindex[0] );
 
          if (lookup[(*it).first].mat != NULL)
          {
-            std::cout<<"- Setting texture: "<<(*it).first<<" to new geoset\n"<<std::flush;
+            std::cout<<"  - Setting texture: "<<(*it).first<<" to new geoset\n"<<std::flush;
             geoset->setGstate( lookup[(*it).first].mat );
          }
          
