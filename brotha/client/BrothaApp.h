@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-04-19 09:09:39 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-04-21 21:06:47 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,7 +41,7 @@
 #ifndef CLIENT_BROTHA_APP_H
 #define CLIENT_BROTHA_APP_H
 
-#include "SDL.h"
+#include <SDL/SDL.h>
 #include "game/BrothaGame.h"
 #include "net/NetMgr.h"
 #include "net/JoinAsMessage.h"

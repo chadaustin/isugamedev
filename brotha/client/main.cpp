@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-04-19 09:09:39 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-04-21 21:06:47 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,7 +43,7 @@
 #include <memory>
 #include <string>
 #include <stdlib.h>
-#include <SDL_opengl.h>
+#include <SDL/SDL_opengl.h>
 #include "client/BrothaApp.h"
 
 void log(const std::string& message) {
