@@ -64,6 +64,7 @@ classes = Split("""
    SoundManager
    SpreadGun
    StoryState
+   Testing
    Texture
    TextureManager
    Turret
