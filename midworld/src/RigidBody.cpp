@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-06-24 06:54:10 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-06-24 07:09:55 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,9 @@ namespace mw
 {
    void RigidBody::update( u64 crazyTime )
    {
+      // zero mass not supported :(
+      if (mMass < 0.0001f) mMass = 1.0f;
+      
       // convert crazy time to standard range used in physics equations...
       float dt = static_cast<float>( crazyTime ) / 1000000.0f;
 

@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-06-24 06:54:10 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-06-24 07:09:56 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,6 +48,10 @@ namespace mw
    {
    public:
 
+      RigidBody() : mMass( 1.0f )
+      {
+      }
+      
       virtual ~RigidBody() {}
 
       /**
