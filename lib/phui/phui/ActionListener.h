@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ActionListener.h,v $
- * Date modified: $Date: 2003-01-04 02:47:57 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -45,7 +45,7 @@ namespace phui
       /**
        * Creates a new action event using the given source widget.
        *
-       * @param src     
+       * @param src
        */
       ActionEvent(Widget* src)
          : mSource(src)

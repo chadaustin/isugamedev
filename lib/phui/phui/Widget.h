@@ -24,17 +24,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.31 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.32 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WIDGET_H
 #define PHUI_WIDGET_H
 
-#include "phuiCommon.h"
-#include "Color.h"
 #include <gltext.h>
+#include "Color.h"
 #include "Input.h"
 #include "Insets.h"
 #include "Point.h"

@@ -24,25 +24,25 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.h,v $
- * Date modified: $Date: 2003-01-04 02:47:57 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_LABEL_H
 #define PHUI_LABEL_H
 
-#include "phuiCommon.h"
 #include <string>
 #include <iostream>
 #include "Widget.h"
 
-namespace phui {
-
+namespace phui
+{
    /**
     * A classic UI label widget.
     */
-   class Label : public Widget {
+   class Label : public Widget
+   {
    public:
       /**
        * Creates a new label with the given text at (0,0) with size (0,0).
@@ -76,7 +76,6 @@ namespace phui {
        */
       std::string mText;
    };
-
-} // namespace phui
+}
 
 #endif

@@ -24,30 +24,34 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2003-01-04 03:47:43 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-#include "Window.h"
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
+#include "Window.h"
 
-namespace phui {
-
+namespace phui
+{
    Window::Window()
       : mTitle("")
    {
       init("", false);
    }
-     
+
    Window::Window(const std::string& title)
       : mTitle(title)
    {
       init(title, false);
    }
 
-   Window::~Window() {
-   }
+   Window::~Window()
+   {}
 
    void Window::draw() {
       const Size& size = getSize();

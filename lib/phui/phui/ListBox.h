@@ -24,15 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_LISTBOX_H
 #define PHUI_LISTBOX_H
 
-#include "phuiCommon.h"
 #include <string>
 #include <vector>
 #include <list>
@@ -40,9 +39,10 @@
 #include "Widget.h"
 #include "ListSelectionListener.h"
 
-namespace phui {
-
-   class ListBox : public Widget {
+namespace phui
+{
+   class ListBox : public Widget
+   {
    public:
       /**
        * Creates a list with no items.

@@ -24,15 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SDLBridge.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #include "SDLBridge.h"
 
-namespace phui {
-
+namespace phui
+{
    InputKey SDLToPhuiKey(SDLKey key) {
       if (key >= SDLK_0 && key <= SDLK_9) {
          return (InputKey)(KEY_0 + key - SDLK_0);

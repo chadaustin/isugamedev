@@ -24,18 +24,21 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-#include "Label.h"
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
-//#include "FontRendererCache.h"
+#include "Label.h"
 #include "WidgetContainer.h"
 
-namespace phui {
-
+namespace phui
+{
    Label::Label(const std::string& text)
       : mText(text)
    {
@@ -78,7 +81,7 @@ namespace phui {
       {
          yLoc = 0;
       }
-    
+
       double xLoc = (width - labelWidth)/2.0;
       if(xLoc < 0)
       {
@@ -87,7 +90,7 @@ namespace phui {
       glTranslatef(GLfloat(xLoc), GLfloat(height - yLoc), 0.0f);
 
       renderer->render(mText.c_str());
-     
+
       //Lets restore the Matrix
       glPopMatrix();
    }

@@ -24,40 +24,40 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WIDGET_CONTAINER_H
 #define PHUI_WIDGET_CONTAINER_H
 
-#include "phuiCommon.h"
 #include <vector>
 #include <iostream>
 #include "Widget.h"
 #include "LayoutManager.h"
 
-namespace phui {
-
+namespace phui
+{
    /**
     * Abstract widget specialization. This is the base class for all widgets
     * implementations that may contain other widgets within them.
     */
-   class WidgetContainer : public Widget {
+   class WidgetContainer : public Widget
+   {
    protected:
       /**
        * This class is abstract. You create a derived instance instead.
        */
       WidgetContainer();
-      
+
       /**
        * Constructor
        *
        * @param   manager        the layout manager for this container
        */
       WidgetContainer(LayoutManager* manager);
-      
+
       ~WidgetContainer();
 
    public:
@@ -87,7 +87,7 @@ namespace phui {
        * @param   manager        the layout manager
        */
       void setLayoutManager(LayoutManager* manager);
-      
+
       void onKeyDown(InputKey key);
       void onKeyUp(InputKey key);
       void onMouseDown(InputButton button, const Point& p);
@@ -104,13 +104,13 @@ namespace phui {
 
       // this name sucks ass
       Widget* getMouseWidget(const Point& p);
-      
+
    private:
       std::vector<Widget*> mWidgets;  // sorted from topmost to bottommost
                                       // topmost has focus
       ///The layout manager
       LayoutManager* mLayoutManager;
-      
+
       Widget* mCapturedWidget;
    };
 }

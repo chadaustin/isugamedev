@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SDLBridge.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -35,8 +35,8 @@
 #include <SDL.h>
 #include "Input.h"
 
-namespace phui {
-
+namespace phui
+{
    InputKey SDLToPhuiKey(SDLKey key);
    InputButton SDLToPhuiButton(Uint8 button);
 }

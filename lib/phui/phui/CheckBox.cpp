@@ -24,17 +24,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CheckBox.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:01 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #include "CheckBox.h"
 
-namespace phui {
-
+namespace phui
+{
    CheckBox::CheckBox(bool checked) {
-      mIsChecked = checked;      
+      mIsChecked = checked;
    }
 
    void CheckBox::draw() {
@@ -59,7 +59,7 @@ namespace phui {
          glVertex2i(0,     height);
          glEnd();
       }
-      
+
    }
 
    void CheckBox::check() {

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -45,14 +45,14 @@ namespace phui
       , mParent(NULL)
    {
       mFont = gltext::CreateFont("arial.ttf", gltext::PLAIN, 12);
-      if(!mFont)
+      if (!mFont)
       {
          throw std::runtime_error("Font not found");
       }
    }
 
-   Widget::~Widget() {
-   }
+   Widget::~Widget()
+   {}
 
    const Point& Widget::getPosition() const {
       return mPosition;

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutManager.h,v $
- * Date modified: $Date: 2003-01-04 02:47:57 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -41,7 +41,7 @@
 namespace phui
 {
    class WidgetContainer;
-   
+
    /**
     * Represents a Layout Manager for graphical components.  A Layout Manager
     * will automatically resize and move widgets to meet the constraints of the
@@ -50,18 +50,18 @@ namespace phui
    class LayoutManager
    {
    public:
-      
+
       /**
        * Constructor
        *
        * @param   container   the widget container to manage
        * @param   constraint  the layout constraint to follow
        */
-      LayoutManager(WidgetContainer *container, LayoutConstraint* constraint)
-         : mConstraint(constraint), mContainer(container) 
+      LayoutManager(WidgetContainer* container, LayoutConstraint* constraint)
+         : mConstraint(constraint), mContainer(container)
       {
       }
-     
+
       virtual ~LayoutManager()
       {
          delete mConstraint;
@@ -77,7 +77,7 @@ namespace phui
       {
          mWidgets.push_back( std::make_pair(point, size) );
       }
-      
+
       /**
        * Removes a widget's specifications from this layout manager
        *
@@ -104,7 +104,7 @@ namespace phui
       {
          return;
       }
-      
+
    protected:
       ///The layout constraint to follow
       LayoutConstraint* mConstraint;
@@ -112,8 +112,6 @@ namespace phui
       WidgetContainer* mContainer;
       ///The points and sizes of all widgets that are in this layout manager
       std::vector<std::pair< Point, Size > > mWidgets;
-   private:
-      
    };
 }
 

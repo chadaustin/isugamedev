@@ -24,25 +24,25 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-#ifndef PHUI_TEXTFIELD_H
-#define PHUI_TEXTFIELD_H
+#ifndef PHUI_TEXT_FIELD_H
+#define PHUI_TEXT_FIELD_H
 
-#include "phuiCommon.h"
 #include <string>
 #include <iostream>
 #include "Widget.h"
 
-namespace phui {
-
+namespace phui
+{
    /**
     * A classic UI textfield widget.
     */
-   class TextField : public Widget {
+   class TextField : public Widget
+   {
    public:
       /**
        * Creates a new textfield with no text at (0,0) with size (0,0).
@@ -54,7 +54,7 @@ namespace phui {
        *
        * @param text      the text for the button
        */
-      TextField( const std::string& text );
+      TextField(const std::string& text);
 
       /**
        * Destroys this button.
@@ -71,7 +71,7 @@ namespace phui {
        *
        * @param text      the text for this field
        */
-      void setText( const std::string& text );
+      void setText(const std::string& text);
 
       /**
        * Gets the text on this button.
@@ -100,7 +100,6 @@ namespace phui {
        * Index of character of where cursor is at
        */
       unsigned int mCursorCharacterPosition;
-
    };
 }
 

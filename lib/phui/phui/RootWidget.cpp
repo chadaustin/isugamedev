@@ -24,42 +24,45 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #include "RootWidget.h"
 
-namespace phui {
+namespace phui
+{
 
-   RootWidget::RootWidget( int width, int height ) {
+   RootWidget::RootWidget(int width, int height)
+   {
       setSize(width, height);
    }
 
-   RootWidget::~RootWidget() {
-   }
+   RootWidget::~RootWidget()
+   {}
 
-   void RootWidget::draw() {
+   void RootWidget::draw()
+   {
       const Size& size = getSize();
       const int width = size.getWidth();
       const int height = size.getHeight();
 
       // setup the projection matrix
-      glMatrixMode( GL_PROJECTION );
+      glMatrixMode(GL_PROJECTION);
       glPushMatrix();
       glLoadIdentity();
-      gluOrtho2D( 0, width, height, 0 );
+      gluOrtho2D(0, width, height, 0);
 
       // setup the modelview matrix
-      glMatrixMode( GL_MODELVIEW );
+      glMatrixMode(GL_MODELVIEW);
       glPushMatrix();
       glLoadIdentity();
 
       // Make sure the client isn't affected by our changes to OpenGL state.
       glPushAttrib(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |
                    GL_ENABLE_BIT | GL_SCISSOR_BIT);
-
+      {
          // disable depth testing since all draws occur at the same level
          glDisable(GL_DEPTH_TEST);
 
@@ -70,10 +73,9 @@ namespace phui {
          glEnable(GL_BLEND);
          glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-
-      drawChildren();
-      drawPointer();
-
+         drawChildren();
+         drawPointer();
+      }
       glPopAttrib();
 
       // restore old matrices
@@ -83,11 +85,13 @@ namespace phui {
       glPopMatrix();
    }
 
-   void RootWidget::onMouseMove(const Point& p) {
+   void RootWidget::onMouseMove(const Point& p)
+   {
       mPointerPosition = p;
    }
 
-   void RootWidget::drawPointer() {
+   void RootWidget::drawPointer()
+   {
       glColor(WHITE);
       glBegin(GL_LINES);
       glVertex(mPointerPosition);
@@ -95,7 +99,8 @@ namespace phui {
       glEnd();
    }
 
-   void RootWidget::drawChildren() {
+   void RootWidget::drawChildren()
+   {
       WidgetContainer::draw();
    }
 }

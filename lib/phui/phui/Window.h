@@ -24,15 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2003-01-04 03:47:43 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WINDOW_H
 #define PHUI_WINDOW_H
 
-#include "phuiCommon.h"
 #include <string>
 #include <iostream>
 #include <list>
@@ -41,15 +40,16 @@
 #include "WidgetContainer.h"
 #include "WindowListener.h"
 
-namespace phui {
-
-   class Window : public WidgetContainer {
+namespace phui
+{
+   class Window : public WidgetContainer
+   {
    public:
       /**
        * Creates a window with an empty title.
        */
       Window();
-      
+
       /**
        * Creates a window with the given title.
        *

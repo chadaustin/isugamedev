@@ -24,18 +24,21 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-#include "TextField.h"
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
-//#include "FontRendererCache.h"
+#include "TextField.h"
 #include "WidgetContainer.h"
 
-namespace phui {
-
+namespace phui
+{
    TextField::TextField()
       : mText(""), mCursorScreenPosition(0), mCursorCharacterPosition(0)
    {}
@@ -45,8 +48,7 @@ namespace phui {
    {}
 
    TextField::~TextField()
-   {
-   }
+   {}
 
    void TextField::draw()
    {

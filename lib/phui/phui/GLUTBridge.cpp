@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GLUTBridge.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -53,7 +53,7 @@ namespace phui {
          case 27:  return KEY_ESCAPE;
          case 32:  return KEY_SPACE;
          case 127: return KEY_DELETE;
-            
+
          default:  return KEY_UNKNOWN;
       }
    }
@@ -139,7 +139,7 @@ namespace phui {
 
    void glutRegisterRoot(RootWidget* root) {
       gRoot = root;
-      
+
       glutKeyboardFunc(OnKeyboardDown);
       glutKeyboardUpFunc(OnKeyboardUp);
       glutSpecialFunc(OnSpecialDown);

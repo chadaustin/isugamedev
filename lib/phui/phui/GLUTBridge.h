@@ -24,20 +24,18 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GLUTBridge.h,v $
- * Date modified: $Date: 2003-01-04 02:47:57 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_GLUT_BRIDGE_H
 #define PHUI_GLUT_BRIDGE_H
 
-
 #include "Input.h"
 
-
-namespace phui {
-
+namespace phui
+{
    class RootWidget;
 
    InputKey GlutToPhuiKey(char key);
@@ -45,8 +43,6 @@ namespace phui {
    InputButton GlutToPhuiButton(int button);
 
    void glutRegisterRoot(RootWidget* root);
-
 }
-
 
 #endif

@@ -24,22 +24,26 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_ROOT_WIDGET_H
 #define PHUI_ROOT_WIDGET_H
 
-#include "phuiCommon.h"
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "WidgetContainer.h"
 
-namespace phui {
-
-   class RootWidget : public WidgetContainer {
+namespace phui
+{
+   class RootWidget : public WidgetContainer
+   {
    public:
       /**
        * Creates a new root widget with the given size.
@@ -47,7 +51,7 @@ namespace phui {
        * @param width      the width of the UI
        * @param height     the height of the UI
        */
-      RootWidget( int width, int height );
+      RootWidget(int width, int height);
       ~RootWidget();
 
       /**

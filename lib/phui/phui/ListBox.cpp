@@ -24,26 +24,30 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-#include "ListBox.h"
-#include <GL/gl.h>
-#include "WidgetContainer.h"
 #include <algorithm>
 #include <assert.h>
 
-namespace phui {
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
+#include <GL/gl.h>
+#include "ListBox.h"
+#include "WidgetContainer.h"
 
+namespace phui
+{
    ListBox::ListBox()
       : mSelectedItem(-1)
-   {
-   }
+   {}
 
-   ListBox::~ListBox() {
-   }
+   ListBox::~ListBox()
+   {}
 
    void ListBox::draw() {
       const Size& size = getSize();
@@ -71,10 +75,10 @@ namespace phui {
 
       glPushMatrix();
       glTranslatef(3.0,0.0,0.0);
-      for(int x = 0; x < int(mItems.size()); ++x)
+      for (int x = 0; x < int(mItems.size()); ++x)
       {
          glTranslatef(0.0, float(fontLineGap + fontHeight), 0.0);
-         if(mSelectedItem == x)
+         if (mSelectedItem == x)
          {
             // draw the selected box
             glColor(getForegroundColor());
@@ -91,7 +95,7 @@ namespace phui {
          }
 
          renderer->render(mItems[x].c_str());
-         if(mSelectedItem == x) 
+         if (mSelectedItem == x)
          {
             glColor(getForegroundColor());
          }
@@ -127,17 +131,17 @@ namespace phui {
       return mSelectedItem;
    }
 
-   void ListBox::onMouseDown(InputButton button, const Point& p) 
+   void ListBox::onMouseDown(InputButton button, const Point& p)
    {
-      if (button == BUTTON_LEFT) 
+      if (button == BUTTON_LEFT)
       {
          gltext::FontPtr font = getFont();
 
          unsigned int itemHeight = font->getAscent() + font->getDescent() + font->getLineGap();
-        
+
          unsigned int selectedIdx = (unsigned int)((p.y-(p.y%itemHeight))/double(itemHeight));
          // Check that the computed index isn't outside our list of values
-         if (selectedIdx < mItems.size()) 
+         if (selectedIdx < mItems.size())
          {
             mSelectedItem = selectedIdx;
             std::cout<<"Selected index "<<mSelectedItem<<"/"<<mItems.size()<<std::endl;
@@ -161,7 +165,7 @@ namespace phui {
    void ListBox::fireListSelectionEvent(int selectedIdx) {
       ListSelectionEvent evt(this, selectedIdx);
 
-      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++) {
+      for (ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++) {
          (*itr)->onListSelection(evt);
       }
    }

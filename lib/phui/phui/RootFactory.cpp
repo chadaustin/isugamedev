@@ -24,16 +24,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootFactory.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #include "RootFactory.h"
 
-namespace phui {
-
-  RootWidget* CreateRoot( int width, int height ) {
-    return new RootWidget( width, height );
-  }
+namespace phui
+{
+   RootWidget* CreateRoot(int width, int height)
+   {
+      return new RootWidget(width, height);
+   }
 }

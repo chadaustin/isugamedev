@@ -24,28 +24,27 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2003-01-04 02:47:57 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_BUTTON_H
 #define PHUI_BUTTON_H
 
-#include "phuiCommon.h"
 #include <string>
 #include <iostream>
 #include <list>
 #include "Widget.h"
 #include "ActionListener.h"
 
-
-namespace phui {
-
+namespace phui
+{
    /**
     * A classic UI button widget.
     */
-   class Button : public Widget {
+   class Button : public Widget
+   {
    public:
       /**
        * Creates a new button with no text at (0,0) with size (0,0).
@@ -57,7 +56,7 @@ namespace phui {
        *
        * @param text      the text for the button
        */
-      Button( const std::string& text );
+      Button(const std::string& text);
 
       /**
        * Destroys this button.
@@ -74,7 +73,7 @@ namespace phui {
        *
        * @param text      the text for this button
        */
-      void setText( const std::string& text );
+      void setText(const std::string& text);
 
       /**
        * Gets the text on this button.
@@ -132,7 +131,6 @@ namespace phui {
       typedef ListenerList::iterator ListenerIter;
       std::list<ActionListener*> mListeners;
    };
-
-} // namespace phui
+}
 
 #endif

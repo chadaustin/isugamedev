@@ -24,23 +24,21 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CheckBox.h,v $
- * Date modified: $Date: 2003-01-04 02:47:57 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_CHECK_BOX_H
 #define PHUI_CHECK_BOX_H
 
-
-#include "phuiCommon.h"
 #include <string>
 #include "Widget.h"
 
-
-namespace phui {
-
-   class CheckBox : public Widget {
+namespace phui
+{
+   class CheckBox : public Widget
+   {
    public:
       CheckBox(bool checked = false);
 
@@ -56,8 +54,6 @@ namespace phui {
    private:
       bool mIsChecked;
    };
-
 }
-
 
 #endif

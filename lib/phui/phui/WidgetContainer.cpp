@@ -24,31 +24,36 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2003-01-04 03:47:43 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #include <algorithm>
-#include "EmptyConstraint.h"
 #include <functional>
-#include "WidgetContainer.h"
+
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
+#include "EmptyConstraint.h"
+#include "WidgetContainer.h"
 
-namespace phui {
-
-   WidgetContainer::WidgetContainer() 
+namespace phui
+{
+   WidgetContainer::WidgetContainer()
       : mCapturedWidget(0)
    {
       mLayoutManager = new LayoutManager(this, new EmptyConstraint() );
    }
-  
+
    WidgetContainer::WidgetContainer(LayoutManager* manager)
       : mLayoutManager(manager), mCapturedWidget(0)
-   {
-   }
-   WidgetContainer::~WidgetContainer() {
-   }
+   {}
+
+   WidgetContainer::~WidgetContainer()
+   {}
 
    void WidgetContainer::add(Widget* widget) {
       if (widget->getParent()) {
@@ -69,7 +74,7 @@ namespace phui {
       }
    }
 
-   void WidgetContainer::draw() 
+   void WidgetContainer::draw()
    {
       // Check to see if the current setup is valid
       if (!mLayoutManager->isValid())
@@ -90,7 +95,7 @@ namespace phui {
             glTranslatef((float)-pos.x, (float)-pos.y, 0);
 
          }
-      }      
+      }
    }
 
    void WidgetContainer::setLayoutManager(LayoutManager* manager)

@@ -24,15 +24,18 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Point.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_POINT_H
 #define PHUI_POINT_H
 
-#include "phuiCommon.h"
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <iostream>
 
@@ -62,7 +65,7 @@ namespace phui {
    inline Point operator+(const Point& lhs, const Point& rhs) {
       return Point(lhs.x + rhs.x, lhs.y + rhs.y);
    }
-   
+
    inline bool operator==(const Point& lhs, const Point& rhs)
    {
       return (lhs.x == rhs.x && lhs.y == rhs.y);

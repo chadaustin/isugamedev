@@ -1,21 +1,5 @@
 /* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil c-basic-offset: 3 -*- */
 // vim:cindent:ts=3:sw=3:et:tw=80:sta:
-/**************************************************************** phui-head beg
- *
- * phui - flexible user interface subsystem
- *
- * Original Authors:
- *    Chad Austin <aegis@aegisknight.org>
- *    Josh Carlson <josh@chegg.com>
- *    Ben Scott <bscott@iastate.edu>
- *
- * -----------------------------------------------------------------
- * File:          $RCSfile: LayoutCodec.h,v $
- * Date modified: $Date: 2003-01-04 02:31:04 $
- * Version:       $Revision: 1.3 $
- * -----------------------------------------------------------------
- *
- ************************************************************* phui-head-end */
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
@@ -40,15 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutCodec.h,v $
- * Date modified: $Date: 2003-01-04 02:31:04 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-01-04 06:44:09 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_LAYOUT_CODEC_H
 #define PHUI_LAYOUT_CODEC_H
 
-#include "../phuiCommon.h"
 #include "../Widget.h"
 
 namespace phui

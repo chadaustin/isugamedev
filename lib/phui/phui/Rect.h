@@ -24,15 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Rect.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_RECT_H
 #define PHUI_RECT_H
-
-#include "phuiCommon.h"
 
 namespace phui
 {

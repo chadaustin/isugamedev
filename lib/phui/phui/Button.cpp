@@ -24,19 +24,24 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:01 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-#include "Button.h"
-#include <GL/gl.h>
-#include <gltext.h>
-#include "WidgetContainer.h"
 #include <algorithm>
 
-namespace phui {
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
+#include <GL/gl.h>
+#include <gltext.h>
+#include "Button.h"
+#include "WidgetContainer.h"
 
+namespace phui
+{
    Button::Button()
       : mText("")
       , mButtonDown(false)
@@ -49,8 +54,8 @@ namespace phui {
    {
    }
 
-   Button::~Button() {
-   }
+   Button::~Button()
+   {}
 
    void Button::draw() {
       const Size& size = getSize();
@@ -66,13 +71,13 @@ namespace phui {
          glVertex2i(width, height);
          glVertex2i(0,     height);
       glEnd();
-      
+
       // draw text
       glColor(mButtonDown ? getBackgroundColor() : getForegroundColor());
 
       gltext::FontRendererPtr renderer = gltext::CreateRenderer(gltext::PIXMAP);
       renderer->setFont(font.get());
-      
+
 
       double labelWidth = double(renderer->getWidth(mText.c_str()));
       double fontHeight = double(font->getAscent() + font->getDescent());
@@ -88,7 +93,7 @@ namespace phui {
       {
          yLoc = 0;
       }
-    
+
       double xLoc = (width - labelWidth)/2.0;
       if(xLoc < 0)
       {
@@ -97,10 +102,10 @@ namespace phui {
       glTranslatef(GLfloat(xLoc), GLfloat(height - yLoc), 0.0f);
 
       renderer->render(mText.c_str());
-     
+
       //Lets restore the Matrix
       glPopMatrix();
-   
+
       if (hasFocus()) {
          glBegin(GL_LINE_LOOP);
          glVertex2i(0,     0     );
@@ -110,7 +115,7 @@ namespace phui {
          glEnd();
       }
 
-      
+
    }
 
    void Button::setText(const std::string& text) {

@@ -24,15 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Size.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_SIZE_H
 #define PHUI_SIZE_H
-
-#include "phuiCommon.h"
 
 namespace phui
 {

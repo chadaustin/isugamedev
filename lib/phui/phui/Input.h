@@ -24,19 +24,18 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Input.h,v $
- * Date modified: $Date: 2003-01-04 02:47:57 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-
 #ifndef PHUI_INPUT_H
 #define PHUI_INPUT_H
 
-
-namespace phui {
-
-   enum InputButton {
+namespace phui
+{
+   enum InputButton
+   {
       BUTTON_LEFT,
       BUTTON_MIDDLE,
       BUTTON_RIGHT,
@@ -44,7 +43,8 @@ namespace phui {
       BUTTON_UNKNOWN,
    };
 
-   enum InputKey {
+   enum InputKey
+   {
       KEY_ESCAPE,
       KEY_F1,
       KEY_F2,
@@ -125,8 +125,6 @@ namespace phui {
 
       KEY_UNKNOWN,
    };
-
 }
-
 
 #endif

@@ -24,19 +24,18 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootFactory.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_ROOT_FACTORY_H
 #define PHUI_ROOT_FACTORY_H
 
-#include "phuiCommon.h"
 #include "RootWidget.h"
 
-namespace phui {
-
+namespace phui
+{
    /**
     * Creates a new RootWidget with the given size.
     *
@@ -45,7 +44,7 @@ namespace phui {
     *
     * @return  a root widget for a UI or NULL on failure
     */
-   RootWidget* CreateRoot( int width, int height );
+   RootWidget* CreateRoot(int width, int height);
 }
 
 #endif

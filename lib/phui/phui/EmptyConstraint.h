@@ -24,12 +24,11 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: EmptyConstraint.h,v $
- * Date modified: $Date: 2003-01-04 02:31:01 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-
 #ifndef PHUI_EMPTYCONSTRAINT_H
 #define PHUI_EMPTYCONSTRAINT_H
 
@@ -49,7 +48,6 @@ namespace phui
          return "EMPTY_CONSTRAINT";
       }
    };
-
-}//end of namespace phui
+}
 
 #endif

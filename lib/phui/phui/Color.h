@@ -24,19 +24,22 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2003-01-04 02:47:57 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_COLOR_H
 #define PHUI_COLOR_H
 
-#include "phuiCommon.h"
+#ifdef _MSC_VER
+#  define WIN32_LEAN_AND_MEAN
+#  include <windows.h>
+#endif
 #include <GL/gl.h>
 
-namespace phui {
-
+namespace phui
+{
    /**
     * Color tuple for easier color handling.
     */
@@ -56,7 +59,7 @@ namespace phui {
        * @param b_   the blue part of the color
        * @param a_   the alpha/transparent part of the color
        */
-      Color( TYPE r_, TYPE g_, TYPE b_, TYPE a_ )
+      Color(TYPE r_, TYPE g_, TYPE b_, TYPE a_)
          : r(r_), g(g_), b(b_), a(a_)
       {}
 
@@ -68,7 +71,7 @@ namespace phui {
        * @param b_   the blue part of the color
        * @param a_   the alpha/transparent part of the color
        */
-      void set( TYPE r_, TYPE g_, TYPE b_, TYPE a_ )
+      void set(TYPE r_, TYPE g_, TYPE b_, TYPE a_)
       {
          r = r_;
          g = g_;
@@ -92,17 +95,17 @@ namespace phui {
     *
     * @param clr     the color to set as the current color
     */
-   inline void glColor( const Colorf& clr )
+   inline void glColor(const Colorf& clr)
    {
-      glColor4f( clr.r, clr.g, clr.b, clr.a );
+      glColor4f(clr.r, clr.g, clr.b, clr.a);
    }
-   inline void glColor( const Colord& clr )
+   inline void glColor(const Colord& clr)
    {
-      glColor4d( clr.r, clr.g, clr.b, clr.a );
+      glColor4d(clr.r, clr.g, clr.b, clr.a);
    }
-   inline void glColor( const Colori& clr )
+   inline void glColor(const Colori& clr)
    {
-      glColor4i( clr.r, clr.g, clr.b, clr.a );
+      glColor4i(clr.r, clr.g, clr.b, clr.a);
    }
    //@}
 
@@ -116,7 +119,6 @@ namespace phui {
    static const Colorf GREEN  (0, 1,    0, 1);
    static const Colorf BLUE   (0, 0,    1, 1);
    static const Colorf PURPLE (1, 0,    1, 1);
-
-} // namespace phui
+}
 
 #endif

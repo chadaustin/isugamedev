@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WindowAdapter.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 06:44:08 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -34,8 +34,8 @@
 
 #include "WindowListener.h"
 
-namespace phui {
-
+namespace phui
+{
    /**
     * Helper class the defines default implementations to all WindowListener
     * methods. Derive from this class if you want to be notified only of a
@@ -43,7 +43,8 @@ namespace phui {
     *
     * @see WindowListener
     */
-   class WindowAdapter : public WindowListener {
+   class WindowAdapter : public WindowListener
+   {
    public:
       WindowAdapter() {}
       ~WindowAdapter() {}
