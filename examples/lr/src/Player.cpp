@@ -169,7 +169,7 @@ namespace lr
       }
       if(burnleft)
       {
-         if((mLevel->getEntityType(getGridPos()-1,getGridHeight()-1)==brick && mLevel->getEntityType(getGridPos()-1,getGridHeight()!=brick)&& mLevel->getEntityType(getGridPos()-1, getGridHeight())!=ladder))
+         if((mLevel->getEntityType(getGridPos()-1,getGridHeight()-1)==brick) && (mLevel->getEntityType(getGridPos()-1,getGridHeight())!=brick)&& (mLevel->getEntityType(getGridPos()-1, getGridHeight())!=ladder))
          mLevel->burn(getGridPos()-1, getGridHeight()-1);
       }
    }
