@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-29 12:54:18 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-03-29 13:02:07 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,7 +43,7 @@
 
 namespace client
 {
-   auto_ptr<AppState> LoginAckWaitState::handleMessage(
+   std::auto_ptr<AppState> LoginAckWaitState::handleMessage(
                const net::Message* msg,
                BrothaApp* app)
    {
@@ -53,29 +53,29 @@ namespace client
          const net::OKMessage* okMsg = dynamic_cast<const net::OKMessage*>(msg);
          if ( okMsg->getCode() == net::OKMessage::OKAY ) {
             std::cout<<"Login successful"<<std::endl;
-            return auto_ptr<AppState>(new LoggedInState());
+            return std::auto_ptr<AppState>(new LoggedInState());
          } else {
             std::cout<<"Login failed"<<std::endl;
-            return auto_ptr<AppState>(new ConnectedState());
+            return std::auto_ptr<AppState>(new ConnectedState());
          }
       } else {
          std::cout<<"ERROR: Got the wrong message type"<<std::endl;
          /// @todo raise an error
       }
-      return auto_ptr<AppState>(new ConnectedState());
+      return std::auto_ptr<AppState>(new ConnectedState());
    }
 
-   auto_ptr<AppState> ConnectedState::update(BrothaApp* app) {
+   std::auto_ptr<AppState> ConnectedState::update(BrothaApp* app) {
       //Fire off a login message
       net::Message* msg = new net::LoginMessage(
             app->getLoginName(),
             app->getLoginPass()
       );
       app->getNetMgr()->send(msg, app->getConnID());
-      return auto_ptr<AppState>(new LoginAckWaitState());
+      return std::auto_ptr<AppState>(new LoginAckWaitState());
    }
 
-   auto_ptr<AppState> NotConnectedState::update(BrothaApp* app) {
+   std::auto_ptr<AppState> NotConnectedState::update(BrothaApp* app) {
       // Only connect when the app has told us to do so
       if (app->doConnect()) {
          std::cout<<"Connecting"<<std::endl;
@@ -88,17 +88,17 @@ namespace client
             app->setServerConn(connID);
             app->setIsConnected(true);
             // move to the connected state
-            return auto_ptr<AppState>(new ConnectedState());
+            return std::auto_ptr<AppState>(new ConnectedState());
          }
          catch (net::SocketException& ex) {
             std::cout<<"Failed to connect: "<<ex.what()<<std::endl;
             // mark as false
             app->setIsConnected(false);
-            return auto_ptr<AppState>(NULL);
+            return std::auto_ptr<AppState>(NULL);
          }
       }
 
       // don't change state if we didn't try to connect
-      return auto_ptr<AppState>(NULL);
+      return std::auto_ptr<AppState>(NULL);
    }
 }

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.h,v $
- * Date modified: $Date: 2002-03-29 12:58:42 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-03-29 13:02:07 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,6 +43,7 @@
 
 #include <memory>
 #include "net/Message.h"
+#include <iostream>
 
 namespace client
 {
