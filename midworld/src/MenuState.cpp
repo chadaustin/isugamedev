@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-09-09 07:06:04 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-09-17 02:36:11 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,9 +49,9 @@ namespace mw
       //setup images
       mImages.resize(3);
 
-      mImages[0] = new Texture("menu_bg.jpeg");
-      mImages[1] = new Texture("menu_selection.png");
-      mImages[2] = new Texture("menu_square.png");
+      mImages[0] = new Texture("images/menu_bg.jpeg");
+      mImages[1] = new Texture("images/menu_selection.png");
+      mImages[2] = new Texture("images/menu_square.png");
 
       //setup menu items
       mItemList.resize(5);

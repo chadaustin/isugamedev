@@ -68,7 +68,7 @@ SetupGLText(env)
 SetupOpenGL(env)
 
 buildInfo.addPrograms([
-    env.Program(target = 'midworld', source = buildInfo.getSources())
+    env.Program('../build/midworld', buildInfo.getSources())
 ])
 env.Install(path.join(PREFIX, 'bin'), buildInfo.getPrograms())
 

@@ -338,4 +338,4 @@ baseEnv.Alias('dist', distFile)
 #SetupDist(baseEnv, buildInfo, 'midworld-%s.%s.%s' % GetMidworldVersion())
 
 # build all sources by default but not the tests
-Default('src')
+Default('build')

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-09-16 18:55:04 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-09-17 02:36:11 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,7 +45,7 @@ namespace mw
    IntroState::IntroState( Application* a )
       : State( a )
    {
-      mIntroImage = new Texture("intro.jpeg");
+      mIntroImage = new Texture("images/intro.jpeg");
       mElapsedTime = 0;
       mLeavingState = 0;
 
