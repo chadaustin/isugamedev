@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: gk.h,v $
-// Date modified: $Date: 2003-02-09 07:43:03 $
-// Version:       $Revision: 1.7 $
+// Date modified: $Date: 2003-02-22 22:06:03 $
+// Version:       $Revision: 1.8 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -38,7 +38,7 @@
 
 // include all useful gk headers for easy use by the client program
 #include <gk/gkCommon.h>
-#include <xdl.h>
+#include <xdl/xdl.h>
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
 #include <gk/AbstractGameApp.h>

@@ -23,14 +23,14 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-10 06:08:12 $
-// Version:       $Revision: 1.20 $
+// Date modified: $Date: 2003-02-22 22:06:02 $
+// Version:       $Revision: 1.21 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 
 #include "SdlDriver.h"
-#include <xdl.h>
+#include <xdl/xdl.h>
 #include <string>
 //#define SDLDRIVER_DEBUG 1
 //Create the drivers that can be probed by the SystemDriverFactory

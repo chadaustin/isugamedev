@@ -24,13 +24,13 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2003-02-09 08:46:55 $
-// Version:       $Revision: 1.14 $
+// Date modified: $Date: 2003-02-22 22:06:02 $
+// Version:       $Revision: 1.15 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "GlutDriver.h"
-#include <xdl.h>
+#include <xdl/xdl.h>
 #include <GL/glut.h>
 
 // Only compile in the create/destroy code if we're building a library

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.h,v $
-// Date modified: $Date: 2003-02-09 07:43:03 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2003-02-22 22:06:03 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -36,7 +36,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <xdl.h>
+#include <xdl/xdl.h>
 #include <gk/Singleton.h>
 #include <gk/ISystemDriver.h>
 

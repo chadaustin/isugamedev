@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../..,../../external/xdl"
+				AdditionalIncludeDirectories="../..,../../external"
 				PreprocessorDefinitions="GK_BUILD_DLL;_DEBUG;WIN32;_WINDOWS;_USRDLL;GLUT_EXPORTS;XDL_BUILD_DLL"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -83,7 +83,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="../..,../../external/xdl"
+				AdditionalIncludeDirectories="../..,../../external"
 				PreprocessorDefinitions="GK_BUILD_DLL;NDEBUG;WIN32;_WINDOWS;_USRDLL;GLUT_EXPORTS;XDL_BUILD_DLL"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
