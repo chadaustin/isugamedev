@@ -18,8 +18,9 @@ namespace net {
     */
    class DelPlayerMessage : public Message {
    public:
-      DelPlayerMessage( game::Player::UID uid = 0xFFFF ) {
-      }
+      DelPlayerMessage( game::Player::UID uid = 0xFFFF )
+         : mUID(uid)
+      { }
 
       PRUint32 getType() const {
          return DelPlayer;
