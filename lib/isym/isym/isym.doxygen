@@ -16,6 +16,10 @@
  *  to the mailing lists so that you can ask questions, or propose extensions 
  *  to the library.
  *
+ *  @section Philosophy Philosophy
+ *  The philosophy of isym is to create locally unique symbols for use in 
+ *  input systems for virtual environments (games, vr, etc..).
+ *
  *  @section Extendability Extendability
  *  Using the getUID() function you can extend isym with your own unique IDs.
  */
