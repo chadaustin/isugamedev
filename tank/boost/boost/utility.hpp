@@ -25,7 +25,7 @@
 #ifndef BOOST_UTILITY_HPP
 #define BOOST_UTILITY_HPP
 
-//#include <boost/config.hpp>        // broken compiler workarounds 
+#include <boost/config.hpp>        // broken compiler workarounds 
 #include <boost/static_assert.hpp> 
 #include <cstddef>                 // for size_t
 #include <utility>                 // for std::pair

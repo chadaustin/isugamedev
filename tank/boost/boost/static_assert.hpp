@@ -15,7 +15,7 @@
 #ifndef BOOST_STATIC_ASSERT_HPP
 #define BOOST_STATIC_ASSERT_HPP
 
-//#include <boost/config.hpp>
+#include <boost/config.hpp>
 
 #ifdef __BORLANDC__
 //

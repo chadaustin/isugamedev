@@ -54,7 +54,7 @@
 #ifndef BOOST_SMART_PTR_HPP
 #define BOOST_SMART_PTR_HPP
 
-//#include <boost/config.hpp>   // for broken compiler workarounds
+#include <boost/config.hpp>   // for broken compiler workarounds
 #include <cstddef>            // for std::size_t
 #include <memory>             // for std::auto_ptr
 #include <algorithm>          // for std::swap
