@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.cpp,v $
- * Date modified: $Date: 2002-10-08 05:39:36 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -53,16 +53,6 @@ namespace mw
 
       mCockRate = 0.05f;
       mReloadRate = 0.5f;
-   }
-
-   void SpreadGun::draw() const
-   {
-      glPushMatrix();
-         glMultMatrixf(this->matrix().getData());
-         glScalef(0.3f, 0.3f, 0.4f);
-         glRotatef(mSpinning, 0, 0, 1);
-         cubeGeometry().render();
-      glPopMatrix();
    }
 
    void SpreadGun::update(GameState& g, float dt)

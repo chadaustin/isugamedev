@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-10-01 06:40:42 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -79,11 +79,6 @@ namespace mw
        * update
        */
       virtual void update(float timeDelta);
-
-      /**
-       * Draws this enemy onto the screen.
-       */
-      virtual void draw() const;
 
       /**
        * Tests if this entity would like to be removed from the game.

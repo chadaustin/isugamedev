@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.cpp,v $
- * Date modified: $Date: 2002-09-23 20:54:35 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -68,18 +68,4 @@ namespace mw
       }
       RigidBody::update(timeDelta);
    }
-
-   //@TODO:  Draw something other than the standard cubes.
-   void Enemy::draw() const
-   {
-      gmtl::Point3f pos = this->getPos();
-      gmtl::Quatf rot = this->getRot();
-      glPushMatrix();
-         glTranslatef(pos[0], pos[1], pos[2]);
-         glMultMatrixf( gmtl::make<gmtl::Matrix44f>( rot ).getData() );
-         glScalef(0.5f, 0.5f, 0.5f);
-         cubeGeometry().render();
-      glPopMatrix();
-   }
-
-}//end of namespace mw
+}

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Pistol.h,v $
- * Date modified: $Date: 2002-10-01 08:35:28 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -45,17 +45,6 @@ namespace mw
          : BaseProjectileWeapon( Weapon::HANDGUN, "Pistol" )
       {}
 
-      /** render the weapon using opengl calls. */
-      void draw() const 
-      {
-         glPushMatrix();
-            glMultMatrixf(matrix().getData());
-            glScalef( 0.15f, 0.15f, 0.3f );
-            cubeGeometry().render();
-         glPopMatrix();
-      }
-
-      // some of these will change to public...
    protected:
       void discharge(GameState& g)
       {

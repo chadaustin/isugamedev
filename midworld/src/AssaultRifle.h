@@ -24,14 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AssaultRifle.h,v $
- * Date modified: $Date: 2002-10-01 08:35:28 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-
-#ifndef MW_ASSAULTRIFLE_H
-#define MW_ASSAULTRIFLE_H
+#ifndef MW_ASSAULT_RIFLE_H
+#define MW_ASSAULT_RIFLE_H
 
 #include "RigidBody.h"
 #include "BaseBullet.h"
@@ -65,17 +64,6 @@ namespace mw
          mCocked = true;
       }
 
-      /**
-       * Draw the weapon onto the screen
-       */
-      void draw() const
-      {
-         glPushMatrix();
-            glMultMatrixf( this->matrix().getData() );
-            glScalef( 0.15f, 0.15f, 0.3f );
-            cubeGeometry().render();
-         glPopMatrix();
-      }
    protected:
       /**
        * Discharges this weapon, emitting whatever projectiles it fires.

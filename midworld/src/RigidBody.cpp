@@ -24,15 +24,14 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-10-01 07:54:16 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <gmtl/VecOps.h>
 #include <gmtl/Generate.h>
 #include "RigidBody.h"
-#include "cubeGeometry.h"
 
 namespace mw
 {
@@ -53,22 +52,6 @@ namespace mw
    {
       mForce += force; // yes we need both... :)
       mTorque += gmtl::cross( pos, force );
-   }
-
-   void RigidBody::draw() const
-   {
-      const gmtl::Point3f& pos = getCurrentState().getPos();
-      glPushMatrix();
-         glTranslatef(pos[0], pos[1], pos[2]);
-         glMultMatrixf(gmtl::make<gmtl::Matrix44f>(getCurrentState().getRot()).getData());
-
-         // Get the extents of the bounds of this object
-         gmtl::Vec3f extents = mBounds.getMax() - mBounds.getMin();
-         extents *= 0.5f;
- 
-         glScalef(extents[0], extents[1], extents[2]);
-         cubeGeometry().render();
-      glPopMatrix();
    }
 
    gmtl::Vec3f RigidBody::getForward() const

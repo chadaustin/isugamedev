@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-10-04 07:27:11 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -49,8 +49,6 @@ namespace mw
    {
    public:
       Player();
-
-      void draw() const;
 
       bool isWeaponSlotEmpty(int slot);
 

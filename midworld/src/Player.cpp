@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.cpp,v $
- * Date modified: $Date: 2002-10-04 07:27:11 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -52,19 +52,6 @@ namespace mw
    {
       mLastSlot = 0;
       setModel("player");
-   }
-
-   void Player::draw() const
-   {
-      //glEnable( GL_TEXTURE_2D );
-      glPushMatrix();
-         glMultMatrixf(matrix().getData());
-         glTranslatef( 0, 1, 0 );
-         glScalef( 0.5f, 0.3f, 0.4f );
-         cubeGeometry().render();
-      glPopMatrix();
-
-      weapon().draw();
    }
 
    bool Player::isWeaponSlotEmpty( int slot )

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Weapon.h,v $
- * Date modified: $Date: 2002-10-01 06:06:13 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -90,9 +90,6 @@ namespace mw
        * Tests if the trigger is being held down.
        */
       virtual bool isTriggerDown() const = 0;
-
-      /// render the weapon using OpenGL calls.
-      virtual void draw() const = 0;
 
       /**
        * Updates the state of this bullet based on the amount of time that has

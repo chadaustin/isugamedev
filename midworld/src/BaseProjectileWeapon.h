@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BaseProjectileWeapon.h,v $
- * Date modified: $Date: 2002-10-01 08:35:28 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -60,9 +60,6 @@ namespace mw
 
       /// Gets the name of this weapon.
       const std::string& getName() const;
-
-      /// Render the weapon using opengl calls.
-      void draw() const = 0;
 
       /**
        * Tells this weapon whether or not its trigger is being held down.

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: SpreadGun.h,v $
- * Date modified: $Date: 2002-09-08 22:46:02 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-10-09 06:57:19 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -42,9 +42,6 @@ namespace mw
    {
    public:
       SpreadGun();
-
-      /** render the weapon using opengl calls. */
-      virtual void draw() const;
 
       virtual void update(GameState& g, float dt);
 
