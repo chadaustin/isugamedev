@@ -8,11 +8,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<EndingState> creator("Ending");
-   }
-
    EndingState::EndingState( Application* a )
       : State( a )
       , mElapsedTime(0)

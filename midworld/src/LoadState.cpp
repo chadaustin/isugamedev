@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LoadState.cpp,v $
- * Date modified: $Date: 2002-12-01 22:31:24 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-12-01 22:51:24 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,11 +44,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<LoadState> creator("Load");
-   }
-
    /**
     * The ResourceManager CachePolicy for osg::NodePtr objects.
     * XXX: HACK - This code is duplicated in OpenSGSceneViewer.cpp

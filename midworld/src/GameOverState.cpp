@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameOverState.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-12-01 22:51:24 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,11 +39,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<GameOverState> creator("GameOver");
-   }
-
    GameOverState::GameOverState(Application* a)
       : State(a)
       , mElapsedTime(0)

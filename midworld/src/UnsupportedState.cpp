@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: UnsupportedState.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-12-01 22:51:24 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -35,11 +35,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<UnsupportedState> creator("Unsupported");
-   }
-
    UnsupportedState::UnsupportedState( Application* a ) : State( a )
    {
       mImages.push_back( Texture::create("unsupported") );

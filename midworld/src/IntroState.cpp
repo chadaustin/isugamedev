@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-11-25 09:09:56 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-12-01 22:51:24 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,11 +39,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<IntroState> creator("Intro");
-   }
-
    IntroState::IntroState( Application* a )
       : State( a )
       , mAutoNextTime(8)

@@ -5,10 +5,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<StoryState> creator("Story");
-   }
 
    StoryState::StoryState(Application* a)
       : State(a)

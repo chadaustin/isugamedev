@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-11-26 11:23:05 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2002-12-01 22:51:24 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -40,11 +40,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<MenuState> creator("Menu");
-   }
-
    MenuState::MenuState(Application* a)
       : State(a)
    {

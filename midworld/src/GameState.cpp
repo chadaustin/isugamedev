@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-12-01 21:55:28 $
- * Version:       $Revision: 1.129 $
+ * Date modified: $Date: 2002-12-01 22:51:24 $
+ * Version:       $Revision: 1.130 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -64,11 +64,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<GameState> creator("Game");
-   }
-
    GameState::GameState(Application* app)
       : State(app)
       , mSpeed(10)

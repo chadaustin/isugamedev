@@ -6,11 +6,6 @@
 
 namespace mw
 {
-   namespace
-   {
-      StateCreatorImpl<OptionsState> creator("Options");
-   }
-    
    OptionsState::OptionsState(Application* a ) : State( a )
    {
       mImages.push_back( Texture::create("unsupported") );
