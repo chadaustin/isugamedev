@@ -1,16 +1,11 @@
-import sys
-Import('env GLUT_LIBS FONT_LIBS')
+Import('baseEnv pkg')
 
-headers = [
-]
+sources = Split("""
+   window.cpp
+""")
 
-sources = [
-   'window'
-]
-
-# add proper extensions to filenames
-headers = map(lambda fn: fn + '.h', headers)
-sources = map(lambda fn: fn + '.cpp', sources)
-
-env2 = env.Copy(LIBS = ['phui'] + FONT_LIBS + GLUT_LIBS)
-env2.Program(target = 'window', source = headers + sources)
+env = baseEnv.Copy()
+env.Append(LIBPATH = ['#phui'])
+env.Append(LIBS = Split('phui phuiGLUT'))
+prog = pkg.createProgram('window', env)
+prog.addSources(sources)

@@ -1,6 +1,8 @@
-from os import path
+import os
+pj = os.path.join
 
-Import('env PREFIX')
+Import('baseEnv pkg')
+Import('SetupCppDom SetupGLText SetupGLUT SetupSDL')
 
 classes = Split("""
    Button
@@ -35,23 +37,28 @@ headers = Split("""
    phuiCommon.h
 """)
 
-# extra bridge headers
-headers.extend(Split("""
-   SDLBridge.h
-   GLUTBridge.h
-"""))
-
 sources.extend(map(lambda n: n + '.cpp', classes))
 headers.extend(map(lambda n: n + '.h',   classes))
 
-e = env.Copy(LIBS = ['cppdom'])
 
-libraries = []
-libraries.append(e.SharedLibrary(target = 'phui', source = sources))
-libraries.append(e.SharedLibrary(target = 'phuiSDL',  source = 'SDLBridge.cpp'))
-libraries.append(e.SharedLibrary(target = 'phuiGLUT', source = 'GLUTBridge.cpp'))
+# Define the core library
+core_env = baseEnv.Copy()
+SetupCppDom(core_env)
+SetupGLText(core_env)
+core_lib = pkg.createSharedLibrary('phui', core_env)
+core_lib.addSources(sources)
+core_lib.addHeaders(headers, 'phui')
 
-for h in headers:
-    e.Install(path.join(PREFIX, 'include', 'phui'), h)
-    
-e.Install(path.join(PREFIX, 'lib'), libraries)
+# Define the SDL wrapper
+sdl_env = baseEnv.Copy()
+SetupSDL(sdl_env)
+sdl_lib = pkg.createSharedLibrary('phuiSDL', sdl_env)
+sdl_lib.addSources(['SDLBridge.cpp'])
+sdl_lib.addHeaders(['SDLBridge.h'], 'phui')
+
+# Define the GLUT wrapper
+glut_env = baseEnv.Copy()
+SetupGLUT(glut_env)
+glut_lib = pkg.createSharedLibrary('phuiGLUT', glut_env)
+glut_lib.addSources(['GLUTBridge.cpp'])
+glut_lib.addHeaders(['GLUTBridge.h'], 'phui')

@@ -1,4 +1,11 @@
-Import('env GLUT_LIBS FONT_LIBS')
+Import('baseEnv pkg')
 
-env2 = env.Copy(LIBS = ['phui', 'phuiGLUT'] + FONT_LIBS + GLUT_LIBS)
-env2.Program(target = 'xmllayout', source = 'main.cpp')
+sources = Split("""
+   main.cpp
+""")
+
+env = baseEnv.Copy()
+env.Append(LIBPATH = ['#phui'])
+env.Append(LIBS = Split('phui phuiGLUT'))
+prog = pkg.createProgram('xmllayout', env)
+prog.addSources(sources)
