@@ -21,14 +21,16 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: siren.pyste,v $
-# Date modified: $Date: 2003-05-20 07:04:54 $
-# Version:       $Revision: 1.1 $
+# Date modified: $Date: 2003-05-20 07:11:22 $
+# Version:       $Revision: 1.2 $
 # -----------------------------------------------------------------
 #
 # *************************************************************** siren-cpr-end
 Kernel = Class('siren::Kernel', 'siren/Kernel.h')
 
 State = Class('siren::State', 'siren/State.h')
+key = Enum('SDLKey', 'siren/State.h')
+rename(key, 'Key')
 
 StateFactory = Class('siren::StateFactory', 'siren/StateFactory.h')
 set_policy(StateFactory.getInstance, return_value_policy(reference_existing_object))
