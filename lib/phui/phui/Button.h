@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -45,10 +45,8 @@ namespace phui
     */
    class Button : public Widget
    {
-   public:
-      /**
-       * Creates a new button with no text at (0,0) with size (0,0).
-       */
+   protected:
+      /// Creates a new button with no text at (0,0) with size (0,0).
       Button();
 
       /**
@@ -58,10 +56,21 @@ namespace phui
        */
       Button(const std::string& text);
 
+   public:
       /**
        * Destroys this button.
        */
       ~Button();
+
+      /// Creates a new button with no text at (0,0) with size (0,0).
+      static boost::shared_ptr<Button> create();
+
+      /**
+       * Creates a new button with the given text at (0,0) with size (0,0).
+       *
+       * @param text      the text for the button
+       */
+      static boost::shared_ptr<Button> create(const std::string& text);
 
       /**
        * Draws this button with its text.
@@ -102,35 +111,33 @@ namespace phui
       /**
        * Adds the given action listener that wishes to receive for button events.
        */
-      void addActionListener(ActionListener* listener);
+      void addActionListener(ActionListenerPtr listener);
 
       /**
        * Removes the given action listener for this button.
        */
-      void removeActionListener(ActionListener* listener);
+      void removeActionListener(ActionListenerPtr listener);
 
    private:
       /// Helper to fire action events to listeners.
       void fireActionEvent();
 
    private:
-      /**
-       * The text on this button.
-       */
+      /// The text on this button.
       std::string mText;
 
-      /**
-       * Button down state. True if the button is down.
-       */
+      /// Button down state. True if the button is down.
       bool mButtonDown;
 
       /**
        * All listeners for this button
        */
-      typedef std::list<ActionListener*> ListenerList;
+      typedef std::list<ActionListenerPtr> ListenerList;
       typedef ListenerList::iterator ListenerIter;
-      std::list<ActionListener*> mListeners;
+      ListenerList mListeners;
    };
+
+   typedef boost::shared_ptr<Button> ButtonPtr;
 }
 
 #endif

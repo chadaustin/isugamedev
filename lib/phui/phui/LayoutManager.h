@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutManager.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -57,15 +57,13 @@ namespace phui
        * @param   container   the widget container to manage
        * @param   constraint  the layout constraint to follow
        */
-      LayoutManager(WidgetContainer* container, LayoutConstraint* constraint)
+      LayoutManager(WidgetContainer* container, LayoutConstraintPtr constraint)
          : mConstraint(constraint), mContainer(container)
       {
       }
 
       virtual ~LayoutManager()
-      {
-         delete mConstraint;
-      }
+      {}
 
       /**
        * Adds a widget's specifications to this layout manager
@@ -107,12 +105,16 @@ namespace phui
 
    protected:
       ///The layout constraint to follow
-      LayoutConstraint* mConstraint;
+      LayoutConstraintPtr mConstraint;
+
       ///The container being managed by this layout manager
       WidgetContainer* mContainer;
+
       ///The points and sizes of all widgets that are in this layout manager
       std::vector<std::pair< Point, Size > > mWidgets;
    };
+
+   typedef boost::shared_ptr<LayoutManager> LayoutManagerPtr;
 }
 
 #endif

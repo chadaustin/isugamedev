@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.25 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.26 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -45,19 +45,32 @@ namespace phui
    Button::Button()
       : mText("")
       , mButtonDown(false)
-   {
-   }
+   {}
 
    Button::Button(const std::string& text)
       : mText(text)
       , mButtonDown(false)
-   {
-   }
+   {}
 
    Button::~Button()
    {}
 
-   void Button::draw() {
+   ButtonPtr Button::create()
+   {
+      ButtonPtr obj(new Button());
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   ButtonPtr Button::create(const std::string& text)
+   {
+      ButtonPtr obj(new Button(text));
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   void Button::draw()
+   {
       const Size& size = getSize();
       const int width = size.getWidth();
       const int height = size.getHeight();
@@ -66,10 +79,12 @@ namespace phui
       // draw the button background
       glColor(mButtonDown ? getForegroundColor() : getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
+      {
          glVertex2i(0,     0     );
          glVertex2i(width, 0     );
          glVertex2i(width, height);
          glVertex2i(0,     height);
+      }
       glEnd();
 
       // draw text
@@ -89,13 +104,13 @@ namespace phui
       //button.  If not start in the lower left-hand corner of
       //the button and render the text.
       double yLoc = (height - fontHeight)/2.0;
-      if(yLoc < 0)
+      if (yLoc < 0)
       {
          yLoc = 0;
       }
 
       double xLoc = (width - labelWidth)/2.0;
-      if(xLoc < 0)
+      if (xLoc < 0)
       {
          xLoc = 0;
       }
@@ -106,60 +121,73 @@ namespace phui
       //Lets restore the Matrix
       glPopMatrix();
 
-      if (hasFocus()) {
+      if (hasFocus())
+      {
          glBegin(GL_LINE_LOOP);
-         glVertex2i(0,     0     );
-         glVertex2i(width, 0     );
-         glVertex2i(width, height);
-         glVertex2i(0,     height);
+         {
+            glVertex2i(0,     0     );
+            glVertex2i(width, 0     );
+            glVertex2i(width, height);
+            glVertex2i(0,     height);
+         }
          glEnd();
       }
-
-
    }
 
-   void Button::setText(const std::string& text) {
+   void Button::setText(const std::string& text)
+   {
       mText = text;
    }
 
-   const std::string& Button::getText() const {
+   const std::string& Button::getText() const
+   {
       return mText;
    }
 
-   void Button::onMouseDown(InputButton button, const Point& p) {
-      if (button == BUTTON_LEFT) {
+   void Button::onMouseDown(InputButton button, const Point& p)
+   {
+      if (button == BUTTON_LEFT)
+      {
          mButtonDown = true;
       }
    }
 
-   void Button::onMouseUp(InputButton button, const Point& p) {
-      if (button == BUTTON_LEFT) {
+   void Button::onMouseUp(InputButton button, const Point& p)
+   {
+      if (button == BUTTON_LEFT)
+      {
          mButtonDown = false;
 
          // Only fire button pressed event if the mouse was released
          // inside this button.
-         if (contains(p)) {
+         if (contains(p))
+         {
             fireActionEvent();
          }
       }
    }
 
-   void Button::addActionListener(ActionListener* listener) {
+   void Button::addActionListener(ActionListenerPtr listener)
+   {
       mListeners.push_back(listener);
    }
 
-   void Button::removeActionListener(ActionListener* listener) {
+   void Button::removeActionListener(ActionListenerPtr listener)
+   {
       ListenerIter itr;
       itr = std::find(mListeners.begin(), mListeners.end(), listener);
-      if (itr != mListeners.end()) {
+      if (itr != mListeners.end())
+      {
          mListeners.erase(itr);
       }
    }
 
-   void Button::fireActionEvent() {
-      ActionEvent evt(this);
+   void Button::fireActionEvent()
+   {
+      ActionEvent evt(getSelf());
 
-      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++) {
+      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++)
+      {
          (*itr)->onAction(evt);
       }
    }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.cpp,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -50,6 +50,20 @@ namespace phui
    TextField::~TextField()
    {}
 
+   TextFieldPtr TextField::create()
+   {
+      TextFieldPtr obj(new TextField());
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   TextFieldPtr TextField::create(const std::string& text)
+   {
+      TextFieldPtr obj(new TextField(text));
+      obj->setSelf(obj);
+      return obj;
+   }
+
    void TextField::draw()
    {
       const Size& size = getSize();
@@ -59,10 +73,12 @@ namespace phui
       // draw the button background
       glColor(getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
+      {
          glVertex2i(0,     0     );
          glVertex2i(width, 0     );
          glVertex2i(width, height);
          glVertex2i(0,     height);
+      }
       glEnd();
 
       // draw text

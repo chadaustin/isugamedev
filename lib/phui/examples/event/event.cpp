@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:00 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2003-01-05 02:19:15 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -35,19 +35,21 @@
 #include <phui/GLUTBridge.h>
 
 
-namespace {
-   phui::RootWidget* gRoot;
+namespace
+{
+   phui::RootWidgetPtr gRoot;
    int gContext; /// GLUT context
 }
 
 class WidgetHider : public phui::ActionListener
 {
 public:
-   WidgetHider(phui::Widget* wgt)
+   WidgetHider(phui::WidgetPtr wgt)
       : mWidget(wgt)
    {}
 
-   ~WidgetHider() {}
+   ~WidgetHider()
+   {}
 
    void onAction(const phui::ActionEvent& evt)
    {
@@ -55,13 +57,14 @@ public:
    }
 
 private:
-   phui::Widget* mWidget;
+   phui::WidgetPtr mWidget;
 };
 
 class WndListener : public phui::WindowListener
 {
 public:
-   ~WndListener() {}
+   ~WndListener()
+   {}
 
    void onWindowOpened(const phui::WindowEvent& evt)
    {
@@ -77,14 +80,17 @@ public:
    void onWindowUnfocused(const phui::WindowEvent& evt) {}
 };
 
-void idle() {
-   if (glutGetWindow() != gContext) {
+void idle()
+{
+   if (glutGetWindow() != gContext)
+   {
       glutSetWindow(gContext);
    }
    glutPostRedisplay();
 }
 
-void display() {
+void display()
+{
    glEnable(GL_BLEND);
    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -94,42 +100,16 @@ void display() {
    glutSwapBuffers();
 }
 
-void reshape(int width, int height) {
+void reshape(int width, int height)
+{
    glViewport(0, 0, width, height);
    gRoot->setSize(width, height);
 }
 
-void OnKeyboardDown(unsigned char key, int /*x*/, int /*y*/) {
-   gRoot->onKeyDown(phui::GlutToPhuiKey(key));
-}
-
-void OnKeyboardUp(unsigned char key, int /*x*/, int /*y*/) {
-   gRoot->onKeyUp(phui::GlutToPhuiKey(key));
-}
-
-void OnSpecialDown(int key, int /*x*/, int /*y*/) {
-   gRoot->onKeyDown(phui::GlutSpecialToPhuiKey(key));
-}
-
-void OnSpecialUp(int key, int /*x*/, int /*y*/) {
-   gRoot->onKeyUp(phui::GlutSpecialToPhuiKey(key));
-}
-
-void OnMouseClick(int button, int state, int x, int y) {
-   phui::InputButton phui_button = phui::GlutToPhuiButton(button);
-   if (state == GLUT_DOWN) {
-      gRoot->onMouseDown(phui_button, phui::Point(x, y));
-   } else {
-      gRoot->onMouseUp(phui_button, phui::Point(x, y));
-   }
-}
-
-void OnMouseMove(int x, int y) {
-   gRoot->onMouseMove(phui::Point(x, y));
-}
-
-int main(int argc, char** argv) {
-   try {
+int main(int argc, char** argv)
+{
+   try
+   {
       glutInitWindowSize(640, 480);
       glutInit(&argc, argv);
       glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
@@ -150,27 +130,28 @@ int main(int argc, char** argv) {
       // register it with glut
       phui::glutRegisterRoot(gRoot);
 
-      phui::Window* window(new phui::Window());
+      phui::WindowPtr window(phui::Window::create());
       window->setPosition(150, 75);
       window->setSize(300, 250);
       window->show();
       window->setBackgroundColor(phui::Colorf(1, 0, 0, 0.75f));
 
-      phui::Window* wnd(new phui::Window());
+      phui::WindowPtr wnd(phui::Window::create());
       wnd->setPosition(250, 175);
       wnd->setSize(300, 250);
       wnd->show();
       wnd->setBackgroundColor(phui::Colorf(0, 0, 1, 0.75f));
-      wnd->addWindowListener(new WndListener());
+      phui::WindowListenerPtr wnd_listener(new WndListener());
+      wnd->addWindowListener(wnd_listener);
 
-      phui::Window* w(new phui::Window());
+      phui::WindowPtr w(phui::Window::create());
       w->setPosition(100, 100);
       w->setSize(50, 50);
       w->show();
       w->setBackgroundColor(phui::Colorf(0, 1, 0, 0.75f));
       wnd->add(w);
 
-      phui::CheckBox* cb(new phui::CheckBox());
+      phui::CheckBoxPtr cb(phui::CheckBox::create());
       cb->setPosition(220, 40);
       cb->setSize(20, 20);
       cb->show();
@@ -178,15 +159,16 @@ int main(int argc, char** argv) {
       cb->setForegroundColor(phui::Colorf(1, 0, 1, 1));
       window->add(cb);
 
-      phui::Button* button(new phui::Button("Icky very very very icky"));
+      phui::ButtonPtr button(phui::Button::create("Icky very very very icky"));
       button->setPosition(20, 20);
       button->setSize(100,50);
       button->show();
       button->setBackgroundColor(phui::Colorf(0,0,1,0.5f));
-      button->addActionListener(new WidgetHider(wnd));
+      phui::ActionListenerPtr action_listener(new WidgetHider(wnd));
+      button->addActionListener(action_listener);
       window->add(button);
 
-      phui::TextField* txt(new phui::TextField());
+      phui::TextFieldPtr txt(phui::TextField::create());
       txt->setPosition(20,100);
       txt->setSize(100,50);
       txt->show();
@@ -194,7 +176,7 @@ int main(int argc, char** argv) {
       txt->setForegroundColor(phui::Colorf(0,0,0,1.0f));
       window->add(txt);
 
-      phui::ListBox* lst(new phui::ListBox());
+      phui::ListBoxPtr lst(phui::ListBox::create());
       lst->setPosition(130,100);
       lst->setSize(100,100);
       lst->show();
@@ -212,7 +194,8 @@ int main(int argc, char** argv) {
 
       glutMainLoop();
    }
-   catch (std::exception& e) {
+   catch (std::exception& e)
+   {
       std::cerr << "caught exception: " << e.what() << std::endl;
    }
 }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.cpp,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -49,7 +49,15 @@ namespace phui
    ListBox::~ListBox()
    {}
 
-   void ListBox::draw() {
+   ListBoxPtr ListBox::create()
+   {
+      ListBoxPtr obj(new ListBox());
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   void ListBox::draw()
+   {
       const Size& size = getSize();
       const int width = size.getWidth();
       const int height = size.getHeight();
@@ -58,10 +66,12 @@ namespace phui
       // draw the box background
       glColor(getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
+      {
          glVertex2i(0,     0     );
          glVertex2i(width, 0     );
          glVertex2i(width, height);
          glVertex2i(0,     height);
+      }
       glEnd();
 
       // draw text
@@ -74,7 +84,7 @@ namespace phui
       int fontLineGap = font->getLineGap();
 
       glPushMatrix();
-      glTranslatef(3.0,0.0,0.0);
+      glTranslatef(3.0f, 0.0f, 0.0f);
       for (int x = 0; x < int(mItems.size()); ++x)
       {
          glTranslatef(0.0, float(fontLineGap + fontHeight), 0.0);
@@ -85,10 +95,12 @@ namespace phui
             glPushMatrix();
             glTranslatef(-3.0, float(-(fontHeight+2)), 0.0);
             glBegin(GL_TRIANGLE_FAN);
+            {
                glVertex2i(0,     0);//fontHeight*x);
                glVertex2i(width, 0);//fontHeight);//*x);
                glVertex2i(width, fontHeight+3);//*(x+1));
                glVertex2i(0,     fontHeight+3);//*(x+1));
+            }
             glEnd();
             glColor(getBackgroundColor());
             glPopMatrix();
@@ -103,31 +115,38 @@ namespace phui
       glPopMatrix();
    }
 
-   void ListBox::add(const std::string& text) {
+   void ListBox::add(const std::string& text)
+   {
       mItems.push_back(text);
    }
 
-   void ListBox::remove(unsigned int idx) {
-      if (idx < mItems.size()) {
+   void ListBox::remove(unsigned int idx)
+   {
+      if (idx < mItems.size())
+      {
          mItems.erase(mItems.begin() + idx);
 
-         if(idx == mSelectedItem) {
+         if (idx == mSelectedItem) 
+         {
             mSelectedItem = -1;
          }
       }
    }
 
-   void ListBox::clear() {
+   void ListBox::clear() 
+   {
       mSelectedItem = -1;
       mItems.clear();
    }
 
-   const std::string& ListBox::get(unsigned int idx) const {
+   const std::string& ListBox::get(unsigned int idx) const
+   {
       assert(idx < mItems.size() && "Out of bounds!");
       return mItems[idx];
    }
 
-   int ListBox::getSelectedIndex() const {
+   int ListBox::getSelectedIndex() const
+   {
       return mSelectedItem;
    }
 
@@ -150,22 +169,27 @@ namespace phui
       }
    }
 
-   void ListBox::addListSelectionListener(ListSelectionListener* listener) {
+   void ListBox::addListSelectionListener(ListSelectionListenerPtr listener)
+   {
       mListeners.push_back(listener);
    }
 
-   void ListBox::removeListSelectionListener(ListSelectionListener* listener) {
+   void ListBox::removeListSelectionListener(ListSelectionListenerPtr listener)
+   {
       ListenerIter itr;
       itr = std::find(mListeners.begin(), mListeners.end(), listener);
-      if (itr != mListeners.end()) {
+      if (itr != mListeners.end())
+      {
          mListeners.erase(itr);
       }
    }
 
-   void ListBox::fireListSelectionEvent(int selectedIdx) {
-      ListSelectionEvent evt(this, selectedIdx);
+   void ListBox::fireListSelectionEvent(int selectedIdx)
+   {
+      ListSelectionEvent evt(getSelf(), selectedIdx);
 
-      for (ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++) {
+      for (ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); itr++)
+      {
          (*itr)->onListSelection(evt);
       }
    }

@@ -23,56 +23,30 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: RootWidget.h,v $
+ * File:          $RCSfile: Utility.h,v $
  * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.14 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-#ifndef PHUI_ROOT_WIDGET_H
-#define PHUI_ROOT_WIDGET_H
+#ifndef PHUI_UTILITY_H
+#define PHUI_UTILITY_H
 
-#ifdef _MSC_VER
-#  define WIN32_LEAN_AND_MEAN
-#  include <windows.h>
-#endif
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include "WidgetContainer.h"
+#include <assert.h>
 
 namespace phui
 {
-   class RootWidget : public WidgetContainer
+   /**
+    * A lightweight identifier you can pass to overloaded functions to typeify
+    * them.
+    *
+    * Type2Type lets you transport the type information about T to functions.
+    */
+   template< typename T >
+   struct Type2Type
    {
-   public:
-      /**
-       * Creates a new root widget with the given size.
-       *
-       * @param width      the width of the UI
-       * @param height     the height of the UI
-       */
-      RootWidget(int width, int height);
-      ~RootWidget();
-
-      /**
-       * First the projection matrix is modified to 2D orthographic projection.
-       * Then the modelview matrix is setup to support drawing in window
-       * coordinates. Then WidgetContainer::draw() is called.
-       *
-       * @see WidgetContainer::draw()
-       */
-      void draw();
-
-      void onMouseMove(const Point& p);
-
-   private:
-      void drawPointer();
-      void drawChildren();
-
-      Point mPointerPosition;
+      typedef T OriginalType;
    };
-
-   typedef boost::shared_ptr<RootWidget> RootWidgetPtr;
 }
 
 #endif

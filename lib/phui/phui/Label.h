@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -43,13 +43,27 @@ namespace phui
     */
    class Label : public Widget
    {
-   public:
+   protected:
+      /// Creates a new label with no text at (0,0) with size (0,0).
+      Label();
+
       /**
        * Creates a new label with the given text at (0,0) with size (0,0).
        *
        * @param text   the text for the label, defaults to the no label
        */
-      Label(const std::string& text = "");
+      Label(const std::string& text);
+
+   public:
+      /// Creates a new label with no text at (0,0) with size (0,0).
+      static boost::shared_ptr<Label> create();
+
+      /**
+       * Creates a new label with the given text at (0,0) with size (0,0).
+       *
+       * @param text   the text for the label, defaults to the no label
+       */
+      static boost::shared_ptr<Label> create(const std::string& text);
 
       /**
        * Draws this label with its text.
@@ -61,7 +75,7 @@ namespace phui
        *
        * @param text      the text for this label
        */
-      void setText( const std::string& text );
+      void setText(const std::string& text);
 
       /**
        * Gets the text on this label.
@@ -76,6 +90,8 @@ namespace phui
        */
       std::string mText;
    };
+
+   typedef boost::shared_ptr<Label> LabelPtr;
 }
 
 #endif

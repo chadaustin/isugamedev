@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.cpp,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -39,10 +39,27 @@
 
 namespace phui
 {
+   Label::Label()
+   {}
+
    Label::Label(const std::string& text)
       : mText(text)
    {
       setBackgroundColor(NONE);
+   }
+
+   LabelPtr Label::create()
+   {
+      LabelPtr obj(new Label());
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   LabelPtr Label::create(const std::string& text)
+   {
+      LabelPtr obj(new Label(text));
+      obj->setSelf(obj);
+      return obj;
    }
 
    void Label::draw()
@@ -55,10 +72,12 @@ namespace phui
       // draw the label background
       glColor(getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
+      {
          glVertex2i(0,     0     );
          glVertex2i(width, 0     );
          glVertex2i(width, height);
          glVertex2i(0,     height);
+      }
       glEnd();
 
       // draw text
@@ -77,13 +96,13 @@ namespace phui
       //button.  If not start in the lower left-hand corner of
       //the button and render the text.
       double yLoc = (height - fontHeight)/2.0;
-      if(yLoc < 0)
+      if (yLoc < 0)
       {
          yLoc = 0;
       }
 
       double xLoc = (width - labelWidth)/2.0;
-      if(xLoc < 0)
+      if (xLoc < 0)
       {
          xLoc = 0;
       }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutCodec.h,v $
- * Date modified: $Date: 2003-01-04 06:44:09 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-05 02:19:17 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -39,7 +39,7 @@ namespace phui
    class LayoutCodec
    {
    public:
-      Widget* decode(const std::string& file);
+      WidgetPtr decode(const std::string& file);
    };
 }
 

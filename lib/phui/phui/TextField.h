@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: TextField.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -33,7 +33,6 @@
 #define PHUI_TEXT_FIELD_H
 
 #include <string>
-#include <iostream>
 #include "Widget.h"
 
 namespace phui
@@ -43,7 +42,7 @@ namespace phui
     */
    class TextField : public Widget
    {
-   public:
+   protected:
       /**
        * Creates a new textfield with no text at (0,0) with size (0,0).
        */
@@ -56,10 +55,14 @@ namespace phui
        */
       TextField(const std::string& text);
 
+   public:
       /**
        * Destroys this button.
        */
       virtual ~TextField();
+
+      static boost::shared_ptr<TextField> create();
+      static boost::shared_ptr<TextField> create(const std::string& text);
 
       /**
        * Draws this button with its text.
@@ -101,6 +104,8 @@ namespace phui
        */
       unsigned int mCursorCharacterPosition;
    };
+
+   typedef boost::shared_ptr<TextField> TextFieldPtr;
 }
 
 #endif

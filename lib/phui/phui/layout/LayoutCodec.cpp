@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutCodec.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:04 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-01-05 02:19:17 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -37,10 +37,11 @@
 
 namespace phui
 {
-   Widget* processNode(cppdom::XMLNodePtr node);
+   WidgetPtr processNode(cppdom::XMLNodePtr node);
 
-   Widget*
-   processPhuiNode(cppdom::XMLNodePtr node) {
+   WidgetPtr
+   processPhuiNode(cppdom::XMLNodePtr node)
+   {
       return processNode(node->getChild("window"));
 //      cppdom::XMLNodeList children = node->getChildren();
 //      cppdom::XMLNodeListIterator itr = children.begin();
@@ -50,45 +51,56 @@ namespace phui
    }
 
    Point
-   processPositionNode(cppdom::XMLNodePtr node) {
+   processPositionNode(cppdom::XMLNodePtr node)
+   {
       return Point(node->getAttribute("x").getValue<int>(),
                    node->getAttribute("y").getValue<int>());
    }
 
    Size
-   processSizeNode(cppdom::XMLNodePtr node) {
+   processSizeNode(cppdom::XMLNodePtr node)
+   {
       return Size(node->getAttribute("width").getValue<int>(),
                   node->getAttribute("height").getValue<int>());
    }
 
-   Widget*
-   processWindowNode(cppdom::XMLNodePtr node) {
-      Window* wnd = 0;
-      if (node->hasAttribute("text")) {
-         wnd = new Window(node->getAttribute("text").getValue<std::string>());
-      } else {
-         wnd = new Window();
+   WidgetPtr
+   processWindowNode(cppdom::XMLNodePtr node)
+   {
+      WindowPtr wnd;
+      if (node->hasAttribute("text"))
+      {
+         wnd = Window::create(node->getAttribute("text").getValue<std::string>());
+      }
+      else
+      {
+         wnd = Window::create();
       }
 
-      if (node->hasAttribute("visible")) {
+      if (node->hasAttribute("visible"))
+      {
          wnd->setVisible(node->getAttribute("visible").getValue<bool>());
       }
 
       cppdom::XMLNodeList children = node->getChildren();
       cppdom::XMLNodeListIterator itr = children.begin();
-      while (itr != children.end()) {
+      while (itr != children.end())
+      {
          cppdom::XMLNodePtr child = *itr;
 
          // Handle a position node
-         if (child->getName() == "position") {
+         if (child->getName() == "position")
+         {
             wnd->setPosition(processPositionNode(child));
          }
          // Handle size node
-         else if (child->getName() == "size") {
+         else if (child->getName() == "size")
+         {
             wnd->setSize(processSizeNode(child));
          }
          // Handle subchild node
-         else {
+         else
+         {
             wnd->add(processNode(child));
          }
          ++itr;
@@ -97,28 +109,34 @@ namespace phui
       return wnd;
    }
 
-   Widget*
-   processButtonNode(cppdom::XMLNodePtr node) {
-      Button* btn = new Button();
-      if (node->hasAttribute("text")) {
+   WidgetPtr
+   processButtonNode(cppdom::XMLNodePtr node)
+   {
+      ButtonPtr btn = Button::create();
+      if (node->hasAttribute("text"))
+      {
          btn->setText(node->getAttribute("text").getValue<std::string>());
       }
 
       cppdom::XMLNodeList children = node->getChildren();
       cppdom::XMLNodeListIterator itr = children.begin();
-      while (itr != children.end()) {
+      while (itr != children.end())
+      {
          cppdom::XMLNodePtr child = *itr;
 
          // Handle a position node
-         if (child->getName() == "position") {
+         if (child->getName() == "position")
+         {
             btn->setPosition(processPositionNode(child));
          }
          // Handle size node
-         else if (child->getName() == "size") {
+         else if (child->getName() == "size")
+         {
             btn->setSize(processSizeNode(child));
          }
          // Handle subchild node
-         else {
+         else
+         {
             std::cerr << "Unknown node: " << child->getName() << std::endl;
          }
          ++itr;
@@ -127,43 +145,55 @@ namespace phui
       return btn;
    }
 
-   Widget*
-   processNode(cppdom::XMLNodePtr node) {
-      if (node->getName() == "phui") {
+   WidgetPtr
+   processNode(cppdom::XMLNodePtr node)
+   {
+      if (node->getName() == "phui")
+      {
          return processPhuiNode(node);
       }
-      else if (node->getName() == "window") {
+      else if (node->getName() == "window") 
+      {
          return processWindowNode(node);
       }
-      else if (node->getName() == "button") {
+      else if (node->getName() == "button") 
+      {
          return processButtonNode(node);
       }
-      else {
+      else
+      {
          std::cerr << "Unknown node: " << node->getName() << std::endl;
-         return 0;
+         WidgetPtr null;
+         return null;
       }
    }
 
-   Widget*
-   LayoutCodec::decode(const std::string& file) {
+   WidgetPtr
+   LayoutCodec::decode(const std::string& file)
+   {
       cppdom::XMLContextPtr ctx(new cppdom::XMLContext);
       cppdom::XMLDocument doc(ctx);
 
       // Load the XML document from a file
-      try {
+      try
+      {
          doc.loadFile(file);
       }
-      catch (cppdom::XMLError& e) {
+      catch (cppdom::XMLError& e)
+      {
          std::cerr << "Errpr: " << e.getString() << std::endl;
-         if (e.getInfo().size()) {
+         if (e.getInfo().size())
+         {
             std::cerr << "File: " << e.getInfo() << std::endl;
          }
-         return 0;
+         WidgetPtr null;
+         return null;
       }
 
       std::cout << "Loading layout: " << file << std::endl;
       return processNode(doc.getChild("phui"));
 
-      return 0;
+      WidgetPtr null;
+      return null;
    }
 }

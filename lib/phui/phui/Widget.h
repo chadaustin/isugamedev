@@ -24,26 +24,33 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.32 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.33 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WIDGET_H
 #define PHUI_WIDGET_H
 
+#include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 #include <gltext.h>
 #include "Color.h"
 #include "Input.h"
 #include "Insets.h"
 #include "Point.h"
 #include "Size.h"
+#include "Utility.h"
 
 namespace phui
 {
    // forward declare so we can point to our parent
    class WidgetContainer;
+   typedef boost::shared_ptr<WidgetContainer> WidgetContainerPtr;
 
+   /**
+    * Abstract base class for all Widgets.
+    */
    class Widget
    {
       friend class WidgetContainer;
@@ -191,7 +198,7 @@ namespace phui
        * Gets the parent container for this widget or NULL if this
        * widget has no container.
        */
-      WidgetContainer* getParent() const;
+      WidgetContainerPtr getParent() const;
 
       /**
        * Tests if the given point is contained within this widget where the
@@ -218,6 +225,44 @@ namespace phui
       virtual void onMouseDown(InputButton button, const Point& p) { }
       virtual void onMouseUp(InputButton button, const Point& p) { }
       virtual void onMouseMove(const Point& p) { }
+
+//   protected:
+//      ///@{
+//      /**
+//       * Creates a new widget of the given type and makes sure that it has a
+//       * pointer to itself.
+//       */
+//      template< class T >
+//      static boost::shared_ptr<T> create(Type2Type<T> = Type2Type<T>())
+//      {
+//         boost::shared_ptr<T> obj(new T());
+//         obj->setSelf(obj);
+//         return obj;
+//      }
+//
+//      template< class T, typename A1 >
+//      static boost::shared_ptr<T> create(A1 arg1, Type2Type<T> = Type2Type<T>())
+//      {
+//         boost::shared_ptr<T> obj(new T(arg1));
+//         obj->setSelf(obj);
+//         return obj;
+//      }
+//      ///@}
+
+   private:
+      /// This method is private and should only be used by WidgetContainer.
+      void setParent(WidgetContainerPtr parent);
+
+   protected:
+      /// Gets a shared pointer to this widget.
+      boost::shared_ptr<Widget> getSelf();
+
+      /**
+       * Tells this object about the shared pointer to itself so that it can
+       * keep a weak pointer to itself. This way it can return pointers to
+       * 'this'.
+       */
+      void setSelf(boost::shared_ptr<Widget> new_self);
 
    private:
       /**
@@ -262,8 +307,13 @@ namespace phui
       /**
        * The parent container for this widget.
        */
-      WidgetContainer* mParent;
+      boost::weak_ptr<WidgetContainer> mParent;
+
+      /// The weak pointer to ourself.
+      boost::weak_ptr<Widget> mSelf;
    };
+
+   typedef boost::shared_ptr<Widget> WidgetPtr;
 }
 
 #endif

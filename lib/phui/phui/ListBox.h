@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListBox.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -35,7 +35,6 @@
 #include <string>
 #include <vector>
 #include <list>
-#include <iostream>
 #include "Widget.h"
 #include "ListSelectionListener.h"
 
@@ -43,16 +42,19 @@ namespace phui
 {
    class ListBox : public Widget
    {
-   public:
+   protected:
       /**
        * Creates a list with no items.
        */
       ListBox();
 
+   public:
       /**
        * Destroys this listbox
        */
       virtual ~ListBox();
+
+      static boost::shared_ptr<ListBox> create();
 
       /**
        * Draws this listbox
@@ -101,12 +103,12 @@ namespace phui
        * Adds the given list selection listener that wishes to receive list
        * selection events.
        */
-      void addListSelectionListener(ListSelectionListener* listener);
+      void addListSelectionListener(ListSelectionListenerPtr listener);
 
       /**
        * Removes the given action listener for this button.
        */
-      void removeListSelectionListener(ListSelectionListener* listener);
+      void removeListSelectionListener(ListSelectionListenerPtr listener);
 
    private:
       /// Helper to fire list selection events to listeners.
@@ -126,10 +128,12 @@ namespace phui
       /**
        * All listeners for this list.
        */
-      typedef std::list<ListSelectionListener*> ListenerList;
+      typedef std::list<ListSelectionListenerPtr> ListenerList;
       typedef ListenerList::iterator ListenerIter;
-      std::list<ListSelectionListener*> mListeners;
+      ListenerList mListeners;
    };
+
+   typedef boost::shared_ptr<ListBox> ListBoxPtr;
 }
 
 #endif

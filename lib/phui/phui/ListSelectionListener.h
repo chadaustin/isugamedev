@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ListSelectionListener.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -47,7 +47,7 @@ namespace phui
        *
        * @param src
        */
-      ListSelectionEvent(Widget* src, int selectedIndex)
+      ListSelectionEvent(WidgetPtr src, int selectedIndex)
          : mSource(src), mSelectedIndex(selectedIndex)
       {}
 
@@ -56,7 +56,7 @@ namespace phui
        *
        * @return  the source widget
        */
-      Widget* getSource() const
+      WidgetPtr getSource() const
       {
          return mSource;
       }
@@ -73,7 +73,7 @@ namespace phui
 
    private:
       /// The source of the event.
-      Widget* mSource;
+      WidgetPtr mSource;
 
       /// The selected index.
       int mSelectedIndex;
@@ -95,6 +95,8 @@ namespace phui
        */
       virtual void onListSelection(const ListSelectionEvent& evt) = 0;
    };
+
+   typedef boost::shared_ptr<ListSelectionListener> ListSelectionListenerPtr;
 }
 
 #endif

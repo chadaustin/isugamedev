@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.cpp,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -53,7 +53,22 @@ namespace phui
    Window::~Window()
    {}
 
-   void Window::draw() {
+   WindowPtr Window::create()
+   {
+      WindowPtr obj(new Window());
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   WindowPtr Window::create(const std::string& title)
+   {
+      WindowPtr obj(new Window(title));
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   void Window::draw()
+   {
       const Size& size = getSize();
       const int width = size.getWidth();
       const int height = size.getHeight();
@@ -61,13 +76,16 @@ namespace phui
       // render the background
       glColor(getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
-      glVertex2i(0,     0);
-      glVertex2i(width, 0);
-      glVertex2i(width, height);
-      glVertex2i(0,     height);
+      {
+         glVertex2i(0,     0);
+         glVertex2i(width, 0);
+         glVertex2i(width, height);
+         glVertex2i(0,     height);
+      }
       glEnd();
 
-      if (hasFocus()) {
+      if (hasFocus())
+      {
          glColor(getForegroundColor());
          glBegin(GL_LINE_LOOP);
          glVertex2i(0,     0);
@@ -80,54 +98,68 @@ namespace phui
       WidgetContainer::draw();
    }
 
-   void Window::setVisible(bool visible) {
+   void Window::setVisible(bool visible)
+   {
       bool wasVisible = isVisible();
 
       Widget::setVisible(visible);
 
       // Let our listeners know about us.
-      if (visible) {
+      if (visible)
+      {
          // Fire a window opened event if the window is not already visible
-         if (! wasVisible) {
+         if (! wasVisible)
+         {
             fireWindowOpenedEvent();
          }
-      } else {
+      }
+      else
+      {
          // Fire a window closed event if this call closed the window
-         if (wasVisible) {
+         if (wasVisible)
+         {
             fireWindowClosedEvent();
          }
       }
    }
 
-   void Window::addWindowListener(WindowListener* listener) {
+   void Window::addWindowListener(WindowListenerPtr listener)
+   {
       mListeners.push_back(listener);
    }
 
-   void Window::removeWindowListener(WindowListener* listener) {
+   void Window::removeWindowListener(WindowListenerPtr listener)
+   {
       ListenerIter itr;
       itr = std::find(mListeners.begin(), mListeners.end(), listener);
-      if (itr != mListeners.end()) {
+      if (itr != mListeners.end())
+      {
          mListeners.erase(itr);
       }
    }
 
-   void Window::init(const std::string& title, bool visible) {
+   void Window::init(const std::string& title, bool visible)
+   {
       mTitle = title;
       Widget::setVisible(visible);
    }
 
-   void Window::fireWindowOpenedEvent() {
-      WindowEvent evt(this);
+   void Window::fireWindowOpenedEvent()
+   {
+      WindowEvent evt(boost::shared_dynamic_cast<Window>(getSelf()));
 
-      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); ++itr) {
+      for (ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); ++itr)
+      {
          (*itr)->onWindowOpened(evt);
       }
    }
 
-   void Window::fireWindowClosedEvent() {
-      WindowEvent evt(this);
+   void Window::fireWindowClosedEvent()
+   {
+      WindowEvent evt(boost::shared_dynamic_cast<Window>(getSelf()));
 
-      for(ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); ++itr) {
+      for (ListenerIter itr=mListeners.begin(); itr!=mListeners.end(); ++itr)
+      {
          (*itr)->onWindowClosed(evt);
       }
    }

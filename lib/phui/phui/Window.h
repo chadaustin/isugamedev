@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Window.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -44,10 +44,8 @@ namespace phui
 {
    class Window : public WidgetContainer
    {
-   public:
-      /**
-       * Creates a window with an empty title.
-       */
+   protected:
+      /// Creates a window with an empty title.
       Window();
 
       /**
@@ -55,9 +53,20 @@ namespace phui
        *
        * @param   title          the title for the window
        */
-      Window( const std::string& title );
+      Window(const std::string& title);
 
+   public:
       virtual ~Window();
+
+      /// Creates a window with an empty title.
+      static boost::shared_ptr<Window> create();
+
+      /**
+       * Creates a window with the given title.
+       *
+       * @param   title          the title for the window
+       */
+      static boost::shared_ptr<Window> create(const std::string& title);
 
       void draw();
 
@@ -67,12 +76,12 @@ namespace phui
       /**
        * Adds the given window listener that wishes to receive window events.
        */
-      void addWindowListener(WindowListener* listener);
+      void addWindowListener(WindowListenerPtr listener);
 
       /**
        * Removes the given window listener for this button.
        */
-      void removeWindowListener(WindowListener* listener);
+      void removeWindowListener(WindowListenerPtr listener);
 
    private:
       /// Helper initializing method called by constructors.
@@ -89,10 +98,12 @@ namespace phui
       std::string mTitle;
 
       /// All listeners for this window.
-      typedef std::list<WindowListener*> ListenerList;
+      typedef std::list<WindowListenerPtr> ListenerList;
       typedef ListenerList::iterator ListenerIter;
-      std::list<WindowListener*> mListeners;
+      std::list<WindowListenerPtr> mListeners;
    };
+
+   typedef boost::shared_ptr<Window> WindowPtr;
 }
 
 #endif

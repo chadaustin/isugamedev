@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CheckBox.cpp,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -33,49 +33,75 @@
 
 namespace phui
 {
-   CheckBox::CheckBox(bool checked) {
+   CheckBox::CheckBox(bool checked)
+   {
       mIsChecked = checked;
    }
 
-   void CheckBox::draw() {
+   CheckBoxPtr CheckBox::create()
+   {
+      CheckBoxPtr obj(new CheckBox());
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   CheckBoxPtr CheckBox::create(bool checked)
+   {
+      CheckBoxPtr obj(new CheckBox(checked));
+      obj->setSelf(obj);
+      return obj;
+   }
+
+   void CheckBox::draw()
+   {
       const Size& size = getSize();
       const int width = size.getWidth();
       const int height = size.getHeight();
 
       glColor(getBackgroundColor());
       glBegin(GL_TRIANGLE_FAN);
-      glVertex2i(0,     0     );
-      glVertex2i(width, 0     );
-      glVertex2i(width, height);
-      glVertex2i(0,     height);
+      {
+         glVertex2i(0,     0     );
+         glVertex2i(width, 0     );
+         glVertex2i(width, height);
+         glVertex2i(0,     height);
+      }
       glEnd();
 
-      if (isChecked()) {
+      if (isChecked())
+      {
          glColor(getForegroundColor());
          glBegin(GL_LINES);
-         glVertex2i(0,     0);
-         glVertex2i(width, height);
-         glVertex2i(width, 0);
-         glVertex2i(0,     height);
+         {
+            glVertex2i(0,     0);
+            glVertex2i(width, height);
+            glVertex2i(width, 0);
+            glVertex2i(0,     height);
+         }
          glEnd();
       }
 
    }
 
-   void CheckBox::check() {
+   void CheckBox::check()
+   {
       mIsChecked = true;
    }
 
-   void CheckBox::uncheck() {
+   void CheckBox::uncheck()
+   {
       mIsChecked = false;
    }
 
-   bool CheckBox::isChecked() {
+   bool CheckBox::isChecked()
+   {
       return mIsChecked;
    }
 
-   void CheckBox::onMouseDown(InputButton button, const Point& p) {
-      if (button == BUTTON_LEFT) {
+   void CheckBox::onMouseDown(InputButton button, const Point& p)
+   {
+      if (button == BUTTON_LEFT)
+      {
          mIsChecked = !isChecked();
       }
    }

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutConstraint.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -33,6 +33,7 @@
 #define PHUI_LAYOUT_CONSTRAINT_H
 
 #include <string>
+#include <boost/shared_ptr.hpp>
 
 namespace phui
 {
@@ -49,8 +50,9 @@ namespace phui
        * @return     the name of this layout constraint
        */
       virtual const std::string getType() = 0;
-
    };
+
+   typedef boost::shared_ptr<LayoutConstraint> LayoutConstraintPtr;
 }
 
 #endif

@@ -24,17 +24,20 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WindowListener.h,v $
- * Date modified: $Date: 2003-01-04 02:47:58 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_WINDOW_LISTENER_H
 #define PHUI_WINDOW_LISTENER_H
 
+#include <boost/shared_ptr.hpp>
+
 namespace phui
 {
    class Window;
+   typedef boost::shared_ptr<Window> WindowPtr;
 
    /**
     * Describes an event that indicates that a window has changed it's status.
@@ -47,7 +50,7 @@ namespace phui
        *
        * @param src     the window that fired the event
        */
-      WindowEvent(Window* src)
+      WindowEvent(WindowPtr src)
          : mSource(src)
       {}
 
@@ -56,14 +59,14 @@ namespace phui
        *
        * @return  the source window
        */
-      Window* getWindow() const
+      WindowPtr getWindow() const
       {
          return mSource;
       }
 
    private:
       /// The source of the event.
-      Window* mSource;
+      WindowPtr mSource;
    };
 
    /**
@@ -102,6 +105,8 @@ namespace phui
        */
       virtual void onWindowUnfocused(const WindowEvent& evt) = 0;
    };
+
+   typedef boost::shared_ptr<WindowListener> WindowListenerPtr;
 }
 
 #endif

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -56,7 +56,7 @@ namespace phui
        *
        * @param   manager        the layout manager for this container
        */
-      WidgetContainer(LayoutManager* manager);
+      WidgetContainer(LayoutManagerPtr manager);
 
       ~WidgetContainer();
 
@@ -66,7 +66,7 @@ namespace phui
        *
        * @param widget     the widget to add
        */
-      void add(Widget* widget);
+      void add(WidgetPtr widget);
 
       /**
        * Removes the given widget from this container widget.
@@ -74,7 +74,7 @@ namespace phui
        *
        * @param widget     the widget to remove
        */
-      void remove(Widget* widget);
+      void remove(WidgetPtr widget);
 
       /**
        * Draws this widget and all of its children.
@@ -86,7 +86,7 @@ namespace phui
        *
        * @param   manager        the layout manager
        */
-      void setLayoutManager(LayoutManager* manager);
+      void setLayoutManager(LayoutManagerPtr manager);
 
       void onKeyDown(InputKey key);
       void onKeyUp(InputKey key);
@@ -94,25 +94,31 @@ namespace phui
       void onMouseUp(InputButton button, const Point& p);
       void onMouseMove(const Point& p);
 
-      void focus(Widget* widget);
-      Widget* getFocus();
+      void focus(WidgetPtr widget);
+      WidgetPtr getFocus();
 
-      void capture(Widget* widget);
-      Widget* getCapture();
+      void capture(WidgetPtr widget);
+      WidgetPtr getCapture();
 
-      Widget* getWidgetAt(const Point& p);
+      WidgetPtr getWidgetAt(const Point& p);
 
       // this name sucks ass
-      Widget* getMouseWidget(const Point& p);
+      WidgetPtr getMouseWidget(const Point& p);
 
    private:
-      std::vector<Widget*> mWidgets;  // sorted from topmost to bottommost
-                                      // topmost has focus
-      ///The layout manager
-      LayoutManager* mLayoutManager;
+      /**
+       * Widgets contained by this container sorted from top to bottom where the
+       * topmost widget has the focus.
+       */
+      std::vector<WidgetPtr> mWidgets;
 
-      Widget* mCapturedWidget;
+      /// The layout manager
+      LayoutManagerPtr mLayoutManager;
+
+      WidgetPtr mCapturedWidget;
    };
+
+   typedef boost::shared_ptr<WidgetContainer> WidgetContainerPtr;
 }
 
 #endif

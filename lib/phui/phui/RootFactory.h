@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootFactory.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -44,7 +44,7 @@ namespace phui
     *
     * @return  a root widget for a UI or NULL on failure
     */
-   RootWidget* CreateRoot(int width, int height);
+   RootWidgetPtr CreateRoot(int width, int height);
 }
 
 #endif

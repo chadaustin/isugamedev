@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FlowLayout.h,v $
- * Date modified: $Date: 2003-01-04 06:19:33 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -49,7 +49,7 @@ namespace phui
        * @param   container   the widget container to manage
        * @param   constraint  the layout contstraint to follow
        */
-      FlowLayout(WidgetContainer* container, LayoutConstraint* constraint)
+      FlowLayout(WidgetContainer* container, LayoutConstraintPtr constraint)
          : LayoutManager(container, constraint)
          , mCurrentWidth(0)
          , mCurrentMaxWidth(0)
@@ -77,16 +77,17 @@ namespace phui
       }
 
    private:
-
       ///Current Width
       int mCurrentWidth;
+
       ///Current Maximum Width
       int mCurrentMaxWidth;
+
       ///Current Height
       int mCurrentHeight;
+
       ///Current Maximum Height
       int mCurrentMaxHeight;
-
    };
 }
 

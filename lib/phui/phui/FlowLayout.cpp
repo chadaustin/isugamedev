@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: FlowLayout.cpp,v $
- * Date modified: $Date: 2003-01-04 06:17:39 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -129,7 +129,7 @@ namespace phui
          }
       }
       //Set the widget
-      Widget* widget = mContainer->getWidgetAt(point);
+      WidgetPtr widget = mContainer->getWidgetAt(point);
       widget->setPosition(newPos);
       widget->setSize( Size(newWidth, newHeight) );
    }

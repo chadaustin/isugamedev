@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ActionListener.h,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -47,7 +47,7 @@ namespace phui
        *
        * @param src
        */
-      ActionEvent(Widget* src)
+      ActionEvent(WidgetPtr src)
          : mSource(src)
       {}
 
@@ -56,14 +56,14 @@ namespace phui
        *
        * @return  the source widget
        */
-      Widget* getSource() const
+      WidgetPtr getSource() const
       {
          return mSource;
       }
 
    private:
       /// The source of the event.
-      Widget* mSource;
+      WidgetPtr mSource;
    };
 
    /**
@@ -82,6 +82,8 @@ namespace phui
        */
       virtual void onAction(const ActionEvent& evt) = 0;
    };
+
+   typedef boost::shared_ptr<ActionListener> ActionListenerPtr;
 }
 
 #endif

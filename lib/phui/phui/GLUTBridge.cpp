@@ -24,30 +24,51 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GLUTBridge.cpp,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #include <GL/glut.h>
 #include "GLUTBridge.h"
-#include "RootWidget.h"
 
-namespace phui {
+namespace phui
+{
+   namespace
+   {
+      /**
+       * This global reference to the RootWidget is set by glutRegisterRoot.
+       * Note that we only keep a weak pointer to the object so that the user
+       * can destroy the root widget if they wish.
+       */
+      static boost::weak_ptr<RootWidget> gRoot;
 
-   /// set by glutRegisterRoot
-   RootWidget* gRoot;
+      /**
+       * Gets a shared pointer to the root widget being used by this bridge. If
+       * the root pointed to by our weak ptr has expired, then this method will
+       * return a NULL ptr.
+       */
+      static RootWidgetPtr getRoot()
+      {
+         return boost::make_shared(gRoot);
+      }
+   }
 
 
    /// @todo finish this off
-   InputKey GlutToPhuiKey(char key) {
-      if(key >= 'a' && key <= 'z') {
+   InputKey GlutToPhuiKey(char key)
+   {
+      if (key >= 'a' && key <= 'z')
+      {
          return (InputKey)(KEY_A + (key - 'a'));
-      } else if(key >= '0' && key <= '9') {
+      }
+      else if (key >= '0' && key <= '9') 
+      {
          return (InputKey)(KEY_0 + (key - '0'));
       }
 
-      switch (key) {
+      switch (key)
+      {
          case 8:   return KEY_BACKSPACE;
          case 9:   return KEY_TAB;
          case 27:  return KEY_ESCAPE;
@@ -60,8 +81,8 @@ namespace phui {
 
 
    /// @todo finish this off
-   InputKey GlutSpecialToPhuiKey(int key) {
-
+   InputKey GlutSpecialToPhuiKey(int key)
+   {
 #define KEY(name) \
    case GLUT_KEY_##name: return KEY_##name
 
@@ -89,14 +110,14 @@ namespace phui {
          KEY(INSERT);
          default: return KEY_UNKNOWN;
       }
-
 #undef KEY
-
    }
 
 
-   InputButton GlutToPhuiButton(int button) {
-      switch (button) {
+   InputButton GlutToPhuiButton(int button)
+   {
+      switch (button) 
+      {
          case GLUT_LEFT_BUTTON:   return BUTTON_LEFT;
          case GLUT_MIDDLE_BUTTON: return BUTTON_MIDDLE;
          case GLUT_RIGHT_BUTTON:  return BUTTON_RIGHT;
@@ -104,40 +125,73 @@ namespace phui {
       }
    }
 
-   namespace {
-
-      void OnKeyboardDown(unsigned char key, int /*x*/, int /*y*/) {
-         gRoot->onKeyDown(GlutToPhuiKey(key));
-      }
-
-      void OnKeyboardUp(unsigned char key, int /*x*/, int /*y*/) {
-         gRoot->onKeyUp(GlutToPhuiKey(key));
-      }
-
-      void OnSpecialDown(int key, int /*x*/, int /*y*/) {
-         gRoot->onKeyDown(GlutSpecialToPhuiKey(key));
-      }
-
-      void OnSpecialUp(int key, int /*x*/, int /*y*/) {
-         gRoot->onKeyUp(GlutSpecialToPhuiKey(key));
-      }
-
-      void OnMouseClick(int button, int state, int x, int y) {
-         InputButton phui_button = GlutToPhuiButton(button);
-         if (state == GLUT_DOWN) {
-            gRoot->onMouseDown(phui_button, Point(x, y));
-         } else {
-            gRoot->onMouseUp(phui_button, Point(x, y));
+   namespace
+   {
+      void OnKeyboardDown(unsigned char key, int /*x*/, int /*y*/)
+      {
+         RootWidgetPtr root = getRoot();
+         if (root)
+         {
+            root->onKeyDown(GlutToPhuiKey(key));
          }
       }
 
-      void OnMouseMove(int x, int y) {
-         gRoot->onMouseMove(Point(x, y));
+      void OnKeyboardUp(unsigned char key, int /*x*/, int /*y*/)
+      {
+         RootWidgetPtr root = getRoot();
+         if (root)
+         {
+            root->onKeyUp(GlutToPhuiKey(key));
+         }
       }
 
+      void OnSpecialDown(int key, int /*x*/, int /*y*/)
+      {
+         RootWidgetPtr root = getRoot();
+         if (root)
+         {
+            root->onKeyDown(GlutSpecialToPhuiKey(key));
+         }
+      }
+
+      void OnSpecialUp(int key, int /*x*/, int /*y*/)
+      {
+         RootWidgetPtr root = getRoot();
+         if (root)
+         {
+            root->onKeyUp(GlutSpecialToPhuiKey(key));
+         }
+      }
+
+      void OnMouseClick(int button, int state, int x, int y)
+      {
+         RootWidgetPtr root = getRoot();
+         if (root)
+         {
+            InputButton phui_button = GlutToPhuiButton(button);
+            if (state == GLUT_DOWN)
+            {
+               root->onMouseDown(phui_button, Point(x, y));
+            }
+            else
+            {
+               root->onMouseUp(phui_button, Point(x, y));
+            }
+         }
+      }
+
+      void OnMouseMove(int x, int y)
+      {
+         RootWidgetPtr root = getRoot();
+         if (root)
+         {
+            root->onMouseMove(Point(x, y));
+         }
+      }
    }
 
-   void glutRegisterRoot(RootWidget* root) {
+   void glutRegisterRoot(RootWidgetPtr root)
+   {
       gRoot = root;
 
       glutKeyboardFunc(OnKeyboardDown);

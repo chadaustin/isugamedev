@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2003-01-04 02:31:01 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-01-05 02:19:15 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -35,19 +35,22 @@
 
 namespace
 {
-   phui::RootWidget* gRoot;
+   phui::RootWidgetPtr gRoot;
    int gContext; /// GLUT context
 }
 
 
-void idle() {
-   if (glutGetWindow() != gContext) {
+void idle()
+{
+   if (glutGetWindow() != gContext)
+   {
       glutSetWindow(gContext);
    }
    glutPostRedisplay();
 }
 
-void display() {
+void display()
+{
    glEnable(GL_BLEND);
    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -57,42 +60,16 @@ void display() {
    glutSwapBuffers();
 }
 
-void reshape(int width, int height) {
+void reshape(int width, int height)
+{
    glViewport(0, 0, width, height);
    gRoot->setSize(width, height);
 }
 
-void OnKeyboardDown(unsigned char key, int /*x*/, int /*y*/) {
-   gRoot->onKeyDown(phui::GlutToPhuiKey(key));
-}
-
-void OnKeyboardUp(unsigned char key, int /*x*/, int /*y*/) {
-   gRoot->onKeyUp(phui::GlutToPhuiKey(key));
-}
-
-void OnSpecialDown(int key, int /*x*/, int /*y*/) {
-   gRoot->onKeyDown(phui::GlutSpecialToPhuiKey(key));
-}
-
-void OnSpecialUp(int key, int /*x*/, int /*y*/) {
-   gRoot->onKeyUp(phui::GlutSpecialToPhuiKey(key));
-}
-
-void OnMouseClick(int button, int state, int x, int y) {
-   phui::InputButton phui_button = phui::GlutToPhuiButton(button);
-   if (state == GLUT_DOWN) {
-      gRoot->onMouseDown(phui_button, phui::Point(x, y));
-   } else {
-      gRoot->onMouseUp(phui_button, phui::Point(x, y));
-   }
-}
-
-void OnMouseMove(int x, int y) {
-   gRoot->onMouseMove(phui::Point(x, y));
-}
-
-int main(int argc, char** argv) {
-   try {
+int main(int argc, char** argv)
+{
+   try
+   {
       glutInitWindowSize(640, 480);
       glutInit(&argc, argv);
       glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
@@ -114,14 +91,16 @@ int main(int argc, char** argv) {
       phui::glutRegisterRoot(gRoot);
 
       phui::LayoutCodec codec;
-      phui::Widget* w = codec.decode("example.layout");
-      if (w != 0) {
+      phui::WidgetPtr w = codec.decode("example.layout");
+      if (w.get() != 0)
+      {
          gRoot->add(w);
       }
 
       glutMainLoop();
    }
-   catch (std::exception& e) {
+   catch (std::exception& e)
+   {
       std::cerr << "caught exception: " << e.what() << std::endl;
    }
 }

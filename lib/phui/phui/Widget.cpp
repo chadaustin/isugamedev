@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2003-01-04 06:44:08 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2003-01-05 02:19:16 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -42,7 +42,6 @@ namespace phui
       , mVisible(true)
       , mBackgroundColor(BLACK)
       , mForegroundColor(WHITE)
-      , mParent(NULL)
    {
       mFont = gltext::CreateFont("arial.ttf", gltext::PLAIN, 12);
       if (!mFont)
@@ -54,95 +53,117 @@ namespace phui
    Widget::~Widget()
    {}
 
-   const Point& Widget::getPosition() const {
+   const Point& Widget::getPosition() const
+   {
       return mPosition;
    }
 
-   void Widget::setPosition(const Point& p) {
+   void Widget::setPosition(const Point& p)
+   {
       mPosition = p;
    }
 
-   const Size& Widget::getSize() const {
+   const Size& Widget::getSize() const
+   {
       return mSize;
    }
 
-   void Widget::setSize(const Size& size) {
+   void Widget::setSize(const Size& size)
+   {
       mSize = size;
    }
 
-   const Insets& Widget::getInsets() const {
+   const Insets& Widget::getInsets() const
+   {
       return mInsets;
    }
 
-   void Widget::setInsets(const Insets& insets) {
+   void Widget::setInsets(const Insets& insets)
+   {
       mInsets = insets;
    }
 
-   bool Widget::isEnabled() const {
+   bool Widget::isEnabled() const
+   {
       return mEnabled;
    }
 
-   void Widget::setEnabled( bool enabled )
+   void Widget::setEnabled(bool enabled)
    {
       mEnabled = enabled;
    }
 
-   bool Widget::isVisible() const {
+   bool Widget::isVisible() const
+   {
       return mVisible;
    }
 
-   void Widget::setVisible(bool visible) {
+   void Widget::setVisible(bool visible)
+   {
       mVisible = visible;
    }
 
-   void Widget::setBackgroundColor(const Colorf& clr) {
+   void Widget::setBackgroundColor(const Colorf& clr)
+   {
       mBackgroundColor = clr;
    }
 
-   const Colorf& Widget::getBackgroundColor() const {
+   const Colorf& Widget::getBackgroundColor() const
+   {
       return mBackgroundColor;
    }
 
-   void Widget::setForegroundColor(const Colorf& clr) {
+   void Widget::setForegroundColor(const Colorf& clr)
+   {
       mForegroundColor = clr;
    }
 
-   const Colorf& Widget::getForegroundColor() const {
+   const Colorf& Widget::getForegroundColor() const 
+   {
       return mForegroundColor;
    }
 
-   void Widget::setFont(const gltext::FontPtr& font) {
+   void Widget::setFont(const gltext::FontPtr& font)
+   {
       mFont = font;
    }
 
-   const gltext::FontPtr& Widget::getFont() const {
+   const gltext::FontPtr& Widget::getFont() const
+   {
       return mFont;
    }
 
-   WidgetContainer* Widget::getParent() const {
-      return mParent;
+   WidgetContainerPtr Widget::getParent() const 
+   {
+      return boost::make_shared(mParent);
    }
 
-   bool Widget::contains(const Point& p) const {
+   bool Widget::contains(const Point& p) const 
+   {
       return (p.x >= 0 && p.x < mSize.getWidth() &&
               p.y >= 0 && p.y < mSize.getHeight());
    }
 
-   Point Widget::getScreenPosition() const {
+   Point Widget::getScreenPosition() const
+   {
       Point p = getPosition();
-      const WidgetContainer* parent = getParent();
-      while (parent) {
+      WidgetContainerPtr parent = getParent();
+      while (parent)
+      {
          p += parent->getPosition();
          parent = parent->getParent();
       }
       return p;
    }
 
-   bool Widget::hasFocus() {
-      WidgetContainer* parent = getParent();
-      Widget* child = this;
-      while (parent) {
-         if (parent->getFocus() != child) {
+   bool Widget::hasFocus() 
+   {
+      WidgetContainerPtr parent = getParent();
+      WidgetPtr child = getSelf();
+      while (parent)
+      {
+         if (parent->getFocus() != child)
+         {
             return false;
          }
          child = parent;
@@ -151,4 +172,20 @@ namespace phui
       //      puts("A widget has focus!");
       return true;
    }
+
+   void Widget::setParent(WidgetContainerPtr parent)
+   {
+      mParent = parent;
+   }
+
+   boost::shared_ptr<Widget> Widget::getSelf()
+   {
+      return boost::make_shared(mSelf);
+   }
+
+   void Widget::setSelf(boost::shared_ptr<Widget> new_self)
+   {
+      mSelf = new_self;
+   }
+
 }

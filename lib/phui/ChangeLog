@@ -1,5 +1,7 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2003-01-04 nonchocoboy  We now use boost shared_ptr and weak_ptr to manage our
+                        memory for us.
 2002-12-31 daren        Added layout manager framework.
 2002-12-30 lvanoort     Switched from gltt to GLText for font rendering.
 2002-06-02 nonchocoboy  Added test suite.
