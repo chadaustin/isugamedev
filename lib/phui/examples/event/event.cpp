@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-22 07:17:17 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-04-22 11:55:17 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -244,6 +244,14 @@ int main(int argc, char** argv) {
       lst->add("Pears");
       lst->add("Peaches");
       window->add(lst);
+
+      phui::CheckBox* cb(new phui::CheckBox());
+      cb->setPosition(220, 40);
+      cb->setSize(20, 20);
+      cb->show();
+      cb->setBackgroundColor(phui::Colorf(0, 0, 0, 0.2f));
+      cb->setForegroundColor(phui::Colorf(1, 0, 1, 1));
+      window->add(cb);
 
       gRoot->add(window);
       gRoot->add(wnd);

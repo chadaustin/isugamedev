@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.cpp,v $
- * Date modified: $Date: 2002-04-22 06:15:26 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-22 11:55:17 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -44,7 +44,8 @@ namespace phui {
    Button::Button()
       : mText("")
       , mButtonDown(false)
-   {}
+   {
+   }
 
    Button::Button(const std::string& text)
       : mText(text)

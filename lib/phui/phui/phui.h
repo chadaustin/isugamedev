@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: phui.h,v $
- * Date modified: $Date: 2002-04-22 07:17:18 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-04-22 11:55:17 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,13 +38,18 @@
 #define PHUI_PHUI_H
 
 #include "Button.h"
-#include "Label.h"
-#include "TextField.h"
-#include "ListBox.h"
+#include "CheckBox.h"
+#include "Color.h"
 #include "Font.h"
 #include "FontRenderer.h"
+#include "Input.h"
+#include "Insets.h"
+#include "Label.h"
+#include "ListBox.h"
+#include "Point.h"
 #include "RootFactory.h"
 #include "RootWidget.h"
+#include "TextField.h"
 #include "WidgetContainer.h"
 #include "Widget.h"
 #include "Window.h"

@@ -4,6 +4,7 @@ Import('env PREFIX')
 
 classes = [
     'Button',
+    'CheckBox',
     'Font',
     'FontRenderer',
     'Insets',
