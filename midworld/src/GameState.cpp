@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2003-05-01 05:10:07 $
- * Version:       $Revision: 1.136 $
+ * Date modified: $Date: 2003-05-01 08:38:02 $
+ * Version:       $Revision: 1.137 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -66,7 +66,7 @@ namespace mw
 {
    GameState::GameState(Application* app)
       : State(app)
-      , mSpeed(10)
+      , mSpeed(5)
       , mPlayer(this)
       , mPlayerYawChange(0)
       , mIgnoreMouseMove(true)
@@ -215,7 +215,7 @@ namespace mw
       mPlayerVel += reverse * mActionDown->getEdgeState();
       mPlayerVel += sleft   * mActionLeft->getEdgeState();
       mPlayerVel += sright  * mActionRight->getEdgeState();
-
+      
       // set velocity of player based on the computed inputs
       mPlayer.setVel(mPlayer.getRot() * mPlayerVel);
 
@@ -327,9 +327,9 @@ namespace mw
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
       glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
       glEnable(GL_DEPTH_TEST);
-//      glEnable(GL_BLEND);
-//      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//      glDisable(GL_CULL_FACE);
+      glEnable(GL_BLEND);
+      glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+      glDisable(GL_CULL_FACE);
 
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
@@ -344,56 +344,50 @@ namespace mw
       glPushMatrix();
          mCamera.draw();
 
-
+         // draw the sky
          mSkydomeTex->bind();
-         RenderSkyDome();
+            RenderSkyDome();
          mSkydomeTex->unbind();
 
+         // draws the ground
          mGameScene.draw();
   
-         
-         
-
-
-         
-         
-
-         drawEntities();
-         
-
+         // draws the avatar that is the player
          glTranslate(playerPos);
             if(drawAni && mActionUp->getEdgeState()==1) 
             {
-               std::cout << "EdgeState: " << mActionUp->getEdgeState() << std::endl << std::endl;
                myModel.getMixer()->blendCycle(walkingAnimationID, 1.0, 0.5);
                myModel.getMixer()->clearCycle(idleAnimationID, 0.2);
             }else if(drawAni && mActionUp->getEdgeState()==-1)
             {
-               std::cout << "EdgeState: " << mActionUp->getEdgeState() << std::endl << std::endl;
                myModel.getMixer()->blendCycle(idleAnimationID, 1.0, 0.5);
                myModel.getMixer()->clearCycle(walkingAnimationID, 0.2);
             }else if(drawAni)
             {
                drawAnimation();
             }
-         glTranslate(-playerPos);
+         glTranslate(-playerPos);       
          
+         
+         // draw the rest of the scene
          // Make sure we clean up after OpenSG until they fix their bugs
          glPushAttrib(GL_ALL_ATTRIB_BITS);
          {
             mSceneViewer->draw();
             // Grrr... OpenSG leaves the current texture bound
-     //       glBindTexture(GL_TEXTURE_2D, 0);
+            glBindTexture(GL_TEXTURE_2D, 0);
          }
          glPopAttrib();
 
          
+         // moves the player to the correct spot
+         drawEntities();
          
          // Draw this last for correct depth testing
          mSnowSystem.draw();
 
          
-         
+         // then draw the hud for the user
          mHUD.draw(application().getWidth(), application().getHeight(),
                 mPlayer, mFPSCounter.getFPS(), mPM.getOutput());
 
@@ -428,9 +422,10 @@ namespace mw
       glScalef(85.0,85.0, 85.0);
       glPushAttrib(GL_ALL_ATTRIB_BITS);
       
-      
-      glDisable(GL_BLEND);
-      
+      glEnable(GL_CULL_FACE);
+      glBlendFunc(GL_ZERO, GL_ONE_MINUS_SRC_ALPHA);
+      glClear(GL_ALL_ATTRIB_BITS);
+
       gmtl::Quatf playerRot;
       gmtl::Vec3f tempPos;
       
@@ -459,6 +454,7 @@ namespace mw
           glShadeModel(GL_SMOOTH);
           glEnable(GL_LIGHTING);
           glEnable(GL_LIGHT0);
+          
 
           // we will use vertex arrays, so enable them
           glEnableClientState(GL_VERTEX_ARRAY);
