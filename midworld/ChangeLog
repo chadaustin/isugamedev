@@ -1,5 +1,9 @@
 DATE       AUTHOR       CHANGE
 ---------- -----------  -------------------------------------------------------
+2002-07-05 subatomic    Implemented virtual game cursor, hiding/warping the 
+                        system mouse now, add this to GameState/MenuState
+2002-07-05 subatomic    Weapon slots work with 0-9 keys and multi weapons per 
+                        slot.
 2002-07-04 nonchocoboy  Added a simple HUD. We now depend on GLText.
 2002-07-01 areinot      Added Shotgun weapon.
 2002-06-18 nonchocoboy  Weapon framework started. Player can now shoot by
