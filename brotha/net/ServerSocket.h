@@ -19,7 +19,7 @@ namespace net {
          }
 
          PRNetAddr addr;
-         PRStatus status = PR_InitializeNetAddr(PR_IpAddrAny, 9999, &addr);
+         PRStatus status = PR_InitializeNetAddr(PR_IpAddrAny, port, &addr);
          if (status != PR_SUCCESS) {
             throw SocketException("Bind failed");
          }
