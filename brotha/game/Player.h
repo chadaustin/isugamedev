@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-04-22 05:47:25 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-22 08:58:34 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -158,6 +158,14 @@ namespace game {
 
       /// the players object (car, box, etc.)
       Object *mObject;
+
+   public: // accessors wouldn't be worth the effor here
+      /// whether or not player is doing something (not serialized, server side only)
+      bool mIsAccelerating;
+      bool mIsBraking;
+      bool mIsHandBraking;
+      bool mIsTurningLeft;
+      bool mIsTurningRight;
    };
 }
 
