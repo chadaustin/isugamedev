@@ -11,7 +11,8 @@ execfile('glut_libs.py')
 Default('.')        # build everything by default
 
 # setup the environment
-env = Environment(LIBPATH = '#phui',
+env = Environment(CPPPATH = '#',
+                  LIBPATH = '#phui',
                   ENV = os.environ,
                   CXXFLAGS = ['-DDEBUG_MEMORY=1'])
 Export('env GLUT_LIBS')
