@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutConstraint.h,v $
- * Date modified: $Date: 2003-01-05 02:19:16 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-05 13:21:33 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -44,6 +44,7 @@ namespace phui
    class LayoutConstraint
    {
    public:
+      virtual ~LayoutConstraint() {}
       /**
        * Gets the type of layout constraint represented by this class
        *
