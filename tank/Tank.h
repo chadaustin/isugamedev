@@ -16,7 +16,7 @@ public:
 
          glMultMatrixf( mXForm.data() );
          glColor3f( 1,0,1 );
-         glScalef( 10,10,10 );
+         glScalef( 10,10,25 );
          glBegin( GL_TRIANGLES );
          
               glNormal3f( -1.0f, 1.0f, -1.0f );
