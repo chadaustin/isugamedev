@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: InputManager.cpp,v $
- * Date modified: $Date: 2003-02-23 02:40:32 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-02-28 03:57:15 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -55,7 +55,7 @@ namespace siren
          {
             std::string key = buffer.substr(0, index);
             std::string action = buffer.substr(index + 1);
-            
+
             if (isMouseSymbol(key))
             {
                mButtons[stringToSDLButton(key)] = action;
@@ -67,7 +67,7 @@ namespace siren
          }
       }
    }
-   
+
    InputAction*
    InputManager::getAction(const std::string& name)
    {
@@ -83,13 +83,13 @@ namespace siren
          return action;
       }
    }
-   
+
    InputAction*
    InputManager::getAction(SDLKey key)
    {
       return getAction(mKeys[key]);
    }
-   
+
    InputAction*
    InputManager::getAction(Uint8 button)
    {
@@ -115,7 +115,7 @@ namespace siren
       }
       return 0;
    }
-   
+
    void
    InputManager::update(float dt)
    {
@@ -124,13 +124,13 @@ namespace siren
          i->second->update(dt);
       }
    }
-   
+
    void
    InputManager::onKeyPress(SDLKey key, bool down)
    {
       getAction(key)->onPress(down);
    }
-   
+
    void
    InputManager::onMousePress(Uint8 button, bool down)
    {
