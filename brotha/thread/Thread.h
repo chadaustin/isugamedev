@@ -48,6 +48,10 @@ namespace thread {
          }
       }
 
+      void stop() {
+         // TODO: do
+      }
+
       void join() {
          PR_JoinThread(mThread);
       }
