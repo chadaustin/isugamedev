@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2002-04-15 09:20:38 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-04-15 09:49:56 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -131,7 +131,7 @@ int main( int argc, char** argv )
    gWnd->setVisible( true );
    gWnd->setBackgroundColor( phui::Colorf(1,0,0,0.5) );
 
-   phui::Button* btn( new phui::Button() );
+   phui::Button* btn( new phui::Button("Push me!") );
    btn->setPosition( 10, 10 );
    btn->setSize( 75, 30 );
    btn->setVisible( true );
