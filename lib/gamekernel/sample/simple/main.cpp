@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-11 01:34:22 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-11 01:41:56 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -116,7 +116,7 @@ public:
          gk::GameKernel::instance().shutdown();
       }
       
-      if (mFullscreenButton.getDigitalData() == gk::DigitalInput::DOWN)
+      if (mFullscreenButton.getDigitalData() == gk::DigitalInput::EDGE_DOWN)
       {
          if (mFullscreen)
             gk::GameKernel::instance().setWindowSize( 640, 480 );
