@@ -33,13 +33,13 @@ void PngImporter::convertToImage( PngChunk& headerChunk, PngChunk& dataChunk, Im
    assert( headerChunk.filter_type() == 0 && "At present, only filter method 0 (adaptive filtering with five basic filter types) is defined." );
    assert( headerChunk.interlace_method() == 0 && "only non-interlaced images are supported by this importer" );
    
-   cout<<"  Width = "<<headerChunk.width()<<"\n"<<flush;
-   cout<<"  Height = "<<headerChunk.height()<<"\n"<<flush;
-   cout<<"  pixeldepth = "<<(int)headerChunk.pixel_depth()<<"\n"<<flush;
-   cout<<"  color_type = "<<(int)headerChunk.color_type()<<"\n"<<flush;
-   cout<<"  compression_method = "<<(int)headerChunk.compression_method()<<"\n"<<flush;
-   cout<<"  filter_type = "<<(int)headerChunk.filter_type()<<"\n"<<flush;
-   cout<<"  interlace_method = "<<(int)headerChunk.interlace_method()<<"\n"<<flush;
+   std::cout<<"  Width = "<<headerChunk.width()<<std::endl;
+   std::cout<<"  Height = "<<headerChunk.height()<<std::endl;
+   std::cout<<"  pixeldepth = "<<(int)headerChunk.pixel_depth()<<std::endl;
+   std::cout<<"  color_type = "<<(int)headerChunk.color_type()<<std::endl;
+   std::cout<<"  compression_method = "<<(int)headerChunk.compression_method()<<std::endl;
+   std::cout<<"  filter_type = "<<(int)headerChunk.filter_type()<<std::endl;
+   std::cout<<"  interlace_method = "<<(int)headerChunk.interlace_method()<<std::endl;
 
    if (headerChunk.color_type() == 2) // color(2)
       channels = 3;
@@ -60,9 +60,9 @@ void PngImporter::convertToImage( PngChunk& headerChunk, PngChunk& dataChunk, Im
    {
      case Z_OK: /* Do nothing */ break;
      case Z_MEM_ERROR:
-     case Z_STREAM_ERROR: cout<<"  zlib memory error\n"<<flush; break;
-     case Z_VERSION_ERROR: cout<<"  zlib version error"<<flush; break;
-     default: cout<<"  Unknown zlib error\n"<<flush;
+     case Z_STREAM_ERROR: std::cout<<"  zlib memory error\n"<<std::flush; break;
+     case Z_VERSION_ERROR: std::cout<<"  zlib version error"<<std::flush; break;
+     default: std::cout<<"  Unknown zlib error\n"<<std::flush;
    }
 
    // length in bytes of one scanline + filter byte (which I ignore later)
@@ -90,14 +90,14 @@ void PngImporter::convertToImage( PngChunk& headerChunk, PngChunk& dataChunk, Im
          if (ret == Z_STREAM_END)
          {
             if (zs.avail_in)
-               cout<<"  Extra compressed data left\n"<<flush;
+               std::cout<<"  Extra compressed data left\n"<<std::flush;
             if (!(zs.avail_out))
             {
-               cout<<"Z_STREAM_END\n"<<flush;
+               std::cout<<"Z_STREAM_END\n"<<std::flush;
 
                ////////////////////////////////////////////////////////////////
                // copy one row from the uncompressed data buffer to the image.
-               cout<<"."<<flush;
+               std::cout<<"."<<std::flush;
                nextrow--;
                unsigned char* pixel = image.row( nextrow );
                for (int x = 0; x < image.width() * image.channels(); ++x)
@@ -112,13 +112,13 @@ void PngImporter::convertToImage( PngChunk& headerChunk, PngChunk& dataChunk, Im
          else if (ret == Z_BUF_ERROR)
             break;
          else
-            cout<<"  Decompression Error retval="<<ret<<"\n"<<flush;
+            std::cout<<"  Decompression Error retval="<<ret<<std::endl;
       }
       if (!(zs.avail_out))
       {
          ////////////////////////////////////////////////////////////////
          // copy one row from the uncompressed data buffer to the image.
-         cout<<"."<<flush;
+         std::cout<<"."<<std::flush;
          nextrow--;
          unsigned char* pixel = image.row( nextrow );
          for (int x = 0; x < image.width() * image.channels(); ++x)
@@ -133,7 +133,7 @@ void PngImporter::convertToImage( PngChunk& headerChunk, PngChunk& dataChunk, Im
       else
          break;
    }
-   cout<<"\n"<<flush;
+   std::cout<<std::endl;
 
    
 }
@@ -142,7 +142,7 @@ void PngImporter::convertToImage( PngChunk& headerChunk, PngChunk& dataChunk, Im
 //  returns true or false for successful or unsuccessful
 bool PngImporter::load( const char* const filename, Image& image )
 {
-   cout<<"reading png: \n"<<flush;
+   std::cout<<"reading png: \n"<<std::flush;
 
    image.setName( filename );
    
@@ -153,11 +153,11 @@ bool PngImporter::load( const char* const filename, Image& image )
       CFileIO::ReadByte( fh, buffer );
       if (buffer != first8bytes[x])
       {
-         cout<<"Header didn't match on byte "<<x<<" "<<(int)buffer<<"!="<<(int)first8bytes[x]<<"\n"<<flush;
+         std::cout<<"Header didn't match on byte "<<x<<" "<<(int)buffer<<"!="<<(int)first8bytes[x]<<std::endl;
          return false;
       }
    }
-   cout<<"Header matched, "<<filename<<" is a PNG\n"<<flush;
+   std::cout<<"Header matched, "<<filename<<" is a PNG\n"<<std::flush;
 
    PngChunk pngChunk, pngData, pngHdr;
 

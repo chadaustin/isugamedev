@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: PcxImporter.cpp,v $
-//    $Date: 2002-04-18 18:01:27 $
-//    $Revision: 1.2 $
+//    $Date: 2002-04-18 19:04:06 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //    This library is free software; you can redistribute it and/or
@@ -69,7 +69,7 @@ bool PcxImporter::load( const char* const filename, Image& image )
 {
    if (!CFileIO::fileExists( filename ))
    {
-      cout<<"File doesn't exist!\n"<<flush;
+      std::cout<<"File doesn't exist!\n"<<std::flush;
       return false;
    }
 
