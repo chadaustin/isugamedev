@@ -23,14 +23,15 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-01-30 06:48:25 $
-# Version:       $Revision: 1.6 $
+# Date modified: $Date: 2002-01-31 15:58:51 $
+# Version:       $Revision: 1.7 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
 
 # objects to be included in the project....
-SRCS = aki.cpp GameKernel.cpp GlutDriver.cpp
+SRCS = aki.cpp GameKernel.cpp GlutDriver.cpp\
+       xmlparser.cpp xmlpp.cpp xmltokenizer.cpp
 
 # project name...
 PROJECT_NAME = aki
@@ -38,9 +39,9 @@ PROJECT_NAME = aki
 OBJDIR = .
 DEPDIR =
 
-PATH_TO_SRCS = .
+PATH_TO_SRCS = .:xmlpp
 MK_DIR = mk
-INCLUDE_PATHS = -I. -I/home/users/kevn/software/irix/include
+INCLUDE_PATHS = -I. -I/home/users/kevn/software/irix/include -Ixmlpp
 
 ########################################################################
 # system dependent stuff, that users will want to change...
