@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Color.h,v $
- * Date modified: $Date: 2002-02-24 07:00:00 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-24 07:38:38 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -64,10 +64,26 @@ namespace phui {
          : r(r_), g(g_), b(b_), a(a_)
       {}
 
-      TYPE r;
-      TYPE g;
-      TYPE b;
-      TYPE a;
+      /**
+       * Changes this color to the new color values.
+       *
+       * @param r_   the red part of the color
+       * @param g_   the green part of the color
+       * @param b_   the blue part of the color
+       * @param a_   the alpha/transparent part of the color
+       */
+      void set( TYPE r_, TYPE g_, TYPE b_, TYPE a_ )
+      {
+         r = r_;
+         g = g_;
+         b = b_;
+         a = a_;
+      }
+
+      TYPE r;  /**< The red part of the color. */
+      TYPE g;  /**< The green part of the color. */
+      TYPE b;  /**< The blue part of the color. */
+      TYPE a;  /**< The alpha/transparent part of the color. */
    };
    // helper typedefs
    typedef Color<float>    Colorf;
