@@ -4,6 +4,7 @@
 // Public domain
 //
 
+
 #ifdef WIN32
    #include <windows.h>  // make the app win32 friendly. :)
 #endif
@@ -16,6 +17,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector>
+#include <string>
+#include <sstream>
  #include "HUD.h"
 
 // a place to store application data...
@@ -40,7 +43,12 @@ float rot1, rot2;
 bool KEY_PUSH;
 bool snapOn, gridOn;
 bool removeObj;
+
+int addingNavNodeLink; // -1 not adding :: 0 adding no-node selected :: 1 adding 1 node selected
+int addingNavNode;  // 0 if not adding :: 1 if adding
+
 int drawOnMouse;
+
 GLint menuMain;
 GLint menuFile;
 GLint menuModel;
@@ -53,6 +61,8 @@ float transX;
 
 int mouseX, mouseY;
 
+int navNodeCounter;
+
 class model
 {
 public:
@@ -61,6 +71,9 @@ public:
       worldY=0.0f;
       worldZ=0.0f;
    }
+   virtual ~model()
+   {}
+   
    float xhi;
    float xlo;
    float yhi;
@@ -70,9 +83,44 @@ public:
    float worldX, worldY,worldZ;
 };
 
+class navNodeId : public model
+{
+public:
+   ~navNodeId()
+   {}
+   int id;
+};
+
+class pair
+{
+public:
+   pair()
+   {
+      model1 = NULL;
+      model2 = NULL;
+   }
+
+   pair(navNodeId* m)
+   {
+      model1 = m;
+      model2 = NULL;
+   }
+
+   pair(navNodeId* m1, navNodeId* m2)
+   {
+      model1 = m1;
+      model2 = m2;
+   }
+   navNodeId* model1;
+   navNodeId* model2;
+};
+
 
 std::vector<model> modelsInWorld;
 std::vector<model> modelsInMenu;
+
+std::vector<pair> navNodeLinks;
+std::vector<navNodeId*> navNodes;
 
 float cameraPan[2];
 
@@ -229,6 +277,38 @@ void drawOrigin()
    glEnd();
 }
 
+void drawNavNodeLinks()
+{
+   glColor3f(0.6f, 0.6f, 0.6f);
+   for(std::vector<pair>::iterator itr=navNodeLinks.begin();itr!=navNodeLinks.end();itr++)
+   {
+      if((*itr).model2!=NULL)
+      {
+         glBegin(GL_LINES);
+            glVertex2f((*itr).model1->worldX-.3, (*itr).model1->worldY-.3);
+            glVertex2f((*itr).model2->worldX-.3, (*itr).model2->worldY-.3);
+         glEnd();
+      }
+   }
+}
+
+void drawNavNodes()
+{
+   for(std::vector<navNodeId*>::iterator itr=navNodes.begin();itr!=navNodes.end();itr++)
+   {
+      glPushMatrix();
+      glTranslatef((*itr)->worldX, (*itr)->worldY,0);
+      glColor3f(0.6f, 0.6f, 0.6f);
+      glBegin(GL_POLYGON);
+         glVertex2f(0.75, 0.75);
+         glVertex2f(0.75, -0.75);
+         glVertex2f(-0.75, -0.75);
+         glVertex2f(-0.75, 0.75);
+      glEnd();
+      glPopMatrix();
+   }
+}
+
 void drawModels()
 {
    for(unsigned int i=0;i<modelsInWorld.size();i++)
@@ -284,35 +364,73 @@ void getMouseCoords(float& x, float& y)
 
 
 
+
+
 void drawObjAtMouse()
 {
-   float TEMPSCALE=SCALE/2;
-   int snapOffsetX;
-   int snapOffsetY;
-   glColor3f(modelsInMenu[drawOnMouse-1].r, modelsInMenu[drawOnMouse-1].g, modelsInMenu[drawOnMouse-1].b);
-   
-   int tempX = cameraPan[0];
-   int tempY = cameraPan[1];
-   
-   if(snapOn)
+   if(drawOnMouse!=-1)
    {
-      snapOffsetX=app.width/(app.width/SCALE*2);
-      snapOffsetY=app.height/(app.height/SCALE*2);
-      mouseX=mouseX-mouseX%snapOffsetX;
-      if(tempX!=cameraPan[0]) mouseX+=snapOffsetX/2;
-      mouseY=mouseY-mouseY%snapOffsetY;
-      if(tempY!=cameraPan[1]) mouseX+=snapOffsetY/2;
-   }
+      float TEMPSCALE=SCALE/2;
+      int snapOffsetX;
+      int snapOffsetY;
+      glColor3f(modelsInMenu[drawOnMouse-1].r, modelsInMenu[drawOnMouse-1].g, modelsInMenu[drawOnMouse-1].b);
       
-   
-   glTranslatef(mouseX, mouseY, 0);
-   glBegin(GL_POLYGON);
-      glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
-      glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
-      glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, -modelsInMenu[drawOnMouse-1].ylo*TEMPSCALE);
-      glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, -modelsInMenu[drawOnMouse-1].ylo*TEMPSCALE);
-   glEnd();
-   glTranslatef(-mouseX, -mouseY, 0);
+      int tempX = static_cast<int>(cameraPan[0]);
+      int tempY = static_cast<int>(cameraPan[1]);
+      
+      if(snapOn) // then add to mouseX and mouseY the offset that we need for snap it. 
+      {
+         snapOffsetX=static_cast<int>(app.width/(app.width/SCALE*2));
+         snapOffsetY=static_cast<int>(app.height/(app.height/SCALE*2));
+         mouseX=mouseX-mouseX%snapOffsetX;
+         if(tempX!=cameraPan[0]) mouseX+=snapOffsetX/2;
+         mouseY=mouseY-mouseY%snapOffsetY;
+         if(tempY!=cameraPan[1]) mouseX+=snapOffsetY/2;
+      }
+         
+      
+      glTranslatef(mouseX, mouseY, 0);
+      glBegin(GL_POLYGON);
+         glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
+         glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, -modelsInMenu[drawOnMouse-1].yhi*TEMPSCALE);
+         glVertex2f(modelsInMenu[drawOnMouse-1].xlo*TEMPSCALE, -modelsInMenu[drawOnMouse-1].ylo*TEMPSCALE);
+         glVertex2f(modelsInMenu[drawOnMouse-1].xhi*TEMPSCALE, -modelsInMenu[drawOnMouse-1].ylo*TEMPSCALE);
+      glEnd();
+      glTranslatef(-mouseX, -mouseY, 0);  // translate back
+   }
+   else // drawOnMouse == -1 so we are drawing the a new NavNode
+   {
+      float TEMPSCALE=SCALE/2;
+      int snapOffsetX;
+      int snapOffsetY;
+      glColor3f(0.6f, 0.6f, 0.6f);
+      int tempX = static_cast<int>(cameraPan[0]);
+      int tempY = static_cast<int>(cameraPan[1]);
+
+      if(snapOn) // then adjust mouseX and mouseY for the snap
+      {
+         snapOffsetX=static_cast<int>(app.width/(app.width/SCALE*2));
+         snapOffsetY=static_cast<int>(app.height/(app.height/SCALE*2));
+         
+         mouseX=mouseX-mouseX%snapOffsetX;
+         if(tempX!=cameraPan[0]) 
+            mouseX+=snapOffsetX/2;
+         
+         mouseY=mouseY-mouseY%snapOffsetY;
+         if(tempY!=cameraPan[1]) 
+            mouseX+=snapOffsetY/2;
+      }
+
+      glPushMatrix();
+      glTranslatef(mouseX, mouseY, 0);
+      glBegin(GL_POLYGON);
+         glVertex2f(0.75*TEMPSCALE, -0.75*TEMPSCALE);
+         glVertex2f(0.75*TEMPSCALE, 0.75*TEMPSCALE);
+         glVertex2f(-0.75*TEMPSCALE, 0.75*TEMPSCALE);
+         glVertex2f(-0.75*TEMPSCALE, -0.75*TEMPSCALE);
+      glEnd();
+      glPopMatrix(); // pop off the transform
+   }
 }
 
 
@@ -351,6 +469,10 @@ static void OnRedisplay()
       drawGrid(app.width);
    }
    drawModels();
+   drawNavNodes();
+   
+   drawNavNodeLinks();
+   
    glPushMatrix();
    glTranslatef(5,5,0);
 
@@ -531,6 +653,17 @@ void addObjToWorld(float& x, float& y)
    modelsInWorld.push_back(modelsInMenu[drawOnMouse-1]);
    drawOnMouse=0;
 }
+
+void addNavNodeToWorld(float& x, float& y)
+{
+   navNodeId* tempNode = new navNodeId();
+   tempNode->id = navNodeCounter;
+   getWorldCoords(tempNode->worldX, tempNode->worldY);
+   navNodes.push_back(tempNode);
+   navNodeCounter++;
+   drawOnMouse=0;
+   std::cout << "adding navNode " << tempNode->id << " to world." << std::endl;
+}
    
 
 ////////////////////////////////
@@ -546,8 +679,14 @@ static void OnMouseClick( int a, int b, int c, int d )
       y = app.height-d;
       
       
-      if(drawOnMouse!=0)
+      if(drawOnMouse>0)
+      {
          addObjToWorld(x,y);
+      }
+      else if(drawOnMouse==-1)
+      {
+         addNavNodeToWorld(x,y);
+      }
       if(removeObj==true)
       {
          bool flag=false; 
@@ -563,7 +702,7 @@ static void OnMouseClick( int a, int b, int c, int d )
             {
                flag=true;
                temp = itr;
-               std::cout << "inside of test" << std::endl;
+               std::cout << "removing object!" << std::endl;
             }
          }
          if(flag){
@@ -572,6 +711,43 @@ static void OnMouseClick( int a, int b, int c, int d )
          }
          removeObj=false;
       }
+      else if(addingNavNodeLink==0)
+      {
+         std::cout << "add navNodeLink ..." << std::endl;
+         bool flag=false;
+         float tempX, tempY;
+         getWorldCoords(tempX, tempY);
+         for(std::vector<navNodeId*>::iterator itr=navNodes.begin();itr!=navNodes.end();itr++)
+         {
+            if((tempX<((*itr)->worldX+0.75)) && (tempX>((*itr)->worldX-0.75)) && (tempY<((*itr)->worldY+0.75)) && (tempY>((*itr)->worldY-0.75)))
+            {
+               std::cout << "clicked on navNode" << std::endl;
+               pair p(*itr);
+               flag=true;
+               navNodeLinks.push_back(p);
+               std::cout << "marked first nav node!" << std::endl;
+               addingNavNodeLink=1;
+            }
+
+         }
+      }
+      else if(addingNavNodeLink==1)
+      {
+         float tempX, tempY;
+         getWorldCoords(tempX, tempY);
+         for(std::vector<navNodeId*>::iterator itr=navNodes.begin();itr!=navNodes.end();itr++)
+         {
+            if((tempX<((*itr)->worldX+0.75)) && (tempX>((*itr)->worldX-0.75)) && (tempY<((*itr)->worldY+0.75)) && (tempY>((*itr)->worldY-0.75)))
+            {
+               navNodeLinks.back().model2 = (*itr);
+               std::ostringstream s;
+               s << (*itr)->id;
+               std::cout << "Nav node link established! navNode: " << s.str() << std::endl;
+               addingNavNodeLink=-1;
+            }
+         }
+      }
+
    }
 }
 
@@ -607,6 +783,11 @@ void setupOutputLevelFile(XMLNodePtr& mNode)
 void NowWeCanReallyAddTheLevel(XMLNodePtr& levelNode, XMLContextPtr& context)
 {
    std::string temp;
+   char namePostFix = 'A';  // a postfix character to add as a name so we can distinguish between different navNodes. -- this is an ugly hack.
+   std::cout << "writing out models..." << std::endl;
+
+   
+
    for(unsigned int i=0;i<modelsInWorld.size();i++)
    {
       XMLNodePtr staticNode(new XMLNode(context));
@@ -682,6 +863,128 @@ void NowWeCanReallyAddTheLevel(XMLNodePtr& levelNode, XMLContextPtr& context)
          staticNode->addChild(turretNameNode);
          staticNode->addChild(maxChildNode);
       }
+      else if(modelsInWorld[i].name==std::string("security_droid"))
+      {
+         std::cout << "adding droid info to xml node" << std::endl;
+         staticNode->setName("security_droid");
+
+         XMLNodePtr droidNameNode(new XMLNode(context));
+         XMLNodePtr maxChildNode(new XMLNode(context));
+         XMLNodePtr aiLevelNode(new XMLNode(context));
+         XMLNodePtr parentNode(new XMLNode(context));
+         XMLNodePtr realParentNode(new XMLNode(context));
+         XMLNodePtr realDroidNameNode(new XMLNode(context));
+
+         droidNameNode->setType(xml_nt_node);
+         realDroidNameNode->setType(xml_nt_cdata);
+         parentNode->setType(xml_nt_node);
+         realParentNode->setType(xml_nt_cdata);
+         aiLevelNode->setType(xml_nt_leaf);
+         maxChildNode->setType(xml_nt_leaf);
+
+         droidNameNode->setName("name");
+         parentNode->setName("parent");
+         aiLevelNode->setName("level");
+         maxChildNode->setName("maxChildren");
+
+         realParentNode->setCdata("null");
+         realDroidNameNode->setCdata("droid");
+
+         aiLevelNode->setAttribute("nu", -1);
+         maxChildNode->setAttribute("num", 0);
+         parentNode->addChild(realParentNode);
+         droidNameNode->addChild(realDroidNameNode);
+
+         staticNode->addChild(aiLevelNode);
+         staticNode->addChild(parentNode);
+         staticNode->addChild(droidNameNode);
+         staticNode->addChild(maxChildNode);
+      }
+      
+      
+   }
+   std::cout << "writing out navNodes ..." << std::endl;
+   for(std::vector<navNodeId*>::iterator itr=navNodes.begin();itr!=navNodes.end();itr++)
+   {
+      XMLNodePtr staticNode(new XMLNode(context));
+      XMLNodePtr posNode(new XMLNode(context));
+      XMLNodePtr rotNode(new XMLNode(context));
+      XMLNodePtr nameNode(new XMLNode(context));
+      XMLNodePtr realNameNode(new XMLNode(context));
+      
+      
+      staticNode->setName("navNode");
+      posNode->setName("pos");
+      rotNode->setName("rot");
+      nameNode->setName("name");
+
+               
+      
+      staticNode->setType(xml_nt_node);
+      posNode->setType(xml_nt_leaf);
+      nameNode->setType(xml_nt_node);
+      rotNode->setType(xml_nt_leaf);
+      realNameNode->setType(xml_nt_cdata);
+      
+      
+      levelNode->addChild(staticNode);
+      
+      posNode->setAttribute("x", (*itr)->worldX);
+      posNode->setAttribute("y", (*itr)->worldZ);
+      posNode->setAttribute("z", (*itr)->worldY);
+      
+      staticNode->addChild(posNode);
+      rotNode->setAttribute("x", 0.0f);
+      rotNode->setAttribute("y", 0.0f);
+      rotNode->setAttribute("z", 0.0f);
+      staticNode->addChild(rotNode);
+
+      
+      std::ostringstream s;
+      s << (*itr)->id;
+      
+      realNameNode->setCdata(s.str());
+      nameNode->addChild(realNameNode);
+      staticNode->addChild(nameNode);
+   }
+
+   std::cout << "writing out NavNodeLinks ... " << std::endl;
+   for(std::vector<pair>::iterator itr=navNodeLinks.begin();itr!=navNodeLinks.end();itr++)
+   {
+      XMLNodePtr staticNode(new XMLNode(context));
+      staticNode->setName("navNodeLink");
+      staticNode->setType(xml_nt_node);
+       
+      XMLNodePtr navNode1(new XMLNode(context));
+      XMLNodePtr navNode2(new XMLNode(context));
+      
+      navNode1->setType(xml_nt_node);
+      navNode2->setType(xml_nt_node);
+      
+      navNode1->setName("navNode1");
+      navNode2->setName("navNode2");
+
+      XMLNodePtr nameNavNode1(new XMLNode(context));
+      XMLNodePtr nameNavNode2(new XMLNode(context));
+
+      nameNavNode1->setType(xml_nt_cdata);
+      nameNavNode2->setType(xml_nt_cdata);
+
+      std::ostringstream s1, s2;
+      s1 << (*itr).model1->id;
+      s2 << (*itr).model2->id;
+      
+      nameNavNode1->setCdata(s1.str());
+      nameNavNode2->setCdata(s2.str());
+
+      
+      levelNode->addChild(staticNode);
+      staticNode->addChild(navNode1);
+      staticNode->addChild(navNode2);
+      navNode1->addChild(nameNavNode1);
+      navNode2->addChild(nameNavNode2);
+      
+      
    }
 }
 
@@ -735,7 +1038,7 @@ void loadGroup(XMLNodePtr node)
         ++itr)
    {
       XMLNodePtr node = *itr;
-      if (node->getName() == "static")
+      if (node->getName() == "static" || node->getName() == "turret" || node->getName() == "security_droid" || node->getName() == "navNode" )
       {
          loadStatic(node);
       }
@@ -813,7 +1116,7 @@ void fileFunc(int a)
 {
    switch (a)
    {
-   case 3:
+   case 3: // read in the modelFile to get a list of all the models .. appends to the ones read at startup
       {
          std::cout << "parcing" << std::endl;
          parceobjectsfile(std::string("modelFile.xml"));
@@ -824,7 +1127,7 @@ void fileFunc(int a)
          }
       }
       break;
-   case 1:
+   case 1: // write the level file out
       {
          std::string tag("<?xml version=\"1.0\"?>\n");
          XMLContextPtr context( new XMLContext);
@@ -852,7 +1155,7 @@ void fileFunc(int a)
          std::cout << " Complete" << std::endl;
       }
       break;
-   case 2:
+   case 2: // load the level file
       {
          loadLevel("level.xml");
       }
@@ -863,12 +1166,21 @@ void modelFunc(int a)
 {
    if(a==2)
    {
-      std::cout << "hi" << std::endl;
       modelsInWorld.clear();
    }
    else if(a==3)
    {
       removeObj=true;
+   }
+   else if(a==4)
+   {
+      if(addingNavNodeLink==-1)
+         addingNavNodeLink=0;
+      std::cout << "adding nav node link: " << addingNavNodeLink << std::endl;
+   }
+   else if(a==5)
+   {
+      drawOnMouse=-1;
    }
 }
 void optionFunc(int a)
@@ -900,6 +1212,9 @@ void myInit(int a)
    snapOn=false;
    gridOn=true;
    removeObj=false;
+   addingNavNodeLink=-1;
+   addingNavNode = 1;
+   navNodeCounter = 0;
    
    menuFile = glutCreateMenu(fileFunc);
    menuModel = glutCreateMenu(modelFunc);
@@ -927,6 +1242,8 @@ void myInit(int a)
    glutAddSubMenu("Add", menuGetModels);
    glutAddMenuEntry("Clear all", 2);
    glutAddMenuEntry("Remove", 3);
+   glutAddMenuEntry("Add NavNode", 5);
+   glutAddMenuEntry("Add NavNodeLink", 4);
 
    glutSetMenu(menuOptions);
    glutAddSubMenu("Snap", menuSnap);
