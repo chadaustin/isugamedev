@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-23 06:52:06 $
- * Version:       $Revision: 1.69 $
+ * Date modified: $Date: 2002-10-23 23:35:49 $
+ * Version:       $Revision: 1.70 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -115,7 +115,7 @@ namespace mw
 
       //Setup Key Bindings
       InputParser *parser = InputParser::instance();
-      parser->parseFile("btn.cfg");
+      parser->parseFile("inputmap.cfg");
       std::cerr << "Setting up keybindings" << std::endl;
       InputManager *manager = InputManager::instance();
       std::cerr << "Got manager" << std::endl;
