@@ -2,6 +2,7 @@ package chadworld;
 
 import java.awt.event.*;
 import javax.vecmath.*;
+import javax.media.j3d.*;
 
 
 /**
@@ -49,18 +50,22 @@ public class WorldThread extends Thread {
   }
 
   void processInputEvent(Entity e, InputPacket ip) {
-    if (ip.type == InputPacket.KEY_DOWN) {
-      if (ip.key == KeyEvent.VK_UP) {
-        e.velocity.z -= 1;
-      } else if (ip.key == KeyEvent.VK_DOWN) {
-        e.velocity.z += 1;
-      }
-    } else {
-      if (ip.key == KeyEvent.VK_UP) {
-        e.velocity.z += 1;
-      } else if (ip.key == KeyEvent.VK_DOWN) {
-        e.velocity.z -= 1;
-      }
+    switch (ip.key) {
+      case KeyEvent.VK_UP:
+        e.velocity += (ip.type == InputPacket.KEY_UP ? 1 : -1);
+        break;
+
+      case KeyEvent.VK_DOWN:
+        e.velocity += (ip.type == InputPacket.KEY_UP ? -1 : 1);
+        break;
+
+      case KeyEvent.VK_LEFT:
+        e.axis_velocity += (ip.type == InputPacket.KEY_UP ? -1 : 1);
+        break;
+
+      case KeyEvent.VK_RIGHT:
+        e.axis_velocity += (ip.type == InputPacket.KEY_UP ? 1 : -1);
+        break;        
     }
   }
 
@@ -76,10 +81,19 @@ public class WorldThread extends Thread {
     }
 
     public void update(Entity e) {
+
+      // generate orientation vector
+      Vector3f orientation = new Vector3f();
+      orientation.x = (float)Math.sin(e.axis_angle);
+      orientation.z = (float)Math.cos(e.axis_angle);
+
       // update position of entity
       Vector3f dp = new Vector3f();
-      dp.scale(m_dt / 100.0f, e.velocity);
+      dp.scale(m_dt * e.velocity / 100.0f, orientation);
       e.position.add(dp);
+
+      // update rotation of entity
+      e.axis_angle += m_dt * e.axis_velocity / 1000.0f;
     }
   }
 }

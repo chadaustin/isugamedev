@@ -82,11 +82,13 @@ class SynchronizationBehavior extends Behavior {
 
   void updateEntities(EntityUpdatePacket eup) {
     for (int i = 0; i < eup.entities.length; ++i) {
-      if (eup.entities[i].id == m_entity_id) {
+      Entity e = eup.entities[i];
+      if (e.id == m_entity_id) {
 
         // update view transform
         Transform3D t3d = new Transform3D();
-        t3d.set(eup.entities[i].position);
+        t3d.rotY(e.axis_angle);
+        t3d.setTranslation(eup.entities[i].position);
         m_view_transform.setTransform(t3d);
 
       }

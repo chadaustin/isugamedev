@@ -88,8 +88,8 @@ class ConnectionThread extends Thread {
       m_os.writePacket(p);
     }
     catch (Exception e) {
-      System.out.println("ERROR! " + e);
-      System.exit(0);
+      System.out.println("Error writing packet");
+      System.out.println(e);
     }
   }
 }

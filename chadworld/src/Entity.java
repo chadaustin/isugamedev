@@ -10,7 +10,9 @@ import javax.vecmath.*;
 public class Entity implements Serializable {
 
   int id;
-  Vector3f position    = new Vector3f();
-  Vector3f orientation = new Vector3f();  // should be unit vector
-  Vector3f velocity    = new Vector3f();
+  Vector3f position    = new Vector3f(0, 0, 0);
+  //  Vector3f orientation = new Vector3f(0, 0, 1);  // should be unit vector
+  float velocity = 0;
+  float axis_velocity = 0;
+  float axis_angle;
 }
