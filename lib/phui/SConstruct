@@ -6,7 +6,7 @@ import os
 import string
 
 
-Default('.')        # build everything by default
+Default('phui examples')        # build everything by default
 
 
 # find libraries
@@ -17,8 +17,12 @@ Export('GLUT_LIBS FONT_LIBS')
 
 # debug or release build?
 CXXFLAGS = ['-Wall']
+LINKFLAGS = []
 if ARGUMENTS.get('debug'):
    CXXFLAGS.append('-g')
+if ARGUMENTS.get('profile'):
+   CXXFLAGS.append('-pg')
+   LINKFLAGS.append('-pg')
 
 
 # get install prefix for install target
@@ -32,10 +36,11 @@ Export('PREFIX')
 env = Environment(LIBPATH = '#phui',
                   CPPPATH = ['#', '#phui'],
                   ENV = os.environ,
+                  LINKFLAGS = LINKFLAGS,
                   CXXFLAGS = CXXFLAGS)
 
 Export('env')
-SConscript(dirs = Split('phui examples'))
+SConscript(dirs = Split('phui examples test'))
 
 
 # install target

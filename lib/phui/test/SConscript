@@ -1,0 +1,18 @@
+import os
+from os import path
+
+Import('env')
+
+sources = Split("""
+   main.cpp
+   RefCountedTest.cpp
+   RefPtrTest.cpp
+""")
+
+CPPUNIT_LIBS = ['cppunit']
+
+env2 = env.Copy(CPPPATH = ['#'],
+                LIBPATH = ['#'],
+                LIBS = ['phui'] + CPPUNIT_LIBS)
+
+env2.Program(target = 'runtests', source = sources)
