@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.h,v $
- * Date modified: $Date: 2002-03-29 17:23:00 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-03-29 23:21:13 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -97,9 +97,7 @@ namespace client
       virtual ~InGameState() {}
 
       virtual std::auto_ptr<AppState> handleMessage(const net::Message* msg,
-         BrothaApp* app) {
-            std::cout<<"InGameState"<<std::endl;
-            return std::auto_ptr<AppState>(NULL);}
+                                       BrothaApp* app);
    };
 
    /**

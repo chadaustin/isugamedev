@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-29 19:44:53 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-03-29 23:21:13 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,12 +43,45 @@
 
 namespace client
 {
+   std::auto_ptr<AppState> InGameState::handleMessage(
+                     const net::Message* msg, BrothaApp* app )
+   {
+      std::cout<<"Handling message in InGameState"<<std::endl;
+      switch (msg->getType())
+      {
+         case (net::AddPlayer):
+         {
+            net::AddPlayerMessage* pMsg = (net::AddPlayerMessage*)msg;
+            std::cout<<"InGame: Player="<<pMsg->getPlayer()<<std::endl;
+            app->getGame().add( pMsg->getPlayer() );
+            // reset the local player if necessary
+            if (pMsg->isYou()) {
+               app->getGame().setLocalPlayer(pMsg->getPlayer());
+            }
+            break;
+         }
+         case (net::UpdatePlayer):
+         {
+            net::UpdatePlayerMessage* pMsg = (net::UpdatePlayerMessage*)msg;
+            game::Player* player = pMsg->getPlayer();
+            app->getGame().getPlayer(player->getUID())->setPosition( player->getPosition() );
+            /// @todo send more stuff
+            break;
+         }
+         default:
+         {
+            std::cout<<"ERROR: Got the wrong message type"<<std::endl;
+            /// @todo raise an error
+         }
+      };
+
+      return std::auto_ptr<AppState>(NULL);
+   }
+
    std::auto_ptr<AppState> SyncState::handleMessage(
                const net::Message* msg,
                BrothaApp* app)
    {
-      static int count = 0;
-
       if(msg->getType() == net::OK) {
          std::cout<<"Sync successful"<<std::endl;
          app->setInGame(true);
@@ -64,7 +97,10 @@ namespace client
          return std::auto_ptr<AppState>(NULL);
       } else if(msg->getType() == net::AddPlayer) {
          net::AddPlayerMessage* pMsg = (net::AddPlayerMessage*)msg;
-         if(count == 0) { // first object must be local player
+         std::cout<<"InGame: Player="<<pMsg->getPlayer()<<std::endl;
+         app->getGame().add( pMsg->getPlayer() );
+         // set the local player if necessary
+         if(pMsg->isYou()) {
             app->getGame().setLocalPlayer(pMsg->getPlayer());
          }
          return std::auto_ptr<AppState>(NULL);
@@ -78,7 +114,6 @@ namespace client
          std::cout<<"ERROR: Got the wrong message type"<<std::endl;
          /// @todo raise an error
       }
-      count++;
       return std::auto_ptr<AppState>(new ConnectedState());
    }
 
