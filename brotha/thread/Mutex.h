@@ -4,6 +4,7 @@
 
 #include <prlock.h>
 #include "Lockable.h"
+#include "ThreadException.h"
 
 
 namespace thread {
@@ -12,7 +13,8 @@ namespace thread {
    public:
       Mutex() {
          mLock = PR_NewLock();
-         // XXXaegis throw an exception if this fails?
+         
+         throw ThreadException("Mutex creation failed");
       }
 
       ~Mutex() {

@@ -1,9 +1,13 @@
+/* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil; c-basic-offset: 3 -*- */
+// vim:cindent:ts=3:et:sw=3:
+
 #ifndef THREAD_THREAD_H
 #define THREAD_THREAD_H
 
 
 #include <prthread.h>
 #include "Synchronized.h"
+#include "ThreadException.h"
 
 
 namespace thread {
@@ -23,8 +27,13 @@ namespace thread {
             PR_GLOBAL_THREAD,
             PR_JOINABLE_THREAD,
             0);
+
+         if (!mThread) {
+            throw ThreadException("Thread creation failed");
+         }
       }
 
+      // base classes should have virtual destructors!
       virtual ~Thread() {
       }
 
@@ -43,7 +52,9 @@ namespace thread {
 
    private:
       static void routine(void* arg) {
-         Thread* thread = (Thread*)arg;
+         // destroy the thread object when it's done running
+         std::auto_ptr<Thread> thread((Thread*)arg);
+
          thread->mMutex.lock();
          thread->run();
       }
