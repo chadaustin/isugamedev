@@ -23,15 +23,15 @@
 /*                                                                       */
 /*************************************************************************/
 
-// $Revision: 1.1 $
-// $Date: 2001-09-19 15:03:08 $
+// $Revision: 1.2 $
+// $Date: 2002-04-17 19:48:04 $
 
 #ifndef SPLIT_HH
 #define SPLIT_HH
 
 #include <string>
 #include <vector>
-#include <regexx.hh>
+#include <regexx/regexx.hh>
 
 namespace regexx {
 

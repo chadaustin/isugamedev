@@ -23,11 +23,11 @@
 /*                                                                       */
 /*************************************************************************/
 
-// $Revision: 1.1 $
-// $Date: 2001-09-20 03:41:36 $
+// $Revision: 1.2 $
+// $Date: 2002-04-17 19:48:04 $
 
 #include <iostream>
-#include <regexx.hh>
+#include <regexx/regexx.hh>
 
 using namespace regexx;
 

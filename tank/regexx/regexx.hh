@@ -23,8 +23,8 @@
 /*                                                                       */
 /*************************************************************************/
 
-// $Revision: 1.1 $
-// $Date: 2001-09-19 15:03:08 $
+// $Revision: 1.2 $
+// $Date: 2002-04-17 19:48:04 $
 
 #ifndef REGEXX_HH
 #define REGEXX_HH
@@ -32,7 +32,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <split.hh>
+#include <regexx/split.hh>
 
 namespace regexx {
 
@@ -263,7 +263,7 @@ namespace regexx {
     /// Constructor
     inline
     Regexx()
-      : m_compiled(false), m_study(false), m_extra(NULL), m_matches(0)
+      : m_compiled(false), m_study(false), m_matches(0), m_extra(NULL)
     {}
 
     /// Destructor
@@ -282,7 +282,7 @@ namespace regexx {
     inline
     Regexx(const std::string& _str, const std::string& _expr, int _flags = 0)
       throw(CompileException)
-      : m_compiled(false), m_study(false), m_extra(NULL), m_matches(0)
+      : m_compiled(false), m_study(false), m_matches(0), m_extra(NULL)
     { exec(_str,_expr,_flags); }
 
     /** Constructor with regular expression string replacing.
@@ -297,7 +297,7 @@ namespace regexx {
     Regexx(const std::string& _str, const std::string& _expr, 
 	   const std::string& _repstr, int _flags = 0)
       throw(CompileException)
-      : m_compiled(false), m_study(false), m_extra(NULL), m_matches(0)
+      : m_compiled(false), m_study(false), m_matches(0), m_extra(NULL)
     { replace(_str,_expr,_repstr,_flags); }
     
     /** Set the regular expression to use with exec() and replace().

@@ -9,7 +9,7 @@ include $(MK_DIR)/mk.hosttype
 include $(MK_DIR)/mk.platform
 include $(MK_DIR)/mk.objs
 
-INCLUDE_PATHS = -I.
+INCLUDE_PATHS = -I. -I..
 
 all:
 	@echo " "

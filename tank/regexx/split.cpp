@@ -23,10 +23,10 @@
 /*                                                                       */
 /*************************************************************************/
 
-// $Revision: 1.1 $
-// $Date: 2001-09-20 03:41:36 $
+// $Revision: 1.2 $
+// $Date: 2002-04-17 19:48:04 $
 
-#include "split.hh"
+#include "regexx/split.hh"
 
 std::vector<std::string>
 regexx::split(const std::string& _where, const std::string& _str)
