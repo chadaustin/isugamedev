@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Quat.h,v $
-//    $Date: 2002-01-11 17:23:41 $
-//    $Revision: 1.4 $
+//    $Date: 2002-04-17 17:28:40 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -166,7 +166,7 @@ public:
    //: complex logarithm
    //!POST: sets self to the log of quat
    void log( const Quat<dataType>& quat );
-   
+
    //: make a quat from a twist (radians) about a vector (normalized)
    void makeRot( const dataType& rad, const dataType& x, const dataType& y, const dataType& z );
  
@@ -960,9 +960,9 @@ inline void Quat<dataType>::lerp( const dataType &t, const Quat<dataType> &from,
 
    // calc cosine
    cosom = from.vec[QUAT_X] * to.vec[QUAT_X] + 
-   from.vec[QUAT_Y] * to.vec[QUAT_Y] + 
-   from.vec[QUAT_Z] * to.vec[QUAT_Z] + 
-   from.vec[QUAT_W]    * to.vec[QUAT_W];
+           from.vec[QUAT_Y] * to.vec[QUAT_Y] + 
+           from.vec[QUAT_Z] * to.vec[QUAT_Z] + 
+           from.vec[QUAT_W] * to.vec[QUAT_W];
 
    // adjust signs (if necessary)
    if ( cosom < 0.0f )
@@ -971,7 +971,7 @@ inline void Quat<dataType>::lerp( const dataType &t, const Quat<dataType> &from,
       to1.vec[QUAT_X] = - to.vec[QUAT_X];
       to1.vec[QUAT_Y] = - to.vec[QUAT_Y];
       to1.vec[QUAT_Z] = - to.vec[QUAT_Z];
-      to1.vec[QUAT_W]    = - to.vec[QUAT_W];
+      to1.vec[QUAT_W] = - to.vec[QUAT_W];
    } 
    
    else  
@@ -979,7 +979,7 @@ inline void Quat<dataType>::lerp( const dataType &t, const Quat<dataType> &from,
       to1.vec[QUAT_X] = to.vec[QUAT_X];
       to1.vec[QUAT_Y] = to.vec[QUAT_Y];
       to1.vec[QUAT_Z] = to.vec[QUAT_Z];
-      to1.vec[QUAT_W]    = to.vec[QUAT_W];
+      to1.vec[QUAT_W] = to.vec[QUAT_W];
    }
 
    // interpolate linearly
