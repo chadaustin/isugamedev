@@ -15,7 +15,7 @@ Export('OPENGL_LIBS SDL_LIBS OSG_LIBS')
 CPPPATH=['#']
 
 CXXFLAGS=['-Wall']
-if ARGUMENTS.get('debug'):
+if ARGUMENTS.get('debug', 1):
     CXXFLAGS.extend(['-g'])
 
 # setup the environment
