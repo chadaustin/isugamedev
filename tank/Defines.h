@@ -10,8 +10,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Defines.h,v $
-//    $Date: 2001-10-01 00:43:45 $
-//    $Revision: 1.6 $
+//    $Date: 2001-10-03 14:49:47 $
+//    $Revision: 1.7 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -497,19 +497,19 @@ namespace kev
    
    inline float rad2deg( float rad )
    {
-      return rad * TO_RAD_F;
+      return rad * TO_DEG_F;
    }
    inline double rad2deg( double rad )
    {
-      return rad * TO_RAD_D;
+      return rad * TO_DEG_D;
    }   
    inline float deg2rad( float deg )
    {
-      return deg * TO_DEG_F;
+      return deg * TO_RAD_F;
    }
    inline double deg2rad( double deg )
    {
-      return deg * TO_DEG_D;
+      return deg * TO_RAD_D;
    }   
    
    //: Alert

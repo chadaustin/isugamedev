@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Quat.h,v $
-//    $Date: 2001-10-03 03:44:27 $
-//    $Revision: 1.5 $
+//    $Date: 2001-10-03 14:49:47 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -581,7 +581,7 @@ inline Vec3<dataType> Quat<dataType>::operator*( const Vec3<dataType>& vector ) 
    
    // shoemake original (left hand rule):
    //Quat<dataType> result = self_inv * pure_quat * (*this);
-   
+
    // shoemake recent version (right hand rule):
    Quat<dataType> result = (*this) * pure_quat * self_inv;
    
