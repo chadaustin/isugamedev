@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2005-01-23 21:46:48 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2005-01-24 23:39:43 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -43,6 +43,7 @@ namespace phui
       , mVisible(true)
       , mBackgroundColor(BLACK)
       , mForegroundColor(WHITE)
+      , mParent(NULL)
    {
       mFont = gltext::OpenFont("arial.ttf", 12);
       if (!mFont)

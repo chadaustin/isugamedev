@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: window.cpp,v $
- * Date modified: $Date: 2005-01-23 21:49:01 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2005-01-24 23:39:27 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -35,16 +35,16 @@
 #include <phui/GLUTDriver.h>
 #include <phui/SDLDriver.h>
 
-static phui::RootWidgetPtr gUI;
-static phui::WindowPtr gWnd;
+phui::RootWidgetPtr gUI;
+phui::WindowPtr gWnd;
 
 int main(int argc, char** argv)
 {
    try
    {
       // Select our driver
-//      phui::DriverManager::Instance().setDriver(phui::GLUTDriver::ID);
-      phui::DriverManager::Instance().setDriver("SDL");
+      phui::DriverManager::Instance().setDriver("GLUT");
+      //phui::DriverManager::Instance().setDriver("SDL");
       // Create our root widget
       gUI = phui::CreateRoot(640, 480);
 
