@@ -1,3 +1,11 @@
+//////////////////////////////////////////////////////////////////
+// Copyright 2002 Levi VanOort lvanoort@aol.com Released under MIT.
+// 
+// GameObject.h
+// 4-4-2002
+//////////////////////////////////////////////////////////////////// 
+
+
 #ifndef __GAMEOBJECT_H__
 #define __GAMEOBJECT_H__
 
@@ -9,10 +17,9 @@ using namespace std;
 class GameObject
 {
 public:
-	//Microsoft hater says "this won't work in VC6.0 it may work in VC7.0" 
-	//	Ben Scott
-	//Unix hater won't use Unix where it "WILL" compile"
-	//	Levi VanOort
+
+	// Cool piece of code that doesn't work in
+	// VC++ 6.0
 	/*template <int i>
 	void Rotate(float Angle)
 	{	rotate[i] = Angle; }
