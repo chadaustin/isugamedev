@@ -17,7 +17,7 @@ public:
 	void findPlayer(player p);
 	void findLadder(level l);
 	void goToTarget(int pos);
-	void update();
+	void update( float time_delta = 0.01 );
 public:
 	int targetPos;
 	int targetHeight;

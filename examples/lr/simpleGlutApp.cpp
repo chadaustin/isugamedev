@@ -42,6 +42,37 @@
          ::usleep( (int)(msec * 1000.0f) );
       } 
 #endif
+      
+//: get the current time
+//  useful for profiling, or doing time based animation
+//  returns - number in seconds...
+#ifndef WIN32
+   #include <sys/time.h>
+   inline double getTime()
+   {
+      struct timeval tv;
+      gettimeofday( &tv, 0 );
+
+      // compose sec with microsec for sec.millisec
+      return static_cast<double>( tv.tv_sec )
+          + ( static_cast<double>( tv.tv_usec )
+                 / 1000000.0 );
+   }
+#else
+   #include <windows.h>  // windows time routines...
+   #include <sys/types.h>
+   #include <sys/timeb.h>
+   inline double getTime()
+   {
+      struct _timeb tv;
+      _ftime( &tv );
+
+      // compose sec with millisec for sec.millisec
+      return static_cast<double>( tv.time )
+	      + ( static_cast<double>( tv.millitm ) 
+	        / 1000.0 );
+   }
+#endif
 
 
 
@@ -64,6 +95,8 @@ level l;
 player u(30,450,0,false);
 badguy badguy1(30,150,0,false);
 COGLTexture win,lose;
+double lasttime = getTime(), currenttime = getTime();
+double timechange = 0.0;
 
 
 void initTexture(){
@@ -152,7 +185,7 @@ static void OnRedisplay()
 	winOrLose();
 	badguy1.findPlayer(u);
 	badguy1.findLadder(l);
-	badguy1.update();
+	badguy1.update( timechange );
 
 	u.draw();
 	l.draw();
@@ -166,6 +199,11 @@ static void OnRedisplay()
 
 
 	glutSwapBuffers();
+         
+         // update the last time
+         lasttime = currenttime;
+         currenttime = getTime();
+         timechange = currenttime - lasttime;
 }
 
 

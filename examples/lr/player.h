@@ -31,10 +31,10 @@ public:
 	virtual void draw();
 	virtual void setState(int st){state = st;}
 	virtual int getState(){return state;}
-	virtual void setPos(int p){pos = p;}
-	virtual void setHeight(int h){height = h;}
-	virtual int getPos(){return pos;}
-	virtual int getHeight(){return height;}
+	virtual void setPos(int p){pos = (float)p;}
+	virtual void setHeight(int h){height = (float)h;}
+	virtual int getPos(){return (int)pos;}
+	virtual int getHeight(){return (int)height;}
 	virtual void initTexture();
 	virtual void setFalling(){falling=true;}
 	virtual void setNotFalling(){falling = false;}
@@ -42,9 +42,15 @@ public:
 	virtual int getTexState(){return texState;}
 	virtual void setTexState(int state){texState = state;}
 
+         // float versions...
+         virtual void setPosf(float p){pos = p;}
+	virtual void setHeightf(float h){height = h;}
+	virtual float getPosf(){return pos;}
+	virtual float getHeightf(){return height;}
+	
 protected:
-	int pos;			// players horizontal position on a scale of 1 to 640
-	int height;		// players height by 10;
+	float pos;			// players horizontal position on a scale of 1 to 640
+	float height;		// players height by 10;
 	int state;			// players current state either hang1,2, climb1,2, or run1,2,
 	COGLTexture textures[6];
 	bool falling;

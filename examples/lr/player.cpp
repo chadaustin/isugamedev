@@ -19,9 +19,9 @@ void player::initTexture(){
 }
 
 void player::draw(){
-    int realh = height;
-	int gameh = (height+29)/30;
-	int p = pos/10;
+    int realh = (int)height;
+	int gameh = (int)((height+29.0f)/30.0f);
+	int p = (int)(pos/10.0f);
 	
 //	glColor3f(1.0f, 0.0f, 0.0f);
     glEnable(GL_TEXTURE_2D);

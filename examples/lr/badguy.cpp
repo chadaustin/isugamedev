@@ -1,4 +1,5 @@
 #include "badguy.h"
+#include <math.h>
 
 void badguy::initTexture(){
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -19,21 +20,25 @@ void badguy::initTexture(){
 }
 
 
-void badguy::update(){
-	if(abs(getHeight()-playerHeight) < abs(getPos()-playerPos) || usingtarget){
+void badguy::update( float time_delta_in_seconds ){
+   
+   const float velocity = 40.0f; // 40 pixels per second...
+   const float position_change = velocity * time_delta_in_seconds;
+   
+	if(fabsf(getHeight()-playerHeight) < fabsf(getPos()-playerPos) || usingtarget){
 		if(playerPos>getPos()){
-			setPos(getPos()+5);
+			setPosf(getPosf() + position_change);
 		}else{
-			setPos(getPos()-5);
+			setPosf(getPosf() - position_change);
 		}
 	}else{
 		usingtarget=true;
 		
 		if(getPos()!=targetPos){
 			if(targetPos<getPos()){
-				setPos(getPos()+5);
+				setPosf(getPosf() + position_change);
 			}else{
-				setPos(getPos()-5);
+				setPosf(getPosf() - position_change);
 			}
 		}else{
 			usingtarget=false;
@@ -45,7 +50,7 @@ void badguy::update(){
 void badguy::findLadder(level l){
 	for(int i=0;i<640;i+=10){
 		if(l.checkRegistry(i, getHeight()/30)==LADDER){
-			if(abs((i)-getPos())<abs(targetPos-getPos())){
+			if(fabsf((i)-getPos())<fabsf(targetPos-getPos())){
 				targetPos=i;
 			}
 		}
