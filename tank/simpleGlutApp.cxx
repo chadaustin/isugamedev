@@ -167,19 +167,19 @@ static void OnKeyboardDown( unsigned char k, int x, int y )
       break;
 
    case 'w':
-      app.camera.setPitchVel( 1 );
+      app.camera.setPitchVel( 40 );
       break;
 
    case 's':
-      app.camera.setPitchVel( -1 );
+      app.camera.setPitchVel( -40 );
       break;
 
    case 'a':
-      app.camera.setYawVel( 1 );
+      app.camera.setYawVel( 40 );
       break;
 
    case 'd':
-      app.camera.setYawVel( -1 );
+      app.camera.setYawVel( -40 );
       break;
       
    default:
