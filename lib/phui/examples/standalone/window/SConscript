@@ -1,0 +1,7 @@
+import os, sys, string
+pj = os.path.join
+Import('baseEnv buildRoot')
+env = baseEnv.Copy()
+env.Append( LIBPATH = [pj('#', 'phui')],
+            LIBS = ['phui'] )
+env.Program('window', 'window.cpp')
