@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 08:50:57 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-03-29 12:54:18 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -38,14 +38,16 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#include "client/BrothaApp.h"
+#include "BrothaApp.h"
 #include <GL/gl.h>
 #include <GL/glu.h>
 
 namespace client
 {
    BrothaApp::BrothaApp()
-      : mKernel(NULL), mNetMgr(NULL), mConnID(-1)
+      : mKernel(NULL), mNetMgr(NULL), mConnID(-1),
+        mAppState(new NotConnectedState()),
+        mName("yourname"), mPass("yourpassword"), mIsConnected(false)
    {
    }
 
@@ -63,6 +65,9 @@ namespace client
       mTurnLeft.init( "TurnLeft", mKernel );
       mTurnRight.init( "TurnRight", mKernel );
       mPause.init( "Pause", mKernel );
+
+      // init the network layer
+      mNetMgr = new net::NetMgr();
    }
 
    void BrothaApp::onContextInit()
@@ -97,43 +102,23 @@ namespace client
 
    void BrothaApp::onPostFrame()
    {
-      static bool loggedIn = false;
-      static int sent(0);
-      // Connect to the server if we have not already
-      if ( mConnID == -1 )
-      {
-         mNetMgr = new net::NetMgr();
-         std::auto_ptr<net::Socket> s( new net::Socket("127.0.0.1", 35791) );
-         mConnID = mNetMgr->handleSocket( s );
-         mNetMgr->send( new net::LoginMessage("user1", "passup"), mConnID );
-         std::cout<<"Sent login message"<<std::endl;
-      }
-//      else
-//      {
-         // get all msgs on the wire
-         net::NetMgr::MsgList msgs;
-         mNetMgr->readAll( msgs );
-
-         // check for login ack if we haven't logged in yet
-//         if ( ! loggedIn ) {
-//         }
-//      }
-
-      mNetMgr->send( new net::OKMessage( net::OKMessage::OKAY ), mConnID );
-      sent++;
-      if ( sent > 4 ) {
-         mKernel->shutdown();
+      // get all messages from the server
+      net::NetMgr::MsgList msgs;
+      mNetMgr->readAll( msgs );
+      for( net::NetMgr::MsgListIter iter = msgs.begin(); iter != msgs.end(); ++iter ) {
+         net::Message* msg = (*iter).first;
+         // tell the current state to handle the message
+         auto_ptr<AppState> newState = mAppState->handleMessage( msg, this );
+         if ( newState.get() != NULL ) {
+            mAppState = newState;
+         }
+         /// @todo delete msg?
       }
 
-      if ( msgs.size() > 0 ) {
-         std::cout<<"Received "<<msgs.size()<<" msgs"<<std::endl;
+      auto_ptr<AppState> newState = mAppState->update( this );
+      if ( newState.get() != NULL ) {
+         mAppState = newState;
       }
-
-      /*  To do.. just psuedo code right now
-      //send msg to server to update status
-      //assuming already logged on
-      mgr.send(new Message("position", "health", "velocity"), id);
-      */
 
       // Process input from the user
       processInput();

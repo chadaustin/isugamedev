@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-03-29 08:33:21 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-03-29 12:54:18 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -46,6 +46,7 @@
 #include <GL/glu.h>
 #include "game/BrothaGame.h"
 #include "net/NetMgr.h"
+#include "AppState.h"
 
 namespace client
 {
@@ -93,6 +94,24 @@ namespace client
        */
       void processInput();
 
+      /**
+       * Gets the network manager for this app.
+       */
+      net::NetMgr* getNetMgr() {
+         return mNetMgr;
+      }
+
+      const std::string& getLoginName() const {return mName; }
+      const std::string& getLoginPass() const { return mPass; }
+
+      void setServerConn( net::NetMgr::ConnID id ) { mConnID = id; }
+      bool setIsConnected( bool val ) { return mIsConnected; }
+      net::NetMgr::ConnID getConnID() { return mConnID; }
+
+      bool doConnect() { return true; }
+      std::string getServerIP() { return "127.0.0.1"; }
+      int getServerPort() { return 35791; }
+
    public:
       gk::DigitalInterface
          mAccelerate,
@@ -113,6 +132,12 @@ namespace client
 
       /// The connection to the server
       net::NetMgr::ConnID mConnID;
+
+      /// The application state
+      auto_ptr<AppState> mAppState;
+
+      std::string mName, mPass;
+      bool mIsConnected;
    };
 }
 
