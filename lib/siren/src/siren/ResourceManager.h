@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.h,v $
- * Date modified: $Date: 2003-02-03 02:54:35 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-11 06:23:26 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -35,7 +35,7 @@
 #include <string>
 #include <map>
 #include <stdexcept>
-#include <TypeInfo.h>
+#include <LokiTypeInfo.h>
 #include "Utility.h"
 #include "Singleton.h"
 
