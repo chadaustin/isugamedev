@@ -169,6 +169,8 @@ namespace lr
                mLevel[j][i] = empty;
                b->setHeight(i*32);
                b->setPos(j*32);
+               b->setInitHeight(i*32);
+               b->setInitPos(j*32);
             }
             else if(temp==6){
                mLevel[j][i] = empty;

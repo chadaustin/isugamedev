@@ -86,6 +86,16 @@ namespace lr
        * @params h is the actual height NOT the grid height
        */
       void setHeight(int h);
+
+      /**
+       * Set the initial position fo the badguy so we can reset to this pos
+       */
+      void setInitPos(int p);
+
+      /**
+       * set the initial height of the badguy so we can reset to this pos
+       */
+      void setInitHeight(int h);
            
       /**
        * this is the keypress handler, it stores which keys were pressed since
@@ -110,6 +120,9 @@ namespace lr
    private:
       float realPos;    // players real position on the screen from 0 to 1024
       float realHeight; // players real height on the screen from 0 to 768
+      
+      float initPos;
+      float initHeight;
       
       playerState mState;			// players current state either hang1,2, climb1,2, or run1,2,
       
@@ -258,8 +271,6 @@ namespace lr
 
       bool isAtGoal()
       {
-         std::cout << "Goal pos: " << goal->pos << ", " << goal->height << std::endl;
-         std::cout << "badG pos: " << getGridPos() << ", " << getGridHeight() << std::endl;
          if(getGridPos()==goal->pos && getGridHeight()==goal->height || atGoal==true)
             return true;
          return false;

@@ -86,7 +86,7 @@ namespace lr
                   // if we find a ladder to our left
                   if(mLevel->getEntityType(i,getGridHeight()) == ladder)
                   {
-                     found==true;
+                     found=true;
                      goal->pos=i;
                      goal->height=getGridHeight();
                   }
@@ -146,7 +146,7 @@ namespace lr
                   // if we find a ladder to our right
                   if(mLevel->getEntityType(i,getGridHeight()) == ladder)
                   {
-                     found==true;
+                     found=true;
                      goal->pos=i;
                      goal->height=getGridHeight();
                   }
@@ -279,6 +279,16 @@ namespace lr
 
    void BadGuy::update(float dt)
    {
+      // the first thing we always check is if we are in bricks, if we are then
+      // we need to be reset
+      if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
+      {
+         realHeight = initHeight;
+         realPos = initPos;
+         return;
+      }
+         
+      
       if(dt>(1.0/128.0))
          dt=(1.0/128.0);
       playerState tempState;
@@ -413,7 +423,6 @@ namespace lr
       }
       SDLKey temp;
       handleKeyPress(temp, true);
-
       
    }
 
@@ -485,6 +494,16 @@ namespace lr
       realHeight = h;
    }
 
+   void BadGuy::setInitPos(int p)
+   {
+      initPos = p;
+   }
+
+   void BadGuy::setInitHeight(int h)
+   {
+      initHeight = h;
+   }
+
    
    bool BadGuy::brickRight()
    {
@@ -497,8 +516,11 @@ namespace lr
 
    bool BadGuy::brickLeft()
    {
-      if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
+      if(mLevel->getEntityType(getGridPos()-1, getGridHeight())==brick && (int)realPos%32>=16)
          return true;
+      if((int)realHeight%32>8 && (mLevel->getEntityType(getGridPos()+1, getGridHeight()+1)==brick) && (int)realPos%32<16)
+         return true;
+      return false;
       return false;
    }
 

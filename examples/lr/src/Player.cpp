@@ -271,7 +271,9 @@ namespace lr
    bool Player::brickUnder()
    {
       if(mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==brick)
+      {
          return true;
+      }
       return false;
    }
    
@@ -279,9 +281,11 @@ namespace lr
    {
       // if the block below us is a ladder or brick and we are at the bottom of
       // our current block then return true else return false
-      if((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==brick) || (mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==ladder) && (int)realHeight%32==0) 
+      if(((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==brick) || (mLevel->getEntityType(getGridPos(), (getGridHeight()-1))==ladder)) && (int)realHeight%32==0) 
          return true;
       if((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))!=brick) && (mLevel->getEntityType(getGridPos(), (getGridHeight()-1)!=ladder) && (int)realHeight%32==0) && (int)realPos%16!=0)
+         return true;
+      if(mLevel->getEntityType(getGridPos()+1, getGridHeight()-1)==brick && (int)realPos%32>16)
          return true;
       if(realHeight<=0)
          return true;
@@ -328,7 +332,10 @@ namespace lr
    bool Player::brickLeft()
    {
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
+      {
+         std::cout << "her" << std::endl;
          return true;
+      }
       return false;
    }
 
