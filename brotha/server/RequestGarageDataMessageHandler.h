@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RequestGarageDataMessageHandler.h,v $
- * Date modified: $Date: 2002-05-01 23:34:45 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-05-03 08:03:42 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -61,9 +61,10 @@ namespace server {
          data::BrothaData& data = data::DataManager::instance().getData();
          data::Player* player = data.getPlayer(m_brothaGame->getPlayer(cID)->getName());
          data::CarTypeList* carlist = &data.getCarTypes();
+         data::ModTypeList* modlist = &data.getModTypes();
 
          // send the data
-         m_netMgr->send(new net::GarageDataMessage(player, carlist), cID);
+         m_netMgr->send(new net::GarageDataMessage(player, carlist, modlist), cID);
       };
    };
 }

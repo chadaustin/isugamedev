@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageDataMessage.h,v $
- * Date modified: $Date: 2002-05-03 05:01:09 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-05-03 08:03:42 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -51,7 +51,7 @@
 #include "Serialize.h"
 #include "xml/Player.h"
 #include "xml/CarType.h"
-
+#include "xml/ModType.h"
 
 namespace net {
 
@@ -60,8 +60,10 @@ namespace net {
     */
    class GarageDataMessage : public Message {
    public:
-      GarageDataMessage(data::Player* player = NULL, data::CarTypeList* cartl = NULL)
-         : mPlayer(player), mCarTypes(cartl) {
+      GarageDataMessage(data::Player* player = NULL,
+                        data::CarTypeList* cartl = NULL,
+                        data::ModTypeList* modtl = NULL)
+         : mPlayer(player), mCarTypes(cartl), mModTypes(modtl) {
       }
 
       PRUint32 getType() const {
@@ -70,6 +72,16 @@ namespace net {
 
       PRUint32 getSize() {
          PRUint32 retVal = 0;
+
+         if(mModTypes != NULL) {
+            data::ModTypeList* mtl = mModTypes;
+            for(unsigned int x=0;x<mtl->size();++x) {
+               retVal += sizes::getVarSize((*mtl)[x]->getName()) +
+                         sizes::getVarSize((PRUint32)(*mtl)[x]->getMin()) +
+                         sizes::getVarSize((PRUint32)(*mtl)[x]->getMax());
+            }
+            retVal += sizes::getVarSize((PRUint32)0);
+         }
 
          if(mCarTypes != NULL) {
             data::CarTypeList* ctl = mCarTypes;
@@ -107,6 +119,14 @@ namespace net {
       }
 
       void serialize(OutputStream& os) {
+         // send global mod type list
+         data::ModTypeList* mtl = mModTypes;
+         os << mtl->size();
+         for(unsigned int x=0;x<mtl->size();++x) {
+            os << (*mtl)[x]->getName() << (PRUint32)(*mtl)[x]->getMin() << (PRUint32)(*mtl)[x]->getMax();
+         }
+
+         // send global car type list
          data::CarTypeList* ctl = mCarTypes;
          os << ctl->size();
          for(unsigned int x=0;x<ctl->size();++x) {
@@ -136,13 +156,29 @@ namespace net {
       }
 
       void deserialize(InputStream& is) {
-         // read in the global car list
+         // read in the global mod type list
+         if(mModTypes == NULL) {
+            // create mod types object it if doesn't exist
+            mModTypes = new data::ModTypeList();
+         }
+
+         PRUint32 size;
+         is >> size;
+         for(unsigned int x=0;x<size;++x) {
+            std::string name;
+            PRUint32 min, max;
+            is >> name >> min >> max;
+
+            data::ModType* mt = new data::ModType(name, (int)min, (int)max);
+            mModTypes->push_back(mt);
+         }
+
+         // read in the global car type list
          if(mCarTypes == NULL) {
             // create car types object if it doesn't exist
             mCarTypes = new data::CarTypeList();
          }
 
-         PRUint32 size;
          is >> size;
          for(unsigned int x=0;x<size;++x) {
             std::string name, file;
@@ -192,6 +228,10 @@ namespace net {
          }
       }
 
+      data::ModTypeList* getModTypes() {
+         return mModTypes;
+      }
+
       data::CarTypeList* getCarTypes() {
          return mCarTypes;
       }
@@ -206,6 +246,9 @@ namespace net {
 
       /// All car types in the database.
       data::CarTypeList* mCarTypes;
+
+      /// All mod types in the database
+      data::ModTypeList* mModTypes;
    };
 
 }
