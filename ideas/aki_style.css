@@ -20,7 +20,7 @@ a:hover
 
 a
 {
-   text-decoration: none;
+#   text-decoration: none;
 }
 
 P:first-line
@@ -43,7 +43,7 @@ LI
    style-position: outside;
 }
 
-ul, dl, dl dd, dl dt, dd, dt, li, default, plaintext, html, BODY, BODY:text, .BODY, noframes, P, table, td, body table td, body td, body table, text
+plaintext, html, BODY, BODY:text, .BODY, noframes, P, table, td, body table td, body td, body table, text, ul, dl, dl dd, dl dt, dd, dt, li, hr, default
 {
    vertical-align: top;
    font-family: Arial, Helvetica, Verdana, sans-serif;
