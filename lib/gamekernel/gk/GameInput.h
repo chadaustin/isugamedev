@@ -5,15 +5,10 @@
 #include "Keyboard.h"
 #include "Singleton.h"
 
-class Input
-{
-public:
-};
-class DigitalInput : public Input
-{
-public:
-   
-};
+#include "DigitalInput.h"
+#include "AnalogInput.h"
+
+
 
 class GameInput : public kev::Singleton<GameInput>
 {

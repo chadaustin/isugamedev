@@ -45,9 +45,9 @@ public:
    
    virtual void OnPostFrame()
    {
-      if (GameInput::instance().keyboard().edgeState( Keyboard::ESC ) == Keyboard::DOWN ||
-          GameInput::instance().keyboard().edgeState( Keyboard::Q ) == Keyboard::DOWN || 
-            GameInput::instance().keyboard().edgeState( Keyboard::q ) == Keyboard::DOWN)
+      if (GameInput::instance().keyboard().edgeState( Keyboard::ESC ) == DigitalInput::DOWN ||
+          GameInput::instance().keyboard().edgeState( Keyboard::Q ) == DigitalInput::DOWN || 
+            GameInput::instance().keyboard().edgeState( Keyboard::q ) == DigitalInput::DOWN)
       {
          GameKernel::instance().shutdown();
       }      

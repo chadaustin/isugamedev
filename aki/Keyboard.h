@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include "kqueue.h"
+#include "DigitalInput.h"
 
 class Keyboard
 {
@@ -85,114 +86,71 @@ public:
       F7 = 276, F8 = 277, F9 = 278, F10 = 279, F11 = 280, F12 = 281,
       NumberOfKeys = 282 // make sure this number is bigger than the others.
    };
-   enum BinaryState
-   {
-      ON, OFF
-   };
-   enum EdgeTriggerState
-   {
-      DOWN, EDGE_DOWN, EDGE_UP, UP, FLOATING
-   };
       
    Keyboard()
    {
-      edges.resize( NumberOfKeys );
-      binarys.resize( NumberOfKeys );
-      for (int x = 0; x < NumberOfKeys; ++x)
-      {
-         edges[x] = UP;
-         binarys[x] = OFF;
-      }
+      buttons.resize( NumberOfKeys );
    }
    
-   const EdgeTriggerState& edgeState( char k ) const
+   const DigitalInput::EdgeTriggerState& edgeState( char k ) const
    {
       int kk = (int)k;
-      return edges[kk];
+      return buttons[kk].edgeState();
    }
    
-   EdgeTriggerState& edgeState( char k )
+   DigitalInput::EdgeTriggerState& edgeState( char k )
    {
       int kk = (int)k;
-      return edges[kk];
+      return buttons[kk].edgeState();
    }
    
-   const EdgeTriggerState& edgeState( Key k ) const
+   const DigitalInput::EdgeTriggerState& edgeState( Key k ) const
    {
-      assert( k >= 0 && k < edges.size() && "out of bounds" );
-      return edges[k];
+      assert( k >= 0 && k < buttons.size() && "out of bounds" );
+      return buttons[k].edgeState();
    }
    
-   EdgeTriggerState& edgeState( Key k )
+   DigitalInput::EdgeTriggerState& edgeState( Key k )
    {
-      assert( k >= 0 && k < edges.size() && "out of bounds" );
-      return edges[k];
+      assert( k >= 0 && k < buttons.size() && "out of bounds" );
+      return buttons[k].edgeState();
    }
    
-   const BinaryState& binaryState( char k ) const
-   {
-      int kk = (int)k;
-      return binarys[kk];
-   }
-   
-   BinaryState& binaryState( char k )
+   const DigitalInput::BinaryState& binaryState( char k ) const
    {
       int kk = (int)k;
-      return binarys[kk];
+      return buttons[kk].binaryState();
    }
    
-   const BinaryState& binaryState( Key k ) const
+   DigitalInput::BinaryState& binaryState( char k )
    {
-      assert( k >= 0 && k < binarys.size() && "out of bounds" );
-      return binarys[k];
+      int kk = (int)k;
+      return buttons[kk].binaryState();
    }
    
-   BinaryState& binaryState( Key k )
+   const DigitalInput::BinaryState& binaryState( Key k ) const
    {
-      assert( k >= 0 && k < binarys.size() && "out of bounds" );
-      return binarys[k];
+      assert( k >= 0 && k < buttons.size() && "out of bounds" );
+      return buttons[k].binaryState();
+   }
+   
+   DigitalInput::BinaryState& binaryState( Key k )
+   {
+      assert( k >= 0 && k < buttons.size() && "out of bounds" );
+      return buttons[k].binaryState();
    }
       
    void updateEdgeStates()
    {
-      for (int x = 0; x < binarys.size(); ++x)
+      for (int x = 0; x < buttons.size(); ++x)
       {
-         //find out if...
-         switch( binarys[x] )
-         {
-         case ON:
-            //button has been held down or it is just down.
-            switch( edges[x] )
-            {
-            case FLOATING:
-            case EDGE_UP:
-            case UP:       edges[x] = EDGE_DOWN;  break;
-            case EDGE_DOWN: edges[x] = DOWN; break;
-            }
-         break;
-
-         case OFF:
-            //button has been up or it is just up.
-            switch( edges[x] )
-            {
-            case FLOATING:
-            case EDGE_DOWN:
-            case DOWN:    edges[x] = EDGE_UP; break;
-            case EDGE_UP:  edges[x] = UP; break;
-            }
-         break;
-
-         default: 
-            //std::cout<<"broken on key: "<<x<<" of "<<binarys.size()<<" == "<<binarys[x]<<"\n"<<std::flush;
-            assert(false);
-         }
+         buttons[x].updateEdgeStates();
       }
    }
 
    kev::queue<Key>& queue() { return mQueue; }
    
-   std::vector<EdgeTriggerState> edges;
-   std::vector<BinaryState> binarys;
+   std::vector<DigitalInput> buttons;
 private:
    kev::queue<Key> mQueue;
 };

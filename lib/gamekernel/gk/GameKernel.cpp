@@ -141,7 +141,7 @@
    ////////////////////////////////
    void GameKernel::OnKeyboardDown(unsigned char k, int x, int y) 
    { 
-      const Keyboard::BinaryState state = Keyboard::ON;
+      const DigitalInput::BinaryState state = DigitalInput::ON;
       GameInput::instance().keyboard().binaryState( k ) = state;
       GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
    }
@@ -151,7 +151,7 @@
    ////////////////////////////////
    void GameKernel::OnKeyboardUp(unsigned char k, int x, int y) 
    { 
-      const Keyboard::BinaryState state = Keyboard::OFF;
+      const DigitalInput::BinaryState state = DigitalInput::OFF;
       GameInput::instance().keyboard().binaryState( k ) = state;
       GameInput::instance().keyboard().queue().enqueue( (Keyboard::Key)(int)k );
    }
@@ -160,11 +160,11 @@
    // set Keyboard with the keypress event
    void GameKernel::keyboardEvent( const bool& isdown, const int& k, Keyboard& keyboard )
    {
-      Keyboard::BinaryState state;
+      DigitalInput::BinaryState state;
       if (isdown)
-         state = Keyboard::ON;
+         state = DigitalInput::ON;
       else
-         state = Keyboard::OFF;
+         state = DigitalInput::OFF;
       
       Keyboard::Key key;
       switch (k)
