@@ -66,8 +66,10 @@ public:
    void update( GameState& gs, float timeDelta );
 
 private:
-   std::map<int, Weapon*> mWeapons;
-   std::map<int, Weapon*>::iterator mCurrentWeapon;
+   std::multimap<int, Weapon*> mWeapons;
+   std::map<int, int> mLastWeapon;
+   std::multimap<int, Weapon*>::iterator mCurrentWeapon;
+   int mLastSlot;
 };
 }
 

@@ -84,6 +84,22 @@ namespace mw
    {
       if (!this->isWeaponSlotEmpty( slot ))
       {
+         // if requesting to change to the same slot
+         if (mLastSlot == slot)
+         {
+            ++mLastWeapon[slot];
+            // wraparound if needed.
+            if (mLastWeapon[slot] >= mWeapons.count( slot ))
+            {
+               mLastWeapon[slot] = 0;
+            }
+         }
+         // if requesting to change to a different slot
+         else
+         {
+            mLastSlot = slot;
+         }
+
          // set current weapon to this one...
          mCurrentWeapon = mWeapons.find( slot );
       }
@@ -97,18 +113,31 @@ namespace mw
    {
       assert( NULL != w && "bad weapon ptr" );
 
-      // if slot already had a weapon, remove it
-      if (mWeapons.count( w->getCategory() ) > 0)
-      {
-         delete mWeapons[w->getCategory()];
-         mWeapons.erase( w->getCategory() );
-      }
+      mLastSlot = w->getCategory();
 
       // add the weapon to the slot
-      mWeapons[w->getCategory()] = w;
+      int c = mWeapons.count( w->getCategory() );
+      std::multimap<int, Weapon*>::iterator f = mWeapons.find( w->getCategory() );
+      bool foundit = false;
+      for (int x = 0; x < c; ++x, ++f)
+      {
+         // if we find the same weapon here, then transfer ammo
+         if ((*f).second->getType() == w->getType())
+         {
+            foundit = true;
+            (*f).second->addAmmo( w->getAmmoInClip() + w->getAmmoInBag() );
+            delete w;
+            w = NULL;
+         }
+      }
 
-      // set current weapon to the newly added one.
-      mCurrentWeapon = mWeapons.find( w->getCategory() );
+      // if not already in the inventory, then add it.
+      if (false == foundit)
+      {
+         // also set current weapon to the newly added one.
+         mCurrentWeapon = mWeapons.insert(
+               std::pair<int,Weapon*>( w->getCategory(), w ) );
+      }
    }
 
    /** make the next weapon active.
@@ -118,6 +147,7 @@ namespace mw
     */
    void Player::nextWeapon()
    {
+      mLastSlot = -1; // figure out how to set this... maybe not needed.
       if (!mWeapons.empty())
       {
          ++mCurrentWeapon;
@@ -125,9 +155,7 @@ namespace mw
          {
             mCurrentWeapon = mWeapons.begin();
          }
-
-         // call setWeapon for any extra behaviour needed.
-         this->setWeapon( (*mCurrentWeapon).second->getCategory() );
+         std::cout << (*mCurrentWeapon).second->getName() << std::endl;
       }
    }
 

@@ -18,8 +18,9 @@ namespace mw
        *
        * @param cat     the category this weapon is a member of
        * @param name    the name of this weapon
+       * @param uid     the unique id of this weapon
        */
-      BaseProjectileWeapon(const WeaponCategory& cat, const std::string& name);
+      BaseProjectileWeapon(const WeaponCategory& cat, const std::string& name, int uid );
 
    public:
       /// Gets the Player slot number that this weapon goes in.
@@ -63,6 +64,10 @@ namespace mw
 
       virtual int getAmmoInBag() const;
 
+      /**
+       * Gets the amount of ammo for this gun that is not in the current clip.
+       */
+      virtual void addAmmo( int ammount );
    protected:
       /**
        * Discharges this weapon, emitting whatever projectile(s) it normally
@@ -94,8 +99,7 @@ namespace mw
 
       // some of these will change to public...
    private:
-      void addAmmo( int ammount );
-
+      
       /// Triggers a reload sequence.
       void reload();
 

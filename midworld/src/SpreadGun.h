@@ -12,7 +12,7 @@ namespace mw
    {
    public:
       SpreadGun()
-         : BaseProjectileWeapon(Weapon::AUTOMATIC, "SpreadGun")
+         : BaseProjectileWeapon( Weapon::AUTOMATIC, "SpreadGun", 4 )
          , mSpinning( 0.0f )
       {
          mCockRate = 0.1f;

@@ -15,7 +15,7 @@ namespace mw
    class AssaultRifle: public BaseProjectileWeapon
    {
    public:
-      AssaultRifle() : BaseProjectileWeapon(Weapon::RIFLE, "Assault Rifle")
+      AssaultRifle() : BaseProjectileWeapon( Weapon::RIFLE, "Assault Rifle", 3 )
       {
          mMaxAmmoInBag = 500;
          mClipSize = 30;

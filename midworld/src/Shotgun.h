@@ -15,7 +15,7 @@ namespace mw
    {
    public:
       Shotgun()
-         : BaseProjectileWeapon(Weapon::RIFLE, "Shotgun")
+         : BaseProjectileWeapon( Weapon::RIFLE, "Shotgun", 2 )
       {
          mSpreadAngle=10.f;
          srand(SDL_GetTicks());
