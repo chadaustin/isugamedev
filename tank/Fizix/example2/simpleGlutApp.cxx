@@ -151,9 +151,9 @@ static void OnIdle()
 
    static int output_cnt = 0;
    output_cnt++;
-   if (output_cnt % 30)
+   if (output_cnt % 30 == 4)
    {
-      std::cout<<"fps: "<<app.stopWatch.fpsAverage()<<"\n"<<std::flush;;
+      std::cout<<"fps: "<<app.stopWatch.fpsAverage()<<" ... "<<app.torch.entities().size()<<" ents in system\n"<<std::flush;;
    }   
    
    ////////////////////////////
