@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: PixmapFont.h,v $
-//    $Date: 2001-09-27 17:41:25 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-27 22:52:25 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -80,10 +80,10 @@ namespace kev
          mGstate = gstate;
       }
 
-      void setGlyphData( int x, GlyphData& mapping ) { mMapping[x] = mapping; }
+      void setGlyphData( int x, GlyphData& mapping ) { assert( x < 256 && x >= 0 ); mMapping[x] = mapping; }
 
       const float& height() const { return mHeight; }
-      const GlyphData& glyphData( int whichGlyph ) const { return mMapping[whichGlyph]; }
+      const GlyphData& glyphData( int whichGlyph ) const { assert( x < 256 && x >= 0 ); return mMapping[whichGlyph]; }
 
 
       kev::GState* gstate() { assert( mGstate != NULL ); return mGstate; }
