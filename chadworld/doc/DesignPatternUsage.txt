@@ -1,59 +1,58 @@
 Design Patterns within ChadWorld Design Discussion
 From meeting with Neeraj Khanolkar on 2002.04.08
-2002.04.11
+Last updated on 2002.04.29
 
 
-Based on some exploration and discussion about ChadWorld's overall
-structure, we found a few places where the design could be improved by
-applying a few design patterns.  We also discussed how usage of RMI
-instead of ObjectStreams would make the design clearer, easier to
-document, and easier to implement.
+After implementing Neeraj's suggestions about the design, our system
+takes advantage of a few design patterns and idioms.  We originally
+used Java object streams to send and recieve packets across a network
+connection.  After replacing the object streams with RMI, the patterns
+in the design became more apparent.
 
-We discussed how we're effectively reproducing RMI by using Socket
-objects with ObjectOutputStreams and ObjectInputStreams in Java.  The
-current system incorporates these 'Packet' objects which are
-transferred across the network, reconstructed on the other end, and
-interpreted as asynchronous method calls.  Therefore, the first step
-to understand the system in a new way was to decompose the ideas
-behind the messages sent into asynchronous method calls.  Since the
-client connects to the server, and then waits for packets of
-information in return, we realized that a variant of the Observer
-pattern was in effect.  Neeraj actually called it Remote Observer.
-The client registers itself as a listener with the server.  The client
-sends movement commands to the server and the server sends world
-update information back to each client.  Using RMI, we plan to make
-this pattern more obvious.  We will create Client and Server
-interfaces that look similar to the following:
+The most obvious pattern is what Neeraj called Remote Observer.  It's
+very similar to the observer pattern, except that it operates across a
+network boundary using RMI.  There is one server, and it registers
+itself with RMI's naming service so that anybody can reference it.
+The client connects by getting a handle to the server and registering
+itself, inserting an avatar entity into the world.  At a fixed number
+of frames per second, the server sends a copy of the world to all
+registered clients so that they can render it properly.  The server
+and client interfaces are similar to the following:
 
-interface Server {
+interface RemoteServer extends Remote {
   /*
    * Register a client with the server.  If authentication fails,
-   * return false.  Otherwise, return true;
+   * return -1.  Otherwise, return the entity id of the player's
+   * avatar within the world.
    */
-  boolean connect(String username, String password, Client This);
+  int connect(RemoteClient This, String username, String password)
+    throws RemoteException;
 
   /*
-   * Disconnect the current client from the server.
+   * Disconnect the current client from the server, removing the
+   * avatar from the world.
    */
-  void disconnect();
+  void unregister(RemoteClient This)
+    throws RemoteException;
 
   /*
    * The server is responsible for taking key press events and handling
    * semantic actions.  This method informs the server that a key has
    * been pressed or unpressed.
    */
-  void processKey(KeyEvent key);
+  void processKey(RemoteClient This, KeyEvent key)
+    throws RemoteException;
+
+  /*
+   * Shuts down the server, unregistering it with RMI and stopping the
+   * process.
+   */
+  void stop();
 }
 
-interface Client {
+interface RemoteClient extends Remote {
   /*
-   * Replace the client's world (or set it if it doesn't already exist) with
-   * the specified one.
-   */
-  void updateWorld(World w);
-
-  /*
-   * This client is called when the server wants to notify the client that
+   * This method is called when the server wants to notify the client that
    * entities have updated state.  The single parameter is an iterator that
    * walks through a collection of Entity objects that have new state.
    *
@@ -64,20 +63,29 @@ interface Client {
   void updateEntities(Iterator i);
 }
 
-After describing the interfaces this way, we realized that since the
-world is conceptually a collection of objects, they could all be
-specific subclasses of the Entity class.  When we convert the world
-representation to this format, the client will need to traverse the
-list of entities and draw each one in a certain way.  Originally, one
-may think each entity subclass could be responsible for drawing
-itself.  However, this means the server would know about entity
-rendering through the Entity subclasses, and I want to keep graphics
-code separate from the server.
+Both static and dynamic objects in the world are considered entities.
+There is a basic Entity interface that all entities must implement.
+It provides methods for getting the entity's unique ID and creating a
+scene graph node (relative to the world origin) so that the entity can
+be drawn in the scene.
 
-The solution we decided upon was to use the visitor pattern to
-traverse the entity list and have each entity call a specific method
-within a SceneGraphBuilder object which would create the correct scene
-graph node type.
+Unfortunately, letting entities draw themselves exposes the graphics
+subsystem to the server, which, eventually, will be a problem.  :(  If
+separating the server logic and entity drawing is ever required, I
+originally thought that the Visitor pattern would come in handy.
+However, the Visitor pattern does not work well when the node types
+you can visit are a primary source of change.  Since they are probably
+the greatest source of change in the system, I devised (at least
+conceptually, I haven't tried to implement this yet) a system where
+the server would have a list of Entity types, and the client would
+have a list of EntityRenderer objects that are responsible for
+converting entities into scene graph nodes.  This way, the server is
+decoupled from any knowledge of how objects are drawn, and new
+types of entities can be easily added to the system.  If a new kind of
+entity is added to the server, the client must add a corresponding
+EntityRenderer object and associate it with the type of entity on the
+server.  If the client is told to draw an entity which it doesn't know
+about, it would fall back on a default UnknownEntityRenderer to draw it.
 
 I am not sure we will implement this for the next iteration, but in
 the completed system, the Composite pattern is required.
@@ -88,8 +96,3 @@ windows.  Each subobject would be represented as a distinct object (or
 composite object) combined with a group object.  The child objects
 would be positioned and oriented within the world relative to the
 center of the group object.
-
-For this iteration, we plan to convert the communication architecture
-over to RMI and implement the visitor pattern for generating scene
-graph nodes on the client.  We will also add functionality for
-creating new objects within the world.
