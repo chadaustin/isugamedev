@@ -34,7 +34,8 @@
 #include "Camera.h"
 #include "Tank.h"
 #include "Bullet.h"
-
+#include "World.h"
+#include "ObjImporter.h"
 
 
 // Provide functionality to automatically use different lights.
@@ -68,6 +69,20 @@ public:
    }
    void init()
    {
+      kev::ObjImporter importer;
+      std::vector< GeoSet* > gset;
+      
+      //Load our tank model
+      importer.load( gset, "models/ship.obj" );
+
+      Entity *entity = new Entity();
+      std::vector< GeoSet* >::iterator itr;
+      for (itr = gset.begin(); itr != gset.end(); itr++) {
+         entity->addGeoSet( *itr );
+      }
+
+      //Put the tank in the world
+      world.add( entity );
    }
       
    float width, height;
@@ -77,6 +92,7 @@ public:
    Camera camera;
    Light light;
    StopWatch stopWatch;
+   World world;
 };
 App app;
 
@@ -137,7 +153,8 @@ static void OnRedisplay()
       glEnable( GL_LIGHTING );
       kev::glRender( app.light );
   
-      app.tank.draw();
+//      app.tank.draw();
+      app.world.draw();
 
       // draw all of the bullets
       std::vector<Bullet *>::const_iterator citr;
@@ -173,6 +190,8 @@ static void OnRedisplay()
 static void OnIdle()
 {
    app.stopWatch.pulse();
+
+   app.world.update( app.stopWatch.timeInstant() );
 
    // the next 3 commands are dependent upon each other...
    app.tank.update( app.stopWatch.timeInstant() );

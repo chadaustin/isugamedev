@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-14 05:00:57 $
-//    $Revision: 1.1 $
+//    $Date: 2001-09-19 17:01:05 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -35,7 +35,7 @@
 #include <map>
 #include <fstream.h>
 
-#include "regexx/regexx.h"
+#include "regexx/regexx.hh"
 #include "CFileIO.h"
 
 #include "Vertex.h"
@@ -45,16 +45,13 @@
 #include "ImageManager.h"
 #include "GState.h"
 
-#include "OpenGL/glTexture.h"
+#include "GeoSet.h"
 
 namespace kev
 {
 class ObjImporter
 {
 public:
-   // this is the only func you need...
-   void load( std::vector< GeoSet* >& gset, const std::string& filename, bool flat = false );
-
    void loadMaterialLib( std::vector< GState* >& matlist, const std::string& pathToFiles, const std::string& fileNameWithoutPath )
    {
       std::string filetext;
@@ -164,11 +161,11 @@ public:
                   float b = atof( extractInfo.match[x].atom[3].str().c_str() );
 
                   if (matType == "Ka")
-                     gstate->mat.setAmbient( r, g, b );
+                     gstate->mat.setColor( Material::ambient, r, g, b );
                   else if (matType == "Kd")
-                     gstate->mat.setDiffuse( r, g, b );
+                     gstate->mat.setColor( Material::diffuse, r, g, b );
                   else if (matType == "Ks")
-                     gstate->mat.setSpecular( r, g, b );
+                     gstate->mat.setColor( Material::specular, r, g, b );
                }
             }
 
