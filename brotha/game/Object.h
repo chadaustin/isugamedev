@@ -17,7 +17,7 @@ namespace game {
       typedef UIDManager<Object,PRUint32>::UID UID;
    public:
       Object();
-      ~Object();
+      virtual ~Object();
 
       /**
        * Gets the unique ID associated with this object.

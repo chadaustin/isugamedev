@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Player.h,v $
- * Date modified: $Date: 2002-03-29 23:36:20 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-04-22 04:52:38 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -63,14 +63,14 @@ namespace game {
       Player( const std::string& name );
 
       /**
+       * Destroys this player.
+       */
+      virtual ~Player();
+
+      /**
        * Gets the unique ID associated with this player.
        */
       const UID& getUID() const;
-
-      /**
-       * Destroys this player.
-       */
-      ~Player();
 
       /**
        * Sets whether this player is accelerating.
