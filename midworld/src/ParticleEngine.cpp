@@ -37,8 +37,8 @@ namespace mw
 
    void ParticleEngine::draw() const
    {
-      const gmtl::Vec3f& camera_pos = mParticleCamera.getPos();
-      mParticleTexture->bind();
+       const gmtl::Vec3f& camera_pos = getGameState()->getCamera().getPos();
+     // mParticleTexture->bind();
 
       glPushAttrib(GL_LIGHTING_BIT | GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       {
@@ -64,11 +64,12 @@ namespace mw
       }
       glPopAttrib();
 
-      mParticleTexture->unbind();
+      //mParticleTexture->unbind();
    }
 
    void ParticleEngine::update(float dt)
    {
+      dt = .005;
       for(ParticleList::iterator i=mParticleGroup.begin(); i != mParticleGroup.end();)
       {
          Particle* particle = *i;
