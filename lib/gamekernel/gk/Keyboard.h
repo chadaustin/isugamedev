@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: Keyboard.h,v $
-// Date modified: $Date: 2003-02-09 07:43:03 $
-// Version:       $Revision: 1.17 $
+// Date modified: $Date: 2003-02-09 08:37:43 $
+// Version:       $Revision: 1.18 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -132,7 +132,9 @@ public:
       RCTRL = 269,
       F1 = 270, F2 = 271, F3 = 272, F4 = 273, F5 = 274, F6 = 275,
       F7 = 276, F8 = 277, F9 = 278, F10 = 279, F11 = 280, F12 = 281,
-      NumberOfKeys = 282 // make sure this number is bigger than the others.
+      LALT = 282, 
+      RALT = 283,
+      NumberOfKeys = 284 // make sure this number is bigger than the others.
    };
 
    /** constructor */
@@ -253,6 +255,8 @@ private:
       mMap["KEY_F10"] = Keyboard::F10;
       mMap["KEY_F11"] = Keyboard::F11;
       mMap["KEY_F12"] = Keyboard::F12;
+      mMap["KEY_RALT"] = Keyboard::RALT;
+      mMap["KEY_LALT"] = Keyboard::LALT;
    }
 };
 
