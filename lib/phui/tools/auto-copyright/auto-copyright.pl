@@ -28,7 +28,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#       $Id: auto-copyright.pl,v 1.6 2002-04-26 11:17:17 nonchocoboy Exp $
+#       $Id: auto-copyright.pl,v 1.7 2002-04-28 14:59:30 nonchocoboy Exp $
 #
 
 use File::Basename;
@@ -54,7 +54,7 @@ my $working_dir = "$opt_d" || ".";
 
 
 
-if ( $opt_h ) 
+if ( $opt_h )
 {
    helpText();
    exit 1;
@@ -63,8 +63,8 @@ if ( $opt_h )
 # execute the tags file, putting it's vars into scope.
 if($tags_file)
 {
-   unless ($return = do $tags_file) 
-   {      
+   unless ($return = do $tags_file)
+   {
        helpText();
        warn "couldn't parse $tags_file: $@"         if $@;
        warn "couldn't do $tags_file: $!"            unless defined $return;
@@ -123,11 +123,11 @@ sub helpText()
     print "\n\n";
 }
 
-sub makeRegexSafe( $$ ) 
+sub makeRegexSafe( $$ )
 {
    my $string = shift;
    my $regex_safe_string = shift;
-   
+
    $$regex_safe_string = $string;
    $$regex_safe_string =~ s/\./\\./gs;
    $$regex_safe_string =~ s/\*/\\*/gs;
@@ -139,79 +139,79 @@ sub makeRegexSafe( $$ )
 
 
 sub recurseFunc {
-    my $filename = shift;
+   my $filename = shift;
 
-    return unless checkName("$filename");
+   return unless checkName("$filename");
 
-    if ( ! open(INPUT, "$filename") ) 
-    {
-	warn "WARNING: Could not open $filename: $!\n";
-    } 
-    
-    else 
-    {
-	if ( ! open(OUTPUT, "> $filename.new") )
+   if ( ! open(INPUT, "$filename") )
+   {
+      warn "WARNING: Could not open $filename: $!\n";
+   }
+
+   else
+   {
+      if ( ! open(OUTPUT, "> $filename.new") )
+      {
+         warn "WARNING: Could not create new file: $!\n";
+      }
+
+      else
+      {
+         # gather every copyright together
+         my $all_copyrights;
+         foreach(@copyright)
          {
-	    warn "WARNING: Could not create new file: $!\n";
-	} 
-         
-         else 
+            $all_copyrights .= $_;
+         }
+
+         # gather each line of the source file into one string so we can do a subst across multiple lines.
+         my $file_contents;
+         while(<INPUT>)
          {
-            # gather every copyright together
-            my $all_copyrights;
-            foreach(@copyright)
-            {
-               $all_copyrights .= $_;
-            }            
+            $file_contents .= $_;
+         }
 
-            # gather each line of the source file into one string so we can do a subst across multiple lines.
-            my $file_contents;
-            while(<INPUT>)
-            {
-               $file_contents .= $_;
-            }
+         my $copyrights_plus_delimiters = "$newbegintag\n$all_copyrights$newendtag\n";
 
-            my $copyrights_plus_delimiters = "$newbegintag\n$all_copyrights$newendtag\n";
-            
-            # convert tags for use in a regex
-            $begintag_regex_safe = $begintag;
-            $endtag_regex_safe = $endtag;
-            makeRegexSafe( $begintag, \$begintag_regex_safe );
-            makeRegexSafe( $endtag, \$endtag_regex_safe );
-            
-            if ( $file_contents =~ s/($begintag_regex_safe*.*?$endtag_regex_safe[\r]?[\n]?)/$copyrights_plus_delimiters/s ) # not global, only first one...
-            {
-                print "Replacing the copyright in $filename ...\n";
-                
-                #print "old:\n";
-                #print $1;
-                
-                #print "new:\n";
-                #print $copyrights_plus_delimiters;
-            }
+         # convert tags for use in a regex
+         $begintag_regex_safe = $begintag;
+         $endtag_regex_safe = $endtag;
+         makeRegexSafe( $begintag, \$begintag_regex_safe );
+         makeRegexSafe( $endtag, \$endtag_regex_safe );
 
-            elsif ($opt_a)
-            {
-        	      print "Adding copyright to $filename ...\n";
-               print OUTPUT "$copyrights_plus_delimiters";
-            }
+         if ( $file_contents =~ s/($begintag_regex_safe*.*?$endtag_regex_safe[\r]?[\n]?)/$copyrights_plus_delimiters/s ) # not global, only first one...
+         {
+             print "Replacing the copyright in $filename ...\n";
 
-            else
-            {
-               print "$filename: No previous copyright, no replace.\n";
-            }
+             #print "old:\n";
+             #print $1;
 
-            # put the new file_contents to the output file.
-            print OUTPUT $file_contents;
+             #print "new:\n";
+             #print $copyrights_plus_delimiters;
+         }
 
-	    close(OUTPUT) or warn "WARNING: Could not save changes: $!\n";
+         elsif ($opt_a)
+         {
+            print "Adding copyright to $filename ...\n";
+            print OUTPUT "$copyrights_plus_delimiters";
+         }
 
-	    unlink("$filename");
-	    rename("$filename.new", "$filename");
-	}
+         else
+         {
+            print "$filename: No previous copyright, no replace.\n";
+         }
 
-	close(INPUT);
-    }
+         # put the new file_contents to the output file.
+         print OUTPUT $file_contents;
+
+         close(OUTPUT) or warn "WARNING: Could not save changes: $!\n";
+
+         unlink("$filename");
+         rename("$filename.new", "$filename");
+      }
+
+      close(INPUT);
+   }
 }
 
 sub checkName ($) {
