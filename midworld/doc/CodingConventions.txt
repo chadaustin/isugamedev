@@ -5,3 +5,4 @@
 - 4 spaces for indentations
 - One namespace for the entire project
 - Doxygen tags for comments.
+- The project copyright must added to the top of every file.
