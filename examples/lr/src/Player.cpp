@@ -18,8 +18,8 @@ namespace lr
 
    Player::Player(Level& theLevel){
       mLevel = &theLevel;
-      realHeight = 32;
-      realPos = 768-64;
+      realHeight = 768-64;
+      realPos = 32;
       mTextureState = runright1;
 
       // init all the keys to not down
@@ -331,7 +331,7 @@ namespace lr
 
    bool Player::brickLeft()
    {
-      if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
+      if(mLevel->getEntityType(getGridPos()-1, getGridHeight())==brick && (int)realPos%32<=1)
       {
          return true;
       }

@@ -452,6 +452,8 @@ namespace lr
          return true;
       if((mLevel->getEntityType(getGridPos(), (getGridHeight()-1))!=brick) && (mLevel->getEntityType(getGridPos(), (getGridHeight()-1)!=ladder) && (int)realHeight%32==0) && (int)realPos%16!=0)
          return true;
+      if(mLevel->getEntityType(getGridPos()+1, getGridHeight()-1)==brick && (int)realPos%32>16)   
+         return true;
       if(realHeight<=0)
          return true;
       return false;
@@ -516,11 +518,10 @@ namespace lr
 
    bool BadGuy::brickLeft()
    {
-      if(mLevel->getEntityType(getGridPos()-1, getGridHeight())==brick && (int)realPos%32>=16)
+      if(mLevel->getEntityType(getGridPos()-1, getGridHeight())==brick && (int)realPos%32<=1)
          return true;
-      if((int)realHeight%32>8 && (mLevel->getEntityType(getGridPos()+1, getGridHeight()+1)==brick) && (int)realPos%32<16)
+      if((int)realHeight%32>8 && (mLevel->getEntityType(getGridPos(), getGridHeight()+1)==brick))
          return true;
-      return false;
       return false;
    }
 
