@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-16 04:57:38 $
- * Version:       $Revision: 1.56 $
+ * Date modified: $Date: 2002-10-16 09:14:23 $
+ * Version:       $Revision: 1.57 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,7 +44,9 @@
 #include "OpenSGSceneViewer.h"
 #include "GameManager.h"
 
+
 #include "Enemy.h"
+#include "Turret.h"
 #include "AmmoCrate.h"
 
 namespace mw
@@ -114,10 +116,11 @@ namespace mw
       //XXX hack for testing aiNodes for the aiSystem
       node1 = new lm::aiNode("Ben", NULL, -1, 1);
       node2 = new lm::aiNode("Chad", node1, -1, 1);
+  
+      Turret* enemy1 = new Turret();
 
 
 
-      Enemy* enemy1 = new Enemy();
       Enemy* enemy2 = new Enemy();
       gmtl::Point3f inPos1(5.0,0.0,-5.0);
       enemy1->setPos(inPos1);
@@ -152,6 +155,7 @@ namespace mw
 
  //     node1Instinct = new lm::instinct(node1->mInstinctManager, first, myTestCommand);
 
+//      node2Instinct = new lm::reflex(node2, second, myTestCommand);
       node2Instinct = new lm::reflex(node2->mReflexManager, second, myTestCommand);
 
       AI.registerNode(node1);
