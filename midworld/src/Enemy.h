@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Enemy.h,v $
- * Date modified: $Date: 2002-07-29 04:20:36 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-07-29 05:48:35 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,6 +48,7 @@ namespace mw
        * Constructor
        */
       Enemy()
+         : mHealth(10)
       {
          srand(5);
       }
@@ -90,7 +91,20 @@ namespace mw
       bool isExpired() const
       {
          /// @todo   some complicated test of our state
-         return false;
+         return (mHealth == 0);
+      }
+
+      void onCollisionEntry(const CollisionEvent& evt)
+      {
+         --mHealth;
+      }
+
+      void onCollisionMovement(const CollisionEvent& evt)
+      {
+      }
+
+      void onCollisionExit(const CollisionEvent& evt)
+      {
       }
 
    private:

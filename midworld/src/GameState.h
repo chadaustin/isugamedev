@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-07-29 04:51:05 $
- * Version:       $Revision: 1.28 $
+ * Date modified: $Date: 2002-07-29 05:48:35 $
+ * Version:       $Revision: 1.29 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -94,7 +94,7 @@ namespace mw
        * @param body       the body whose dynamics will be updated
        * @param dt         the time differential in seconds
        */
-      void updateDynamics(RigidBody* body, float dt);
+      void updateDynamics(Entity* body, float dt);
 
       /**
        * Deletes and removes from the game all entities that have marked

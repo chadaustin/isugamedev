@@ -23,74 +23,62 @@
  * Boston, MA 02111-1307, USA.
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: BaseBullet.h,v $
+ * File:          $RCSfile: CollisionEvent.h,v $
  * Date modified: $Date: 2002-07-29 05:48:35 $
- * Version:       $Revision: 1.3 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#ifndef MW_BASE_BULLET_H
-#define MW_BASE_BULLET_H
+#ifndef MW_COLLISION_EVENT_H
+#define MW_COLLISION_EVENT_H
 
-#include "Entity.h"
+#include "CollisionDesc.h"
 
 namespace mw
 {
    /**
-    * This class represents the base bullet from which all guns derive
-    * their bullet types.
+    * @ingroup CollDet
+    *
+    * An event which indicates that a collision action has occurred with respect
+    * to a rigid body.
     */
-   class BaseBullet: public Entity
+   class CollisionEvent
    {
    public:
       /**
-       * Constructor
+       * Constructs a CollisionEvent object with the specified source object and
+       * collision description.
+       *
+       * @param source     the RigidBody that is the collider
+       * @param desc       a description of the collision
        */
-      BaseBullet() :  mExistCount(0), mTimeOut(5)
-      {
-      }
+      CollisionEvent(RigidBody* source, CollisionDesc* desc)
+         : mSource(source), mDesc(desc)
+      {}
+
       /**
-       * Destructor
+       * Gets the source of the collision. This is the collider.
        */
-      ~BaseBullet()
+      RigidBody* getSource() const
       {
+         return mSource;
       }
+
       /**
-       * Update this bullet based on the time that has passed.
-       * @param dt the amount of time in seconds that has passed
+       * Gets a description of the collision.
        */
-      virtual void update(float dt)
+      CollisionDesc* getDesc() const
       {
-         mExistCount += dt;
-         Entity::update(dt);
+         return mDesc;
       }
 
-      bool isExpired() const
-      {
-         return (mExistCount >= mTimeOut);
-      }
+   private:
+      /// The source, or collider, of the collision.
+      RigidBody* mSource;
 
-      void onCollisionEntry(const CollisionEvent& evt)
-      {
-         // Make sure we die next frame
-         mExistCount = mTimeOut;
-      }
-
-      void onCollisionMovement(const CollisionEvent& evt)
-      {
-      }
-
-      void onCollisionExit(const CollisionEvent& evt)
-      {
-      }
-
-   protected:
-      /// The amount of time that this bullet has existed in the GameState
-      float mExistCount;
-
-      /// The amount of time this bullet is allowed to stay in the GameState
-      float mTimeOut;
+      /// The description of the collision.
+      CollisionDesc* mDesc;
    };
+}
 
-}//end of namespace mw
 #endif

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-29 04:56:56 $
- * Version:       $Revision: 1.24 $
+ * Date modified: $Date: 2002-07-29 05:48:35 $
+ * Version:       $Revision: 1.25 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -246,7 +246,7 @@ namespace mw
       }
    }
 
-   void GameState::updateDynamics(RigidBody* body, float dt)
+   void GameState::updateDynamics(Entity* body, float dt)
    {
       float remaining_dt = dt;
       const gmtl::Vec3f& orig_vel = body->getVel();
@@ -285,8 +285,14 @@ namespace mw
          // Update the body to the point of the collision
          body->update(time_to_coll);
 
+         // Notify the collider and the collidee of the collision
+         CollisionEvent evt(body, desc);
+         body->onCollisionEntry(evt);
+         Entity* collidee = (Entity*)desc->getCollidee();
+         collidee->onCollisionEntry(evt);
+
          // Stop the body for now
-         body->setVel(gmtl::Vec3f());
+//         body->setVel(gmtl::Vec3f());
 
          // Be good and clean up our collision desc
          delete desc;
@@ -295,6 +301,10 @@ namespace mw
 
    void GameState::reapDeadEntities()
    {
+      std::cout<<"Reap Pass"<<std::endl;
+      int old_size = mEntities.size();
+      int dead = 0;
+      std::cout<<"\tOld Size: "<<old_size<<std::endl;
       for (EntityList::iterator itr = mEntities.begin(); itr != mEntities.end(); )
       {
          Entity* entity = (*itr);
@@ -303,12 +313,15 @@ namespace mw
             mSpatialIndex->remove(entity);
             delete entity;
             mEntities.erase(itr);
+            ++dead;
          }
          else
          {
             ++itr;
          }
       }
+      std::cout<<"\tKilled: "<<dead<<std::endl;
+      std::cout<<"\tNew Size: "<<(mEntities.size())<<std::endl;
    }
 
    void GameState::add(Entity* entity)
