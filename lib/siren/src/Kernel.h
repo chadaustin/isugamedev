@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.h,v $
- * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-16 06:44:54 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -44,9 +44,17 @@ namespace siren
     */
    class Kernel
    {
-   public:
+   private:
       Kernel();
+
+      /// Not implemented on purpose. Usage will cause a compile-time error.
+      Kernel(const Kernel& kernel);
+
+   public:
       ~Kernel();
+
+   public:
+      static Kernel& getInstance();
 
       /**
        * Updates this kernel based on the amount of time that has passed since
@@ -56,7 +64,28 @@ namespace siren
        */
       void update(float dt);
 
-      void draw();
+      /**
+       * Renders the application in its current state.
+       */
+      void draw() const;
+
+      /**
+       * Gets the current state in this kernel.
+       *
+       * @return  the current state or NULL if there is no current state
+       */
+      StatePtr getState() const;
+
+      /**
+       * Sets the next state to switch to. The transition will occur at the
+       * beginning of the next update
+       *
+       * @param state      the name of the state to switch to
+       *
+       * @throws std::runtime_error    if there is no state with the given name
+       */
+      void transitionTo(const std::string& name);
+
       void resize(int width, int height);
       void onKeyPress(SDLKey sym, bool down);
       void onMousePress(Uint8 button, bool down, int x, int y);
@@ -76,9 +105,9 @@ namespace siren
 
       /// The state to switch to the next time the app is updated.
       StatePtr mNextState;
-   };
 
-   typedef boost::shared_ptr<Kernel> KernelPtr;
+      static Kernel* mInstance;
+   };
 }
 
 #endif

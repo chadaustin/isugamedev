@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StateFactory.cpp,v $
- * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-16 06:44:54 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -61,16 +61,17 @@ namespace siren
    }
 
    StatePtr
-   StateFactory::create(const std::string& name, KernelPtr kernel)
+   StateFactory::create(const std::string& name)
    {
       CreatorMap::iterator itr = mCreators.find(name);
       if (itr != mCreators.end())
       {
-         return itr->second->create(kernel);
+         std::cout << "Creating state " << name << std::endl;
+         return itr->second->create();
       }
       else
       {
-         throw std::runtime_error("Could not instantiate state: " + name);
+         throw std::runtime_error("Could not instantiate state: '" + name + "'");
       }
    }
 

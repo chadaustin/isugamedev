@@ -23,18 +23,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.h,v $
- * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-16 06:44:54 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
 #ifndef SIREN_STATE_H
 #define SIREN_STATE_H
 
-#include <boost/weak_ptr.hpp>
+#include <boost/shared_ptr.hpp>
 #include <string>
 #include <SDL.h>
-#include "Kernel.h"
 
 namespace siren
 {
@@ -44,18 +43,15 @@ namespace siren
     */
    class State
    {
-   protected:
+   public:
       /**
-       * Creates a new state that will be run in the given kernel.
-       *
-       * @param kernel     the kernel which is executing this state.
+       * Creates a new state that will be run in the kernel.
        */
-      State(KernelPtr kernel);
+      State();
 
       /// Destroys (and exits) this state.
       virtual ~State();
 
-   public:
       /**
        * Updates this state based on the amount of time that has passed since
        * the last frame.
@@ -70,9 +66,6 @@ namespace siren
       virtual void onKeyPress(SDLKey sym, bool down);
       virtual void onMousePress(Uint8 button, bool down, int x, int y);
       virtual void onMouseMove(int x, int y);
-
-      /// Gets the application that is running this state.
-      KernelPtr getKernel() const;
 
       /**
        * Invokes a transition to the state of the given name. The transition
@@ -103,9 +96,6 @@ namespace siren
 
       /// True if this state is requesting that the application exits.
       bool mIsQuitting;
-
-      /// The kernel that is executing this state.
-      boost::weak_ptr<Kernel> mKernel;
    };
 
    typedef boost::shared_ptr<State> StatePtr;

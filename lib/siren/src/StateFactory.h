@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: StateFactory.h,v $
- * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-16 06:44:54 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -34,11 +34,11 @@
 #include <string>
 #include <map>
 #include "State.h"
-#include "Kernel.h"
 
 namespace siren
 {
    class StateCreator;
+   typedef boost::shared_ptr<StateCreator> StateCreatorPtr;
 
    /**
     * This singleton knows how to create States based on a given name
@@ -65,11 +65,10 @@ namespace siren
        * state is associated with the given name, this method returns NULL.
        *
        * @param name    the name of the state to create
-       * @param kernel  the kernel in which the state is being used
        *
        * @return  a new State implementation if successful, NULL otherwise
        */
-      StatePtr create(const std::string& name, KernelPtr kernel);
+      StatePtr create(const std::string& name);
 
       /**
        * Registers the given StateCreator with this factory under the given
@@ -112,7 +111,7 @@ namespace siren
       /**
        * Creates a new State object.
        */
-      virtual StatePtr create(KernelPtr kernel) = 0;
+      virtual StatePtr create() = 0;
    };
 
    /**
@@ -132,9 +131,9 @@ namespace siren
       ~StateCreatorImpl()
       {}
 
-      virtual StatePtr create(KernelPtr kernel)
+      virtual StatePtr create()
       {
-         return StatePtr(StateType(kernel));
+         return StatePtr(StateType());
       }
    };
 }

@@ -23,20 +23,19 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.cpp,v $
- * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-16 06:44:54 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
 #include <assert.h>
-#include "StateFactory.h"
 #include "State.h"
+#include "StateFactory.h"
 
 namespace siren
 {
-   State::State(KernelPtr kernel)
+   State::State()
       : mIsQuitting(false)
-      , mKernel(kernel)
    {}
 
    State::~State()
@@ -54,18 +53,10 @@ namespace siren
    State::onMouseMove(int x, int y)
    {}
 
-   KernelPtr
-   State::getKernel() const
-   {
-      KernelPtr kernel = boost::make_shared(mKernel);
-      assert(kernel.get());
-      return kernel;
-   }
-
    void
    State::invokeTransition(const std::string& name)
    {
-      mNextState = StateFactory::getInstance().create(name, getKernel());
+      mNextState = StateFactory::getInstance().create(name);
    }
 
    StatePtr

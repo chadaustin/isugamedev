@@ -23,16 +23,20 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.cpp,v $
- * Date modified: $Date: 2003-01-09 08:34:52 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-16 06:44:54 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
 #include "Kernel.h"
 #include "State.h"
+#include "StateFactory.h"
 
 namespace siren
 {
+   // Init the singleton instance of Kernel
+   Kernel* Kernel::mInstance = 0;
+
    Kernel::Kernel()
       : mWidth(0)
       , mHeight(0)
@@ -40,6 +44,16 @@ namespace siren
 
    Kernel::~Kernel()
    {}
+
+   Kernel&
+   Kernel::getInstance()
+   {
+      if (!mInstance)
+      {
+         mInstance = new Kernel();
+      }
+      return *mInstance;
+   }
 
    void
    Kernel::update(float dt)
@@ -50,17 +64,35 @@ namespace siren
          mState = mNextState;
       }
 
-      // Let the current state do its update
-      mState->update(dt);
+      if (mState)
+      {
+         // Let the current state do its update
+         mState->update(dt);
 
-      // Store the transition to the next state
-      mNextState = mState->getNext();
+         // Store the transition to the next state
+         mNextState = mState->getNext();
+      }
    }
 
    void
-   Kernel::draw()
+   Kernel::draw() const
    {
-      mState->draw();
+      if (mState)
+      {
+         mState->draw();
+      }
+   }
+
+   StatePtr
+   Kernel::getState() const
+   {
+      return mState;
+   }
+
+   void
+   Kernel::transitionTo(const std::string& name)
+   {
+      mNextState = StateFactory::getInstance().create(name);
    }
 
    void
@@ -91,7 +123,11 @@ namespace siren
    bool
    Kernel::shouldQuit()
    {
-      return mState->isQuitting();
+      if (mState)
+      {
+         return mState->isQuitting();
+      }
+      return false;
    }
 
    int
