@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Kernel.h,v $
- * Date modified: $Date: 2003-02-07 04:35:29 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-02-14 05:39:11 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -107,6 +107,8 @@ namespace siren
       /// The state to switch to the next time the app is updated.
       StatePtr mNextState;
    };
+
+   typedef boost::shared_ptr<Kernel> KernelPtr;
 }
 
 #endif
