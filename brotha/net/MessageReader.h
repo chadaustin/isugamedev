@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MessageReader.h,v $
- * Date modified: $Date: 2002-05-02 09:12:02 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-05-03 07:01:48 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -67,6 +67,10 @@
 #include "GarageDataMessage.h"
 #include "RequestGarageDataMessage.h"
 #include "ChangeLocationMessage.h"
+#include "BuyCarMessage.h"
+#include "SellCarMessage.h"
+#include "BuyModMessage.h"
+#include "SellModMessage.h"
 
 namespace net {
 
@@ -151,6 +155,22 @@ namespace net {
 
             case ChangeLocation:
                msg = new ChangeLocationMessage();
+               break;
+
+            case BuyCar:
+               msg = new BuyCarMessage();
+               break;
+
+            case SellCar:
+               msg = new SellCarMessage();
+               break;
+
+            case BuyMod:
+               msg = new BuyModMessage();
+               break;
+
+            case SellMod:
+               msg = new SellModMessage();
                break;
 
             default:

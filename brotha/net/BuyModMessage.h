@@ -12,9 +12,9 @@
  *    Ben Scott <bscott@iastate.edu>
  *
  * -----------------------------------------------------------------
- * File:          $RCSfile: MessageTypes.h,v $
+ * File:          $RCSfile: BuyModMessage.h,v $
  * Date modified: $Date: 2002-05-03 07:01:48 $
- * Version:       $Revision: 1.10 $
+ * Version:       $Revision: 1.1 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -41,37 +41,65 @@
  *
  ************************************************************ brotha-cpr-end */
 
-#ifndef NET_MESSAGE_TYPES_H
-#define NET_MESSAGE_TYPES_H
+#ifndef NET_BUY_MOD_MESSAGE_H
+#define NET_BUY_MOD_MESSAGE_H
+
+
+#include <string>
+#include "Message.h"
+#include "MessageTypes.h"
+#include "Serialize.h"
 
 
 namespace net {
 
-   enum MessageType {
-      Login, ///< client sends to login
-      Disconnect, ///< client sends to disconnection from game
-      OK, ///< generic response object
-      JoinAs, ///< client sends to join game
-      Enter, ///< server sends to place client in a location
-      Resync, ///< client sends to request resyncing world
-      AddObj, ///< seerver sends to add an object
-      UpdateObj, ///< server sends to update an object
-      DelObj, ///< server sends to delete an object
-      AddPlayer, ///< server sends to add a player
-      UpdatePlayer, ///< server sends to update a player object
-      DelPlayer, ///< server sends to remove an object
-      UpdatePlayerInfo, ///< client sends to update its info
-      GarageData, ///< server sends data for the garage
-      RequestGarageData, ///< client sends to request garage data
-      ChangeLocation, ///< client sends to request to switch between garage/game
-      BuyCar, ///< client wants to buy a car
-      SellCar, ///< client wants to sell a car
-      BuyMod, ///< client wants to buy a mod
-      SellMod ///< client wants to sell a mod
-      //...
-   }; // MessageType
+   /**
+    * Client will send this to buy a mod
+    */
+   class BuyModMessage : public Message {
+   public:
+      BuyModMessage(std::string carName = "", std::string modName = "", int modLevel = 0) {
+         mCarName = carName;
+         mModName = modName;
+         mModLevel = modLevel;
+      }
 
-} // namespace net
+      PRUint32 getType() const {
+         return BuyMod;
+      }
 
+      PRUint32 getSize() {
+         return sizes::getVarSize(mCarName) + 
+                sizes::getVarSize(mModName) +
+                sizes::getVarSize(mModLevel);
+      }
 
-#endif // NET_MESSAGE_TYPES_H
+      std::string& getCarName() {
+         return mCarName;
+      }
+
+      std::string& getModName() {
+         return mModName;
+      }
+
+      int getModLevel() {
+         return (int)mModLevel;
+      }
+
+      void serialize(OutputStream& os) {
+         os << mCarName << mModName << mModLevel;
+      }
+
+      void deserialize(InputStream& is) {
+         is >> mCarName >> mModName >> mModLevel;
+      }
+
+   private:
+      std::string mCarName;
+      std::string mModName;
+      PRFloat64 mModLevel;
+   };
+
+}
+
+#endif
