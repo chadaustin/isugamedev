@@ -15,9 +15,9 @@ sources = map(lambda fn: fn + '.cpp', sources)
 
 LIBS = ['phui']
 if sys.platform == 'cygwin':
-    LIBS += ['glut32', 'opengl32', 'glu32']
+    LIBS.extend(['glut32', 'opengl32', 'glu32'])
 else:
-    LIBS += ['glut', 'GLU', 'GL']
+    LIBS.extend(['glut', 'GLU', 'GL'])
 
 env = Environment(CPPPATH='#', LIBPATH='#phui', LIBS=LIBS)
 env.Program(target = 'window', source = headers + sources)
