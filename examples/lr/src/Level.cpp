@@ -42,10 +42,22 @@ namespace lr
 
    void Level::update(float dt)
    {      
+      // if the player died then we remove all the blocks from the removedBlock
+      // list
+      if(nextLevel)
+      {
+         for(std::list<Block*>::iterator itr = removedBlocks.begin(); itr != removedBlocks.end(); itr++)
+         {
+            removedBlocks.erase(itr);
+            itr = removedBlocks.end();
+         }
+      }
+      
       // first add in dt then check to see if time is > 3 if it is remove it from the list
-      for (std::list<Block*>::iterator itr = removedBlocks.begin(); itr != removedBlocks.end(); ++itr)
+      for (std::list<Block*>::iterator itr = removedBlocks.begin(); itr != removedBlocks.end(); itr++)
       {
          (*itr)->time+=dt;
+         std::cout << "time: " << (*itr)->time << "\ndead?: " << mPlayer->amDead() << "\nnextLevel: " << nextLevel << std::endl;
          if((*itr)->time>3.0)
          {
             setBrick((*itr)->pos, (*itr)->height);
@@ -140,8 +152,54 @@ namespace lr
       delete moneyImage;
    }
 
-   void Level::readLevelFile(Player* p, BadGuy* b)
+   void Level::readLevelFile(Player* p)
    {
+      mPlayer = p;
+      numBags=0;
+      std::ifstream in;
+      in.open(currentLevelFile.c_str());
+      int temp;
+      int nextBadGuy=0;
+      for(int i=0;i<24;i++) // for all the rows
+      {
+         for(int j=0;j<32;j++) // for all the columns
+         {
+            in >> temp;
+            if(temp==0)
+            {
+               mLevel[j][i] = empty;
+            }else if(temp==1)
+            {
+               mLevel[j][i] = brick;
+            }else if(temp==2)
+            {
+               mLevel[j][i] = ladder;
+            }else if(temp==3)
+            {
+               mLevel[j][i] = wire;
+            }else if(temp==4)
+            {
+               mLevel[j][i] = money;
+               numBags++;
+            }else if(temp==5){
+               mLevel[j][i] = empty;
+            }
+            else if(temp==6){
+               mLevel[j][i] = empty;
+               p->setHeight(i*32);
+               p->setPos(j*32);
+               p->setInitHeight(i*32);
+               p->setInitPos(j*32);
+            }
+         }
+      }
+      in.close();
+   }
+
+   void Level::readLevelFile(Player* p, std::vector<BadGuy*>& badGuys)
+   {
+      mPlayer = p;
+      badGuys.clear();
       numBags=0;
       std::ifstream in;
       in.open(currentLevelFile.c_str());
@@ -167,13 +225,15 @@ namespace lr
             {
                mLevel[j][i] = money;
                numBags++;
-               std::cout << "numBags: " << numBags << std::endl;
             }else if(temp==5){
                mLevel[j][i] = empty;
+               BadGuy* b = new BadGuy(*this, *p);
                b->setHeight(i*32);
                b->setPos(j*32);
                b->setInitHeight(i*32);
                b->setInitPos(j*32);
+               mBadGuys.push_back(b);
+               badGuys.push_back(b);
             }
             else if(temp==6){
                mLevel[j][i] = empty;
@@ -185,6 +245,12 @@ namespace lr
          }
       }
       in.close();
+   }
+
+   void Level::resetBadGuys()
+   {
+      for(int i=0;i<mBadGuys.size();i++)
+         mBadGuys[i]->reset();
    }
 
    void Level::loadLevelFiles(std::vector<std::string> theLevels)

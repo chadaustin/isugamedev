@@ -145,23 +145,8 @@ namespace lr
          return changeState;
       }
 
-      void reset()
-      {
-         initTime = 0.0;
-
-         // set lives to 1
-         numLives = 3;
-
-         // set the score to 0
-         score = 0;
-
-         die=false;
-         dieTime=3.3;
-
-         changeState=false;
-         gameOver=false;
-         gameOverTime=0.0;
-      }
+      void reset();
+      void levelReset();
          
       
    private:

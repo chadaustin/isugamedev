@@ -21,6 +21,8 @@ namespace lr
       if(gameOver)
       {
          gameOverTexture->drawRectangle(256,512,768,256);
+//         mLevel->resetToFirstLevel();
+//         mLevel->readLevelFile(this);
       }
    }
 
@@ -364,6 +366,35 @@ namespace lr
       }
       return false;
    }
+   
+   void Player::levelReset()
+   {
+      initTime = 0.0;
+      realPos = initPos;
+      realHeight = initHeight;
+   }
+   
+   void Player::reset()
+   {
+      initTime = 0.0;
+
+      // set lives to 1
+      numLives = 3;
+
+      // set the score to 0
+      score = 0;
+
+      die=false;
+      dieTime=3.3;
+
+      changeState=false;
+      gameOver=false;
+      gameOverTime=0.0;
+      realPos = initPos;
+      realHeight = initHeight;
+
+   }
+
    
    bool Player::solidUnder()
    {

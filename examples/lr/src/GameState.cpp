@@ -32,11 +32,9 @@ namespace lr
       // now that we have the level we create the player and give him the level
       // to work with
       mPlayer = new Player(*mLevel);
-      // then a bad guy and give him the level and the player to find
-      mBadGuy = new BadGuy(*mLevel, *mPlayer);
       
       // now read the first level
-      mLevel->readLevelFile(mPlayer, mBadGuy);
+      mLevel->readLevelFile(mPlayer, mBadGuys);
       
       
 
@@ -49,60 +47,94 @@ namespace lr
       // initialize transitions to false
       transition = false;
 
-      /** now get the AI ready to go */
-      badGuy1 = new lm::aiNode("Ben", NULL, 0, 1);
-      badGuy2 = new lm::aiNode("Josh", NULL, 0, 1);
+      setupBadGuys();
       
-      moveLeftCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveLeft); 
-      moveRightCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveRight);
-      moveUpCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveUp);
-      moveDownCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveDown);
-
-      chooseNewGoalCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::chooseNextGoal);
-      moveToGoalCommand = new lm::simpleCommand<BadGuy>(mBadGuy, &BadGuy::moveToGoal);
-
-      moveLeftBehavior = new lm::behavior;
-      moveRightBehavior = new lm::behavior;
-      moveUpBehavior = new lm::behavior;
-      moveDownBehavior = new lm::behavior;
       
-      chooseNewGoalBehavior = new lm::behavior;
-      goTowardGoalBehavior = new lm::behavior;
-
-      moveLeftBehavior->addCommand(moveLeftCommand);
-      moveRightBehavior->addCommand(moveRightCommand);
-      moveUpBehavior->addCommand(moveUpCommand);
-      moveDownBehavior->addCommand(moveDownCommand);
-      
-      chooseNewGoalBehavior->addCommand(chooseNewGoalCommand);
-      goTowardGoalBehavior->addCommand(moveToGoalCommand);
-      
-      playerIsLeftTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerLeft);
-      playerIsRightTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerRight);
-      playerIsUpTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerAbove);
-      playerIsDownTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isPlayerBelow);
-
-      atGoalTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::isAtGoal);
-      notAtGoalTest = new lm::nodeTestCommand<BadGuy>(mBadGuy, &BadGuy::notAtGoal);
-
-      // these two reflexes are for if the player is directly left or right of us
-      mReflex1 = new lm::reflex(badGuy1, moveLeftBehavior, playerIsLeftTest);
-      mReflex2 = new lm::reflex(badGuy1, moveRightBehavior, playerIsRightTest);
-//      mReflex3 = new lm::reflex(badGuy1, moveUpBehavior, playerIsUpTest);
-//      mReflex4 = new lm::reflex(badGuy1, moveDownBehavior, playerIsDownTest);
-
-      mReflex4 = new lm::reflex(badGuy1, goTowardGoalBehavior, notAtGoalTest);
-      mReflex3 = new lm::reflex(badGuy1, chooseNewGoalBehavior, atGoalTest);
       
       
 
-      AI.registerNode(badGuy1);
    }
 
    GameState::~GameState()
    {
       delete mLevel;
 
+   }
+
+   void GameState::setupBadGuys()
+   {
+      for(int i=0;i<mBadGuys.size();i++)
+      {
+         badGuy1 = new lm::aiNode(NULL,0,0);
+         
+         lm::command* moveLeftCommand; 
+         lm::command* moveRightCommand;
+         lm::command* moveUpCommand;
+         lm::command* moveDownCommand;
+         lm::command* chooseNewGoalCommand;
+         lm::command* moveToGoalCommand;
+
+         lm::behavior* moveLeftBehavior;
+         lm::behavior* moveRightBehavior;
+         lm::behavior* moveUpBehavior;
+         lm::behavior* moveDownBehavior;
+         lm::behavior* chooseNewGoalBehavior;
+         lm::behavior* goTowardGoalBehavior;
+         
+         lm::testing* playerIsLeftTest;
+         lm::testing* playerIsRightTest;
+         lm::testing* playerIsUpTest;
+         lm::testing* playerIsDownTest;
+         lm::testing* atGoalTest;
+         lm::testing* notAtGoalTest;
+
+         lm::reflex* mReflex1;
+         lm::reflex* mReflex2;
+         lm::reflex* mReflex3;
+         lm::reflex* mReflex4;
+
+
+         moveLeftCommand = new lm::simpleCommand<BadGuy>(mBadGuys[i], &BadGuy::moveLeft); 
+         moveRightCommand = new lm::simpleCommand<BadGuy>(mBadGuys[i], &BadGuy::moveRight);
+         moveUpCommand = new lm::simpleCommand<BadGuy>(mBadGuys[i], &BadGuy::moveUp);
+         moveDownCommand = new lm::simpleCommand<BadGuy>(mBadGuys[i], &BadGuy::moveDown);
+
+         chooseNewGoalCommand = new lm::simpleCommand<BadGuy>(mBadGuys[i], &BadGuy::chooseNextGoal);
+         moveToGoalCommand = new lm::simpleCommand<BadGuy>(mBadGuys[i], &BadGuy::moveToGoal);
+
+         moveLeftBehavior = new lm::behavior;
+         moveRightBehavior = new lm::behavior;
+         moveUpBehavior = new lm::behavior;
+         moveDownBehavior = new lm::behavior;
+         
+         chooseNewGoalBehavior = new lm::behavior;
+         goTowardGoalBehavior = new lm::behavior;
+
+         moveLeftBehavior->addCommand(moveLeftCommand);
+         moveRightBehavior->addCommand(moveRightCommand);
+         moveUpBehavior->addCommand(moveUpCommand);
+         moveDownBehavior->addCommand(moveDownCommand);
+         
+         chooseNewGoalBehavior->addCommand(chooseNewGoalCommand);
+         goTowardGoalBehavior->addCommand(moveToGoalCommand);
+         
+         playerIsLeftTest = new lm::nodeTestCommand<BadGuy>(mBadGuys[i], &BadGuy::isPlayerLeft);
+         playerIsRightTest = new lm::nodeTestCommand<BadGuy>(mBadGuys[i], &BadGuy::isPlayerRight);
+         playerIsUpTest = new lm::nodeTestCommand<BadGuy>(mBadGuys[i], &BadGuy::isPlayerAbove);
+         playerIsDownTest = new lm::nodeTestCommand<BadGuy>(mBadGuys[i], &BadGuy::isPlayerBelow);
+
+         atGoalTest = new lm::nodeTestCommand<BadGuy>(mBadGuys[i], &BadGuy::isAtGoal);
+         notAtGoalTest = new lm::nodeTestCommand<BadGuy>(mBadGuys[i], &BadGuy::notAtGoal);
+
+         // these two reflexes are for if the player is directly left or right of us
+         mReflex1 = new lm::reflex(badGuy1, moveLeftBehavior, playerIsLeftTest);
+         mReflex2 = new lm::reflex(badGuy1, moveRightBehavior, playerIsRightTest);
+ 
+         mReflex4 = new lm::reflex(badGuy1, goTowardGoalBehavior, notAtGoalTest);
+         mReflex3 = new lm::reflex(badGuy1, chooseNewGoalBehavior, atGoalTest);
+
+         AI.registerNode(badGuy1);
+      }
    }
 
    void GameState::draw()
@@ -164,27 +196,32 @@ namespace lr
       // create the game viewport where the game is displayed then draw all the
       // contents of the game there
       glViewport(0,32,this->getApp().getWidth(),this->getApp().getHeight()-32);
-      mLevel->draw();
-      mPlayer->draw();
-      mBadGuy->draw();
-      
+      if(mPlayer->getLives()!=0)
+      {
+         mLevel->draw();
+      }
+         mPlayer->draw();
+         for(int i=0;i<mBadGuys.size();i++)
+            mBadGuys[i]->draw();
       transition = false;
    }
 
    void GameState::update(float dt)
    {
+      if(mPlayer->getLives()==0)
+      {
+         mLevel->resetToFirstLevel();
+         mLevel->readLevelFile(mPlayer, mBadGuys);
+      }
+      
       bool first=true;
       bool done=false;
-      std::cout << "num gabs: " << mLevel->getNumBags() << std::endl;
       if(mLevel->getNumBags()==0)  // if there is no money left then the player 
                                  // got all the money and we go to the next
                                  // level.
       {
          for(std::vector<std::string>::iterator itr=mLevel->getLevels().begin(); itr!=mLevel->getLevels().end() && !done;itr++)
          {
-            std::cout << "front: " << mLevel->getLevels().front() << std::endl;
-            std::cout << "itr: " << (*itr) << "." << std::endl;
-            std::cout << "currentLevel: " << mLevel->getCurrentLevel() << std::endl;
             if(first)
             {
                if(mLevel->getCurrentLevel()==mLevel->getLevels().front())
@@ -192,7 +229,8 @@ namespace lr
                   itr++;
                   mLevel->setCurrentLevel(*itr);
                   done=true;
-                  mLevel->readLevelFile(mPlayer, mBadGuy);
+                  mLevel->readLevelFile(mPlayer, mBadGuys);
+                  setupBadGuys();
                }
                first=false;
             }
@@ -202,23 +240,23 @@ namespace lr
                if(itr!=mLevel->getLevels().end())
                {
                   mLevel->setCurrentLevel(*itr);
-                  std::cout << "next level" << std::endl;
                }else
                {
                   mLevel->setCurrentLevel(mLevel->getLevels().front());
-                  std::cout << "At end: first level" << std::endl;
                }
                done=true;
-               mLevel->readLevelFile(mPlayer, mBadGuy);
+               mLevel->readLevelFile(mPlayer, mBadGuys);
+               setupBadGuys();
             }
          }
-
+         mLevel->nextLevel==true;
       }
       
       mLevel->update(dt);
       mScoreBoard->update(mPlayer->getScore(), mPlayer->getLives());
       
-      mBadGuy->update(dt);
+      for(int i=0;i<mBadGuys.size();i++)
+         mBadGuys[i]->update(dt);
       mPlayer->update(dt);
       AI.update();
    }
@@ -226,7 +264,7 @@ namespace lr
    int GameState::switchStates()
    {
       if(transition){
-         mLevel->readLevelFile(mPlayer, mBadGuy);
+         mLevel->readLevelFile(mPlayer, mBadGuys);
          mPlayer->setScore(0);
          mPlayer->setLives(3);
          return 1;
@@ -236,6 +274,11 @@ namespace lr
          mPlayer->setScore(0);
          mPlayer->setLives(3);
          mPlayer->reset();
+         for(int i=0;i<mBadGuys.size();i++)
+         {
+            mBadGuys[i]->reset();
+         }
+
          return 1;
       }
 	   return 0;
@@ -248,7 +291,8 @@ namespace lr
          transition = true;
       }
       mPlayer->handleKeyPress(sym, down);
-      mBadGuy->handleKeyPress(sym, down);
+      for(int i=0;i<mBadGuys.size();i++)
+         mBadGuys[i]->handleKeyPress(sym, down);
    }
 
 

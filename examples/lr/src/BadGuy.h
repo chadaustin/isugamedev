@@ -96,6 +96,14 @@ namespace lr
        * set the initial height of the badguy so we can reset to this pos
        */
       void setInitHeight(int h);
+
+      void reset()
+      {
+         realPos = initPos;
+         realHeight = initHeight;
+      }
+
+
            
       /**
        * this is the keypress handler, it stores which keys were pressed since
@@ -283,6 +291,33 @@ namespace lr
       
       
       
+   };
+
+   class BadGuyFactory
+   {
+   public:
+      /**
+       * if factory exists return factory otherwise call constructor and return
+       * the newly created factory
+       */
+      BadGuyFactory* instance()
+      {  
+         if(factory==NULL)
+            factory = new BadGuyFactory();
+         return factory;
+      }
+      
+/*      BadGuy* createBadGuy(lm::aiNode* badGuyNode)
+      {
+
+      }
+   */      
+      
+   private:
+      static BadGuyFactory* factory;
+      
+   protected: // singelton so constructor is in private
+      BadGuyFactory();
    };
 
 } // end namespace

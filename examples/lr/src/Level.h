@@ -33,8 +33,16 @@ namespace lr
 
       /**
        * this method reads the current level file in
+       * NOTE: the vector b will be modified
        */
-      void readLevelFile(Player* p, BadGuy* b);
+      void readLevelFile(Player* p, std::vector<BadGuy*>& b);
+
+      /**
+       * read a level file -- this is for if we need to call the read level file
+       * from within a badguy where we cannot have access to a list of badguys
+       * and therefore do not care about the list of badguys.
+       */
+      void readLevelFile(Player* p);
 
       /**
        * this method loads all the level files in the given vector into the
@@ -92,16 +100,25 @@ namespace lr
        */
       void draw();
 
+      /**
+       * decrements the number of bags in the level
+       */
       void numBagsDecr()
       {
          numBags--;
       }
 
+      /**
+       * sets the number of bags in the level
+       */
       void setNumBags(int i)
       {
          numBags=i;
       }
 
+      /**
+       * gets the number of bags remaining in the level
+       */
       int getNumBags()
       {
          return numBags;
@@ -112,7 +129,18 @@ namespace lr
        * with this level.
        */
       bool nextLevel;
-         
+
+      /**
+       * reset the levels so that currentLevel points to the first level in the
+       * vector
+       */
+      void resetToFirstLevel()
+      {
+         setCurrentLevel(levelFiles.front());
+      }
+
+      void resetBadGuys();
+      
    private:
       /**
        * this is a multi dimensional array for the representation of the level.
@@ -121,6 +149,13 @@ namespace lr
        */
       positionType mLevel[32][24];
 
+      /**
+       * the only reason this should be used is for if a bad guy needs access to
+       * all the other badguys like in the case of a reset of the level after 1
+       * badguy catches the player.
+       */
+      std::vector<BadGuy*> mBadGuys;
+      
       /**
        * various textures that we need
        */
@@ -161,7 +196,11 @@ namespace lr
        */
       std::string currentLevelFile;
 
-      
+
+      /**
+       * a reference to the player
+       */
+      Player* mPlayer;
       
    };
 

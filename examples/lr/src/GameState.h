@@ -47,6 +47,12 @@ namespace lr
       void draw();
 
       /**
+       * call to setup all badguys that were registered when we read in the
+       * level file
+       */
+      void setupBadGuys();
+
+      /**
        * overload the keypress from State
        */
       void onKeyPress(SDLKey sym, bool down);
@@ -63,37 +69,13 @@ namespace lr
       Level* mLevel;
       Player* mPlayer;
       ScoreBoard* mScoreBoard;
-      BadGuy* mBadGuy;
+      std::vector<BadGuy*> mBadGuys;
 
       
       lm::aiNode* badGuy1;
       lm::aiNode* badGuy2;
       
-      lm::command* moveLeftCommand; 
-      lm::command* moveRightCommand;
-      lm::command* moveUpCommand;
-      lm::command* moveDownCommand;
-      lm::command* chooseNewGoalCommand;
-      lm::command* moveToGoalCommand;
-
-      lm::behavior* moveLeftBehavior;
-      lm::behavior* moveRightBehavior;
-      lm::behavior* moveUpBehavior;
-      lm::behavior* moveDownBehavior;
-      lm::behavior* chooseNewGoalBehavior;
-      lm::behavior* goTowardGoalBehavior;
       
-      lm::testing* playerIsLeftTest;
-      lm::testing* playerIsRightTest;
-      lm::testing* playerIsUpTest;
-      lm::testing* playerIsDownTest;
-      lm::testing* atGoalTest;
-      lm::testing* notAtGoalTest;
-
-      lm::reflex* mReflex1;
-      lm::reflex* mReflex2;
-      lm::reflex* mReflex3;
-      lm::reflex* mReflex4;
 
       
       bool transition;

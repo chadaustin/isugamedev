@@ -279,11 +279,11 @@ namespace lr
 
    void BadGuy::update(float dt)
    {
+      // if we are switching levels then return
       if(mLevel->nextLevel==true)
          return;
       
-      // the first thing we always check is if we are in bricks, if we are then
-      // we need to be reset
+      // if we are in brick then we died and we need to be reset
       if(mLevel->getEntityType(getGridPos(), getGridHeight())==brick)
       {
          realHeight = initHeight;
@@ -293,7 +293,8 @@ namespace lr
 
       if(mPlayer->amDead())
       {
-         mLevel->readLevelFile(mPlayer, this);
+         mLevel->readLevelFile(mPlayer);
+         mLevel->resetBadGuys();
       }
          
       
@@ -366,7 +367,10 @@ namespace lr
       {
          mLevel->setEmpty(getGridPos(), getGridHeight());
          mLevel->numBagsDecr();
-         mLevel->nextLevel=true;
+         if(mLevel->getNumBags()==0)
+         {
+            mLevel->nextLevel=true;
+         }
       }
 
       if((initTime+=dt)>.08 && updateTex==true)
@@ -545,36 +549,22 @@ namespace lr
     */
    void BadGuy::handleKeyPress(SDLKey sym, bool down)
    {
-      // our (albeit stupid) ai works like this: we see which directions the
-      // player is from us (up,down,left,right) then we set those keys to be
-      // true.
-/*      if(mPlayer->getGridPos()>getGridPos()) // the player is right of us
+      if(mPlayer->getGridHeight()==getGridHeight() && mPlayer->getGridPos()==getGridPos())
       {
-         keyright = true;
-         keyleft = false;
-      }else // the player is right of us 
-      {
-         keyleft = true;
-         keyright = false;
-      }
-      if(mPlayer->getGridHeight()>getGridHeight()) // player is above us
-      {
-         keyup = true;
-         keydown = false;
-      }else // player is below us
-      {
-         keydown = true;
-         keyup = false;
-      }
-*/      if(mPlayer->getGridHeight()==getGridHeight() && mPlayer->getGridPos()==getGridPos())
-      {
-         std::cout << "cuaght player" << std::endl;
-         mLevel->readLevelFile(mPlayer, this);
+         mLevel->readLevelFile(mPlayer);
+         mLevel->resetBadGuys();
          mPlayer->setLives(mPlayer->getLives()-1);
          mPlayer->caught();
+         mPlayer->levelReset();
+         std::cout << "caught" << std::endl;
       }
 
       
    }
+
+   
+      
    
 } // end namespace
+
+
