@@ -23,71 +23,84 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-13 08:40:42 $
-# Version:       $Revision: 1.13 $
+# Date modified: $Date: 2002-02-16 03:02:44 $
+# Version:       $Revision: 1.14 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
 
 # objects to be included in the project....
-SRCS = \
+gk_SRCS = \
    GameKernel.cpp \
 	SystemDriverFactory.cpp \
    xmlparser.cpp  xmlpp.cpp  xmltokenizer.cpp
 
-GLUT_DRIVER_SRCS = \
+glut_SRCS = \
 	GlutDriver.cpp
 
-SDL_DRIVER_SRCS = \
+sdl_SRCS = \
 	SdlDriver.cpp
-
-# project name...
-PROJECT_NAME = gk
 
 OBJDIR = .
 DEPDIR = 
 
 PATH_TO_SRCS = ./gk:./xml
 MK_DIR = mk
-INCLUDE_PATHS = -I.
+INCLUDE_PATHS = -I. -I./external/xdl
+DEFS ?=
 
-default: all
+DRIVERS = glut_driver sdl_driver
+
+default: gk
+	@echo
+	@echo "-------------------------------------------"
+	@echo "You just built the base GameKernel library."
+	@echo "You must build your drivers seperately:"
+	@echo " > gmake glut_driver"
+	@echo " > gmake sdl_driver"
+	@echo "-------------------------------------------"
+
+gk:
+	@echo "-------------------------------------------"
+	@echo "Building base GameKernel library."
+	@echo "-------------------------------------------"
+	$(MAKE) SRCS='$(gk_SRCS)' PROJECT_NAME='gk' DO_DEPENDS=Y build
+
+$(DRIVERS):
+	@echo "-------------------------------------------"
+	@echo "Building the $(@:%_driver=%) driver"
+	@echo "-------------------------------------------"
+	$(MAKE) SRCS='$($(@:%_driver=%)_SRCS)' PROJECT_NAME='$(@:%_driver=%)drv' DEFS='-DXDL_BUILD_DLL' DO_DEPENDS=Y build
+#	$(MAKE) SRCS='$($(@:%_driver=%)_SRCS)' PROJECT_NAME='$(@:%_driver=%)drv' DO_DEPENDS=Y build
+
 
 ########################################################################
 # system dependent stuff, that users will want to change...
 # stuff that cant be abstracted in the build system...
 ##########################################################################
-include ${MK_DIR}/mk.platform
 include ${MK_DIR}/mk.hosttype
+include ${MK_DIR}/mk.platform
 
 # IRIX
-ifeq ($(HOSTTYPE), IRIX)
+ifeq ($(HOSTTYPE), irix)
    LIBS = 
-   include ${MK_DIR}/mk.irix
+   override DEFS += -DUSE_UNIX
 endif
 
 #LiNUX
-ifeq ($(HOSTTYPE), Linux)
+ifeq ($(HOSTTYPE), linux)
    LIBS = 
-   include ${MK_DIR}/mk.gnu
+   override DEFS += -DUSE_UNIX
 endif
 
 # Win32
 ifeq ($(HOSTTYPE), Win32)
    LIBS = 
-   DEPENDFLAGS = -D__cplusplus -D_WIN32 -DWIN32 $(INCLUDE_PATHS)
-   include ${MK_DIR}/mk.win32
-endif
-
-# gnu2
-ifeq ($(HOSTTYPE), GNU)
-   LIBS = 
-   include ${MK_DIR}/mk.gnu
+   override DEFS += -DUSE_WIN32
 endif
 ########################################################################
 
 include ${MK_DIR}/mk.objs
-
 
 # Compile then Link
 build: $(OBJS)
@@ -115,15 +128,23 @@ install: build
 	-cp $(LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
 	-cp data/* $(prefix)/share/gk
 
+make_a_filename = $(addsuffix $(STATIC_LIB_FILE_SUFFIX), $(addprefix $(STATIC_LIB_FILE_PREFIX), $1))
+make_so_filename = $(addsuffix $(LIB_FILE_SUFFIX), $(addprefix $(LIB_FILE_PREFIX), $1))
+
+
 # Remove the compiled stuff from the system
 clean:
 	-@echo ""
 	-@echo "-------------------------------------------"
 	-@echo "Removing compiled stuff from the system	 "
 	-@echo "-------------------------------------------"
-	-rm -r $(OBJS) $(STATIC_LIB_FILENAME) $(LIB_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/
+	-rm -rf *.o $(STATIC_LIB_FILENAME) $(LIB_FILENAME) *.ncb *.opt *.plg *.ilk *.idb *.pdb *.pch Debug/ Release/ ii_files/ $(call make_so_filename, $(TARGETS)) $(call make_a_filename, $(TARGETS))
 
 clobber: clean
-	-rm *.d
+	-rm -f *.d
 
-include ${MK_DIR}/mk.depend
+ifdef DO_DEPENDS
+   include ${MK_DIR}/mk.depend
+endif
+
+.PHONY: gk $(DRIVERS)
