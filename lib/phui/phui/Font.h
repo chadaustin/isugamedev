@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Font.h,v $
- * Date modified: $Date: 2002-04-15 05:57:01 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-15 07:05:31 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -124,6 +124,17 @@ namespace phui
        * @return  true if the font is plain, false otherwise
        */
       bool isPlain() const;
+
+      /**
+       * Makes this font a copy of the given font.
+       *
+       * @param font    the font to copy
+       *
+       * @return  a reference to this font after modification.
+       *
+       * @throw std::runtime_error  font does not exist.
+       */
+      Font& operator=( const Font& font );
 
    private:
       /// Font name

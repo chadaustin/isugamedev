@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Font.cpp,v $
- * Date modified: $Date: 2002-04-15 05:57:01 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-04-15 07:05:31 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -87,5 +87,18 @@ namespace phui
    bool Font::isPlain() const
    {
       return (mStyle == PLAIN);
+   }
+
+   Font& Font::operator=(const Font& font)
+   {
+      mName = font.mName;
+      mStyle = font.mStyle;
+      mSize = font.mSize;
+      std::string filename = mName + ".ttf";
+      if ( ! mFace.open(filename.c_str()) )
+      {
+         throw std::runtime_error("Font does not exist.");
+      }
+      return *this;
    }
 }
