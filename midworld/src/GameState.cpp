@@ -23,6 +23,10 @@ namespace mw
       , mFrameCount(0)
       , mFrameTime(0)
    {
+      mGunSlots.resize( 10 );
+      for (unsigned int x = 0; x < mGunSlots.size(); ++x)
+         mGunSlots[x] = UP;
+      
       mPlayer.addWeapon( new Pistol );
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
@@ -124,6 +128,14 @@ namespace mw
          mPlayer.nextWeapon();
       }      
 
+      for (unsigned int x = 0; x < 9; ++x)
+      {
+         if (mGunSlots[x] == EDGE_DOWN)
+         {
+            mPlayer.setWeapon( x );
+         }                  
+      }
+      
       // update edge states...
       updateEdgeState(mAccelerate);
       updateEdgeState(mReverse);
@@ -131,8 +143,8 @@ namespace mw
       updateEdgeState(mStrafeLeft);
       updateEdgeState(mShoot);
       updateEdgeState(mCycleWeapon);
-
-      
+      for (int x = 0; x < mGunSlots.size(); ++x)
+         updateEdgeState( mGunSlots[x] );
 
       // Iterate over all the rigid bodies and update them
       for (RigidBodyList::iterator itr = mBodies.begin(); itr != mBodies.end(); ++itr)
@@ -245,23 +257,33 @@ namespace mw
    }
 
    void
-   GameState::onKeyPress(SDLKey sym, bool down)
+   GameState::onKeyPress( SDLKey sym, bool down )
    {
       // todo replace this with a keymapper.
       // map keys to events... yay.
       switch (sym)
       {
+      case SDLK_0: updateEdgeState( mGunSlots[0], down ); break;
+      case SDLK_1: updateEdgeState( mGunSlots[1], down ); break;
+      case SDLK_2: updateEdgeState( mGunSlots[2], down ); break;
+      case SDLK_3: updateEdgeState( mGunSlots[3], down ); break;
+      case SDLK_4: updateEdgeState( mGunSlots[4], down ); break;
+      case SDLK_5: updateEdgeState( mGunSlots[5], down ); break;
+      case SDLK_6: updateEdgeState( mGunSlots[6], down ); break;
+      case SDLK_7: updateEdgeState( mGunSlots[7], down ); break;
+      case SDLK_8: updateEdgeState( mGunSlots[8], down ); break;
+      case SDLK_9: updateEdgeState( mGunSlots[9], down ); break;
       case SDLK_w: case SDLK_UP:
-         updateEdgeState(mAccelerate, down);
+         updateEdgeState( mAccelerate, down );
          break;
       case SDLK_s: case SDLK_DOWN:
-         updateEdgeState(mReverse, down);
+         updateEdgeState( mReverse, down );
          break;
       case SDLK_a: case SDLK_LEFT:
-         updateEdgeState(mStrafeLeft, down);
+         updateEdgeState( mStrafeLeft, down );
          break;
       case SDLK_d: case SDLK_RIGHT:
-         updateEdgeState(mStrafeRight, down);
+         updateEdgeState( mStrafeRight, down );
          break;
       case SDLK_ESCAPE: case SDLK_q:
          if (down)
