@@ -31,8 +31,12 @@ namespace server {
             // pass the message to the appropriate message handler
             /// @todo probably should add some checks to make sure the handler actually exists
             net::Message* msg = (*iter).first;
-            MessageHandler *msgHandler = m_messageHandlers[(net::MessageType)msg->getType()];
-            msgHandler->handleMessage(msg, (*iter).second);
+            MessageHandler *msgHandler = m_messageHandlers.find((net::MessageType)msg->getType())->second;
+            if(msgHandler != m_messageHandlers.end()) {
+               msgHandler->handleMessage(msg, (*iter).second);
+            } else {
+               /// @todo what to do with an unhandled message
+            }
          }
 
          PR_AtomicDecrement(&mKillMe);
