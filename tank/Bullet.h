@@ -13,6 +13,8 @@
 #include "Geode.h"
 #include "glRenderGeode.h"
 
+#include "TankGame.h"
+
 
 extern int GetNextLightNum();
 
@@ -33,7 +35,24 @@ public:
       mLight.setAtten( 1.0f, 0.001f );
       mLight.on();
 
-      GeodeCache::instance().load( mGeometry, "models/bullet.obj" );
+      // configure self.. (todo, move this)
+      std::string filename, particle, usesprite;
+      bool result;
+      iniFile ini;
+      ini.load( "tank.ini" );
+      ini.getKey( "bullet", "model", filename, result );
+      assert( result );
+      ini.getKey( "bullet", "particle", particle, result );
+      assert( result );
+      ini.getKey( "bullet", "particlesprite", usesprite, result );
+      assert( result );
+      kev::string2bool( usesprite, mUseSprite );
+      
+      GeodeCache::instance().load( mGeometry, filename );
+      
+      glRenderEntityAsGeom<ani::FireParticle>* fire_particle_render = new glRenderEntityAsGeom<ani::FireParticle>;
+      fire_particle_render->setGeom( particle );
+      torchRender.setRender( fire_particle_render );
    }
 
    ~Bullet()
@@ -52,6 +71,9 @@ public:
          glMultMatrixf( mXForm.data() );
          kev::glRenderGeode( mGeometry );
       glPopMatrix();
+      
+      const Matrix4f& cameraMat = TankGame::instance().getPlayer(0)->getCamera().matrix();
+      this->torchRender.render( torch, cameraMat, true, mUseSprite );
    }
 
    /**
@@ -81,6 +103,8 @@ public:
       //Update the light position
       Vec3<float> lightPos = mPos + forward * 5.0f;
       mLight.setPos( lightPos[0], lightPos[1], lightPos[2], 1.0f );
+      
+      torch.step( timeDelta );
    }
 
    /**
@@ -98,6 +122,7 @@ public:
    void setPos( const Vec3<float>& pos )
    {
       mPos = pos;
+      torch.setPos( pos );
    }
 
    /**
@@ -129,7 +154,7 @@ public:
     */
    void translate( const Vec3<float>& offset )
    {
-      mPos += offset;
+      this->setPos( this->position() + offset );
    }
 
    /**
@@ -141,6 +166,10 @@ public:
    }
 
 private:
+   RenderDynamicSystem<ani::FireParticle> torchRender;
+   ani::Torch<ani::FireParticle> torch;
+   bool mUseSprite;
+
    Matrix4f mXForm;
    Vec3<float> mPos, mVel;
    Quat<float> mRot;

@@ -13,11 +13,24 @@
 
 #include "iniFile.h"
 
+// particle system
+#include "Fizix/Body.h"
+#include "Fizix/Operator.h"
+#include "Fizix/EulerODEsolver.h"
+#include "Fizix/RungeKuttaODEsolver.h"
+#include "Fizix/DynamicSystem.h"
+#include "Fizix/systems/Torch.h"
+
+#include "RenderDynamicSystem.h"
+#include "glRenderEntity.h"
+#include "TankGame.h"
+
 class Tank
 {
 public:
    Tank() : mPos(), mVel(), mRot(), mRotVel(), mMaterial(), mSpeed( 0.0f ),
-            mBodyGeometry( NULL ), mWeapon0Geometry( NULL )
+            mBodyGeometry( NULL ), mWeapon0Geometry( NULL ), mUseSprite( false ), mHitPoints( 20 ),
+      mArmor( 0.2 )
    {
       mXForm.makeIdent();
       this->init();
@@ -25,7 +38,7 @@ public:
 
    void init()
    {
-      std::string filename, weapon0;
+      std::string filename, weapon0, particle, usesprite;
       bool result;
       iniFile ini;
       ini.load( "tank.ini" );
@@ -33,12 +46,21 @@ public:
       assert( result );
       ini.getKey( "tank", "weapon0", weapon0, result );
       assert( result );
+      ini.getKey( "tank", "particle", particle, result );
+      assert( result );
+      ini.getKey( "tank", "particlesprite", usesprite, result );
+      assert( result );
+      kev::string2bool( usesprite, mUseSprite );
 
       GeodeCache::instance().load( mBodyGeometry, filename );
       assert( mBodyGeometry->getNumGeoSets() > 0 && "load failed" );
       
       GeodeCache::instance().load( mWeapon0Geometry, weapon0 );
       assert( mWeapon0Geometry->getNumGeoSets() > 0 && "load failed" );
+      
+      glRenderEntityAsGeom<ani::FireParticle>* fire_particle_render = new glRenderEntityAsGeom<ani::FireParticle>;
+      fire_particle_render->setGeom( particle );
+      torchRender.setRender( fire_particle_render );
    }
    
    void drawShip() const
@@ -65,8 +87,23 @@ public:
          glPopMatrix();
          
       glPopMatrix();
+
+      // draw smoke if dead.
+      if (mHitPoints == 0.0f)
+      {
+         const Matrix4f& cameraMat = TankGame::instance().getPlayer(0)->getCamera().matrix();
+         this->torchRender.render( torch, cameraMat, true, mUseSprite );
+      }
    }
   
+   // armor is 0 to 1
+   // hitpoints is 0 to n (we could change this.)
+   void applyDamage( float hitpoints )
+   {
+      mHitPoints -= hitpoints * (1.0f - mArmor);
+      if (mHitPoints < 0.0f) mHitPoints = 0;
+   }   
+   
    /**
     * Gets the position at the end of the barrel.
     */
@@ -95,6 +132,7 @@ public:
    void setPos( const Vec3<float>& pos )
    {
       mPos = pos;
+      torch.setPos( pos );
    }
       
    void update( float timeDelta )
@@ -105,7 +143,7 @@ public:
       pos_delta *= timeDelta; // scale by time...
       
       // add the derivative onto the tank's position
-      mPos += pos_delta;
+      this->setPos( this->position() + pos_delta );
       
       // ROT
       // update ang velocity.
@@ -123,6 +161,8 @@ public:
       // XFORM
       // store the matrix from the pos/rot data...
       kev::quat2mat( mPos, mRot, mXForm );
+      
+      torch.step( timeDelta );
    }
 
    const Vec3<float>& velocity() const
@@ -172,6 +212,36 @@ public:
    }
 
 private:
+   void drawsmoke() const
+   {
+      for (int x = 0; x < torch.entities().size(); ++x)
+      {
+         const ani::FireParticle* ent = torch.entities()[x];
+         const Vec3<float>& pos = ent->position();
+         const ColorRGBA& col = ent->color(); 
+         glColor4f( col[0], col[1], col[2], col[3] );
+         //glPushMatrix();
+         //glTranslatef( pos[0], pos[1], pos[2] );
+
+         glBegin( GL_TRIANGLES );
+         glNormal3f( 0,0,1 );
+         glVertex3f( pos[0], pos[1], pos[2] );
+         glVertex3f( pos[0]+1, pos[1], pos[2] );
+         glVertex3f( pos[0]+1, pos[1]+1, pos[2] );
+         glEnd();
+
+         //glPopMatrix();
+         //glVertex3f( pos[0], pos[1], pos[2] );
+         //std::cout<<pos[0]<<" "<<pos[1]<<" "<<pos[2]<<"\n"<<std::flush;
+      }
+   }
+
+   RenderDynamicSystem<ani::FireParticle> torchRender;
+   ani::Torch<ani::FireParticle> torch;
+   bool mUseSprite;
+
+   float mHitPoints, mArmor;
+   
    Matrix4f mXForm;
    Vec3<float> mPos, mVel;
    Quat<float> mRot, mRotVel;
