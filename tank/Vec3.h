@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Vec3.h,v $
-//    $Date: 2001-10-01 05:46:22 $
-//    $Revision: 1.5 $
+//    $Date: 2001-10-03 03:44:27 $
+//    $Revision: 1.6 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -487,6 +487,12 @@ inline void Vec3<DataType>::lerp(const DataType &lerpVal,
 {
    Vec3<DataType> offset = to - from;
    (*this) = from + offset*lerpVal;
+}
+
+template<class DataType>
+std::ostream& operator<<( std::ostream& out, const Vec3<DataType>& vec )
+{
+   out<<vec[0]<<", "<<vec[1]<<", "<<vec[2];
 }
 
 //Typedef some commonly used vector types

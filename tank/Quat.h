@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: Quat.h,v $
-//    $Date: 2001-09-20 20:04:51 $
-//    $Revision: 1.4 $
+//    $Date: 2001-10-03 03:44:27 $
+//    $Revision: 1.5 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -265,6 +265,8 @@ public:
    //  return true if self == quat                                 <BR>
    //  return false if self != quat
    bool operator==( const Quat<dataType>& quat );
+   
+   bool isEqual( const Quat<dataType>& quat, float tol ) const;
    
    //: does self != quat?
    // return true if self != quat                                  <BR>
@@ -680,8 +682,7 @@ inline Quat<dataType>& Quat<dataType>::operator/=( const Quat<dataType>& quat )
 template<class dataType>
 inline bool Quat<dataType>::operator==( const Quat<dataType>& quat )
 {
-   if (quat.scalar() == this->scalar() &&
-       quat.vector() == this->vector())
+   if (quat.vec == this->vec)
    {
       return true;
    }      
@@ -697,8 +698,7 @@ inline bool Quat<dataType>::operator==( const Quat<dataType>& quat )
 template<class dataType>
 inline bool Quat<dataType>::operator!=( const Quat<dataType>& quat )
 {
-   if (quat.scalar() == this->scalar() &&
-       quat.vector() == this->vector())
+   if (quat.vec == this->vec)
    {
       return false;
    }      
@@ -1120,6 +1120,22 @@ inline std::ostream& operator<<( std::ostream& out, const Quat<dataType>& q )
    q.outStreamReadable( out );
    //q.outStreamRaw( out );
    return out;
+}
+
+template<class dataType>
+bool Quat<dataType>::isEqual( const Quat<dataType>& quat, float tol ) const
+{
+   if ( (kev::ABS(this->vec[0] - quat[0]) <= tol) &&
+         (kev::ABS(this->vec[1] - quat[1]) <= tol) &&
+         (kev::ABS(this->vec[2] - quat[2]) <= tol) &&
+         (kev::ABS(this->vec[3] - quat[3]) <= tol) )
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }   
 }
 
 #endif
