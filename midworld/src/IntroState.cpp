@@ -2,7 +2,7 @@
 // vim:cindent:ts=3:sw=3:et:tw=80:sta:
 
 #include "IntroState.h"
-
+#include "GameState.h"
 
 namespace mw
 {
@@ -45,9 +45,12 @@ namespace mw
    void
    IntroState::onKeyPress(SDLKey sym, bool down)
    {
-      if (down)
+      switch (sym)
       {
-         quit();
+      case SDLK_ESCAPE: if (down) quit(); break;
+      default:
+         if (down) this->invokeTransition( new GameState ); 
+         break;
       }
    }
 

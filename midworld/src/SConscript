@@ -13,6 +13,10 @@ classes = Split("""
    SoundEffectManager
    SoundManager
    Texture
+   cubeGeometry
+   GameState
+   Player
+   Camera
 """)
 
 sources = Split("""
