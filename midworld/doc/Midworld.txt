@@ -129,7 +129,7 @@ Design Document
 	Reload:		2
 	Bounce:		No
 	
-	4.8  Assault Rife
+	4.9  Assault Rife
 
 	Modified M-16 Assualt Rifle that fires energy burst rounds.  Very fast,
 	very weak, nasty reload.
