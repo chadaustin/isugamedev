@@ -66,7 +66,7 @@ public:
 
    //input devices
    vjPosInterface mWand;
-   vjDigitalInterface mForewardBtn;
+   vjDigitalInterface mForwardBtn;
    vjDigitalInterface mReverseBtn;
    vjDigitalInterface mTurnLeftBtn;
    vjDigitalInterface mTurnRightBtn;
@@ -80,7 +80,7 @@ vjTankApp::init()
 {
    // Init the input devices
    mWand.init( "VJWand" );
-   mForewardBtn.init( "Foreward" );
+   mForwardBtn.init( "Forward" );
    mReverseBtn.init( "Reverse" );
    mTurnLeftBtn.init( "TurnLeft" );
    mTurnRightBtn.init( "TurnRight" );
@@ -122,11 +122,11 @@ void
 vjTankApp::preFrame()
 {
    // Handle input from the devices
-   // Foreward
-   if ( mForewardBtn->getData() == vjDigital::TOGGLE_ON ) {
+   // Forward
+   if ( mForwardBtn->getData() == vjDigital::TOGGLE_ON ) {
       game->getPlayer( 0 )->getTank()->setVelocity( 0.0f, 0.0f, -40.0f );
    }
-   if ( mForewardBtn->getData() == vjDigital::TOGGLE_OFF ) {
+   if ( mForwardBtn->getData() == vjDigital::TOGGLE_OFF ) {
       game->getPlayer( 0 )->getTank()->setVelocity( 0.0f, 0.0f, 0.0f );
    }
    // Reverse
