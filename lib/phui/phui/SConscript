@@ -26,6 +26,7 @@ sources = []
 headers = Split("""
    ActionListener.h
    Color.h
+   EmptyConstraint.h
    Input.h
    LayoutConstraint.h
    ListSelectionListener.h

@@ -21,7 +21,7 @@ namespace phui
        *
        * @return     the name of this layout constraint
        */
-      virtual const std::string& getType() = 0;
+      virtual const std::string getType() = 0;
 
    };
 }//end of namespace phui

@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.cpp,v $
- * Date modified: $Date: 2003-01-04 00:30:03 $
- * Version:       $Revision: 1.23 $
+ * Date modified: $Date: 2003-01-04 02:11:46 $
+ * Version:       $Revision: 1.24 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -38,14 +38,17 @@
  *
  ************************************************************** phui-cpr-end */
 #include <algorithm>
+#include "EmptyConstraint.h"
 #include <functional>
 #include "WidgetContainer.h"
 #include <GL/gl.h>
 
 namespace phui {
 
-   WidgetContainer::WidgetContainer() {
-      mCapturedWidget = 0;
+   WidgetContainer::WidgetContainer() 
+      : mCapturedWidget(0)
+   {
+      mLayoutManager = new LayoutManager(this, new EmptyConstraint() );
    }
   
    WidgetContainer::WidgetContainer(LayoutManager* manager)
