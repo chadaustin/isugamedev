@@ -7,8 +7,6 @@ interfaces = Split("""
    CollisionDetector
    CollisionListener
    Entity
-   SceneListener
-   SceneViewer
    SpatialIndex
    Weapon
 """)
@@ -27,12 +25,9 @@ classes = Split("""
    IntroState
    Jukebox
    MenuState
-   OpenSGSceneViewer
    Player
    RigidBody
    Shotgun
-   Scene
-   SceneEvent
    State
    StateFactory
    SoundEffectManager
