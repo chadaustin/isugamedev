@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Cursor.h,v $
- * Date modified: $Date: 2002-07-29 03:36:48 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-06 03:14:20 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -54,8 +54,8 @@ namespace mw
       
       virtual void init( int w, int h )
       {
-         mMousePosX = w / 2;
-         mMousePosY = h / 2;
+         mMousePosX = w / 2.0f;
+         mMousePosY = h / 2.0f;
          mNeedWarp = true;
          
          // init the system mouse state...
@@ -106,9 +106,9 @@ namespace mw
 
          // constrain virtual cursor
          if (mMousePosX < 0) mMousePosX = 0;
-         if (w < mMousePosX) mMousePosX = w;
+         if (w < mMousePosX) mMousePosX = float(w);
          if (mMousePosY < 0) mMousePosY = 0;
-         if (h < mMousePosY) mMousePosY = h;
+         if (h < mMousePosY) mMousePosY = float(h);
       }    
       
    private:

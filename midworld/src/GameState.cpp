@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-08-14 20:25:02 $
- * Version:       $Revision: 1.26 $
+ * Date modified: $Date: 2002-09-06 03:14:21 $
+ * Version:       $Revision: 1.27 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -183,8 +183,8 @@ namespace mw
 
       // update player transform
       {
-         float screen_size_x = this->application().getWidth();
-         float screen_size_y = this->application().getHeight();
+         float screen_size_x = float(application().getWidth());
+         float screen_size_y = float(application().getHeight());
          float x = mCursor.getX();
          float y = mCursor.getY();
          gmtl::Vec3f mid(screen_size_x / 2, screen_size_y / 2, 0);
@@ -375,7 +375,7 @@ namespace mw
          glPopMatrix();
 
          glPushMatrix();
-            glTranslatef(550, 480 - mFont->getAscent() - mFont->getDescent(), 0);
+            glTranslatef(550, 480.0f - mFont->getAscent() - mFont->getDescent(), 0);
             glColor4f(1,0,0,1);
             {
                std::stringstream str;
