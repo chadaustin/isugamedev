@@ -8,12 +8,11 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Button.h,v $
- * Date modified: $Date: 2002-02-24 03:48:54 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-24 04:17:03 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
-
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
@@ -35,13 +34,10 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
-
 #ifndef PHUI_BUTTON_H
 #define PHUI_BUTTON_H
 
-
 #include "Widget.h"
-
 
 namespace phui {
 
@@ -51,7 +47,6 @@ namespace phui {
   private:
   };
 
-}
-
+} // namespace phui
 
 #endif

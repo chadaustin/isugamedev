@@ -8,12 +8,11 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-02-24 03:45:03 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-24 04:17:04 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
-
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
@@ -35,14 +34,11 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
-
 #ifndef PHUI_WIDGET_CONTAINER_H
 #define PHUI_WIDGET_CONTAINER_H
 
-
 #include <list>
 #include "Widget.h"
-
 
 namespace phui {
 
@@ -58,7 +54,6 @@ namespace phui {
     std::list<Widget*> mWidgets;
   };
 
-}
-
+} // namespace phui
 
 #endif

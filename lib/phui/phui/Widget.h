@@ -8,12 +8,11 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2002-02-24 03:45:03 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-02-24 04:17:04 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
-
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
@@ -35,11 +34,8 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************** phui-cpr-end */
-
-
 #ifndef PHUI_WIDGET_H
 #define PHUI_WIDGET_H
-
 
 namespace phui {
   
@@ -60,7 +56,6 @@ namespace phui {
     
   };
 
-}
-
+} // namespace phui
 
 #endif
