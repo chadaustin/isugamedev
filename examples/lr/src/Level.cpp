@@ -22,6 +22,10 @@ namespace lr
             {
                ladderImage->drawRectangle(j*32,i*32,(j+1)*32,(i+1)*32);
             }
+            else if(mLevel[j][i] == money)
+            {
+               moneyImage->drawRectangle(j*32,(i+1)*32,(j+1)*32,i*32);
+            }
          }
       }
    }
@@ -34,6 +38,7 @@ namespace lr
       brickImage = Texture::create(std::string("Brick.png"));
       ladderImage = Texture::create(std::string("ladder.png"));
       wireImage = Texture::create(std::string("wire.png"));
+      moneyImage = Texture::create(std::string("money.png"));
    }
 
 
@@ -42,6 +47,7 @@ namespace lr
       delete brickImage;
       delete ladderImage;
       delete wireImage;
+      delete moneyImage;
    }
 
    void Level::readLevelFile(const std::string& file)
@@ -66,6 +72,9 @@ namespace lr
             }else if(temp==3)
             {
                mLevel[j][i] = wire;
+            }else if(temp==4)
+            {
+               mLevel[j][i] = money;
             }
          }
       }

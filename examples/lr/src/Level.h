@@ -49,6 +49,7 @@ namespace lr
       Texture* brickImage;
       Texture* ladderImage;
       Texture* wireImage;
+      Texture* moneyImage;
 
    };
 

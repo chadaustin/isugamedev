@@ -8,7 +8,7 @@ namespace lr
     * an enumeration for the various types of entities that could be in a slot
     * in the level
     */
-   enum positionType {empty, brick, ladder, wire};
+   enum positionType {empty, brick, ladder, wire, money};
 
    /**
     * an enumeration for the various states the player could be in

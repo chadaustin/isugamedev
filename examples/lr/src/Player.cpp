@@ -170,7 +170,7 @@ namespace lr
 
    bool Player::onWire()
    {
-      if(mLevel->getEntityType(getGridPos(), getGridHeight())==wire)
+      if(mLevel->getEntityType(getGridPos(), getGridHeight())==wire && (int)realHeight%32==0)
          return true;
       return false;
    }
