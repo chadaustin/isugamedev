@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionResponse.cpp,v $
- * Date modified: $Date: 2002-11-06 00:28:38 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-11-06 06:09:29 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -66,7 +66,7 @@ namespace mw
    
    void collidePlayerDroid(Player* p, Droid* d)
    {
-      DBG_BREAK();
+//      DBG_BREAK();
    }
    
    void collidePlayerAmmoCrate(Player* p, AmmoCrate* c)
@@ -76,7 +76,7 @@ namespace mw
    
    void collidePlayerGunPickup(Player* p, GunPickup* g)
    {
-      DBG_BREAK();
+//      DBG_BREAK();
       g->giveTo(p);
    }
    
