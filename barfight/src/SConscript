@@ -1,0 +1,34 @@
+import os
+pj = os.path.join
+
+Import('baseEnv pkg')
+Import('SetupAudiere SetupCal3D SetupCorona SetupOpenGL SetupSDL SetupSiren')
+
+# Define the sources
+classes = Split("""
+   GameState
+   Version
+""")
+
+headers = Split("""
+""")
+
+sources = Split("""
+   Main.cpp
+""")
+
+headers.extend(map(lambda n: n + '.h',   classes))
+sources.extend(map(lambda n: n + '.cpp', classes))
+
+# Clone the environment
+env = baseEnv.Copy()
+SetupSiren(env)
+SetupAudiere(env)
+SetupCal3D(env)
+SetupCorona(env)
+SetupSDL(env)
+SetupOpenGL(env)
+env.Append(CPPPATH = Split('#src'))
+prog = pkg.createProgram('barfight', env)
+prog.addSources(sources)
+prog.addHeaders(headers)
