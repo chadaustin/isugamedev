@@ -24,29 +24,35 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.cpp,v $
- * Date modified: $Date: 2002-09-23 03:56:25 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-10-02 07:49:04 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
 #include "ResourceManager.h"
 
 namespace mw
 {
    ResourceManager::ResourceManager()
    {
-   }
-
-   ResourceManager::~ResourceManager()
-   {
+      // load the model mappings
+      std::ifstream in("models/mappings.txt");
+      if (in.is_open())
+      {
+         std::string name, model;
+         while (in >> name >> model)
+         {
+            add(name, model);
+         }
+      }
    }
 
    const std::string&
    ResourceManager::get(const std::string& resid) const
    {
-//      std::cout<<"Getting resource: "<<resid<<std::endl;
       ResourceMap::const_iterator itr = mResources.find(resid);
       if (itr != mResources.end())
       {
@@ -62,7 +68,6 @@ namespace mw
       if (itr == mResources.end())
       {
          mResources[resid] = value;
-         std::cout<<"Added Resource: "<<resid<<" -> "<<value<<std::endl;
       }
       else
       {

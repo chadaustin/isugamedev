@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-10-01 08:38:11 $
- * Version:       $Revision: 1.41 $
+ * Date modified: $Date: 2002-10-02 07:49:03 $
+ * Version:       $Revision: 1.42 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -81,13 +81,6 @@ namespace mw
       mPlayer.addWeapon( new Shotgun );
       mPlayer.addWeapon( new AssaultRifle );
 
-      // Init some of the model resources
-      ResourceManager* res_mgr = GameManager::instance().getResourceManager();
-      res_mgr->add("security_droid", "models/security_droid.obj");
-      res_mgr->add("bullet",         "models/bullet.obj");
-      res_mgr->add("casing",         "models/casing.obj");
-      res_mgr->add("player",         "models/player.obj");
-
       // Init the collision detection system
       mSpatialIndex = new VectorSpatialIndex();
       mCollDet = new BoundsCollisionDetector();
@@ -122,16 +115,6 @@ namespace mw
             mFontRenderer->setFont(mFont);
          }
       }
-   }
-
-   GameState::~GameState()
-   {
-      /// @todo  Do we really need this?
-      ResourceManager* res_mgr = GameManager::instance().getResourceManager();
-      res_mgr->remove("security_droid");
-      res_mgr->remove("bullet");
-      res_mgr->remove("casing");
-      res_mgr->remove("player");
    }
 
    void
@@ -346,102 +329,6 @@ namespace mw
       }
    }
 
-   void GameState::updateDynamics(Entity* body, float dt)
-   {
-      float remaining_dt = dt;
-      const gmtl::Vec3f& orig_vel = body->getVel();
-
-      // Apply gravity to every body
-      body->addForce(gmtl::Vec3f(0, -9.81f, 0) * body->getMass());
-
-      // Check for collisions
-      CollisionDesc* desc = mCollDet->checkCollision(body, orig_vel * dt);
-
-      // No more collisions, let the body update the remaining distance
-      if (!desc)
-      {
-         mPhysics.update(body, dt);
-         body->moveToNextState();
-         body->update(remaining_dt);
-
-         // Make sure entities never go below the ground.
-         float& y = body->getPos()[1];
-         y = std::max(y, 0.0f);
-      }
-      // We had a collision
-      else
-      {
-         // Figure out how much time passed to get to the collision
-         float dist = desc->getDistance();
-         float time_to_coll = 0;
-         if (orig_vel[0] != 0)
-         {
-            time_to_coll = dist / orig_vel[0];
-         }
-         else if (orig_vel[1] != 0)
-         {
-            time_to_coll = dist / orig_vel[1];
-         }
-         else if (orig_vel[2] != 0)
-         {
-            time_to_coll = dist / orig_vel[2];
-         }
-         else
-         {
-            time_to_coll = 0;
-         }
-
-         // Update the body to the point of the collision
-         mPhysics.update(body, time_to_coll);
-         body->moveToNextState();
-         body->update(time_to_coll);
-
-         // Notify the collider and the collidee of the collision
-         CollisionEvent evt(body, desc);
-         body->onCollisionEntry(evt);
-         Entity* collidee = (Entity*)desc->getCollidee();
-         collidee->onCollisionEntry(evt);
-
-         // Stop the body for now
-//         body->setVel(gmtl::Vec3f());
-
-         // Be good and clean up our collision desc
-         delete desc;
-      }
-   }
-
-   void GameState::reapDeadEntities()
-   {
-      typedef std::list<Entity::UID> UIDList;
-      UIDList dead;
-
-      // Run through the entities in the scene and mark those that are dead
-      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
-      {
-         const Entity::UID& uid = itr->first;
-         const Entity* entity = itr->second;
-         if (entity->isExpired())
-         {
-            dead.push_back(uid);
-         }
-      }
-
-      // Remove all entities marked as dead
-      for (UIDList::iterator itr = dead.begin(); itr != dead.end(); ++itr)
-      {
-         Entity* entity = mScene->get(*itr);
-         mSpatialIndex->remove(entity);
-         mScene->remove(entity);
-         delete entity;
-      }
-   }
-
-   void GameState::add(Entity* entity)
-   {
-      mScene->add(entity);
-      mSpatialIndex->add(entity);
-   }
-
    void GameState::draw()
    {
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -604,6 +491,102 @@ namespace mw
          application().getWidth(),
          application().getHeight(),
          x, y);
+   }
+
+   void GameState::updateDynamics(Entity* body, float dt)
+   {
+      float remaining_dt = dt;
+      const gmtl::Vec3f& orig_vel = body->getVel();
+
+      // Apply gravity to every body
+      body->addForce(gmtl::Vec3f(0, -9.81f, 0) * body->getMass());
+
+      // Check for collisions
+      CollisionDesc* desc = mCollDet->checkCollision(body, orig_vel * dt);
+
+      // No more collisions, let the body update the remaining distance
+      if (!desc)
+      {
+         mPhysics.update(body, dt);
+         body->moveToNextState();
+         body->update(remaining_dt);
+
+         // Make sure entities never go below the ground.
+         float& y = body->getPos()[1];
+         y = std::max(y, 0.0f);
+      }
+      // We had a collision
+      else
+      {
+         // Figure out how much time passed to get to the collision
+         float dist = desc->getDistance();
+         float time_to_coll = 0;
+         if (orig_vel[0] != 0)
+         {
+            time_to_coll = dist / orig_vel[0];
+         }
+         else if (orig_vel[1] != 0)
+         {
+            time_to_coll = dist / orig_vel[1];
+         }
+         else if (orig_vel[2] != 0)
+         {
+            time_to_coll = dist / orig_vel[2];
+         }
+         else
+         {
+            time_to_coll = 0;
+         }
+
+         // Update the body to the point of the collision
+         mPhysics.update(body, time_to_coll);
+         body->moveToNextState();
+         body->update(time_to_coll);
+
+         // Notify the collider and the collidee of the collision
+         CollisionEvent evt(body, desc);
+         body->onCollisionEntry(evt);
+         Entity* collidee = (Entity*)desc->getCollidee();
+         collidee->onCollisionEntry(evt);
+
+         // Stop the body for now
+//         body->setVel(gmtl::Vec3f());
+
+         // Be good and clean up our collision desc
+         delete desc;
+      }
+   }
+
+   void GameState::reapDeadEntities()
+   {
+      typedef std::list<Entity::UID> UIDList;
+      UIDList dead;
+
+      // Run through the entities in the scene and mark those that are dead
+      for (Scene::EntityMapCItr itr = mScene->begin(); itr != mScene->end(); ++itr)
+      {
+         const Entity::UID& uid = itr->first;
+         const Entity* entity = itr->second;
+         if (entity->isExpired())
+         {
+            dead.push_back(uid);
+         }
+      }
+
+      // Remove all entities marked as dead
+      for (UIDList::iterator itr = dead.begin(); itr != dead.end(); ++itr)
+      {
+         Entity* entity = mScene->get(*itr);
+         mSpatialIndex->remove(entity);
+         mScene->remove(entity);
+         delete entity;
+      }
+   }
+
+   void GameState::add(Entity* entity)
+   {
+      mScene->add(entity);
+      mSpatialIndex->add(entity);
    }
 
    void

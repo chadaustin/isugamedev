@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ResourceManager.h,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-10-02 07:49:04 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -41,7 +41,6 @@ namespace mw
    {
    public:
       ResourceManager();
-      ~ResourceManager();
 
       /**
        * Gets the string associated with the given resource identifier.

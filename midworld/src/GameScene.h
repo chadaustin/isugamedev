@@ -24,14 +24,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameScene.h,v $
- * Date modified: $Date: 2002-10-01 05:54:14 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-10-02 07:49:03 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_GAME_SCENE_H
 #define MW_GAME_SCENE_H
 
+#include <string>
+#include <vector>
 #include "Texture.h"
 
 namespace mw
@@ -40,12 +42,22 @@ namespace mw
    class GameScene
    {
    public:
+      struct Element
+      {
+         double x, y, z, yaw, pitch, roll;
+         std::string model;
+      };
+
       GameScene();
       ~GameScene();
+
+      void loadLevel(const std::string& filename);
+
       void draw();
 
    private:
-      Texture* mTexture;
+      Texture* mGroundTexture;
+      std::vector<Element> mElements;
    };
 
 }

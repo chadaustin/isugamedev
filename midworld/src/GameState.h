@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-10-01 07:54:16 $
- * Version:       $Revision: 1.32 $
+ * Date modified: $Date: 2002-10-02 07:49:04 $
+ * Version:       $Revision: 1.33 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -59,7 +59,6 @@ namespace mw
    {
    public:
       GameState( Application* a );
-      ~GameState();
 
       enum EdgeState
       {
@@ -67,13 +66,9 @@ namespace mw
       };
 
       void update(float dt);
-
       void draw();
-
       void onKeyPress(SDLKey sym, bool down);
-
       void onMousePress(Uint8 button, bool down, int x, int y);
-
       void onMouseMove(int x, int y);
 
       /**
@@ -104,6 +99,8 @@ namespace mw
        * themselves as being expired and thus want to be removed from the game.
        */
       void reapDeadEntities();
+
+      void loadLevel(const std::string& filename);
 
    private:
       State* mNextState;
