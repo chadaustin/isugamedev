@@ -20,7 +20,7 @@ namespace server {
          /// @todo actual authentication
          if(1) {
             // let game know about this possible player
-            m_brothaGame->add(new game::Player(mMsg->getUsername()), cID);
+            m_brothaGame->addPlayer(new game::Player(mMsg->getUsername()), cID);
             // send the connection an OK message saying they are authenticated
             m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
          } else {

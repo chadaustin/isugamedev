@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-03-30 21:04:27 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-03-30 23:27:27 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,47 +45,131 @@ namespace server {
       m_netMgr = netMgr;
    }
 
-   void BrothaGame::update() {
-      /// @todo do a frame in the game
-      /// for each object that is modified broadcast to everyone
+   void BrothaGame::sendToAll( net::Message* msg, bool onlyInGame ) {
+      // we want to send only to those clients actually in the game
+      if(onlyInGame) {
+         for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
+            if(!m_netMgr->send(msg, iter->second)) {
+               // an error on send means that the connection is no longer
+               // let us remember to remove this connection
+               mClosedConnections.insert(iter->second);
+            }
+         }
+      } else { // we want to send to everyone
+         for(PlayerConnectionMapIter iter=mConnectedPlayers.begin();iter!=mConnectedPlayers.end();++iter) {
+            if(!m_netMgr->send(msg, iter->first)) {
+               // an error on send means that the connection is no longer
+               // let us remember to remove this connection
+               mClosedConnections.insert(iter->first);
+            }
+         }
+      }
+   }
 
+   void BrothaGame::update() {
+      // remove players for connections that have closed
+      for(ClosedConnectionMapIter iter=mClosedConnections.begin();iter!=mClosedConnections.end();++iter) {
+         removeConnection(*iter);
+      }
+
+      /// @todo do a frame in the game
+      /// @todo for each object that is modified broadcast to everyone
 
       /// fake frame (just move all players y pos up 1) and send to all players
       for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
-         game::Player* player = iter->second;
+         game::Player* player = getPlayer(iter->second);
          gmtl::Vec<PRFloat64, 3> pos = player->getObject()->getPosition();
-         pos[1]-=0.1;
+         if(pos[1] <= -5) {
+            pos[0]+=0.1;
+         } else {
+            pos[1]-=0.1;
+         }
          player->getObject()->setPosition(pos);
-         net::UpdatePlayerMessage *msgP = new net::UpdatePlayerMessage(iter->second);
-         m_netMgr->sendToAll(msgP);
+         net::UpdatePlayerMessage *msgP = new net::UpdatePlayerMessage(getPlayer(iter->second));
+
+         sendToAll(msgP, true);
       }
    }
 
-   void BrothaGame::add( game::Player* player, net::NetMgr::ConnID cID ) {
+   void BrothaGame::addPlayer( game::Player* player, net::NetMgr::ConnID cID ) {
       assert( player != NULL && "Cannot add a NULL player!" );
       mConnectedPlayers[cID] = player;
+
+      /// @todo notify everyone of this player being added to the game
    }
 
-   net::NetMgr::ConnID BrothaGame::getConnectionID( game::Player* player ) {
-      for(PlayerConnectionMapIter iter=mConnectedPlayers.begin();iter!=mConnectedPlayers.end();++iter) {
-         if(player == iter->second) {
-            return iter->first;
-         }
+   void BrothaGame::removePlayer( game::Player* player ) {
+      PlayerMapIter delPlayer = mPlayers.find( getUID(player) );
+      if(delPlayer != mPlayers.end()) {
+         game::Player::UID uid = delPlayer->first;
+
+         std::cout<<"Removed player: "<<uid<<std::endl;
+         // if the player actually exists in the game, remove them from it
+         mPlayers.erase(delPlayer);
+
+         // notify everyone else that we were removed
+         net::DelPlayerMessage *msg = new net::DelPlayerMessage(uid);
+         sendToAll(msg, true);
       }
-      return -1;
+   }
+
+   void BrothaGame::removeConnection( net::NetMgr::ConnID cID ) {
+      PlayerConnectionMapIter delConnection = mConnectedPlayers.find(cID);
+      if(delConnection != mConnectedPlayers.end()) {
+         game::Player *player = delConnection->second;
+
+         std::cout<<"Removed connection: "<<delConnection->first<<std::endl;
+         // if the connection actually exists, remove it from the map
+         mConnectedPlayers.erase(delConnection);
+
+         // remove the player from the game if they happen to be in it
+         removePlayer(player);
+      }
    }
 
    game::Player* BrothaGame::getPlayer( game::Player::UID uid ) {
-      PlayerMap::iterator itr = mPlayers.find(uid);
-      if ( itr != mPlayers.end() ) {
-         return itr->second;
+      PlayerMapIter iter = mPlayers.find(uid);
+      if ( iter != mPlayers.end() ) {
+         return getPlayer( iter->second );
       }
       return NULL;
    }
 
+   game::Player* BrothaGame::getPlayer( net::NetMgr::ConnID cID ) {
+      PlayerConnectionMapIter iter = mConnectedPlayers.find(cID);
+      if ( iter != mConnectedPlayers.end() ) {
+         return iter->second;
+      }
+      return NULL;
+   }
+
+   net::NetMgr::ConnID BrothaGame::getConnectionID( game::Player* player ) {
+      game::Player::UID uid = player->getUID();
+      return getConnectionID( uid );
+   }
+
+   net::NetMgr::ConnID BrothaGame::getConnectionID( game::Player::UID uid ) {
+      PlayerMapIter iter = mPlayers.find( uid );
+      if ( iter != mPlayers.end() ) {
+         return iter->second;
+      }
+      return -1;
+   }
+
+   game::Player::UID BrothaGame::getUID( net::NetMgr::ConnID cID ) {
+      PlayerConnectionMapIter iter = mConnectedPlayers.find( cID );
+      if( iter != mConnectedPlayers.end() ) {
+         return getUID( iter->second );
+      }
+      return -1;
+   }
+
+   game::Player::UID BrothaGame::getUID( game::Player *player ) {
+      return player->getUID();
+   }
+
    void BrothaGame::joinPlayer( net::NetMgr::ConnID cID ) {
-      game::Player *player = mConnectedPlayers[cID];
-      mPlayers[player->getUID()] = player;
+      mPlayers[getUID(cID)] = cID;
 
       /// @todo notify all the other connections that a new player exists
    }
@@ -94,7 +178,7 @@ namespace server {
       // send players
       for(PlayerMapIter iter=mPlayers.begin();iter!=mPlayers.end();++iter) {
          bool isYou = (cID == getConnectionID(iter->second));
-         net::AddPlayerMessage *msgP = new net::AddPlayerMessage(iter->second, isYou);
+         net::AddPlayerMessage *msgP = new net::AddPlayerMessage(getPlayer(iter->second), isYou);
          m_netMgr->send(msgP, cID);
       }
       // send objects

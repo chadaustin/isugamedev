@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.h,v $
- * Date modified: $Date: 2002-03-30 20:14:15 $
- * Version:       $Revision: 1.7 $
+ * Date modified: $Date: 2002-03-30 23:27:27 $
+ * Version:       $Revision: 1.8 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -42,6 +42,7 @@
 #define BROTHAGAME_H
 
 #include <map>
+#include <set>
 #include "game/GameTimer.h"
 #include "game/Player.h"
 #include "net/NetMgr.h"
@@ -59,6 +60,15 @@ namespace server {
       BrothaGame(net::NetMgr *netMgr);
 
       /**
+       * Sends the message to everyone
+       *
+       * @param msg           the message to send
+       * @param onlyInGame    whether or not to send to those only in the game
+       * @pre  player != NULL
+       */
+      void sendToAll( net::Message* msg, bool onlyInGame );
+
+      /**
        * Updates the state of all objects in the game.
        */
       void update();
@@ -70,7 +80,20 @@ namespace server {
        * @param cID        the connection id
        * @pre  player != NULL
        */
-      void add( game::Player* player, net::NetMgr::ConnID cID);
+      void addPlayer( game::Player* player, net::NetMgr::ConnID cID);
+
+      /**
+       * Removes the given player
+       *
+       * @param player     the player to remove
+       */
+      void removePlayer( game::Player* player );
+      /**
+       * Removes the given connection
+       *
+       * @param cID     the connection to remove
+       */
+      void removeConnection( net::NetMgr::ConnID cID );
 
       /**
        * Joins the player with said connection to the game.
@@ -81,13 +104,58 @@ namespace server {
       void joinPlayer( net::NetMgr::ConnID cID );
 
       /**
-       * Gets the player with the given ID.
+       * Gets the player with the given UID.
        *
-       * @param playerID   the UID of the player to retrieve
+       * @param uid   the UID of the player to retrieve
        *
        * @return  the player if they exist, NULL if no playe has that UID
        */
       game::Player* getPlayer( game::Player::UID uid );
+
+      /**
+       * Gets the player with the given ConnID.
+       *
+       * @param cID   the ConnID of the player to retrieve
+       *
+       * @return  the player if they exist, NULL if no playe has that ConnID
+       */
+      game::Player* getPlayer( net::NetMgr::ConnID cID );
+
+      /**
+       * Gets the ConnID for the given player.
+       *
+       * @param player   the address of the player to retrieve
+       *
+       * @return  the ConnID if they exist, -1 otherwise
+       */
+      net::NetMgr::ConnID getConnectionID( game::Player* player );
+
+      /**
+       * Gets the ConnID for the given UID.
+       *
+       * @param uid   the UID of the ConnID to retrieve
+       *
+       * @return  the ConnID if they exist, -1 otherwise
+       */
+      net::NetMgr::ConnID getConnectionID( game::Player::UID uid );
+
+      /**
+       * Gets the UID for the given ConnID.
+       *
+       * @param cID   the ConnID of the UID to retrieve
+       *
+       * @return  the UID if they exist, -1 otherwise
+       */
+      game::Player::UID getUID( net::NetMgr::ConnID cID );
+
+      /**
+       * Gets the UID for the given player.
+       *
+       * @param player   the address of the player retrieve
+       *
+       * @return  the UID if they exist, -1 otherwise
+       */
+      game::Player::UID getUID( game::Player *player );
 
       /**
        * Performs a resync on the player referred to by the connection.
@@ -116,21 +184,26 @@ namespace server {
        */
       const game::GameTimer& getGameTimer() const;
 
-      net::NetMgr::ConnID getConnectionID( game::Player* player );
    private:
-      typedef std::map<game::Player::UID, game::Player*> PlayerMap;
-      typedef PlayerMap::iterator PlayerMapIter;
-      typedef std::map<net::NetMgr::ConnID, game::Player*> PlayerConnectionMap;
-      typedef PlayerConnectionMap::iterator PlayerConnectionMapIter;
 
       /// The game timer.
       game::GameTimer mGameTime;
 
-      /// All players that are in the game
+      /// All players that are in the game (actually UID->ConnID)
+      typedef std::map<game::Player::UID, net::NetMgr::ConnID> PlayerMap;
+      typedef PlayerMap::iterator PlayerMapIter;
       PlayerMap mPlayers;
 
       /// All players that are connected (not necessary in the game)
+      /// actually (ConnID->Player)
+      typedef std::map<net::NetMgr::ConnID, game::Player*> PlayerConnectionMap;
+      typedef PlayerConnectionMap::iterator PlayerConnectionMapIter;
       PlayerConnectionMap mConnectedPlayers;
+
+      /// connections that have apparently closed
+      typedef std::set<net::NetMgr::ConnID> ClosedConnectionMap;
+      typedef ClosedConnectionMap::iterator ClosedConnectionMapIter;
+      ClosedConnectionMap mClosedConnections;
 
       /// The network manager
       net::NetMgr *m_netMgr;
