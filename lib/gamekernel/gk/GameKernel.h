@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-13 07:53:44 $
-// Version:       $Revision: 1.13 $
+// Date modified: $Date: 2002-02-13 08:40:42 $
+// Version:       $Revision: 1.14 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -147,7 +147,10 @@ public:
    const std::string& name() const;
 
    /** what applications are registered. */
-   std::vector<GameApp*>& applications();
+   std::vector<GameApp*>& applications()
+   {
+      return mApps;
+   }
 
 private:
    /**

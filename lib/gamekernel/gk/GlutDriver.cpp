@@ -24,14 +24,38 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GlutDriver.cpp,v $
-// Date modified: $Date: 2002-02-13 07:53:44 $
-// Version:       $Revision: 1.18 $
+// Date modified: $Date: 2002-02-13 08:40:43 $
+// Version:       $Revision: 1.19 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
 #include "gk/GlutDriver.h"
 #include "gk/GameKernel.h"
 #include "gk/GameInput.h"
+#include <xdl.h>
+
+// Only compile in the create/destroy code if we're building a library
+#ifdef XDL_BUILD_DLL
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+XDL_FUNC gk::SystemDriver*
+createSystemDriver()
+{
+   return new gk::GlutDriver();
+}
+
+XDL_FUNC void
+destroySystemDriver( gk::SystemDriver* driver )
+{
+   delete driver;
+}
+
+#ifdef __cplusplus
+}
+#endif
+#endif // XDL_BUILD_DLL
 
 namespace gk {
 

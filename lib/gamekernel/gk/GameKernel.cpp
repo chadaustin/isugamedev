@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.cpp,v $
-// Date modified: $Date: 2002-02-13 07:53:44 $
-// Version:       $Revision: 1.18 $
+// Date modified: $Date: 2002-02-13 08:40:42 $
+// Version:       $Revision: 1.19 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -85,11 +85,6 @@ void GameKernel::setName( const std::string& name )
 const std::string& GameKernel::name() const
 {
    return mDriver->name();
-}
-
-std::vector<GameApp*>& GameKernel::applications()
-{
-   return mApps;
 }
 
 bool GameKernel::startup( SystemDriver* driver )

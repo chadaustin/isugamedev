@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.cpp,v $
-// Date modified: $Date: 2002-02-13 08:07:01 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-13 08:40:43 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -57,14 +57,15 @@ SystemDriverFactory::getDriver( const std::string& name )
       std::cerr<<"No system driver is registered under "<<name.c_str()<<std::endl;
       return NULL;
    }
-   return (mRegistry.find( name )->second);
+   return (mRegistry.find( name )->second.first);
 }
 
 //------------------------------------------------------------------------------
 
 void
 SystemDriverFactory::registerDriver( const std::string& name,
-                                     SystemDriver* driver )
+                                     SystemDriver* driver,
+                                     xdl::Library* library )
 {
    // Check to make sure we don't write over an existing registration
    if ( isRegistered( name ) )
@@ -72,7 +73,7 @@ SystemDriverFactory::registerDriver( const std::string& name,
       std::cerr<<"A system driver is already registered under "<<name.c_str()<<std::endl;
       return;
    }
-   mRegistry[name] = driver;
+   mRegistry[name] = std::pair<SystemDriver*, xdl::Library*>( driver, library );
 }
 
 //------------------------------------------------------------------------------
@@ -87,13 +88,38 @@ SystemDriverFactory::unregisterDriver( const std::string& name )
       return;
    }
    // erase the item from the map only after we've save the value stored
-   std::map<std::string, SystemDriver*>::iterator it;
+   std::map<std::string, std::pair<SystemDriver*, xdl::Library*> >::iterator it;
    it = mRegistry.find( name );
-   SystemDriver* driver = it->second;
+   SystemDriver* driver = it->second.first;
+   xdl::Library* lib = it->second.second;
    mRegistry.erase( it );
 
    // now free the memory allocated to the driver
-   delete driver;
+   if ( lib == NULL )
+   {
+      // driver was allocated locally. we can use delete (yay!)
+      delete driver;
+   }
+   // the driver was allocated over a DLL boundary. we have to delete the driver
+   // on that side of the boundary. ick ick ick ick ick ick!
+   else
+   {
+      typedef void (*destroyfunc_t)( SystemDriver* );
+      destroyfunc_t destroy = (destroyfunc_t)lib->lookup("destroySystemDriver");
+      if ( destroy == NULL )
+      {
+         // crap ... what happend to the DLL? memory leak!!
+         std::cerr << "Error: MEMORY LEAK!! Can't destroy system driver '" << name << "'" << std::endl;
+         lib->close();
+         delete lib;
+         return;
+      }
+
+      // call destoy and hope for the best ... ^_^
+      (*destroy)( driver );
+      lib->close();
+      delete lib;
+   }
 }
 
 //------------------------------------------------------------------------------
@@ -110,6 +136,56 @@ unsigned int
 SystemDriverFactory::getNumRegistered() const
 {
    return mRegistry.size();
+}
+
+//------------------------------------------------------------------------------
+
+bool
+SystemDriverFactory::probe( const std::string& library,
+                            const std::string& name )
+{
+   // tweak the library name
+   std::string libFile = library + ".drv";
+
+   std::cout << "Probing " << libFile << " for a system driver ... ";
+
+   // try to open the library
+   xdl::Library* lib = new xdl::Library();
+   if ( ! lib->open( libFile.c_str() ) )
+   {
+      std::cout<<"library open failed!"<<std::endl;
+      // oops ... the file probably doesn't exist
+      std::cout << "failed" << std::endl;
+      delete lib;
+      return false;
+   }
+
+   // grab a pointer to the query function
+   typedef SystemDriver* (*createfunc_t)();
+   createfunc_t createFunc = (createfunc_t)lib->lookup("createSystemDriver");
+   if ( createFunc == NULL )
+   {
+      std::cout<<"can't find createSystemDriver func"<<std::endl;
+      // the library probably isn't really a gk driver DLL
+      std::cout << "failed" << std::endl;
+      lib->close();
+      delete lib;
+      return false;
+   }
+
+   // get a pointer to the driver
+   SystemDriver* driver = (*createFunc)();
+   if ( driver == NULL )
+   {
+      // some error in the library perhaps?
+      std::cout << "failed" << std::endl;
+      lib->close();
+      delete lib;
+      return false;
+   }
+
+   registerDriver( name, driver, lib );
+   return true;
 }
 
 //------------------------------------------------------------------------------

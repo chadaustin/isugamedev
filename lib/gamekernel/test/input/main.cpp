@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-13 08:07:01 $
-// Version:       $Revision: 1.6 $
+// Date modified: $Date: 2002-02-13 08:40:44 $
+// Version:       $Revision: 1.7 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -117,6 +117,7 @@ int main( int argc, char *argv[] )
 
    // create our system driver and let's go!
    SystemDriverFactory::instance().registerDriver( "GLUT", new GlutDriver() );
+//   SystemDriverFactory::instance().probe( "gkglut", "GLUT" );
    SystemDriver* driver = SystemDriverFactory::instance().getDriver( "GLUT" );
    kernel->startup( driver );
 

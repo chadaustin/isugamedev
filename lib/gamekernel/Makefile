@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-13 08:07:59 $
-# Version:       $Revision: 1.12 $
+# Date modified: $Date: 2002-02-13 08:40:42 $
+# Version:       $Revision: 1.13 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -33,8 +33,13 @@
 SRCS = \
    GameKernel.cpp \
 	SystemDriverFactory.cpp \
-   GlutDriver.cpp \
    xmlparser.cpp  xmlpp.cpp  xmltokenizer.cpp
+
+GLUT_DRIVER_SRCS = \
+	GlutDriver.cpp
+
+SDL_DRIVER_SRCS = \
+	SdlDriver.cpp
 
 # project name...
 PROJECT_NAME = gk
@@ -45,6 +50,8 @@ DEPDIR =
 PATH_TO_SRCS = ./gk:./xml
 MK_DIR = mk
 INCLUDE_PATHS = -I.
+
+default: all
 
 ########################################################################
 # system dependent stuff, that users will want to change...
