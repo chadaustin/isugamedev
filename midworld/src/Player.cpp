@@ -19,8 +19,8 @@ namespace mw
    {
       // add default weapon...
       this->addWeapon( new NullWeapon );
-      assert( !this->isWeaponSlotEmpty( NullWeapon().getType() ) && "NullWeapon not registered, no default weapon!");
-      
+      assert( !this->isWeaponSlotEmpty( NullWeapon().getCategory() ) && "NullWeapon not registered, no default weapon!");
+
       this->init();
    }
 
@@ -37,7 +37,7 @@ namespace mw
          glScalef( 0.5f, 0.3f, 0.4f );
          cubeGeometry().render();
       glPopMatrix();
-      
+
       this->weapon().draw();
    }
 
@@ -45,7 +45,7 @@ namespace mw
    {
       return mWeapons.count( slot ) == 0;
    }
-   
+
    /**
     * Gets this player's current weapon.
     */
@@ -57,10 +57,10 @@ namespace mw
       }
 
       // return something safe :)
-      assert( mWeapons.count( NullWeapon().getType() ) > 0 && "huh?" );
-      return *(*mWeapons.find( NullWeapon().getType() )).second;
+      assert( mWeapons.count( NullWeapon().getCategory() ) > 0 && "huh?" );
+      return *(*mWeapons.find( NullWeapon().getCategory() )).second;
    }
-   
+
    /**
     * Gets this player's current weapon.
     */
@@ -72,10 +72,10 @@ namespace mw
       }
 
       // return something safe :)
-      assert( mWeapons.count( NullWeapon().getType() ) > 0 && "huh?" );
-      return *(*mWeapons.find( NullWeapon().getType() )).second;
+      assert( mWeapons.count( NullWeapon().getCategory() ) > 0 && "huh?" );
+      return *(*mWeapons.find( NullWeapon().getCategory() )).second;
    }
-   
+
    /**
     * Sets the player's current in-use weapon.
     */
@@ -87,7 +87,7 @@ namespace mw
          mCurrentWeapon = mWeapons.find( slot );
       }
    }
-   
+
    /** adds weapon to player's inventory.
     *  each added weapon may cause that weapon to immediately become active
     *  depending on the player's game preferences.
@@ -95,24 +95,24 @@ namespace mw
    void Player::addWeapon( Weapon* w )
    {
       assert( NULL != w && "bad weapon ptr" );
-      
+
       // if slot already had a weapon, remove it
-      if (mWeapons.count( w->getType() ) > 0)
+      if (mWeapons.count( w->getCategory() ) > 0)
       {
-         delete mWeapons[w->getType()];
-         mWeapons.erase( w->getType() );
+         delete mWeapons[w->getCategory()];
+         mWeapons.erase( w->getCategory() );
       }
-      
+
       // add the weapon to the slot
-      mWeapons[w->getType()] = w;
-      
+      mWeapons[w->getCategory()] = w;
+
       // set current weapon to the newly added one.
-      mCurrentWeapon = mWeapons.find( w->getType() );
+      mCurrentWeapon = mWeapons.find( w->getCategory() );
    }
-   
+
    /** make the next weapon active.
     *  this will either iterate round-robin through the list
-    *  of weapons that the player has, or it may iterate in an 
+    *  of weapons that the player has, or it may iterate in an
     *  alternate order specified by player's game preferences.
     */
    void Player::nextWeapon()
@@ -124,9 +124,9 @@ namespace mw
          {
             mCurrentWeapon = mWeapons.begin();
          }
-         
+
          // call setWeapon for any extra behaviour needed.
-         this->setWeapon( (*mCurrentWeapon).second->getType() );
+         this->setWeapon( (*mCurrentWeapon).second->getCategory() );
       }
    }
 
@@ -138,18 +138,18 @@ namespace mw
       gmtl::Vec3f barrelEndPos = gmtl::Vec3f( 0, 2, -3 );
       return (this->getRot() * barrelEndPos) + this->getPos();
    }
-   
+
    gmtl::Vec3f Player::getForward() const
    {
       gmtl::Vec3f forward( 0,0,-1 );
       return this->getRot() * forward;
    }
-   
+
    void Player::update( GameState& gs, float timeDelta )
    {
       // @todo, use seconds not this weird range...
       RigidBody::update( (long)(timeDelta * 1000000.0f) );
-      
+
       // update the current weapon
       this->weapon().setPos( this->getPos() + this->getRot() * gmtl::Vec3f( 0, 0, -0.5f ) );
       this->weapon().setRot( this->getRot() );

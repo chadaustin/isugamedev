@@ -10,15 +10,12 @@ namespace mw
    class Pistol : public BaseProjectileWeapon
    {
    public:
-      Pistol() : BaseProjectileWeapon()
-      {
-      }
+      Pistol()
+         : BaseProjectileWeapon(Weapon::HANDGUN, "Pistol")
+      {}
 
-      /** return the Player slot number that the weapon goes in. */
-      virtual int getType() { return 1; }
-      
       /** render the weapon using opengl calls. */
-      virtual void draw() const 
+      void draw() const 
       {
          glPushMatrix();
             glMultMatrixf( this->matrix().getData() );
@@ -29,7 +26,7 @@ namespace mw
 
       // some of these will change to public...
    protected:
-      virtual void emitBullet( GameState& g )
+      void discharge(GameState& g)
       {
          // add the bulllet to the gamestate...
          RigidBody* bullet = this->createBullet();
@@ -37,6 +34,11 @@ namespace mw
          bullet->setPos( this->getPos() );
          bullet->setVel( this->getRot() * bullet->getVel() );
          g.add( bullet ); // bullet is not mine anymore, belongs to GameState
+      }
+
+      void ejectCasing(GameState& g)
+      {
+         /// @todo eject a casing
       }
    };
 }

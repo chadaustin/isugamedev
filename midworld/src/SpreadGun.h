@@ -11,15 +11,14 @@ namespace mw
    class SpreadGun : public BaseProjectileWeapon
    {
    public:
-      SpreadGun() : BaseProjectileWeapon(), mSpinning( 0.0f )
+      SpreadGun()
+         : BaseProjectileWeapon(Weapon::AUTOMATIC, "SpreadGun")
+         , mSpinning( 0.0f )
       {
-         mFireRate = 0.1f;
+         mCockRate = 0.1f;
          mReloadRate = 0.5f;
       }
 
-      /** return the Player slot number that the weapon goes in. */
-      virtual int getType() { return 2; }
-      
       /** render the weapon using opengl calls. */
       virtual void draw() const 
       {
@@ -41,7 +40,7 @@ namespace mw
       }
       
    protected:
-      virtual void emitBullet( GameState& g )
+      void discharge(GameState& g)
       {
          // define the spread
          float angle = gmtl::Math::deg2Rad( 15.0f );
@@ -70,6 +69,11 @@ namespace mw
          g.add( bullet0 ); 
          g.add( bullet1 ); 
          g.add( bullet2 ); 
+      }
+
+      void ejectCasing(GameState& g)
+      {
+         /// @todo eject a casing into the game
       }
       
       float mSpinning;

@@ -6,66 +6,133 @@
 
 namespace mw
 {
+   /**
+    * An abstract base class for all projectile weapons.
+    */
    class BaseProjectileWeapon : public Weapon
    {
+   protected:
+      /**
+       * This class is abstract, you can only create concrete implementations of
+       * this class.
+       *
+       * @param cat     the category this weapon is a member of
+       * @param name    the name of this weapon
+       */
+      BaseProjectileWeapon(const WeaponCategory& cat, const std::string& name);
+
    public:
-      BaseProjectileWeapon();
+      /// Gets the Player slot number that this weapon goes in.
+      const WeaponCategory& getCategory() const;
 
-      /** return the Player slot number that the weapon goes in. */
-      virtual int getType() = 0;
+      /// Gets the name of this weapon.
+      const std::string& getName() const;
 
-      /** render the weapon using opengl calls. */
-      virtual void draw() const = 0;
+      /// Render the weapon using opengl calls.
+      void draw() const = 0;
 
-      /// for key pressing edge events
-      virtual void trigger( bool firing );
+      /**
+       * Tells this weapon whether or not its trigger is being held down.
+       *
+       * @param firing     true if the trigger is held down; false otherwise
+       */
+      void trigger(bool firing);
 
-      virtual void update( GameState& g, float dt );
+      /**
+       * Tests if the trigger is being held down.
+       */
+      bool isTriggerDown() const;
 
+      /**
+       * Updates the state of this bullet based on the amount of time that has
+       * passed.
+       *
+       * @param dt   the change in time in seconds
+       */
+      virtual void update(GameState& g, float dt);
+
+      /**
+       * Gets the number of bullets in this weapon's clip.
+       */
       virtual int getAmmoInClip() const;
+
+      /**
+       * Tests if the current clip is empty.
+       */
+      virtual bool isClipEmpty() const;
+
       virtual int getAmmoInBag() const;
 
    protected:
-      virtual void emitBullet( GameState& g ) = 0;
-
-      /** Creates a new bullet object (factory function).
+      /**
+       * Discharges this weapon, emitting whatever projectile(s) it normally
+       * fires into the game.
        */
-      RigidBody* createBullet();
+      virtual void discharge(GameState& g) = 0;
 
       /**
-       * Removes a bullet from the clip and places it in the chamber. This will
-       * add a pause while the weapon waits for the bullet to enter the chamber. If
-       * the clip is empty, this will invoke a reloading action.
+       * Ejects a spent bullet casing into the game.
        */
-      void moveBulletToChamber();
+      virtual void ejectCasing(GameState& g) = 0;
+
+      /// Creates a new bullet as though fired from this weapon.
+      RigidBody* createBullet() const;
+
+      /**
+       * This causes the weapon to cock - as in removing a bullet from the clip
+       * and placing it in the chamber. This of course, adds a slight delay
+       * before the weapon can be property fired. If the clip is empty, weapon
+       * is not cocked and no delay is added.
+       */
+      void cock();
+
+      /// Tests if this weapon is currently is the process of being cocked.
+      bool isCocking() const;
+
+      /// Tests if this weapon is currently cocked
+      bool isCocked() const;
 
       // some of these will change to public...
    private:
       void addAmmo( int ammount );
 
-      /**
-       * Triggers a reload sequence.
-       */
+      /// Triggers a reload sequence.
       void reload();
 
-      bool canFire() const;
+      /// Tests if this weapon is currently being reloaded
+      bool isReloading() const;
 
    protected:
-      /// Time left (secs) to wait for the next bullet to be placed in the chamber
-      float mBusyCounter;
+      /// The type of weapon this is (for weapon slots)
+      WeaponCategory mCategory;
+
+      /// The name of this weapon
+      std::string mName;
 
       /// Time left (secs) to wait for reload to complete
       float mReloadCounter;
 
       float mReloadRate;
-      float mFireRate;
 
       int mAmmoInClip;
       int mClipSize;
       int mAmmoInBag;
       int mMaxAmmoInBag;
+
       bool mFiring;
       bool mReloading;
+
+      /// The amount of time left to finish cocking the weapon
+      float mCockDelayLeft;
+
+      /// The time required to cock the weapon
+      float mCockRate;
+
+      /// Internal flag for whether the weapon is currently cocking
+      bool mCocking;
+
+      /// Internal flag for whether the weapon is currently cocked
+      bool mCocked;
    };
 }
 

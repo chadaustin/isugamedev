@@ -14,7 +14,8 @@ namespace mw
    class  Shotgun: public BaseProjectileWeapon
    {
    public:
-      Shotgun() : BaseProjectileWeapon()
+      Shotgun()
+         : BaseProjectileWeapon(Weapon::RIFLE, "Shotgun")
       {
          mSpreadAngle=10.f;
          srand(SDL_GetTicks());
@@ -22,21 +23,16 @@ namespace mw
          mClipSize = 6;
          mFiring = false;
          mReloading = false;
-         mBusyCounter = 0;
 
          mReloadRate = 2.0f;
-         mFireRate = 0.7f;
+         mCockRate = 0.7f;
 
          mAmmoInClip = mClipSize;
          mAmmoInBag = 100;
 
          // init to no waiting time
-         mBusyCounter = 0.0f;
          mReloadCounter = 0.0f;
       }
-
-      /** return the Player slot number that the weapon goes in. */
-      virtual int getType() { return 3; }
 
       /** render the weapon using opengl calls. */
       virtual void draw() const
@@ -50,14 +46,7 @@ namespace mw
 
       // some of these will change to public...
    protected:
-      RigidBody* Shotgun::createBullet()
-      {
-         RigidBody* bullet = new RigidBody();
-         bullet->setVel(gmtl::Vec3f(0,0,-30));
-         return bullet;
-      }
-
-      virtual void emitBullet(GameState& g)
+      void discharge(GameState& g)
       {
          // add the bullet to the gamestate...
          RigidBody** bullet;
@@ -83,20 +72,11 @@ namespace mw
             g.add(bullet[i]); // bullet is not mine anymore, belongs to GameState
 
          }
+      }
 
-         // Remove the spent ammo from the clip
-         --mAmmoInClip;
-
-         // Start the reload process automagically if necessary
-         if (mAmmoInClip == 0)
-         {
-            reload();
-         }
-         // Pause to put a new bullet in the chamber
-         else
-         {
-            mBusyCounter = mFireRate;
-         }
+      void ejectCasing(GameState& g)
+      {
+         /// @todo eject a casing into the game
       }
 
    private:

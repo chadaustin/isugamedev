@@ -7,37 +7,40 @@
 namespace mw
 {
    class GameState;
-   
+
    class NullWeapon : public Weapon
    {
    public:
       NullWeapon()
-      {
-      }
+      {}
 
       /** return the Player slot number that the weapon goes in. */
-      virtual int getType() { return 0; }
-      
+      const WeaponCategory& getCategory() const { return Weapon::HAND; }
+
+      const std::string& getName() const { return "Null"; }
+
       /**
        * Creates a new bullet as though it were fired from this weapon.
        * @pre Weapon can be fired and there is a bullet in the chamber
        */
-      virtual void trigger( bool firing )
+      void trigger(bool firing)
+      {}
+
+      bool isTriggerDown() const
       {
+         return false;
       }
 
-      /** render the weapon using opengl calls. */
-      virtual void draw()  const 
+      /// Draw nothing, since this weapon is ... null
+      void draw() const
+      {}
+
+      /// Called each frame
+      void update(GameState& g, float dt)
       {
-      }
-      
-      /** called each frame */
-      virtual void update( GameState& g, float dt )
-      {
-         Weapon::update( g, dt );
+         Weapon::update(g, dt);
       }
 
-   public:
       void addAmmo( int ammount )  //for ammo pickup
       {
       }
@@ -45,6 +48,11 @@ namespace mw
       int getAmmoInClip() const
       {
          return 0;
+      }
+
+      bool isClipEmpty() const
+      {
+         return true;
       }
 
       int getAmmoInBag() const
