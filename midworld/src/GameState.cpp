@@ -28,6 +28,8 @@ namespace mw
       for (int i = 0; i < 10; i++)
       {
          mEnemies.push_back(new Enemy());
+         gmtl::Point3f inPos(static_cast<float>(5 + i*4), 0, 0);
+         mEnemies[i]->setPos(inPos);
          add(mEnemies[i]);
       }
       
