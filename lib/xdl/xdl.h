@@ -21,8 +21,8 @@
  *
  * -----------------------------------------------------------------------------
  * File:          $RCSfile: xdl.h,v $
- * Last modified: $Date: 2002-02-13 16:48:57 $
- * Version:       $Revision: 1.2 $
+ * Last modified: $Date: 2002-03-15 09:21:47 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------------------
  *
  ******************************************************************************/
@@ -55,6 +55,15 @@
 #elif defined( USE_UNIX )
 #  define XDL_EXPORT
 #  define XDL_IMPORT
+#endif
+
+/**
+ * Specify our calling convention for win32 DLLs.
+ */
+#ifdef USE_WIN32
+#  define XDL_CALL __stdcall
+#else
+#  define XDL_CALL
 #endif
 
 /**
