@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaGame.cpp,v $
- * Date modified: $Date: 2002-05-01 22:24:24 $
- * Version:       $Revision: 1.20 $
+ * Date modified: $Date: 2002-05-02 05:59:02 $
+ * Version:       $Revision: 1.21 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -211,7 +211,7 @@ namespace server {
    }
 
    bool BrothaGame::isPaused() const {
-      return ( ! mGameTime.isStopped() );
+      return mGameTime.isStopped();
    }
 
    const game::GameTimer& BrothaGame::getGameTimer() const {
