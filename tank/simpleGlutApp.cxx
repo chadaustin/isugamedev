@@ -214,14 +214,12 @@ static void OnSpecialKeyboardDown(int k, int x, int y)
    {
    case GLUT_KEY_UP:
    {
-      Vec3<float> forward = app.tank.getForward();
-      app.tank.setVelocity( forward * 0.3f );
+      app.tank.setSpeed( 0.3f );
       break;
    }
    case GLUT_KEY_DOWN:
    {
-      Vec3<float> forward = app.tank.getForward();
-      app.tank.setVelocity( -forward * 0.3f );
+      app.tank.setSpeed( -0.3f );
       break;
    }
    case GLUT_KEY_RIGHT:
@@ -246,8 +244,7 @@ static void OnSpecialKeyboardUp( int k, int x, int y )
    case GLUT_KEY_UP:
    case GLUT_KEY_DOWN:
    {
-      Vec3<float> zero( 0,0,0 );
-      app.tank.setVelocity( zero );
+      app.tank.setSpeed( 0.0f );
       break;
    }
    case GLUT_KEY_RIGHT:

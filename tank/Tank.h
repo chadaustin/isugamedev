@@ -5,7 +5,7 @@
 class Tank
 {
 public:
-   Tank() : mRot(), mRotVel()
+   Tank() : mRot(), mRotVel(), mSpeed(0.0f)
    {
       mXForm.makeIdentity();
    }
@@ -74,6 +74,8 @@ public:
       
    void update()
    {
+      //Calculate the new forward velocity of this tank based on its speed
+      mVel = getForward() * mSpeed;
       this->translate( mVel );
       
       // update ang velocity.
@@ -89,13 +91,17 @@ public:
       
       // store the matrix from the pos/rot data...
       kev::quat2mat( mPos, mRot, mXForm );
-   }   
-   
-   void setVelocity( const Vec3<float>& velocity )
+   }
+
+   /**
+    * Sets the speed at which this tank moves. Negative speed implies that the
+    * tank is running in reverse.
+    */
+   void setSpeed( float speed )
    {
-      mVel = velocity;
-   }   
-   
+      mSpeed = speed;
+   }
+
    const Vec3<float>& velocity() const
    {
       return mVel;
@@ -123,6 +129,7 @@ private:
    Matrix4f mXForm;
    Vec3<float> mPos, mVel;
    Quat<float> mRot, mRotVel;
+   float mSpeed;
 };
 
 #endif
