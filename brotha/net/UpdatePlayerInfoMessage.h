@@ -19,6 +19,7 @@ namespace net {
    class UpdatePlayerInfoMessage : public Message {
    public:
       enum UpdateWhat {
+         NOTHING, ///< Update nothing
          ACCELERATION, ///< Acceleration
          HANDBRAKE, ///< Hand break (on/off)
          TURN, ///< Angle of turn
@@ -27,7 +28,7 @@ namespace net {
       };
 
    public:
-      UpdatePlayerInfoMessage(const UpdateWhat& what = TURN, const PRFloat64& to = 0.0)
+      UpdatePlayerInfoMessage(const UpdateWhat& what = NOTHING, const PRFloat64& to = 0.0)
          : mUpdateWhat(what), mUpdateTo(to)
       {
       }
