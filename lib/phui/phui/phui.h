@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: phui.h,v $
- * Date modified: $Date: 2002-04-28 20:38:22 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2003-01-04 01:49:42 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -57,5 +57,6 @@
 #include "Widget.h"
 #include "Window.h"
 #include "WindowAdapter.h"
+#include "layout/LayoutCodec.h"
 
 #endif

@@ -1,0 +1,17 @@
+import os
+pj = os.path.join
+
+Import('core_lib')
+
+classes = Split("""
+   LayoutCodec
+""")
+
+sources = []
+headers = []
+
+sources.extend(map(lambda n: n + '.cpp', classes))
+headers.extend(map(lambda n: n + '.h',   classes))
+
+core_lib.addSources(sources)
+core_lib.addHeaders(headers, pj('phui', 'layout'))

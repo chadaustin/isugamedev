@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2002-12-23 12:56:49 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-04 01:49:42 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -40,7 +40,6 @@
 #include <GL/glut.h>
 #include <phui/phui.h>
 #include <phui/GLUTBridge.h>
-#include <phui/layout/LayoutCodec.h>
 
 namespace
 {

@@ -150,10 +150,11 @@ pkg.addExtraDist(Split("""
    README
    SConstruct
    phui/SConscript
+   phui/layout/SConscript
    examples/SConscript
    examples/event/SConscript
    examples/window/SConscript
-   examples/xmllayoutSConscript
+   examples/xmllayout/SConscript
    tools/build/AutoDist.py
 """))
 Export('pkg')

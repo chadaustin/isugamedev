@@ -19,7 +19,6 @@ classes = Split("""
    Widget
    WidgetContainer
    Window
-   layout/LayoutCodec
 """)
 
 sources = []
@@ -48,6 +47,7 @@ SetupGLText(core_env)
 core_lib = pkg.createSharedLibrary('phui', core_env)
 core_lib.addSources(sources)
 core_lib.addHeaders(headers, 'phui')
+Export('core_lib')
 
 # Define the SDL wrapper
 sdl_env = baseEnv.Copy()
@@ -62,3 +62,6 @@ SetupGLUT(glut_env)
 glut_lib = pkg.createSharedLibrary('phuiGLUT', glut_env)
 glut_lib.addSources(['GLUTBridge.cpp'])
 glut_lib.addHeaders(['GLUTBridge.h'], 'phui')
+
+# Recurse
+SConscript(dirs = ['layout'])
