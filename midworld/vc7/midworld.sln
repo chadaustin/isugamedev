@@ -1,31 +1,18 @@
 Microsoft Visual Studio Solution File, Format Version 7.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "midworld", "midworld\midworld.vcproj", "{363AF707-F551-4033-ACCE-FD92A78900D8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "aitest", "aitest.vcproj", "{DB7AA042-2604-428F-BF1E-F2C025944D0B}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ai", "ai.vcproj", "{5CC0F44C-DED1-4F00-9DF5-6D3E49F27EE9}"
-EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		ConfigName.0 = Debug
 		ConfigName.1 = Release
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
-		{DB7AA042-2604-428F-BF1E-F2C025944D0B}.0 = {5CC0F44C-DED1-4F00-9DF5-6D3E49F27EE9}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{363AF707-F551-4033-ACCE-FD92A78900D8}.Debug.ActiveCfg = Debug|Win32
 		{363AF707-F551-4033-ACCE-FD92A78900D8}.Debug.Build.0 = Debug|Win32
 		{363AF707-F551-4033-ACCE-FD92A78900D8}.Release.ActiveCfg = Release|Win32
 		{363AF707-F551-4033-ACCE-FD92A78900D8}.Release.Build.0 = Release|Win32
-		{DB7AA042-2604-428F-BF1E-F2C025944D0B}.Debug.ActiveCfg = Debug|Win32
-		{DB7AA042-2604-428F-BF1E-F2C025944D0B}.Debug.Build.0 = Debug|Win32
-		{DB7AA042-2604-428F-BF1E-F2C025944D0B}.Release.ActiveCfg = Release|Win32
-		{DB7AA042-2604-428F-BF1E-F2C025944D0B}.Release.Build.0 = Release|Win32
-		{5CC0F44C-DED1-4F00-9DF5-6D3E49F27EE9}.Debug.ActiveCfg = Debug|Win32
-		{5CC0F44C-DED1-4F00-9DF5-6D3E49F27EE9}.Debug.Build.0 = Debug|Win32
-		{5CC0F44C-DED1-4F00-9DF5-6D3E49F27EE9}.Release.ActiveCfg = Release|Win32
-		{5CC0F44C-DED1-4F00-9DF5-6D3E49F27EE9}.Release.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
