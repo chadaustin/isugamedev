@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.h,v $
- * Date modified: $Date: 2003-02-06 07:20:30 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-02-21 08:18:44 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -32,6 +32,12 @@
 #define SIREN_TEXTURE_H
 
 #include <string>
+
+#ifdef _MSC_VER
+#  include <windows.h>
+#endif
+#include <GL/gl.h>
+
 
 namespace siren
 {
@@ -41,19 +47,54 @@ namespace siren
    class Texture
    {
    public:
+      /**
+       * Creates a new texture based on the image found in the given file.
+       *
+       * @param filename      The name of the image file
+       *
+       * @throw std::runtime_error     if there was a problem loading the image
+       */
       Texture(const std::string& filename);
+
+      /**
+       * Creates a new blank texture of the given size. It will have the given
+       * number of channels and be of the given OpenGL type.
+       */
+      Texture(unsigned int width, unsigned int height, int channels, int type);
+
       ~Texture();
 
+      /**
+       * Creates the texture assigned to the given resource ID. The texture will
+       * be retrieved from the resource manager.
+       *
+       * @see ResourceManager
+       */
       static Texture* create(const std::string& resid);
 
+      /**
+       * Binds this texture to be used for future fragments.
+       */
       void bind();
+
+      /**
+       * Unbinds the current texture.
+       */
       static void unbind();
+
       void drawRectangle(float x1, float y1, float x2, float y2);
+
+      int getTexWidth() const;
+      int getTexHeight() const;
+
+      GLuint getTextureID() const;
 
    private:
       GLuint mTexture;
       float mRealWidth;
       float mRealHeight;
+      int mTexWidth;
+      int mTexHeight;
    };
 
    template< typename T > struct CachePolicy;

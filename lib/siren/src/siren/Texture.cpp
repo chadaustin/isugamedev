@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2003-02-11 07:55:52 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2003-02-21 08:18:45 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ************************************************************* siren-cpr-end */
@@ -32,11 +32,6 @@
 #include <memory>
 #include <stdexcept>
 #include <corona.h>
-
-#ifdef _MSC_VER
-#  include <windows.h>
-#endif
-#include <GL/gl.h>
 
 #include "Texture.h"
 #include "Types.h"
@@ -80,10 +75,10 @@ namespace siren
 
       // allocate power of two buffer to store actual texture memory
       // and zero it
-      int tex_width  = GetNextPowerOf2(real_width);
-      int tex_height = GetNextPowerOf2(real_height);
-      u32* buffer = new u32[tex_width * tex_height];
-      memset(buffer, 0, tex_width * tex_height * sizeof(u32));
+      mTexWidth  = GetNextPowerOf2(real_width);
+      mTexHeight = GetNextPowerOf2(real_height);
+      u32* buffer = new u32[mTexWidth * mTexHeight];
+      memset(buffer, 0, mTexWidth * mTexHeight * sizeof(u32));
 
       /// @todo  make sure we don't try to create a texture that
       ///        larger than what the video card can handle...
@@ -92,18 +87,18 @@ namespace siren
       // copy our image pixels into the texture buffer
       for (int row = 0; row < real_height; ++row)
       {
-         memcpy(buffer + tex_width * row,
+         memcpy(buffer + mTexWidth * row,
                 real_pixels + real_width * row,
                 real_width * sizeof(u32));
       }
 
-      mRealWidth  = float(real_width)  / tex_width;
-      mRealHeight = float(real_height) / tex_height;
+      mRealWidth  = float(real_width)  / mTexWidth;
+      mRealHeight = float(real_height) / mTexHeight;
 
       glGenTextures(1, &mTexture);
       glBindTexture(GL_TEXTURE_2D, mTexture);
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,
-                   tex_width, tex_height,
+                   mTexWidth, mTexHeight,
                    0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
       glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -113,7 +108,34 @@ namespace siren
 
       /// @todo  use a boost scoped array
       delete[] buffer;
-   };
+   }
+
+
+   Texture::Texture(unsigned int width, unsigned int height, int channels, int type)
+   {
+      // allocate power of two buffer to store actual texture memory
+      // and zero it
+      mTexWidth  = GetNextPowerOf2(width);
+      mTexHeight = GetNextPowerOf2(height);
+      u32* buffer = new u32[mTexWidth * mTexHeight * channels];
+      memset(buffer, 0, mTexWidth * mTexHeight * channels * sizeof(u32));
+
+      mRealWidth  = float(width)  / mTexWidth;
+      mRealHeight = float(height) / mTexHeight;
+
+      glGenTextures(1, &mTexture);
+      glBindTexture(GL_TEXTURE_2D, mTexture);
+      glTexImage2D(GL_TEXTURE_2D, 0, channels,
+                   mTexWidth, mTexHeight,
+                   0, type, GL_UNSIGNED_INT, buffer);
+
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+      glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+      delete[] buffer;
+   }
 
 
    Texture::~Texture()
@@ -152,5 +174,23 @@ namespace siren
          glTexCoord2f(0,          mRealHeight); glVertex2f(x1, y2); 
       glEnd();
       unbind();
+   }
+
+   int
+   Texture::getTexWidth() const
+   {
+      return mTexWidth;
+   }
+
+   int
+   Texture::getTexHeight() const
+   {
+      return mTexHeight;
+   }
+
+   GLuint
+   Texture::getTextureID() const
+   {
+      return mTexture;
    }
 }
