@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AbstractGameApp.h,v $
-// Date modified: $Date: 2002-03-30 23:36:16 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-04-15 00:15:06 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -59,6 +59,15 @@ public:
     * implement a virtual destructor so destruction works correctly.
     */
    virtual ~AbstractGameApp() {}
+
+   /**
+    * Called immediately before beginning to draw a frame.
+    *
+    * @see onDraw(int)
+    * @see onPostDraw()
+    */
+   virtual void onPreDraw() {};
+
    /**
     * This is the draw function. The GameKernel calls this each frame once per
     * window. The context is used to support multiple windows such as what you
@@ -69,6 +78,14 @@ public:
     * @param context    the current OpenGL context
     */
    virtual void onDraw( int context ) {}
+
+   /**
+    * Called immediately after a frame has been drawn.
+    *
+    * @see onPreDraw()
+    * @see onDraw(int)
+    */
+   virtual void onPostDraw() {};
 
    /**
     * This is called repeatedly to let your application update it's state. You
