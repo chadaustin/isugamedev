@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-06-06 08:46:52 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-06-06 09:55:41 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -44,7 +44,7 @@ namespace mw {
    Application::~Application()
    {
       /// @todo  think about state management: who owns the memory? 
-      ///        are states allocated in a poll?  should states even
+      ///        are states allocated in a pool?  should states even
       ///        have state or should they be purely behavior?
       delete mState;
    }
