@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-08 06:03:49 $
-// Version:       $Revision: 1.21 $
+// Date modified: $Date: 2002-02-08 20:59:44 $
+// Version:       $Revision: 1.22 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -64,7 +64,7 @@ GK_BEGIN_NAMESPACE
  * <h3>  "Example (to configure your key bindings):" </h3>
  * \code
  *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_UPARROW" );
- *     GameInput::instance().bind( "StraefLeft", "Keyboard", "KEY_LEFTARROW" );
+ *     GameInput::instance().bind( "StrafeLeft", "Keyboard", "KEY_LEFTARROW" );
  *     GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_RIGHTARROW" );
  * \endcode
  *

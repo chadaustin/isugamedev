@@ -4,8 +4,8 @@
    <bind action="Quit" device="Keyboard" input="KEY_ESC" />
    <bind action="Accelerate" device="Keyboard" input="KEY_UPARROW" />
    <bind action="Backstep" device="Keyboard" input="KEY_DOWNARROW" />
-   <bind action="StraefLeft" device="Keyboard" input="KEY_LEFTARROW" />
-   <bind action="StraefRight" device="Keyboard" input="KEY_RIGHTARROW" />
+   <bind action="StrafeLeft" device="Keyboard" input="KEY_LEFTARROW" />
+   <bind action="StrafeRight" device="Keyboard" input="KEY_RIGHTARROW" />
    <bind action="Jump" device="Keyboard" input="KEY_SPACE" />
    <bind action="Crouch" device="Keyboard" input="KEY_Q" />
    <bind action="Run" device="Keyboard" input="KEY_LSHIFT" />
