@@ -1,0 +1,18 @@
+/*!     \mainpage phui - flexible user-interface subsystem
+
+Welcome to phui.
+
+Phui is a flexible, <a href="http://www.opensource.org">open source</a>
+user-interface subsystem on top of OpenGL for games being developed by the
+<a href="http://isugamedev.sf.net">ISU Game Developers Club</a> under the
+<a href="http://www.opensource.org/licenses/lgpl-license.html">LGPL</a> and
+can be used freely. It runs on Windows, Linux and Irix. It is just a library,
+not a full application.
+
+This documentation describes the classes and methods of the phui system.
+
+We hope you enjoy the system. Visit us at
+<a href="http://isugamedev.sf.net">isugamedev.sf.net</a> to learn more about us
+and the games we produce.
+
+*/
