@@ -1,14 +1,14 @@
 #include "Connection.h"
 
 namespace net {
-   Connection::Connection(Socket *socket) {
+   Connection::Connection(auto_ptr<Socket> socket) {
       m_socket = socket;
 
       m_readQueue = new MessageQueue();
       m_writeQueue = new MessageQueue();
 
-      m_readThread = new ReadThread(socket, m_readQueue);
-      m_writeThread = new WriteThread(socket, m_writeQueue);
+      m_readThread = new ReadThread(m_socket->getInputStream(), m_readQueue);
+      m_writeThread = new WriteThread(m_socket->getOutputStream(), m_writeQueue);
    }
 
    Connection::~Connection() {

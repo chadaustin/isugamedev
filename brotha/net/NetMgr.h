@@ -9,6 +9,7 @@
 #include <vector>
 #include <utility>
 #include <map>
+#include <memory> //auto_ptr
 
 namespace net {
    /**
@@ -46,7 +47,7 @@ namespace net {
        *
        * @return  the ID for the created connection
        */
-      ConnID handleSocket(Socket *socket) {
+      ConnID handleSocket(auto_ptr<Socket> socket) {
          // create a new connection and return the ID
          static ConnID uniqueID = 0;
          Connection *newConnection = new Connection(socket);
@@ -60,7 +61,7 @@ namespace net {
        * @param msg     the message to send over the wire
        * @param dest    the destination connection ID
        */
-      void send(Message *msg, ConnID dest) {
+      void send(Message* msg, ConnID dest) {
          // simply pass the message to the approprate client
          m_connections[dest]->send(msg);
       }

@@ -7,17 +7,16 @@
 #include "thread/Thread.h"
 #include "MessageQueue.h"
 #include "MessageReader.h"
-#include "Socket.h"
 
 namespace net {
    class ReadThread : public thread::Thread {
    public:
-      ReadThread(Socket *socket, MessageQueue *readQueue);
+      ReadThread(InputStream *in, MessageQueue *readQueue);
       virtual ~ReadThread();
 
       virtual void run();
    private:
-      Socket *m_socket;
+      MessageReader m_msgReader;
       MessageQueue *m_readQueue;
    };
 } // namespace net

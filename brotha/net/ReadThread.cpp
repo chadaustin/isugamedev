@@ -2,10 +2,12 @@
 // vim:cindent:ts=3:et:sw=3:
 
 #include "ReadThread.h"
+#include "SocketException.h"
 
 namespace net {
-   ReadThread::ReadThread(Socket *socket, MessageQueue *readQueue) {
-      m_socket = socket;
+   ReadThread::ReadThread(InputStream *in, MessageQueue *readQueue)
+      : m_msgReader(in)
+   {
       m_readQueue = readQueue;
 
       start();
@@ -15,14 +17,15 @@ namespace net {
    }
 
    void ReadThread::run() {
-      MessageReader msgReader(m_socket->getInputStream());
       try {
          while(PR_AtomicIncrement(&mKillMe)) {
-            m_readQueue->push(msgReader.readMessage());
+            m_readQueue->push(m_msgReader.readMessage());
             PR_AtomicDecrement(&mKillMe);
          }
       } catch (SocketException &e) {
-         int x = 3;
+         std::cout<<"Failed to deserialize msg: "<<e.what()<<std::endl;
       }
    }
+
+   unsigned int Message::mNumMsgsInMemory = 0;
 } // namespace net

@@ -15,8 +15,8 @@ namespace server {
    void ListenServer::run() {
       while(PR_AtomicIncrement(&mKillMe)) {
          // accept new client connections, inform the NetMgr about them
-         net::Socket *sock = m_serverSocket.accept();
-         if(sock != NULL) {
+         auto_ptr<net::Socket> sock( m_serverSocket.accept() );
+         if(sock.get() != NULL) {
             m_netMgr->handleSocket(sock);
          }
 

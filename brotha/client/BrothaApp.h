@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.h,v $
- * Date modified: $Date: 2002-03-28 07:32:17 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-03-29 08:33:21 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,6 +45,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "game/BrothaGame.h"
+#include "net/NetMgr.h"
 
 namespace client
 {
@@ -106,6 +107,12 @@ namespace client
 
       /// Our lovely game instance
       game::BrothaGame mGame;
+
+      /// Our gateway to the network interface
+      net::NetMgr* mNetMgr;
+
+      /// The connection to the server
+      net::NetMgr::ConnID mConnID;
    };
 }
 

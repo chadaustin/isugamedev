@@ -9,10 +9,17 @@
 #include "OutputStream.h"
 
 namespace net {
-
    class Message {
+   protected:
+      Message() {
+         ++mNumMsgsInMemory;
+      }
    public:
-      virtual ~Message() { }
+      static unsigned int mNumMsgsInMemory;
+   public:
+      virtual ~Message() {
+         --mNumMsgsInMemory;
+      }
       virtual PRUint32 getType() = 0;
       virtual PRUint32 getSize() = 0;
       virtual void serialize(OutputStream& os) = 0;

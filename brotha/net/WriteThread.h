@@ -6,18 +6,18 @@
 
 #include "thread/Thread.h"
 #include "MessageQueue.h"
-#include "Socket.h"
 #include "Serialize.h"
+//#include "OutputStream.h"
 
 namespace net {
    class WriteThread : public thread::Thread {
    public:
-      WriteThread(Socket *socket, MessageQueue *writeQueue);
+      WriteThread(OutputStream *oStream, MessageQueue *writeQueue);
       virtual ~WriteThread();
 
       virtual void run();
    private:
-      Socket *m_socket;
+      OutputStream *m_oStream;
       MessageQueue *m_writeQueue;
    };
 } // namespace net

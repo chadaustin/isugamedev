@@ -11,13 +11,13 @@
 namespace net {
    class Connection {
    public:
-      Connection(Socket *socket);
+      Connection(auto_ptr<Socket> socket);
       ~Connection();
 
       void send(Message *message);
       bool read(std::vector<Message*> &messages);
    private:
-      Socket *m_socket;
+      auto_ptr<Socket> m_socket;
 
       MessageQueue *m_writeQueue;
       MessageQueue *m_readQueue;

@@ -96,6 +96,7 @@ namespace net {
       }
 
       void close() {
+         std::cout<<"Socket::close()"<<std::endl;
          PRStatus status = PR_Close(mSocket);
          if( status != PR_SUCCESS) {
             throw SocketException("Close failed");

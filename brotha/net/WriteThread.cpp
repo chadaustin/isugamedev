@@ -2,12 +2,12 @@
 // vim:cindent:ts=3:et:sw=3:
 
 #include "WriteThread.h"
+#include "SocketException.h"
 
 namespace net {
-   WriteThread::WriteThread(Socket *socket, MessageQueue *writeQueue) {
-      m_socket = socket;
-      m_writeQueue = writeQueue;
-
+   WriteThread::WriteThread(OutputStream *oStream, MessageQueue *writeQueue)
+      : m_oStream(oStream), m_writeQueue(writeQueue)
+   {
       start();
    }
 
@@ -15,7 +15,6 @@ namespace net {
    }
 
    void WriteThread::run() {
-      OutputStream *oStream = m_socket->getOutputStream();
       try {
          while(PR_AtomicIncrement(&mKillMe)) {
             // read all messages
@@ -28,8 +27,8 @@ namespace net {
                typedef std::vector<Message*>::iterator MsgIter;
                for(MsgIter iter=messages.begin();iter!=messages.end();iter++) {
                   Message* msg = (*iter);
-                  (*oStream) << msg->getType() << msg->getSize();
-                  msg->serialize(*oStream);
+                  (*m_oStream) << msg->getType() << msg->getSize();
+                  msg->serialize(*m_oStream);
                   std::cout<<"Sent Msg: type=0x"<<(msg->getType())
                            <<", size="<<msg->getSize()<<std::endl;
                }
@@ -39,6 +38,8 @@ namespace net {
 
             PR_AtomicDecrement(&mKillMe);
          }
-      } catch (SocketException &e) { }
+      } catch (SocketException &e) {
+         std::cout<<"Failed to serialize msg: "<<e.what()<<std::endl;
+      }
    }
 } // namespace net

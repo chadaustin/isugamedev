@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-28 07:32:17 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-29 08:33:21 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -45,7 +45,7 @@
 namespace client
 {
    BrothaApp::BrothaApp()
-      : mKernel(NULL)
+      : mKernel(NULL), mNetMgr(NULL), mConnID(-1)
    {
    }
 
@@ -97,24 +97,46 @@ namespace client
 
    void BrothaApp::onPostFrame()
    {
-      //int id = -1;
-      //Socket s;
-      //NetMgr mgr;
-
-      // test for connection
-      /*
-      if (id == -1) 
+      static bool loggedIn = false;
+      static int sent(0);
+      // Connect to the server if we have not already
+      if ( mConnID == -1 )
       {
-         id = mgr.handleSocket(s);
-         mgr.send(new LoginMessage("user", "pass"), id);
+         mNetMgr = new net::NetMgr();
+         auto_ptr<net::Socket> s( new net::Socket("127.0.0.1", 35791) );
+         mConnID = mNetMgr->handleSocket( s );
+         mNetMgr->send( new net::LoginMessage("user1", "passup"), mConnID );
+         std::cout<<"Sent login message"<<std::endl;
       }
-      */
-       
+//      else
+//      {
+         // get all msgs on the wire
+         net::NetMgr::MsgList msgs;
+         mNetMgr->readAll( msgs );
+
+         // check for login ack if we haven't logged in yet
+//         if ( ! loggedIn ) {
+//         }
+//      }
+
+      mNetMgr->send( new net::OKMessage( net::OKMessage::OKAY ), mConnID );
+      sent++;
+      if ( sent > 4 ) {
+         mKernel->shutdown();
+      }
+
+      if ( msgs.size() > 0 ) {
+         std::cout<<"Received "<<msgs.size()<<" msgs"<<std::endl;
+      }
+
       /*  To do.. just psuedo code right now
       //send msg to server to update status
       //assuming already logged on
-      mgr.send(new Message("position", "health", "velocity"), id); 
+      mgr.send(new Message("position", "health", "velocity"), id);
       */
+
+      // Process input from the user
+      processInput();
 
       // update the state of the game
       mGame.update();
@@ -127,6 +149,7 @@ namespace client
       // test for quit
       if (mQuit.getDigitalData() == gk::DigitalInput::DOWN)
       {
+         std::cout<<net::Message::mNumMsgsInMemory<<" Messages leaked"<<std::endl;
          mKernel->shutdown();
       }
 
