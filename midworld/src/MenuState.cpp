@@ -3,6 +3,7 @@
 
 #include "MenuState.h"
 #include "GameState.h"
+#include "CreditsState.h"
 
 #include <math.h>
 
@@ -203,6 +204,9 @@ namespace mw
                {
                   case 0:
                      invokeTransition(new GameState());
+                     break;
+                  case 3:
+                     invokeTransition(new CreditsState());
                      break;
                   case 4:
                      quit();
