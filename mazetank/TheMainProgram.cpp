@@ -2,11 +2,18 @@
 #include "GameWorld.h"
 #include "Input.h"
 
+// Globals ///////////////////////////////////////////////////
+
 Input GameInput;
 GameWorld MazeTank;
 
+bool CamMode = false;
 
-///////////////////////////////
+int OldX = -1;
+int OldY = -1;
+
+
+/////////////////////////////////////////////////////////////
 
 void Initialize()
 {
@@ -26,7 +33,35 @@ void Initialize()
 
 void MouseMotion(int x, int y)
 {
-   GameInput.TurretRotate(x, glutGet(GLUT_WINDOW_HEIGHT) - y);
+	int CenterX = glutGet(GLUT_WINDOW_WIDTH)/2;
+	int CenterY = glutGet(GLUT_WINDOW_HEIGHT)/2;
+
+	if(OldX == -1)
+	{
+		OldX = x;
+		OldY = y;
+	}
+
+	if(CamMode)
+		GameInput.LookAround(x - OldX, y - OldY);
+	else
+		GameInput.TurretRotate(x - OldX, y - OldY);
+
+	if(x > CenterX + 50 || x < CenterX - 50 ||
+		y > CenterY + 50 || y < CenterY - 50)
+	{
+		int tempx = glutGet(GLUT_WINDOW_WIDTH);
+		int tempy = glutGet(GLUT_WINDOW_HEIGHT);
+
+		glutWarpPointer(CenterX, CenterY);
+		OldX = -1;
+		OldY = -1;
+	}
+	else
+	{
+		OldX = x;
+		OldY = y;
+	}
 }
 
 void KeyboardInput(int key, int x, int y)
@@ -73,6 +108,30 @@ void KeyboardInputUp(int key, int x, int y)
    }
 }
 
+void MyKeyboard(unsigned char key, int x, int y)
+{
+	switch(key)
+	{
+	case ' ':
+		CamMode = true;
+		break;
+
+	case 27:
+		exit(0);
+		break;
+	}
+}
+
+void MyKeyboardUp(unsigned char key, int x, int y)
+{
+	switch(key)
+	{
+	case ' ':
+		CamMode = false;
+		GameInput.SnapCamera();
+		break;
+	}
+}
 
 void update()
 {
@@ -104,8 +163,11 @@ int main (int argc, char** argv)
 	glutDisplayFunc(display);
 	glutReshapeFunc(reshape);
 	glutSpecialFunc(KeyboardInput);
-   glutSpecialUpFunc(KeyboardInputUp);
-	glutMotionFunc(MouseMotion);
+	glutSpecialUpFunc(KeyboardInputUp);
+	glutKeyboardFunc(MyKeyboard);
+	glutKeyboardUpFunc(MyKeyboardUp);
+	glutPassiveMotionFunc(MouseMotion);
+	glutSetCursor(GLUT_CURSOR_NONE);
 	glutIdleFunc(update);
 	
    glutIgnoreKeyRepeat(1);

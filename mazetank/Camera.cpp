@@ -2,8 +2,8 @@
 
 Camera::Camera()
 {
-	MULTX = 2.0;
-	MULTZ = 2.0;
+	MULTX = 0.5;
+	MULTZ = 0.5;
 
 	for(int i = 0; i < 3; i++)
 	{

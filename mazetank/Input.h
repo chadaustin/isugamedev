@@ -28,9 +28,11 @@ public:
 
    void Accel(float Velocity);
 
-   void LookAround(int X, int Y);
+   void LookAround(int ChangeX, int ChangeY);
 
-   void TurretRotate(int X, int Y);
+   void TurretRotate(int ChangeX, int ChangeY);
+
+	void SnapCamera();
 
    int OldX, OldY;
    int TurretOldX, TurretOldY;

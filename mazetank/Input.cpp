@@ -3,11 +3,6 @@
 
 Input::Input()
 {
-   OldX = 0;
-   OldY = 0;
-
-   TurretOldX = 0;
-   TurretOldY = 0;
 
    MULTX = 0.5;
    MULTZ = 0.5;
@@ -41,38 +36,27 @@ void Input::Accel(float Velocity)
    Player1->SetVelocity(Velocity);
 }
 
-void Input::LookAround(int X, int Y)
+void Input::LookAround(int ChangeX, int ChangeY)
 {
-   int ChangeX = X - OldX;
-   int ChangeY = Y - OldY;
-
-   if(!(OldX == 0 && OldY == 0))
       ChaseCamera->LookAround(ChangeX, ChangeY);
-
-   OldX = X;
-   OldY = Y;
-
 }
 
-void Input::TurretRotate(int X, int Y)
+void Input::SnapCamera()
 {
-   GraphicsObject* TurretPointer;
-   Player1->GetGraphicsPointer(TurretPointer);
-   
-   int ChangeX = X - TurretOldX;
-   int Changey = Y - TurretOldY;
+	ChaseCamera->SnapBack();
+}
 
-   float Rotate[3];
-   TurretPointer->GetRotate(Rotate);
+void Input::TurretRotate(int ChangeX, int ChangeY)
+{
+	GraphicsObject* TurretPointer;
+	Player1->GetGraphicsPointer(TurretPointer);
 
-   if(!(TurretOldX == 0 && TurretOldY == 0))
-   {
-      Rotate[2] = X*MULTX;
-      Rotate[0] = Y*MULTZ;
+	float Rotate[3];
+	TurretPointer->GetRotate(Rotate);
 
-      TurretPointer->SetRotate(Rotate);
-   }
+	Rotate[2] += -1*ChangeX*MULTX;
+	Rotate[0] += -1*ChangeY*MULTZ;
 
-   TurretOldX = X;
-   TurretOldY = Y;
+	TurretPointer->SetRotate(Rotate);
+ 
 }
