@@ -84,6 +84,18 @@ build: $(PROJECT_NAME1)$(OBJ_FILE_SUFFIX) $(PROJECT_NAME2)$(OBJ_FILE_SUFFIX) $(P
 	-@echo "$(FILENAME) done"
 	-@echo "-------------------------------------------"
 
+prefix ?= installed
+
+
+install: build
+	-mkdir $(prefix)
+	-mkdir $(prefix)/include
+	-mkdir $(prefix)/include/pixmi
+	-mkdir $(prefix)/lib$(LIBBITSUF)
+	-cp pixmi/*.h $(prefix)/include/pixmi
+	-cp $(LIB_FILENAME) $(STATIC_LIB_FILENAME) $(prefix)/lib$(LIBBITSUF)
+
+
 # Remove the compiled stuff from the system
 clean:
 	-@echo ""
