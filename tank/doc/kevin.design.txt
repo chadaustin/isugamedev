@@ -51,7 +51,6 @@ home portal to open again.
 
 
 
-
 Why this game is fun
 ====================
 player needs to be clever (puzzles!), lots of weapons, powerups, character 
@@ -76,10 +75,12 @@ becomes a powerful adventurer.  Along the way are several intriguing puzzles
 designed to make the player think.
 
 You control Aki, or one of her vehicles depending on where they are needed 
-in the game.
+in the game.  At some point you may control someone else Aki meets along the 
+way.  And sometimes you use your current character to press buttons on a 
+control panel to control some other thing (like a robot)...
 
 Each world has designed adventure/quests and major puzzles.
-Arcade action along the way just to survive, and to gain wealth.
+Arcade action along the way just to survive and to gain wealth.
 
 The game is structured in large levels (like ankh, zelda, blaster master).
 There is a puzzle element (like pressing a button opens a door two rooms 
@@ -105,8 +106,18 @@ read on for more detail....
 
 Our story So Far
 =================
+The basic premise: a prophecy is about to be fulfilled.
+In the universe, there is energy that connects every world.  Every 1000   
+years this energy solidifies into actual passages that allow travel 
+between worlds.  The guardians of these passages are an ancient secret
+priesthood.  They of course know of this prophesy, and must see to it that
+it is fulfilled.  They contact Aki, for she is the chosen one...
+
 Main character is 5 year old girl named Aki.  Aki is a normal girl, likes to 
-play etc...  One night she wakes up to the sound of scratching at her closet.
+play etc...  she is especially facinated with toy guns and rocket launchers, 
+and spends many hours in the back yard with her dog.
+
+One night she wakes up to the sound of scratching at her closet.
 Fearless, she gets up to investigate and discovers that there is a cool wind 
 coming from under the door.  Throwing it open she climbs in and emerges into
 a rocky cavernlike tunnel.  The door slams shut behind her and she is unable
@@ -222,6 +233,31 @@ I want at least 3 of the levels themed to each of the following,
 - Mayan villages, african/mayan jungle  (atla)
 - nile river valley
 - ancient crete
+
+
+
+Describe Main Characters
+========================
+
+aki
+---------------
+- like the Link character from zelda, but female and 5 yrs old. (link kind
+  of looked young anyway)
+- she is really agile (children have rubbery bones. :)
+- she's strong
+- dark hair (blue highlights if you'd like)
+- is excited (in a joyous little kid fasion - gleefully) by heavy weaponry
+  (back on her home land, she really liked to play with toy guns).
+  perhaps she played in her backyard a lot with her dog and a supersoaker?
+- can run or walk (like mario)
+- not afraid of anything
+- looks like anime (artistic, not kiddie)
+  we need a good balance so that she's not awkward to control like tomb 
+  raider.  mario and zelda are both really easy to control (maybe because
+  of character proportions?)  she can turn on a dime, is controled while 
+  she jumps, etc...  
+- she can "jump", "use", "fire", "change weapon", "straef"
+- some weapons auto aim, but not all.
 
 
 
