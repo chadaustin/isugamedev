@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: IGameApp.h,v $
-// Date modified: $Date: 2002-04-15 00:15:06 $
-// Version:       $Revision: 1.4 $
+// Date modified: $Date: 2002-05-14 14:40:30 $
+// Version:       $Revision: 1.5 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -60,43 +60,61 @@ class IGameApp : public DLLInterface
 {
 public:
    /**
-    * Called immediately before beginning to draw a frame.
+    * This is the draw function. 
+    * Do rendering calls here.  This and onContextInit are the ONLY
+    * functions that it is guarenteed that you have a valid rendering context.
+    * Calling GL funcs in update may crash your system, you've been warned.
     *
-    * @see onDraw(int)
-    * @see onPostDraw()
-    */
-   virtual void onPreDraw() = 0;
-
-   /**
-    * This is the draw function. The GameKernel calls this each frame once per
-    * window. The context is used to support multiple windows such as what you
-    * might find in a VR environment. For PC applications, this can be ignored.
-    * If there are multiple contexts currently open, onDraw will be called once
-    * for each context.
+    * <p>
+    * The GameKernel calls this each frame once for each window.  For most 
+    * applications, this usually can be ignored except in special apps that 
+    * need multiple windows.
+    * If there are multiple window contexts currently open, onDraw will be 
+    * called once for each context per frame (or using our language, per update).
     *
     * @param context    the current OpenGL context
     */
    virtual void onDraw( int context = 0 ) = 0;
 
    /**
+    * Called immediately before beginning to draw a frame.
+    * Do computations here that you want done before a frame is rendered.
+    * This function also gives you the most recent input device readings.
+    *
+    * @see onDraw(int)
+    * @see onPostDraw()
+    */
+   virtual void onPreUpdate() = 0;
+   
+   /**
+    * This is called repeatedly to let your application update it's state. 
+    * There is a 1-1 correspondance between onDraw() and onUpdate() calls.
+    *
+    * <p>
+    * NOTE: If you need asyncronous behaviour, then you need to create your own 
+    * thread.  There is no reason for gamekernel to provide an asyncronous call
+    * back, since the reason GK exists is to provide syncronized callback.
+    * Anything asyncronous you need don't need to be here, and can easily be
+    * created with your own user level thread.
+    *
+    * <p>
+    * an app should assume that this func is called during draw.
+    * Some implementations will call this before, after, or during...
+    * Use pre or post frame (update) functions to guarentee ordering...
+    *
+    * <p>You should do all computation within this function.
+    */
+   virtual void onUpdate() = 0;
+   
+   /**
     * Called immediately after a frame has been drawn.
+    * Do computations here that you want done after a frame is rendered.
+    * This function also gives you the oldest input device readings.
     *
     * @see onPreDraw()
     * @see onDraw(int)
     */
-   virtual void onPostDraw() = 0;
-
-   /**
-    * This is called repeatedly to let your application update it's state. You
-    * cannot rely on a 1-1 correspondance between onDraw() and onUpdate() calls.
-    * In a single-threaded GameKernel, onDraw() will always immediately follow
-    * onUpdate(). However, in a multi-threaded GameKernel, there may be more
-    * than one onUpdate() call per onDraw() call since they will be called from
-    * different threads.
-    *
-    * <p>You should do any application specific processing within this function.
-    */
-   virtual void onUpdate() = 0;
+   virtual void onPostUpdate() = 0;
 
 // Init methods
 public:
@@ -114,6 +132,7 @@ public:
    /**
     * This is called once for each context (window) after the window has been
     * opened, but before the onContextDraw().
+    * Create your display lists here using a hash based on the context.
     *
     * @param context    the current OpenGL context
     */
@@ -122,6 +141,7 @@ public:
    /**
     * This is called once for each context (window) immediately before the
     * window has been closed.
+    * Destroy your display lists here using a hash based on the context.
     *
     * @param context    the current OpenGL context
     */
