@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-14 10:35:15 $
- * Version:       $Revision: 1.124 $
+ * Date modified: $Date: 2002-11-14 11:53:47 $
+ * Version:       $Revision: 1.125 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -111,9 +111,6 @@ namespace mw
 
       droidNavTree = new NavNodeTree();
       LevelLoader::load("levels/level1.txt", this);
-
-      mCamera.setMaxFollowDistance(50.0f);
-      mCamera.setMinFollowDistance(2.0f);
 
       //THis is the generation of the skydome
       GenerateDome(400.0f, 5.0f, 5.0f, 1.0f, 1.0f);
