@@ -25,7 +25,7 @@ regexx: $(OBJS)
 	@echo "Making regexx lib ($(LIB_FILENAME))"
 	@echo "------------------------------------"
 	@echo " "
-	$(SO_LINKER) $(SO_FLAGS) $(OBJS) $(OUTPUT_LIB_FLAG)$(LIB_FILENAME)
+	$(SO_LINKER) $(SO_FLAGS) $(OUTPUT_LIB_FLAG)$(LIB_FILENAME) $(OBJS)
 
 testapp: $(OBJS)
 	@echo " "
@@ -33,7 +33,7 @@ testapp: $(OBJS)
 	@echo "Making regexx test app (testregexx)"
 	@echo "------------------------------------"
 	@echo " "
-	$(EXE_LINKER) $(EXE_FLAGS) $(OBJS) $(OUTPUT_EXE_FLAG)testregexx$(EXE_FILE_SUFFIX) regexx.lib
+	$(EXE_LINKER) $(EXE_FLAGS) $(OUTPUT_EXE_FLAG)testregexx$(EXE_FILE_SUFFIX) $(OBJS) $(LIB_FILENAME)
 
 clean:
 	-rm $(OBJS)
