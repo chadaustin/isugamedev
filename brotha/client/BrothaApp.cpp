@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-22 04:27:24 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-04-22 04:55:17 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -157,7 +157,7 @@ namespace client
 
    void BrothaApp::processInput(SDLKey sym, bool keyDown)
    {
-      game::Player* player = getLocalPlayer();
+//      game::Player* player = getLocalPlayer();
       net::UpdatePlayerInfoMessage::UpdateWhat what = net::UpdatePlayerInfoMessage::NOTHING;
       PRFloat64 to;
 
