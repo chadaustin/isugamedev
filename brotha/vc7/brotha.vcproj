@@ -142,6 +142,9 @@
 			<File
 				RelativePath="..\net\WriteThread.cpp">
 			</File>
+			<File
+				RelativePath="..\xml\xmlpersist.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -151,6 +154,9 @@
 			</File>
 			<File
 				RelativePath="..\net\AddPlayerMessage.h">
+			</File>
+			<File
+				RelativePath="..\xml\BrothaData.h">
 			</File>
 			<File
 				RelativePath="..\game\BrothaGame.h">

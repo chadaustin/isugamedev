@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.32 $
+ * Date modified: $Date: 2002-04-30 09:33:15 $
+ * Version:       $Revision: 1.33 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -52,6 +52,7 @@
 #include "LoginState.h"
 #include "GameState.h"
 #include "GarageState.h"
+#include "PrintingEngine.h"
 
 namespace client
 {
@@ -105,7 +106,9 @@ namespace client
       mGame.update(dt);
 
       // update the jukebox so we can automagically move to the next track
-      mSoundMgr->getJukebox()->update();
+      if (mSoundMgr) {
+         mSoundMgr->getJukebox()->update();
+      }
    }
    
    void BrothaApp::draw() {
@@ -165,8 +168,15 @@ namespace client
 
    void BrothaApp::onKeyPress(SDLKey sym, bool down)
    {
-      if (mCurrentState) {
-         mCurrentState->onKeyPress(sym, down);
+      if (sym == SDLK_F12) {
+         if (mCurrentState) {
+            mCurrentState->draw();
+            PrintingEngine::print();
+         }
+      } else {
+         if (mCurrentState) {
+            mCurrentState->onKeyPress(sym, down);
+         }
       }
       return;  /// @todo   put the rest of this stuff in the game state
 

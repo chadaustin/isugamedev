@@ -166,6 +166,9 @@
 				RelativePath="..\client\ModelManager.h">
 			</File>
 			<File
+				RelativePath="..\client\PrintingEngine.h">
+			</File>
+			<File
 				RelativePath="..\client\Scene.cpp">
 			</File>
 			<File
@@ -179,6 +182,9 @@
 			</File>
 			<File
 				RelativePath="..\client\State.h">
+			</File>
+			<File
+				RelativePath="..\client\Win32PrintingEngine.cpp">
 			</File>
 			<File
 				RelativePath="..\client\main.cpp">

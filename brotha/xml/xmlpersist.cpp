@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-04-30 05:35:18 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-30 09:33:16 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -53,6 +53,9 @@ namespace data {
       xmlpp::XMLDocument doc( ctx );
       doc.load_file( filename );
       xmlpp::xmlnodeptr rootp = doc.getChild ("wbdata");
+      if (!rootp.get()) {
+         return BrothaData();
+      }
       xmlpp::xmlnodelist cursor = rootp->getChildren("gang");
       xmlpp::XMLNodeListIterator it = cursor.begin();
 
