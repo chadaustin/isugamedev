@@ -23,8 +23,8 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: Makefile,v $
-# Date modified: $Date: 2002-02-06 22:53:16 $
-# Version:       $Revision: 1.10 $
+# Date modified: $Date: 2002-02-06 23:05:17 $
+# Version:       $Revision: 1.11 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
@@ -32,7 +32,8 @@
 # objects to be included in the project....
 SRCS = \
    GameKernel.cpp \
-   GlutDriver.cpp
+   GlutDriver.cpp \
+   xmlparser.cpp  xmlpp.cpp  xmltokenizer.cpp
 
 # project name...
 PROJECT_NAME = gk
@@ -40,7 +41,7 @@ PROJECT_NAME = gk
 OBJDIR = .
 DEPDIR = 
 
-PATH_TO_SRCS = ./gk
+PATH_TO_SRCS = ./gk:./xml
 MK_DIR = mk
 INCLUDE_PATHS = -I.
 

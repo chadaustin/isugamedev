@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-06 22:47:06 $
-// Version:       $Revision: 1.1 $
+// Date modified: $Date: 2002-02-06 23:05:17 $
+// Version:       $Revision: 1.2 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -33,6 +33,7 @@
 #include <gk/GameApp.h>      // the base application type
 #include <gk/GameKernel.h>
 #include <gk/GameInput.h>
+#include <gk/GameInputConfigure.h>
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
 #include <gk/GlutDriver.h>
@@ -45,17 +46,11 @@ class InputApp : public GameApp
 public:
    virtual void OnAppInit()
    {
-      GameInput::instance().bind( "MouseX", "Mouse", "MOUSEAXIS_X" );
-      GameInput::instance().bind( "MouseY", "Mouse", "MOUSEAXIS_Y" );
-      GameInput::instance().bind( "Quit", "Keyboard", "KEY_Q" );
-      GameInput::instance().bind( "Accelerate", "Keyboard", "KEY_SPACE" );
-      GameInput::instance().bind( "Accelerate", "Mouse", "MOUSEBUTTON_LEFT" );
-
       GameKernel::instance().setName( "Input Test" );
       mQuit.init( "Quit" );
       mAccelerate.init( "Accelerate" );
-      mMouseX.init( "MouseX" );
-      mMouseY.init( "MouseY" );
+      mMouseX.init( "MouseLookX" );
+      mMouseY.init( "MouseLookY" );
    }
 
    virtual void OnContextInit()
@@ -110,6 +105,7 @@ public:
 
 void main( int argc, char *argv[] )
 {
+   loadInputConfig( "config.xml" );
    GameKernelRegister<InputApp> reg;
    SystemDriver* driver = new GlutDriver();
    GameKernel::instance().startup( driver );
