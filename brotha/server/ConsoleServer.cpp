@@ -27,11 +27,16 @@ bool processcmd(const std::string& cmd) {
    } else if (cmd == "exit" || cmd == "quit") {
       return false;
    } else if (cmd == "help") {
+      println("");
       println("help                    - get help");
       println("startserver, start      - start brothaserva");
-      println("stopserver, stop        - start brothaserva");
-      println("startwebserver, startws - start brothaserva");
-      println("stopwebserver, stopws   - start brothaserva");
+      println("stopserver, stop        - stop brothaserva");
+      println("startwebserver, startws - start webserva");
+      println("stopwebserver, stopws   - stop webserva");
+      println("help, quit              - exit server");
+      println("");
+      println("You may also pass commands as arguments to the program.");
+      println("");
    } else {
       println("Unknown command: " + cmd);
    }
