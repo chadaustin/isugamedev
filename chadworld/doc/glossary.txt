@@ -1,0 +1,34 @@
+ChadWorld Glossary
+
+Avatar - A physical object representing the player within the world.
+	 Avatars show the location of your player to the other players
+	 viewing the system.
+
+Behavior - A Java3D scene graph node that simply manipulates the state
+	   of the system.  Behaviors have no physical representation
+	   within the scene.
+
+Client - The program that connects to the server over the network and
+	 displays the world.
+
+Client Frame - Window on the client that contains the 3D
+	       representation of the world.
+
+Entity - Some physical object within the scene.  There are static
+	 entities (world elements) and dynamic entities (avatars).
+	 Static entities do not move within the world.  Dynamic
+	 entities can change position and orientation.
+
+Packet - An atomic chunk of data that is passed across a network
+	 connection.  There are several types of packets: Some
+	 represent login requests, some represent updates to the world
+	 information, others represent input events such as
+	 keypresses.
+
+Scene Graph - A heirarchical representation of a scene.  Scene graphs
+	      are a popular way to organize spatially related objects.
+	      PGI Performer, OpenSceneGraph, OpenSG, and Java3D are
+	      all scene graphs.
+
+Server - The program that runs on one computer and handles the world
+	 and all client connections.
