@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameKernel.h,v $
-// Date modified: $Date: 2002-02-06 22:47:05 $
-// Version:       $Revision: 1.9 $
+// Date modified: $Date: 2002-02-08 05:19:56 $
+// Version:       $Revision: 1.10 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -102,8 +102,8 @@ public:
    GameKernelRegister() : mApplication()
    {
       GameKernel::instance().applications().push_back( &mApplication );
-      int size = GameKernel::instance().applications().size();
    }
+
    virtual ~GameKernelRegister()
    {
 
