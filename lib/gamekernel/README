@@ -23,6 +23,15 @@ features:
    - Joystick support available
 
 
+BUILDING from SOURCE
+
+   cvs-gather.pl (to get cppdom and build system)
+   autogen.sh (to create configure)
+   configure (to create makefiles)
+   make (to create libgk.so and libgk.a (or gk.lib on win32))
+   make install to install it.
+
+
 TODO:
  - add other native backends
    - win32
