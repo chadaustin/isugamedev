@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-05-02 00:35:11 $
- * Version:       $Revision: 1.15 $
+ * Date modified: $Date: 2002-05-02 04:17:03 $
+ * Version:       $Revision: 1.16 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -123,13 +123,7 @@ namespace game
       typedef std::vector<Object*> ObjectList;
       ObjectList mObject;
       typedef ObjectList::iterator ObjectListItr;
-
-      typedef std::vector<data::Gang*> GangList;
-      GangList mGang;
-
-      typedef std::vector<data::Player*> GangPlayerList;
-      GangPlayerList mGangPlayer; 
-
+      
    };
 }
 

@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-02 00:35:11 $
- * Version:       $Revision: 1.16 $
+ * Date modified: $Date: 2002-05-02 04:17:03 $
+ * Version:       $Revision: 1.17 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -44,7 +44,7 @@
 #include <algorithm>
 #include <gmtl/VecOps.h>
 #include <sstream>
-//#include <istringstream>
+#include "xml/DataManager.h"
 
 namespace game
 {
@@ -70,30 +70,37 @@ namespace game
    }
 
    void GameLogic::updateStats(){
-      data::BrothaData* dBroth;
+      
       data::Player* dPlayer;
       data::Gang* dGang;
       std::ostringstream out;
       Player* currPlayer;
+      std::string coins, kills, health;
+      
+      data::BrothaData& dBroth = data::DataManager::instance().getData();
+      data::GangList& gangs = dBroth.getGangList();
 
-      mGang = dBroth->getGangList();
-
-      for (unsigned int i=0; i < mGang.size(); i++){
+      for (unsigned int i=0; i < gangs.size(); i++){
          /// update players xml data
-         dGang = dBroth->getGang(mGang[i]->getName());
-         mGangPlayer = dGang->getPlayerList();
-         for (unsigned int j=0; j < mGangPlayer.size();j++){
+         dGang = dBroth.getGang(gangs[i]->getName());
+         data::PlayerList& gangPlayers = dGang->getPlayerList();
+         for (unsigned int j=0; j < gangPlayers.size();j++){
                         
-            dPlayer = dGang->getPlayer(mGangPlayer[j]->getName());
+            dPlayer = dGang->getPlayer(gangPlayers[j]->getName());
             currPlayer = GameLogic::getPlayer(dPlayer->getName());
             
             if (currPlayer != NULL){
-               out << currPlayer->getKills();
-               dPlayer->setStat("Kills", out.str()); 
-               out << currPlayer->getHealth();
-               dPlayer->setStat("Health", out.str());
-               out << currPlayer->getCoins();
-               dPlayer->setStat("Coins", out.str());
+               std::ostringstream out1;
+               std::ostringstream out2;
+               std::ostringstream out3;
+               
+               out1 << currPlayer->getKills();
+               out2 << currPlayer->getHealth();
+               out3 << currPlayer->getCoins();
+               
+               dPlayer->setStat("Kills", out1.str()); 
+               dPlayer->setStat("Health", out2.str());
+               dPlayer->setStat("Coins", out3.str());
             }// end if
          }// end for
       }// end for
@@ -158,12 +165,12 @@ namespace game
    }
 
    void GameLogic::getStats(Player* player) {
-      data::BrothaData* dBroth;
+      data::BrothaData& dBroth = data::DataManager::instance().getData();
       data::Player* dPlayer;
       int coins, kills, health;
       
-      if (dBroth->getPlayer(player->getName()) != NULL){
-         dPlayer = dBroth->getPlayer(player->getName());
+      if (dBroth.getPlayer(player->getName()) != NULL){
+         dPlayer = dBroth.getPlayer(player->getName());
       
          std::istringstream iss1 (dPlayer->getStat("Coins"), std::istringstream::in);
          std::istringstream iss2 (dPlayer->getStat("Kills"), std::istringstream::in);
@@ -172,6 +179,7 @@ namespace game
          iss1 >> coins;
          iss2 >> kills;
          iss3 >> health;
+
          player->setCoins(coins);
          player->setKills(kills);
          player->setHealth(health);
