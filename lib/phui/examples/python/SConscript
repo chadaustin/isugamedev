@@ -1,5 +1,5 @@
 Import('baseEnv pkg')
-Import('SetupPython')
+Import('SetupPython SetupBoostPython')
 
 sources = Split("""
    main.cpp
@@ -9,6 +9,7 @@ env = baseEnv.Copy()
 env.Append(LIBPATH      = ['#phui'],
            LIBS         = Split('phui phuiGLUT util'),
            LINKFLAGS    = Split('-Xlinker -export-dynamic'))
+SetupBoostPython(env)
 SetupPython(env, '2.2')
 prog = pkg.createProgram('py_example', env)
 prog.addIncludes(['#'])

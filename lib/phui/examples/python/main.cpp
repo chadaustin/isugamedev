@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: main.cpp,v $
- * Date modified: $Date: 2003-01-05 14:09:16 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2003-01-06 02:52:58 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -33,13 +33,18 @@
 #include <phui/phui.h>
 #include <phui/GLUTBridge.h>
 #include <Python.h>
+#include <boost/python.hpp>
 
-//extern "C" void initphui();
 
 namespace
 {
    phui::RootWidgetPtr gRoot;
    int gContext; /// GLUT context
+}
+
+phui::RootWidgetPtr getRoot()
+{
+   return gRoot;
 }
 
 void idle()
@@ -68,14 +73,22 @@ void reshape(int width, int height)
    gRoot->setSize(phui::Size(width, height));
 }
 
+// Define the connection between our C++ application and the python interpreter
+// so that the python scripts cat get access to the application data.
+BOOST_PYTHON_MODULE(appconnect)
+{
+   using namespace boost::python;
+   def("getUI", getRoot);
+}
+
 int main(int argc, char** argv)
 {
    try
    {
       // Init the python interpreter
+      PyImport_AppendInittab("appconnect", initappconnect);
       Py_Initialize();
       PySys_SetArgv(argc, argv);
-//      PyImport_AppendInittab("phui", initphui);
       PyRun_SimpleString("import sys");
       PyRun_SimpleString("sys.path.append('../../phui')");
 
