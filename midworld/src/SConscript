@@ -9,6 +9,7 @@ classes = Split("""
    BoundsCollisionDetector
    Camera
    CollisionDesc
+   CreditsState
    Enemy
    GameManager
    GameState

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Main.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -83,7 +83,11 @@ void run()
 
    SDL_WM_SetCaption("Midworld", 0);
    std::auto_ptr<mw::Application> app(new mw::Application);
-      
+   
+   // init the mouse state...
+   ::SDL_WarpMouse( width / 2, height / 2 );
+   ::SDL_ShowCursor( SDL_DISABLE );
+         
    // let the app know what size it is
    app->resize(width, height);
       
@@ -151,6 +155,7 @@ void run()
    }
    
    SDL_Quit();
+   ::SDL_ShowCursor( SDL_ENABLE );
 }
 
 

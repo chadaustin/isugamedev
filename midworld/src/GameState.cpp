@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.17 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.18 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,11 +37,13 @@
 #include "SpreadGun.h"
 #include "Shotgun.h"
 #include "AssaultRifle.h"
+#include "Application.h"
 
 namespace mw
 {
-   GameState::GameState()
-      : mSpeed(10)
+   GameState::GameState( Application* a )
+      : State( a )
+      , mSpeed(10)
       , mAccelerate(UP)
       , mReverse(UP)
       , mStrafeRight(UP)
@@ -51,6 +53,9 @@ namespace mw
       , mFPS(0)
       , mFrameCount(0)
       , mFrameTime(0)
+      , mMousePosX( a->getWidth() / 2 )
+      , mMousePosY( a->getHeight() / 2 )
+      , mNeedWarp( true )
    {
       mGunSlots.resize( 10 );
       for (unsigned int x = 0; x < mGunSlots.size(); ++x)
@@ -90,6 +95,14 @@ namespace mw
    void
    GameState::update(float dt)
    {
+      // keep track of the mouse cursor...
+      if (mNeedWarp)
+      {
+         ::SDL_WarpMouse( this->application().getWidth() / 2, this->application().getHeight() / 2 );
+         mNeedWarp = false;
+      }
+      
+      
       mCamera.setPlayerPos(mPlayer.getPos());
 
       const gmtl::Vec3f accel(   gmtl::Vec3f(0, 0, -mSpeed)      );
@@ -165,6 +178,38 @@ namespace mw
          }                  
       }
       
+      // update player transform
+      {
+         float screen_size_x = this->application().getWidth();
+         float screen_size_y = this->application().getHeight();
+         float x = mMousePosX;
+         float y = mMousePosY;
+         gmtl::Vec3f mid(screen_size_x / 2, screen_size_y / 2, 0);
+         gmtl::Vec3f pos( x, y, 0 );
+         gmtl::Vec3f dir(pos - mid);
+         gmtl::normalize(dir);
+
+         float rad = gmtl::Math::aCos(gmtl::dot(dir, gmtl::Vec3f(1,0,0)));
+         gmtl::Vec3f side = gmtl::cross(dir, gmtl::Vec3f(1,0,0));
+
+         // move so it points in mouse dir...
+         rad += gmtl::Math::deg2Rad(90.0f);
+
+         // map the dot (angle) and cross (side) to the player
+         if (side[2] >= 0.0f)
+         {
+            float t = rad + gmtl::Math::deg2Rad(180.0f);
+            gmtl::Quatf q = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( t, 0.0f, 1.0f, 0.0f ) );
+            mPlayer.setRot( q );
+         }
+         else
+         {
+            float t = -rad;
+            gmtl::Quatf q = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( t, 0.0f, 1.0f, 0.0f ) );
+            mPlayer.setRot( q );
+         }
+      }
+      
       // update edge states...
       updateEdgeState(mAccelerate);
       updateEdgeState(mReverse);
@@ -172,7 +217,7 @@ namespace mw
       updateEdgeState(mStrafeLeft);
       updateEdgeState(mShoot);
       updateEdgeState(mCycleWeapon);
-      for (int x = 0; x < mGunSlots.size(); ++x)
+      for (unsigned int x = 0; x < mGunSlots.size(); ++x)
          updateEdgeState( mGunSlots[x] );
 
       // Iterate over all the rigid bodies and update them
@@ -229,6 +274,24 @@ namespace mw
          }
       glPopMatrix();
 
+      // draw cursor (dumb)
+      glPushMatrix();
+      glMatrixMode(GL_PROJECTION);
+         glPushMatrix();
+         glLoadIdentity();
+         glOrtho(0, this->application().getWidth(), this->application().getHeight(), 0, 300, -300);
+      glMatrixMode(GL_MODELVIEW);
+         glPushMatrix();
+         glLoadIdentity();
+         glTranslatef( mMousePosX, mMousePosY, 0 );
+         glScalef( 3.0f, 3.0f, 3.0f );
+         cubeGeometry().render();
+         glPopMatrix();
+
+         glMatrixMode(GL_PROJECTION);
+         glPopMatrix();
+      glPopMatrix();
+         
       // Draw the HUD
       if (mFontRenderer)
       {
@@ -317,7 +380,7 @@ namespace mw
       case SDLK_ESCAPE: case SDLK_q:
          if (down)
          {
-            invokeTransition(new MenuState());
+            this->invokeTransition( new MenuState( &this->application() ) );
          }
          break;
       }
@@ -341,31 +404,29 @@ namespace mw
    void
    GameState::onMouseMove(int x, int y)
    {
-      float screen_size_x = 640;
-      float screen_size_y = 480;
-      gmtl::Vec3f mid(screen_size_x / 2, screen_size_y / 2, 0);
-      gmtl::Vec3f pos((float)x, (float)y, 0);
-      gmtl::Vec3f dir(pos - mid);
-      gmtl::normalize(dir);
-
-      float rad = gmtl::Math::aCos(gmtl::dot(dir, gmtl::Vec3f(1,0,0)));
-      gmtl::Vec3f side = gmtl::cross(dir, gmtl::Vec3f(1,0,0));
-
-      // move so it points in mouse dir...
-      rad += gmtl::Math::deg2Rad(90.0f);
-
-      // map the dot (angle) and cross (side) to the player
-      if (side[2] >= 0.0f)
+      // keep track of the game-draw virtual cursor
+      mNeedWarp = true;
+      x -= this->application().getWidth() / 2;
+      y -= this->application().getHeight() / 2;
+      mMousePosX += x;
+      mMousePosY += y;
+      
+      // constrain virtual cursor
+      if (mMousePosX < 0)
       {
-         float t = rad + gmtl::Math::deg2Rad(180.0f);
-         gmtl::Quatf q = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( t, 0.0f, 1.0f, 0.0f ) );
-         mPlayer.setRot( q );
+         mMousePosX = 0;
       }
-      else
+      if (this->application().getWidth() < mMousePosX)
       {
-         float t = -rad;
-         gmtl::Quatf q = gmtl::makeRot<gmtl::Quatf>( gmtl::AxisAnglef( t, 0.0f, 1.0f, 0.0f ) );
-         mPlayer.setRot( q );
+         mMousePosX = this->application().getWidth();
+      }
+      if (mMousePosY < 0)
+      {
+         mMousePosY = 0;
+      }
+      if (this->application().getHeight() < mMousePosY)
+      {
+         mMousePosY = this->application().getHeight();
       }
    }
 

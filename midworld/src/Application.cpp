@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Application.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.11 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.12 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -39,7 +39,7 @@ namespace mw {
    {
       mWidth  = 0;
       mHeight = 0;
-      mState  = new IntroState();
+      mState  = new IntroState( this );
    }
 
    Application::~Application()

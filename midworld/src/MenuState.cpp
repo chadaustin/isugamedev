@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,12 +33,13 @@
 #include "MenuState.h"
 #include "GameState.h"
 #include "CreditsState.h"
+#include "Application.h"
 
 #include <math.h>
 
 namespace mw
 {
-   MenuState::MenuState()
+   MenuState::MenuState( Application* a ) : State( a )
    {
       //setup images
       mImages.resize(3);
@@ -102,6 +103,7 @@ namespace mw
    void
    MenuState::update(float dt)
    {
+      ::SDL_WarpMouse( this->application().getWidth() / 2, this->application().getHeight() / 2 );
       //TODO: make this work!  Andres
 /*
       float dt=(float)elapsedTime/1000000.f;
@@ -220,10 +222,10 @@ namespace mw
                switch (mCurrentItem)
                {
                   case 0:
-                     invokeTransition(new GameState());
+                     this->invokeTransition(new GameState( &this->application() ));
                      break;
                   case 3:
-                     invokeTransition(new CreditsState());
+                     this->invokeTransition(new CreditsState( &this->application() ));
                      break;
                   case 4:
                      quit();

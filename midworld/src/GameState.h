@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -46,10 +46,11 @@
 
 namespace mw
 {
+   class Application;
    class GameState : public State
    {
    public:
-      GameState();
+      GameState( Application* a );
       ~GameState();
 
       enum EdgeState
@@ -105,6 +106,10 @@ namespace mw
       float mFPS;
       float mFrameCount;
       float mFrameTime;
+      
+      // cursor
+      float mMousePosX, mMousePosY;
+      bool mNeedWarp;
    };
 }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -101,10 +101,11 @@ namespace mw
       unsigned int height;
    };
 
+   class Application;
    class MenuState : public State
    {
    public:
-      MenuState();
+      MenuState( Application* a );
       ~MenuState();
 
       void update(float dt);

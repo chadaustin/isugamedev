@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CreditsState.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -36,16 +36,15 @@
 #include <vector>
 #include "State.h"
 #include "Texture.h"
+#include "MenuState.h"
 
 namespace mw
 {
+   class Application;
    class CreditsState : public State
    {
    public:
-      CreditsState()
-      {
-         mImages.push_back(new Texture("credits.jpeg"));
-      }
+      CreditsState( Application* );
 
       ~CreditsState()
       {
@@ -87,7 +86,7 @@ namespace mw
       {
          if (down)
          {
-            invokeTransition(new MenuState());
+            invokeTransition(new MenuState( &this->application() ));
          }
       }
       void onMousePress(Uint8 button, bool down, int x, int y) {}

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,15 +33,16 @@
 #ifndef MW_STATE_H
 #define MW_STATE_H
 
+#include <assert.h>
 #include <SDL.h>
 
 namespace mw
 {
-
+   class Application;
    class State
    {
    public:
-      State();
+      State( Application* );
       virtual ~State();
 
       /**
@@ -54,7 +55,9 @@ namespace mw
       virtual void onKeyPress(SDLKey sym, bool down) = 0;
       virtual void onMousePress(Uint8 button, bool down, int x, int y) = 0;
       virtual void onMouseMove(int x, int y) = 0;
-
+      Application& application() { assert( mApp != NULL ); return *mApp; }
+      const Application& application() const { assert( mApp != NULL ); return *mApp; }
+      
       void invokeTransition(State* state);
 
       /**
@@ -69,6 +72,7 @@ namespace mw
    private:
       State* mNextState;
       bool mIsQuitting;
+      Application* mApp;
    };
 }
 

@@ -24,18 +24,18 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: State.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 
 #include "State.h"
-
+#include "Application.h"
 
 namespace mw
 {
-   State::State()
+   State::State( Application* a ) : mApp( a )
    {
       mNextState = 0;
       mIsQuitting = false;

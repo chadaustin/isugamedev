@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-07-07 03:10:59 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,11 +33,13 @@
 #include "IntroState.h"
 #include "GameManager.h"
 #include "MenuState.h"
+#include "Application.h"
 
 namespace mw
 {
 
-   IntroState::IntroState()
+   IntroState::IntroState( Application* a )
+      : State( a )
    {
       mIntroImage = new Texture("intro.jpeg");
       mShouldTransition = false;
@@ -57,6 +59,7 @@ namespace mw
    void
    IntroState::update(float dt)
    {
+      ::SDL_WarpMouse( this->application().getWidth() / 2, this->application().getHeight() / 2 );
    }
 
    void
@@ -87,7 +90,7 @@ namespace mw
    {
       if (down)
       {
-         invokeTransition(new MenuState());
+         invokeTransition(new MenuState( &this->application() ));
       }
    }
 
