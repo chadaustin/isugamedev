@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Size.cpp,v $
- * Date modified: $Date: 2003-01-05 06:54:27 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-05 07:00:47 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -86,5 +86,10 @@ namespace phui
    void Size::setHeight(int height)
    {
       mHeight = height;
+   }
+
+   std::ostream& operator<<(std::ostream& out, const Size& size)
+   {
+      return out << "(" << size.getWidth() << ", " << size.getHeight() << ")";
    }
 }

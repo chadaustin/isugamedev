@@ -24,13 +24,15 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Size.h,v $
- * Date modified: $Date: 2003-01-05 06:54:27 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2003-01-05 07:00:46 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
 #ifndef PHUI_SIZE_H
 #define PHUI_SIZE_H
+
+#include <iostream>
 
 namespace phui
 {
@@ -105,6 +107,8 @@ namespace phui
       /// Height of this size
       int mHeight;
    };
+
+   std::ostream& operator<<(std::ostream& out, const Size& size);
 }
 
 #endif
