@@ -8,10 +8,15 @@ from AutoDist import *
 #------------------------------------------------------------------------------
 # Define some generally useful functions
 #------------------------------------------------------------------------------
-def GetCppDomVersion():
-   "Gets the gk version from cppdom/version.h"
+def GetGkVersion():
+   "Gets the Gk version from gk/version.h"
    import re
-   return (int(1), int(1), int(1))
+
+   contents = open('gk/version.h', 'r').read()
+   major = re.compile('.*(#define *GK_VERSION_MAJOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   minor = re.compile('.*(#define *GK_VERSION_MINOR *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   patch = re.compile('.*(#define *GK_VERSION_PATCH *(\d+)).*', re.DOTALL).sub(r'\2', contents)
+   return (int(major), int(minor), int(patch))
 
 def GetPlatform():
    "Determines what platform this build is being run on."
@@ -115,9 +120,9 @@ def BuildWin32Environment():
 #------------------------------------------------------------------------------
 EnsureSConsVersion(0,10)
 
-# Figure out what vesion of CppDom we're using
-CPPDOM_VERSION = GetCppDomVersion()
-print 'Building CppDom Version: %i.%i.%i' % CPPDOM_VERSION
+# Figure out what vesion of Gk we're using
+GK_VERSION = GetGkVersion()
+print 'Building Gk Version: %i.%i.%i' % GK_VERSION
 
 # Get command-line arguments
 optimize = ARGUMENTS.get('optimize', 'no')
@@ -127,7 +132,7 @@ Prefix(PREFIX)
 Export('PREFIX')
 
 # Create the extra builders
-# Define a builder for the gk-config script
+# Define a builder for the nfig script
 builders = {
    'ConfigBuilder'   : Builder(action = CreateConfig)
 }
@@ -153,16 +158,16 @@ subdirs = Split("""
 
 
 
-# Create the CppDom package
-pkg = Package('gk', '%i.%i.%i' % CPPDOM_VERSION)
+# Create the Gk package
+pkg = Package('gk', '%i.%i.%i' % GK_VERSION)
 pkg.addExtraDist(Split("""
    AUTHORS
    ChangeLog
    COPYING
    README
-   gk-config.in
    SConstruct
    gk/SConstruct
+   gk-config.in
    tools/build/AutoDist.py
 """))
 Export('pkg')
@@ -172,21 +177,21 @@ subdirs = Split('gk drivers test')
 SConscript(dirs = subdirs)
 
 
-# Setup the builder for cppdom-config
+# Setup the builder for gk-config
 env = baseEnv.Copy(BUILDERS = builders)
 env.ConfigBuilder('gk-config', 'gk-config.in',
    submap = {
       '@prefix@'                    : PREFIX,
       '@exec_prefix@'               : '${prefix}',
-      '@cppdom_cxxflags@'           : '',
+      '@gk_cxxflags@'           : '',
       '@includedir@'                : pj(PREFIX, 'include'),
-      '@cppdom_extra_cxxflags@'     : '',
-      '@cppdom_extra_include_dirs@' : '',
-      '@cppdom_libs@'               : '-lcppdom',
+      '@gk_extra_cxxflags@'     : '',
+      '@gk_extra_include_dirs@' : '',
+      '@gk_libs@'               : '-lgk',
       '@libdir@'                    : pj(PREFIX, 'lib'),
-      '@VERSION_MAJOR@'             : str(CPPDOM_VERSION[0]),
-      '@VERSION_MINOR@'             : str(CPPDOM_VERSION[1]),
-      '@VERSION_PATCH@'             : str(CPPDOM_VERSION[2]),
+      '@VERSION_MAJOR@'             : str(GK_VERSION[0]),
+      '@VERSION_MINOR@'             : str(GK_VERSION[1]),
+      '@VERSION_PATCH@'             : str(GK_VERSION[2]),
    }
 )
 
