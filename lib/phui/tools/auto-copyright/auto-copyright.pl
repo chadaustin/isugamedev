@@ -4,6 +4,7 @@
 # Copyright (c) 2000 Patrick L. Hartling (original author)
 # contributors:
 #  - Kevin Meinert (command line args, external config data, working dir)
+#  - Ben Scott (emacs and vi modeline support)
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -28,7 +29,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#       $Id: auto-copyright.pl,v 1.7 2002-04-28 14:59:30 nonchocoboy Exp $
+#       $Id: auto-copyright.pl,v 1.8 2002-04-28 15:45:43 nonchocoboy Exp $
 #
 
 use File::Basename;
@@ -45,8 +46,9 @@ use lib($path."/..");
 use RecurseDir;
 
 # get opts:
-getopts('d:t:c:e:ha');
+getopts('d:m:t:c:e:ha');
 
+my $modeline_file = "$opt_m";
 my $tags_file = "$opt_t";
 my $copyright_file = "$opt_c";
 my @extensions = split( /,/, "$opt_e" );
@@ -72,6 +74,18 @@ if($tags_file)
    }
 }
 
+# execute the modeline file, putting it's vars into scope
+if ($modeline_file)
+{
+   unless ($return = do $modeline_file)
+   {
+       helpText();
+       warn "couldn't parse $modeline_file: $@"     if $@;
+       warn "couldn't do $modeline_file: $!"        unless defined $return;
+       warn "couldn't run $modeline_file"           unless $return;
+       exit 1;
+   }
+}
 if (!open(TAGSFILE, "$tags_file"))
 {
    helpText();
@@ -116,6 +130,7 @@ sub helpText()
     print "Options:\n";
     print "       -d <working dir> name of dir to start recursive processing\n";
     print "       -e <ext1,ext2,..,extn> file extensions to process\n";
+    print "       -m <modelinefile> name of the file with the modeline header\n";
     print "       -c <(c) header> name of file with copyright text\n";
     print "       -t <tags.pl> name of perl script which defines 4\n";
     print "                    variables as input to this script\n";
@@ -169,6 +184,40 @@ sub recurseFunc {
          while(<INPUT>)
          {
             $file_contents .= $_;
+         }
+
+         # check for emacs modeline
+         if ( $file_contents =~ m!^(/\*|//) *-\*- Mode:.*-\*-( *\*/)?! )
+         {
+            print "Replacing emacs modeline in $filename ...\n";
+            print OUTPUT "$1 -*- Mode: $emacs_modeline -*-$2\n";
+            $file_contents =~ s!(/\*|//) *-\*- Mode:.*-\*-( *\*/)?\r?\n!!;
+         }
+         elsif ($opt_a)
+         {
+            print "Adding emacs modeline to $filename ...\n";
+            print OUTPUT "/* -*- Mode: $emacs_modeline -*- */\n";
+         }
+         else
+         {
+            print "$filename: No previous emacs modeline, no replace.\n";
+         }
+
+         # check for vim modeline
+         if ( $file_contents =~ m!(/\*|//) *vim:.*( *\*/)?! )
+         {
+            print "Replacing vim modeline in $filename ...\n";
+            print OUTPUT "$1 vim:$vim_modeline$2\n";
+            $file_contents =~ s!(/\*|//) *vim:.*( *\*/)?\r?\n!!;
+         }
+         elsif ($opt_a)
+         {
+            print "Adding vim modeline to $filename ...\n";
+            print OUTPUT "// vim:$vim_modeline\n";
+         }
+         else
+         {
+            print "$filename: No previous vim modeline, no replace.\n";
          }
 
          my $copyrights_plus_delimiters = "$newbegintag\n$all_copyrights$newendtag\n";
