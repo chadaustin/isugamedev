@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="docbook.css" type="text/css"?>
+<!DOCTYPE article SYSTEM "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<article lang="en">
+  <articleinfo>
+    <title>Warn-a-Brotha Design</title>
+    <subtitle>Computer Science 309 Spring 2002 Term Project</subtitle>
+    <authorgroup>
+      <author>
+        <firstname>Chad</firstname>
+        <surname>Austin</surname>
+      </author>
+      <author>
+        <firstname>Josh</firstname>
+        <surname>Carlson</surname>
+      </author>
+      <author>
+        <firstname>Jeremy</firstname>
+        <surname>Hanson</surname>
+      </author>
+      <author>
+        <firstname>Chad</firstname>
+        <surname>Okere</surname>
+      </author>
+      <author>
+        <firstname>Ben</firstname>
+        <surname>Scott</surname>
+      </author>
+    </authorgroup>
+    <address><email>isugamedev-brotha@lists.sourceforge.net</email></address>
+    <pubdate>$Date: 2002-04-05 04:12:53 $</pubdate>
+    <releaseinfo>$Header: /cygdrive/c/Users/Chad/Desktop/SourceForge Backup/isugamedev/cvs/brotha/doc/design/design.xml,v 1.1 2002-04-05 04:12:53 nonchocoboy Exp $</releaseinfo>
+    <revhistory>
+      <revision>
+        <revnumber>1.1</revnumber>
+        <date>03 Apr 2002</date>
+        <revremark>Created document skeleton.</revremark>
+      </revision>
+    </revhistory>
+  </articleinfo>
+  <abstract>
+    <title>Introduction</title>
+    <para><emphasis>Warn-a-Brotha</emphasis> is an online 3D racing game in the spirit of <emphasis>Mario Kart</emphasis> and <emphasis>F-Zero</emphasis>. The game will feature cartoon characters in a multi-player battle cart racing game. Players will be able to compete in combat and racing action against several other networked friends.</para>
+    <para>The game will include power-ups, damage meters and an interesting interface. We plan on keeping track of player and gang-related statistics and preferences such as the number of kills they've made, number of times they've died and the number of cars they've trashed. The player will be able to choose one of several characters, each with his or her own look and attitude.</para>
+    <para>The <emphasis>Warn-a-Brotha</emphasis> client program will be implemented using OpenGL and C++ while the server will be implemented with portable C++. The clients and server will communicate over the TCP/IP layer. Due to time constraints, we will assume that all computers are on a LAN or other suitably fast connection so that we can generally ignore the lag problems associated with dial-up networked play.</para>
+    <para>The underlying database will be implemented using XML tables storing gangs, players, cars and car modifications where each gang can have multiple players, each player can have multiple cars and each car can have multiple modifications.</para>
+  </abstract>
+  <section>
+    <title>Modules</title>
+    <para>At a high level, <emphasis>Warn-a-Brotha</emphasis> can be broken down into several clear modules. This includes Network, Sound, Data, Game Logic, Client Input, Client UI and Server UI.</para>
+    <section>
+      <title>Network Module</title>
+      <para>Description of what this module does here ...</para>
+      <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
+      <section>
+        <title>Module Interfaces</title>
+        <para>blah blah</para>
+      </section>
+      <section>
+        <title>Design Issues</title>
+        <para>blah blah</para>
+        <section>
+          <title>Issue 1</title>
+          <para>blah</para>
+        </section>
+        <section>
+          <title>Issue 2</title>
+          <para>blah</para>
+        </section>
+      </section>
+    </section>
+    <section>
+      <title>Sound Module</title>
+      <para>Description of what this module does here ...</para>
+      <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
+      <section>
+        <title>Module Interfaces</title>
+        <para>blah blah</para>
+      </section>
+      <section>
+        <title>Design Issues</title>
+        <para>blah blah</para>
+        <section>
+          <title>Issue 1</title>
+          <para>blah</para>
+        </section>
+        <section>
+          <title>Issue 2</title>
+          <para>blah</para>
+        </section>
+      </section>
+    </section>
+    <section>
+      <title>Data Module</title>
+      <para>Description of what this module does here ...</para>
+      <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
+      <section>
+        <title>Module Interfaces</title>
+        <para>blah blah</para>
+      </section>
+      <section>
+        <title>Design Issues</title>
+        <para>blah blah</para>
+        <section>
+          <title>Issue 1</title>
+          <para>blah</para>
+        </section>
+        <section>
+          <title>Issue 2</title>
+          <para>blah</para>
+        </section>
+      </section>
+    </section>
+    <section>
+      <title>Game Logic Module</title>
+      <para>Description of what this module does here ...</para>
+      <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
+      <section>
+        <title>Module Interfaces</title>
+        <para>blah blah</para>
+      </section>
+      <section>
+        <title>Design Issues</title>
+        <para>blah blah</para>
+        <section>
+          <title>Issue 1</title>
+          <para>blah</para>
+        </section>
+        <section>
+          <title>Issue 2</title>
+          <para>blah</para>
+        </section>
+      </section>
+    </section>
+    <section>
+      <title>Client Input Module</title>
+      <para>Description of what this module does here ...</para>
+      <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
+      <section>
+        <title>Module Interfaces</title>
+        <para>blah blah</para>
+      </section>
+      <section>
+        <title>Design Issues</title>
+        <para>blah blah</para>
+        <section>
+          <title>Issue 1</title>
+          <para>blah</para>
+        </section>
+        <section>
+          <title>Issue 2</title>
+          <para>blah</para>
+        </section>
+      </section>
+    </section>
+    <section>
+      <title>Client UI Module</title>
+      <para>Description of what this module does here ...</para>
+      <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
+      <section>
+        <title>Module Interfaces</title>
+        <para>blah blah</para>
+      </section>
+      <section>
+        <title>Design Issues</title>
+        <para>blah blah</para>
+        <section>
+          <title>Issue 1</title>
+          <para>blah</para>
+        </section>
+        <section>
+          <title>Issue 2</title>
+          <para>blah</para>
+        </section>
+      </section>
+    </section>
+    <section>
+      <title>Server UI Module</title>
+      <para>Description of what this module does here ...</para>
+      <section>
+        <title>Subsystem 1</title>
+        <para>Description of Subsystem 1</para>
+      </section>
+      <section>
+        <title>Subsystem 2</title>
+        <para>Description of Subsystem 2</para>
+      </section>
+      <section>
+        <title>Module Interfaces</title>
+        <para>blah blah</para>
+      </section>
+      <section>
+        <title>Design Issues</title>
+        <para>blah blah</para>
+        <section>
+          <title>Issue 1</title>
+          <para>blah</para>
+        </section>
+        <section>
+          <title>Issue 2</title>
+          <para>blah</para>
+        </section>
+      </section>
+    </section>
+  </section>
+  <section>
+    <title>Traceability Matrix</title>
+    <para>probably figure out how to create a table or else stuff a pic in here</para>
+  </section>
+</article>
