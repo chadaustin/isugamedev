@@ -37,7 +37,7 @@ namespace server {
                MessageHandler* msgHandler = mIter->second;
                msgHandler->handleMessage(msg, iter->second);
             } else {
-               /// @todo what to do with an unhandled message
+               std::cout<<"No appropriate message handler: MessageType:"<<msg->getType()<<std::endl;
             }
          }
 
