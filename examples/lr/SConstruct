@@ -162,6 +162,7 @@ def SetupCorona(env):
    "Sets up the given environment for Corona"
    if not env.Dictionary().has_key('LIBS'): env['LIBS'] = []
    env['LIBS'].extend(['corona'])
+   env['CPPPATH'].extend(['/home/browner/software/include'])
 
 def SetupAudiere(env):
    "Sets up the given environment for Audiere"
