@@ -7,7 +7,8 @@ import javax.media.j3d.*;
 
 
 /**
- * A World represents a set of world Entity objects (cubes, spheres, players).
+ * A World represents a set of world Entity objects (cubes, spheres,
+ * players).
  */
 public class World implements Serializable {
 
@@ -37,13 +38,13 @@ public class World implements Serializable {
 
       add(new CubeEntity(m_generator.getNext(), result));
     }
-    /*
+
     // add some spheres too
-    final int SPHERE_COUNT = 20;
+    final int SPHERE_COUNT = 40;
     for (int i = 0; i < SPHERE_COUNT; ++i) {
-      float px = (float)(Math.random() * 20 - 10);
-      float py = (float)(Math.random() * 20 - 10);
-      float pz = (float)(Math.random() * 20 - 10);
+      float px = (float)(Math.random() * 30 - 15);
+      float py = (float)(Math.random() * 30 - 15);
+      float pz = (float)(Math.random() * 30 - 15);
       float ax = (float)(Math.random() * Math.PI * 2);
       float ay = (float)(Math.random() * Math.PI * 2);
       float az = (float)(Math.random() * Math.PI * 2);
@@ -55,12 +56,8 @@ public class World implements Serializable {
       result.mul(getRotY(ay));
       result.mul(getRotZ(az));
 
-      add(new SimpleEntity(
-            m_generator.getNext(),
-            result,
-            new Sphere()));
+      add(new SphereEntity(m_generator.getNext(), result));
     }
-    */
   }
 
   public ArrayList getEntities() {
