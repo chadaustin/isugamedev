@@ -15,7 +15,7 @@
  tests out the functionality expected of Quat<float>
 *******************************************************************/
 
-namespace kevTest
+namespace tankTest
 {
 
 class QuatSelfTest : public TestCase

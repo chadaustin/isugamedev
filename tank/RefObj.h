@@ -45,6 +45,12 @@ public:
       }
    }
 
+   //: Gets the number of references currently being made to this obj.
+   int getRefCount() const
+   {
+      return mRefCount;
+   }
+
 private:
    int mRefCount;
 };
@@ -116,6 +122,7 @@ public:
       return mPtr;
    }
 
+
    //: Allow correct determination of the address of the pointer. Since this is
    //  a pointer to the internal pointer, TAKE CARE NOT TO MODIFY THE RETURNED
    //  VALUE.
@@ -136,6 +143,18 @@ public:
       return mPtr;
    }
 
+   //: A safer method of getting the actual pointer than a cast.
+   obj_t* get()
+   {
+      return mPtr;
+   }
+
+   //: A safer method of getting the actual pointer than a cast.
+   const obj_t* get() const
+   {
+      return mPtr;
+   }
+   
    //: Allow the smart pointer to be used in boolean tests for NULL.
    operator bool() const
    {
