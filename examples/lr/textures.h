@@ -1,11 +1,14 @@
-#include <GL\glaux.h>
+//#include <GL/glaux.h>
 #ifndef TEXTURE
 #define TEXTURE
+
+#include <GL/gl.h>
+#include <GL/glu.h>
 
 class COGLTexture
 {
 public:
-	_AUX_RGBImageRec *Image;
+	//_AUX_RGBImageRec *Image;
 	unsigned int GetID();
 	void LoadFromFile(char *filename);
 	void SetActive();

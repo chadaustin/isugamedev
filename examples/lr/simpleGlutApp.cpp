@@ -1,17 +1,18 @@
 
 
+#ifdef WIN32
+   #include <windows.h>  // make the app win32 friendly. :)
+#endif
 
-#include <windows.h>  // make the app win32 friendly. :)
-
-#include <gl\gl.h>
-#include <gl\glu.h>
-#include <gl\glut.h>
-#include <gl\glaux.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+//#include <GL/glaux.h>
 
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
-#include <Stack>
+#include <stack>
 
 
 //global definitions
@@ -29,7 +30,18 @@
 #include "badguy.h"
 
 
-
+#ifdef WIN32
+      void msleep( float msec )
+      {
+         ::Sleep( (int) msec );
+      }
+#else
+      #include <unistd.h>
+      void msleep( float msec )
+      {
+         ::usleep( (int)(msec * 1000.0f) );
+      } 
+#endif
 
 
 
@@ -71,7 +83,7 @@ void initTexture(){
 void winOrLose(){
 	l.isMoney(u.getPos(), u.getHeight()/30);
 	if(won==true || lost==true){
-		Sleep(3000);
+		msleep(3000);
 		exit(0);
 	}
 	if(l.getAmount()==0){

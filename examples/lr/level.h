@@ -1,9 +1,11 @@
+#ifdef WIN32
 #include <windows.h>
+#endif
 
-#include <gl\gl.h>
-#include <gl\glu.h>
-#include <gl\glut.h>
-#include <gl\glaux.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+//#include <GL/glaux.h>
 
 #ifndef LEVEL
 #define LEVEL

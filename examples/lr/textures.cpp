@@ -1,22 +1,30 @@
 #include "textures.h"
+#include "BmpImporter.h"
+
 void COGLTexture::LoadFromFile(char *filename)
 {
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1,&ID); 
+	pixmi::Image image;
+         pixmi::BmpImporter bmp;
+         bmp.load( filename, image ); 
+	//Image = auxDIBImageLoadA( (const char*) filename );
+	
+         glPixelStorei( GL_UNPACK_ALIGNMENT, image.rowAlignment() );
+         glPixelStorei( GL_UNPACK_ROW_LENGTH, image.width() );
+         
+         glGenTextures(1,&ID); 
 	glBindTexture( GL_TEXTURE_2D, ID);
-	Image = auxDIBImageLoadA( (const char*) filename );
-	Width = Image->sizeX;
-	Height = Image->sizeY;
-	gluBuild2DMipmaps(	GL_TEXTURE_2D, 
-						3, 
-						Image->sizeX,
-						Image->sizeY,
-						GL_RGB,
-						GL_UNSIGNED_BYTE,
-						Image->data);
-	delete Image;
+         Width = image.width();
+	Height = image.height();
+	gluBuild2DMipmaps( GL_TEXTURE_2D, 
+			 image.channels(), 
+			 Width,
+			 Height,
+			 GL_RGB,
+			 GL_UNSIGNED_BYTE,
+			 image.data() );
 }
 
+      
 void COGLTexture::SetActive()
 {
 	glBindTexture( GL_TEXTURE_2D, ID);

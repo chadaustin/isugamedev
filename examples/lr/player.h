@@ -3,12 +3,14 @@
 
 
 
+#ifdef WIN32
 #include <windows.h>  // make the app win32 friendly. :)
+#endif
 
-#include <gl\gl.h>
-#include <gl\glu.h>
-#include <gl\glut.h>
-#include <gl\glaux.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+//#include <GL/glaux.h>
 
 #include <iostream>
 #include <stdlib.h>

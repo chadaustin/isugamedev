@@ -1,8 +1,8 @@
 #include "level.h"
 #include "player.h"
 #include <iostream>
-#include <gl\glu.h>
-#include <gl\gl.h>
+#include <GL/glu.h>
+#include <GL/gl.h>
 
 
 
