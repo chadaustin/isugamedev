@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: StopWatch.h,v $
-//    $Date: 2001-09-10 13:09:46 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-10 16:50:27 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -64,11 +64,7 @@ public:
     void           reset();
     
     //: do a stop then a start.  usually called once per frame.
-    void pulse()
-    {
-       this->stop();
-       this->start();
-    }
+    void pulse();
        
 // StopWatch settings:
 public:
@@ -259,4 +255,10 @@ inline void StopWatch::reset()
     mTimeInstant = 0.0;
 }
 
+//: do a stop then a start.  usually called once per frame.
+inline void StopWatch::pulse()
+{
+   this->stop();
+   this->start();
+}
 #endif
