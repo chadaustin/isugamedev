@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-03-10 14:30:51 $
-// Version:       $Revision: 1.22 $
+// Date modified: $Date: 2003-03-12 02:04:57 $
+// Version:       $Revision: 1.23 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -44,7 +44,7 @@ createSystemDriver()
 
 namespace gk {
 
-SdlDriver::SdlDriver() : mHeight(240), mWidth(320), mBpp(16), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
+SdlDriver::SdlDriver() : mHeight(640), mWidth(480), mBpp(16), mvideoFlags(0), mKernel(NULL), mMouse(NULL), mKeyboard(NULL) //mJoystick(NULL)
 {
 	misRunning = false;
 	mName = "SDL with OpenGL";	
@@ -307,9 +307,11 @@ void SdlDriver::getWindowSize(int& width, int& height, int ctx)
 
 void SdlDriver::setWindowSize(int width, int height, int ctx)
 {
+   mvideoFlags &= ~SDL_FULLSCREEN; // not full screen
+
 	//suggested bpp
 	int sbpp;
-	sbpp = SDL_VideoModeOK(width, height, mBpp, mvideoFlags);
+	sbpp = SDL_VideoModeOK(width, height, 0, mvideoFlags);
 	if (sbpp == 0)
 	{
 		std::cerr << "SDL Driver Error:  The requested window size of " << width << " by " << height
