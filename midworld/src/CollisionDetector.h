@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CollisionDetector.h,v $
- * Date modified: $Date: 2002-06-06 05:19:46 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-07-06 04:30:26 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -73,7 +73,7 @@ namespace mw
        *
        * @return  the spatial index associated with this detector
        */
-      virtual SpatialIndex* getSpatialIndex() = 0;
+      virtual SpatialIndex* getSpatialIndex() const = 0;
    };
 }
 

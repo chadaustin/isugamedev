@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: NullCollisionDetector.h,v $
- * Date modified: $Date: 2002-06-06 05:19:46 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-07-06 04:30:26 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -82,7 +82,7 @@ namespace mw
        *
        * @return  the spatial index associated with this detector
        */
-      virtual SpatialIndex* getSpatialIndex()
+      virtual SpatialIndex* getSpatialIndex() const
       {
          return mSpatialIndex;
       }
