@@ -1,0 +1,39 @@
+# build with 'scons'
+import os, string, sys
+
+Default('.')
+
+#------------------------------------------------------------------------------
+# Setup the GLUT libraries to link with
+#------------------------------------------------------------------------------
+
+# CYGWIN
+if sys.platform == 'cygwin':
+    GLUT_LIBS = ['glut32', 'opengl32', 'glu32']
+
+# IRIX
+elif string.find(sys.platform, 'irix') != -1:
+    GLUT_LIBS = ['glut', 'GLU', 'GL', 'X11', 'Xmu']
+
+# GENERIC (LINUX?)
+else:
+    GLUT_LIBS = ['glut', 'GLU', 'GL']
+
+sources = Split("""
+   AutoObject.cpp
+   FrogObject.cpp
+   Frogger.cpp
+   GameWorld.cpp
+   LilypadObject.cpp
+   LogObject.cpp
+   collisiondetection.cpp
+""")
+
+env = Environment(
+   CPP_PATH ='#',
+   CXXFLAGS = '-Wall',
+   LIBS     = GLUT_LIBS,
+   ENV      = os.environ,
+)
+
+env.Program(target = 'frogger', source = sources)
