@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: CreditsState.h,v $
- * Date modified: $Date: 2002-07-07 03:10:59 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-07-07 03:40:20 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -58,29 +58,7 @@ namespace mw
 
       void update(float dt) {}
 
-      void draw()
-      {
-         glEnable(GL_TEXTURE_2D);
-         glDisable(GL_DEPTH_TEST);
-         glEnable(GL_BLEND);
-         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-         glClear(GL_COLOR_BUFFER_BIT);
-
-         /// @todo  we assume 640x480...  :(
-
-         // set up projection matrix
-         glMatrixMode(GL_PROJECTION);
-         glLoadIdentity();
-         glOrtho(0, 640, 480, 0, -1, 1);
-
-         // set up view matrix
-         glMatrixMode(GL_MODELVIEW);
-         glLoadIdentity();
-
-         glColor4f(1, 1, 1, 1);
-         mImages[0]->drawRectangle(0,0,640,480);	// draw background
-      }
+      void draw();
 
       void onKeyPress(SDLKey sym, bool down)
       {

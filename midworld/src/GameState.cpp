@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-07-07 03:26:22 $
- * Version:       $Revision: 1.19 $
+ * Date modified: $Date: 2002-07-07 03:40:20 $
+ * Version:       $Revision: 1.20 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -276,7 +276,7 @@ namespace mw
          glMatrixMode(GL_PROJECTION);
          glPushMatrix();
          glLoadIdentity();
-         glOrtho(0, 640, 480, 0, 1, -1);
+         glOrtho(0, this->application().getWidth(), this->application().getHeight(), 0, 1, -1);
 
          glMatrixMode(GL_MODELVIEW);
          glPushMatrix();

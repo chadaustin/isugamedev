@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2002-07-07 03:31:52 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-07-07 03:40:20 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -171,12 +171,10 @@ namespace mw
 
       glClear(GL_COLOR_BUFFER_BIT);
 
-      /// @todo  we assume 640x480...  :(
-
       // set up projection matrix
       glMatrixMode(GL_PROJECTION);
       glLoadIdentity();
-      glOrtho(0, 640, 480, 0, -1, 1);
+      glOrtho(0, this->application().getWidth(), this->application().getHeight(), 0, -1, 1);
 
       // set up view matrix
       glMatrixMode(GL_MODELVIEW);
@@ -184,7 +182,7 @@ namespace mw
 
       // draw background
       glColor4f(1, 1, 1, 1);
-      mImages[0]->drawRectangle(0,0,640,480);
+      mImages[0]->drawRectangle(0,0,this->application().getWidth(), this->application().getHeight());
 
       // draw selection blur
       glColor4f(.8f,.9f,1,0.5f);
