@@ -1,0 +1,11 @@
+import os
+
+Default('.')
+
+execfile('glut_libs.py')
+
+env = Environment(ENV = os.environ,
+                  LIBS = GLUT_LIBS + ['osg', 'osgDB', 'osgUtil'])
+
+env.Program(target = 'followcam',
+            source = "Camera.cpp ModelManager.cpp Scene.cpp main.cpp")
