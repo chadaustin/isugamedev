@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: DataManager.h,v $
- * Date modified: $Date: 2002-05-01 05:40:16 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-05-01 07:15:33 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -43,7 +43,6 @@
 #ifndef DATA_DATA_MANAGER_H
 #define DATA_DATA_MANAGER_H
 
-#include "game/Player.h"
 #include "BrothaData.h"
 
 namespace data {
