@@ -9,7 +9,10 @@
 
 namespace client {
 
-   class GarageState : public State {
+   class GarageState : public State
+                            , phui::ActionListener
+                            , phui::ListSelectionListener
+   {
    public:
       GarageState();
       ~GarageState();
@@ -19,6 +22,21 @@ namespace client {
       void onKeyPress(SDLKey sym, bool down);
       void onMousePress(Uint8 button, bool down, int x, int y);
       void onMouseMove(int x, int y);
+
+      virtual void onAction(const phui::ActionEvent& evt);
+      virtual void onListSelection(const phui::ListSelectionEvent& evt);
+   private:
+      phui::RootWidget* mRoot;
+      phui::Window* mMainWnd;
+      phui::Button* mDealerBtn;
+      phui::Button* mChopShopBtn;
+      phui::Button* mJoinGameBtn;
+
+      phui::Window* mDealerWnd;
+      phui::ListBox* mCarsList;
+      phui::ListBox* mCarsOwnedList;
+
+      phui::Window* mChopShopWnd;
    };
 
 }
