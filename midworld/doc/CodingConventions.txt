@@ -2,7 +2,7 @@
 - Curly braces included even for one line if/else and for loops, etc.
 - Unix LF in files.
 - No tab characters in files.
-- 4 spaces for indentations
+- 3 spaces for indentations
 - One namespace for the entire project
 - Doxygen tags for comments.
 - The project copyright must added to the top of every file.
