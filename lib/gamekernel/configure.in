@@ -24,12 +24,12 @@
 #
 # -----------------------------------------------------------------
 # File:          $RCSfile: configure.in,v $
-# Date modified: $Date: 2002-02-22 08:14:01 $
-# Version:       $Revision: 1.9 $
+# Date modified: $Date: 2002-03-11 01:55:06 $
+# Version:       $Revision: 1.10 $
 # -----------------------------------------------------------------
 #
 ################## <GK heading END do not edit this line> ###################
-AC_REVISION($Revision: 1.9 $)
+AC_REVISION($Revision: 1.10 $)
 AC_INIT(gk/gkCommon.h)
 AC_CONFIG_AUX_DIR(config)
 
@@ -118,15 +118,15 @@ GK_HAVE_SDL(/usr,
 
 # Test which drivers we want to build
 BUILD_GLUT_DRIVER='N'
-if test "x$USE_GLUT_DRIVER" == "xyes"; then
-if test "x$HAVE_GLUT" == "xY"; then
+if test "x$USE_GLUT_DRIVER" = "xyes"; then
+if test "x$HAVE_GLUT" = "xY"; then
    BUILD_GLUT_DRIVER='Y'
 fi
 fi
 
 BUILD_SDL_DRIVER='N'
-if test "x$USE_SDL_DRIVER" == "xyes"; then
-if test "x$HAVE_SDL" == "xY"; then
+if test "x$USE_SDL_DRIVER" = "xyes"; then
+if test "x$HAVE_SDL" = "xY"; then
    BUILD_SDL_DRIVER='Y'
 fi
 fi
