@@ -1,0 +1,6 @@
+phui competitors:
+
+glui    - http://www.cs.unc.edu/~rademach/glui/
+paragui - http://www.bms-austria.com/projects/paragui/
+ufo     - http://libufo.sourceforge.net/
+mesgui  - http://sourceforge.net/projects/mesgui
