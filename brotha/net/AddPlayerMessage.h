@@ -35,6 +35,10 @@ namespace net {
          }
       }
 
+      game::Player* getPlayer() {
+         return m_player;
+      }
+
       void serialize(OutputStream& os) {
          if(m_player != NULL) {
             m_player->serialize(os);

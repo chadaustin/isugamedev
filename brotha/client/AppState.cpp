@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: AppState.cpp,v $
- * Date modified: $Date: 2002-03-29 16:35:49 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-03-29 17:47:09 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,6 +47,8 @@ namespace client
                const net::Message* msg,
                BrothaApp* app)
    {
+      static int count = 0;
+
       if(msg->getType() == net::OK) {
          std::cout<<"Sync successful"<<std::endl;
          return std::auto_ptr<AppState>(new InGameState());
@@ -60,7 +62,10 @@ namespace client
          std::cout<<"Unhandled sync type, TODO"<<std::endl;
          return std::auto_ptr<AppState>(NULL);
       } else if(msg->getType() == net::AddPlayer) {
-         std::cout<<"Unhandled sync type, TODO"<<std::endl;
+         net::AddPlayerMessage* pMsg = (net::AddPlayerMessage*)msg;
+         if(count == 0) { // first object must be local player
+            app->getGame().setLocalPlayer(pMsg->getPlayer());
+         }
          return std::auto_ptr<AppState>(NULL);
       } else if(msg->getType() == net::UpdatePlayer) {
          std::cout<<"Unhandled sync type, TODO"<<std::endl;
@@ -72,6 +77,7 @@ namespace client
          std::cout<<"ERROR: Got the wrong message type"<<std::endl;
          /// @todo raise an error
       }
+      count++;
       return std::auto_ptr<AppState>(new ConnectedState());
    }
 
