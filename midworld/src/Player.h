@@ -18,7 +18,7 @@ class Player
 {
 public:
    Player()
-      : mPos(), mVel(), mRot(), mWeapon(0)
+      : mPos(), mVel(), mRot(), mWeapon( NULL )
    {
       this->init();
    }
