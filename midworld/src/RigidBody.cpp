@@ -23,12 +23,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-06-18 05:37:09 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-06-24 05:21:54 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <gmtl/VecOps.h>
+#include <gmtl/Generate.h>
 #include "RigidBody.h"
 #include "cubeGeometry.h"
 
@@ -64,6 +65,7 @@ namespace mw
    {
       glPushMatrix();
          glTranslatef(mPos[0], mPos[1], mPos[2]);
+         glMultMatrixf( gmtl::make<gmtl::Matrix44f>( mRot ).getData() );
          glScalef(0.5f, 0.5f, 0.5f);
          cubeGeometry().render();
       glPopMatrix();
