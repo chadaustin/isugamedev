@@ -28,6 +28,8 @@ public:
 
 	void AttachCamera(Camera* CameraToAttach);
 
+	void DetachCamera();
+
 	void Update();
 
 private:

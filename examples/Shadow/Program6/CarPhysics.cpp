@@ -49,6 +49,12 @@ void CarPhysics::AttachCamera(Camera* CameraToAttach)
 	CameraAttached = true;
 }
 
+void CarPhysics::DetachCamera()
+{
+	TheCamera = NULL;
+	CameraAttached = false;
+}
+
 void CarPhysics::Update()
 {
 	double pi = 3.1415926535;
@@ -62,7 +68,6 @@ void CarPhysics::Update()
 
 	if(dt > 50)
 		dt = 50;
-
 
 	Velocity = Accel * dt + OldVelocity;
 	if(Accel != 0.0)
@@ -94,8 +99,10 @@ void CarPhysics::Update()
 	TheTruck->translate[0] += (NewX-OldX);
 	TheTruck->translate[1] += (NewY-OldY);
 
+	/////////////////////////////////////
 	//Update rotation of truck
 	//Convert to degrees
+	/////////////////////////////////////
 	double TheDegrees = (180.0*TruckAngle)/pi;
 	if(TheDegrees > 360)
 		TheDegrees = TheDegrees - 360;
@@ -110,6 +117,9 @@ void CarPhysics::Update()
 		TheCamera->YTrans(-1*(NewY-OldY));
 	}
 
+	/////////////////////////////////////////////
+	// Code to make tire revolve at correct speed
+	/////////////////////////////////////////////
 	float WheelTurnAngle = (Velocity * dt)/0.25;
 	double WheelDegrees = (180.0*WheelTurnAngle)/pi;
 	if(WheelDegrees > 360)
@@ -118,4 +128,5 @@ void CarPhysics::Update()
 		WheelDegrees = 360 + WheelDegrees;
 
 	TheTires->TireRotate += WheelDegrees;
+	//////////////////////////////////////////////
 }
