@@ -16,7 +16,7 @@ namespace server {
       ~LoginMessageHandler() {}
 
       virtual void handleMessage(net::Message *msg, net::NetMgr::ConnID cID) {
-         net::LoginMessage *mMsg = (net::LoginMessage*)mMsg;
+         net::LoginMessage *mMsg = (net::LoginMessage*)msg;
          /// @todo actual authentication
          if(1) {
             // let game know about this possible player

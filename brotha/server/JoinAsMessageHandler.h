@@ -19,8 +19,18 @@ namespace server {
          /// for the prototype we only want players
          net::JoinAsMessage* jMsg = (net::JoinAsMessage*)msg;
          if(jMsg->getCode() == net::JoinAsMessage::PLAYER) {
+            // join the player to the game and send the OK message
+            m_brothaGame->joinPlayer(cID);
             m_netMgr->send(new net::OKMessage(net::OKMessage::OKAY), cID);
+
+            /// @todo implement garage so I can tell the player to go there
+            // for now just send them straight to the game
+            m_netMgr->send(new net::EnterMessage(net::EnterMessage::GAME), cID);
+         } else if (jMsg->getCode() == net::JoinAsMessage::SPECTATOR) {
+            /// @todo join the spectator to the game and not error
+            m_netMgr->send(new net::OKMessage(net::OKMessage::GENERIC_ERROR), cID);
          } else {
+            // unknown player type, send error
             m_netMgr->send(new net::OKMessage(net::OKMessage::GENERIC_ERROR), cID);
          }
       };
