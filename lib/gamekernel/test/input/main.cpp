@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-05-14 15:11:16 $
-// Version:       $Revision: 1.21 $
+// Date modified: $Date: 2003-02-09 08:55:08 $
+// Version:       $Revision: 1.22 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -114,7 +114,8 @@ int main( int argc, char *argv[] )
    // create the kernel and add our app in
    IGameKernel* kernel = gk::createGameKernel( new InputApp() );
    kernel->config( "config.xml" );
-   kernel->run();
+   kernel->run( std::string( "glut" ), std::string( "GLUT" ) );
+   //kernel->run( std::string( "sdl" ), std::string( "SDL" ) );
 
    return 0;
 }
