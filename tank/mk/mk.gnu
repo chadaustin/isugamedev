@@ -1,15 +1,18 @@
 # gnu compiler defines 
 CC = g++
 CXX_COMPILE = g++
-CXX_FLAGS = -Wl,--whole-archive
+CXX_FLAGS = 
 C_COMPILE = gcc
 C_FLAGS = $(CXX_FLAGS)
 EXE_LINKER = $(CXX_COMPILE)
-EXE_FLAGS = $(CXX_FLAGS)
+EXE_FLAGS = $(CXX_FLAGS) 
 SO_LINKER = $(CXX_COMPILE)
 SO_FLAGS = -dynamic -fPIC
 DEFS =
 WARNINGS_FLAGS = 
+
+LINKALL_ON = -Wl,--whole-archive
+LINKALL_OFF = -Wl,--no-whole-archive
 
 OBJ_FILE_SUFFIX = o
 EXE_FILE_SUFFIX=

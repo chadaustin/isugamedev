@@ -10,7 +10,7 @@ PROJECT_NAME = tank
 # objects to be included in the project....
 SRCS = ImageManager.cxx FileHandler.cxx simpleGlutApp.cxx Matrix4f.cxx Light.cxx \
        ColorRGBA.cxx Material.cxx Texture.cxx TgaImporter.cxx Image.cxx \
-       CppImageExporter.cxx BmpImporter.cxx imageIoReg.cxx
+       CppImageExporter.cxx BmpImporter.cxx
 MK_DIR = ./mk
 PATH_TO_SRCS = .
 
@@ -40,7 +40,7 @@ endif
 # the "default" make target...  
 # depends on ${OBJS}, and then links them into an exe
 default: ${OBJS}
-	$(EXE_LINKER) $(EXE_FLAGS) ${OBJS} $(OUTPUT_EXE_FLAG)$(FILENAME) $(LIBPATHS) $(LIBS)
+	$(EXE_LINKER) $(EXE_FLAGS) ${OBJS} $(LINKALL_ON) imageIoReg.cxx $(LINKALL_OFF) $(OUTPUT_EXE_FLAG)$(FILENAME) $(LIBPATHS) $(LIBS)
 
 
 
