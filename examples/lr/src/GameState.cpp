@@ -9,6 +9,7 @@ namespace lr
 {
    GameState::GameState(Application* app) : State(app)
    {
+      
    }
 
    GameState::~GameState()

@@ -3,6 +3,15 @@
 
 namespace lr
 {
+ 
+   /**
+    * an enumeration for the various types of entities that could be in a slot
+    * in the level
+    */
+   enum positionType {empty, brick, ladder, wire};
+
+   
+   // typedefs for a bunch of the major sizes in c++
    typedef   signed char      i8;
    typedef unsigned int       u8;
    typedef          short     i16;
