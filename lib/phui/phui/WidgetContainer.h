@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: WidgetContainer.h,v $
- * Date modified: $Date: 2002-02-24 04:17:04 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-24 05:08:02 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,16 +42,16 @@
 
 namespace phui {
 
-  class WidgetContainer : public Widget {
-  public:
-    WidgetContainer();
-    ~WidgetContainer();
+   class WidgetContainer : public Widget {
+   public:
+      WidgetContainer();
+      ~WidgetContainer();
 
-    void addWidget(Widget* widget);
-    void draw();
+      void addWidget(Widget* widget);
+      void draw();
 
-  private:
-    std::list<Widget*> mWidgets;
+   private:
+      std::list<Widget*> mWidgets;
   };
 
 } // namespace phui

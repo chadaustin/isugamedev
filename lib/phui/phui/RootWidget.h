@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RootWidget.h,v $
- * Date modified: $Date: 2002-02-24 04:17:04 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-02-24 05:08:02 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -41,11 +41,11 @@
 
 namespace phui {
 
-  class RootWidget : public WidgetContainer {
-  public:
-    RootWidget();
-    ~RootWidget();
-  };
+   class RootWidget : public WidgetContainer {
+   public:
+      RootWidget();
+      ~RootWidget();
+   };
 
 } // namespace phui
 
