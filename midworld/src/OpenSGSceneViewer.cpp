@@ -24,13 +24,16 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.cpp,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-18 00:30:39 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
-#include <GL/gl.h>
+#include <SDL_opengl.h>
 #include <gmtl/External/OpenSGConvert.h>
+#ifdef WIN32  // OpenSG needs Winsock  :(:(:(
+#include <winsock.h>
+#endif
 #include <OpenSG/OSGSimpleGeometry.h>
 #include <OpenSG/OSGMatrixUtility.h>
 #include <OpenSG/OSGDirectionalLight.h>
@@ -52,7 +55,7 @@ namespace mw
 
       // setup the camera
       osg::Matrix proj_matrix, modelview_matrix;
-      MatrixPerspective(proj_matrix, 80.0f, 4.0f/3.0f, 0.01f, 10000.0f);
+      osg::MatrixPerspective(proj_matrix, 80.0f, 4.0f/3.0f, 0.01f, 10000.0f);
       osg::beginEditCP(mCamera);
          mCamera->setNear(0.1);
          mCamera->setFar(10000.0);

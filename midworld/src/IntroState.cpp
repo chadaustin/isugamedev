@@ -24,16 +24,25 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: IntroState.cpp,v $
- * Date modified: $Date: 2002-09-17 02:36:11 $
- * Version:       $Revision: 1.14 $
+ * Date modified: $Date: 2002-09-18 00:30:39 $
+ * Version:       $Revision: 1.15 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
+#include <algorithm>
 #include <memory>
 #include "IntroState.h"
 #include "GameManager.h"
 #include "Application.h"
 #include "StateFactory.h"
+
+#ifdef min
+#undef min
+#endif
+
+#ifdef max
+#undef max
+#endif
 
 namespace mw
 {

@@ -24,14 +24,17 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: OpenSGSceneViewer.h,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-18 00:30:39 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #ifndef MW_OPENSG_SCENE_VIEWER_H
 #define MW_OPENSG_SCENE_VIEWER_H
 
+#ifdef WIN32  // OpenSG needs Winsock  :(:(:(
+#include <winsock.h>
+#endif
 #include <OpenSG/OSGRenderAction.h>
 #include <OpenSG/OSGMatrixCamera.h>
 #include <OpenSG/OSGPassiveWindow.h>

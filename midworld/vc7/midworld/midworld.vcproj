@@ -32,7 +32,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
+				AdditionalDependencies="OSGBaseD.lib OSGSystemD.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
 				OutputFile="$(OutDir)/midworld.exe"
 				LinkIncremental="2"
 				GenerateDebugInformation="TRUE"
@@ -78,7 +78,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
+				AdditionalDependencies="OSGBase.lib OSGSystem.lib opengl32.lib glu32.lib audiere.lib corona.lib gltext.lib SDL.lib"
 				OutputFile="$(OutDir)/midworld.exe"
 				LinkIncremental="1"
 				GenerateDebugInformation="TRUE"
@@ -104,8 +104,17 @@
 	</Configurations>
 	<Files>
 		<Filter
-			Name="Headers"
-			Filter="h;hh;hpp">
+			Name="Sources"
+			Filter="cpp;cxx;c">
+			<File
+				RelativePath="..\..\src\AbstractEntity.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\AbstractEntity.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Application.cpp">
+			</File>
 			<File
 				RelativePath="..\..\src\Application.h">
 			</File>
@@ -113,13 +122,28 @@
 				RelativePath="..\..\src\AssaultRifle.h">
 			</File>
 			<File
+				RelativePath="..\..\src\BaseBullet.h">
+			</File>
+			<File
+				RelativePath="..\..\src\BaseProjectileWeapon.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\BaseProjectileWeapon.h">
+			</File>
+			<File
+				RelativePath="..\..\src\BoundsCollisionDetector.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\BoundsCollisionDetector.h">
 			</File>
 			<File
+				RelativePath="..\..\src\Camera.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\Camera.h">
+			</File>
+			<File
+				RelativePath="..\..\src\CollisionDesc.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\CollisionDesc.h">
@@ -128,13 +152,31 @@
 				RelativePath="..\..\src\CollisionDetector.h">
 			</File>
 			<File
+				RelativePath="..\..\src\CollisionEvent.h">
+			</File>
+			<File
+				RelativePath="..\..\src\CollisionListener.h">
+			</File>
+			<File
 				RelativePath="..\..\src\CreditsState.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\CreditsState.h">
 			</File>
 			<File
+				RelativePath="..\..\src\Cursor.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Enemy.cpp">
+			</File>
+			<File
 				RelativePath="..\..\src\Enemy.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Entity.h">
+			</File>
+			<File
+				RelativePath="..\..\src\GameManager.cpp">
 			</File>
 			<File
 				RelativePath="..\..\src\GameManager.h">
@@ -143,101 +185,22 @@
 				RelativePath="..\..\src\GameScene.h">
 			</File>
 			<File
-				RelativePath="..\..\src\GameState.h">
-			</File>
-			<File
-				RelativePath="..\..\src\IntroState.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Jukebox.h">
-			</File>
-			<File
-				RelativePath="..\..\src\MenuState.h">
-			</File>
-			<File
-				RelativePath="..\..\src\NullCollisionDetector.h">
-			</File>
-			<File
-				RelativePath="..\..\src\NullWeapon.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Pistol.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Player.h">
-			</File>
-			<File
-				RelativePath="..\..\src\RigidBody.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Shotgun.h">
-			</File>
-			<File
-				RelativePath="..\..\src\SoundEffectManager.h">
-			</File>
-			<File
-				RelativePath="..\..\src\SoundManager.h">
-			</File>
-			<File
-				RelativePath="..\..\src\SpatialIndex.h">
-			</File>
-			<File
-				RelativePath="..\..\src\SpreadGun.h">
-			</File>
-			<File
-				RelativePath="..\..\src\State.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Texture.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Types.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Utility.h">
-			</File>
-			<File
-				RelativePath="..\..\src\VectorSpatialIndex.h">
-			</File>
-			<File
-				RelativePath="..\..\src\Weapon.h">
-			</File>
-			<File
-				RelativePath="..\..\src\cubeGeometry.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="Sources"
-			Filter="cpp;cxx;c">
-			<File
-				RelativePath="..\..\src\Application.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\BaseProjectileWeapon.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\BoundsCollisionDetector.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\Camera.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\CollisionDesc.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\Enemy.cpp">
-			</File>
-			<File
-				RelativePath="..\..\src\GameManager.cpp">
-			</File>
-			<File
 				RelativePath="..\..\src\GameState.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\GameState.h">
 			</File>
 			<File
 				RelativePath="..\..\src\IntroState.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\IntroState.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Jukebox.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Jukebox.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Main.cpp">
@@ -246,25 +209,133 @@
 				RelativePath="..\..\src\MenuState.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\MenuState.h">
+			</File>
+			<File
+				RelativePath="..\..\src\ModelManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\ModelManager.h">
+			</File>
+			<File
+				RelativePath="..\..\src\NullCollisionDetector.h">
+			</File>
+			<File
+				RelativePath="..\..\src\NullWeapon.h">
+			</File>
+			<File
+				RelativePath="..\..\src\OpenSGSceneViewer.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\OpenSGSceneViewer.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Pistol.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Player.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Player.h">
+			</File>
+			<File
+				RelativePath="..\..\src\ResourceManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\ResourceManager.h">
 			</File>
 			<File
 				RelativePath="..\..\src\RigidBody.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\RigidBody.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Scene.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Scene.h">
+			</File>
+			<File
+				RelativePath="..\..\src\SceneEvent.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\SceneEvent.h">
+			</File>
+			<File
+				RelativePath="..\..\src\SceneListener.h">
+			</File>
+			<File
+				RelativePath="..\..\src\SceneViewer.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Shotgun.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Shotgun.h">
+			</File>
+			<File
 				RelativePath="..\..\src\SoundEffectManager.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\SoundEffectManager.h">
 			</File>
 			<File
 				RelativePath="..\..\src\SoundManager.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\SoundManager.h">
+			</File>
+			<File
+				RelativePath="..\..\src\SpatialIndex.h">
+			</File>
+			<File
+				RelativePath="..\..\src\SpreadGun.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\SpreadGun.h">
+			</File>
+			<File
 				RelativePath="..\..\src\State.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\State.h">
+			</File>
+			<File
+				RelativePath="..\..\src\StateFactory.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\StateFactory.h">
 			</File>
 			<File
 				RelativePath="..\..\src\Texture.cpp">
 			</File>
 			<File
+				RelativePath="..\..\src\Texture.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Types.h">
+			</File>
+			<File
+				RelativePath="..\..\src\UIDManager.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Utility.h">
+			</File>
+			<File
+				RelativePath="..\..\src\VectorSpatialIndex.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Version.h">
+			</File>
+			<File
+				RelativePath="..\..\src\Weapon.h">
+			</File>
+			<File
 				RelativePath="..\..\src\cubeGeometry.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\cubeGeometry.h">
 			</File>
 		</Filter>
 	</Files>

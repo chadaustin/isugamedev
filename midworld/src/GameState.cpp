@@ -24,13 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-09-17 10:42:37 $
- * Version:       $Revision: 1.30 $
+ * Date modified: $Date: 2002-09-18 00:30:39 $
+ * Version:       $Revision: 1.31 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
 #include <sstream>
-#include <GL/glu.h>
+#include <SDL_opengl.h>
 #include "GameState.h"
 #include "StateFactory.h"
 #include "Pistol.h"

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: ModelManager.h,v $
- * Date modified: $Date: 2002-09-17 10:33:08 $
- * Version:       $Revision: 1.2 $
+ * Date modified: $Date: 2002-09-18 00:30:39 $
+ * Version:       $Revision: 1.3 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -33,6 +33,9 @@
 #define MW_MODEL_MANAGER_H
 
 #include <string>
+#ifdef WIN32  // OpenSG needs Winsock  :(:(:(
+#include <winsock.h>
+#endif
 #include <OpenSG/OSGNode.h>
 
 namespace mw
