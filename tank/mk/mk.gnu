@@ -22,7 +22,7 @@ LINKALL_ON = -Wl,--whole-archive
 LINKALL_OFF = -Wl,--no-whole-archive
 
 OBJ_FILE_SUFFIX = .o
-EXE_FILE_SUFFIX=
+EXE_FILE_SUFFIX =
 LIB_FILE_PREFIX = lib
 LIB_FILE_SUFFIX = .so
 
