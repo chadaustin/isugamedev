@@ -7,8 +7,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ObjImporter.h,v $
-//    $Date: 2001-09-19 19:21:55 $
-//    $Revision: 1.3 $
+//    $Date: 2001-09-19 19:44:00 $
+//    $Revision: 1.4 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -351,7 +351,7 @@ public:
                regexx::Regexx extractIndicies;
                num_of_matches = extractIndicies.exec( match,"([0-9/]+)", regexx::Regexx::global);
                int numVerts = extractIndicies.match.size();
-               //cout<<"     detected polygon with "<<numVerts<<" vertices\n"<<flush;
+               cout<<"     detected polygon with "<<numVerts<<" vertices\n"<<flush;
             
                for (int x = 0; x < numVerts; ++x)
                {
@@ -374,6 +374,8 @@ public:
                      lookup[currentGState->mapName.c_str()].tindex.push_back( vt - 1 );
                      if ( (vn - 1) < normals.size() )
                         lookup[currentGState->mapName.c_str()].nindex.push_back( vn - 1 );
+                     else
+                        std::cout<<"not enough normals\n"<<std::flush;
                   }
                   else
                   {
@@ -381,6 +383,8 @@ public:
                      lookup["notex"].tindex.push_back( vt - 1 );
                      if ( (vn - 1) < normals.size() )
                         lookup["notex"].nindex.push_back( vn - 1 );
+                     else
+                     std::cout<<"not enough normals\n"<<std::flush;
                   }               
                }
             }
@@ -406,13 +410,15 @@ public:
 
          Vec4<float> color( 1.0f,1.0f,1.0f,1.0f );
 
-         geoset->setPrimType( GeoSet::QUADS );
+         geoset->setPrimType( GeoSet::TRIS );
          geoset->setNumPrims( lookup[(*it).first].cindex.size() / 4 );
          geoset->allocate();
          geoset->setAttr( GeoSet::COORD3, GeoSet::PER_VERTEX, (void*)&verts[0], (unsigned int*)&lookup[(*it).first].cindex[0] );
          geoset->setAttr( GeoSet::COLOR4, GeoSet::OVERALL, (void*)&color[0], NULL );
          if (normals.size() > 0 && lookup[(*it).first].nindex.size() > 0)
             geoset->setAttr( GeoSet::NORMAL3, GeoSet::PER_VERTEX, (void*)&normals[0], (unsigned int*)&lookup[(*it).first].nindex[0] );
+         else
+            std::cout<<"not enough normals\n"<<std::flush;
          geoset->setAttr( GeoSet::TEXCOORD2, GeoSet::PER_VERTEX, (void*)&texcoords[0], (unsigned int*)&lookup[(*it).first].tindex[0] );
 
          if (lookup[(*it).first].mat != NULL)

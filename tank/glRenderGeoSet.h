@@ -24,6 +24,12 @@ namespace kev
            glInterleavedArrays( GL_T2F_C4F_N3F_V3F, 0, data ); //GL_T2F_C4F_N3F_V3F            
            glDrawArrays( GL_QUADS, 0, numVerts );
            break;
+       case GeoSet::TRIS:
+           data = gset.data();
+           numVerts = gset.getNumVerts();
+           glInterleavedArrays( GL_T2F_C4F_N3F_V3F, 0, data ); //GL_T2F_C4F_N3F_V3F            
+           glDrawArrays( GL_TRIANGLES, 0, numVerts );
+           break;
        case GeoSet::TRISTRIPS:
            for (int x = 0; x < gset.getNumPrims(); ++x)
            {

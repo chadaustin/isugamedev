@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-09-13 23:43:07 $
-//    $Revision: 1.2 $
+//    $Date: 2001-09-19 19:44:00 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -241,6 +241,28 @@ public:
                             mVertexArray[y+1].n = normals[in];
                             mVertexArray[y+2].n = normals[in];
                             mVertexArray[y+3].n = normals[in];
+                        }
+                    }
+                    break;
+                    case TRIS:
+                    {
+                        // TODO; check that it's a multiple of 4
+                        for (int x = 0; x < mNumPrimitives; ++x)
+                        {
+                            int in = 0;
+                            if (indexlist == NULL)
+                            {
+                                in = x;
+                            }
+                            else
+                            {
+                                in = indexlist[x];
+                            }
+
+                            int y = x * 3;
+                            mVertexArray[y].n = normals[in];
+                            mVertexArray[y+1].n = normals[in];
+                            mVertexArray[y+2].n = normals[in];
                         }
                     }
                     break;
