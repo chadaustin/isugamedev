@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: GeoSet.h,v $
-//    $Date: 2001-10-12 04:40:27 $
-//    $Revision: 1.9 $
+//    $Date: 2001-10-13 01:51:30 $
+//    $Revision: 1.10 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -62,6 +62,7 @@
 
 #include <vector>
 #include <iostream>
+#include <assert.h>
 #include <boost/smart_ptr.hpp>
 #include "Vec2.h"
 #include "Vec3.h"

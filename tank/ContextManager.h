@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: ContextManager.h,v $
-//    $Date: 2001-09-10 16:56:15 $
-//    $Revision: 1.2 $
+//    $Date: 2001-10-13 01:51:30 $
+//    $Revision: 1.3 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, kevin@vrsource.org
 //
 //    This library is free software; you can redistribute it and/or
@@ -32,6 +32,7 @@
 
 #include <map>
 #include <vector>
+#include <assert.h>
 #include "Singleton.h"
 #include "ResourceID.h"
 
