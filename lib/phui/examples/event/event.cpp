@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-26 10:27:35 $
- * Version:       $Revision: 1.18 $
+ * Date modified: $Date: 2002-04-26 12:04:00 $
+ * Version:       $Revision: 1.19 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -49,19 +49,19 @@ namespace {
 class BtnListener : public phui::ActionListener
 {
 public:
-   BtnListener(phui::Window* wnd)
-      : mWnd(wnd)
+   BtnListener(phui::Widget* widget)
+      : mWidget(widget)
    {}
 
    virtual ~BtnListener() {}
 
    virtual void onAction(const phui::ActionEvent& evt)
    {
-      mWnd->setVisible(false);
+      mWidget->setVisible(!mWidget->isVisible());
    }
 
 private:
-   phui::Window* mWnd;
+   phui::Widget* mWidget;
 };
 
 void idle() {
@@ -156,13 +156,21 @@ int main(int argc, char** argv) {
       w->setBackgroundColor(phui::Colorf(0, 1, 0, 0.75f));
       wnd->add(w);
 
+      phui::CheckBox* cb(new phui::CheckBox());
+      cb->setPosition(220, 40);
+      cb->setSize(20, 20);
+      cb->show();
+      cb->setBackgroundColor(phui::Colorf(0, 0, 0, 0.2f));
+      cb->setForegroundColor(phui::Colorf(1, 0, 1, 1));
+      window->add(cb);
+
       phui::Button* button(new phui::Button("Icky very very very icky"));
       button->setPosition(20, 20);
       button->setSize(100,50);
       button->show();
       button->setBackgroundColor(phui::Colorf(0,0,1,0.5f));
       window->add(button);
-      BtnListener* btnLstr(new BtnListener(window));
+      BtnListener* btnLstr(new BtnListener(cb));
       button->addActionListener(btnLstr);
 
       phui::TextField* txt(new phui::TextField());
@@ -185,14 +193,6 @@ int main(int argc, char** argv) {
       lst->add("Pears");
       lst->add("Peaches");
       window->add(lst);
-
-      phui::CheckBox* cb(new phui::CheckBox());
-      cb->setPosition(220, 40);
-      cb->setSize(20, 20);
-      cb->show();
-      cb->setBackgroundColor(phui::Colorf(0, 0, 0, 0.2f));
-      cb->setForegroundColor(phui::Colorf(1, 0, 1, 1));
-      window->add(cb);
 
       gRoot->add(window);
       gRoot->add(wnd);
