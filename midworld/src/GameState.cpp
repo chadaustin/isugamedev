@@ -7,6 +7,7 @@
 #include "Pistol.h"
 #include "SpreadGun.h"
 #include "Shotgun.h"
+#include "AssaultRifle.h"
 
 namespace mw
 {
@@ -25,6 +26,7 @@ namespace mw
       mPlayer.addWeapon( new Pistol );
       mPlayer.addWeapon( new SpreadGun );
       mPlayer.addWeapon( new Shotgun );
+      mPlayer.addWeapon( new AssaultRifle );
       for (int i = 0; i < 10; i++)
       {
          mEnemies.push_back(new Enemy());
