@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.h,v $
- * Date modified: $Date: 2002-04-28 16:41:03 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-28 18:03:14 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -79,6 +79,7 @@ namespace client {
       phui::ListBox* mCarsOwnedList;
       phui::Button* mBuyBtn;
       phui::Button* mSellBtn;
+      phui::Button* mDealerDoneBtn;
 
       phui::Window* mChopShopWnd;
    };

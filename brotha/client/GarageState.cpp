@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GarageState.cpp,v $
- * Date modified: $Date: 2002-04-28 17:56:43 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-04-28 18:03:14 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -93,7 +93,7 @@ namespace client {
       mDealerWnd->add(mDealerTitle);
 
       mCarsList = new phui::ListBox();
-      mCarsList->setSize(250, 310);
+      mCarsList->setSize(250, 280);
       mCarsList->setPosition(10, 30);
       mCarsList->setBackgroundColor(phui::Colorf(0.2f, 0.3f, 0.8f, 0.8f));
       mCarsList->setForegroundColor(phui::WHITE);
@@ -101,7 +101,7 @@ namespace client {
       mCarsList->add("Road Hummer");
 
       mCarsOwnedList = new phui::ListBox();
-      mCarsOwnedList->setSize(250, 310);
+      mCarsOwnedList->setSize(250, 280);
       mCarsOwnedList->setPosition(280, 30);
       mCarsOwnedList->setBackgroundColor(phui::Colorf(0.2f, 0.3f, 0.8f, 0.8f));
       mCarsOwnedList->setForegroundColor(phui::WHITE);
@@ -109,17 +109,25 @@ namespace client {
 
       mBuyBtn = new phui::Button("Buy");
       mBuyBtn->setSize(75, 20);
-      mBuyBtn->setPosition(185, 350);
+      mBuyBtn->setPosition(185, 320);
       mBuyBtn->setBackgroundColor(phui::BLACK);
       mBuyBtn->setForegroundColor(phui::WHITE);
       mDealerWnd->add(mBuyBtn);
 
       mSellBtn = new phui::Button("Sell");
       mSellBtn->setSize(75, 20);
-      mSellBtn->setPosition(455, 350);
+      mSellBtn->setPosition(455, 320);
       mSellBtn->setBackgroundColor(phui::BLACK);
       mSellBtn->setForegroundColor(phui::WHITE);
       mDealerWnd->add(mSellBtn);
+
+      mDealerDoneBtn = new phui::Button("Done");
+      mDealerDoneBtn->setSize(75, 20);
+      mDealerDoneBtn->setPosition(455, 350);
+      mDealerDoneBtn->setBackgroundColor(phui::BLACK);
+      mDealerDoneBtn->setForegroundColor(phui::WHITE);
+      mDealerDoneBtn->addActionListener(this);
+      mDealerWnd->add(mDealerDoneBtn);
 
       // chop shop window
       mChopShopWnd = new phui::Window();
@@ -181,6 +189,10 @@ namespace client {
       else if (src == mChopShopBtn) {
          mChopShopWnd->show();
          mRoot->focus(mChopShopWnd);
+      }
+      else if (src == mDealerDoneBtn) {
+         mDealerWnd->hide();
+         mRoot->focus(mMainWnd);
       }
    }
 
