@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2003-02-21 09:43:33 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-02-25 06:39:39 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** barfight-cpr-end */
@@ -103,7 +103,7 @@ namespace bar
 
       glMatrixMode(GL_MODELVIEW);
       glLoadIdentity();
-
+      mCamera.draw();
       // Redraw the current blur texture
       glPushAttrib(GL_VIEWPORT_BIT);
          // Change the viewport to match the size of the texture
@@ -140,7 +140,11 @@ namespace bar
    {
       // Update the avatar
       mPlayer->update(dt);
-
+      
+      // Update Camera
+      mCamera.setTarget(mPlayer->getPos(), mPlayer->getRotQuat());
+      mCamera.update(dt);
+      
       for (size_t i=0; i<mNPCs.size(); ++i)
       {
          mNPCs[i]->update(dt);

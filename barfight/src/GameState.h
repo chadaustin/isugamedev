@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2003-02-21 09:43:33 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-02-25 06:39:39 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** barfight-cpr-end */
@@ -80,5 +80,6 @@ namespace bar
       float mFPS;
       int   mNumFrames;
       float mFrameTime;
+      siren::Camera mCamera;
    };
 }
