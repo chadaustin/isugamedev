@@ -20,3 +20,12 @@ bool ifNCollide(generic *obj1, generic *obj2)
 
 	return nCollide;
 }
+
+bool terrainCollide(generic *object, generic *terrain)
+{
+	bool collide = false;
+
+	
+
+	return collide;
+}
