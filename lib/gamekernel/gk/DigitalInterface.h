@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: DigitalInterface.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.11 $
+// Date modified: $Date: 2002-02-11 05:26:03 $
+// Version:       $Revision: 1.12 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -67,18 +67,31 @@ namespace gk {
  * @see GameInput
  * @see AnalogInterface
  * @author Kevin Meinert <kevin@vrsource.org>
- * @author other happy people...
  */
 class DigitalInterface : public InputInterface
 {
 public:
-   /** Constructor */
+   /**
+    * Creates a new interface to a digital input. You can't retrieve any data
+    * from this interface until you initialize it with an alias by calling
+    * init(..). See the class documentation for details.
+    *
+    * @see DigitalInterface
+    * @see InputInterface::init( const std::string& )
+    */
    DigitalInterface() {}
 
-   /** Destructor */
+   /**
+    * Destroys this interface to a digital input.
+    */
    virtual ~DigitalInterface() {}
 
-   /** get the DigitalInput data from the DigitalDevice. */
+   /**
+    * Gets the digital input data from the DigitalDevice this object is an
+    * interface to.
+    *
+    * @see DigitalInput
+    */
    virtual DigitalInput::EdgeTriggerState getDigitalData()
    {
       // this can surely be optimized...

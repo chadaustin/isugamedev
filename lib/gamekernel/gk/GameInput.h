@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: GameInput.h,v $
-// Date modified: $Date: 2002-02-10 19:03:42 $
-// Version:       $Revision: 1.28 $
+// Date modified: $Date: 2002-02-11 05:26:03 $
+// Version:       $Revision: 1.29 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -72,19 +72,25 @@ namespace gk {
  * @see AnalogInterface
  * @see Singleton<GameInput>
  * @author Kevin Meinert <kevin@vrsource.org>
- * @author other happy people...
  */
 class GameInput : public Singleton<GameInput>
 {
 public:
+   /**
+    * This is a singleton. Use GameInput::getInstance() instead.
+    *
+    * @see Singleton::instance()
+    */
    GameInput()
    {
    }
 
-   /** return an Input ptr
-    * give the alias to the input
-    * i.e. ACCELERATE_ACTION
-    * !RETURN: NULL - Not found
+   /**
+    * Gets the input that the given alias has been bound to.
+    *
+    * @param alias      the alias bound to the input
+    *
+    * @return  the input if alias has been bound, NULL otherwise
     */
    Input* getInput( const std::string& alias )
    {
@@ -95,10 +101,13 @@ public:
       return &event_input;
    }
 
-   /** Return an Input ptr
-    * give the real Device name (i.e. Keyboard) and
-    * give the real input name within that Device (i.e. KEY_UPARROW)
-    * !RETURN: NULL - Not found
+   /**
+    * Gets the input from the <device,input> pair.
+    *
+    * @param device     the name of the device
+    * @param input      the name of the input source on the device
+    *
+    * @return  the input if it exists, NULL otherwise
     */
    Input* getInput( const std::string& device, const std::string& input )
    {
@@ -110,23 +119,20 @@ public:
    }
 
    /**
-    * Add a device to this input manager.
+    * Add a device to this input manager. Once added, the device's inputs will
+    * be available for binding. The device should not already have been added to
+    * this input manager.
     *
-    * Add the devPtr to the device Array, devPtr should
-    * not already be in the array.
-    *
-    * @param devPtr     the device to add
+    * @param device     the device to add
     * @param name       the unique name for the device
     *
     * @return  true if successful, false otherwise
-    *
-    * MODIFIES: self
     */
-   bool addDevice( Device* devPtr, const std::string& name )
+   bool addDevice( Device* device, const std::string& name )
    {
       if (mDevices.count( name ) == 0)
       {
-         mDevices[ name ] = devPtr;
+         mDevices[ name ] = device;
          std::cout << "Added device: " << name << std::endl;
          this->refreshEventInputs();
          return true;
@@ -138,7 +144,7 @@ public:
    /**
     * Gets the device with the given name.
     *
-    * @name    the name of the device to retrieve
+    * @param name    the name of the device to retrieve
     *
     * @return  a pointer to the device if it exists, NULL otherwise
     */
@@ -158,7 +164,7 @@ public:
     * Removes the device with the given name. If no device with the given name
     * is registered, no work is done.
     *
-    * @name    the name of the device to remove
+    * @param name    the name of the device to remove
     */
    void removeDevice( const std::string& name )
    {
@@ -173,7 +179,14 @@ public:
    }
 
    /**
-    *  bind an alias to a device's input
+    *  Bind an alias to a device's input. This allows you to retrieve that input
+    *  at a later time using your alias without regard to what that alias was
+    *  bound to.
+    *
+    *  @param alias     the name by which your application wishes to refer to
+    *                   the device's input
+    *  @param device    the name of the device
+    *  @param input     the name of the input on the device
     */
    void bind( const std::string& alias, const std::string& device, const std::string& input )
    {
@@ -185,11 +198,15 @@ public:
 
    
 public:
-   /** update function.
-    * if using the GameInput manager without GameKernel, you will need to
-    * call this function every frame to ensure valid input
+   /**
+    * Updates all the devices in this input manager. SystemDriver
+    * implementations should call this function every frame to ensure valid
+    * input within the application.
+    *
+    * @see GameKernel
+    * @see SystemDriver
     */
-   inline void update()
+   void update()
    {
       std::map<std::string, Device*>::iterator itr;
       for( itr = mDevices.begin(); itr != mDevices.end(); ++itr )
@@ -198,6 +215,11 @@ public:
       }
    }
 
+private:
+   /**
+    * Refreshes all bindings. This allows you to swap out a device and still
+    * maintain the bindings to it.
+    */
    void refreshEventInputs()
    {
       // reset each EventInput object (this removes all binding info from them...)
@@ -251,7 +273,8 @@ public:
    }
 
    /**
-    * Removes the device from the input manager and destroys it.
+    * Removes the device from the input manager and destroys it. Note that the
+    * device's memory will be released.
     */
    ~DeviceHandle()
    {

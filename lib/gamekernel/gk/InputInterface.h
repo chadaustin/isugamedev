@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: InputInterface.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.8 $
+// Date modified: $Date: 2002-02-11 05:26:03 $
+// Version:       $Revision: 1.9 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,21 +37,43 @@
 
 namespace gk {
 
+/**
+ * Base class for interfaces to inputs. An input interface allows your
+ * application to get data from a device's input by referring to it by it's
+ * alias. All interactions with the GameInput input manager are hidden and
+ * automated for you. It is recommended that you use an InputInterface
+ * implementation to gain access to input data rather than work through the
+ * GameInput singleton yourself.
+ */
 class InputInterface
 {
 public:
-   InputInterface()
-   {
-   }
+   /**
+    * Creates a new input interface to a device. You can't retrieve any data
+    * from this interface until you initialize it with an alias by calling
+    * init(..).
+    *
+    * @see init( const std::string& )
+    */
+   InputInterface() {}
+
+   /**
+    * Destroys this interface to a digital input.
+    */
    virtual ~InputInterface() {}
 
-   /* initialize this interface with the alias to the input */
+   /**
+    * Initialize this interface with the given alias to a device's input. Once
+    * initialized with the given alias, you can retrieve the data on that
+    * device's input using the implementation's getXXXData() method.
+    *
+    * @param alias      the alias to an input you wish to get input data from
+    */
    virtual void init( const std::string& alias )
    {
       mAlias = alias;
       std::cout << "Created interface to " << alias << std::endl;
    }
-
 
 public:
    std::string mAlias;

@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: AnalogInterface.h,v $
-// Date modified: $Date: 2002-02-09 21:54:44 $
-// Version:       $Revision: 1.12 $
+// Date modified: $Date: 2002-02-11 05:26:03 $
+// Version:       $Revision: 1.13 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -54,9 +54,9 @@ namespace gk {
  *       ... then use rotation in your camera matrix ...
  * \endcode
  *
- * Of course, this assumes that you have set up your key bindings:
+ * Of course, this assumes that you have set up your bindings:
  *
- * <h3>  "Example (to configure your key bindings):" </h3>
+ * <h3>  "Example (to configure your bindings):" </h3>
  * \code
  *     GameInput::instance().bind( "MouselookX", "Mouse", "MOUSEAXIS_X" );
  *     GameInput::instance().bind( "MouselookY", "Mouse", "MOUSEAXIS_Y" );
@@ -66,18 +66,31 @@ namespace gk {
  * @see GameInput
  * @see DigitalInterface
  * @author Kevin Meinert <kevin@vrsource.org>
- * @author other happy people...
  */
 class AnalogInterface : public InputInterface
 {
 public:
-   /** Constructor */
+   /**
+    * Creates a new interface to an analog input. You can't retrieve any data
+    * from this interface until you initialize it with an alias by calling
+    * init(..). See the class documentation for details.
+    *
+    * @see AnalogInterface
+    * @see InputInterface::init( const std::string& )
+    */
    AnalogInterface() {}
 
-   /** Destructor */
+   /**
+    * Destroys this interface to an analog input.
+    */
    virtual ~AnalogInterface() {}
 
-   /** get the AnalogInput data from the AnalogDevice. */
+   /**
+    * Gets the analog input data from the AnalogDevice this object is an
+    * interface to.
+    *
+    * @see AnalogInput
+    */
    virtual float getAnalogData()
    {
       // this can surely be optimized...
