@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SystemDriverFactory.cpp,v $
-// Date modified: $Date: 2002-02-13 08:40:43 $
-// Version:       $Revision: 1.2 $
+// Date modified: $Date: 2002-02-18 03:16:06 $
+// Version:       $Revision: 1.3 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -183,6 +183,7 @@ SystemDriverFactory::probe( const std::string& library,
       delete lib;
       return false;
    }
+   std::cout << "successful" <<std::endl;
 
    registerDriver( name, driver, lib );
    return true;
