@@ -24,14 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutConstraint.h,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2003-01-04 02:47:57 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-
-#ifndef PHUI_LAYOUTCONSTRAINT_H
-#define PHUI_LAYOUTCONSTRAINT_H
+#ifndef PHUI_LAYOUT_CONSTRAINT_H
+#define PHUI_LAYOUT_CONSTRAINT_H
 
 #include <string>
 
@@ -53,6 +52,6 @@ namespace phui
       virtual const std::string getType() = 0;
 
    };
-}//end of namespace phui
+}
 
 #endif

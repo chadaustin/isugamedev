@@ -1,21 +1,5 @@
 /* -*- Mode: C++; tab-width: 3; indent-tabs-mode: nil c-basic-offset: 3 -*- */
 // vim:cindent:ts=3:sw=3:et:tw=80:sta:
-/**************************************************************** phui-head beg
- *
- * phui - flexible user interface subsystem
- *
- * Original Authors:
- *    Chad Austin <aegis@aegisknight.org>
- *    Josh Carlson <josh@chegg.com>
- *    Ben Scott <bscott@iastate.edu>
- *
- * -----------------------------------------------------------------
- * File:          $RCSfile: Label.h,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.4 $
- * -----------------------------------------------------------------
- *
- ************************************************************* phui-head-end */
 /***************************************************************** phui-cpr beg
  *
  * phui - flexible user interface subsystem
@@ -40,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Label.h,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 02:47:57 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */

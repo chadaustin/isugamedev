@@ -24,14 +24,13 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LayoutManager.h,v $
- * Date modified: $Date: 2003-01-04 02:31:02 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2003-01-04 02:47:57 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
-
-#ifndef PHUI_LAYOUTMANAGER_H
-#define PHUI_LAYOUTMANAGER_H
+#ifndef PHUI_LAYOUT_MANAGER_H
+#define PHUI_LAYOUT_MANAGER_H
 
 #include <utility>
 #include <vector>
@@ -116,8 +115,6 @@ namespace phui
    private:
       
    };
-   
-
-}//end of namespace phui
+}
 
 #endif
