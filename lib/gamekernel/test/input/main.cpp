@@ -24,8 +24,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: main.cpp,v $
-// Date modified: $Date: 2002-02-13 07:53:45 $
-// Version:       $Revision: 1.5 $
+// Date modified: $Date: 2002-02-13 08:07:01 $
+// Version:       $Revision: 1.6 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -37,6 +37,7 @@
 #include <gk/AnalogInterface.h>
 #include <gk/DigitalInterface.h>
 #include <gk/GlutDriver.h>
+#include <gk/SystemDriverFactory.h>
 #include "Grid.h"
 
 GK_USING_NAMESPACE
@@ -115,7 +116,8 @@ int main( int argc, char *argv[] )
    loadInputConfig( "config.xml" );
 
    // create our system driver and let's go!
-   SystemDriver* driver = new GlutDriver();
+   SystemDriverFactory::instance().registerDriver( "GLUT", new GlutDriver() );
+   SystemDriver* driver = SystemDriverFactory::instance().getDriver( "GLUT" );
    kernel->startup( driver );
 
    return 1;
