@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: MenuState.cpp,v $
- * Date modified: $Date: 2003-03-11 01:24:33 $
- * Version:       $Revision: 1.28 $
+ * Date modified: $Date: 2003-06-16 18:03:40 $
+ * Version:       $Revision: 1.29 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -37,6 +37,11 @@
 #include "Application.h"
 #include "GameManager.h"
 #include "Version.h"
+
+// evil Win32 API
+#ifdef CreateFont
+#undef CreateFont
+#endif
 
 namespace mw
 {

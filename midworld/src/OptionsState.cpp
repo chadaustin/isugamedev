@@ -5,6 +5,11 @@
 #include "StateFactory.h"
 #include "InputSymbol.h"
 
+// evil Win32 API
+#ifdef CreateFont
+#undef CreateFont
+#endif
+
 namespace mw
 {
    OptionsState::OptionsState(Application* a ) : State( a )

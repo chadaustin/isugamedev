@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.cpp,v $
- * Date modified: $Date: 2003-06-16 08:14:56 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2003-06-16 18:03:40 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -207,6 +207,7 @@ namespace mw
       navNode->name = nam;
       
       g->getNavNodeTree()->addNode(navNode);
+      return 0;
    }
 
    Entity*
@@ -224,8 +225,7 @@ namespace mw
       name2 = n->getCdata();
 
       g->getNavNodeTree()->addLink(name1, name2);
-      
-      
+      return 0;
    }
 
    void

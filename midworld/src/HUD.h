@@ -23,7 +23,6 @@ namespace mw
       gltext::FontPtr mFont;
       gltext::FontRendererPtr mFontRenderer;
       void drawTape(float width, float height, float maxValue, float currentValue,bool horizontal);
-
    };
 }
 
