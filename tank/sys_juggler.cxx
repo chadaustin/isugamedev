@@ -22,6 +22,7 @@
 
 #include "glRenderLight.h"
 #include "TankGame.h"
+#include "GeodeCache.h"
 
 //: Provide functionality to automatically use different lights.
 // Leave the first light (0) alone.
@@ -103,17 +104,12 @@ vjTankApp::init()
    light.on();
    game->getWorld().setLight( light );
 
-   kev::ObjImporter importer;
-   std::vector< safe_ptr<GeoSet> > gset;
-
    //Load our tank model
-   importer.load( gset, "models/ship.obj" );
+   safe_ptr<Geode> geode;
+   GeodeCache::instance().load( geode, "models/ship.obj" );
 
    Entity *entity = new Entity();
-   std::vector< safe_ptr<GeoSet> >::iterator itr;
-   for (itr = gset.begin(); itr != gset.end(); itr++) {
-      entity->addGeoSet( *itr );
-   }
+   entity->setGeode( geode );
 
    //Put the tank in the world
    game->getWorld().add( entity );
