@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-11-03 05:32:25 $
- * Version:       $Revision: 1.106 $
+ * Date modified: $Date: 2002-11-04 07:37:17 $
+ * Version:       $Revision: 1.107 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -177,8 +177,7 @@ namespace mw
       // Initialize the various game subsystems
       initializeInput();
 
-      LevelLoader levelLoader;
-      levelLoader.load("levels/level1.txt", this);
+      LevelLoader::load("levels/level1.txt", this);
 
       mCamera.setMaxFollowDistance(50.0f);
       mCamera.setMinFollowDistance(2.0f);

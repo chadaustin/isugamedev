@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: LevelLoader.h,v $
- * Date modified: $Date: 2002-11-03 05:18:54 $
- * Version:       $Revision: 1.1 $
+ * Date modified: $Date: 2002-11-04 07:37:17 $
+ * Version:       $Revision: 1.2 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -55,7 +55,12 @@ namespace mw
        *
        * @throws  std::runtime_error if there was a problem reading the file
        */
-      void load(const std::string& level, GameState* gameState);
+      static void load(const std::string& level, GameState* gameState);
+      
+   private:
+      LevelLoader();
+      LevelLoader(const LevelLoader&);
+      void operator=(const LevelLoader&);
    };
 }
 

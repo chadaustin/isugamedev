@@ -198,6 +198,12 @@
 				RelativePath="..\..\src\Cursor.h">
 			</File>
 			<File
+				RelativePath="..\..\src\Droid.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\Droid.h">
+			</File>
+			<File
 				RelativePath="..\..\src\Enemy.cpp">
 			</File>
 			<File
@@ -283,6 +289,12 @@
 			</File>
 			<File
 				RelativePath="..\..\src\Jukebox.h">
+			</File>
+			<File
+				RelativePath="..\..\src\LevelLoader.cpp">
+			</File>
+			<File
+				RelativePath="..\..\src\LevelLoader.h">
 			</File>
 			<File
 				RelativePath="..\..\src\LoadState.cpp">
