@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <prthread.h>
+#include <pratom.h>
 #include "Synchronized.h"
 #include "ThreadException.h"
 
@@ -17,6 +18,7 @@ namespace thread {
    public:
       Thread() {
 
+         PR_AtomicSet(&mKillMe, 0);
          mRunning = false;
          mMutex.lock();
 
@@ -49,7 +51,11 @@ namespace thread {
       }
 
       void stop() {
-         // TODO: do
+         if(mRunning) {
+            PR_AtomicDecrement(&mKillMe);
+            PR_Interrupt(mThread); // forces all blocked calls to die
+            join();
+         }
       }
 
       void join() {
@@ -69,6 +75,8 @@ namespace thread {
       PRThread* mThread;  // NSPR thread handle
       Mutex mMutex;       // lets start() actually work properly
       bool mRunning;      // has start() been called yet?
+   protected:
+      PRInt32 mKillMe;    // used for clean termination
    };
 
 } // namespace thread
