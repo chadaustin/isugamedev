@@ -45,8 +45,11 @@ weaponry.
 
 Objective
 ==========
-Immediate: Get to the end of each level
-Overall: Rescue the ancient time crystal (or something like that).
+general: Save the universe while trying to get back home.
+specific:  solve a series of puzzles and defeat a series of enemies in order to find clues about getting your
+home portal to open again.
+
+
 
 
 Why this game is fun
@@ -60,9 +63,8 @@ ancient civilization + lots of technology + a little magic
 
 Target audience
 ================
-should appeal to casual to midlevel gamer. hard core gamers might be annoyed 
-it isn't a full RPG, but well, it isn't.  The game will start out easy
-so anyone can play, and get progressivly harder.
+people who like puzzles and adventure with plenty of action complimented by a compelling story line.
+The game will start out easy so anyone can play, and get progressivly harder.
 
 
 Gameplay in General
@@ -70,7 +72,8 @@ Gameplay in General
 Main character is 5 year old girl named Aki.  Aki is a normal girl who 
 unwittingly gets thrown into several quests which promise to lead to her
 back home.  With the help of some high tech vehicles and heavy weapons she 
-becomes a powerful adventurer.
+becomes a powerful adventurer.  Along the way are several intriguing puzzles 
+designed to make the player think.
 
 You control Aki, or one of her vehicles depending on where they are needed 
 in the game.
@@ -103,21 +106,41 @@ read on for more detail....
 Our story So Far
 =================
 Main character is 5 year old girl named Aki.  Aki is a normal girl, likes to 
-play etc...  One night she wakes up to the sound of knocking at her closet.
+play etc...  One night she wakes up to the sound of scratching at her closet.
 Fearless, she gets up to investigate and discovers that there is a cool wind 
 coming from under the door.  Throwing it open she climbs in and emerges into
 a rocky cavernlike tunnel.  The door slams shut behind her and she is unable
-to open it.  Slightly annoyed, but still curious about the cave, she plods
+to open it.  
+
+possible #1
+Slightly annoyed, but still curious about the cave, she plods
 on.  After a while a gentle breeze blows and on it floats dozens of 
 luminescent insects. Intrigued, she follows them until they exit the cave...
 
+possible #2
+clawed hands grab aki, around her are several birdlike figures in robes.  they 
+introduce themselves as an ancient order bestowed with the task of preserving 
+order and freedom to the universe.  they explain that there are several caves 
+just like the one they are in that lead to other worlds.  A prophecy has foretold 
+that someone from aki's world would restore order and stability.  "but why do you 
+need me?  you seem to know a lot about this already..."  they explain that priests
+are not able to fight the evil that invade the interworld subterrainia because the 
+evil force possess technology far too powerful (several mages have been defeated 
+already it seems, the preisthood only possess a weak form of magic that allows them 
+to read crystalballs and tealeaves and perform lesser magic such as healing and etc...)
+
+the mages create a flock of luminescent insects and explain that they will guide aki
+to the start of her adventure.  they wish her luck and cast the flock into the darkness. 
+aki follows, and emerges from a secret door on the side of what appears to be a large 
+ziggarraut...
+
 village of atla (theme is ancient mayan)
 ===========================================
-Outside there is a marketplace.  Unsure what to do, Aki tries to blend in
-and checks out several of the stalls.  One of them houses a strange mystic
-that upon seeing her invites her to come in and talk.  Asking him questions
-teaches her much about her new world.  Strangely he knows about her entrance
-from the closet, and informs her that she will not be able to get back
+At the base of the ziggurat there is a marketplace.  Unsure what to do, Aki 
+tries to blend in and checks out several of the stalls.  One of them houses 
+a strange mystic that upon seeing her invites her to come in and talk.  Asking 
+him questions teaches her much about her new world.  Strangely he knows about 
+her entrance from the closet, and informs her that she will not be able to get back
 because there is a force holding it closed.  To disable the force will require
 some research and aquisition of powers the mystic can not provide.  Thus
 he suggests that she explore the land and see what she can find.
@@ -190,7 +213,7 @@ describe some levels here.  going into details about the puzzles and
 strategy in each part.  describe items and enemies too.  give sketches
 or pictures of the map for each level (concept or fully planned)...   
 
-I want at least 3 of the levels themed to each of the fillowing,
+I want at least 3 of the levels themed to each of the following,
 - Mayan villages, african/mayan jungle  (atla)
 - nile river valley
 - ancient crete
@@ -217,6 +240,13 @@ world items (can't pick them up)
   (triggered when you bump it too?)
 - Panel that when "use"d generates a trigger event.  
   This can be hooked up to a receiving (personal or world) item.
+
+
+
+Enumerate Enemies
+===================
+- need to think of some.
+
 
 Timeline (milestones)
 ====================
