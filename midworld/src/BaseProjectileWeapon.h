@@ -31,6 +31,7 @@ namespace mw
 
 
       // some of these will change to public...
+      void reload(); //temporarily protected (not private) for shotgun hack
    private:
          
       void addAmmo( int ammount );
@@ -38,7 +39,7 @@ namespace mw
       /**
        * Triggers a reload sequence.
        */
-      void reload();
+      
       
       bool canFire() const;
       
