@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Mod.h,v $
- * Date modified: $Date: 2002-04-30 04:26:11 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-05-01 07:16:59 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -49,34 +49,46 @@
 
 namespace data {
 
-   //modifications to the car.
+   /**
+    * A particular modification to a car.
+    */
    class Mod {
-   private:
-
-      std::string type;
-      int level;
-
    public:
-      Mod(std::string in_type, int in_level) {
-         type = in_type;
-         level = in_level;
+      /**
+       * Creates a new mod with the given name and level.
+       */
+      Mod(const std::string& name, int level) {
+         mName = name;
+         mLevel = level;
       }
 
-      std::string getType() {
-         return type;
+      /**
+       * Returns the name of the mod.
+       */
+      const std::string& getName() const {
+         return mName;
       }
   
-      int getLevel() {
-         return level;
+      /**
+       * Returns the level of the mod
+       */
+      int getLevel() const {
+         return mLevel;
       }
   
       void xMLify(std::ostream& out) {
-         out <<"        <mod name=\"" << type << "\" level=\"" << level << "\" />" << std::endl;
+         out <<"        <mod name=\"" << mName << "\" level=\"" << mLevel << "\" />" << std::endl;
       }
+
+   private:
+      /// Type of mod
+      std::string mName;
+
+      /// Level of Mod
+      int mLevel;
    };
 
-   typedef std::vector<Mod*> modlist;
-
+   typedef std::vector<Mod*> ModList;
 }
 
 #endif

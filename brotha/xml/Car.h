@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Car.h,v $
- * Date modified: $Date: 2002-04-30 04:26:11 $
- * Version:       $Revision: 1.8 $
+ * Date modified: $Date: 2002-05-01 07:16:59 $
+ * Version:       $Revision: 1.9 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -47,14 +47,14 @@
 #include <string.h>
 #include <vector>
 
-#include "Cartype.h"
+#include "CarType.h"
 #include "BrothaData.h"
 #include "Mod.h"
 
 namespace data {
    class Car {
    private:
-      modlist mods;
+      ModList mods;
 
    public:
       std::string name;
@@ -66,7 +66,7 @@ namespace data {
          return name;
       }
 
-      modlist getMods() {
+      ModList getMods() {
          return mods;
       }
 
