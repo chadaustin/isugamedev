@@ -1,6 +1,6 @@
 <project name="ChadWorld" default="compile" basedir=".">
   <target name="compile">
-    <javac srcdir="src:test" destdir="." debug="on"/>
+    <javac srcdir="src" destdir="." debug="on"/>
     <rmic classname="chadworld.Server" base="."/>
     <rmic classname="chadworld.ClientFrame" base="."/>
   </target>
