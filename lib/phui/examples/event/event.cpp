@@ -8,8 +8,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: event.cpp,v $
- * Date modified: $Date: 2002-04-17 06:23:12 $
- * Version:       $Revision: 1.4 $
+ * Date modified: $Date: 2002-04-17 07:15:47 $
+ * Version:       $Revision: 1.5 $
  * -----------------------------------------------------------------
  *
  ************************************************************* phui-head-end */
@@ -42,8 +42,15 @@
 
 namespace {
    phui::RootWidget* gRoot;
+   int gContext; /// GLUT context
 }
 
+void idle() {
+   if (glutGetWindow() != gContext) {
+      glutSetWindow(gContext);
+   }
+   glutPostRedisplay();
+}
 
 void display() {
 
@@ -167,8 +174,9 @@ int main(int argc, char** argv) {
       glutInit(&argc, argv);
       glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 
-      glutCreateWindow("Event Example");
+      gContext = glutCreateWindow("Event Example");
 
+      glutIdleFunc(idle);
       glutDisplayFunc(display);
       glutReshapeFunc(reshape);
 
@@ -189,6 +197,13 @@ int main(int argc, char** argv) {
       window->setSize(300, 250);
       window->setVisible(true);
       window->setBackgroundColor(phui::Colorf(1, 0, 0, 0.5f));
+
+      phui::Button* button(new phui::Button("Icky"));
+      button->setPosition(75, 100);
+      button->setSize(100,50);
+      button->setVisible(true);
+      button->setBackgroundColor(phui::Colorf(0,0,1,0.5f));
+      window->add(button);
 
       gRoot->add(window);
 
