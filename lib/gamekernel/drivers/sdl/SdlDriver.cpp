@@ -23,8 +23,8 @@
 //
 // -----------------------------------------------------------------
 // File:          $RCSfile: SdlDriver.cpp,v $
-// Date modified: $Date: 2003-02-09 08:36:56 $
-// Version:       $Revision: 1.15 $
+// Date modified: $Date: 2003-02-09 08:45:59 $
+// Version:       $Revision: 1.16 $
 // -----------------------------------------------------------------
 //
 ////////////////// <GK heading END do not edit this line> ///////////////////
@@ -207,7 +207,6 @@ void SdlDriver::shutdown()
 #ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug: Calling Shutdown" << std::endl;
 #endif
-	misRunning = false;
 	if (mKeyboard != NULL)
 	{
 		delete mKeyboard;
@@ -222,6 +221,7 @@ void SdlDriver::shutdown()
 		std::cerr << "##SDL Driver Debug: Calling SDL_Quit" << std::endl;
 #endif
 	SDL_Quit();
+   misRunning = false;
    exit( 0 ); // hack, should probably clean up displays and such to get rid of the graphics window
 #ifdef SDLDRIVER_DEBUG
 		std::cerr << "##SDL Driver Debug: SDL_Quit Called" << std::endl;
@@ -295,7 +295,7 @@ void SdlDriver::handleEvent()
 	{
 		case SDL_QUIT:
 			shutdown();
-			break;
+         return;
 		case SDL_KEYUP:
 			onKeyUp();
 			break;
