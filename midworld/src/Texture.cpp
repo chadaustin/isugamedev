@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.5 $
+ * Date modified: $Date: 2002-09-23 21:25:23 $
+ * Version:       $Revision: 1.6 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -127,14 +127,14 @@ namespace mw
 
 
    void
-   Texture::drawRectangle(int x1, int y1, int x2, int y2)
+   Texture::drawRectangle(float x1, float y1, float x2, float y2)
    {
       bind();
       glBegin(GL_QUADS);
-      glTexCoord2f(0,          0);           glVertex2i(x1, y1);
-      glTexCoord2f(mRealWidth, 0);           glVertex2i(x2, y1); 
-      glTexCoord2f(mRealWidth, mRealHeight); glVertex2i(x2, y2); 
-      glTexCoord2f(0,          mRealHeight); glVertex2i(x1, y2); 
+      glTexCoord2f(0,          0);           glVertex2f(x1, y1);
+      glTexCoord2f(mRealWidth, 0);           glVertex2f(x2, y1); 
+      glTexCoord2f(mRealWidth, mRealHeight); glVertex2f(x2, y2); 
+      glTexCoord2f(0,          mRealHeight); glVertex2f(x1, y2); 
       glEnd();
    }
 

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.h,v $
- * Date modified: $Date: 2002-07-07 02:21:11 $
- * Version:       $Revision: 1.3 $
+ * Date modified: $Date: 2002-09-23 21:25:23 $
+ * Version:       $Revision: 1.4 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -48,7 +48,7 @@ namespace mw
       ~Texture();
 
       void bind();
-      void drawRectangle(int x1, int y1, int x2, int y2);
+      void drawRectangle(float x1, float y1, float x2, float y2);
 
    private:
       GLuint mTexture;

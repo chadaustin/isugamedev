@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameScene.h,v $
- * Date modified: $Date: 2002-07-07 02:21:10 $
- * Version:       $Revision: 1.6 $
+ * Date modified: $Date: 2002-09-23 21:25:23 $
+ * Version:       $Revision: 1.7 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #define GAMESCENE_H
 
 #include "cubeGeometry.h"
+#include "Texture.h"
 
 namespace mw
 {
@@ -41,22 +42,36 @@ namespace mw
    class GameScene
    {
    public:
-      inline void draw()
+      GameScene()
+      {
+         mTexture = new Texture("images/ground.png");
+      }
+
+      ~GameScene()
+      {
+         delete mTexture;
+      }
+
+      void draw()
       {
          /** draw the scene. */
-         static cubeGeometry cube;
+         static const cubeGeometry cube;
 
-         glBegin( GL_LINES );
-            const int size = 500;
-            const int spacing = 10;
-            for (int x = -size; x < size; x += spacing)
+         const int size = 500;
+         const int spacing = 10;
+         const int spacing_2 = spacing / 2;
+         for (int x = -size; x < size; x += spacing)
+         {
+            for (int y = -size; y < size; y += spacing)
             {
-               glVertex3i( -size, 0, x );
-               glVertex3i(  size, 0, x );
-               glVertex3i( x, 0, -size );
-               glVertex3i( x, 0,  size );
+               glPushMatrix();
+               glRotatef(90, 1, 0, 0);
+               mTexture->drawRectangle(
+                  x - spacing_2, y - spacing_2,
+                  x + spacing_2, y + spacing_2);
+               glPopMatrix();
             }
-         glEnd();
+         }
 
          const float pillar_height = 0.5f;
          const float pillar_width = 0.4f;
@@ -74,6 +89,9 @@ namespace mw
             }
          }
       }
+
+   private:
+      Texture* mTexture;
    };
 
 }
