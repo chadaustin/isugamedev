@@ -4,6 +4,7 @@
 # Copyright (c) 2000 Patrick L. Hartling (original author)
 # contributors:
 #  - Kevin Meinert (command line args, external config data, working dir)
+#  - Ben Scott (emacs and vi modeline support)
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -28,7 +29,7 @@
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-#       $Id: auto-copyright.pl,v 1.1 2002-03-26 21:10:13 nonchocoboy Exp $
+#       $Id: auto-copyright.pl,v 1.2 2002-04-28 16:31:18 nonchocoboy Exp $
 #
 
 use File::Basename;
@@ -45,8 +46,9 @@ use lib($path."/..");
 use RecurseDir;
 
 # get opts:
-getopts('d:t:c:e:ha');
+getopts('d:m:t:c:e:ha');
 
+my $modeline_file = "$opt_m";
 my $tags_file = "$opt_t";
 my $copyright_file = "$opt_c";
 my @extensions = split( /,/, "$opt_e" );
@@ -54,7 +56,7 @@ my $working_dir = "$opt_d" || ".";
 
 
 
-if ( $opt_h ) 
+if ( $opt_h )
 {
    helpText();
    exit 1;
@@ -63,8 +65,8 @@ if ( $opt_h )
 # execute the tags file, putting it's vars into scope.
 if($tags_file)
 {
-   unless ($return = do $tags_file) 
-   {      
+   unless ($return = do $tags_file)
+   {
        helpText();
        warn "couldn't parse $tags_file: $@"         if $@;
        warn "couldn't do $tags_file: $!"            unless defined $return;
@@ -72,6 +74,18 @@ if($tags_file)
    }
 }
 
+# execute the modeline file, putting it's vars into scope
+if ($modeline_file)
+{
+   unless ($return = do $modeline_file)
+   {
+       helpText();
+       warn "couldn't parse $modeline_file: $@"     if $@;
+       warn "couldn't do $modeline_file: $!"        unless defined $return;
+       warn "couldn't run $modeline_file"           unless $return;
+       exit 1;
+   }
+}
 if (!open(TAGSFILE, "$tags_file"))
 {
    helpText();
@@ -116,6 +130,7 @@ sub helpText()
     print "Options:\n";
     print "       -d <working dir> name of dir to start recursive processing\n";
     print "       -e <ext1,ext2,..,extn> file extensions to process\n";
+    print "       -m <modelinefile> name of the file with the modeline header\n";
     print "       -c <(c) header> name of file with copyright text\n";
     print "       -t <tags.pl> name of perl script which defines 4\n";
     print "                    variables as input to this script\n";
@@ -123,11 +138,11 @@ sub helpText()
     print "\n\n";
 }
 
-sub makeRegexSafe( $$ ) 
+sub makeRegexSafe( $$ )
 {
    my $string = shift;
    my $regex_safe_string = shift;
-   
+
    $$regex_safe_string = $string;
    $$regex_safe_string =~ s/\./\\./gs;
    $$regex_safe_string =~ s/\*/\\*/gs;
@@ -139,79 +154,113 @@ sub makeRegexSafe( $$ )
 
 
 sub recurseFunc {
-    my $filename = shift;
+   my $filename = shift;
 
-    return unless checkName("$filename");
+   return unless checkName("$filename");
 
-    if ( ! open(INPUT, "$filename") ) 
-    {
-	warn "WARNING: Could not open $filename: $!\n";
-    } 
-    
-    else 
-    {
-	if ( ! open(OUTPUT, "> $filename.new") )
+   if ( ! open(INPUT, "$filename") )
+   {
+      warn "WARNING: Could not open $filename: $!\n";
+   }
+
+   else
+   {
+      if ( ! open(OUTPUT, "> $filename.new") )
+      {
+         warn "WARNING: Could not create new file: $!\n";
+      }
+
+      else
+      {
+         # gather every copyright together
+         my $all_copyrights;
+         foreach(@copyright)
          {
-	    warn "WARNING: Could not create new file: $!\n";
-	} 
-         
-         else 
+            $all_copyrights .= $_;
+         }
+
+         # gather each line of the source file into one string so we can do a subst across multiple lines.
+         my $file_contents;
+         while(<INPUT>)
          {
-            # gather every copyright together
-            my $all_copyrights;
-            foreach(@copyright)
-            {
-               $all_copyrights .= $_;
-            }            
+            $file_contents .= $_;
+         }
 
-            # gather each line of the source file into one string so we can do a subst across multiple lines.
-            my $file_contents;
-            while(<INPUT>)
-            {
-               $file_contents .= $_;
-            }
+         # check for emacs modeline
+         if ( $file_contents =~ m!^(/\*|//) *-\*- Mode:.*-\*-( *\*/)?! )
+         {
+            print "Replacing emacs modeline in $filename ...\n";
+            print OUTPUT "$1 -*- Mode: $emacs_modeline -*-$2\n";
+            $file_contents =~ s!(/\*|//) *-\*- Mode:.*-\*-( *\*/)?\r?\n!!;
+         }
+         elsif ($opt_a)
+         {
+            print "Adding emacs modeline to $filename ...\n";
+            print OUTPUT "/* -*- Mode: $emacs_modeline -*- */\n";
+         }
+         else
+         {
+            print "$filename: No previous emacs modeline, no replace.\n";
+         }
 
-            my $copyrights_plus_delimiters = "$newbegintag\n$all_copyrights$newendtag\n";
-            
-            # convert tags for use in a regex
-            $begintag_regex_safe = $begintag;
-            $endtag_regex_safe = $endtag;
-            makeRegexSafe( $begintag, \$begintag_regex_safe );
-            makeRegexSafe( $endtag, \$endtag_regex_safe );
-            
-            if ( $file_contents =~ s/($begintag_regex_safe.*?$endtag_regex_safe)/$copyrights_plus_delimiters/s ) # not global, only first one...
-            {
-                print "Replacing the copyright in $filename ...\n";
-                
-                #print "old:\n";
-                #print $1;
-                
-                #print "new:\n";
-                #print $copyrights_plus_delimiters;
-            }
+         # check for vim modeline
+         if ( $file_contents =~ m!(/\*|//) *vim:.*( *\*/)?! )
+         {
+            print "Replacing vim modeline in $filename ...\n";
+            print OUTPUT "$1 vim:$vim_modeline$2\n";
+            $file_contents =~ s!(/\*|//) *vim:.*( *\*/)?\r?\n!!;
+         }
+         elsif ($opt_a)
+         {
+            print "Adding vim modeline to $filename ...\n";
+            print OUTPUT "// vim:$vim_modeline\n";
+         }
+         else
+         {
+            print "$filename: No previous vim modeline, no replace.\n";
+         }
 
-            elsif ($opt_a)
-            {
-        	      print "Adding copyright to $filename ...\n";
-               print OUTPUT "$copyrights_plus_delimiters";
-            }
+         my $copyrights_plus_delimiters = "$newbegintag\n$all_copyrights$newendtag\n";
 
-            else
-            {
-               print "$filename: No previous copyright, no replace.\n";
-            }
+         # convert tags for use in a regex
+         $begintag_regex_safe = $begintag;
+         $endtag_regex_safe = $endtag;
+         makeRegexSafe( $begintag, \$begintag_regex_safe );
+         makeRegexSafe( $endtag, \$endtag_regex_safe );
 
-            # put the new file_contents to the output file.
-            print OUTPUT $file_contents;
+         if ( $file_contents =~ s/($begintag_regex_safe*.*?$endtag_regex_safe[\r]?[\n]?)/$copyrights_plus_delimiters/s ) # not global, only first one...
+         {
+             print "Replacing the copyright in $filename ...\n";
 
-	    close(OUTPUT) or warn "WARNING: Could not save changes: $!\n";
+             #print "old:\n";
+             #print $1;
 
-	    unlink("$filename");
-	    rename("$filename.new", "$filename");
-	}
+             #print "new:\n";
+             #print $copyrights_plus_delimiters;
+         }
 
-	close(INPUT);
-    }
+         elsif ($opt_a)
+         {
+            print "Adding copyright to $filename ...\n";
+            print OUTPUT "$copyrights_plus_delimiters";
+         }
+
+         else
+         {
+            print "$filename: No previous copyright, no replace.\n";
+         }
+
+         # put the new file_contents to the output file.
+         print OUTPUT $file_contents;
+
+         close(OUTPUT) or warn "WARNING: Could not save changes: $!\n";
+
+         unlink("$filename");
+         rename("$filename.new", "$filename");
+      }
+
+      close(INPUT);
+   }
 }
 
 sub checkName ($) {
