@@ -22,7 +22,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_ENTER;
+         return Enter;
       }
 
       PRUint32 getSize() {

@@ -22,7 +22,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_RESYNC;
+         return Resync;
       }
 
       PRUint32 getSize() {

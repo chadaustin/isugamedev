@@ -22,7 +22,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_DEL_OBJ;
+         return DelObj;
       }
 
       PRUint32 getSize() {

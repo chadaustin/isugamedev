@@ -31,7 +31,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_JOIN_AS;
+         return JoinAs;
       }
 
       PRUint32 getSize() {

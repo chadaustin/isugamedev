@@ -45,55 +45,55 @@ namespace net {
 
          Message* msg;
          switch (tag) {
-            case MSG_LOGIN:
+            case Login:
                msg = new LoginMessage();
                break;
 
-            case MSG_DISCONNECT:
+            case Disconnect:
                msg = new DisconnectMessage();
                break;
 
-            case MSG_OK:
+            case OK:
                msg = new OKMessage();
                break;
 
-            case MSG_JOIN_AS:
+            case JoinAs:
                msg = new JoinAsMessage();
                break;
 
-            case MSG_ENTER:
+            case Enter:
                msg = new EnterMessage();
                break;
 
-            case MSG_RESYNC:
+            case Resync:
                msg = new ResyncMessage();
                break;
 
-            case MSG_ADD_OBJ:
+            case AddObj:
                msg = new AddObjMessage();
                break;
 
-            case MSG_UPDATE_OBJ:
+            case UpdateObj:
                msg = new UpdateObjMessage();
                break;
 
-            case MSG_DEL_OBJ:
+            case DelObj:
                msg = new DelObjMessage();
                break;
 
-            case MSG_ADD_PLAYER:
+            case AddPlayer:
                msg = new AddPlayerMessage();
                break;
 
-            case MSG_UPDATE_PLAYER:
+            case UpdatePlayer:
                msg = new UpdatePlayerMessage();
                break;
 
-            case MSG_DEL_PLAYER:
+            case DelPlayer:
                msg = new DelPlayerMessage();
                break;
 
-            case MSG_UPDATE_PLAYER_INFO:
+            case UpdatePlayerInfo:
                msg = new UpdatePlayerInfoMessage();
                break;
 

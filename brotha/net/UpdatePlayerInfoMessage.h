@@ -22,7 +22,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_UPDATE_PLAYER_INFO;
+         return UpdatePlayerInfo;
       }
 
       PRUint32 getSize() {

@@ -24,7 +24,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_LOGIN;
+         return Login;
       }
 
       PRUint32 getSize() {

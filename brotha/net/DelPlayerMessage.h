@@ -22,7 +22,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_DEL_PLAYER;
+         return DelPlayer;
       }
 
       PRUint32 getSize() {

@@ -45,7 +45,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_OK;
+         return OK;
       }
 
       PRUint32 getSize() {

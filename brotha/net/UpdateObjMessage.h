@@ -22,7 +22,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_UPDATE_OBJ;
+         return UpdateObj;
       }
 
       PRUint32 getSize() {

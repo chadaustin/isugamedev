@@ -22,7 +22,7 @@ namespace net {
       }
 
       PRUint32 getType() {
-         return MSG_UPDATE_PLAYER;
+         return UpdatePlayer;
       }
 
       PRUint32 getSize() {

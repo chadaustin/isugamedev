@@ -16,7 +16,7 @@ namespace net {
    class DisconnectMessage : public Message {
    public:
       PRUint32 getType() {
-         return MSG_DISCONNECT;
+         return Disconnect;
       }
 
       PRUint32 getSize() {
