@@ -12,7 +12,7 @@
 #include "GraphicsObject.h"
 #include <vector>
 
-enum ObjectType{CAMTANK = 0, BULLET, NPCTANK, WALL, FLOOR};
+enum ObjectType{CAMTANK = 0, PLAYERBULLET, NPCBULLET, NPCTANK, WALL, FLOOR};
 
 class GameObject
 {

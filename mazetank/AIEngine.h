@@ -26,7 +26,7 @@ public:
 
 	void Update(vector<GameObject*> &TheObjects, int dt);
 
-	void RotateToFaceOpponent();
+
 
 private:
 
@@ -35,7 +35,10 @@ private:
 	bool FacingOpponent;
 	bool MovingAroundBlock;
 	bool Rotate;
+	float Range;
 
+	void TakeShot();
+	void RotateToFaceOpponent();
 };
 
 #endif

@@ -25,7 +25,8 @@ public:
 private:
    vector<GameObject*> ToRemove;
 
-   void BulletResponse(GameObject* &TheGameObject);
+   void PlayerBulletResponse(GameObject* &TheGameObject);
+   void NPCBulletResponse(GameObject* &TheGameObject);
    void PlayerResponse(GameObject* MainObject, GameObject* &TheGameObject);
    void NPCResponse(GameObject* MainObject, GameObject* &TheGameObject);
    void AddToRemoveQueue(GameObject* &TheGameObject);

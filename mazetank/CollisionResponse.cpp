@@ -29,9 +29,12 @@ void CollisionResponse::ResponseToCollisions(vector<GameObject*> &TheGameObjects
             {
                switch(MainObjectName)
                {
-               case BULLET:
-                     BulletResponse(Collisions[j]);
+               case PLAYERBULLET:
+                     PlayerBulletResponse(Collisions[j]);
                      break;
+
+			   case NPCBULLET:
+				     NPCBulletResponse(Collisions[j]);
 
                case CAMTANK:
                      PlayerResponse(TheGameObjects[i], Collisions[j]);
@@ -53,7 +56,7 @@ void CollisionResponse::ResponseToCollisions(vector<GameObject*> &TheGameObjects
             // special case to remove bullets when they get below gound
             // plane
             /////////////////////////////////////////////////////////////
-            if(MainObjectName == BULLET)
+            if(MainObjectName == PLAYERBULLET || MainObjectName == NPCBULLET)
                AddToRemoveQueue(TheGameObjects[i]);
          }
       }
@@ -82,7 +85,7 @@ void CollisionResponse::RemoveObjects(vector<GameObject*> &TheGameObjects)
    }
 }
 
-void CollisionResponse::BulletResponse(GameObject* &TheGameObject)
+void CollisionResponse::PlayerBulletResponse(GameObject* &TheGameObject)
 {
    ObjectType ResponseObjectName;
 
@@ -90,16 +93,32 @@ void CollisionResponse::BulletResponse(GameObject* &TheGameObject)
 
    switch(ResponseObjectName)
    {
-   case BULLET:
-      AddToRemoveQueue(TheGameObject);
-      break;
-
    case NPCTANK:
       AddToRemoveQueue(TheGameObject);
 	  GameSound->getSoundEffectManager()->playSound("music/EXP0.WAV");
       break;
 
    case CAMTANK:
+      break;
+
+   case WALL:
+      break;
+   }
+}
+void CollisionResponse::NPCBulletResponse(GameObject* &TheGameObject)
+{
+   ObjectType ResponseObjectName;
+
+   TheGameObject->GetCurrentObjectType(ResponseObjectName);
+
+   switch(ResponseObjectName)
+   {
+   case NPCTANK:
+      break;
+
+   case CAMTANK:
+      AddToRemoveQueue(TheGameObject);
+	  GameSound->getSoundEffectManager()->playSound("music/EXP0.WAV");
       break;
 
    case WALL:
@@ -116,9 +135,6 @@ void CollisionResponse::PlayerResponse(GameObject* MainObject, GameObject* &TheG
 
    switch(ResponseObjectName)
    {
-   case BULLET:
-      break;
-
    case NPCTANK:
       MainObject->GetOldPosition(Position);
       MainObject->SetPosition(Position);
@@ -144,9 +160,6 @@ void CollisionResponse::NPCResponse(GameObject* MainObject, GameObject* &TheGame
 
    switch(ResponseObjectName)
    {
-   case BULLET:
-      break;
-
    case NPCTANK:
       break;
 
@@ -172,18 +185,22 @@ void CollisionResponse::WallResponse(GameObject* &TheGameObject)
 
    switch(ResponseObjectName)
    {
-   case BULLET:
-      AddToRemoveQueue(TheGameObject);
-      break;
+		case PLAYERBULLET:
+		  AddToRemoveQueue(TheGameObject);
+		  break;
 
-   case NPCTANK:
-      break;
+		case NPCBULLET:
+		  AddToRemoveQueue(TheGameObject);
+		  break;
 
-   case CAMTANK:
-      break;
+		case NPCTANK:
+		  break;
 
-   case WALL:
-      break;
+		case CAMTANK:
+		  break;
+
+		case WALL:
+		  break;
    }
 }
 

@@ -29,27 +29,37 @@ void Input::SetCamera(Camera* TheCamera)
    ChaseCamera = TheCamera;
 }
 
-void Input::SetGameObjects(vector<GameObject*> TheGameObjects)
+void Input::Update(vector<GameObject*> &TheObjects)
 {
-   ObjectType ObjectName;
+	ObjectType ObjectName;
+	bool Found = false;
 
-   for(int i = 0; i < TheGameObjects.size(); i++)
+	int i = 0;
+   while(i < TheObjects.size() && !Found)
    {
-      TheGameObjects[i]->GetCurrentObjectType(ObjectName);
-      
-      if(ObjectName == CAMTANK)
-         Player1 = TheGameObjects[i];
+		TheObjects[i]->GetCurrentObjectType(ObjectName);
+		if(ObjectName == CAMTANK)
+		{
+			Player1 = TheObjects[i];
+			Found = true;
+		}
+		i++;
    }
+
+   if(!Found)
+	   Player1 = NULL;
 }
 
 void Input::Turn(float Angles)
 {
-   Player1->SetAngularVelocity(Angles);
+	if(Player1 != NULL)
+		Player1->SetAngularVelocity(Angles);
 }
 
 void Input::Accel(float Velocity)
 {
-   Player1->SetVelocity(Velocity);
+	if(Player1 != NULL)
+		Player1->SetVelocity(Velocity);
 }
 
 void Input::LookAround(int ChangeX, int ChangeY)
@@ -66,59 +76,70 @@ void Input::SnapCamera()
 
 void Input::TurretRotate(int ChangeX, int ChangeY)
 {
-	GraphicsObject* TurretPointer;
-	Player1->GetGraphicsPointer(TurretPointer);
+	if(Player1 != NULL)
+	{
+		GraphicsObject* TurretPointer;
+		Player1->GetGraphicsPointer(TurretPointer);
 
-	float Rotate[3];
-	TurretPointer->GetRotate(Rotate);
+		float Rotate[3];
+		TurretPointer->GetRotate(Rotate);
 
 
-	Rotate[0] += -1*ChangeY*MULTZ;
-	Rotate[2] += -1*ChangeX*MULTX;
-	////////////////////////////////////////////////////
-	// If we get beyond turret rotate values clamp them
-	// to the ends
-	////////////////////////////////////////////////////
-	if(Rotate[0] < -70)
-		Rotate[0] = -70;
+		Rotate[0] += -1*ChangeY*MULTZ;
+		Rotate[2] += -1*ChangeX*MULTX;
+		////////////////////////////////////////////////////
+		// If we get beyond turret rotate values clamp them
+		// to the ends
+		////////////////////////////////////////////////////
+		if(Rotate[0] < -70)
+			Rotate[0] = -70;
 
-	if(Rotate[0] > -1)
-		Rotate[0] = -1;
+		if(Rotate[0] > -1)
+			Rotate[0] = -1;
 
-	TurretPointer->SetRotate(Rotate); 
+		TurretPointer->SetRotate(Rotate); 
+	}
+   
 }
 
 void Input::ShootBullet()
-{
-	float TankRotation;
-	float TurretRotations[3];
-	GameObject* Bullet = new BulletObject;
+{	
 
-	GraphicsObject* TheTurret;
+	if(Player1 != NULL)
+	{
+		float TankRotation;
+		float TurretRotations[3];
+		GameObject* Bullet = new BulletObject;
 
-	Player1->GetObjectAngle(TankRotation);
-	Player1->GetGraphicsPointer(TheTurret);
+		Bullet->SetCurrentObjectType(PLAYERBULLET);
 
-	TheTurret->GetRotate(TurretRotations);
+		GraphicsObject* TheTurret;
 
-   /////////////////////////////////////////////////////////
-   //Calculate the angle that the bullet should take off at
-   /////////////////////////////////////////////////////////
-   float Position[3];
+		Player1->GetObjectAngle(TankRotation);
+		Player1->GetGraphicsPointer(TheTurret);
 
-   Player1->GetPosition(Position);
+		TheTurret->GetRotate(TurretRotations);
 
-   Position[2] = 1.5;
+		/////////////////////////////////////////////////////////
+		//Calculate the angle that the bullet should take off at
+		/////////////////////////////////////////////////////////
+		float Position[3];
 
-   Bullet->SetPosition(Position);
-   Bullet->SetObjectAngle(TankRotation+TurretRotations[2]);
-   Bullet->SetObjectZAngle(TurretRotations[0]);
-   Bullet->SetVelocityZ(0.04);
-   /////////////////////////////////////////////////////////
-   Bullet->SetVelocity(0.03);
+		Player1->GetPosition(Position);
 
-   MazeTank.AddObjectToGame(Bullet);
-   GameSound->getSoundEffectManager()->playSound("music/EXP2.WAV");
+		Position[2] = 1.5;
+
+		Bullet->SetPosition(Position);
+		Bullet->SetObjectAngle(TankRotation+TurretRotations[2]);
+		Bullet->SetObjectZAngle(TurretRotations[0]);
+		Bullet->SetVelocityZ(0.04);
+		/////////////////////////////////////////////////////////
+		Bullet->SetVelocity(0.03);
+
+		MazeTank.AddObjectToGame(Bullet);
+		GameSound->getSoundEffectManager()->playSound("music/EXP2.WAV");
+	}
+   
 }
 
 void Input::Honk()

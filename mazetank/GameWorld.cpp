@@ -75,6 +75,31 @@ void GameWorld::Init()
 	TheGameObjects.push_back(NonPlayer);
 	///////////////////////////////////////
 
+	//////////////////////////////////////
+	// Initlize the Nonplayer2 Object
+	//////////////////////////////////////
+	GameObject* NonPlayer2 = new TankObject;
+
+	NonPlayer2->Init();
+	NonPlayer2->SetObjectAngle(0.0);
+	NonPlayer2->SetCurrentObjectType(NPCTANK);
+	float Position22[3] = {-80.0, 80.0, 0.0};
+	NonPlayer2->SetPosition(Position22);
+	NonPlayer2->SetVelocity(0.0);
+	TheGameObjects.push_back(NonPlayer2);
+
+	//////////////////////////////////////
+	// Initlize the Nonplayer3 Object
+	//////////////////////////////////////
+	GameObject* NonPlayer3 = new TankObject;
+
+	NonPlayer3->Init();
+	NonPlayer3->SetObjectAngle(0.0);
+	NonPlayer3->SetCurrentObjectType(NPCTANK);
+	float Position23[3] = {80.0, -80.0, 0.0};
+	NonPlayer3->SetPosition(Position23);
+	NonPlayer3->SetVelocity(0.0);
+	TheGameObjects.push_back(NonPlayer3);
 	////////////////////////////////////////
 	// Initilize the floor
 	////////////////////////////////////////
@@ -108,7 +133,6 @@ void GameWorld::Init()
 	// Initialize the Game Input
 	//////////////////////////////////////////
 	GameInput.SetCamera(GameCamera);
-	GameInput.SetGameObjects(TheGameObjects);
 
    /////////////////////////////////////////
    //Initialize GameSound
@@ -132,9 +156,21 @@ void GameWorld::Init()
    ////////////////////////////////////////////
    // Initialize AI
    ////////////////////////////////////////////
+   AIEngine NPCAI, NPCAI2, NPCAI3;
    NPCAI.Init();
    NPCAI.SetNPCTank(NonPlayer);
    NPCAI.SetPlayer(Player1);
+   TheNPCAI.push_back(NPCAI);
+
+   NPCAI2.Init();
+   NPCAI2.SetNPCTank(NonPlayer2);
+   NPCAI2.SetPlayer(Player1);
+   TheNPCAI.push_back(NPCAI2);
+
+   NPCAI3.Init();
+   NPCAI3.SetNPCTank(NonPlayer3);
+   NPCAI3.SetPlayer(Player1);
+   TheNPCAI.push_back(NPCAI3);
 }
 
 void GameWorld::Update(int dt)
@@ -148,10 +184,11 @@ void GameWorld::Update(int dt)
    //////////////////////////////////////////////
    GameSound->getJukebox()->update();
 
-   NPCAI.Update(TheGameObjects,dt);
+   for(int i = 0; i < TheNPCAI.size(); i++)
+		TheNPCAI[i].Update(TheGameObjects,dt);
+
    GamePhysics.Update(TheGameObjects, dt);
-
-
+   GameInput.Update(TheGameObjects);
    ///////////////////////
    // update camera
    ///////////////////////
@@ -163,6 +200,7 @@ void GameWorld::Update(int dt)
    GameCamera->SetObjectYaw(-TankAngle);
    GameCamera->Update(dt);
    //////////////////////////////////////
+
 
 }
 

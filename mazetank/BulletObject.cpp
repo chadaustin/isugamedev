@@ -12,7 +12,6 @@
 
 BulletObject::BulletObject()
 {
-	this->SetCurrentObjectType(BULLET);
 	this->SetAngularVelocity(0.0);
 	this->SetObjectAngle(0.0);
 

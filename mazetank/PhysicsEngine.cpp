@@ -62,7 +62,11 @@ void PhysicsEngine::Update(vector<GameObject*> &TheObjects, int deltatime)
 			TankUpdate(TheObjects[i], deltatime);
 			break;
 
-		case BULLET:
+		case PLAYERBULLET:
+			BulletUpdate(TheObjects[i], deltatime);
+			break;
+
+		case NPCBULLET:
 			BulletUpdate(TheObjects[i], deltatime);
 			break;
 
@@ -177,7 +181,7 @@ void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
 		TheObjects[i]->GetPosition(Position);
 		TheObjects[i]->GetCurrentObjectType(ObjectName);
 
-		if(Position[2] < 0 && ObjectName == BULLET)
+		if(Position[2] < 0 && (ObjectName == PLAYERBULLET || ObjectName == NPCBULLET))
 		{
  			TheObjects[i]->AddCollision();
 		}
@@ -192,9 +196,6 @@ void PhysicsEngine::CollisionDetection(vector<GameObject*> &TheObjects)
    i = 0;
    TheObjects[i]->GetCurrentObjectType(ObjectName);
    
-   if(ObjectName == BULLET)
-      int temp = 1;
-
    while(i < TheObjects.size() && ObjectName != WALL)
 	{
 		TheObjects[i]->GetCurrentObjectType(ObjectName);

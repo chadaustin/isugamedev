@@ -41,7 +41,7 @@ private:
    Camera* GameCamera;
    GameObject* Player1;
 
-   AIEngine NPCAI;
+   vector<AIEngine> TheNPCAI;
 
    Shadow MyShadows;
 

@@ -6,6 +6,8 @@
 // AIEngine.cpp
 /////////////////////////////////////
 #include "AIEngine.h"
+#include "BulletObject.h"
+#include "GameWorld.h"
 #include <math.h>
 
 #include <iostream>
@@ -13,12 +15,14 @@
 using namespace std;
 
 #define PI 3.141592653
+extern GameWorld MazeTank;
 
 void AIEngine::Init()
 {
 	MovingAroundBlock = false;
 	FacingOpponent = false;
 	Rotate = true;
+	Range = 20.0;
 }
 
 void AIEngine::SetNPCTank(GameObject* NPCTank)
@@ -66,8 +70,12 @@ void AIEngine::Update(vector<GameObject*> &TheObjects, int dt)
 		ToControl->GetOldPosition(NPCPositionOld);
 
 		float Dist = sqrt(pow(PlayerPosition[0]-NPCPosition[0],2)+
-						  pow(PlayerPosition[1]-NPCPosition[1],2)+
-						  pow(PlayerPosition[2]-NPCPosition[2],2));
+						  pow(PlayerPosition[1]-NPCPosition[1],2));
+
+		if(Dist < Range)
+		{
+			TakeShot();
+		}
 
 		if(MovingAroundBlock)
 		{
@@ -155,10 +163,15 @@ void AIEngine::RotateToFaceOpponent()
 
 	double PlayerAngleFromNPC;
 	if(y < 0)
+	{
 		PlayerAngleFromNPC = 4.71239 - tanh(x/y);
+	}
 
 	else if(y > 0)
-		PlayerAngleFromNPC = 1.5708 - tanh(x/y) ;
+	{
+		PlayerAngleFromNPC = 1.5708 - tanh(x/y);
+	}
+
 	else
 		PlayerAngleFromNPC = 4.71239;
 
@@ -170,6 +183,7 @@ void AIEngine::RotateToFaceOpponent()
 	else
 	{
 		FacingOpponent = false;
+
 		////////////////////////////////////////////////
 		// Find which way is the shortest way to rotate
 		// to face opponent
@@ -195,5 +209,40 @@ void AIEngine::RotateToFaceOpponent()
 		}
 	}
 
+}
+
+void AIEngine::TakeShot()
+{
+	float TankRotation;
+	float TurretRotations[3];
+	GameObject* Bullet = new BulletObject;
+
+	Bullet->SetCurrentObjectType(NPCBULLET);
+
+	GraphicsObject* TheTurret;
+
+	ToControl->GetObjectAngle(TankRotation);
+	ToControl->GetGraphicsPointer(TheTurret);
+
+	TheTurret->GetRotate(TurretRotations);
+
+	/////////////////////////////////////////////////////////
+	//Calculate the angle that the bullet should take off at
+	/////////////////////////////////////////////////////////
+	float Position[3];
+
+	ToControl->GetPosition(Position);
+
+	Position[2] = 1.5;
+
+	Bullet->SetPosition(Position);
+	Bullet->SetObjectAngle(TankRotation+TurretRotations[2]);
+	Bullet->SetObjectZAngle(TurretRotations[0]);
+	Bullet->SetVelocityZ(0.04);
+	/////////////////////////////////////////////////////////
+	Bullet->SetVelocity(0.03);
+
+	MazeTank.AddObjectToGame(Bullet);
+//	GameSound->getSoundEffectManager()->playSound("music/EXP2.WAV");
 }
 

@@ -22,7 +22,7 @@ public:
 
 	void SetCamera(Camera* TheCamera);
 
-	void SetGameObjects(vector<GameObject*> TheGameObjects);
+	void Update(vector<GameObject*> &TheObjects);
 
 	void Turn(float Angles);
 
