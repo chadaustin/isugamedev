@@ -6,6 +6,7 @@
 #include "net/Serialize.h"
 #include "ObjectTypes.h"
 #include "UIDManager.h"
+#include <gmtl/Vec.h>
 
 namespace game {
    class Object {
@@ -13,7 +14,7 @@ namespace game {
       /**
       * The UID type for objects.
       */
-      typedef UIDManager<Object>::UID UID;
+      typedef UIDManager<Object,PRUint32>::UID UID;
    public:
       Object();
       ~Object();
@@ -26,22 +27,30 @@ namespace game {
       /**
        * Gets the position vector associated with this object.
        */
-      const std::vector<PRFloat64>& getPosition() const;
+      const gmtl::Vec<PRFloat64,3>& getPosition() const {
+         return m_position;
+      }
 
       /**
        * Sets the position vector associated with this object.
        */
-      void setPosition(std::vector<PRFloat64>& velocity);
+      void setPosition(const gmtl::Vec<PRFloat64,3>& pos) {
+         m_position = pos;
+      }
 
       /**
        * Gets the velocity vector associated with this object.
        */
-      const std::vector<PRFloat64>& getVelocity() const;
+      const gmtl::Vec<PRFloat64,3>& getVelocity() const {
+         return m_velocity;
+      }
 
       /**
        * Sets the position vector associated with this object.
        */
-      void setVelocity(std::vector<PRFloat64>& velocity);
+      void setVelocity(const gmtl::Vec<PRFloat64,3>& velocity) {
+         m_velocity = velocity;
+      }
 
       /**
        * Gets the health associated with this object.
@@ -80,11 +89,11 @@ namespace game {
       UID mUID;
 
       /// This object's position vector
-      std::vector<PRFloat64> m_position;
+      gmtl::Vec<PRFloat64,3> m_position;
 
       /// This object's velocity vector
-      std::vector<PRFloat64> m_velocity;
- 
+      gmtl::Vec<PRFloat64,3> m_velocity;
+
       /// This object's health
       PRFloat64 m_health;
    };

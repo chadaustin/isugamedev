@@ -11,8 +11,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: BrothaApp.cpp,v $
- * Date modified: $Date: 2002-03-29 17:23:00 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-03-29 17:30:41 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -87,7 +87,6 @@ namespace client
       glEnable( GL_BLEND );
       glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-
       // set up the projection matrix
       glMatrixMode( GL_PROJECTION );
          glLoadIdentity();
@@ -97,7 +96,27 @@ namespace client
       glMatrixMode( GL_MODELVIEW );
          glLoadIdentity();
 
+      game::Player* player = mGame.getLocalPlayer();
+
+      const gmtl::Vec<PRFloat64,3>& pos = player->getPosition();
+
+      glColor4f( 1.0, 0.0, 0.0, 1.0f );
+//      glTranslatef( pos[0], pos[1], pos[2] );
       /// @todo draw the game!
+
+
+      // draw grid
+      glColor4f(0,0,1,1);
+      glBegin( GL_LINES );
+      float extent = 1000.0;
+      for ( float x = -extent; x < extent; ++x )
+      {
+         glVertex3f( -extent, 0, x );
+         glVertex3f(  extent, 0, x );
+         glVertex3f( x, 0, -extent );
+         glVertex3f( x, 0,  extent );
+      }
+      glEnd();
    }
 
    void BrothaApp::onPostFrame()

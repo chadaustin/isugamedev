@@ -2,6 +2,7 @@ Import('env')
 
 classes = [
    'BrothaGame',
+   'Object',
    'Player',
 ]
 
