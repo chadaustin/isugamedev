@@ -19,6 +19,7 @@
 #include "text.h"
 #include <sstream>
 
+
 int mouseX, mouseY;
 
 int DIFFI=10;
@@ -94,6 +95,7 @@ public:
 
    int myMeter;
 
+   // draw the score to the screen
    void drawScore(){
       std::ostringstream ch;
       ch << score;
@@ -103,6 +105,7 @@ public:
 
    } 
    
+   //draw the meter to the screen
    void drawMeter(){
 	   glPushMatrix();
 	   glLoadIdentity();
@@ -125,12 +128,10 @@ public:
    
 
 
-	////////////////////////////////////
-	// I don't have a good place to put
-	// this so I'm putting it here for now
-	// TODO: move this to a more appropriate place
-	////////////////////////////////////
-	bool checkForWinner(){
+	/* check to see if there are three cards selected 
+    * and if they are if they are a winning combination
+    */
+   bool checkForWinner(){
 	   int c1_color, 
 		   c1_number, 
 		   c1_shape, 
@@ -191,6 +192,8 @@ public:
 
 };
 
+
+// global declarations
 
 App app;
 double timechange = 0.0;

@@ -28,6 +28,7 @@ endif
 ifeq ($(HOSTTYPE), linux)
 all:
 	g++ $(SRCS) -o set-game -lglut -lGL -lGLU -L/usr/X11R6/lib -lX11 -lXmu
-endif
 
+
+endif
 

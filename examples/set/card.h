@@ -10,6 +10,10 @@
 #include "textures.h"
 #include <time.h>
 
+
+/* defined data types for the attributes of the cards
+ * These will be standard for the whole app
+ */
 #define BLACK  0
 #define RED    1
 #define BLUE   2
@@ -20,6 +24,11 @@
 #define TRIANGLE  2
 #define SQUIGGLE   3
 
+
+/* card Class
+ * This is a card object.  It holds all data of the card, let's the card
+ * draw itself and let's you query for the cards attributes
+ */
 class card{
 public:
    // default constructor
@@ -27,13 +36,24 @@ public:
       randomize();
    }
    
-   // 
+   /* copy constructor, 
+    * pre: none
+    * post: a card has been instantiated
+    * args: c is the color, s is the shape of the objects, and
+    *       n is the number of the objects on the card
+    */
    card(int c, int s, int n){
       color=c;
       shape=s;
       number=n;
    }
 
+   /* draw method: draws the card to the screen
+    * pre:  an openGl graphics context has been initiallized 
+    *       this must get called between draws and have had 
+    *       initialize called first
+    * post: card has been drawn
+    */
    void draw(){
       glColor3f(0,0,0);
 
@@ -52,17 +72,28 @@ public:
       }
    }   
    
-   // this is for setting up the textures
+   /* initialization method
+    * pre: none
+    * post: textures for card have been initialized
+    */
    void init(){
       if(!initTextures())
          std::cout << "error in texture initialization." << std::endl;
    }
 
+   /* change the cards attributes
+    * pre:  none
+    * post: card has new attributes
+    */
    void setNewAttrib(){
       randomize();
    }
 
 private:
+
+   /* pre: none
+    * post: draws the boxes for each card to the screen
+    */
    void drawPrim(){
       glPushMatrix();
       glTranslatef(0.0, -30.0, 0.0);
@@ -77,7 +108,10 @@ private:
       glDisable(GL_TEXTURE_2D);
       glPopMatrix();
    }
-
+   
+   /* pre: none
+    * post: gets a random color shape and number
+    */
    void randomize(){
       color = (int)((double)rand()/(double)RAND_MAX * 4);
       shape = (int)((double)rand()/(double)RAND_MAX * 4);
@@ -87,7 +121,9 @@ private:
 private:
 
             
-
+   /* pre: init has been called
+    * post: textures have been initialized
+    */
    bool initTextures(){
       glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -115,7 +151,9 @@ private:
       return true;
      
    }
-
+   
+   /* picks which texture the card should draw
+    */
    void SetTexture(){
       if(color==BLACK){
          glColor3f(0,0,0);
@@ -150,18 +188,22 @@ private:
    COGLTexture textures[16];  
 
 public:
+
+   /* get which color the card has
+    */
    int getColor(){
       return color;
    }
+   /* get which shape the card has
+    */
    int getShape(){
       return shape;
    }
+   /* get how many numbers 
+    */
    int getNumber(){
       return number;
    }
-   
-  
-   
 
 };
 

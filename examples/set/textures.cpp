@@ -4,7 +4,8 @@
 
 
 
-
+/* Load a texture from a file 
+ */
 void COGLTexture::LoadFromFile(char *filename)
 {
 	pixmi::Image image;
@@ -28,12 +29,15 @@ void COGLTexture::LoadFromFile(char *filename)
 			 image.data() );
 }
 
-      
+/* set it active
+ */
 void COGLTexture::SetActive()
 {
 	glBindTexture( GL_TEXTURE_2D, ID);
 }
 
+/* get the machines id of the texture
+ */
 unsigned int COGLTexture::GetID()
 {
 	return ID;

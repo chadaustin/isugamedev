@@ -11,9 +11,14 @@
 #include "card.h"
 
 
+/* this is the deck class
+ * it is the object that holds all 12 cards on the screen
+ */
 class deck{
 public:
-   // constructor
+   /* constructor
+    * sets all cards to unselected and resets numSelected
+    */
    deck(){
       for(int i=0;i<12;i++){
          selectedCards[i]=0;
@@ -21,6 +26,10 @@ public:
       }
    };
 
+   /* initialization method
+    * pre: none
+    * post: initailzes each card in the deck
+    */
    void init(){
       int i;
       for(i=0;i<12;i++){
@@ -29,7 +38,10 @@ public:
    }
 
 
-   // draw the current deck to the screen
+   /* draw the current deck to the screen
+    * pre: card has been initialized
+    * post: all cards in deck have been drawn to screnn
+    */
    void draw(){
       int count=0, i, j, xpos=0, ypos=0;
       glLoadIdentity();									// Reset The View
@@ -57,6 +69,12 @@ public:
    }
 
    
+   /* get the bottom left corner of a card in the deck
+    * pre: none
+    * post: none
+    * args: card is the number of the card we are querying the pos of
+    *       x and y are the returned position of the card
+    */
    void getCardPos(int const card, int& x, int& y){
       x = cardPos[card].x;
       y = cardPos[card].y;
@@ -71,8 +89,14 @@ public:
          }
       }
       return -1;
-   }  
+   } 
 
+   
+   /* draw a box around the specified card
+    * pre: none
+    * post: card has been highlighted
+    * args: card is the pos of the card we want
+    */
    void drawHighlight(int card){
       int tempx, tempy;
       getCardPos(card, tempx, tempy);
@@ -86,26 +110,45 @@ public:
       glutSwapBuffers();
    }
    
+   /* query a card in the deck for its' color shape and number
+    * pre: none
+    * post: color shape and number hold the attrib. of the specified card
+    * args: card is the card we want the attr. of
+    *       color, shape, and number hold the return values of the method
+    */
    void getCardAttribute(int card, int& color, int& shape, int& number){
       color = Cards[card].getColor();
       shape = Cards[card].getShape();
       number = Cards[card].getNumber();
    }      
 
+   /* set a card's color shape and number that is in the deck
+    * pre: init has been called
+    * post: color shape and number hold the attrib. of the specified card
+    * args: card is the card we want the attr. of
+    *       color, shape, and number hold the return values of the method
+    */
+ 
    void setCardAttributeRandom(int card){
       Cards[card].setNewAttrib();
    }
    
+   /* returns the number of cards currently selected
+    */
    int numSel(){
       return numSelected;
    }
   
+   /* is true if the specified card is selected
+    */
    bool isSelected(int card){
       if(selectedCards[card]==1)
          return true;
       return false;
    }
    
+   /* sets the specified card as selected
+    */
    void selectCard(int card){
       if(numSelected+1<=3){
          selectedCards[card]=1;
@@ -114,6 +157,8 @@ public:
    
    }
    
+   /* sets the specified card as deselected
+    */
    void deselectCard(int card){
       if(numSelected>0){
          selectedCards[card]=0;
