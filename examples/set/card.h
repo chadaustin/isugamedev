@@ -8,7 +8,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include "textures.h"
-
+#include <time.h>
 
 #define BLACK  0
 #define RED    1

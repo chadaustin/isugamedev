@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stack>
+#include <time.h>
 #include "card.h"
 #include "deck.h"
 
@@ -70,6 +71,7 @@ class App
 public:
    App() : width( 0 ), height( 0 ), mainWin_contextID( -1 )
    {
+      srand(time(NULL));
    }
    int width, height;
    int mainWin_contextID;
@@ -125,9 +127,6 @@ void checkForWinner(){
    std::cout << "looser" << std::endl;
    exit(0);
 }
-
-
-
 
 
 
@@ -375,7 +374,6 @@ void main( int argc, char* argv[] )
     // Set to double buffer to reduce flicker
     ::glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     
-
 
 
     // Set the window title
