@@ -17,6 +17,7 @@ public:
    deck(){
       for(int i=0;i<12;i++){
          selectedCards[i]=0;
+         numSelected=0;
       }
    };
 
@@ -92,11 +93,18 @@ public:
    }      
    
    void selectCard(int card){
-      selectedCards[card]=1;
+      if(numSelected+1<=3){
+         selectedCards[card]=1;
+         numSelected++;
+      }
+   
    }
    
    void deselectCard(int card){
-      selectedCards[card]=0;
+      if(numSelected>0){
+         selectedCards[card]=0;
+         numSelected--;
+      }
    }
    
 private:
@@ -107,6 +115,7 @@ private:
    card Cards[12];
    cPos cardPos[12];
    int selectedCards[12];
+   int numSelected;
 };
 
 #endif
