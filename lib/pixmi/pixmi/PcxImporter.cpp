@@ -8,8 +8,8 @@
 ///////////////// <auto-copyright BEGIN do not edit this line> /////////////////
 //
 //    $RCSfile: PcxImporter.cpp,v $
-//    $Date: 2002-01-17 00:04:57 $
-//    $Revision: 1.1.1.1 $
+//    $Date: 2002-04-18 18:01:27 $
+//    $Revision: 1.2 $
 //    Copyright (C) 1998, 1999, 2000  Kevin Meinert, KevinMeinert@bigfoot.com
 //
 //    This library is free software; you can redistribute it and/or
@@ -30,11 +30,15 @@
 
 //////////////////////////////////////////////////////////////////////////////
 
-#include <string>      // for std::string
+#include <iostream>       // for std::cout and std::flush
+#include <string>         // for std::string
 #include "Defines.h"      // needed for pixmi::byteReverse()
 #include "CFileIO.h"      // needed to write out binary data with proper endianness.
 
 #include "PcxImporter.h"   // my header
+
+using std::cout;
+using std::flush;
 
 //////////////////////////////////////////////
 ///  Public Members:

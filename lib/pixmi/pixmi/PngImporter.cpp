@@ -1,7 +1,11 @@
-
+#include <iostream>
 #include <zlib.h>
 #include "PngChunk.h"
 #include "PngImporter.h"
+
+using std::cout;
+using std::flush;
+
 namespace pixmi
 {
 //: Default constructor
