@@ -70,14 +70,14 @@ TankGame::update()
 
    // keep it stable (we're using a shitty integrator)
    float min_fps = 0.4f;
-   if (mStopWatch.timeInstant() > 1.0f/min_fps)
+   if (mStopWatch.timeDelta() > 1.0f/min_fps)
    {
       std::cout<<"WARNING: time < "<<min_fps<<" fps, dropping update loop to keep integrators stable...\n"<<std::flush;
       return;
    }
 
    // update the world
-   mWorld.update( mStopWatch.timeInstant() );
+   mWorld.update( mStopWatch.timeDelta() );
 
    // update the tank and camera for each player
    std::map< Player::UID, PlayerPtr >::iterator itr;
@@ -86,15 +86,17 @@ TankGame::update()
       Tank *tank = player->getTank();
       
       // the next 3 commands are dependent upon each other...
-      tank->update( mStopWatch.timeInstant() );
+      tank->update( mStopWatch.timeDelta() );
       player->getCamera().setTargetPos( tank->matrix() );
-      player->getCamera().update( mStopWatch.timeInstant() );
+      player->getCamera().update( mStopWatch.timeDelta() );
 
       // update the player's HUD
       const Vec3f pos = tank->position();
       HUD *hud = &( player->getHUD() );
       hud->setPlayerPos( pos[0], pos[1], pos[2] );
-      hud->setFPS( mStopWatch.fpsAverage() );
+      
+      // @todo use a running average so this doesn't jump around a lot.
+      hud->setFPS( 1.0 / mStopWatch.timeDelta() );
 
       //XXX: Hack to make the headlight for the drawing player follow the
       //player's tank. We really need to make the light follow and entity and
@@ -111,7 +113,7 @@ TankGame::update()
    std::vector<Bullet *>::iterator bulitr;
    for (bulitr = mBullets.begin(); bulitr != mBullets.end(); bulitr++) 
    {
-      (*bulitr)->update( mStopWatch.timeInstant() );
+      (*bulitr)->update( mStopWatch.timeDelta() );
    }
    // remove bullets outside our world
    bulitr = mBullets.begin();
