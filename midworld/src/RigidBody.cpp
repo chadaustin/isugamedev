@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.cpp,v $
- * Date modified: $Date: 2002-06-24 06:43:48 $
- * Version:       $Revision: 1.9 $
+ * Date modified: $Date: 2002-06-24 06:54:10 $
+ * Version:       $Revision: 1.10 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -96,5 +96,14 @@ namespace mw
    const gmtl::AABoxf& RigidBody::getBounds() const
    {
       return mBounds;
+   }
+   
+   gmtl::Matrix44f RigidBody::matrix() const 
+   {
+      // store the matrix from the pos/rot data...
+      gmtl::Matrix44f xform;
+      gmtl::set( xform, this->getRot() );
+      gmtl::setTrans( xform, gmtl::Vec3f( this->getPos() ) );
+      return xform;
    }
 }

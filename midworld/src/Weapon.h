@@ -52,16 +52,6 @@ namespace mw
 
       /// for ammo pickup
       virtual void addAmmo( int ammount ) = 0;
-      
-      
-      gmtl::Matrix44f matrix() const
-      {
-         // store the matrix from the pos/rot data...
-         gmtl::Matrix44f xform;
-         gmtl::set( xform, this->getRot() );
-         gmtl::setTrans( xform, gmtl::Vec3f( this->getPos() ) );
-         return xform;
-      }
    };
 }
 

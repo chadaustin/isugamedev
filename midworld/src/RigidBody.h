@@ -23,8 +23,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: RigidBody.h,v $
- * Date modified: $Date: 2002-06-24 06:43:48 $
- * Version:       $Revision: 1.10 $
+ * Date modified: $Date: 2002-06-24 06:54:10 $
+ * Version:       $Revision: 1.11 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -34,6 +34,7 @@
 #include <gmtl/AABox.h>
 #include <gmtl/Point.h>
 #include <gmtl/Quat.h>
+#include <gmtl/Matrix.h>
 #include "Types.h"
 
 namespace mw
@@ -128,6 +129,9 @@ namespace mw
        */
       const gmtl::AABoxf& getBounds() const;
 
+      /** convert the pos/rot to a matrix. */
+      gmtl::Matrix44f matrix() const;
+   
    private:
       gmtl::Point3f mPos;  //position
       gmtl::Vec3f mVel;

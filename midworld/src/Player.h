@@ -62,8 +62,6 @@ public:
    gmtl::Vec3f getBarrelEndPos() const;
    
    gmtl::Vec3f getForward() const;
-   
-   gmtl::Matrix44f matrix() const;
       
    void update( GameState& gs, float timeDelta );
 

@@ -147,15 +147,6 @@ namespace mw
       return this->getRot() * forward;
    }
    
-   gmtl::Matrix44f Player::matrix() const 
-   {
-      // store the matrix from the pos/rot data...
-      gmtl::Matrix44f xform;
-      gmtl::set( xform, this->getRot() );
-      gmtl::setTrans( xform, gmtl::Vec3f( this->getPos() ) );
-      return xform;
-   }
-
    void Player::update( GameState& gs, float timeDelta )
    {
       // @todo, use seconds not this weird range...
