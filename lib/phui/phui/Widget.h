@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.h,v $
- * Date modified: $Date: 2003-01-05 09:18:58 $
- * Version:       $Revision: 1.34 $
+ * Date modified: $Date: 2003-01-05 14:10:05 $
+ * Version:       $Revision: 1.35 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -66,7 +66,7 @@ namespace phui
       /**
        * Draws this widget.
        */
-      virtual void draw() = 0;
+      virtual void draw();
 
       /**
        * Gets the position of this widget relative to its parent.

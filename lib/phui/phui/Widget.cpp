@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Widget.cpp,v $
- * Date modified: $Date: 2003-01-05 09:18:58 $
- * Version:       $Revision: 1.22 $
+ * Date modified: $Date: 2003-01-05 14:10:05 $
+ * Version:       $Revision: 1.23 $
  * -----------------------------------------------------------------
  *
  ************************************************************** phui-cpr-end */
@@ -51,6 +51,9 @@ namespace phui
    }
 
    Widget::~Widget()
+   {}
+
+   void Widget::draw()
    {}
 
    const Point& Widget::getPosition() const
