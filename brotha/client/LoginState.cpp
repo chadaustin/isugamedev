@@ -69,10 +69,12 @@ namespace client {
       mRoot->add(window);
 
       // Setup the scene
-      mScene.addObject("tank", "HoverTankBody.obj");
-      mScene.addObject("tank2", "HoverTankBody.obj");
-      mScene.getObject("tank2")->preMult(osg::Matrix::translate(2,0,-2));
+      mScene.addObject("tank", "models/hovertank_body.obj");
+      mScene.addObject("tank2", "models/hovertank_body.obj");
+      mScene.getObject("tank2")->preMult(osg::Matrix::translate(0.5,0,-2));
+      mScene.getObject("tank2")->preMult(osg::Matrix::rotate(180.0f, 0,1,0));
       mScene.getCamera().setFollowDist(2);
+      mScene.getCamera().setPitch(deg2rad(15.0f));
    }
 
    LoginState::~LoginState() {
@@ -114,11 +116,11 @@ namespace client {
          mScene.getObject("tank")->preMult(osg::Matrix::translate(forward));
       }
       if (input["turnleft"]) {
-         float ang = deg2rad(-30.0f) * dt;
+         float ang = deg2rad(30.0f) * dt;
          mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
       }
       if (input["turnright"]) {
-         float ang = deg2rad(30.0f) * dt;
+         float ang = deg2rad(-30.0f) * dt;
          mScene.getObject("tank")->preMult(osg::Matrix::rotate(ang, 0,1,0));
       }
 
