@@ -47,6 +47,8 @@ int GetNextLightNum()
    return (nextLightNum++ % 7) + 1;
 }
 
+#include "unistd.h"
+
 // a place to store application data...
 class App
 {
@@ -64,8 +66,8 @@ public:
       camera.setTargetPos( tank.matrix() );
       camera.setPitch( 45.0f );
 
-      light.setNumber(0);
-      light.setPos(0.0f, 0.0f, 0.0f, 1.0f);
+      light.setNumber( 0 );
+      light.setPos( 0.0f, 0.0f, 0.0f, 1.0f );
       light.setColor( Light::diffuse, 1.0f, 1.0f, 1.0f );
       light.on();
       
@@ -75,9 +77,10 @@ public:
       //Load our tank model
       importer.load( gset, "models/ship.obj" );
 
-	   Entity *entity = new Entity();
+      Entity *entity = new Entity();
       std::vector< safe_ptr<GeoSet> >::iterator itr;
-      for (itr = gset.begin(); itr != gset.end(); itr++) {
+      for (itr = gset.begin(); itr != gset.end(); itr++) 
+      {
          entity->addGeoSet( *itr );
       }
 
@@ -132,7 +135,7 @@ static void OnRedisplay()
 { 
    // when using multidisplays we'll need to actually 
    // set this to a different number for each windows opened.
-   ContextManager::instance().setContext( 1 );
+   ContextManager::instance().setContext( app->mainWin_contextID );
    
    glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
    glClear( GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT );
@@ -203,7 +206,7 @@ static void OnIdle()
    app->stopWatch.pulse();
    
    // keep it stable (we're using a shitty integrator)
-   float min_fps = 1.0f;
+   float min_fps = 0.4f;
    if (app->stopWatch.timeInstant() > 1.0f/min_fps)
    {
       std::cout<<"WARNING: time < "<<min_fps<<" fps, dropping update loop to keep integrators stable...\n"<<std::flush;
@@ -223,7 +226,8 @@ static void OnIdle()
    
    //Update the bullets
    std::vector<Bullet *>::iterator itr;
-   for (itr = app->bullets.begin(); itr != app->bullets.end(); itr++) {
+   for (itr = app->bullets.begin(); itr != app->bullets.end(); itr++) 
+   {
       (*itr)->update( app->stopWatch.timeInstant() );
    }
    
