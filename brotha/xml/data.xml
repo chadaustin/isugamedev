@@ -1,0 +1,81 @@
+<wbdata>
+	<gang name="reflect" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+		<info>Reflection engine characters</info>
+		<player name="ama" password="kuriyama" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+			<car cartype="tercel" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod name="breaks" level="4" />
+			</car>
+			<stat name="kills" value="43" />
+			<stat name="deaths" value="4" />
+			<stat name="coins" value="55" />
+		</player>
+		<player name="Rake" password="figgot" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+			<car cartype="supra" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod name="breaks" level="55" />
+				<mod name="spoiler" level="54" />
+			</car>
+			<stat name="kills" value="4" />
+		</player>
+	</gang>
+	<gang name="brothaTeam" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+		<info>the game's developers</info>
+		<player name="chadO" password="p1" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+			<stat name="kills" value="5" />
+			<stat name="coins" value="3" />
+			<stat name="deaths" value="0" />
+			<car cartype="tercel" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod name="rims" level="5" />
+				<mod name="engine" level="5" />
+				<mod name="turbo" level="4" />
+				<mod name="nitro" level="6" />
+			</car>
+			<car cartype="celica" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod name="tires" level="3" />
+			</car>
+		</player>
+		<player name="chadA" password="p1" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+			<stat name="kills" value="2" />
+			<stat name="coins" value="5" />
+			<stat name="deaths" value="1" />
+			<car cartype="1996_Chevy_Lumina" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod name="rims" level="4" />
+				<mod name="tires" level="2" />
+				<mod name="engine" level="4" />
+			</car>
+			<car cartype="civic" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod name="exhaust" />
+			</car>
+		</player>
+		<player name="ben" password="p4" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+			<stat name="kills" value="2" />
+			<stat name="coins" value="4" />
+			<stat name="deaths" value="2" />
+			<car cartype="vrac simulator" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod name="cave mod" level="1" />
+			</car>
+		</player>
+		<player name="josh" password="sup?" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+			<car cartype="civic" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod type="exhaust" level="4" />
+			</car>
+		</player>
+		<player name="jermy" password="note" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+			<stat name="kills" value="1" />
+			<stat name="coins" value="3" />
+			<stat name="deaths" value="2" />
+			<car cartype="fiesta" pic="http://hatori42.com/wb/p.jpg" lilpic="http://hatori42.com/wb/lp.jpg">
+				<mod name="spoiler" level="4" />
+				<mod name="tint" level="1" />
+				<mod name="rims" level="-1" />
+			</car>
+		</player>
+	</gang>
+	<cartype name="1996_Chevy_Lumina" file="car.model" />
+	<cartype name="tercel" file="car.model" />
+	<cartype name="supra" file="car.model" />
+	<cartype name="civic" file="car.model" />
+	<cartype name="vrac simulator" file="car.model" />
+	<cartype name="fiesta" file="car.model" />
+	<modtype name="brakes" min="0" max="10"/>
+	<modtype name="tiers" min="0" max="10" />
+</wbdata>

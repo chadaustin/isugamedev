@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: xmlpersist.cpp,v $
- * Date modified: $Date: 2002-05-03 04:13:09 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-03 05:50:52 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -89,7 +89,7 @@ namespace data {
                attr = (*it3)->get_attrmap();
                Car* c = new Car(attr.get("cartype"));
 			   c->mPic = attr.get("pic");
-			   c->mThumbPic = attr.get("pic");
+			   c->mThumbPic = attr.get("lilpic");
                p->addCar(c);
                xmlpp::xmlnodelist cursor4 = (*it3)->getChildren("mod");
                xmlpp::XMLNodeListIterator it4 = cursor4.begin();

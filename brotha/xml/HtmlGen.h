@@ -123,7 +123,7 @@ namespace reports {
          data::Car* c = cl[i];
          if (schema.car.find(c->getName()) !=  std::string::npos || schema.car == "*") {
             if (schema.carD == 1) {
-               out << "<tr><td><img src=" << urlBase << c->getName() << "_small.jpg>";
+               out << "<tr><td><img src=" << c->mThumbPic << ">";
                out << "</td><td><center>";
                out << "<a href=\"/0" << gangname << "/2" << playername << "/2" << c->getName() << "\">";
                out << c->getName() << "</a></center></td><td><center>";
@@ -137,12 +137,13 @@ namespace reports {
                out << c->getName() << "<font>";
                if(c->getMods().size() > 0){
                   out << "<table><tr><td valign=top>";
-                  out << "<div><img src=" << urlBase << c->getName() << ".jpg></div>";
+                  out << "<div><img src=" << c->mPic << "></div>";
                   out << "</td><td valign=top>";
                   out << "<div>" << renderModList(c->getMods()) << "</div>";
                   out << "</td></tr></table>";
                }
                else{
+                  out << "<div><img src=" << c->mPic << "></div>";
                   out << "<br><b>unmodified</b>";
                }
                out << "</div>";
@@ -178,7 +179,7 @@ namespace reports {
                }
                html << "<div class=\"playerinfo\">";
                html << "<table width=100%><tr><td valign=top>";
-               html << "<img src=\"" << urlBase << p->getName() << ".jpg\"></td>";
+               html << "<img src=\"" << p->mPic << "\"></td>";
                html << "<td width=100%>";
                html << "<h2>";
                html << "<a href=\"/2" << gangname << "/1*/0*\">" << gangname << "</a>/";
@@ -225,6 +226,7 @@ namespace reports {
                html << "<div class=\"gang2\">";
                html << "<h1>" + g->getName() + "</h1>";
                html << "<div class=\"ganginfo\">" << g->getInfo() << "</div>";
+			   html << "<img src=\"" << g->mPic << "\">";
                html << "<div class=\"gangplayers\"> number of players: " << g->getPlayerList().size() << "</div>";
                html << "<div class=\"playerlist\">";
                html << renderPlayerList(g->getPlayerList(), schema, g->getName());
@@ -247,7 +249,7 @@ namespace reports {
       std::string html = "";
       for (unsigned int i = 0; i < ctl.size(); i++) {
          data::CarType* ct = ctl[i];
-         html += "<div class=\"cartype\"> <img src=\"" + urlBase + ct->getName() + ".jpg\"><br>" + ct->getName() + "<br><br>";
+         html += "<div class=\"cartype\"> <img src=\"" + urlBase + ct->getName() + "\"><br>" + ct->getName() + "<br><br>";
       }
       return html;
    }
