@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.h,v $
- * Date modified: $Date: 2002-12-21 19:25:49 $
- * Version:       $Revision: 1.78 $
+ * Date modified: $Date: 2003-04-29 21:39:33 $
+ * Version:       $Revision: 1.79 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -268,6 +268,7 @@ namespace mw
       CalCoreModel mPlayerCoreModel;
       int startWalkingAnimationID;
       int walkingAnimationID;
+      int idleAnimationID;
       int meshID;
       int pantsMaterialID;
       int hatMaterialID;

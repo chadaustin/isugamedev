@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: Texture.cpp,v $
- * Date modified: $Date: 2002-11-25 10:08:03 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2003-04-29 21:39:34 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -100,8 +100,8 @@ namespace mw
       // XXX THIS SUCKS ASS!
       // Use our own high integers for texture IDs so that we can play friendly
       // with OpenSG' textures.
-//      glGenTextures(1, &mTexture);
-      mTexture = gHighID++;
+      glGenTextures(1, &mTexture);
+//      mTexture = gHighID++;
       glBindTexture(GL_TEXTURE_2D, mTexture);
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,
                    tex_width, tex_height,

@@ -24,8 +24,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameState.cpp,v $
- * Date modified: $Date: 2002-12-21 19:25:49 $
- * Version:       $Revision: 1.134 $
+ * Date modified: $Date: 2003-04-29 21:39:32 $
+ * Version:       $Revision: 1.135 $
  * -----------------------------------------------------------------
  *
  ********************************************************** midworld-cpr-end */
@@ -129,11 +129,16 @@ namespace mw
       }
       // load the material and animations
       walkingAnimationID = mPlayerCoreModel.loadCoreAnimation("animations/walk.caf");
-      if (startWalkingAnimationID == -1 || walkingAnimationID == -1)
+
+      //---just added---//
+      idleAnimationID = mPlayerCoreModel.loadCoreAnimation("animations/idle.caf");
+      
+      if (idleAnimationID == -1 || walkingAnimationID == -1)
       {
          std::cout << "failed to load core animation file!" << std::endl;
          throw std::runtime_error("failed to load core animation file!");
       }
+      
 
       // load the core mesh data
       meshID = mPlayerCoreModel.loadCoreMesh("animations/mesh.cmf");
@@ -181,7 +186,7 @@ namespace mw
       myModel.setLodLevel(1.0f);
  //     myModel.setMaterialSet(PANTS_MATERIAL_SET);
       
-      myModel.getMixer()->blendCycle(walkingAnimationID, 1.0f, 2.0f);
+      myModel.getMixer()->blendCycle(idleAnimationID, 1.0f, 2.0f);
 
       pCalRenderer = myModel.getRenderer();
       
@@ -351,7 +356,20 @@ namespace mw
          
 
          glTranslate(temp);
-            if(drawAni && mActionUp) drawAnimation();
+            if(drawAni && mActionUp->getEdgeState()==1) 
+            {
+               std::cout << "EdgeState: " << mActionUp->getEdgeState() << std::endl << std::endl;
+               myModel.getMixer()->blendCycle(walkingAnimationID, 1.0, 0.5);
+               myModel.getMixer()->clearCycle(idleAnimationID, 0.2);
+            }else if(drawAni && mActionUp->getEdgeState()==-1)
+            {
+               std::cout << "EdgeState: " << mActionUp->getEdgeState() << std::endl << std::endl;
+               myModel.getMixer()->blendCycle(idleAnimationID, 1.0, 0.5);
+               myModel.getMixer()->clearCycle(walkingAnimationID, 0.2);
+            }else if(drawAni)
+            {
+               drawAnimation();
+            }
          glTranslate(-temp);
          
 
@@ -402,8 +420,11 @@ namespace mw
    GameState::drawAnimation()
    {
       glPushMatrix();
+      glScalef(85.0,85.0, 85.0);
       glPushAttrib(GL_ALL_ATTRIB_BITS);
-      glPushClientAttrib(GL_CLIENT_VERTEX_ARRAY_BIT );
+      
+      
+      glDisable(GL_BLEND);
       
       gmtl::Quatf playerRot;
       gmtl::Vec3f tempPos;
@@ -550,9 +571,8 @@ namespace mw
       // end the rendering
       pCalRenderer->endRendering();
       }
-      
+      glEnable(GL_BLEND);      
       glPopAttrib();
-      glPopClientAttrib();
       
       glPopMatrix();
    }
