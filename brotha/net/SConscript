@@ -2,6 +2,8 @@ Import('env')
 
 classes = [
    'MessageQueue',
+   'SocketInputStream',
+   'SocketOutputStream',
 ]
 
 headers = [
