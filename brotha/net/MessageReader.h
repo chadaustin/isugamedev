@@ -8,6 +8,7 @@
 #include "InputStream.h"
 #include "MessageTypes.h"
 
+#include "ByteBuffer.h"
 #include "DisconnectMessage.h"
 #include "LoginMessage.h"
 #include "OKMessage.h"
@@ -23,7 +24,7 @@ namespace net {
 
       Message* readMessage() {
          PRUint32 tag, size;
-         mInputStream >> tag >> size;
+         (*mInputStream) >> tag >> size;
 
          Message* msg;
          switch (tag) {
@@ -47,7 +48,7 @@ namespace net {
          // message from reading farther than it should in the network
          // stream
          PRUint8* buffer = new PRUint8[size];
-         mInputStream.read(buffer, size);
+         mInputStream->read(buffer, size);
          ByteBuffer bb;
          bb.write(buffer, size);
          delete[] buffer;       

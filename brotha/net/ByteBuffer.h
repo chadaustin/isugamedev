@@ -10,6 +10,7 @@
 #include <prtypes.h>
 #include "InputStream.h"
 #include "OutputStream.h"
+#include "StreamException.h"
 
 
 namespace net {
