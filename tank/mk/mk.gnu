@@ -1,11 +1,11 @@
 # gnu compiler defines 
 CC = g++
 CXX_COMPILE = g++
-CXX_FLAGS = 
+CXX_FLAGS = -Wl,--whole-archive
 C_COMPILE = gcc
 C_FLAGS = $(CXX_FLAGS)
 EXE_LINKER = $(CXX_COMPILE)
-EXE_FLAGS = 
+EXE_FLAGS = $(CXX_FLAGS)
 SO_LINKER = $(CXX_COMPILE)
 SO_FLAGS = -dynamic -fPIC
 DEFS =
