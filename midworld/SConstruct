@@ -1,5 +1,6 @@
 # build with 'scons'
 import string, sys, os
+pj = os.path.join
 
 #------------------------------------------------------------------------------
 # Define some generally useful functions
@@ -79,6 +80,59 @@ def InitBZip2Builder(env):
    env['BZIP2FLAGS']    = ''
    env['BZIP2COM']      = '$BZIP2 $BZIP2FLAGS $SOURCES'
    env['BZIP2SUFFIX']   = '.bz2'
+
+#------------------------------------------------------------------------------
+# This function builds a  source distribution from the given files.
+#------------------------------------------------------------------------------
+def MakeDist(target = None, source = None, env = None):
+   import shutil
+
+   distTarget = str(target[0])
+   distSources = map(str, source)
+
+   if distTarget[-len(env['DISTSUFFIX'])] != env['DISTSUFFIX']:
+      distTarget += env['DISTSUFFIX']
+
+
+   # Create the dist directory
+   distName = os.path.basename(distTarget[:-len(env['DISTSUFFIX'])])
+   os.mkdir(distName)
+
+   # Copy necessary files into the dist directory
+   for file in distSources:
+      src_file = str(file)
+      src_dir = os.path.dirname(src_file)
+      dest_dir = pj(distName, src_dir)
+
+      # Make sure the target directory exists
+      if not os.path.isdir(dest_dir):
+         os.makedirs(dest_dir)
+
+      # Copy the file over
+      shutil.copy2(src_file, pj(distName, src_file))
+
+   # Create the gzipped tarball
+   distTar = distName + '.tar'
+
+   os.system('tar cf '+distTar+' '+distName)
+   os.system('gzip -f '+distTar)
+#   env.Tar(target = distTar, source = distName)
+#   env.GZip(target = distTarGz, source = distTar)
+
+   # Remove the dist directory
+   shutil.rmtree(distName)
+   return 0
+
+def InitDistBuilder(env):
+   "Adds the builder and construction variables for Dist to an Environment."
+   try:
+      bld = env['BUILDERS']['Dist']
+   except KeyError:
+      bld = Builder(action = MakeDist,
+                    suffix = '$DISTSUFFIX')
+      env['BUILDERS']['Dist'] = bld
+
+   env['DISTSUFFIX']    = '.tar.gz'
 
 def ParseConfig(env, command, options):
    "Parses xxx-config style output for compilation directives"
@@ -211,36 +265,6 @@ class BuildInfo:
 Export('BuildInfo')
 
 #------------------------------------------------------------------------------
-# This function sets up distribution targets for a source distribution based on
-# the given BuildInfo.
-#------------------------------------------------------------------------------
-def SetupDist(env, bi, distName):
-
-   def FileSorter(a, b):
-      if str(a) < str(b):
-         return -1
-      elif str(a) == str(b):
-         return 0
-      else:
-         return 1
-
-   distTar = distName + '.tar'
-   distTarGz = distTar + '.gz'
-
-   # Get the list of files that should be included in the distribution
-   srcDistFiles = []
-   srcDistFiles.extend(buildInfo.getHeaders())
-   srcDistFiles.extend(buildInfo.getSources())
-   srcDistFiles.extend(buildInfo.getExtraDist())
-   srcDistFiles.extend(buildInfo.getDocs())
-   srcDistFiles.sort(FileSorter)
-
-   # Create targets for the distribution
-   env.Tar(target = distTar, source = srcDistFiles)
-   env.GZip(target = distTarGz, source = distTar)
-   env.Alias('dist', distTarGz)
-
-#------------------------------------------------------------------------------
 # Grok the arguments to this build
 #------------------------------------------------------------------------------
 RequireSConsVersion(0.08)
@@ -278,6 +302,7 @@ buildInfo.addExtraDist(map(File, Split("""
 #------------------------------------------------------------------------------
 baseEnv = BuildBaseEnvironment()
 InitGZipBuilder(baseEnv)
+InitDistBuilder(baseEnv)
 Export('baseEnv')
 
 # recurse (keeping track of build information)
@@ -290,7 +315,27 @@ for dir in subdirs:
 # install target
 baseEnv.Alias('install', PREFIX)
 
-SetupDist(baseEnv, buildInfo, 'midworld-%s.%s.%s' % GetMidworldVersion())
+# Get the list of files that should be included in the distribution
+def FileSorter(a, b):
+   if str(a) < str(b):
+      return -1
+   elif str(a) == str(b):
+      return 0
+   else:
+      return 1
+
+srcDistFiles = []
+srcDistFiles.extend(buildInfo.getHeaders())
+srcDistFiles.extend(buildInfo.getSources())
+srcDistFiles.extend(buildInfo.getExtraDist())
+srcDistFiles.extend(buildInfo.getDocs())
+srcDistFiles.sort(FileSorter)
+
+distFile = baseEnv.Dist(target = 'midworld-%s.%s.%s' % GetMidworldVersion(),
+                        source = srcDistFiles)
+baseEnv.Alias('dist', distFile)
+
+#SetupDist(baseEnv, buildInfo, 'midworld-%s.%s.%s' % GetMidworldVersion())
 
 # build all sources by default but not the tests
 Default('src')
