@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.h,v $
- * Date modified: $Date: 2002-05-01 18:42:30 $
- * Version:       $Revision: 1.12 $
+ * Date modified: $Date: 2002-05-01 21:19:02 $
+ * Version:       $Revision: 1.13 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,8 +40,8 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#ifndef BROTHAGAME_H
-#define BROTHAGAME_H
+#ifndef GAME_GAME_LOGIC_H
+#define GAME_GAME_LOGIC_H
 
 #include <map>
 #include <vector>
@@ -54,11 +54,11 @@ namespace game
     * Contains the current state information relative to the game as well as all
     * the data required to display the game.
     */
-   class BrothaGame
+   class GameLogic
    {
    public:
-     BrothaGame();
-     ~BrothaGame();
+     GameLogic();
+     ~GameLogic();
 
      void update(float time);
 

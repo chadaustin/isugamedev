@@ -13,8 +13,8 @@
  *
  * -----------------------------------------------------------------
  * File:          $RCSfile: GameLogic.cpp,v $
- * Date modified: $Date: 2002-05-01 20:50:41 $
- * Version:       $Revision: 1.13 $
+ * Date modified: $Date: 2002-05-01 21:19:02 $
+ * Version:       $Revision: 1.14 $
  * -----------------------------------------------------------------
  *
  *********************************************************** brotha-head-end */
@@ -40,19 +40,19 @@
  * Boston, MA 02111-1307, USA.
  *
  ************************************************************ brotha-cpr-end */
-#include "BrothaGame.h"
+#include "GameLogic.h"
 #include <algorithm>
 #include <gmtl/VecOps.h>
 
 namespace game
 {
-   BrothaGame::BrothaGame() {
+   GameLogic::GameLogic() {
    }
 
-   BrothaGame::~BrothaGame() {
+   GameLogic::~GameLogic() {
    }
 
-   void BrothaGame::update(float time){ 
+   void GameLogic::update(float time){ 
       gmtl::Vec3f oPosition;
 
       for (unsigned int i=0; i < mObject.size(); i++){
@@ -67,7 +67,7 @@ namespace game
          /// @todo update player attributes (health, kills, etc)  
    }
 
-   void BrothaGame::add(Player* player) {
+   void GameLogic::add(Player* player) {
 
       // make sure player is not equal to null
       assert (player != NULL && "Cannot add a NULL player!");
@@ -77,7 +77,7 @@ namespace game
       std::cout << "Player added." << std::endl;
    }
 
-   void BrothaGame::remove(Player* player) {
+   void GameLogic::remove(Player* player) {
       PlayerListItr Itr;
 
       // find the player to delete and set to iterator 
@@ -89,14 +89,14 @@ namespace game
       }
    }
 
-   void BrothaGame::add(Object* object) {
+   void GameLogic::add(Object* object) {
       assert ( object != NULL && "Cannot add a Null object!" );
 
       // add object to vector
       mObject.push_back(object);
    }
 
-   void BrothaGame::remove(Object* object) {
+   void GameLogic::remove(Object* object) {
       ObjectListItr Itr;
 
       // find the object to remove and set to iterator
@@ -108,7 +108,7 @@ namespace game
       }
    }
 
-   Player* BrothaGame::getPlayer(const std::string& name) {
+   Player* GameLogic::getPlayer(const std::string& name) {
       PlayerListItr itr = mPlayer.begin();
       for (itr = mPlayer.begin(); itr != mPlayer.end(); ++itr) {
          Player* player = (*itr);
@@ -119,7 +119,7 @@ namespace game
       return NULL;
    }
 
-   void BrothaGame::outputList() {
+   void GameLogic::outputList() {
       for (unsigned int i=0; i < mPlayer.size(); i++){
          std::cout << mPlayer[i]->getName() << std::endl;
       }
