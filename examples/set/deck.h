@@ -92,6 +92,10 @@ public:
       number = Cards[card].getNumber();
    }      
 
+   void setCardAttributeRandom(int card){
+      Cards[card].setNewAttrib();
+   }
+   
    int numSel(){
       return numSelected;
    }

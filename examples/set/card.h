@@ -58,7 +58,9 @@ public:
          std::cout << "error in texture initialization." << std::endl;
    }
 
-   
+   void setNewAttrib(){
+      randomize();
+   }
 
 private:
    void drawPrim(){
@@ -82,7 +84,7 @@ private:
       number = (int)((double)rand()/(double)RAND_MAX * 4+1);
 //      std::cout << "c,s,n, rand: " << color << "," << shape << "," << number << "," << rand() << std::endl;
    }
-   
+private:
 
             
 

@@ -288,16 +288,20 @@ static void OnMouseClick( int button, int state, int x, int y )
          if(dek.numSel()==3){
             if(checkForWinner()){
                std::cout << "winner:" << score << std::endl;
+               sleep(2);
                for(int i=0;i<12;i++){
                   if(dek.isSelected(i))
                      dek.deselectCard(i);
+                  dek.setCardAttributeRandom(i);
                }
             }else{
+               std::cout << "loser:" << score << std::endl;
+               sleep(2);
                for(j=0;j<12;j++){
                   if(dek.isSelected(j))
                      dek.deselectCard(j);
+                  dek.setCardAttributeRandom(j);
                }
-               std::cout << "loser:" << score << std::endl;
             }
          }
       }
